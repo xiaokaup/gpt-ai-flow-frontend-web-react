@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { createRootReducer } from "./reducer";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import storage from "@react-native-async-storage/async-storage";
 
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
