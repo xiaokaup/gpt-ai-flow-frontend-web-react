@@ -1,0 +1,3 @@
+[submodule "src/gpt-ai-flow-common"]
+	path = src/gpt-ai-flow-common
+	url = git@github.com:GPT-AI-Flow/gpt-ai-flow-common.git
