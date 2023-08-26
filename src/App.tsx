@@ -33,8 +33,16 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "about",
+    path: "/about",
     element: <AppLayout>About</AppLayout>,
+  },
+  {
+    path: "/counter",
+    element: (
+      <AppLayout>
+        <CounterComponent />
+      </AppLayout>
+    ),
   },
 ]);
 
@@ -44,8 +52,6 @@ function App() {
       {/* @ts-ignore */}
       <PersistGate loading={null} persistor={persistor}>
         <div className="App">
-          <CounterComponent />
-
           <RouterProvider router={router} />
         </div>
       </PersistGate>
