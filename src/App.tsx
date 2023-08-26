@@ -29,6 +29,7 @@ const router = createBrowserRouter([
         <h1>Hello World</h1>
         {/* @ts-ignore */}
         <Link to="about">About Us</Link>
+        <br />
         <Link to="counter">counter</Link>
       </AppLayout>
     ),
