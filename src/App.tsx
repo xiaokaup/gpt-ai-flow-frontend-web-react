@@ -16,6 +16,9 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import { SettingsWindow_2_user_1_signup } from "./pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_1_signup";
+import { SettingsWindow_2_user_2_login } from "./pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_2_login";
+import { SettingsWindow_2_user_3_info } from "./pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_3_info";
 
 const { store, persistor } = configureStore();
 
@@ -34,14 +37,34 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/about",
-    element: <AppLayout>About</AppLayout>,
-  },
-  {
     path: "/counter",
     element: (
       <AppLayout>
         <CounterComponent />
+      </AppLayout>
+    ),
+  },
+  {
+    path: "/signUp",
+    element: (
+      <AppLayout>
+        <SettingsWindow_2_user_1_signup />
+      </AppLayout>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <AppLayout>
+        <SettingsWindow_2_user_2_login />
+      </AppLayout>
+    ),
+  },
+  {
+    path: "/info",
+    element: (
+      <AppLayout>
+        <SettingsWindow_2_user_3_info />
       </AppLayout>
     ),
   },

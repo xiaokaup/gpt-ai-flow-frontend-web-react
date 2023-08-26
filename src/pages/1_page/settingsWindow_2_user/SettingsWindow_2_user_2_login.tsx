@@ -6,15 +6,15 @@ import { Button, Form, Input, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { IUserDB } from "../../../gpt-ai-flow-common/interface-database/IUserDB";
 // import { STORE_USER } from "../../../../tools/4_base/TConstant";
-import { EUserPageCase } from ".";
+// import { EUserPageCase } from ".";
 
 interface ISettingsWindow_2_user_2_login_input {
-  setPageCase: (paraPageCase: EUserPageCase) => void;
+  // setPageCase: (paraPageCase: EUserPageCase) => void;
 }
 export const SettingsWindow_2_user_2_login = (
   props: ISettingsWindow_2_user_2_login_input
 ) => {
-  const { setPageCase } = props;
+  // const { setPageCase } = props;
 
   const onEmailAndPasswordSignInFinish = async (values: {
     email: string;
@@ -27,16 +27,14 @@ export const SettingsWindow_2_user_2_login = (
       //     values.password,
       //     window.env
       //   );
-
       // if (!userAndTokenData) {
       //   throw new Error(
       //     "用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员"
       //   );
       // }
-
       // Set userInfo in store
       // window.electron.store.set(STORE_USER, userAndTokenData);
-      setPageCase(EUserPageCase.INFO);
+      // setPageCase(EUserPageCase.INFO);
     } catch (error: any) {
       message.error({
         content: error?.message,
@@ -112,7 +110,7 @@ export const SettingsWindow_2_user_2_login = (
                 <Button
                   type="default"
                   onClick={() => {
-                    setPageCase(EUserPageCase.SIGNUP);
+                    // setPageCase(EUserPageCase.SIGNUP);
                   }}
                 >
                   注册
@@ -121,7 +119,9 @@ export const SettingsWindow_2_user_2_login = (
               <br />
               <span
                 style={{ marginLeft: 4, color: "#7C7C7C", cursor: "pointer" }}
-                onClick={() => setPageCase(EUserPageCase.FORGET_PASSWORD)}
+                onClick={() => {
+                  // setPageCase(EUserPageCase.FORGET_PASSWORD)
+                }}
               >
                 忘记密码
               </span>

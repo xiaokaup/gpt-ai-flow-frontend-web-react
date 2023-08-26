@@ -2,7 +2,7 @@ import "../../../styles/global.css";
 
 import { Button, Form, Input, message } from "antd";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { EUserPageCase } from ".";
+// import { EUserPageCase } from ".";
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 import IUserDBFile, {
   IUserDB,
@@ -10,12 +10,12 @@ import IUserDBFile, {
 import React from "react";
 
 interface ISettingsWindow_2_user_1_signup_input {
-  setPageCase: (paraPageCase: EUserPageCase) => void;
+  // setPageCase: (paraPageCase: EUserPageCase) => void;
 }
 export const SettingsWindow_2_user_1_signup = (
   props: ISettingsWindow_2_user_1_signup_input
 ) => {
-  const { setPageCase } = props;
+  // const { setPageCase } = props;
 
   const onFinish = async (values: any) => {
     try {
@@ -53,7 +53,7 @@ export const SettingsWindow_2_user_1_signup = (
       // }
 
       message.success("用户创建成功");
-      setPageCase(EUserPageCase.LOGIN);
+      // setPageCase(EUserPageCase.LOGIN);
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -151,7 +151,7 @@ export const SettingsWindow_2_user_1_signup = (
               <Button
                 type="default"
                 onClick={() => {
-                  setPageCase(EUserPageCase.LOGIN);
+                  // setPageCase(EUserPageCase.LOGIN);
                 }}
               >
                 登陆

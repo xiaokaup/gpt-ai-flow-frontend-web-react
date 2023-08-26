@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
+import { Link } from "react-router-dom";
 
 const { Header, Content, Footer } = Layout;
 
@@ -16,9 +17,15 @@ export const AppLayout = (props: Layout_input) => {
       <Header>
         <div className="logo" />
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1">Home</Menu.Item>
-          <Menu.Item key="2">About</Menu.Item>
-          <Menu.Item key="3">Contact</Menu.Item>
+          <Menu.Item key="1">
+            <Link to="/login">Login</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/signUp">Sign up</Link>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/info">info</Link>
+          </Menu.Item>
         </Menu>
       </Header>
 

@@ -4,7 +4,7 @@ import "../../../styles/layout.scss";
 import React, { useState } from "react";
 
 import { Button, Descriptions } from "antd";
-import { EUserPageCase } from ".";
+// import { EUserPageCase } from ".";
 import IUserDBFile, {
   IUserDB_default,
 } from "../../../gpt-ai-flow-common/interface-database/IUserDB";
@@ -13,8 +13,8 @@ import { IUserData } from "../../../gpt-ai-flow-common/interface-app/IUserData";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
 interface ISettingsWindow_2_user_3_info_input {
-  setPageCase: (paraPageCase: EUserPageCase) => void;
-  setIsAuthenticated: (isAuthenticated: boolean) => void;
+  // setPageCase: (paraPageCase: EUserPageCase) => void;
+  // setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
 export const SettingsWindow_2_user_3_info = (
   props: ISettingsWindow_2_user_3_info_input
@@ -24,7 +24,7 @@ export const SettingsWindow_2_user_3_info = (
     IUserDBFile.IUserDB_default
   );
 
-  const { setPageCase, setIsAuthenticated } = props;
+  // const { setPageCase, setIsAuthenticated } = props;
 
   return (
     <div
@@ -76,7 +76,11 @@ export const SettingsWindow_2_user_3_info = (
       </div>
 
       <div className="row">
-        <Button onClick={() => setPageCase(EUserPageCase.CHANGE_PASSWORD)}>
+        <Button
+          onClick={() => {
+            // setPageCase(EUserPageCase.CHANGE_PASSWORD);
+          }}
+        >
           修改密码
         </Button>
       </div>
@@ -86,10 +90,10 @@ export const SettingsWindow_2_user_3_info = (
           type="link"
           onClick={() => {
             // window.electron.store.set(STORE_USER, IUserDB_default);
-            setIsAuthenticated(false);
-            setTimeout(() => {
-              setPageCase(EUserPageCase.LOGIN);
-            }, 1000);
+            // setIsAuthenticated(false);
+            // setTimeout(() => {
+            //   setPageCase(EUserPageCase.LOGIN);
+            // }, 1000);
           }}
           style={{ cursor: "pointer", marginTop: 10, marginBottom: 14 }}
         >

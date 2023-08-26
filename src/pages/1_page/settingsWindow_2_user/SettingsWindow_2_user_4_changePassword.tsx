@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { Button, Form, Input, message } from "antd";
 import { LockOutlined } from "@ant-design/icons";
-import { EUserPageCase } from ".";
+// import { EUserPageCase } from ".";
 import { IUserDB } from "../../../gpt-ai-flow-common/interface-database/IUserDB";
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 import IUserDataFile, {
@@ -14,12 +14,12 @@ import IUserDataFile, {
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
 interface SettingsWindow_2_user_4_changePassword_input {
-  setPageCase: (paraPageCase: EUserPageCase) => void;
+  // setPageCase: (paraPageCase: EUserPageCase) => void;
 }
 export const SettingsWindow_2_user_4_changePassword = (
   props: SettingsWindow_2_user_4_changePassword_input
 ) => {
-  const { setPageCase } = props;
+  // const { setPageCase } = props;
 
   // const { userData } = useUserInfo();
   // const accessToken: string = window.electron.store.get(
@@ -54,7 +54,7 @@ export const SettingsWindow_2_user_4_changePassword = (
       //   {}
       // );
 
-      setPageCase(EUserPageCase.INFO);
+      // setPageCase(EUserPageCase.INFO);
       message.success("密码修改成功");
     } catch (error: Error | any) {
       message.error({
@@ -137,7 +137,9 @@ export const SettingsWindow_2_user_4_changePassword = (
                 <span style={{ marginLeft: 20 }}>
                   <Button
                     type="default"
-                    onClick={() => setPageCase(EUserPageCase.INFO)}
+                    onClick={() => {
+                      // setPageCase(EUserPageCase.INFO);
+                    }}
                   >
                     返回
                   </Button>

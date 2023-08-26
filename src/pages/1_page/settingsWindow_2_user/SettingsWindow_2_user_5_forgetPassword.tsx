@@ -4,17 +4,17 @@ import React from "react";
 
 import { Button, Form, Input, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { EUserPageCase } from ".";
+// import { EUserPageCase } from ".";
 import { IUserDB } from "../../../gpt-ai-flow-common/interface-database/IUserDB";
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 
 interface SettingsWindow_2_user_5_forgetPassword_input {
-  setPageCase: (paraPageCase: EUserPageCase) => void;
+  // setPageCase: (paraPageCase: EUserPageCase) => void;
 }
 export const SettingsWindow_2_user_5_forgetPassword = (
   props: SettingsWindow_2_user_5_forgetPassword_input
 ) => {
-  const { setPageCase } = props;
+  // const { setPageCase } = props;
 
   const onFinish = async (values: any) => {
     try {
@@ -30,7 +30,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (
         duration: 3,
       });
 
-      setPageCase(EUserPageCase.LOGIN);
+      // setPageCase(EUserPageCase.LOGIN);
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -89,7 +89,9 @@ export const SettingsWindow_2_user_5_forgetPassword = (
               <span style={{ marginLeft: 20 }}>
                 <Button
                   type="default"
-                  onClick={() => setPageCase(EUserPageCase.LOGIN)}
+                  onClick={() => {
+                    // setPageCase(EUserPageCase.LOGIN);
+                  }}
                 >
                   登陆
                 </Button>
