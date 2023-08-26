@@ -1,17 +1,42 @@
 // import logo from "./logo.svg";
 // import "./App.css";
 
+import React from "react";
 import { Provider } from "react-redux";
 import { configureStore } from "./store/store";
 
-// import { AppLayout } from "./AppLayout";
+import { AppLayout } from "./AppLayout";
 // import { CounterComponent } from "./CounterComponent";
 import { PersistGate } from "redux-persist/integration/react";
 import { CounterComponent } from "./CounterComponent";
 
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
+
 const { store, persistor } = configureStore();
 
 // persistor.purge();
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <AppLayout>
+        <h1>Hello World</h1>
+        {/* @ts-ignore */}
+        <Link to="about">About Us</Link>
+      </AppLayout>
+    ),
+  },
+  {
+    path: "about",
+    element: <AppLayout>About</AppLayout>,
+  },
+]);
 
 function App() {
   return (
@@ -20,6 +45,8 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <div className="App">
           <CounterComponent />
+
+          <RouterProvider router={router} />
         </div>
       </PersistGate>
     </Provider>
