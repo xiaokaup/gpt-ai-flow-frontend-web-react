@@ -4,7 +4,7 @@
 import { Provider } from "react-redux";
 import { configureStore } from "./store/store";
 
-import { AppLayout } from "./AppLayout";
+// import { AppLayout } from "./AppLayout";
 // import { CounterComponent } from "./CounterComponent";
 import { PersistGate } from "redux-persist/integration/react";
 import { CounterComponent } from "./CounterComponent";
