@@ -1,5 +1,5 @@
 # github submodule repo address without https:// prefix
-SUBMODULE_GITHUB=github.com:GPT-AI-Flow/gpt-ai-flow-common.git
+SUBMODULE_GITHUB=github.com/GPT-AI-Flow/gpt-ai-flow-common.git
 
 # .gitmodules submodule path
 SUBMODULE_PATH=src/gpt-ai-flow-common
