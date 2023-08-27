@@ -1,6 +1,6 @@
-import React from "react";
-import { Layout, Menu } from "antd";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Header, Content, Footer } = Layout;
 
@@ -16,7 +16,7 @@ export const AppLayout = (props: Layout_input) => {
       {/* Header */}
       <Header>
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
             <Link to="/login">Login</Link>
           </Menu.Item>
@@ -30,14 +30,12 @@ export const AppLayout = (props: Layout_input) => {
       </Header>
 
       {/* Body/Content */}
-      <Content style={{ padding: "0 50px" }}>
+      <Content style={{ padding: '0 50px' }}>
         <div className="site-layout-content">{children}</div>
       </Content>
 
       {/* Footer */}
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2023 Created by Ant UED
-      </Footer>
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
     </Layout>
   );
 };

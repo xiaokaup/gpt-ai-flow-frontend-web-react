@@ -1,14 +1,12 @@
-import "../../../styles/global.css";
-import "../../../styles/layout.scss";
+import '../../../styles/global.css';
+import '../../../styles/layout.scss';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { Button, Descriptions } from "antd";
+import { Button, Descriptions } from 'antd';
 // import { EUserPageCase } from ".";
-import IUserDBFile, {
-  IUserDB_default,
-} from "../../../gpt-ai-flow-common/interface-database/IUserDB";
-import { IUserData } from "../../../gpt-ai-flow-common/interface-app/IUserData";
+import IUserDBFile, { IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 // import { STORE_USER } from "../../../tools/4_base/TConstant";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
@@ -16,13 +14,9 @@ interface ISettingsWindow_2_user_3_info_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
   // setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
-export const SettingsWindow_2_user_3_info = (
-  props: ISettingsWindow_2_user_3_info_input
-) => {
+export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_info_input) => {
   // const { userData } = useUserInfo();
-  const [userData, setUserData] = useState<IUserData>(
-    IUserDBFile.IUserDB_default
-  );
+  const [userData, setUserData] = useState<IUserData>(IUserDBFile.IUserDB_default);
 
   // const { setPageCase, setIsAuthenticated } = props;
 
@@ -43,33 +37,25 @@ export const SettingsWindow_2_user_3_info = (
 
       <div className="row block_user_info">
         <Descriptions
-          title={"个人资料"}
+          title={'个人资料'}
           // layout="vertical"
           // column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
         >
           {/* <Descriptions.Item label={t('Account type')}>
             {internalRoles?.join(',') ?? 'User'}
           </Descriptions.Item> */}
-          <Descriptions.Item label={"姓"}>
-            {userData.firstName}
-          </Descriptions.Item>
-          <Descriptions.Item label={"名字"}>
-            {userData.lastName}
-          </Descriptions.Item>
-          <Descriptions.Item label={"昵称"}>
-            {userData.displayName}
-          </Descriptions.Item>
-          <Descriptions.Item label={"邮箱"}>{userData.email}</Descriptions.Item>
+          <Descriptions.Item label={'姓'}>{userData.firstName}</Descriptions.Item>
+          <Descriptions.Item label={'名字'}>{userData.lastName}</Descriptions.Item>
+          <Descriptions.Item label={'昵称'}>{userData.displayName}</Descriptions.Item>
+          <Descriptions.Item label={'邮箱'}>{userData.email}</Descriptions.Item>
           {(userData.userRoles ?? []).length > 0 && (
             <Descriptions.Item label="角色" span={3}>
-              {(userData.userRoles ?? []).join(", ")}
+              {(userData.userRoles ?? []).join(', ')}
             </Descriptions.Item>
           )}
           {(userData.userRolePermissions ?? []).length > 0 && (
             <Descriptions.Item label="权限" span={3}>
-              {(userData.userRolePermissions ?? [])
-                .map((item) => item.replace(/-build-in/g, ""))
-                .join(", ")}
+              {(userData.userRolePermissions ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
             </Descriptions.Item>
           )}
         </Descriptions>
@@ -95,7 +81,7 @@ export const SettingsWindow_2_user_3_info = (
             //   setPageCase(EUserPageCase.LOGIN);
             // }, 1000);
           }}
-          style={{ cursor: "pointer", marginTop: 10, marginBottom: 14 }}
+          style={{ cursor: 'pointer', marginTop: 10, marginBottom: 14 }}
         >
           登出
         </Button>

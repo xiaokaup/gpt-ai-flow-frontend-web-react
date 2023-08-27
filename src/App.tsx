@@ -1,24 +1,19 @@
 // import logo from "./logo.svg";
 // import "./App.css";
 
-import React from "react";
-import { Provider } from "react-redux";
-import { configureStore } from "./store/store";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { configureStore } from './store/store';
 
-import { AppLayout } from "./AppLayout";
+import { AppLayout } from './AppLayout';
 // import { CounterComponent } from "./CounterComponent";
-import { PersistGate } from "redux-persist/integration/react";
-import { CounterComponent } from "./CounterComponent";
+import { PersistGate } from 'redux-persist/integration/react';
+import { CounterComponent } from './CounterComponent';
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
-import { SettingsWindow_2_user_1_signup } from "./pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_1_signup";
-import { SettingsWindow_2_user_2_login } from "./pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_2_login";
-import { SettingsWindow_2_user_3_info } from "./pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_3_info";
+import { createBrowserRouter, RouterProvider, Route, Link } from 'react-router-dom';
+import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
+import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_2_login';
+import { SettingsWindow_2_user_3_info } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_3_info';
 
 const { store, persistor } = configureStore();
 
@@ -26,7 +21,7 @@ const { store, persistor } = configureStore();
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <AppLayout>
         <h1>Hello World</h1>
@@ -37,7 +32,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/counter",
+    path: '/counter',
     element: (
       <AppLayout>
         <CounterComponent />
@@ -45,7 +40,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/signUp",
+    path: '/signUp',
     element: (
       <AppLayout>
         <SettingsWindow_2_user_1_signup />
@@ -53,7 +48,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/login",
+    path: '/login',
     element: (
       <AppLayout>
         <SettingsWindow_2_user_2_login />
@@ -61,7 +56,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/info",
+    path: '/info',
     element: (
       <AppLayout>
         <SettingsWindow_2_user_3_info />

@@ -1,51 +1,45 @@
-import "../../../styles/global.css";
+import '../../../styles/global.css';
 
-import React from "react";
+import React from 'react';
 
-import { Button, Form, Input, message } from "antd";
-import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { IUserDB } from "../../../gpt-ai-flow-common/interface-database/IUserDB";
+import { Button, Form, Input, message } from 'antd';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import TSettingsWindow_2_userFile from './TSettingsWindow_2_user';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 // import { STORE_USER } from "../../../../tools/4_base/TConstant";
 // import { EUserPageCase } from ".";
 
 interface ISettingsWindow_2_user_2_login_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
 }
-export const SettingsWindow_2_user_2_login = (
-  props: ISettingsWindow_2_user_2_login_input
-) => {
+export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
   // const { setPageCase } = props;
 
-  const onEmailAndPasswordSignInFinish = async (values: {
-    email: string;
-    password: string;
-  }) => {
+  const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
-      // const userAndTokenData: IUserDB =
-      //   await TSettingsWindow_2_user.authLoginByEmailAndPassword(
-      //     values.email,
-      //     values.password,
-      //     window.env
-      //   );
-      // if (!userAndTokenData) {
-      //   throw new Error(
-      //     "用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员"
-      //   );
-      // }
+      const userAndTokenData: IUserDB = await TSettingsWindow_2_userFile.authLoginByEmailAndPassword(
+        values.email,
+        values.password,
+        CONSTANTS_GPT_AI_FLOW_COMMON
+      );
+      if (!userAndTokenData) {
+        throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
+      }
       // Set userInfo in store
       // window.electron.store.set(STORE_USER, userAndTokenData);
       // setPageCase(EUserPageCase.INFO);
     } catch (error: any) {
       message.error({
         content: error?.message,
-        key: "auth",
+        key: 'auth',
         duration: 3,
       });
     }
   };
 
   const onEmailAndPasswordSignInFaild = (errorInfo: any) => {
-    console.log("失败:", errorInfo);
+    console.log('失败:', errorInfo);
   };
 
   return (
@@ -74,15 +68,15 @@ export const SettingsWindow_2_user_2_login = (
             rules={[
               {
                 required: true,
-                message: "请输入你的邮箱",
+                message: '请输入你的邮箱',
               },
               {
-                type: "email",
-                message: "请以正确的格式输入",
+                type: 'email',
+                message: '请以正确的格式输入',
               },
             ]}
           >
-            <Input prefix={<MailOutlined />} placeholder={"邮箱"} />
+            <Input prefix={<MailOutlined />} placeholder={'邮箱'} />
           </Form.Item>
 
           <Form.Item
@@ -90,20 +84,16 @@ export const SettingsWindow_2_user_2_login = (
             rules={[
               {
                 required: true,
-                message: "请输入你的密码",
+                message: '请输入你的密码',
               },
             ]}
           >
-            <Input.Password prefix={<LockOutlined />} placeholder={"密码"} />
+            <Input.Password prefix={<LockOutlined />} placeholder={'密码'} />
           </Form.Item>
 
           <Form.Item>
             <div>
-              <Button
-                className="login_button login_button_with_password_provider"
-                type="primary"
-                htmlType="submit"
-              >
+              <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
                 登陆
               </Button>
               <span style={{ marginLeft: 20 }}>
@@ -118,7 +108,7 @@ export const SettingsWindow_2_user_2_login = (
               </span>
               <br />
               <span
-                style={{ marginLeft: 4, color: "#7C7C7C", cursor: "pointer" }}
+                style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
                 onClick={() => {
                   // setPageCase(EUserPageCase.FORGET_PASSWORD)
                 }}

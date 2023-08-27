@@ -1,4 +1,4 @@
-import fetch, { RequestInfo, RequestInit, Response } from "node-fetch";
+import fetch, { RequestInfo, RequestInit, Response } from 'node-fetch';
 
 export const fetchWithRetry = async (
   input: RequestInfo,
