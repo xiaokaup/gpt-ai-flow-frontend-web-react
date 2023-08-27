@@ -9,13 +9,6 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-  devServer: {
-    contentBase: path.join(__dirname, 'src'),
-    open: true,
-    historyApiFallback: true,
-    port: 3000,
-    hot: true,
-  },
   module: {
     rules: [
       {
