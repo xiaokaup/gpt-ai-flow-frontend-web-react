@@ -1,4 +1,6 @@
-import fetch, { RequestInfo, RequestInit, Response } from 'node-fetch';
+// === node-fetch Not work here - start ===
+// import fetch, { RequestInfo, RequestInit, Response } from 'node-fetch';
+// === node-fetch Not work here - end ===
 
 export const fetchWithRetry = async (
   input: RequestInfo,
