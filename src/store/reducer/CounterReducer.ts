@@ -1,6 +1,13 @@
 const initialState = { counter: 0 };
 
-export const counterReducer = (state = initialState, action: { type: any }) => {
+export interface ICounterReducerState {
+  counter: number;
+}
+
+export const counterReducer = (
+  state: ICounterReducerState = initialState,
+  action: { type: any }
+) => {
   switch (action.type) {
     case "INCREMENT":
       return { ...state, counter: state.counter + 1 };
