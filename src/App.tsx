@@ -28,6 +28,17 @@ const router = createBrowserRouter([
         <Link to="about">About Us</Link>
         <br />
         <Link to="counter">counter</Link>
+        <br />
+        <button
+          onClick={() =>
+            console.log(
+              'process.env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY',
+              process.env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY
+            )
+          }
+        >
+          check
+        </button>
       </AppLayout>
     ),
   },
