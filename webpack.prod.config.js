@@ -23,9 +23,7 @@ module.exports = merge(base, {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        cache: true,
         parallel: true,
-        sourceMap: false, // 如果你需要 source map，请将此设置为 true
       }),
       new OptimizeCSSAssetsPlugin({}),
     ],
