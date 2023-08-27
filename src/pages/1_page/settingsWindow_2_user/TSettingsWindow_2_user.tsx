@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import CONSTANTS_GPT_AI_FLOW_COMMON from "../../../gpt-ai-flow-common/config/constantGptAiFlow";
-import {
-  IUserDB,
-  IUserDB_default,
-} from "../../../gpt-ai-flow-common/interface-database/IUserDB";
-// import { getApiKeyHeadersForNodeBackend } from "../../../tools/2_component/TAuth";
+import CONSTANTS_GPT_AI_FLOW_COMMON, {
+  IConstantGptAiFlowHandler,
+} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { fetchWithRetry } from '../../../tools/4_base/TRequest';
+import { removeEmptyValues } from '../../../tools/4_base/TEmpty';
+import { getApiKeyHeadersForNodeBackend } from '../../../tools/2_component/TAuth';
+
 // import { fetchWithRetry } from "../../../tools/4_base/TRequest";
 // import { removeEmptyValues } from "../../../tools/4_base/TEmpty";
 // import { IConstantGptAiFlowHandler } from "../../../main/preload";
@@ -64,28 +66,28 @@ import {
 //   return createdUser;
 // };
 
-// const authLoginByEmailAndPassword = async (
-//   email: string,
-//   password: string,
-//   env: IConstantGptAiFlowHandler
-// ): Promise<IUserDB> => {
-//   const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/login/`;
+const authLoginByEmailAndPassword = async (
+  email: string,
+  password: string,
+  env: IConstantGptAiFlowHandler
+): Promise<IUserDB> => {
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/login/`;
 
-//   const results = await fetchWithRetry(url, {
-//     method: "POST",
-//     ...getApiKeyHeadersForNodeBackend({}, env),
-//     body: JSON.stringify(removeEmptyValues({ email, password })),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       return data.results;
-//     })
-//     .catch((error) => {
-//       console.log("error", error);
-//     });
+  const results = await fetchWithRetry(url, {
+    method: 'POST',
+    ...getApiKeyHeadersForNodeBackend({}, env),
+    body: JSON.stringify(removeEmptyValues({ email, password })),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data.results;
+    })
+    .catch((error) => {
+      console.log('error', error);
+    });
 
-//   return results;
-// };
+  return results;
+};
 
 // export const updateUserPassword_v1 = async (
 //   userId: number,
@@ -133,21 +135,23 @@ import {
 //   return results;
 // };
 
-// export default {
-//   // === Singup - start ===
-//   getUserProfileByEmail_v2,
-//   authRegisterByEmailAndPassword_v0,
-//   // === Singup - end ===
+const TSettingsWindow_2_userFile = {
+  // === Singup - start ===
+  //   getUserProfileByEmail_v2,
+  //   authRegisterByEmailAndPassword_v0,
+  // === Singup - end ===
 
-//   // === Login - start ===
-//   authLoginByEmailAndPassword,
-//   // === Login - end ===
+  // === Login - start ===
+  authLoginByEmailAndPassword,
+  // === Login - end ===
 
-//   // === Change password - start ===
-//   updateUserPassword_v1,
-//   // === Change password - end ===
+  // === Change password - start ===
+  //   updateUserPassword_v1,
+  // === Change password - end ===
 
-//   // === Reset password - start ===
-//   resetPasswordWithEmail,
-//   // === Reset password - end ===
-// };
+  // === Reset password - start ===
+  //   resetPasswordWithEmail,
+  // === Reset password - end ===
+};
+
+export default TSettingsWindow_2_userFile;

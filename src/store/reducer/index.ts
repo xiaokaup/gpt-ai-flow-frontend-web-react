@@ -1,6 +1,6 @@
-import { combineReducers } from "redux";
-import { ICounterReducerState, counterReducer } from "./CounterReducer";
-import { IUserData } from "../../gpt-ai-flow-common/interface-app/IUserData";
+import { combineReducers } from 'redux';
+import { ICounterReducerState, counterReducer } from './CounterReducer';
+import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 
 export interface IReduxRootState {
   counterInfo: ICounterReducerState;
