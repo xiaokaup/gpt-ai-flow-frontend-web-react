@@ -20,7 +20,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
     try {
       const userAndTokenData: IUserDB = await TSettingsWindow_2_userFile.authLoginByEmailAndPassword(
         values.email,
-        values.password
+        values.password,
         // CONSTANTS_GPT_AI_FLOW_COMMON,
         {}
       );
