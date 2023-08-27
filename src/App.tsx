@@ -28,6 +28,14 @@ const router = createBrowserRouter([
         <Link to="about">About Us</Link>
         <br />
         <Link to="counter">counter</Link>
+        <br />
+        <button
+          onClick={() =>
+            console.log('process.env.ENDPOINT_BACKEND_NODE_HTTPS', process.env.ENDPOINT_BACKEND_NODE_HTTPS)
+          }
+        >
+          check ENDPOINT_BACKEND_NODE_HTTPS
+        </button>
       </AppLayout>
     ),
   },

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import CONSTANTS_GPT_AI_FLOW_COMMON, {
-  IConstantGptAiFlowHandler,
-} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IConstantGptAiFlowHandler } from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { fetchWithRetry } from '../../../tools/4_base/TRequest';
 import { removeEmptyValues } from '../../../tools/4_base/TEmpty';
@@ -69,7 +67,7 @@ import { getApiKeyHeadersForNodeBackend } from '../../../tools/2_component/TAuth
 const authLoginByEmailAndPassword = async (
   email: string,
   password: string,
-  env: IConstantGptAiFlowHandler
+  env: any | IConstantGptAiFlowHandler
 ): Promise<IUserDB> => {
   const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/login/`;
 
