@@ -31,13 +31,10 @@ const router = createBrowserRouter([
         <br />
         <button
           onClick={() =>
-            console.log(
-              'process.env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY',
-              process.env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY
-            )
+            console.log('process.env.ENDPOINT_BACKEND_NODE_HTTPS', process.env.ENDPOINT_BACKEND_NODE_HTTPS)
           }
         >
-          check
+          check ENDPOINT_BACKEND_NODE_HTTPS
         </button>
       </AppLayout>
     ),
