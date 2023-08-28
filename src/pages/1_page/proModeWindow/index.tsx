@@ -69,7 +69,6 @@ const ProModeWindow = () => {
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
     userRolePermissionsWithStripeSubscriptionInfo,
-    stripeCustomerId,
   });
   // === ProMode Data - end ===
 

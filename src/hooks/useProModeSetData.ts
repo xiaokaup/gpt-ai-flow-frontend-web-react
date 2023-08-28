@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { useUserInfo } from './useUserInfo';
 import IProMode_v2File, { IProMode_v2 } from '../gpt-ai-flow-common/interface-backend/IProMode_v2';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
-import TBackendProModeDataFile from '../tools/3_unit/TBackendProModeData';
 import TCryptoJSFile from '../gpt-ai-flow-common/tools/TCrypto-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { sync_proModeDataAction } from '../store/actions/proModeActions';
 import { IReduxRootState } from '../store/reducer';
 
-export const useProModeSetData = (stripeCustomerId: string | undefined) => {
+export const useProModeSetData = () => {
   const dispatch = useDispatch();
 
   const { userData } = useUserInfo();
@@ -45,7 +44,7 @@ export const useProModeSetData = (stripeCustomerId: string | undefined) => {
 
   useEffect(() => {
     init();
-  }, [stripeCustomerId]);
+  }, []);
 
   useEffect(() => {
     // window.electron.store.set(STORE_PROMODE_SET, window.electron.crypto.getEncryptobjForFrontend(proModeSetData));

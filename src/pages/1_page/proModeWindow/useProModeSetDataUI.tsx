@@ -53,12 +53,11 @@ import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpe
 
 interface useProModeSetDataUI_input {
   userRolePermissionsWithStripeSubscriptionInfo: string[];
-  stripeCustomerId: string | undefined;
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
-  const { userRolePermissionsWithStripeSubscriptionInfo, stripeCustomerId } = props;
+  const { userRolePermissionsWithStripeSubscriptionInfo } = props;
 
-  const { proModeSetData: proModeSetFromStore } = useProModeSetData(stripeCustomerId);
+  const { proModeSetData: proModeSetFromStore } = useProModeSetData();
 
   const PROMODE_COPY_WRITING_DATA = proModeSetFromStore[
     EUserRolePermissionDB_name.COPY_WRITING
