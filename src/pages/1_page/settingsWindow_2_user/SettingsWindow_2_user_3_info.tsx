@@ -1,14 +1,11 @@
 import '../../../styles/global.css';
 import '../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Button, Descriptions } from 'antd';
-// import { EUserPageCase } from ".";
-import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useSelector } from 'react-redux';
-import { IReduxRootState } from '../../../store/reducer';
 import { useUserInfo } from '../../../hooks/useUserInfo';
+import { useNavigate } from 'react-router-dom';
 // import { STORE_USER } from "../../../tools/4_base/TConstant";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
@@ -19,7 +16,14 @@ interface ISettingsWindow_2_user_3_info_input {
 export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_info_input) => {
   // const { userData } = useUserInfo();
 
-  const { userData } = useUserInfo();
+  const { isAuthenticated, userData } = useUserInfo();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
 
   // const { setPageCase, setIsAuthenticated } = props;
 

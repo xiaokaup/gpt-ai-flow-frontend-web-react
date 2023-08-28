@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import IUserDataFile, { IUserData } from '../gpt-ai-flow-common/interface-app/IUserData';
 import { EUserRoleDB_name } from '../gpt-ai-flow-common/enum-database/EUserRoleDB';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import IUserDBFile, { IUserDB } from '../gpt-ai-flow-common/interface-database/I
 import { syncUserAction } from '../store/actions/userActions';
 
 interface IUseUserInfo_ouput {
+  isAuthenticated: boolean;
   userData: IUserData;
   isBetaUser: boolean;
   setUserData: React.Dispatch<React.SetStateAction<IUserData>>;
@@ -35,18 +36,26 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
     );
     const newUserData = IUserDBFile.convert_IUserDB_to_IUserData(userDBFromBackend);
 
-    setUserData(newUserData);
+    // 使用 isMounted 标志检查组件是否还处于挂载状态
+    if (isMounted.current) {
+      setUserData(newUserData);
+    }
   };
+
+  // 使用 useRef 创建 isMounted 标志
+  const isMounted = useRef(true);
 
   useEffect(() => {
     init();
+
+    // 当组件卸载时，在清理函数中更新 isMounted 标志
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
-  useEffect(() => {
-    // window.electron.store.set(STORE_USER, userData);
-  }, [userData]);
-
   return {
+    isAuthenticated: !!accessToken,
     userData: {
       ...userData,
       userRolePermissions: [

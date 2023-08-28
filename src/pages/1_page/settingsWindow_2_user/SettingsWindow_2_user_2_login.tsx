@@ -1,6 +1,6 @@
 import '../../../styles/global.css';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
@@ -13,6 +13,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/con
 // import { STORE_USER } from "../../../../tools/4_base/TConstant";
 // import { EUserPageCase } from ".";
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useUserInfo } from '../../../hooks/useUserInfo';
 
 interface ISettingsWindow_2_user_2_login_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
@@ -22,6 +23,14 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { isAuthenticated } = useUserInfo();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/info');
+    }
+  }, [isAuthenticated, navigate]);
 
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {

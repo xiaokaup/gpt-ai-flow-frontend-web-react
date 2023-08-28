@@ -5,7 +5,7 @@ import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 import IUserDBFile, { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
 import { useDispatch } from 'react-redux';
@@ -14,6 +14,7 @@ import {
   getUserProfileByEmailAction_v2,
 } from '../../../store/actions/userActions';
 import { useNavigate } from 'react-router-dom';
+import { useUserInfo } from '../../../hooks/useUserInfo';
 
 interface ISettingsWindow_2_user_1_signup_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
@@ -23,6 +24,14 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { isAuthenticated } = useUserInfo();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/info');
+    }
+  }, [isAuthenticated, navigate]);
 
   const onFinish = async (values: any) => {
     try {
