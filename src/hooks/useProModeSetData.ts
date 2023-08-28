@@ -18,14 +18,10 @@ export const useProModeSetData = () => {
     (state: IReduxRootState) => state.proModeSet ?? IProMode_v2File.IProMode_v2_default
   );
 
-  console.log('encryptedProModeSetFromStore', encryptedProModeSetFromStore);
-
   const proModeSetFromStore = TCryptoJSFile.decrypt(
     encryptedProModeSetFromStore,
     CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
   );
-
-  console.log('proModeSetFromStore', proModeSetFromStore);
 
   const [proModeSetData, setProModeSetData] = useState(proModeSetFromStore ?? IProMode_v2File.IProMode_v2_default);
 
@@ -37,8 +33,6 @@ export const useProModeSetData = () => {
     const proModeSetFromBackend: IProMode_v2 = await dispatch(
       sync_proModeDataAction(userId.toString(), accessToken, TCryptoJSFile.decrypt, CONSTANTS_GPT_AI_FLOW_COMMON) as any
     );
-
-    console.log('proModeSetFromBackend', proModeSetFromBackend);
 
     if (!proModeSetFromBackend) {
       return IProMode_v2File.IProMode_v2_default;

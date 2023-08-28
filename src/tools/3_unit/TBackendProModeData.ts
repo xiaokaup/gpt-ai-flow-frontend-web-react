@@ -27,18 +27,10 @@ const getProModeDataFromBackend = async (
       return data.results;
     })
     .then((encryptedProModeSet: string) => {
-      console.log('encryptedProModeSet', encryptedProModeSet);
-
-      console.log(
-        'env.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY',
-        env.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY
-      );
       const proModeSet: IProMode_v2 = TCryptoJSFile.decrypt(
         encryptedProModeSet,
         env.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY as string
       );
-
-      console.log('proModeSet', proModeSet);
 
       return proModeSet;
     })
