@@ -37,9 +37,11 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
       style={{
         marginTop: 12,
         marginLeft: 12,
-        // display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'center',
+        padding: '2rem',
+        background: '#fff',
+        border: '1px solid #E8E8E8',
+        borderRadius: '.4rem',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
       }}
     >
       {/* <div>
