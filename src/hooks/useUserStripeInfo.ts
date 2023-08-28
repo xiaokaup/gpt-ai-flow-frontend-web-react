@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import IStripe, { IStripeSubscriptionInfo } from '../gpt-ai-flow-common/interface-app/IStripe';
 import { EStripeSubscriptionStatus } from '../gpt-ai-flow-common/enum-app/EStripeSubscription';
-import TBackendStripe from '../tools/3_unit/TBackendStripe';
 import IStripeFile from '../gpt-ai-flow-common/interface-app/IStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
+import { getSubscriptionNicknameAndStatusAction } from '../store/actions/stripeActions';
+import { IReduxRootState } from '../store/reducer';
 
 interface useUserStripeinfo_input {
   userId: number;
@@ -24,9 +26,13 @@ export const useUserStripeinfo = (
     hasNoAvailableSubscription: Boolean;
   };
 } => {
-  const userStripeSubscritptionInfoFromStore: IStripeSubscriptionInfo = IStripeFile.IStripeSubscriptionInfo_default; // @DEVELOP
-  console.log('useUserStripeinfo props', props);
   const { userId, stripeCustomerId, accessToken } = props;
+
+  const dispatch = useDispatch();
+
+  const userStripeSubscritptionInfoFromStore: IStripeSubscriptionInfo = useSelector((state: IReduxRootState) => {
+    return state.stripe ?? IStripeFile.IStripeSubscriptionInfo_default;
+  });
 
   const [stripeSubscriptionInfo, setStripeSubscriptionInfo] = useState<IStripeSubscriptionInfo>(
     userStripeSubscritptionInfoFromStore ?? IStripe.IStripeSubscriptionInfo_default
@@ -43,21 +49,18 @@ export const useUserStripeinfo = (
     stripeSubscriptionInfo.status !== EStripeSubscriptionStatus.ACTIVE;
 
   const init = async (): Promise<IStripeSubscriptionInfo> => {
-    console.log('stripeCustomerId', stripeCustomerId);
-    console.log('start init in useUserStripeinfo', stripeCustomerId);
     if (!stripeCustomerId) {
       return IStripeFile.IStripeSubscriptionInfo_default;
     }
-    console.log('2 init in useUserStripeinfo');
 
-    const stripeResult: IStripeSubscriptionInfo = await TBackendStripe.getSubscriptionNicknameAndStatus(
-      userId.toString(),
-      stripeCustomerId,
-      accessToken,
-      CONSTANTS_GPT_AI_FLOW_COMMON
+    const stripeResult: IStripeSubscriptionInfo = await dispatch(
+      getSubscriptionNicknameAndStatusAction(
+        userId.toString(),
+        stripeCustomerId,
+        accessToken,
+        CONSTANTS_GPT_AI_FLOW_COMMON
+      ) as any
     );
-
-    console.log('stripeResult init', stripeResult);
 
     if (!stripeResult) {
       message.error('获取订阅信息失败，请联系管理员');
@@ -70,7 +73,6 @@ export const useUserStripeinfo = (
   };
 
   useEffect(() => {
-    console.log('useEffect init in useUserStripeinfo');
     init();
   }, [stripeCustomerId]);
 
