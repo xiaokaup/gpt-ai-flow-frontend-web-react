@@ -25,7 +25,8 @@
     "redux": "^4.2.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.4.2"
+    "redux-thunk": "^2.4.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^17.0.1",
     "@types/react-router-dom": "^5.3.3",
     "@types/redux-logger": "^3.0.9",
+    "@types/uuid": "^9.0.2",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.1.1",
     "css-modules-typescript-loader": "^4.0.1",
