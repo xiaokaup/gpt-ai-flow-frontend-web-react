@@ -1,69 +1,16 @@
 // import logo from "./logo.svg";
-// import "./App.css";
+import './App.scss';
 
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from './store/store';
 
-import { AppLayout } from './AppLayout';
-// import { CounterComponent } from "./CounterComponent";
 import { PersistGate } from 'redux-persist/integration/react';
-import { CounterComponent } from './CounterComponent';
-
-import { createBrowserRouter, RouterProvider, Route, Link } from 'react-router-dom';
-import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
-import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_2_login';
-import { SettingsWindow_2_user_3_info } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_3_info';
+import { AppRoutes } from './AppRoutes';
 
 const { store, persistor } = configureStore();
 
 // persistor.purge();
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <AppLayout>
-        <h1>Hello World</h1>
-        <button onClick={() => console.log('process.env.APP_ENV', process.env.APP_ENV)}>check APP_ENV</button>
-        <br />
-        <button onClick={() => console.log('process.env.NODE_ENV', process.env.NODE_ENV)}>check NODE_ENV</button>
-      </AppLayout>
-    ),
-  },
-  {
-    path: '/counter',
-    element: (
-      <AppLayout>
-        <CounterComponent />
-      </AppLayout>
-    ),
-  },
-  {
-    path: '/signUp',
-    element: (
-      <AppLayout>
-        <SettingsWindow_2_user_1_signup />
-      </AppLayout>
-    ),
-  },
-  {
-    path: '/login',
-    element: (
-      <AppLayout>
-        <SettingsWindow_2_user_2_login />
-      </AppLayout>
-    ),
-  },
-  {
-    path: '/info',
-    element: (
-      <AppLayout>
-        <SettingsWindow_2_user_3_info />
-      </AppLayout>
-    ),
-  },
-]);
 
 function App() {
   return (
@@ -71,7 +18,7 @@ function App() {
       {/* @ts-ignore */}
       <PersistGate loading={null} persistor={persistor}>
         <div className="App">
-          <RouterProvider router={router} />
+          <AppRoutes />
         </div>
       </PersistGate>
     </Provider>

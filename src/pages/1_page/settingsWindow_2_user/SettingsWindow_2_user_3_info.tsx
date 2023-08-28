@@ -1,14 +1,13 @@
 import '../../../styles/global.css';
 import '../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Button, Descriptions } from 'antd';
-// import { EUserPageCase } from ".";
-import IUserDBFile, { IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
-import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useSelector } from 'react-redux';
-import { IReduxRootState } from '../../../store/reducer';
+import { useUserInfo } from '../../../hooks/useUserInfo';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userLogoutAction } from '../../../store/actions/userActions';
 // import { STORE_USER } from "../../../tools/4_base/TConstant";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
@@ -19,9 +18,16 @@ interface ISettingsWindow_2_user_3_info_input {
 export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_info_input) => {
   // const { userData } = useUserInfo();
 
-  const userData: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDBFile.IUserDB_default;
-  });
+  const dispatch = useDispatch();
+
+  const { isAuthenticated, userData } = useUserInfo();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
 
   // const { setPageCase, setIsAuthenticated } = props;
 
@@ -69,7 +75,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
       <div className="row">
         <Button
           onClick={() => {
-            // setPageCase(EUserPageCase.CHANGE_PASSWORD);
+            navigate('/changePassword');
           }}
         >
           修改密码
@@ -85,6 +91,10 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
             // setTimeout(() => {
             //   setPageCase(EUserPageCase.LOGIN);
             // }, 1000);
+
+            dispatch(userLogoutAction() as any);
+            navigate('/login');
+            window.location.reload();
           }}
           style={{ cursor: 'pointer', marginTop: 10, marginBottom: 14 }}
         >
