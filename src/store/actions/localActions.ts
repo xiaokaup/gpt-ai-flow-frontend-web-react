@@ -1,9 +1,8 @@
 import { IReduxRootState } from '../reducer';
+import { ILocalReducerState } from '../reducer/localReducer';
 
-interface ILocalSettings {}
-
-export const SAVE_LOCAL_SETTINGS = 'SAVE_LOCAL_SETTINGS';
-export const saveLocalSettingsAction =
-  (localSettings: ILocalSettings) => async (dispatch: any, getState: () => IReduxRootState) => {
-    dispatch({ type: SAVE_LOCAL_SETTINGS, payload: localSettings });
+export const SAVE_LOCAL = 'SAVE_LOCAL';
+export const saveLocalAction =
+  (localInfo: ILocalReducerState) => async (dispatch: any, getState: () => IReduxRootState) => {
+    dispatch({ type: SAVE_LOCAL, payload: localInfo });
   };

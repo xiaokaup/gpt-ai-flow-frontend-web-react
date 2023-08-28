@@ -1,7 +1,8 @@
 import { EOpenAiModel } from '../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { SAVE_LOCAL } from '../actions/localActions';
 import { IAction } from '../store';
 
-const initialState: ILocalSettingsReducerState = {
+const initialState: ILocalReducerState = {
   openAIApiKey: '',
   chatMode: {
     model_type: EOpenAiModel.GPT_3_point_5_TURBO,
@@ -11,7 +12,7 @@ const initialState: ILocalSettingsReducerState = {
   },
 };
 
-export interface ILocalSettingsReducerState {
+export interface ILocalReducerState {
   openAIApiKey: string;
   chatMode: {
     model_type: EOpenAiModel;
@@ -21,9 +22,11 @@ export interface ILocalSettingsReducerState {
   };
 }
 
-export const localReducer = (state: ILocalSettingsReducerState = initialState, action: IAction) => {
+export const localReducer = (state: ILocalReducerState = initialState, action: IAction) => {
   const { type, payload } = action;
   switch (type) {
+    case SAVE_LOCAL:
+      return payload;
     default:
       return state;
   }
