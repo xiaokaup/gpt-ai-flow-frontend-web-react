@@ -7,8 +7,9 @@ import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/set
 import { SettingsWindow_2_user_3_info } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_3_info';
 import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
-import { SettingsWindow_1_local } from './pages/1_page/settingsWindow_1_local';
+import { SettingsWindow_1_local } from './pages/1_page/settingsWindow/settingsWindow_1_local';
 import ProModeWindow from './pages/1_page/proModeWindow';
+import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
 
 export const AppRoutes = () => {
   const router = createBrowserRouter([
@@ -50,6 +51,7 @@ export const AppRoutes = () => {
         <AppLayout>
           <SettingsWindow_2_user_3_info />
           <SettingsWindow_1_local />
+          <SettingsWindow_4_proMode />
         </AppLayout>
       ),
     },
