@@ -26,6 +26,8 @@ export const SettingsWindow_1_local = () => {
       id="SettingsWIndow_1_local"
       className="row"
       style={{
+        marginTop: 12,
+        marginLeft: 12,
         padding: '2rem',
         background: '#fff',
         border: '1px solid #E8E8E8',

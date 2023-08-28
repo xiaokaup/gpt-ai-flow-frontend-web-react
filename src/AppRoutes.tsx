@@ -48,7 +48,7 @@ export const AppRoutes = () => {
       element: (
         <AppLayout>
           <SettingsWindow_2_user_3_info />
-          {/* <SettingsWindow_1_local /> */}
+          <SettingsWindow_1_local />
         </AppLayout>
       ),
     },

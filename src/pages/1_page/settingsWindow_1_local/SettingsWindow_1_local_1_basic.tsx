@@ -67,7 +67,7 @@ export const SettingsWindow_1_local_basic = () => {
         </label>
       </div>
 
-      <div className="row" style={{ marginTop: '.75rem' }}>
+      {/* <div className="row" style={{ marginTop: '.75rem' }}>
         <div>
           <b>对话模式 大模型</b>
         </div>
@@ -86,7 +86,7 @@ export const SettingsWindow_1_local_basic = () => {
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
           options={modelTypeOptions}
         />
-      </div>
+      </div> */}
       <div className="row" style={{ marginTop: '.75rem' }}>
         <div>
           <b>专业模式 大模型</b>
