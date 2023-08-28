@@ -1,0 +1,121 @@
+import '../../../../styles/global.css';
+import '../../../../styles/layout.scss';
+
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, message } from 'antd';
+import { useUserInputsCache } from '../../../../hooks/useUserInputsCache';
+
+interface DynamicFormForContextPrompt_input {
+  containerStyle: any;
+  contextPromptWithPlaceholder: string;
+  setHandledContextPrompt: (value: string) => void;
+  setIsUserContextInputsDirty: (value: boolean) => void;
+}
+
+export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_input) {
+  const { userInputsCache, setUserInputsCache } = useUserInputsCache();
+
+  const { containerStyle, contextPromptWithPlaceholder, setHandledContextPrompt, setIsUserContextInputsDirty } = props;
+
+  const [placeholders, setPlaceholders] = useState<string[]>([]);
+
+  const init = (paraContextPromptWithPlaceholder: string) => {
+    const placeholderRegex = /\{([^}]+)\}/g;
+    const matches = paraContextPromptWithPlaceholder.match(placeholderRegex);
+
+    if (!matches) {
+      // No placeholders found, return null
+      return null;
+    }
+
+    const initialPlaceholders = matches ? [...new Set(matches.map((match) => match.slice(1, -1)))] : [];
+
+    return initialPlaceholders ?? [];
+  };
+
+  useEffect(() => {
+    const initialPlaceholders = init(contextPromptWithPlaceholder);
+    setPlaceholders(initialPlaceholders ?? []);
+  }, [contextPromptWithPlaceholder]);
+
+  const handleInputChange = (placeholder: string, value: string) => {
+    setIsUserContextInputsDirty(true);
+    setUserInputsCache((prevInputs) => ({
+      ...prevInputs,
+      [placeholder]: value,
+    }));
+  };
+
+  const generateContextNoPlaceHolder = () => {
+    let result = contextPromptWithPlaceholder;
+
+    // const isAllRequired = false;
+    // if (isAllRequired) {
+    //   const allFilled = placeholders.every((placeholder) => {
+    //     const inputElement = document.getElementById(
+    //       placeholder
+    //     ) as HTMLInputElement | null;
+
+    //     if (inputElement) {
+    //       const value = inputElement.value;
+    //       result = result.replace(new RegExp(`{${placeholder}}`, 'g'), value);
+    //       return value.trim() !== ''; // Check if the value is not empty or whitespace
+    //     }
+    //     return false;
+    //   });
+
+    //   if (!allFilled) {
+    //     // Display an error message or handle the situation as needed
+    //     message.error('请填写所有输入框');
+    //     return;
+    //   }
+    // }
+
+    placeholders.forEach((placeholder) => {
+      const value = userInputsCache[placeholder] || '';
+      if (value.trim()) {
+        result = result.replace(new RegExp(`{${placeholder}}`, 'g'), value);
+      }
+    });
+
+    setHandledContextPrompt(result);
+    setIsUserContextInputsDirty(false);
+    message.success('填写成功');
+  };
+
+  return (
+    <div className="row" style={containerStyle}>
+      <div>
+        填写需要的部分(未填写部分将以{' {占位符} '}的方式显示)，点击最右边的 📝 显示/隐藏 <b>目标工作岗位</b>{' '}
+        背景细节表单
+      </div>
+      <div className="row">
+        <Form layout="inline" initialValues={userInputsCache}>
+          {placeholders.map((placeholder, index) => (
+            <div key={index}>
+              <Form.Item
+                label={placeholder}
+                name={placeholder}
+                rules={[]}
+                //   rules={[{ required: true }]}
+                style={{ marginRight: '1rem', marginTop: '1rem' }}
+              >
+                <Input
+                  type="text"
+                  value={userInputsCache[placeholder]}
+                  onChange={(e) => handleInputChange(placeholder, e.target.value)}
+                />
+              </Form.Item>
+            </div>
+          ))}
+        </Form>
+      </div>
+
+      <div className="row">
+        <Button type="primary" onClick={generateContextNoPlaceHolder}>
+          确定背景细节
+        </Button>
+      </div>
+    </div>
+  );
+}

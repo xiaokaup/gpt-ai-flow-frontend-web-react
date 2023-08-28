@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { IConstantGptAiFlowHandler } from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
-import { fetchWithRetry } from '../../../tools/4_base/TRequest';
-import { removeEmptyValues } from '../../../tools/4_base/TEmpty';
-import { getApiKeyHeadersForNodeBackend } from '../../../tools/2_component/TAuth';
+import { IConstantGptAiFlowHandler } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IUserDB, IUserDB_default } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { fetchWithRetry } from '../../../../tools/4_base/TRequest';
+import { removeEmptyValues } from '../../../../tools/4_base/TEmpty';
+import { getApiKeyHeadersForNodeBackend } from '../../../../tools/2_component/TAuth';
 
 // import { fetchWithRetry } from "../../../tools/4_base/TRequest";
 // import { removeEmptyValues } from "../../../tools/4_base/TEmpty";
@@ -84,51 +84,48 @@ const authLoginByEmailAndPassword = async (
   return results;
 };
 
-// export const updateUserPassword_v1 = async (
-//   userId: number,
-//   newPassword: string,
-//   accessToken: string,
-//   env: IConstantGptAiFlowHandler
-// ) => {
-//   const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/put/user/${userId}/password/`;
+export const updateUserPassword_v1 = async (
+  userId: number,
+  newPassword: string,
+  accessToken: string,
+  env: IConstantGptAiFlowHandler
+) => {
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/put/user/${userId}/password/`;
 
-//   const results = await fetch(url, {
-//     method: "PUT",
-//     ...getApiKeyHeadersForNodeBackend(
-//       {
-//         accessToken,
-//       },
-//       env
-//     ),
-//     body: JSON.stringify({ password: newPassword }),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       return data.results;
-//     });
+  const results = await fetch(url, {
+    method: 'PUT',
+    ...getApiKeyHeadersForNodeBackend(
+      {
+        accessToken,
+      },
+      env
+    ),
+    body: JSON.stringify({ password: newPassword }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data.results;
+    });
 
-//   return results;
-// };
+  return results;
+};
 
-// export const resetPasswordWithEmail = async (
-//   email: string,
-//   env: IConstantGptAiFlowHandler
-// ) => {
-//   const results = await fetch(
-//     `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/reset/userPassword/by/email/`,
-//     {
-//       method: "POST",
-//       ...getApiKeyHeadersForNodeBackend({}, env),
-//       body: JSON.stringify({ to: email }),
-//     }
-//   )
-//     .then((res) => res.json())
-//     .then((data) => {
-//       return data.results;
-//     });
+export const resetPasswordWithEmail = async (email: string, env: IConstantGptAiFlowHandler) => {
+  const results = await fetch(
+    `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/reset/userPassword/by/email/`,
+    {
+      method: 'POST',
+      ...getApiKeyHeadersForNodeBackend({}, env),
+      body: JSON.stringify({ to: email }),
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      return data.results;
+    });
 
-//   return results;
-// };
+  return results;
+};
 
 const TSettingsWindow_2_userFile = {
   // === Singup - start ===
@@ -141,11 +138,11 @@ const TSettingsWindow_2_userFile = {
   // === Login - end ===
 
   // === Change password - start ===
-  //   updateUserPassword_v1,
+  updateUserPassword_v1,
   // === Change password - end ===
 
   // === Reset password - start ===
-  //   resetPasswordWithEmail,
+  resetPasswordWithEmail,
   // === Reset password - end ===
 };
 

@@ -1,5 +1,11 @@
 import IUserDataFile, { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
-import { USER_GET_USER_PROFILE_BY_EMAIL_v2, USER_LOGIN, USER_SIGN_UP } from '../actions/userActions';
+import {
+  USER_GET_USER_PROFILE_BY_EMAIL_v2,
+  USER_LOGIN,
+  USER_LOGOUT,
+  USER_SIGN_UP,
+  USER_UPDATE_USER_PASSWORD_V1,
+} from '../actions/userActions';
 import { IAction } from '../store';
 
 export type IUserReducerState = IUserData;
@@ -10,6 +16,9 @@ export const userReducer = (state: IUserReducerState = IUserDataFile.IUserData_d
   switch (type) {
     case USER_LOGIN:
       return payload;
+    case USER_LOGOUT:
+      return IUserDataFile.IUserData_default;
+    case USER_UPDATE_USER_PASSWORD_V1:
     case USER_GET_USER_PROFILE_BY_EMAIL_v2:
     case USER_SIGN_UP:
     default:

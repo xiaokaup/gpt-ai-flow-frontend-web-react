@@ -1,0 +1,35 @@
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { EOpenAiModel } from '../../gpt-ai-flow-common/interface-app/IAIFlow';
+import IProMode_v2File from '../../gpt-ai-flow-common/interface-backend/IProMode_v2';
+import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
+import { SYNC_PROMODE_DATA } from '../actions/proModeActions';
+
+import { IAction } from '../store';
+
+export interface IProModeReducerState {
+  openAIApiKey: string;
+  chatMode: {
+    model_type: EOpenAiModel;
+  };
+  proMode: {
+    model_type: EOpenAiModel;
+  };
+}
+
+const initialState = TCryptoJSFile.encrypt(
+  IProMode_v2File.IProMode_v2_default,
+  CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+);
+
+export const proModeReducer = (state: string = initialState, action: IAction) => {
+  const { type, payload } = action;
+  switch (type) {
+    case SYNC_PROMODE_DATA:
+      return TCryptoJSFile.encrypt(
+        payload,
+        CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+      );
+    default:
+      return state;
+  }
+};
