@@ -6,6 +6,11 @@ import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
 import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { useNavigate } from 'react-router-dom';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TSettingsWindow_2_user from './TSettingsWindow_2_user';
+import { useDispatch } from 'react-redux';
+import { userResetPasswordWithEmailAction } from '../../../store/actions/userActions';
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 
 interface SettingsWindow_2_user_5_forgetPassword_input {
@@ -14,13 +19,18 @@ interface SettingsWindow_2_user_5_forgetPassword_input {
 export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_user_5_forgetPassword_input) => {
   // const { setPageCase } = props;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onFinish = async (values: any) => {
     try {
-      // await TSettingsWindow_2_user.resetPasswordWithEmail(
-      //   values.email,
-      //   // window.env,
-      //   {}
-      // );
+      const userResults = await dispatch(
+        userResetPasswordWithEmailAction(values.email, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+      );
+
+      if (!userResults) {
+        return new Error('这个电子邮件未被注册在，请再试一次或尝试另一个电子邮件地址');
+      }
 
       message.success({
         content: <span>一封包含新密码的电子邮件已经发到你的邮箱中</span>,
@@ -28,7 +38,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
         duration: 3,
       });
 
-      // setPageCase(EUserPageCase.LOGIN);
+      navigate('/login');
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -89,6 +99,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
                   type="default"
                   onClick={() => {
                     // setPageCase(EUserPageCase.LOGIN);
+                    navigate('/login');
                   }}
                 >
                   登录

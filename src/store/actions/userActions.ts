@@ -97,3 +97,21 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const userLogoutAction = () => async (dispatch: any, getState: () => IReduxRootState) => {
   dispatch({ type: USER_LOGOUT });
 };
+
+export const USER_RESET_PASSWORD_WITH_EMAIL = 'USER_RESET_PASSWORD_WITH_EMAIL';
+export const userResetPasswordWithEmailAction =
+  (email: string, env: IConstantGptAiFlowHandler) => async (dispatch: any, getState: () => IReduxRootState) => {
+    try {
+      const userResults = await TSettingsWindow_2_user.resetPasswordWithEmail(email, env);
+
+      if (!userResults) {
+        return new Error('这个电子邮件未被注册在，请再试一次或尝试另一个电子邮件地址');
+      }
+
+      dispatch({ type: USER_RESET_PASSWORD_WITH_EMAIL, payload: userResults });
+
+      return userResults;
+    } catch (error) {
+      console.log('userResetPasswordWithEmailAction error', error);
+    }
+  };
