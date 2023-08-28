@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import IUserDataFile, { IUserData } from '../gpt-ai-flow-common/interface-app/IUserData';
 import { EUserRoleDB_name } from '../gpt-ai-flow-common/enum-database/EUserRoleDB';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IReduxRootState } from '../store/reducer';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
-import IUserDBFile from '../gpt-ai-flow-common/interface-database/IUserDB';
+import IUserDBFile, { IUserDB } from '../gpt-ai-flow-common/interface-database/IUserDB';
 // import { STORE_USER } from "../tools/4_base/TConstant";
 // import TBackendUser from "../tools/3_unit/TBackendUser";
+import { syncUserAction } from '../store/actions/userActions';
 
 interface IUseUserInfo_ouput {
   userData: IUserData;
@@ -18,6 +19,8 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
 
+  const dispatch = useDispatch();
+
   const [userData, setUserData] = useState<IUserData>(userDataFromStore);
 
   const { id: userId, token: { accessToken } = {} } = userData;
@@ -27,14 +30,12 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
       return;
     }
 
-    // const userDBFromBackend = await TBackendUser.sync_user(
-    //   userId.toString(),
-    //   accessToken,
-    //   CONSTANTS_GPT_AI_FLOW_COMMON
-    // );
-    // const newUserData = IUserDBFile.convert_IUserDB_to_IUserData(userDBFromBackend);
+    const userDBFromBackend: IUserDB = await dispatch(
+      syncUserAction(userId.toString(), accessToken, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+    );
+    const newUserData = IUserDBFile.convert_IUserDB_to_IUserData(userDBFromBackend);
 
-    // setUserData(newUserData);
+    setUserData(newUserData);
   };
 
   useEffect(() => {

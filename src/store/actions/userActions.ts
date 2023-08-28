@@ -6,11 +6,12 @@ import { IReduxRootState } from '../reducer';
 import { Dispatch } from 'react';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow_2_user/TSettingsWindow_2_user';
+import TBackendUserFile from '../../tools/3_unit/TBackendUser';
 
-type MyAction = {
-  type: string;
-  payload?: any;
-};
+// type MyAction = {
+//   type: string;
+//   payload?: any;
+// };
 
 export const USER_GET_USER_PROFILE_BY_EMAIL_v2 = 'USER_GET_USER_PROFILE_BY_EMAIL';
 export const getUserProfileByEmailAction_v2 =
@@ -76,5 +77,18 @@ export const authRegisterByEmailAndPasswordAction_v0 =
       return newUser;
     } catch (error) {
       console.log('user signUp error', error);
+    }
+  };
+
+export const SYNC_USER = 'SYNC_USER';
+export const syncUserAction =
+  (userId: string, userAccessToken: string, env: IConstantGptAiFlowHandler) =>
+  async (dispatch: any, getState: () => IReduxRootState) => {
+    try {
+      const userResults = await TBackendUserFile.getUser(userId, userAccessToken, env);
+
+      return userResults;
+    } catch (error) {
+      console.log('syncUserAction error', error);
     }
   };

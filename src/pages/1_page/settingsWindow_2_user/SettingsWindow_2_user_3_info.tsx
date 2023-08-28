@@ -8,6 +8,7 @@ import { Button, Descriptions } from 'antd';
 import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useSelector } from 'react-redux';
 import { IReduxRootState } from '../../../store/reducer';
+import { useUserInfo } from '../../../hooks/useUserInfo';
 // import { STORE_USER } from "../../../tools/4_base/TConstant";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
@@ -18,9 +19,7 @@ interface ISettingsWindow_2_user_3_info_input {
 export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_info_input) => {
   // const { userData } = useUserInfo();
 
-  const userData: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
-  });
+  const { userData } = useUserInfo();
 
   // const { setPageCase, setIsAuthenticated } = props;
 
