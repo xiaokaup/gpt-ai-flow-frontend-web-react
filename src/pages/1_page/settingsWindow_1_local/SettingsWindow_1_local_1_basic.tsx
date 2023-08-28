@@ -1,0 +1,124 @@
+import '../../../styles/global.css';
+import '../../../styles/layout.scss';
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Checkbox, Select, message } from 'antd';
+
+import { EOpenAiModel } from '../../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { IReduxRootState } from '../../../store/reducer';
+import { ILocalReducerState } from '../../../store/reducer/localReducer';
+import { saveLocalAction } from '../../../store/actions/localActions';
+
+const modelTypeOptions = [
+  {
+    value: EOpenAiModel.GPT_3_point_5_TURBO,
+    label: 'GPT-3.5',
+  },
+  {
+    value: EOpenAiModel.GPT_4,
+    label: 'GPT-4',
+  },
+];
+
+export const SettingsWindow_1_local_basic = () => {
+  const dispatch = useDispatch();
+
+  const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
+    return state.local ?? {};
+  });
+
+  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
+
+  const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModel>(
+    localFromStore.chatMode?.model_type ?? EOpenAiModel.GPT_3_point_5_TURBO
+  );
+  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel>(
+    localFromStore.proMode?.model_type ?? EOpenAiModel.GPT_3_point_5_TURBO
+  );
+
+  const onSaveLocalSettings = () => {
+    dispatch(
+      saveLocalAction({
+        openAIApiKey,
+        chatMode: {
+          model_type: chatModeModelType,
+        },
+        proMode: {
+          model_type: proModeModelType,
+        },
+      }) as any
+    );
+  };
+
+  return (
+    <div id="SettingsWindow_1_local_1_basic" className="row">
+      <div className="row">
+        <label htmlFor="openAIApiKeyInput">
+          OpenAI API key
+          <input
+            type="text"
+            id="openAIApiKeyInput"
+            name="openAIApiKeyInput"
+            value={openAIApiKey ?? ''}
+            onChange={(e) => setOpenAIApiKey(e.target.value)}
+          />
+          <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
+        </label>
+      </div>
+
+      {/* <div className="row" style={{ marginTop: '.75rem' }}>
+        <div>
+          <b>对话模式 大模型</b>
+        </div>
+        <Select
+          value={chatModeModelType}
+          showSearch
+          placeholder="模型类型"
+          optionFilterProp="children"
+          onChange={(value: string) => {
+            console.log(`selected ${value}`);
+            setChatModeModelType(value as EOpenAiModel);
+          }}
+          onSearch={(value: string) => {
+            console.log('search:', value);
+          }}
+          filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+          options={modelTypeOptions}
+        />
+      </div> */}
+      <div className="row" style={{ marginTop: '.75rem' }}>
+        <div>
+          <b>专业模式 大模型</b>
+        </div>
+        <Select
+          value={proModeModelType}
+          showSearch
+          placeholder="模型类型"
+          optionFilterProp="children"
+          onChange={(value: string) => {
+            console.log(`selected ${value}`);
+            setProModeModelType(value as EOpenAiModel);
+          }}
+          onSearch={(value: string) => {
+            console.log('search:', value);
+          }}
+          filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+          options={modelTypeOptions}
+        />
+      </div>
+      <div className="row" style={{ marginTop: '.75rem' }}>
+        <Button
+          type="primary"
+          id="userSaveSettingsBtn"
+          onClick={() => {
+            onSaveLocalSettings();
+            message.success('保存成功');
+          }}
+        >
+          保存
+        </Button>
+      </div>
+    </div>
+  );
+};

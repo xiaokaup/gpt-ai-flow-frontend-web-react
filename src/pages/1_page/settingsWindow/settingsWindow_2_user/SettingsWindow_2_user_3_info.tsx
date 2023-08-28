@@ -1,13 +1,13 @@
-import '../../../styles/global.css';
-import '../../../styles/layout.scss';
+import '../../../../styles/global.css';
+import '../../../../styles/layout.scss';
 
 import React, { useEffect } from 'react';
 
 import { Button, Descriptions } from 'antd';
-import { useUserInfo } from '../../../hooks/useUserInfo';
+import { useUserInfo } from '../../../../hooks/useUserInfo';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { userLogoutAction } from '../../../store/actions/userActions';
+import { userLogoutAction } from '../../../../store/actions/userActions';
 // import { STORE_USER } from "../../../tools/4_base/TConstant";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
@@ -37,9 +37,11 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
       style={{
         marginTop: 12,
         marginLeft: 12,
-        // display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'center',
+        padding: '2rem',
+        background: '#fff',
+        border: '1px solid #E8E8E8',
+        borderRadius: '.4rem',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
       }}
     >
       {/* <div>

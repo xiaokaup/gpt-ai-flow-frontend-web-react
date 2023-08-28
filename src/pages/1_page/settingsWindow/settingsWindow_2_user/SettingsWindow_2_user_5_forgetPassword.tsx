@@ -1,16 +1,16 @@
-import '../../../styles/global.css';
+import '../../../../styles/global.css';
 
 import React from 'react';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
-import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { useNavigate } from 'react-router-dom';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TSettingsWindow_2_user from './TSettingsWindow_2_user';
 import { useDispatch } from 'react-redux';
-import { userResetPasswordWithEmailAction } from '../../../store/actions/userActions';
+import { userResetPasswordWithEmailAction } from '../../../../store/actions/userActions';
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 
 interface SettingsWindow_2_user_5_forgetPassword_input {
