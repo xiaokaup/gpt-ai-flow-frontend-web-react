@@ -25,17 +25,9 @@ const router = createBrowserRouter([
     element: (
       <AppLayout>
         <h1>Hello World</h1>
-        <Link to="about">About Us</Link>
+        <button onClick={() => console.log('process.env.APP_ENV', process.env.APP_ENV)}>check APP_ENV</button>
         <br />
-        <Link to="counter">counter</Link>
-        <br />
-        <button
-          onClick={() =>
-            console.log('process.env.ENDPOINT_BACKEND_NODE_HTTPS', process.env.ENDPOINT_BACKEND_NODE_HTTPS)
-          }
-        >
-          check ENDPOINT_BACKEND_NODE_HTTPS
-        </button>
+        <button onClick={() => console.log('process.env.NODE_ENV', process.env.NODE_ENV)}>check NODE_ENV</button>
       </AppLayout>
     ),
   },
