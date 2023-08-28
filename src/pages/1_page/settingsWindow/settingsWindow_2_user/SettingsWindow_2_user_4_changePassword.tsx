@@ -1,21 +1,21 @@
-import '../../../styles/global.css';
+import '../../../../styles/global.css';
 
 import React, { useEffect, useState } from 'react';
 
 import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
-import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
-import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
+import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useUserInfo } from '../../../hooks/useUserInfo';
+import { useUserInfo } from '../../../../hooks/useUserInfo';
 import {
   authLoginByEmailAndPasswordAction,
   userUpdateUserPasswordActionAction_v1,
-} from '../../../store/actions/userActions';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+} from '../../../../store/actions/userActions';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 // import { STORE_USER_TOKEN_ACCESSTOKEN } from "../../../tools/4_base/TConstant";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 

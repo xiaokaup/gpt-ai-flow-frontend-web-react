@@ -1,11 +1,11 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow_2_user/TSettingsWindow_2_user';
+import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import IUserDBFile, { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 import { IReduxRootState } from '../reducer';
 import { Dispatch } from 'react';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
-import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow_2_user/TSettingsWindow_2_user';
+import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import TBackendUserFile from '../../tools/3_unit/TBackendUser';
 
 // type MyAction = {

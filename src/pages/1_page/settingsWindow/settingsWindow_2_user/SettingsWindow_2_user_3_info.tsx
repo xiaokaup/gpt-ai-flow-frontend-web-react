@@ -1,13 +1,13 @@
-import '../../../styles/global.css';
-import '../../../styles/layout.scss';
+import '../../../../styles/global.css';
+import '../../../../styles/layout.scss';
 
 import React, { useEffect } from 'react';
 
 import { Button, Descriptions } from 'antd';
-import { useUserInfo } from '../../../hooks/useUserInfo';
+import { useUserInfo } from '../../../../hooks/useUserInfo';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { userLogoutAction } from '../../../store/actions/userActions';
+import { userLogoutAction } from '../../../../store/actions/userActions';
 // import { STORE_USER } from "../../../tools/4_base/TConstant";
 // import { useUserInfo } from "../../../hooks/useUserInfo";
 
