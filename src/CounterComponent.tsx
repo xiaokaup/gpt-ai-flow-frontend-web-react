@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrement, increment } from './store/actions/counterAction';
+import { IReduxRootState } from './store/reducer';
 
 export function CounterComponent() {
-  const count: number = useSelector((state) => {
-    return (state as any).counterReducer.counter;
-  }) as number;
+  const count: number = useSelector((state: IReduxRootState) => {
+    return state.counterInfo.counter;
+  });
 
   const dispatch = useDispatch();
 
