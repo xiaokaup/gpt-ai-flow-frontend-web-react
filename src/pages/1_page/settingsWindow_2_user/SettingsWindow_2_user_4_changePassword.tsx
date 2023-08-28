@@ -89,12 +89,17 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
       style={{
         marginTop: 12,
         marginLeft: 12,
-        // display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'center',
+        padding: '2rem',
+        background: '#fff',
+        border: '1px solid #E8E8E8',
+        borderRadius: '.4rem',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
       }}
     >
-      <div className="signup_page_content">
+      <div className="row">
+        <h2>修改密码</h2>
+      </div>
+      <div className="row signup_page_content">
         <div
           style={
             {

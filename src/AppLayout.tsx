@@ -71,16 +71,16 @@ export const AppLayoutCenter = (props: Layout_input) => {
           {!isAuthenticated && (
             <>
               <Menu.Item key="1">
-                <Link to="/login">Login</Link>
+                <Link to="/login">登录</Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link to="/signUp">Sign up</Link>
+                <Link to="/signUp">注册</Link>
               </Menu.Item>
             </>
           )}
           {isAuthenticated && (
             <Menu.Item key="3">
-              <Link to="/info">info</Link>
+              <Link to="/info">用户</Link>
             </Menu.Item>
           )}
         </Menu>
