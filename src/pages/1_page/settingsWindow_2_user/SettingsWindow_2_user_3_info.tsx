@@ -5,8 +5,7 @@ import React, { useState } from 'react';
 
 import { Button, Descriptions } from 'antd';
 // import { EUserPageCase } from ".";
-import IUserDBFile, { IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
-import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
+import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useSelector } from 'react-redux';
 import { IReduxRootState } from '../../../store/reducer';
 // import { STORE_USER } from "../../../tools/4_base/TConstant";
@@ -20,7 +19,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
   // const { userData } = useUserInfo();
 
   const userData: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDBFile.IUserDB_default;
+    return state.user ?? IUserDataFile.IUserData_default;
   });
 
   // const { setPageCase, setIsAuthenticated } = props;
