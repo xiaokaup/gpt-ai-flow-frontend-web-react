@@ -16,7 +16,11 @@ export const AppLayout = (props: Layout_input) => {
       {/* Header */}
       <Header>
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          // defaultSelectedKeys={['1']}
+        >
           <Menu.Item key="1">
             <Link to="/login">Login</Link>
           </Menu.Item>

@@ -92,3 +92,8 @@ export const syncUserAction =
       console.log('syncUserAction error', error);
     }
   };
+
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const userLogoutAction = () => async (dispatch: any, getState: () => IReduxRootState) => {
+  dispatch({ type: USER_LOGOUT });
+};
