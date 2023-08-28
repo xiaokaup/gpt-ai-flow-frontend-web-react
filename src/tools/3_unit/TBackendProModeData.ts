@@ -1,20 +1,8 @@
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IProMode_v2File, { IProMode_v2 } from '../../gpt-ai-flow-common/interface-backend/IProMode_v2';
+import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import { getApiKeyHeadersForNodeBackend } from '../2_component/TAuth';
 import { fetchWithRetry } from '../4_base/TRequest';
-
-// === Tools - start ===
-const sync_proModeData = async (
-  userId: string,
-  accessToken: string,
-  getDecryptObj: (ciphertext: string, key: string) => any,
-  env: IConstantGptAiFlowHandler
-): Promise<IProMode_v2> => {
-  const results = await getProModeDataFromBackend(userId, accessToken, getDecryptObj, env);
-
-  return results;
-};
-// === Tools - end ===
 
 // === Request - start ===
 const getProModeDataFromBackend = async (
@@ -39,10 +27,18 @@ const getProModeDataFromBackend = async (
       return data.results;
     })
     .then((encryptedProModeSet: string) => {
-      const proModeSet: IProMode_v2 = getDecryptObj(
+      console.log('encryptedProModeSet', encryptedProModeSet);
+
+      console.log(
+        'env.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY',
+        env.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY
+      );
+      const proModeSet: IProMode_v2 = TCryptoJSFile.decrypt(
         encryptedProModeSet,
         env.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY as string
       );
+
+      console.log('proModeSet', proModeSet);
 
       return proModeSet;
     })
@@ -59,7 +55,7 @@ const getProModeDataFromBackend = async (
 // === Request - end ===
 
 const TBackendProModeDataFile = {
-  sync_proModeData,
+  getProModeDataFromBackend,
 };
 
 export default TBackendProModeDataFile;
