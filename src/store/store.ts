@@ -25,9 +25,9 @@ export function configureStore(initialState = {}) {
   let settingMiddleware;
 
   if (!isProd) {
-    settingMiddleware = applyMiddleware(thunk);
-  } else {
     settingMiddleware = applyMiddleware(thunk, createLogger());
+  } else {
+    settingMiddleware = applyMiddleware(thunk);
   }
 
   const store = createStore(persistedReducer, initialState, storeComposeEnhancers(settingMiddleware));
