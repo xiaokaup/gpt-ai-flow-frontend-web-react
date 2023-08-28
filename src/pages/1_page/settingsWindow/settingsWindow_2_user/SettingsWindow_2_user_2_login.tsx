@@ -28,7 +28,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/info');
+      navigate('/proMode');
     }
   }, [isAuthenticated, navigate]);
 
