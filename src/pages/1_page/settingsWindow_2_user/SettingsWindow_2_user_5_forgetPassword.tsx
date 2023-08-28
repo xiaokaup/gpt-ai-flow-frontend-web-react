@@ -91,7 +91,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
                     // setPageCase(EUserPageCase.LOGIN);
                   }}
                 >
-                  登陆
+                  登录
                 </Button>
               </span>
             </Form.Item>

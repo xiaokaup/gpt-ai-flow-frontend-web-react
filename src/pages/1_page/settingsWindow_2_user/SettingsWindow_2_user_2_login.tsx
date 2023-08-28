@@ -104,13 +104,13 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
           <Form.Item>
             <div>
               <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
-                登陆
+                登录
               </Button>
               <span style={{ marginLeft: 20 }}>
                 <Button
                   type="default"
                   onClick={() => {
-                    // setPageCase(EUserPageCase.SIGNUP);
+                    navigate('/signUp');
                   }}
                 >
                   注册
@@ -120,7 +120,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               <span
                 style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
                 onClick={() => {
-                  // setPageCase(EUserPageCase.FORGET_PASSWORD)
+                  navigate('/forgetPassword');
                 }}
               >
                 忘记密码

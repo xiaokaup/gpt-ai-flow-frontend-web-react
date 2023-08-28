@@ -163,10 +163,10 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
               <Button
                 type="default"
                 onClick={() => {
-                  // setPageCase(EUserPageCase.LOGIN);
+                  navigate('/login');
                 }}
               >
-                登陆
+                登录
               </Button>
             </span>
           </div>
