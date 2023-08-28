@@ -7,8 +7,6 @@ export const getSubscriptionNicknameAndStatusAction =
   async (dispatch: any) => {
     const results = await getSubscriptionNicknameAndStatus(userId, stripeCustomerId, accessToken, env);
 
-    console.log('getSubscriptionNicknameAndStatusAction results', results);
-
     dispatch({ type: STRIPE_GET_SUBSCRIPTION_NICKNAME_AND_STATUS, payload: results });
 
     return results;
