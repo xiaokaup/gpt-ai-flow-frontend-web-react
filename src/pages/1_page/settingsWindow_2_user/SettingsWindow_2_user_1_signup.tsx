@@ -6,12 +6,23 @@ import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 import IUserDBFile, { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import React from 'react';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+
+import { useDispatch } from 'react-redux';
+import {
+  authRegisterByEmailAndPasswordAction_v0,
+  getUserProfileByEmailAction_v2,
+} from '../../../store/actions/userActions';
+import { useNavigate } from 'react-router-dom';
 
 interface ISettingsWindow_2_user_1_signup_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
 }
 export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_signup_input) => {
   // const { setPageCase } = props;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onFinish = async (values: any) => {
     try {
@@ -20,36 +31,36 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
         return;
       }
 
-      // const userFound: IUserDB =
-      //   await TSettingsWindow_2_user.getUserProfileByEmail_v2(
-      //     values.email,
-      //     // window.env
-      //     {}
-      //   );
+      // const userFound: IUserDB = await TSettingsWindow_2_user.getUserProfileByEmail_v2(
+      //   values.email,
+      //   // window.env
+      //   {}
+      // );
 
-      // if (userFound?.id) {
-      //   throw new Error("这个电子邮件已经注册");
-      // }
+      const userFound: IUserDB = (await dispatch(
+        getUserProfileByEmailAction_v2(values.email, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+      )) as any;
 
-      // const newUser: IUserDB =
-      //   await TSettingsWindow_2_user.authRegisterByEmailAndPassword_v0(
-      //     {
-      //       ...IUserDBFile.IUserDB_default,
-      //       email: values.email,
-      //       password: values.password,
-      //       firstName: values.first_name,
-      //       lastName: values.last_name ?? "",
-      //     },
-      //     // window.env
-      //     {}
-      //   );
+      if (userFound?.id) {
+        return new Error('这个电子邮件已经注册');
+      }
 
-      // if (!newUser?.id) {
-      //   throw new Error("注册失败，请再试一次或尝试另一个电子邮件地址");
-      // }
+      const newUser = await dispatch(
+        authRegisterByEmailAndPasswordAction_v0(
+          values.email,
+          values.password,
+          values.first_name,
+          values.last_name,
+          CONSTANTS_GPT_AI_FLOW_COMMON
+        ) as any
+      );
+
+      if (!newUser?.id) {
+        return new Error('注册失败，请再试一次或尝试另一个电子邮件地址');
+      }
 
       message.success('用户创建成功');
-      // setPageCase(EUserPageCase.LOGIN);
+      navigate('/login');
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,

@@ -10,59 +10,56 @@ import { getApiKeyHeadersForNodeBackend } from '../../../tools/2_component/TAuth
 // import { removeEmptyValues } from "../../../tools/4_base/TEmpty";
 // import { IConstantGptAiFlowHandler } from "../../../main/preload";
 
-// const getUserProfileByEmail_v2 = async (
-//   email: string,
-//   env: IConstantGptAiFlowHandler
-// ): Promise<IUserDB> => {
-//   const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v2.0/get/user/email/${email}/`;
+const getUserProfileByEmail_v2 = async (email: string, env: IConstantGptAiFlowHandler): Promise<IUserDB> => {
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v2.0/get/user/email/${email}/`;
 
-//   const results = await fetchWithRetry(url, {
-//     method: "GET",
-//     ...getApiKeyHeadersForNodeBackend(
-//       {
-//         admin_api_key: env.BACKEND_NODE.BACKEND_NODE_HTTPS_ADMIN_API_KEY,
-//       },
-//       env
-//     ),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       return data.results;
-//     });
+  const results = await fetchWithRetry(url, {
+    method: 'GET',
+    ...getApiKeyHeadersForNodeBackend(
+      {
+        admin_api_key: env.BACKEND_NODE.BACKEND_NODE_HTTPS_ADMIN_API_KEY,
+      },
+      env
+    ),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data.results;
+    });
 
-//   return results;
-// };
+  return results;
+};
 
-// const authRegisterByEmailAndPassword_v0 = async (
-//   { email, password, firstName, lastName }: IUserDB,
-//   env: IConstantGptAiFlowHandler
-// ): Promise<IUserDB> => {
-//   const newUserDB: IUserDB = IUserDB_default;
-//   newUserDB.firstName = firstName;
-//   newUserDB.lastName = lastName;
-//   newUserDB.email = email;
-//   newUserDB.password = password;
-//   newUserDB.displayName = `${firstName} ${lastName}`;
-//   newUserDB.providers = "password";
-//   newUserDB.lastLoginAt = new Date();
+const authRegisterByEmailAndPassword_v0 = async (
+  { email, password, firstName, lastName }: IUserDB,
+  env: IConstantGptAiFlowHandler
+): Promise<IUserDB> => {
+  const newUserDB: IUserDB = IUserDB_default;
+  newUserDB.firstName = firstName;
+  newUserDB.lastName = lastName;
+  newUserDB.email = email;
+  newUserDB.password = password;
+  newUserDB.displayName = `${firstName} ${lastName}`;
+  newUserDB.providers = 'password';
+  newUserDB.lastLoginAt = new Date();
 
-//   const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/register/`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/register/`;
 
-//   const createdUser: IUserDB = await fetchWithRetry(url, {
-//     method: "POST",
-//     ...getApiKeyHeadersForNodeBackend({}, env),
-//     body: JSON.stringify(removeEmptyValues(newUserDB)),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       return data.results;
-//     })
-//     .catch((error) => {
-//       console.log("error", error);
-//     });
+  const createdUser: IUserDB = await fetchWithRetry(url, {
+    method: 'POST',
+    ...getApiKeyHeadersForNodeBackend({}, env),
+    body: JSON.stringify(removeEmptyValues(newUserDB)),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data.results;
+    })
+    .catch((error) => {
+      console.log('error', error);
+    });
 
-//   return createdUser;
-// };
+  return createdUser;
+};
 
 const authLoginByEmailAndPassword = async (
   email: string,
@@ -135,8 +132,8 @@ const authLoginByEmailAndPassword = async (
 
 const TSettingsWindow_2_userFile = {
   // === Singup - start ===
-  //   getUserProfileByEmail_v2,
-  //   authRegisterByEmailAndPassword_v0,
+  getUserProfileByEmail_v2,
+  authRegisterByEmailAndPassword_v0,
   // === Singup - end ===
 
   // === Login - start ===
