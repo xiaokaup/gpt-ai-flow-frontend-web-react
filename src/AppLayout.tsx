@@ -35,9 +35,14 @@ export const AppLayout = (props: Layout_input) => {
             </>
           )}
           {isAuthenticated && (
-            <Menu.Item key="3">
-              <Link to="/info">用户</Link>
-            </Menu.Item>
+            <>
+              <Menu.Item key="3">
+                <Link to="/proMode">专业模式</Link>
+              </Menu.Item>
+              <Menu.Item key="4">
+                <Link to="/info">用户</Link>
+              </Menu.Item>
+            </>
           )}
         </Menu>
       </Header>
@@ -80,10 +85,10 @@ export const AppLayoutCenter = (props: Layout_input) => {
           )}
           {isAuthenticated && (
             <>
-              <Menu.Item key="4">
-                <Link to="/proMode">专业界面</Link>
-              </Menu.Item>
               <Menu.Item key="3">
+                <Link to="/proMode">专业模式</Link>
+              </Menu.Item>
+              <Menu.Item key="4">
                 <Link to="/info">用户</Link>
               </Menu.Item>
             </>
