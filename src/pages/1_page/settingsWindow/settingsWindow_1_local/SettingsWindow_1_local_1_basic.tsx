@@ -1,14 +1,14 @@
-import '../../../styles/global.css';
-import '../../../styles/layout.scss';
+import '../../../../styles/global.css';
+import '../../../../styles/layout.scss';
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Checkbox, Select, message } from 'antd';
 
-import { EOpenAiModel } from '../../../gpt-ai-flow-common/interface-app/IAIFlow';
-import { IReduxRootState } from '../../../store/reducer';
-import { ILocalReducerState } from '../../../store/reducer/localReducer';
-import { saveLocalAction } from '../../../store/actions/localActions';
+import { EOpenAiModel } from '../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { IReduxRootState } from '../../../../store/reducer';
+import { ILocalReducerState } from '../../../../store/reducer/localReducer';
+import { saveLocalAction } from '../../../../store/actions/localActions';
 
 const modelTypeOptions = [
   {
