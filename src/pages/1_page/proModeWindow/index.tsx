@@ -2,8 +2,9 @@ import '../../../styles/global.css';
 import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 
+import { useRef, useState } from 'react';
+
 import { Alert, Button, Select, Tabs, message } from 'antd';
-import { useEffect, useRef, useState } from 'react';
 
 import { EStripeSubscriptionName } from '../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
@@ -49,6 +50,8 @@ const ProModeWindow = () => {
     accessToken: userAccessToken,
   });
 
+  console.log('stripeSubscriptionInfo ProModeWindow', stripeSubscriptionInfo);
+
   const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
 
   if (
@@ -66,6 +69,7 @@ const ProModeWindow = () => {
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
     userRolePermissionsWithStripeSubscriptionInfo,
+    stripeCustomerId,
   });
   // === ProMode Data - end ===
 
@@ -210,13 +214,11 @@ const ProModeWindow = () => {
           <div className="row">
             <Alert
               message={
-                <span
-                  onClick={() => {
-                    // window.electron.ipcRenderer.sendMessage('ipc-create-or-show-settings-window', []);
-                  }}
-                >
+                <span>
                   John是一位忙碌的职场人士，但在订阅我们产品后，他发现了平衡工作和生活的新秘诀。
-                  <span style={{ color: '#1677FF' }}>点击这里</span>
+                  <a href="https://www.gptaiflow.com/business/prices" target="_blank">
+                    <span style={{ color: '#1677FF' }}>点击这里</span>
+                  </a>
                 </span>
               }
               type="info"

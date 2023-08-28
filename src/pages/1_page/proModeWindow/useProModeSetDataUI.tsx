@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import {
   EProMode_v2_career_contextType,
@@ -53,10 +53,12 @@ import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpe
 
 interface useProModeSetDataUI_input {
   userRolePermissionsWithStripeSubscriptionInfo: string[];
+  stripeCustomerId: string | undefined;
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
-  const { proModeSetData: proModeSetFromStore } = useProModeSetData();
-  const { userRolePermissionsWithStripeSubscriptionInfo } = props;
+  const { userRolePermissionsWithStripeSubscriptionInfo, stripeCustomerId } = props;
+
+  const { proModeSetData: proModeSetFromStore } = useProModeSetData(stripeCustomerId);
 
   const PROMODE_COPY_WRITING_DATA = proModeSetFromStore[
     EUserRolePermissionDB_name.COPY_WRITING

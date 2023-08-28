@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sync_proModeDataAction } from '../store/actions/proModeActions';
 import { IReduxRootState } from '../store/reducer';
 
-export const useProModeSetData = () => {
+export const useProModeSetData = (stripeCustomerId: string | undefined) => {
   const dispatch = useDispatch();
 
   const { userData } = useUserInfo();
@@ -34,6 +34,8 @@ export const useProModeSetData = () => {
       sync_proModeDataAction(userId.toString(), accessToken, TCryptoJSFile.decrypt, CONSTANTS_GPT_AI_FLOW_COMMON) as any
     );
 
+    console.log('proModeSetFromBackend', proModeSetFromBackend);
+
     if (!proModeSetFromBackend) {
       return IProMode_v2File.IProMode_v2_default;
     }
@@ -43,7 +45,7 @@ export const useProModeSetData = () => {
 
   useEffect(() => {
     init();
-  }, []);
+  }, [stripeCustomerId]);
 
   useEffect(() => {
     // window.electron.store.set(STORE_PROMODE_SET, window.electron.crypto.getEncryptobjForFrontend(proModeSetData));
