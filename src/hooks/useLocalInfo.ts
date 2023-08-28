@@ -3,7 +3,10 @@ import { ILocalReducerState } from '../store/reducer/localReducer';
 import { IReduxRootState } from '../store/reducer';
 import { useState } from 'react';
 
-interface ILocalInfo_ouput {}
+interface ILocalInfo_ouput {
+  localData: ILocalReducerState;
+  setLocalData: (newLocalData: ILocalReducerState) => void;
+}
 export const useLocalInfo = (): ILocalInfo_ouput => {
   const localDataFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
     return state.local ?? {};

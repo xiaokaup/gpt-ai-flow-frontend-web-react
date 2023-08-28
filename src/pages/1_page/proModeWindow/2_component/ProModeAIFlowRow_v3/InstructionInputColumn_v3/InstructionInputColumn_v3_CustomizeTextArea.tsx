@@ -1,10 +1,10 @@
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
+import React, { Dispatch, SetStateAction, useState } from 'react';
+
 import { Input } from 'antd';
 import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
-
-import { Dispatch, SetStateAction, useState } from 'react';
 
 import {
   IInstructionINputCommandsResults_v3,

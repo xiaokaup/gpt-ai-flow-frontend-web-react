@@ -1,15 +1,17 @@
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import copy from 'copy-to-clipboard';
+
 import { Button, Input, Empty, message } from 'antd';
 import { RedoOutlined, BorderOutlined, CopyOutlined, EditOutlined } from '@ant-design/icons';
 
-import ReactMarkdown from 'react-markdown';
 import {
   IInstructionINputCommandsResults_v3,
   IInstructionInputCommands_v3,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
-import { Dispatch, SetStateAction, useState } from 'react';
 
 const { TextArea } = Input;
 
@@ -163,9 +165,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                     }}
                     onClick={() => {
                       console.log('复制结果');
-                      window.electron.ipcRenderer.sendMessage('ipc-copy-textContent-to-clipboard', [
-                        aiComandsResults[index],
-                      ]);
+                      copy(aiComandsResults[index].value);
                       message.success('复制成功');
                     }}
                   />

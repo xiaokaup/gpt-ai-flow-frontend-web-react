@@ -3,15 +3,11 @@ import '../../../../../../styles/layout.scss';
 
 import iconFormat from '../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
 
-import { Input } from 'antd';
-import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useState } from 'react';
-import {
-  STORE_INSTRUCTION_AI_FLOWS_PATH,
-  STORE_OUTPUT_INDICATOR_AI_FLOWS_PATH,
-} from '../../../../../../tools/4_base/TConstant';
+import { Input } from 'antd';
+import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { IAIFlow, EAIFlowType, EAIFlowRole } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import {
   IInstructionInputCommands_v3,
@@ -48,7 +44,8 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
 
   // === instructionOuputIndicatorAiFlowCommandList - start ===
   const [defaultInstructionAiFlowsFromStore] = useState<IAIFlow[]>(
-    window.electron.store.get(STORE_INSTRUCTION_AI_FLOWS_PATH) as IAIFlow[]
+    // window.electron.store.get(STORE_INSTRUCTION_AI_FLOWS_PATH) as IAIFlow[]
+    []
   );
   const instructionCommandsSelectOptions = [...defaultInstructionAiCommands, ...defaultInstructionAiFlowsFromStore];
 
@@ -56,7 +53,8 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
 
   // === OutputIndicator result - start ===
   const [defaultOutputIndicatorAiFlowListFromStore] = useState<IAIFlow[]>(
-    window.electron.store.get(STORE_OUTPUT_INDICATOR_AI_FLOWS_PATH) as IAIFlow[]
+    // window.electron.store.get(STORE_OUTPUT_INDICATOR_AI_FLOWS_PATH) as IAIFlow[]
+    []
   );
   const ouputIndicatorCommandsSelectOptions = [
     ...defaultOutputIndicatorAiCommands,

@@ -1,15 +1,11 @@
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 
+import React, { useEffect, useState } from 'react';
+
 import { Input } from 'antd';
 
-import { useEffect, useState } from 'react';
 import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
-import {
-  STORE_LOCAL_OPENAI_KEY_PATH,
-  STORE_LOCAL_PROMODE_MODEL_TYPE_PATH,
-  STORE_USER_TOKEN_ACCESSTOKEN,
-} from '../../../../../tools/4_base/TConstant';
 import {
   IInstructionINputCommandsResults_v3,
   IInstructionInputCommands_v3,
@@ -20,6 +16,8 @@ import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 import { useUserInfo } from '../../../../../hooks/useUserInfo';
+import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
 const { TextArea } = Input;
 
@@ -40,6 +38,12 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     defaultOutputIndicatorAiCommands,
     aiCommandsSettings,
   } = props;
+
+  const { localData } = useLocalInfo();
+  const {
+    openAIApiKey,
+    proMode: { model_type: proModeModelType },
+  } = localData;
 
   const { userData } = useUserInfo();
 
@@ -226,11 +230,11 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
       const reponseResult: void | ISendChatGPTRequestToBackend_ouput = await sendChatGPTRequestAsStreamToBackendProxy(
         {
-          openaiSecret: window.electron.store.get(STORE_LOCAL_OPENAI_KEY_PATH),
+          openaiSecret: openAIApiKey,
           prompt: resquestContentPrompt,
           openaiOptions: {
             // openaiModel: EOpenAiModel.GPT_4,
-            openaiModel: window.electron.store.get(STORE_LOCAL_PROMODE_MODEL_TYPE_PATH),
+            openaiModel: proModeModelType,
           },
         },
         () => {
@@ -247,7 +251,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           console.log('AfterRequestAsStreamFunc');
         })(index),
         userAccessToken,
-        window.env,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
         signal
       ).catch((error) => {
         if (error.name === 'AbortError') {
