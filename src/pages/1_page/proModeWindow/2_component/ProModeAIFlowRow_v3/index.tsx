@@ -3,7 +3,7 @@ import '../../../../../styles/layout.scss';
 
 import React, { useEffect, useState } from 'react';
 
-import { Input } from 'antd';
+import { Input, message } from 'antd';
 
 import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
 import {
@@ -257,6 +257,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         if (error.name === 'AbortError') {
           console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
         } else {
+          message.error('请确定你已经在设置界面输入了 OpenAI API Key');
           console.error('Fetch request failed:', error);
         }
       });
