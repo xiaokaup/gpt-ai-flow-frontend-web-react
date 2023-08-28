@@ -1,5 +1,6 @@
 import { EOpenAiModel } from '../../gpt-ai-flow-common/interface-app/IAIFlow';
 import { SAVE_LOCAL } from '../actions/localActions';
+import { USER_LOGOUT } from '../actions/userActions';
 import { IAction } from '../store';
 
 const initialState: ILocalReducerState = {
@@ -27,6 +28,8 @@ export const localReducer = (state: ILocalReducerState = initialState, action: I
   switch (type) {
     case SAVE_LOCAL:
       return payload;
+    case USER_LOGOUT:
+      return initialState;
     default:
       return state;
   }
