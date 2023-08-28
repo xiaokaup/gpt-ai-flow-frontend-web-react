@@ -253,11 +253,11 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         userAccessToken,
         CONSTANTS_GPT_AI_FLOW_COMMON,
         signal
-      ).catch((error) => {
+      ).catch((error: Error) => {
         if (error.name === 'AbortError') {
           console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
         } else {
-          message.error('请确定你已经在设置界面输入了 OpenAI API Key');
+          message.error(error.message);
           console.error('Fetch request failed:', error);
         }
       });
