@@ -22,14 +22,11 @@ export const getSubscriptionNicknameAndStatus = async (
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log('data.results', data.results);
       return data.results;
     })
     .catch((error) => {
       console.log('error', error);
     });
-
-  console.log('getSubscriptionNicknameAndStatus', results);
 
   return results;
 };

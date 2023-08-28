@@ -50,8 +50,6 @@ const ProModeWindow = () => {
     accessToken: userAccessToken,
   });
 
-  console.log('stripeSubscriptionInfo ProModeWindow', stripeSubscriptionInfo);
-
   const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
 
   if (

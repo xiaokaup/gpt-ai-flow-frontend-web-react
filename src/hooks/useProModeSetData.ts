@@ -33,8 +33,6 @@ export const useProModeSetData = () => {
       sync_proModeDataAction(userId.toString(), accessToken, TCryptoJSFile.decrypt, CONSTANTS_GPT_AI_FLOW_COMMON) as any
     );
 
-    console.log('proModeSetFromBackend', proModeSetFromBackend);
-
     if (!proModeSetFromBackend) {
       return IProMode_v2File.IProMode_v2_default;
     }
