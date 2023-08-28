@@ -94,6 +94,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
             dispatch(userLogoutAction() as any);
             navigate('/login');
+            window.location.reload();
           }}
           style={{ cursor: 'pointer', marginTop: 10, marginBottom: 14 }}
         >

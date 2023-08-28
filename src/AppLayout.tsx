@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
+import { useUserInfo } from './hooks/useUserInfo';
 
 const { Header, Content, Footer } = Layout;
 
@@ -10,6 +11,8 @@ interface Layout_input {
 
 export const AppLayout = (props: Layout_input) => {
   const { children } = props;
+
+  const { isAuthenticated } = useUserInfo();
 
   return (
     <Layout className="layout_container">
@@ -21,15 +24,21 @@ export const AppLayout = (props: Layout_input) => {
           mode="horizontal"
           // defaultSelectedKeys={['1']}
         >
-          <Menu.Item key="1">
-            <Link to="/login">Login</Link>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Link to="/signUp">Sign up</Link>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Link to="/info">info</Link>
-          </Menu.Item>
+          {!isAuthenticated && (
+            <>
+              <Menu.Item key="1">
+                <Link to="/login">Login</Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="/signUp">Sign up</Link>
+              </Menu.Item>
+            </>
+          )}
+          {isAuthenticated && (
+            <Menu.Item key="3">
+              <Link to="/info">info</Link>
+            </Menu.Item>
+          )}
         </Menu>
       </Header>
 

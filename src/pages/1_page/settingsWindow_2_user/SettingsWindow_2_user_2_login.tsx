@@ -39,6 +39,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       );
 
       navigate('/info');
+      window.location.reload();
     } catch (error: any) {
       message.error({
         content: error?.message,
