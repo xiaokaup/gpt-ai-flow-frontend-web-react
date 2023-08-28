@@ -1,0 +1,19 @@
+#root {
+  height: 100%;
+  width: 100%;
+
+  .App {
+    height: 100%;
+    width: 100%;
+
+    .ant-layout {
+      height: 100%;
+      width: 100%;
+
+      .site-layout-content {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

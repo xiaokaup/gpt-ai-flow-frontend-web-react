@@ -89,89 +89,96 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
       style={{
         marginTop: 12,
         marginLeft: 12,
-        // display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'center',
+        padding: '2rem',
+        background: '#fff',
+        border: '1px solid #E8E8E8',
+        borderRadius: '.4rem',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
       }}
     >
-      <Form
-        name="basic"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        style={{ width: 300 }}
-      >
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: '请输入你的电子邮件地址',
-            },
-            { type: 'email', message: '请以正确的格式输入' },
-          ]}
+      <div className="row">
+        <h2>注册</h2>
+      </div>
+      <div className="row">
+        <Form
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          style={{ width: 300 }}
         >
-          <Input prefix={<MailOutlined />} placeholder={'邮件'} />
-        </Form.Item>
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: '请输入你的电子邮件地址',
+              },
+              { type: 'email', message: '请以正确的格式输入' },
+            ]}
+          >
+            <Input prefix={<MailOutlined />} placeholder={'邮件'} />
+          </Form.Item>
 
-        <Form.Item
-          name="first_name"
-          rules={[
-            {
-              required: true,
-              message: '请输入你的名字',
-            },
-          ]}
-        >
-          <Input prefix={<UserOutlined />} placeholder={'名字'} />
-        </Form.Item>
+          <Form.Item
+            name="first_name"
+            rules={[
+              {
+                required: true,
+                message: '请输入你的名字',
+              },
+            ]}
+          >
+            <Input prefix={<UserOutlined />} placeholder={'名字'} />
+          </Form.Item>
 
-        <Form.Item name="last_name">
-          <Input prefix={<UserOutlined />} placeholder={'姓'} />
-        </Form.Item>
+          <Form.Item name="last_name">
+            <Input prefix={<UserOutlined />} placeholder={'姓'} />
+          </Form.Item>
 
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: '请输入你的密码',
-            },
-          ]}
-        >
-          <Input.Password prefix={<LockOutlined />} placeholder={'密码'} />
-        </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: '请输入你的密码',
+              },
+            ]}
+          >
+            <Input.Password prefix={<LockOutlined />} placeholder={'密码'} />
+          </Form.Item>
 
-        <Form.Item
-          name="confirm_password"
-          rules={[
-            {
-              required: true,
-              message: '请再次输入你的密码',
-            },
-          ]}
-        >
-          <Input.Password prefix={<LockOutlined />} placeholder={'确认密码'} />
-        </Form.Item>
+          <Form.Item
+            name="confirm_password"
+            rules={[
+              {
+                required: true,
+                message: '请再次输入你的密码',
+              },
+            ]}
+          >
+            <Input.Password prefix={<LockOutlined />} placeholder={'确认密码'} />
+          </Form.Item>
 
-        <Form.Item>
-          <div>
-            <Button className="sign_up_with_password_provider_button" type="primary" htmlType="submit">
-              提交
-            </Button>
-            <span style={{ marginLeft: 20 }}>
-              <Button
-                type="default"
-                onClick={() => {
-                  navigate('/login');
-                }}
-              >
-                登录
+          <Form.Item>
+            <div>
+              <Button className="sign_up_with_password_provider_button" type="primary" htmlType="submit">
+                提交
               </Button>
-            </span>
-          </div>
-        </Form.Item>
-      </Form>
+              <span style={{ marginLeft: 20 }}>
+                <Button
+                  type="default"
+                  onClick={() => {
+                    navigate('/login');
+                  }}
+                >
+                  登录
+                </Button>
+              </span>
+            </div>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 };

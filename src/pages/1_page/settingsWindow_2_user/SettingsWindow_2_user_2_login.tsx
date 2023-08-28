@@ -59,12 +59,17 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       style={{
         marginTop: 12,
         marginLeft: 12,
-        // display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'center',
+        padding: '2rem',
+        background: '#fff',
+        border: '1px solid #E8E8E8',
+        borderRadius: '.4rem',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
       }}
     >
-      <div className="block_email_and_password">
+      <div className="row">
+        <h2>登录</h2>
+      </div>
+      <div className="row block_email_and_password">
         <Form
           name="normal_login"
           className="login-form"

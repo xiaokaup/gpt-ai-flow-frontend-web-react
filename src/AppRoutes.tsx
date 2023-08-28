@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AppLayout } from './AppLayout';
+import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { CounterComponent } from './CounterComponent';
 import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
 import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_2_login';
@@ -21,25 +21,25 @@ export const AppRoutes = () => {
     {
       path: '/',
       element: (
-        <AppLayout>
+        <AppLayoutCenter>
           <SettingsWindow_2_user_2_login />
-        </AppLayout>
+        </AppLayoutCenter>
       ),
     },
     {
       path: '/signUp',
       element: (
-        <AppLayout>
+        <AppLayoutCenter>
           <SettingsWindow_2_user_1_signup />
-        </AppLayout>
+        </AppLayoutCenter>
       ),
     },
     {
       path: '/login',
       element: (
-        <AppLayout>
+        <AppLayoutCenter>
           <SettingsWindow_2_user_2_login />
-        </AppLayout>
+        </AppLayoutCenter>
       ),
     },
     {
@@ -53,17 +53,17 @@ export const AppRoutes = () => {
     {
       path: '/changePassword',
       element: (
-        <AppLayout>
+        <AppLayoutCenter>
           <SettingsWindow_2_user_4_changePassword />
-        </AppLayout>
+        </AppLayoutCenter>
       ),
     },
     {
       path: '/forgetPassword',
       element: (
-        <AppLayout>
+        <AppLayoutCenter>
           <SettingsWindow_2_user_5_forgetPassword />
-        </AppLayout>
+        </AppLayoutCenter>
       ),
     },
   ]);
