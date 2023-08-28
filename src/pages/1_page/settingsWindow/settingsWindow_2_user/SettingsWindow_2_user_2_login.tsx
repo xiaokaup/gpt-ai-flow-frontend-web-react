@@ -38,7 +38,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
         authLoginByEmailAndPasswordAction(values.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
       );
 
-      navigate('/info');
+      navigate('/proMode');
       window.location.reload();
     } catch (error: any) {
       message.error({

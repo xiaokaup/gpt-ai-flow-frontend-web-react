@@ -65,7 +65,9 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
       }}
     >
-      <div className="row">忘记密码</div>
+      <div className="row">
+        <h2>忘记密码</h2>
+      </div>
       <div className="row forgetpassowrd_page_content">
         <div
           style={{

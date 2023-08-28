@@ -161,7 +161,7 @@ const ProModeWindow = () => {
   // === tab panels - end ===
 
   return (
-    <div className="drag-region">
+    <div className="drag-region" style={{ width: '100%' }}>
       <div className="container">
         <div className="row top_block_add_tab">
           <Select
