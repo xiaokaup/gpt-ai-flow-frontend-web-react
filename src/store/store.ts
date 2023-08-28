@@ -5,6 +5,7 @@ import storage from '@react-native-async-storage/async-storage';
 
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import { isProd } from '../gpt-ai-flow-common/config/constantGptAiFlow';
 
 const rootReducer = createRootReducer();
 
@@ -19,11 +20,15 @@ export function configureStore(initialState = {}) {
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
   const storeComposeEnhancers =
-    (typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+    (!isProd && typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
   let settingMiddleware;
 
-  settingMiddleware = applyMiddleware(thunk, createLogger());
+  if (!isProd) {
+    settingMiddleware = applyMiddleware(thunk);
+  } else {
+    settingMiddleware = applyMiddleware(thunk, createLogger());
+  }
 
   const store = createStore(persistedReducer, initialState, storeComposeEnhancers(settingMiddleware));
   const persistor = persistStore(store);
