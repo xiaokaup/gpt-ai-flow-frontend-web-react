@@ -15,7 +15,7 @@ export const AppLayout = (props: Layout_input) => {
   const { isAuthenticated } = useUserInfo();
 
   return (
-    <Layout className="layout_container">
+    <Layout className="layout_container" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
@@ -48,7 +48,7 @@ export const AppLayout = (props: Layout_input) => {
       </Header>
 
       {/* Body/Content */}
-      <Content style={{ padding: '0 50px' }}>
+      <Content style={{ padding: '20px 50px' }}>
         <div className="site-layout-content">{children}</div>
       </Content>
 
@@ -64,7 +64,7 @@ export const AppLayoutCenter = (props: Layout_input) => {
   const { isAuthenticated } = useUserInfo();
 
   return (
-    <Layout className="layout_container">
+    <Layout className="layout_container" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
@@ -97,7 +97,7 @@ export const AppLayoutCenter = (props: Layout_input) => {
       </Header>
 
       {/* Body/Content */}
-      <Content style={{ padding: '0 50px' }}>
+      <Content style={{ padding: '20px 50px' }}>
         <div
           className="site-layout-content"
           style={{
