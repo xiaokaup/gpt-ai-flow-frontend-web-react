@@ -6,6 +6,9 @@ import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import TSettingsWindow_2_userFile from './TSettingsWindow_2_user';
+import { useDispatch } from 'react-redux';
+import { authLoginByEmailAndPasswordAction } from '../../../store/actions/userActions';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 // import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 // import { STORE_USER } from "../../../../tools/4_base/TConstant";
 // import { EUserPageCase } from ".";
@@ -16,17 +19,15 @@ interface ISettingsWindow_2_user_2_login_input {
 export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
   // const { setPageCase } = props;
 
+  const dispatch = useDispatch();
+
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
-      const userAndTokenData: IUserDB = await TSettingsWindow_2_userFile.authLoginByEmailAndPassword(
-        values.email,
-        values.password,
-        // CONSTANTS_GPT_AI_FLOW_COMMON,
-        {}
+      const userInfo = await dispatch(
+        authLoginByEmailAndPasswordAction(values.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
       );
-      if (!userAndTokenData) {
-        throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
-      }
+
+      console.log('userInfo', userInfo);
       // Set userInfo in store
       // window.electron.store.set(STORE_USER, userAndTokenData);
       // setPageCase(EUserPageCase.INFO);
