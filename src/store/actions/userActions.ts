@@ -115,3 +115,18 @@ export const userResetPasswordWithEmailAction =
       console.log('userResetPasswordWithEmailAction error', error);
     }
   };
+
+export const USER_UPDATE_USER_PASSWORD_V1 = 'USER_UPDATE_USER_PASSWORD_V1';
+export const userUpdateUserPasswordActionAction_v1 =
+  (userId: number, newPassword: string, accessToken: string, env: IConstantGptAiFlowHandler) =>
+  async (dispatch: any, getState: () => IReduxRootState) => {
+    try {
+      const userResults = await TSettingsWindow_2_user.updateUserPassword_v1(userId, newPassword, accessToken, env);
+
+      dispatch({ type: USER_UPDATE_USER_PASSWORD_V1, payload: userResults });
+
+      return userResults;
+    } catch (error) {
+      console.log('userResetPasswordWithEmailAction error', error);
+    }
+  };

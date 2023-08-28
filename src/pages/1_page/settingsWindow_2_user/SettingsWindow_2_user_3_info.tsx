@@ -75,7 +75,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
       <div className="row">
         <Button
           onClick={() => {
-            navigate('./changePassword');
+            navigate('/changePassword');
           }}
         >
           修改密码
