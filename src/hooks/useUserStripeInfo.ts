@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import IStripe, { IStripeSubscriptionInfo } from '../gpt-ai-flow-common/interface-app/IStripe';
 import { EStripeSubscriptionStatus } from '../gpt-ai-flow-common/enum-app/EStripeSubscription';
-import TBackendStripe from '../tools/3_unit/TBackendStripe';
 import IStripeFile from '../gpt-ai-flow-common/interface-app/IStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
+import { getSubscriptionNicknameAndStatusAction } from '../store/actions/stripeActions';
+import { IReduxRootState } from '../store/reducer';
 
 interface useUserStripeinfo_input {
   userId: number;
@@ -24,9 +26,13 @@ export const useUserStripeinfo = (
     hasNoAvailableSubscription: Boolean;
   };
 } => {
-  const userStripeSubscritptionInfoFromStore: IStripeSubscriptionInfo = IStripeFile.IStripeSubscriptionInfo_default; // @DEVELOP
-
   const { userId, stripeCustomerId, accessToken } = props;
+
+  const dispatch = useDispatch();
+
+  const userStripeSubscritptionInfoFromStore: IStripeSubscriptionInfo = useSelector((state: IReduxRootState) => {
+    return state.stripe ?? IStripeFile.IStripeSubscriptionInfo_default;
+  });
 
   const [stripeSubscriptionInfo, setStripeSubscriptionInfo] = useState<IStripeSubscriptionInfo>(
     userStripeSubscritptionInfoFromStore ?? IStripe.IStripeSubscriptionInfo_default
@@ -47,11 +53,13 @@ export const useUserStripeinfo = (
       return IStripeFile.IStripeSubscriptionInfo_default;
     }
 
-    const stripeResult: IStripeSubscriptionInfo = await TBackendStripe.getSubscriptionNicknameAndStatus(
-      userId.toString(),
-      stripeCustomerId,
-      accessToken,
-      CONSTANTS_GPT_AI_FLOW_COMMON
+    const stripeResult: IStripeSubscriptionInfo = await dispatch(
+      getSubscriptionNicknameAndStatusAction(
+        userId.toString(),
+        stripeCustomerId,
+        accessToken,
+        CONSTANTS_GPT_AI_FLOW_COMMON
+      ) as any
     );
 
     if (!stripeResult) {
@@ -66,7 +74,7 @@ export const useUserStripeinfo = (
 
   useEffect(() => {
     init();
-  }, []);
+  }, [stripeCustomerId]);
 
   useEffect(() => {
     // window.electron.store.set(STORE_USER_STRIPE_SUBSCRIPTION_INFO, stripeSubscriptionInfo);
