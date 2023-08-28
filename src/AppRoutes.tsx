@@ -2,11 +2,11 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { CounterComponent } from './CounterComponent';
-import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
-import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_2_login';
-import { SettingsWindow_2_user_3_info } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_3_info';
-import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
-import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
+import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
+import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_2_login';
+import { SettingsWindow_2_user_3_info } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_3_info';
+import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
+import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
 export const AppRoutes = () => {
   const router = createBrowserRouter([
