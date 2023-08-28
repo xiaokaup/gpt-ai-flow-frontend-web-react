@@ -12,6 +12,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/con
 // import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 // import { STORE_USER } from "../../../../tools/4_base/TConstant";
 // import { EUserPageCase } from ".";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface ISettingsWindow_2_user_2_login_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
@@ -20,6 +21,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   // const { setPageCase } = props;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
@@ -28,9 +30,8 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       );
 
       console.log('userInfo', userInfo);
-      // Set userInfo in store
-      // window.electron.store.set(STORE_USER, userAndTokenData);
-      // setPageCase(EUserPageCase.INFO);
+
+      navigate('/info');
     } catch (error: any) {
       message.error({
         content: error?.message,

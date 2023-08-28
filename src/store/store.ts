@@ -7,6 +7,11 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { isProd } from '../gpt-ai-flow-common/config/constantGptAiFlow';
 
+export interface IAction {
+  type: string;
+  payload?: any;
+}
+
 const rootReducer = createRootReducer();
 
 const persistConfig = {
