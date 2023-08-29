@@ -3,7 +3,7 @@ import '../../../../styles/layout.scss';
 
 import paymentPageDemo from '../../../../../assets/presentation/2023-08-23-payment-page.png';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 
 import { Alert, Button } from 'antd';
@@ -13,6 +13,8 @@ import { useUserInfo } from '../../../../hooks/useUserInfo';
 import { useUserStripeinfo } from '../../../../hooks/useUserStripeInfo';
 import { SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TStripeConstantFile from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import { EStripeSubscriptionPeriod } from '../../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 
 export const SettingsWindow_4_proMode = () => {
   const { userData } = useUserInfo();
@@ -40,6 +42,18 @@ export const SettingsWindow_4_proMode = () => {
     stripeCustomerId,
     accessToken: userAccessToken,
   });
+
+  const [subscriptionName, setSubscriptionName] = useState<string>('');
+
+  useEffect(() => {
+    const stripePriceListAllPeriod = TStripeConstantFile.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV);
+
+    const stripePriceListCurrentPeriod =
+      stripePriceListAllPeriod[stripeSubscriptionInfo?.period ?? EStripeSubscriptionPeriod.NONE];
+    const userSubscriptionName =
+      stripePriceListCurrentPeriod?.find((item) => item.priceId === stripeSubscriptionInfo?.priceId)?.name ?? '';
+    setSubscriptionName(userSubscriptionName);
+  }, [stripeSubscriptionInfo.name]);
 
   return (
     <div
@@ -81,9 +95,14 @@ export const SettingsWindow_4_proMode = () => {
           </div>
 
           <div className="row">
-            套餐名称: {stripeSubscriptionInfo?.name}
+            套餐名称: {subscriptionName}
+            <br />
+            套餐时长: {stripeSubscriptionInfo?.period}
+            <br />
+            套餐版本: {stripeSubscriptionInfo?.version}
             <br />
             套餐状态: {stripeSubscriptionInfo?.status}
+            <br />
           </div>
 
           <div className="row">
