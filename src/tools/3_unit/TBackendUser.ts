@@ -2,6 +2,7 @@ import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 import { fetchWithRetry } from '../../tools/4_base/TRequest';
 import { getApiKeyHeadersForNodeBackend } from '../../tools/2_component/TAuth';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { message } from 'antd';
 
 // === Request - start ===
 export const getUser = async (
@@ -22,9 +23,14 @@ export const getUser = async (
   })
     .then((res) => res.json())
     .then((data) => {
+      if (!data.results) {
+        throw new Error(data.message || '请重新登录用户');
+      }
+
       return data.results;
     })
     .catch((error) => {
+      message.error(error.message);
       console.log('error', error);
     });
 

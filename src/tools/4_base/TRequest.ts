@@ -9,7 +9,7 @@ export const fetchWithRetry = async (
 ): Promise<any | Response> => {
   let remains = retry;
   if (remains === null || remains === undefined) {
-    remains = 3;
+    remains = 3; // 初始尝试次数
   }
 
   try {
