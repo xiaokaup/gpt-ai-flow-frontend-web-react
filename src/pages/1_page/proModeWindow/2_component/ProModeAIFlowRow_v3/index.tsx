@@ -18,6 +18,7 @@ import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 import { useUserInfo } from '../../../../../hooks/useUserInfo';
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 const { TextArea } = Input;
 
@@ -51,6 +52,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
+  const [isTextInputAsText, setIsTextInputAsText] = useState<boolean>(false);
 
   const onInputContentTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log('Change:', e.target.value);
@@ -160,30 +162,34 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     // === buildPrompt - init command for this ${index} - start ===
     const oneInstructionOuputIndicatorCommand = paraInstructionInputCCommandList[index];
 
-    let resquestContentForIndex = '';
+    let resquestContentForThisIndex = '';
 
     if (oneInstructionOuputIndicatorCommand.aiFlowInstance.value) {
-      resquestContentForIndex += oneInstructionOuputIndicatorCommand.aiFlowInstance.value;
+      resquestContentForThisIndex += oneInstructionOuputIndicatorCommand.aiFlowInstance.value;
     }
     // === buildPrompt - init command for this ${index} - end ===
 
     // === buildPrompt - first command - start ===
     if (index === 0) {
-      if (textInputContent) {
-        resquestContentForIndex += `\n---\n${textInputContent}`;
+      if (textInputContent && isTextInputAsText) {
+        resquestContentForThisIndex += `\n---\n文本:"""\n${textInputContent}\n"""`;
+      }
+
+      if (textInputContent && !isTextInputAsText) {
+        resquestContentForThisIndex += `\n---\n${textInputContent}`;
       }
 
       results.push({
         role: EAIFlowRole.USER,
-        content: resquestContentForIndex,
+        content: resquestContentForThisIndex,
       });
 
       return results;
     }
     // === buildPrompt - first command - end ===
 
-    // === buildPrompt - from second command - start ===
-    // === buildPrompt - from second command - Add Previous history - start ===
+    // === buildPrompt - for the rest commands - start ===
+    // Add Previous history - start
     for (let i = 0; i < index; i++) {
       const oneInstructionOuputIndicatorCommandLoop = paraInstructionInputCCommandList[i];
 
@@ -205,13 +211,21 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         });
       }
     }
-    // === buildPrompt - from second command - Add Previous history - end ===
+    // Add Previous history - end
+
+    if (textInputContent && isTextInputAsText) {
+      resquestContentForThisIndex += `\n---\n文本:"""\n${textInputContent}\n"""`;
+    }
+
+    if (textInputContent && !isTextInputAsText) {
+      resquestContentForThisIndex += `\n---\n${textInputContent}`;
+    }
 
     results.push({
       role: EAIFlowRole.USER,
-      content: resquestContentForIndex,
+      content: resquestContentForThisIndex,
     });
-    // === buildPrompt - from second command - end ===
+    // === buildPrompt - for the rest commands - end ===
 
     return results;
   };
@@ -331,16 +345,29 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           </Button> */}
           </div>
           <div className="row">
-            <TextArea
-              name="inputContent"
-              // showCount
-              // maxLength={100}
-              rows={6}
-              // style={{ height: 120, marginBottom: 24 }}
-              value={textInputContent}
-              onChange={onInputContentTextAreaChange}
-              placeholder="根据此段内容运行指令"
-            />
+            <div>
+              <TextArea
+                name="inputContent"
+                // showCount
+                // maxLength={100}
+                rows={6}
+                // style={{ height: 120, marginBottom: 24 }}
+                value={textInputContent}
+                onChange={onInputContentTextAreaChange}
+                placeholder="根据此段内容运行指令"
+              />
+            </div>
+            <div>
+              <Checkbox
+                value={isTextInputAsText}
+                onChange={(e: CheckboxChangeEvent) => {
+                  console.log(`checked = ${e.target.checked}`);
+                  setIsTextInputAsText(e.target.checked);
+                }}
+              >
+                作为文本
+              </Checkbox>
+            </div>
           </div>
         </div>
       </div>
