@@ -9,6 +9,44 @@ interface Layout_input {
   children: React.ReactNode;
 }
 
+const AppMenu = (props: { isAuthenticated: boolean }) => {
+  const { isAuthenticated } = props;
+  return (
+    <Menu
+      theme="dark"
+      mode="horizontal"
+      // defaultSelectedKeys={['1']}
+    >
+      <Menu.Item key="official-website">
+        <Link to="https://www.gptaiflow.com/">官网</Link>
+      </Menu.Item>
+      {!isAuthenticated && (
+        <>
+          <Menu.Item key="1">
+            <Link to="/login">登录</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/signUp">注册</Link>
+          </Menu.Item>
+        </>
+      )}
+      {isAuthenticated && (
+        <>
+          <Menu.Item key="3">
+            <Link to="/proMode">专业模式</Link>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Link to="/info">用户</Link>
+          </Menu.Item>
+        </>
+      )}
+      <Menu.Item key="proMode-doc">
+        <Link to="https://www.gptaiflow.com/docs/proudct/proMode-presentation">文档</Link>
+      </Menu.Item>
+    </Menu>
+  );
+};
+
 export const AppLayout = (props: Layout_input) => {
   const { children } = props;
 
@@ -19,35 +57,8 @@ export const AppLayout = (props: Layout_input) => {
       {/* Header */}
       <Header>
         <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          // defaultSelectedKeys={['1']}
-        >
-          <Menu.Item key="official-website">
-            <Link to="https://www.gptaiflow.com/">官网</Link>
-          </Menu.Item>
-          {!isAuthenticated && (
-            <>
-              <Menu.Item key="1">
-                <Link to="/login">登录</Link>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Link to="/signUp">注册</Link>
-              </Menu.Item>
-            </>
-          )}
-          {isAuthenticated && (
-            <>
-              <Menu.Item key="3">
-                <Link to="/proMode">专业模式</Link>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Link to="/info">用户</Link>
-              </Menu.Item>
-            </>
-          )}
-        </Menu>
+
+        <AppMenu isAuthenticated={isAuthenticated} />
       </Header>
 
       {/* Body/Content */}
@@ -71,35 +82,7 @@ export const AppLayoutCenter = (props: Layout_input) => {
       {/* Header */}
       <Header>
         <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          // defaultSelectedKeys={['1']}
-        >
-          <Menu.Item key="official-website">
-            <Link to="https://www.gptaiflow.com/">官网</Link>
-          </Menu.Item>
-          {!isAuthenticated && (
-            <>
-              <Menu.Item key="1">
-                <Link to="/login">登录</Link>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Link to="/signUp">注册</Link>
-              </Menu.Item>
-            </>
-          )}
-          {isAuthenticated && (
-            <>
-              <Menu.Item key="3">
-                <Link to="/proMode">专业模式</Link>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Link to="/info">用户</Link>
-              </Menu.Item>
-            </>
-          )}
-        </Menu>
+        <AppMenu isAuthenticated={isAuthenticated} />
       </Header>
 
       {/* Body/Content */}
