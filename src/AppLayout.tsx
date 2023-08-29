@@ -24,6 +24,9 @@ export const AppLayout = (props: Layout_input) => {
           mode="horizontal"
           // defaultSelectedKeys={['1']}
         >
+          <Menu.Item key="official-website">
+            <Link to="https://www.gptaiflow.com/">官网</Link>
+          </Menu.Item>
           {!isAuthenticated && (
             <>
               <Menu.Item key="1">
@@ -73,6 +76,9 @@ export const AppLayoutCenter = (props: Layout_input) => {
           mode="horizontal"
           // defaultSelectedKeys={['1']}
         >
+          <Menu.Item key="official-website">
+            <Link to="https://www.gptaiflow.com/">官网</Link>
+          </Menu.Item>
           {!isAuthenticated && (
             <>
               <Menu.Item key="1">
