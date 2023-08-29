@@ -40,7 +40,7 @@ export const SettingsWindow_1_local_basic = () => {
   const onSaveLocalSettings = () => {
     dispatch(
       saveLocalAction({
-        openAIApiKey,
+        openAIApiKey: openAIApiKey.trim(),
         chatMode: {
           model_type: chatModeModelType,
         },
