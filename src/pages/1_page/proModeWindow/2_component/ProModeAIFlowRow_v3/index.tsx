@@ -213,6 +213,14 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     }
     // Add Previous history - end
 
+    if (textInputContent && isTextInputAsText) {
+      resquestContentForThisIndex += `\n---\n文本:"""\n${textInputContent}\n"""`;
+    }
+
+    if (textInputContent && !isTextInputAsText) {
+      resquestContentForThisIndex += `\n---\n${textInputContent}`;
+    }
+
     results.push({
       role: EAIFlowRole.USER,
       content: resquestContentForThisIndex,
