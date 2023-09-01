@@ -1,5 +1,6 @@
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
+import './index.scss';
 
 import React, { useEffect, useState } from 'react';
 
@@ -312,8 +313,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 指令集输出结果部分 - end ===
 
   return (
-    <div className="row" style={{ display: 'flex', alignItems: 'stretch' }}>
-      <div className="column" style={{ flex: '1 1 30%' }}>
+    <div className="row proModeAiFlowRow_v3_container" style={{ display: 'flex', alignItems: 'stretch' }}>
+      <div className="left_side_user_input_column column" style={{ flex: '1 1 30%' }}>
         <div className="row">
           <InstructionInputColumn_v3
             defaultInstructionAiCommands={defaulInstructionAiCommands}
@@ -371,7 +372,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           </div>
         </div>
       </div>
-      <div className="column" style={{ flex: '1 1 70%' }}>
+      <div className="right_side_results_column column" style={{ flex: '1 1 70%' }}>
         <OutputResultColumn_v3
           // Call requests
           stopInstructionAIFlowResults={stopInstructionAIFlowResults}

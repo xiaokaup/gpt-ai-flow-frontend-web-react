@@ -1,0 +1,11 @@
+.proModeAiFlowRow_v3_container {
+  @media (max-width: 576px) {
+    flex-wrap: wrap;
+  }
+}
+
+.proModeAiFlowRow_v3_container .right_side_results_column {
+  @media (max-width: 576px) {
+    margin-top: '2rem';
+  }
+}

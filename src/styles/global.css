@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 html,
 body,
 #root1,
@@ -7,6 +11,14 @@ body,
 .drag-region,
 .container {
   height: 100%;
+}
+
+.container {
+  margin: auto;
+
+  @media (min-width: 1836px) {
+    max-width: 1680px;
+  }
 }
 
 * {

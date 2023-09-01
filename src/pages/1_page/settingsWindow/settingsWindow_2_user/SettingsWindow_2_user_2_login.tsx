@@ -1,26 +1,19 @@
 import '../../../../styles/global.css';
 
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
-import TSettingsWindow_2_userFile from './TSettingsWindow_2_user';
-import { useDispatch } from 'react-redux';
+
 import { authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-// import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-// import { STORE_USER } from "../../../../tools/4_base/TConstant";
-// import { EUserPageCase } from ".";
-import { useNavigate, useLocation } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../../../hooks/useUserInfo';
 
-interface ISettingsWindow_2_user_2_login_input {
-  // setPageCase: (paraPageCase: EUserPageCase) => void;
-}
+interface ISettingsWindow_2_user_2_login_input {}
 export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
-  // const { setPageCase } = props;
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
