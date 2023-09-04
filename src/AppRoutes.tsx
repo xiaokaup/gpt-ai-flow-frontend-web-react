@@ -10,6 +10,7 @@ import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsW
 import { SettingsWindow_1_local } from './pages/1_page/settingsWindow/settingsWindow_1_local';
 import ProModeWindow from './pages/1_page/proModeWindow';
 import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
+import { SettingsWindow_6_about } from './pages/1_page/settingsWindow/SettingsWindow_6_about';
 
 export const AppRoutes = () => {
   const router = createBrowserRouter([
@@ -52,6 +53,7 @@ export const AppRoutes = () => {
           <SettingsWindow_2_user_3_info />
           <SettingsWindow_1_local />
           <SettingsWindow_4_proMode />
+          <SettingsWindow_6_about />
         </AppLayout>
       ),
     },
