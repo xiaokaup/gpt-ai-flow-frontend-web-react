@@ -16,16 +16,19 @@ import {
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface IProModePage_xiaoHongShu_input {
   userInfo: IUserData;
+  stripeSubscriptionInfo: IStripeSubscriptionInfo;
   PROMODE_DATA: IProMode_v2_xiaoHongShu;
   defaultContextPromptType: EProMode_v2_xiaoHongShu_contextType;
   defaultContextTypesForSelect: EProMode_v2_xiaoHongShu_contextType[];
 }
 
 export const ProModePage_xiaoHongShu = (props: IProModePage_xiaoHongShu_input) => {
-  const { userInfo, PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { userInfo, stripeSubscriptionInfo, PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } =
+    props;
 
   // console.log('props', props);
 
@@ -150,6 +153,7 @@ export const ProModePage_xiaoHongShu = (props: IProModePage_xiaoHongShu_input) =
             <div className="row" key={rowIndex}>
               <ProModeAIFlowRow_v3
                 userInfo={userInfo}
+                stripeSubscriptionInfo={stripeSubscriptionInfo}
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}

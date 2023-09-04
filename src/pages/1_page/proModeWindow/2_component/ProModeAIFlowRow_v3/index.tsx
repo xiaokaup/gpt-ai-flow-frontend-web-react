@@ -21,11 +21,13 @@ import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 const { TextArea } = Input;
 
 interface ProModeAIFlowRow_v3_input {
   userInfo: IUserData;
+  stripeSubscriptionInfo: IStripeSubscriptionInfo;
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
   handledContextPrompt: string;
@@ -36,6 +38,7 @@ interface ProModeAIFlowRow_v3_input {
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const {
     userInfo,
+    stripeSubscriptionInfo: userStripeSubscriptionInfo,
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
     handledContextPrompt,
@@ -255,6 +258,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             // openaiModel: EOpenAiModel.GPT_4,
             openaiModel: proModeModelType,
           },
+          userStripeSubscriptionInfo,
         },
         () => {
           console.log('beforeSendRequestAsStreamFunc');

@@ -1,6 +1,7 @@
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { EStripeSubscriptionVersion } from '../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 import {
   ISendChatGPTRequestToBackend_encrypted_input,
   ISendChatGPTRequestToBackend_input,
@@ -66,7 +67,12 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
     options.signal = signal;
   }
 
-  const response = await fetch(`${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/streamChat`, options);
+  let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChat`;
+  if (data.userStripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL) {
+    url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChatWithOfficialKey`;
+  }
+
+  const response = await fetch(url, options);
 
   if (!response.ok) {
     console.error('Error calling stream-chat API:', response.status, response.statusText);
