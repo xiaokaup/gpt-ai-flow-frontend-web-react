@@ -15,15 +15,20 @@ import {
   EProMode_v2_marketingExpert_contextType,
   IProMode_v2_marketingExpert,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_marketingExpert';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface IProModePage_copyWriting_input {
+  userInfo: IUserData;
+  stripeSubscriptionInfo: IStripeSubscriptionInfo;
   PROMODE_DATA: IProMode_v2_marketingExpert;
   defaultContextPromptType: EProMode_v2_marketingExpert_contextType;
   defaultContextTypesForSelect: EProMode_v2_marketingExpert_contextType[];
 }
 
 export const ProModePage_marketingExpert = (props: IProModePage_copyWriting_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { userInfo, stripeSubscriptionInfo, PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } =
+    props;
 
   // console.log('props', props);
 
@@ -147,6 +152,8 @@ export const ProModePage_marketingExpert = (props: IProModePage_copyWriting_inpu
           return (
             <div className="row" key={rowIndex}>
               <ProModeAIFlowRow_v3
+                userInfo={userInfo}
+                stripeSubscriptionInfo={stripeSubscriptionInfo}
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}

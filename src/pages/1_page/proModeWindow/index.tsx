@@ -28,14 +28,14 @@ type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
   // === Stripe subscription - start ===
-  const { userData, isBetaUser } = useUserInfo();
+  const { userData: userInfo, isBetaUser } = useUserInfo();
   const {
     id: userId,
     stripeCustomerId,
     token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
     userRoles = [],
     userRolePermissions = [],
-  } = userData;
+  } = userInfo;
 
   if (!userId) {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
@@ -52,13 +52,7 @@ const ProModeWindow = () => {
 
   const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
 
-  if (
-    ([EStripeSubscriptionName.START_AI, EStripeSubscriptionName.EXPERT_AI, EStripeSubscriptionName.MASTER_AI].includes(
-      stripeSubscriptionInfo.name
-    ) &&
-      hasAvailableSubscription) ||
-    isBetaUser
-  ) {
+  if (hasAvailableSubscription || isBetaUser) {
     userRolePermissionsWithStripeSubscriptionInfo.push(
       ...CONSTANTS_GPT_AI_FLOW_COMMON.PROMODE_PAYMENT_PROMODE_PERMISSIONS
     );
@@ -66,6 +60,8 @@ const ProModeWindow = () => {
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
+    userInfo,
+    stripeSubscriptionInfo,
     userRolePermissionsWithStripeSubscriptionInfo,
   });
   // === ProMode Data - end ===
@@ -74,13 +70,7 @@ const ProModeWindow = () => {
   const itemFound = defaultTabPanels.find((item) => item.value === EUserRolePermissionDB_name.COMMUNICATION);
   itemFound && userDefaultTabs.push(itemFound);
 
-  if (
-    ([EStripeSubscriptionName.START_AI, EStripeSubscriptionName.EXPERT_AI, EStripeSubscriptionName.MASTER_AI].includes(
-      stripeSubscriptionInfo.name
-    ) &&
-      hasAvailableSubscription) ||
-    isBetaUser
-  ) {
+  if (hasAvailableSubscription || isBetaUser) {
     const itemsFound = defaultTabPanels.filter((item) => item.value !== EUserRolePermissionDB_name.COMMUNICATION);
     userDefaultTabs.push(...itemsFound);
   }
@@ -177,7 +167,7 @@ const ProModeWindow = () => {
                 value: '',
                 label: '请选择',
               },
-              ...defaultTabPanels.map((item) => {
+              ...defaultTabPanels.map((item: { value: string; label: string }) => {
                 return {
                   value: item.value,
                   label: item.label,

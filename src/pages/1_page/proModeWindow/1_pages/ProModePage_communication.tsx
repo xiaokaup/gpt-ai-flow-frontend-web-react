@@ -15,15 +15,20 @@ import {
   IProMode_v2_communication,
   EProMode_v2_communication_contextType,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_communication';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface IProModePage_communication_input {
+  userInfo: IUserData;
+  stripeSubscriptionInfo: IStripeSubscriptionInfo;
   PROMODE_DATA: IProMode_v2_communication;
   defaultContextPromptType: EProMode_v2_communication_contextType;
   defaultContextTypesForSelect: EProMode_v2_communication_contextType[];
 }
 
 export const ProModePage_communication = (props: IProModePage_communication_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { userInfo, stripeSubscriptionInfo, PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } =
+    props;
 
   // console.log('props', props);
 
@@ -147,6 +152,8 @@ export const ProModePage_communication = (props: IProModePage_communication_inpu
           return (
             <div className="row" key={rowIndex}>
               <ProModeAIFlowRow_v3
+                userInfo={userInfo}
+                stripeSubscriptionInfo={stripeSubscriptionInfo}
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}

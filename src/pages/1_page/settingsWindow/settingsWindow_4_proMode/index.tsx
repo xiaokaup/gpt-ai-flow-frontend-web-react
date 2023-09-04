@@ -13,7 +13,7 @@ import { useUserInfo } from '../../../../hooks/useUserInfo';
 import { useUserStripeinfo } from '../../../../hooks/useUserStripeInfo';
 import { SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TStripeConstantFile from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import TStripeConstantFile, { ECurrencySymbol } from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import { EStripeSubscriptionPeriod } from '../../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 
 export const SettingsWindow_4_proMode = () => {
@@ -43,17 +43,21 @@ export const SettingsWindow_4_proMode = () => {
     accessToken: userAccessToken,
   });
 
+  const [currencySymbol, setCurrencySymbol] = useState<ECurrencySymbol>(ECurrencySymbol.EUR);
   const [subscriptionName, setSubscriptionName] = useState<string>('');
 
   useEffect(() => {
-    const stripePriceListAllPeriod = TStripeConstantFile.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV);
+    const stripePriceListAllPeriod = TStripeConstantFile.getStripePrices(
+      CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV,
+      currencySymbol
+    );
 
     const stripePriceListCurrentPeriod =
       stripePriceListAllPeriod[stripeSubscriptionInfo?.period ?? EStripeSubscriptionPeriod.NONE];
     const userSubscriptionName =
       stripePriceListCurrentPeriod?.find((item) => item.priceId === stripeSubscriptionInfo?.priceId)?.name ?? '';
     setSubscriptionName(userSubscriptionName);
-  }, [stripeSubscriptionInfo.name]);
+  }, [stripeSubscriptionInfo.name, currencySymbol]);
 
   return (
     <div
@@ -133,6 +137,8 @@ export const SettingsWindow_4_proMode = () => {
                   stripeCustomerId={stripeCustomerId}
                   accessToken={userAccessToken}
                   initStripeSubscriptionInfo={initStripeSubscriptionInfo}
+                  currencySymbol={currencySymbol}
+                  setCurrencySymbol={setCurrencySymbol}
                 />
               )}
             </div>
