@@ -167,7 +167,7 @@ const ProModeWindow = () => {
                 value: '',
                 label: '请选择',
               },
-              ...defaultTabPanels.map((item) => {
+              ...defaultTabPanels.map((item: { value: string; label: string }) => {
                 return {
                   value: item.value,
                   label: item.label,

@@ -120,8 +120,8 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.SEO,
       children: (
         <ProModePage_seo
-          userInfo={user
-            stripeSubscriptionInfo={stripeSubscriptionInfo}Info}
+          userInfo={userInfo}
+          stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_SEO_DATA}
           defaultContextPromptType={EProMode_v2_seo_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_seo_contextType)}
@@ -135,8 +135,8 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.COMMENT,
       children: (
         <ProModePage_comment
-          userInfo={userInfo
-          stripeSubscriptionInfo={stripeSubscriptionInfo}}
+          userInfo={userInfo}
+          stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_COMMENT_DATA}
           defaultContextPromptType={EProMode_v2_comment_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_comment_contextType)}
@@ -150,8 +150,8 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.CAREER,
       children: (
         <ProModePage_career
-          userInfo={userInf
-            stripeSubscriptionInfo={stripeSubscriptionInfo}o}
+          userInfo={userInfo}
+          stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_CAREER_DATA}
           defaultContextPromptType={EProMode_v2_career_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_career_contextType)}
@@ -180,8 +180,8 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.VIDEO_PRODUCTION,
       children: (
         <ProModePage_upZhu
-          userInfo={userIn
-            stripeSubscriptionInfo={stripeSubscriptionInfo}fo}
+          userInfo={userInfo}
+          stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
           defaultContextPromptType={EProMode_v2_upZhu_contextType.TECH_AND_KNOWLEDGE}
           defaultContextTypesForSelect={Object.values(EProMode_v2_upZhu_contextType)}

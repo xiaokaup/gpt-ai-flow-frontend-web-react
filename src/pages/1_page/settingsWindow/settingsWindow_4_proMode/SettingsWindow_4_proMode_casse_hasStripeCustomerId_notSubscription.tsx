@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Card, message } from 'antd';
-import TStripeConstant from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import TStripeConstant, { ECurrencySymbol } from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import TBackendStripe from '../../../../tools/3_unit/TBackendStripe';
 import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -10,12 +10,15 @@ interface SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription_inp
   stripeCustomerId: string;
   accessToken: string;
   initStripeSubscriptionInfo: () => Promise<IStripeSubscriptionInfo>;
+  currencySymbol: ECurrencySymbol;
+  setCurrencySymbol: (newCurrencySymbol: ECurrencySymbol) => void;
 }
 export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription = (
   props: SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription_input
 ) => {
-  const { userId, stripeCustomerId, accessToken, initStripeSubscriptionInfo } = props;
-  const stripePrices = TStripeConstant.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON);
+  const { userId, stripeCustomerId, accessToken, initStripeSubscriptionInfo, currencySymbol, setCurrencySymbol } =
+    props;
+  const stripePrices = TStripeConstant.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON, currencySymbol);
 
   const [hasClickedCreateSubscription, setHasClickedCreateSubscription] = useState(false);
 
