@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 
 import { Tabs, TabsProps } from 'antd';
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
+import { useUserInfo } from '../../../../hooks/useUserInfo';
+import { useUserStripeinfo } from '../../../../hooks/useUserStripeInfo';
+import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
@@ -9,6 +12,32 @@ enum ESettingsWindow_1_local_tabKey {
 }
 
 export const SettingsWindow_1_local = () => {
+  const { userData } = useUserInfo();
+  const {
+    id: userId,
+    email: userEmail,
+    token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
+    stripeCustomerId = '',
+  } = userData;
+
+  if (!userId) {
+    return (
+      <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+        请先注册用户并登录
+      </div>
+    );
+  }
+
+  const {
+    init: initStripeSubscriptionInfo,
+    stripeSubscriptionInfo,
+    check: { hasAvailableSubscription, hasNoAvailableSubscription },
+  } = useUserStripeinfo({
+    userId,
+    stripeCustomerId,
+    accessToken: userAccessToken,
+  });
+
   const [selectedTabKey, setSelectedTabKey] = useState<ESettingsWindow_1_local_tabKey>(
     ESettingsWindow_1_local_tabKey.BASIC
   );
@@ -17,7 +46,7 @@ export const SettingsWindow_1_local = () => {
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: `基本`,
-      children: <SettingsWindow_1_local_basic />,
+      children: <SettingsWindow_1_local_basic stripeSubscriptionInfo={stripeSubscriptionInfo} />,
     },
   ];
 

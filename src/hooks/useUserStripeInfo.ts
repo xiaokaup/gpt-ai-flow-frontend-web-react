@@ -35,7 +35,8 @@ export const useUserStripeinfo = (
 
   const [stripeSubscriptionInfo, setStripeSubscriptionInfo] = useState<IStripeSubscriptionInfo>(
     userStripeSubscritptionInfoFromStore ?? IStripeFile.IStripeSubscriptionInfo_default
-    // IStripeFile.IStripeSubscriptionInfo_default_payed_startAI // 付费版
+    // IStripeFile.IStripeSubscriptionInfo_default_payed_startAI_tool // 付费工具版
+    // IStripeFile.IStripeSubscriptionInfo_default_payed_startAI_officialModal // 付费模型版
   );
 
   const hasAvailableSubscription =
