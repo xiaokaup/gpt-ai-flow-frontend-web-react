@@ -50,12 +50,14 @@ import { ProModePage_career } from './1_pages/ProModePage_career';
 import { ProModePage_upZhu } from './1_pages/ProModePage_upZhu';
 import { ProModePage_productManager } from './1_pages/ProModePage_productManager';
 import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpert';
+import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 
 interface useProModeSetDataUI_input {
+  userInfo: IUserData;
   userRolePermissionsWithStripeSubscriptionInfo: string[];
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
-  const { userRolePermissionsWithStripeSubscriptionInfo } = props;
+  const { userInfo, userRolePermissionsWithStripeSubscriptionInfo } = props;
 
   const { proModeSetData: proModeSetFromStore } = useProModeSetData();
 
@@ -86,6 +88,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.COPY_WRITING,
       children: (
         <ProModePage_copyWriting
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_COPY_WRITING_DATA}
           defaultContextPromptType={EProMode_v2_copyWriting_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_copyWriting_contextType)}
@@ -99,6 +102,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.XIAO_HONG_SHU,
       children: (
         <ProModePage_xiaoHongShu
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_XIAO_HONG_SHU_DATA}
           defaultContextPromptType={EProMode_v2_xiaoHongShu_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_xiaoHongShu_contextType)}
@@ -112,6 +116,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.SEO,
       children: (
         <ProModePage_seo
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_SEO_DATA}
           defaultContextPromptType={EProMode_v2_seo_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_seo_contextType)}
@@ -125,6 +130,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.COMMENT,
       children: (
         <ProModePage_comment
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_COMMENT_DATA}
           defaultContextPromptType={EProMode_v2_comment_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_comment_contextType)}
@@ -138,6 +144,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.CAREER,
       children: (
         <ProModePage_career
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_CAREER_DATA}
           defaultContextPromptType={EProMode_v2_career_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_career_contextType)}
@@ -151,6 +158,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.COMMUNICATION,
       children: (
         <ProModePage_communication
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
           defaultContextPromptType={EProMode_v2_communication_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_communication_contextType)}
@@ -164,6 +172,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.VIDEO_PRODUCTION,
       children: (
         <ProModePage_upZhu
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
           defaultContextPromptType={EProMode_v2_upZhu_contextType.TECH_AND_KNOWLEDGE}
           defaultContextTypesForSelect={Object.values(EProMode_v2_upZhu_contextType)}
@@ -177,6 +186,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.PRODUCT,
       children: (
         <ProModePage_productManager
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_UP_PRODUCT_MANAGER}
           defaultContextPromptType={EProMode_v2_productManager_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_productManager_contextType)}
@@ -190,6 +200,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EUserRolePermissionDB_name.MARKETING,
       children: (
         <ProModePage_marketingExpert
+          userInfo={userInfo}
           PROMODE_DATA={PROMODE_UP_MARKETING_EXPERT}
           defaultContextPromptType={EProMode_v2_marketingExpert_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.values(EProMode_v2_marketingExpert_contextType)}

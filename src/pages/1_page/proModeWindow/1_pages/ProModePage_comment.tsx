@@ -15,15 +15,17 @@ import {
   IProMode_v2_comment,
   EProMode_v2_comment_contextType,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_comment';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 
 interface IProModePage_comment_input {
+  userInfo: IUserData;
   PROMODE_DATA: IProMode_v2_comment;
   defaultContextPromptType: EProMode_v2_comment_contextType;
   defaultContextTypesForSelect: EProMode_v2_comment_contextType[];
 }
 
 export const ProModePage_comment = (props: IProModePage_comment_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { userInfo, PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
 
   // console.log('props', props);
 
@@ -146,6 +148,7 @@ export const ProModePage_comment = (props: IProModePage_comment_input) => {
           return (
             <div className="row" key={rowIndex}>
               <ProModeAIFlowRow_v3
+                userInfo={userInfo}
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}

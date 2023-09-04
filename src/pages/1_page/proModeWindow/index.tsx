@@ -28,14 +28,14 @@ type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
   // === Stripe subscription - start ===
-  const { userData, isBetaUser } = useUserInfo();
+  const { userData: userInfo, isBetaUser } = useUserInfo();
   const {
     id: userId,
     stripeCustomerId,
     token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
     userRoles = [],
     userRolePermissions = [],
-  } = userData;
+  } = userInfo;
 
   if (!userId) {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
@@ -60,6 +60,7 @@ const ProModeWindow = () => {
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
+    userInfo,
     userRolePermissionsWithStripeSubscriptionInfo,
   });
   // === ProMode Data - end ===

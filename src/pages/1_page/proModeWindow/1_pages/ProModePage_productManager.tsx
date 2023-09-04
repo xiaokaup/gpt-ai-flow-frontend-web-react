@@ -15,15 +15,17 @@ import {
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 
 interface IProModePage_copyWriting_input {
+  userInfo: IUserData;
   PROMODE_DATA: IProMode_v2_productManager;
   defaultContextPromptType: EProMode_v2_productManager_contextType;
   defaultContextTypesForSelect: EProMode_v2_productManager_contextType[];
 }
 
 export const ProModePage_productManager = (props: IProModePage_copyWriting_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { userInfo, PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
 
   // console.log('props', props);
 
@@ -147,6 +149,7 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
           return (
             <div className="row" key={rowIndex}>
               <ProModeAIFlowRow_v3
+                userInfo={userInfo}
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}

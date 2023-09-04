@@ -15,15 +15,17 @@ import {
   IProMode_v2_copyWriting,
   EProMode_v2_copyWriting_contextType,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_copyWriting';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 
 interface IProModePage_copyWriting_input {
+  userInfo: IUserData;
   PROMODE_DATA: IProMode_v2_copyWriting;
   defaultContextPromptType: EProMode_v2_copyWriting_contextType;
   defaultContextTypesForSelect: EProMode_v2_copyWriting_contextType[];
 }
 
 export const ProModePage_copyWriting = (props: IProModePage_copyWriting_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { userInfo, PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
 
   // console.log('props', props);
 
@@ -147,6 +149,7 @@ export const ProModePage_copyWriting = (props: IProModePage_copyWriting_input) =
           return (
             <div className="row" key={rowIndex}>
               <ProModeAIFlowRow_v3
+                userInfo={userInfo}
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}
