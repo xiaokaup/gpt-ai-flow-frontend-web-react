@@ -1,15 +1,14 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-shadow */
-
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { EStripeSubscriptionVersion } from '../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 import {
   ISendChatGPTRequestToBackend_encrypted_input,
   ISendChatGPTRequestToBackend_input,
   ISendChatGPTRequestToBackend_ouput,
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
+import TLimitFile from '../../gpt-ai-flow-common/tools/TLimit';
 import { getApiKeyHeadersForNodeBackend } from '../../tools/2_component/TAuth';
 
 // export const sendChatGPTRequestAsJsonToBackendProxy = async (
@@ -69,7 +68,12 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
     options.signal = signal;
   }
 
-  const response = await fetch(`${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/streamChat`, options);
+  let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChat`;
+  if (data.userStripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL) {
+    url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChatWithOfficialKey`;
+  }
+
+  const response = await fetch(url, options);
 
   if (!response.ok) {
     console.error('Error calling stream-chat API:', response.status, response.statusText);
@@ -95,6 +99,7 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
       const text = decoder.decode(value);
 
       resultText += text;
+      resultText = TLimitFile.limitGPTAndOpenAICharacters(resultText);
       updateResultFromRequestAsStreamFunc(resultText);
     }
 
@@ -127,7 +132,12 @@ export const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = as
     } as ISendChatGPTRequestToBackend_encrypted_input),
   };
 
-  const response = await fetch(`${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/generateResume`, options);
+  let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResume`;
+  if (data.userStripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL) {
+    url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResumeWithOfficialKey`;
+  }
+
+  const response = await fetch(url, options);
 
   const tmp = await response.json();
 

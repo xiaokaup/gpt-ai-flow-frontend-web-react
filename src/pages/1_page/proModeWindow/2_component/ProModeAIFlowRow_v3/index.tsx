@@ -20,10 +20,14 @@ import { useUserInfo } from '../../../../../hooks/useUserInfo';
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 const { TextArea } = Input;
 
 interface ProModeAIFlowRow_v3_input {
+  userInfo: IUserData;
+  stripeSubscriptionInfo: IStripeSubscriptionInfo;
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
   handledContextPrompt: string;
@@ -33,6 +37,8 @@ interface ProModeAIFlowRow_v3_input {
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const {
+    userInfo,
+    stripeSubscriptionInfo: userStripeSubscriptionInfo,
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
     handledContextPrompt,
@@ -47,9 +53,9 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     proMode: { model_type: proModeModelType },
   } = localData;
 
-  const { userData } = useUserInfo();
+  const { id: userId } = userInfo;
 
-  const userAccessToken = userData?.token?.accessToken ?? '';
+  const userAccessToken = userInfo?.token?.accessToken ?? '';
 
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
@@ -245,12 +251,14 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
       const reponseResult: void | ISendChatGPTRequestToBackend_ouput = await sendChatGPTRequestAsStreamToBackendProxy(
         {
+          userId: userId?.toString() ?? '',
           openaiSecret: openAIApiKey,
           prompt: resquestContentPrompt,
           openaiOptions: {
             // openaiModel: EOpenAiModel.GPT_4,
             openaiModel: proModeModelType,
           },
+          userStripeSubscriptionInfo,
         },
         () => {
           console.log('beforeSendRequestAsStreamFunc');

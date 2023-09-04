@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import IStripeFile, { IStripeSubscriptionInfo } from '../gpt-ai-flow-common/interface-app/IStripe';
-import { EStripeSubscriptionStatus } from '../gpt-ai-flow-common/enum-app/EStripeSubscription';
+import { EStripeSubscriptionName, EStripeSubscriptionStatus } from '../gpt-ai-flow-common/enum-app/EStripeSubscription';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
 import { getSubscriptionNicknameAndStatusAction } from '../store/actions/stripeActions';
 import { IReduxRootState } from '../store/reducer';
@@ -35,11 +35,15 @@ export const useUserStripeinfo = (
 
   const [stripeSubscriptionInfo, setStripeSubscriptionInfo] = useState<IStripeSubscriptionInfo>(
     userStripeSubscritptionInfoFromStore ?? IStripeFile.IStripeSubscriptionInfo_default
-    // IStripeFile.IStripeSubscriptionInfo_default_payed_startAI // 付费版
+    // IStripeFile.IStripeSubscriptionInfo_default_payed_startAI_tool // 付费工具版
+    // IStripeFile.IStripeSubscriptionInfo_default_payed_startAI_officialModal // 付费模型版
   );
 
   const hasAvailableSubscription =
     stripeSubscriptionInfo &&
+    [EStripeSubscriptionName.START_AI, EStripeSubscriptionName.EXPERT_AI, EStripeSubscriptionName.MASTER_AI].includes(
+      stripeSubscriptionInfo.name
+    ) &&
     (stripeSubscriptionInfo.status === EStripeSubscriptionStatus.TRIALING ||
       stripeSubscriptionInfo.status === EStripeSubscriptionStatus.ACTIVE);
 

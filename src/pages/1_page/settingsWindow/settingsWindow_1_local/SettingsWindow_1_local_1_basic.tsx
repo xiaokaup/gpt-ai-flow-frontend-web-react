@@ -9,6 +9,8 @@ import { EOpenAiModel } from '../../../../gpt-ai-flow-common/interface-app/IAIFl
 import { IReduxRootState } from '../../../../store/reducer';
 import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
+import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
+import { EStripeSubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 
 const modelTypeOptions = [
   {
@@ -21,8 +23,13 @@ const modelTypeOptions = [
   },
 ];
 
-export const SettingsWindow_1_local_basic = () => {
+interface ISettingsWindow_1_local_basic_input {
+  stripeSubscriptionInfo: IStripeSubscriptionInfo;
+}
+export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
+
+  const { stripeSubscriptionInfo } = props;
 
   const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -54,17 +61,26 @@ export const SettingsWindow_1_local_basic = () => {
   return (
     <div id="SettingsWindow_1_local_1_basic" className="row">
       <div className="row">
-        <label htmlFor="openAIApiKeyInput">
-          OpenAI API key
-          <input
-            type="text"
-            id="openAIApiKeyInput"
-            name="openAIApiKeyInput"
-            value={openAIApiKey ?? ''}
-            onChange={(e) => setOpenAIApiKey(e.target.value)}
-          />
-          <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
-        </label>
+        <div>
+          <label htmlFor="openAIApiKeyInput">
+            OpenAI API key
+            <input
+              type="text"
+              id="openAIApiKeyInput"
+              name="openAIApiKeyInput"
+              value={openAIApiKey ?? ''}
+              onChange={(e) => setOpenAIApiKey(e.target.value)}
+            />
+            <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
+          </label>
+        </div>
+        {stripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL && (
+          <div>
+            <span>
+              你已经选择使用官方的模型解决方案，<b>此处无需填写</b>
+            </span>
+          </div>
+        )}
       </div>
 
       {/* <div className="row" style={{ marginTop: '.75rem' }}>
