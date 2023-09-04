@@ -8,6 +8,7 @@ import {
   ISendChatGPTRequestToBackend_ouput,
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
+import TLimitFile from '../../gpt-ai-flow-common/tools/TLimit';
 import { getApiKeyHeadersForNodeBackend } from '../../tools/2_component/TAuth';
 
 // export const sendChatGPTRequestAsJsonToBackendProxy = async (
@@ -98,6 +99,7 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
       const text = decoder.decode(value);
 
       resultText += text;
+      resultText = TLimitFile.limitGPTAndOpenAICharacters(resultText);
       updateResultFromRequestAsStreamFunc(resultText);
     }
 
@@ -130,7 +132,12 @@ export const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = as
     } as ISendChatGPTRequestToBackend_encrypted_input),
   };
 
-  const response = await fetch(`${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/generateResume`, options);
+  let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResume`;
+  if (data.userStripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL) {
+    url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResumeWithOfficialKey`;
+  }
+
+  const response = await fetch(url, options);
 
   const tmp = await response.json();
 
