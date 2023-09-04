@@ -57,7 +57,7 @@ export const SettingsWindow_4_proMode = () => {
     const userSubscriptionName =
       stripePriceListCurrentPeriod?.find((item) => item.priceId === stripeSubscriptionInfo?.priceId)?.name ?? '';
     setSubscriptionName(userSubscriptionName);
-  }, [stripeSubscriptionInfo.name]);
+  }, [stripeSubscriptionInfo.name, currencySymbol]);
 
   return (
     <div

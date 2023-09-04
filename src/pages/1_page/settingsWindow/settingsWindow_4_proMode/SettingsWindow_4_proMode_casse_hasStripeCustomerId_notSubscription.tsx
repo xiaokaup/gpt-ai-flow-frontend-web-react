@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, message } from 'antd';
+import { Button, Card, Select, message } from 'antd';
 import TStripeConstant, { ECurrencySymbol } from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import TBackendStripe from '../../../../tools/3_unit/TBackendStripe';
 import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
@@ -18,6 +18,7 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
 ) => {
   const { userId, stripeCustomerId, accessToken, initStripeSubscriptionInfo, currencySymbol, setCurrencySymbol } =
     props;
+
   const stripePrices = TStripeConstant.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON, currencySymbol);
 
   const [hasClickedCreateSubscription, setHasClickedCreateSubscription] = useState(false);
@@ -49,103 +50,121 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
     }, 1000);
   };
 
+  const handleCurrencyChange = (value: ECurrencySymbol) => {
+    console.log(`selected ${value}`);
+    setCurrencySymbol(value);
+  };
+
   return (
     <div className="row">
       <div className="row">
-        <h3>月</h3>
-        <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {stripePrices.month.map((onePrice) => {
-            return (
-              <Card
-                key={onePrice.priceId}
-                title={onePrice.name}
-                // extra={<a href="#">More</a>}
-                style={{
-                  width: 300,
-                  marginLeft: '.8rem',
-                  marginBottom: '.8rem',
-                }}
-                bodyStyle={{}}
-                actions={[
-                  <Button
-                    disabled={hasClickedCreateSubscription}
-                    type="primary"
-                    onClick={handleCreateSubscription(onePrice.priceId)}
-                  >
-                    订阅
-                  </Button>,
-                ]}
-              >
-                {onePrice.features.map((oneFeature) => {
-                  return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
-                })}
-              </Card>
-            );
-          })}
-        </div>
+        <Select
+          value={currencySymbol}
+          style={{ width: 120 }}
+          onChange={handleCurrencyChange}
+          options={[
+            { value: ECurrencySymbol.EUR, label: '欧元' },
+            { value: ECurrencySymbol.CNY, label: '人民币' },
+          ]}
+        />
       </div>
       <div className="row">
-        <h3>季度</h3>
-        <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {stripePrices.quarter.map((onePrice) => {
-            return (
-              <Card
-                key={onePrice.priceId}
-                title={onePrice.name}
-                // extra={<a href="#">More</a>}
-                style={{
-                  width: 300,
-                  marginLeft: '.8rem',
-                  marginBottom: '.8rem',
-                }}
-                actions={[
-                  <Button
-                    disabled={hasClickedCreateSubscription}
-                    type="primary"
-                    onClick={handleCreateSubscription(onePrice.priceId)}
-                  >
-                    订阅
-                  </Button>,
-                ]}
-              >
-                {onePrice.features.map((oneFeature) => {
-                  return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
-                })}
-              </Card>
-            );
-          })}
+        <div className="row">
+          <h3>月</h3>
+          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {stripePrices.month.map((onePrice) => {
+              return (
+                <Card
+                  key={onePrice.priceId}
+                  title={onePrice.name}
+                  // extra={<a href="#">More</a>}
+                  style={{
+                    width: 350,
+                    marginLeft: '.8rem',
+                    marginBottom: '.8rem',
+                  }}
+                  bodyStyle={{}}
+                  actions={[
+                    <Button
+                      disabled={hasClickedCreateSubscription}
+                      type="primary"
+                      onClick={handleCreateSubscription(onePrice.priceId)}
+                    >
+                      订阅
+                    </Button>,
+                  ]}
+                >
+                  {onePrice.features.map((oneFeature) => {
+                    return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
+                  })}
+                </Card>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className="row">
-        <h3>年</h3>
-        <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {stripePrices.year.map((onePrice) => {
-            return (
-              <Card
-                key={onePrice.priceId}
-                title={onePrice.name}
-                // extra={<a href="#">More</a>}
-                style={{
-                  width: 300,
-                  marginLeft: '.8rem',
-                  marginBottom: '.8rem',
-                }}
-                actions={[
-                  <Button
-                    disabled={hasClickedCreateSubscription}
-                    type="primary"
-                    onClick={handleCreateSubscription(onePrice.priceId)}
-                  >
-                    订阅
-                  </Button>,
-                ]}
-              >
-                {onePrice.features.map((oneFeature) => {
-                  return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
-                })}
-              </Card>
-            );
-          })}
+        <div className="row">
+          <h3>季度</h3>
+          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {stripePrices.quarter.map((onePrice) => {
+              return (
+                <Card
+                  key={onePrice.priceId}
+                  title={onePrice.name}
+                  // extra={<a href="#">More</a>}
+                  style={{
+                    width: 350,
+                    marginLeft: '.8rem',
+                    marginBottom: '.8rem',
+                  }}
+                  actions={[
+                    <Button
+                      disabled={hasClickedCreateSubscription}
+                      type="primary"
+                      onClick={handleCreateSubscription(onePrice.priceId)}
+                    >
+                      订阅
+                    </Button>,
+                  ]}
+                >
+                  {onePrice.features.map((oneFeature) => {
+                    return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
+                  })}
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+        <div className="row">
+          <h3>年</h3>
+          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {stripePrices.year.map((onePrice) => {
+              return (
+                <Card
+                  key={onePrice.priceId}
+                  title={onePrice.name}
+                  // extra={<a href="#">More</a>}
+                  style={{
+                    width: 350,
+                    marginLeft: '.8rem',
+                    marginBottom: '.8rem',
+                  }}
+                  actions={[
+                    <Button
+                      disabled={hasClickedCreateSubscription}
+                      type="primary"
+                      onClick={handleCreateSubscription(onePrice.priceId)}
+                    >
+                      订阅
+                    </Button>,
+                  ]}
+                >
+                  {onePrice.features.map((oneFeature) => {
+                    return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
+                  })}
+                </Card>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
