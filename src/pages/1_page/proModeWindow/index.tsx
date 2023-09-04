@@ -52,13 +52,7 @@ const ProModeWindow = () => {
 
   const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
 
-  if (
-    ([EStripeSubscriptionName.START_AI, EStripeSubscriptionName.EXPERT_AI, EStripeSubscriptionName.MASTER_AI].includes(
-      stripeSubscriptionInfo.name
-    ) &&
-      hasAvailableSubscription) ||
-    isBetaUser
-  ) {
+  if (hasAvailableSubscription || isBetaUser) {
     userRolePermissionsWithStripeSubscriptionInfo.push(
       ...CONSTANTS_GPT_AI_FLOW_COMMON.PROMODE_PAYMENT_PROMODE_PERMISSIONS
     );
@@ -74,13 +68,7 @@ const ProModeWindow = () => {
   const itemFound = defaultTabPanels.find((item) => item.value === EUserRolePermissionDB_name.COMMUNICATION);
   itemFound && userDefaultTabs.push(itemFound);
 
-  if (
-    ([EStripeSubscriptionName.START_AI, EStripeSubscriptionName.EXPERT_AI, EStripeSubscriptionName.MASTER_AI].includes(
-      stripeSubscriptionInfo.name
-    ) &&
-      hasAvailableSubscription) ||
-    isBetaUser
-  ) {
+  if (hasAvailableSubscription || isBetaUser) {
     const itemsFound = defaultTabPanels.filter((item) => item.value !== EUserRolePermissionDB_name.COMMUNICATION);
     userDefaultTabs.push(...itemsFound);
   }
