@@ -19,8 +19,9 @@ export default {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'formatjs'],
   rules: {
     '@typescript-eslint/semi': 'off',
+    'formatjs/no-offset': 'error',
   },
 };
