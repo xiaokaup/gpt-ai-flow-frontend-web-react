@@ -27,9 +27,13 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
-      const userInfo = await dispatch(
+      const userAndTokenData = await dispatch(
         authLoginByEmailAndPasswordAction(values.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
       );
+
+      if (!userAndTokenData) {
+        throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
+      }
 
       navigate('/proMode');
       window.location.reload();
