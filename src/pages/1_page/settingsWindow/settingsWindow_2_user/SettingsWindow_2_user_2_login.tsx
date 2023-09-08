@@ -11,6 +11,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../../../hooks/useUserInfo';
+import translate from '../../../../i18nProvider/translate';
 
 interface ISettingsWindow_2_user_2_login_input {}
 export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
@@ -64,7 +65,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       }}
     >
       <div className="row">
-        <h2>登录</h2>
+        <h2>{translate('LOGIN')}</h2>
       </div>
       <div className="row block_email_and_password">
         <Form
