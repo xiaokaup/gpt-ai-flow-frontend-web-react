@@ -1,9 +1,11 @@
+import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 import { EOpenAiModel } from '../../gpt-ai-flow-common/interface-app/IAIFlow';
 import { SAVE_LOCAL } from '../actions/localActions';
 import { USER_LOGOUT } from '../actions/userActions';
 import { IAction } from '../store';
 
 const initialState: ILocalReducerState = {
+  locale: ELocale.DEFAULT,
   openAIApiKey: '',
   chatMode: {
     model_type: EOpenAiModel.GPT_3_point_5_TURBO,
@@ -14,6 +16,7 @@ const initialState: ILocalReducerState = {
 };
 
 export interface ILocalReducerState {
+  locale: ELocale;
   openAIApiKey: string;
   chatMode: {
     model_type: EOpenAiModel;

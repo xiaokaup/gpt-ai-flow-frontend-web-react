@@ -47,6 +47,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const onSaveLocalSettings = () => {
     dispatch(
       saveLocalAction({
+        ...localFromStore,
         openAIApiKey: openAIApiKey.trim(),
         chatMode: {
           model_type: chatModeModelType,

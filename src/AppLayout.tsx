@@ -1,7 +1,13 @@
-import React, { useEffect } from 'react';
-import { Layout, Menu } from 'antd';
+import React from 'react';
+import { Dropdown, Layout, Menu, MenuProps } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useUserInfo } from './hooks/useUserInfo';
+import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
+import translate from './i18nProvider/translate';
+import { useLocalInfo } from './hooks/useLocalInfo';
+import { saveLocalAction } from './store/actions/localActions';
+import { useDispatch } from 'react-redux';
 
 const { Header, Content, Footer } = Layout;
 
@@ -11,6 +17,43 @@ interface Layout_input {
 
 const AppMenu = (props: { isAuthenticated: boolean }) => {
   const { isAuthenticated } = props;
+
+  const dispatch = useDispatch();
+
+  const { localData } = useLocalInfo();
+  const { locale } = localData;
+
+  const handleSwithLanguage = (nextLocal: ELocale) => {
+    const newLocalData = { ...localData, locale: nextLocal };
+    dispatch(saveLocalAction(newLocalData) as any);
+    window.location.reload();
+  };
+
+  const items: MenuProps['items'] = [
+    {
+      key: 'en',
+      label: (
+        <div onClick={() => handleSwithLanguage(ELocale.EN)}>
+          <span role="img" aria-label="English">
+            🇺🇸
+          </span>
+          &nbsp;{translate('ENGLISH')}
+        </div>
+      ),
+    },
+    {
+      key: 'zh',
+      label: (
+        <div onClick={() => handleSwithLanguage(ELocale.ZH)}>
+          <span role="img" aria-label="Chinese">
+            🇨🇳
+          </span>
+          &nbsp;{translate('CHINESE')}
+        </div>
+      ),
+    },
+  ];
+
   return (
     <Menu
       theme="dark"
@@ -42,6 +85,15 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       )}
       <Menu.Item key="proMode-doc">
         <Link to="https://www.gptaiflow.com/docs/proudct/proMode-presentation">文档</Link>
+      </Menu.Item>
+      <Menu.Item key="switch-language">
+        <Dropdown menu={{ items }}>
+          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+            {translate(locale.toLocaleUpperCase())}
+            &nbsp;
+            <DownOutlined style={{ position: 'relative', top: 1 }} />
+          </a>
+        </Dropdown>
       </Menu.Item>
     </Menu>
   );
