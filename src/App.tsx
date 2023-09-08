@@ -14,7 +14,7 @@ const { store, persistor } = configureStore();
 // persistor.purge();
 
 function App() {
-  const [locale, setLocale] = useState(ELocaleFile.ELocale.ZH);
+  const [locale, setLocale] = useState(ELocaleFile.ELocale.EN);
 
   return (
     <Provider store={store}>
