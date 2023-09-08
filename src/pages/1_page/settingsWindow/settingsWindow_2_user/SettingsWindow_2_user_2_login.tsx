@@ -11,6 +11,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../../../hooks/useUserInfo';
+import translate from '../../../../i18nProvider/translate';
 
 interface ISettingsWindow_2_user_2_login_input {}
 export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
@@ -27,9 +28,13 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
-      const userInfo = await dispatch(
+      const userAndTokenData = await dispatch(
         authLoginByEmailAndPasswordAction(values.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
       );
+
+      if (!userAndTokenData) {
+        throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
+      }
 
       navigate('/proMode');
       window.location.reload();
@@ -60,7 +65,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       }}
     >
       <div className="row">
-        <h2>登录</h2>
+        <h2>{translate('LOGIN')}</h2>
       </div>
       <div className="row block_email_and_password">
         <Form
