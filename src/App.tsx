@@ -22,13 +22,6 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <I18nPropvider locale={locale}>
           <div className="App">
-            <button
-              onClick={() => {
-                setLocale(ELocale.ZH === locale ? ELocale.EN : ELocale.ZH);
-              }}
-            >
-              swith {locale}
-            </button>
             <AppRoutes />
           </div>
         </I18nPropvider>
