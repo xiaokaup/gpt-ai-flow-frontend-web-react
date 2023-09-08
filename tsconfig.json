@@ -16,5 +16,6 @@
     "noEmit": false,
     "jsx": "react"
   },
-  "include": ["src", "assets"]
+  "include": ["src", "assets"],
+  "exclude": ["src/gpt-ai-flow-common/config/constantGptAiFlow-web.js"]
 }
