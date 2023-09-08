@@ -7,7 +7,7 @@ import { configureStore } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { AppRoutes } from './AppRoutes';
 import { I18nPropvider } from './i18nProvider';
-import ELocaleFile from './gpt-ai-flow-common/enum-app/ELocale';
+import ELocaleFile, { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 
 const { store, persistor } = configureStore();
 
@@ -22,6 +22,13 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <I18nPropvider locale={locale}>
           <div className="App">
+            <button
+              onClick={() => {
+                setLocale(ELocale.ZH === locale ? ELocale.EN : ELocale.ZH);
+              }}
+            >
+              swith {locale}
+            </button>
             <AppRoutes />
           </div>
         </I18nPropvider>
