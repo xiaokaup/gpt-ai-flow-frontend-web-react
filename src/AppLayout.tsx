@@ -86,7 +86,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="proMode-doc">
         <Link to="https://www.gptaiflow.com/docs/proudct/proMode-presentation">文档</Link>
       </Menu.Item>
-      <Menu.Item key="switch-language">
+      {/* <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
             {translate(locale.toLocaleUpperCase())}
@@ -94,7 +94,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
             <DownOutlined style={{ position: 'relative', top: 1 }} />
           </a>
         </Dropdown>
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 };
