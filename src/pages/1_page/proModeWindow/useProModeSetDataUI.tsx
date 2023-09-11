@@ -94,7 +94,9 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_COPY_WRITING_DATA}
           defaultContextPromptType={EProMode_v2_copyWriting_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_copyWriting_contextType)}
+          defaultContextTypesForSelect={
+            Object.keys(PROMODE_COPY_WRITING_DATA.context) as EProMode_v2_copyWriting_contextType[]
+          }
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COPY_WRITING),
@@ -109,7 +111,9 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_XIAO_HONG_SHU_DATA}
           defaultContextPromptType={EProMode_v2_xiaoHongShu_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_xiaoHongShu_contextType)}
+          defaultContextTypesForSelect={
+            Object.keys(PROMODE_XIAO_HONG_SHU_DATA.context) as EProMode_v2_xiaoHongShu_contextType[]
+          }
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.XIAO_HONG_SHU),
@@ -124,7 +128,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_SEO_DATA}
           defaultContextPromptType={EProMode_v2_seo_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_seo_contextType)}
+          defaultContextTypesForSelect={Object.keys(PROMODE_SEO_DATA.context) as EProMode_v2_seo_contextType[]}
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.SEO),
@@ -139,7 +143,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_COMMENT_DATA}
           defaultContextPromptType={EProMode_v2_comment_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_comment_contextType)}
+          defaultContextTypesForSelect={Object.keys(PROMODE_COMMENT_DATA.context) as EProMode_v2_comment_contextType[]}
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMENT),
@@ -154,7 +158,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_CAREER_DATA}
           defaultContextPromptType={EProMode_v2_career_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_career_contextType)}
+          defaultContextTypesForSelect={Object.keys(PROMODE_CAREER_DATA.context) as EProMode_v2_career_contextType[]}
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.CAREER),
@@ -169,7 +173,9 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
           defaultContextPromptType={EProMode_v2_communication_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_communication_contextType)}
+          defaultContextTypesForSelect={
+            Object.keys(PROMODE_COMMUNICATION_DATA.context) as EProMode_v2_communication_contextType[]
+          }
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMUNICATION),
@@ -184,7 +190,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
           defaultContextPromptType={EProMode_v2_upZhu_contextType.TECH_AND_KNOWLEDGE}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_upZhu_contextType)}
+          defaultContextTypesForSelect={Object.keys(PROMODE_UP_ZHU_DATA.context) as EProMode_v2_upZhu_contextType[]}
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.VIDEO_PRODUCTION),
@@ -199,7 +205,9 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_UP_PRODUCT_MANAGER}
           defaultContextPromptType={EProMode_v2_productManager_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_productManager_contextType)}
+          defaultContextTypesForSelect={
+            Object.keys(PROMODE_UP_PRODUCT_MANAGER.context) as EProMode_v2_productManager_contextType[]
+          }
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.PRODUCT),
@@ -214,7 +222,9 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           stripeSubscriptionInfo={stripeSubscriptionInfo}
           PROMODE_DATA={PROMODE_UP_MARKETING_EXPERT}
           defaultContextPromptType={EProMode_v2_marketingExpert_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.values(EProMode_v2_marketingExpert_contextType)}
+          defaultContextTypesForSelect={
+            Object.keys(PROMODE_UP_MARKETING_EXPERT.context) as EProMode_v2_marketingExpert_contextType[]
+          }
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.MARKETING),
