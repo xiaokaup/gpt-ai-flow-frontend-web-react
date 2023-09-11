@@ -85,10 +85,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
 
   return (
     <div className="row" style={containerStyle}>
-      <div>
-        填写需要的部分(未填写部分将以{' {占位符} '}的方式显示)，点击最右边的 📝 显示/隐藏 <b>目标工作岗位</b>{' '}
-        背景细节表单
-      </div>
+      <div>填写需要的部分(未填写部分将以{' {占位符} '}的方式显示)，点击最右边的 📝 显示/隐藏 背景细节表单</div>
       <div className="row">
         <Form layout="inline" initialValues={userInputsCache}>
           {placeholders.map((placeholder, index) => (
