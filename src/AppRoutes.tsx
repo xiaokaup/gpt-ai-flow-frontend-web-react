@@ -11,8 +11,11 @@ import { SettingsWindow_1_local } from './pages/1_page/settingsWindow/settingsWi
 import ProModeWindow from './pages/1_page/proModeWindow';
 import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
 import { SettingsWindow_6_about } from './pages/1_page/settingsWindow/SettingsWindow_6_about';
+import { useUserInfo } from './hooks/useUserInfo';
 
 export const AppRoutes = () => {
+  const { userData, isAuthenticated } = useUserInfo();
+
   const router = createBrowserRouter([
     // {
     //   path: '/counter',
@@ -50,7 +53,7 @@ export const AppRoutes = () => {
       path: '/info',
       element: (
         <AppLayout>
-          <SettingsWindow_2_user_3_info />
+          <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
           <SettingsWindow_1_local />
           <SettingsWindow_4_proMode />
           <SettingsWindow_6_about />
@@ -61,7 +64,7 @@ export const AppRoutes = () => {
       path: '/changePassword',
       element: (
         <AppLayoutCenter>
-          <SettingsWindow_2_user_4_changePassword />
+          <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
         </AppLayoutCenter>
       ),
     },

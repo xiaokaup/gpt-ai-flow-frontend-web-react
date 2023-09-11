@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import IUserDataFile, { IUserData } from '../gpt-ai-flow-common/interface-app/IUserData';
-import { EUserRoleDB_name } from '../gpt-ai-flow-common/enum-database/EUserRoleDB';
+
+import { message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { IReduxRootState } from '../store/reducer';
+import { syncUserAction } from '../store/actions/userActions';
+
+import IUserDataFile, { IUserData } from '../gpt-ai-flow-common/interface-app/IUserData';
+import { EUserRoleDB_name } from '../gpt-ai-flow-common/enum-database/EUserRoleDB';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDBFile, { IUserDB } from '../gpt-ai-flow-common/interface-database/IUserDB';
-// import { STORE_USER } from "../tools/4_base/TConstant";
-// import TBackendUser from "../tools/3_unit/TBackendUser";
-import { syncUserAction } from '../store/actions/userActions';
 
 interface IUseUserInfo_ouput {
   isAuthenticated: boolean;
@@ -34,6 +35,10 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
     const userDBFromBackend: IUserDB = await dispatch(
       syncUserAction(userId.toString(), accessToken, CONSTANTS_GPT_AI_FLOW_COMMON) as any
     );
+    if (!userDBFromBackend) {
+      message.error('请您尝试重新登录账号 (无法获取用户数据)');
+      return;
+    }
     const newUserData = IUserDBFile.convert_IUserDB_to_IUserData(userDBFromBackend);
 
     // 使用 isMounted 标志检查组件是否还处于挂载状态

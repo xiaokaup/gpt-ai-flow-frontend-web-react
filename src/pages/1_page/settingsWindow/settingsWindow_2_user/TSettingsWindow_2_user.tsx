@@ -102,7 +102,12 @@ export const updateUserPassword_v1 = async (
     ),
     body: JSON.stringify({ password: newPassword }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.status !== 200) {
+        throw new Error('修改密码失败，请输入正确的密码');
+      }
+      return res.json();
+    })
     .then((data) => {
       return data.results;
     });

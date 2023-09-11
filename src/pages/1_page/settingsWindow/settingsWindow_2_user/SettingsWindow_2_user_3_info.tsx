@@ -8,19 +8,17 @@ import { useUserInfo } from '../../../../hooks/useUserInfo';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogoutAction } from '../../../../store/actions/userActions';
-// import { STORE_USER } from "../../../tools/4_base/TConstant";
-// import { useUserInfo } from "../../../hooks/useUserInfo";
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 
 interface ISettingsWindow_2_user_3_info_input {
-  // setPageCase: (paraPageCase: EUserPageCase) => void;
-  // setIsAuthenticated: (isAuthenticated: boolean) => void;
+  userData: IUserData;
+  isAuthenticated: boolean;
 }
 export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_info_input) => {
-  // const { userData } = useUserInfo();
+  const { userData, isAuthenticated } = props;
 
   const dispatch = useDispatch();
 
-  const { isAuthenticated, userData } = useUserInfo();
   const navigate = useNavigate();
 
   useEffect(() => {
