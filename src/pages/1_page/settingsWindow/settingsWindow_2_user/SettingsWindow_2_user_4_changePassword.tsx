@@ -1,39 +1,29 @@
 import '../../../../styles/global.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
-// import { EUserPageCase } from ".";
-import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
-// import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
+
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useUserInfo } from '../../../../hooks/useUserInfo';
 import {
   authLoginByEmailAndPasswordAction,
   userUpdateUserPasswordActionAction_v1,
 } from '../../../../store/actions/userActions';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-// import { STORE_USER_TOKEN_ACCESSTOKEN } from "../../../tools/4_base/TConstant";
-// import { useUserInfo } from "../../../hooks/useUserInfo";
 
 interface SettingsWindow_2_user_4_changePassword_input {
-  // setPageCase: (paraPageCase: EUserPageCase) => void;
+  userData: IUserData;
+  isAuthenticated: boolean;
 }
 export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_user_4_changePassword_input) => {
-  // const { setPageCase } = props;
-
-  // const { userData } = useUserInfo();
-  // const accessToken: string = window.electron.store.get(
-  //   STORE_USER_TOKEN_ACCESSTOKEN
-  // );
+  const { userData, isAuthenticated } = props;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { isAuthenticated, userData } = useUserInfo();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -65,17 +55,13 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
 
       message.success('密码修改成功');
       navigate('/info');
+      window.location.reload();
     } catch (error: Error | any) {
       message.error({
-        content: <span>密码不正确</span>,
+        content: <span>{error.message}</span>,
         key: 'auth',
         duration: 3,
       });
-      //   message.error({
-      //     content: <span>{error.message}</span>,
-      //     key: 'auth',
-      //     duration: 3,
-      //   });
     }
   };
 

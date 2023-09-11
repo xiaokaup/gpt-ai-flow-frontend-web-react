@@ -75,7 +75,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
           </label>
         </div>
-        {stripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL && (
+        {stripeSubscriptionInfo && stripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL && (
           <div>
             <span>
               你已经选择使用官方的模型解决方案，<b>此处无需填写</b>
