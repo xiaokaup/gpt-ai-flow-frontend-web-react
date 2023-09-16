@@ -63,14 +63,14 @@ export const SettingsWindow_4_proMode = () => {
           ]}
         />
       </div>
-      {/* {region === ERegion.ZH && (
+      {region === ERegion.ZH && (
         <div className="row">
           <SettingsWindow_4_proMode_CNY
             userData={userData}
             userSubscriptionInfoHookResult={userSubscriptionInfoHookResult}
           />
         </div>
-      )} */}
+      )}
       {region === ERegion.OVERSEAS && (
         <div className="row">
           <SettingsWindow_4_proMode_EUR
