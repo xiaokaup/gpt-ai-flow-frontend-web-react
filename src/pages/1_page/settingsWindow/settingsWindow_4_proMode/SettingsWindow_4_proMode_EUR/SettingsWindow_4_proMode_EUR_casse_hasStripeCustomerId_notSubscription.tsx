@@ -6,19 +6,17 @@ import { IStripePrice } from '../../../../../gpt-ai-flow-common/interface-app/IS
 import TBackendStripe from '../../../../../tools/3_unit/TBackendStripe';
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 
-interface SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription_input {
+interface SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription_input {
   userId: string;
   stripeCustomerId: string;
   accessToken: string;
   initStripeSubscriptionInfo: () => Promise<ISubscirptionMix>;
   currencySymbol: ECurrencySymbol;
-  setCurrencySymbol: (newCurrencySymbol: ECurrencySymbol) => void;
 }
-export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription = (
-  props: SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription_input
+export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription = (
+  props: SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription_input
 ) => {
-  const { userId, stripeCustomerId, accessToken, initStripeSubscriptionInfo, currencySymbol, setCurrencySymbol } =
-    props;
+  const { userId, stripeCustomerId, accessToken, initStripeSubscriptionInfo, currencySymbol } = props;
 
   const stripePrices = TStripeConstant.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON, currencySymbol);
 
@@ -51,29 +49,14 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
     }, 1000);
   };
 
-  const handleCurrencyChange = (value: ECurrencySymbol) => {
-    console.log(`selected ${value}`);
-    setCurrencySymbol(value);
-  };
-
   return (
     <div className="row">
       <div className="row">
-        <Select
-          value={currencySymbol}
-          style={{ width: 120 }}
-          onChange={handleCurrencyChange}
-          options={[
-            { value: ECurrencySymbol.EUR, label: '欧元' },
-            { value: ECurrencySymbol.CNY, label: '人民币' },
-          ]}
-        />
-      </div>
-      <div className="row">
-        <div className="row">
-          <h3>月</h3>
-          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {stripePrices.month.map((onePrice: IStripePrice) => {
+        <h3>月</h3>
+        <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {stripePrices.month
+            .filter((item) => !item.name.includes('FreeAI'))
+            .map((onePrice: IStripePrice) => {
               return (
                 <Card
                   key={onePrice.priceId}
@@ -101,12 +84,14 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
                 </Card>
               );
             })}
-          </div>
         </div>
-        <div className="row">
-          <h3>季度</h3>
-          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {stripePrices.quarter.map((onePrice: IStripePrice) => {
+      </div>
+      <div className="row">
+        <h3>季度</h3>
+        <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {stripePrices.quarter
+            .filter((item) => !item.name.includes('FreeAI'))
+            .map((onePrice: IStripePrice) => {
               return (
                 <Card
                   key={onePrice.priceId}
@@ -133,12 +118,14 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
                 </Card>
               );
             })}
-          </div>
         </div>
-        <div className="row">
-          <h3>年</h3>
-          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {stripePrices.year.map((onePrice: IStripePrice) => {
+      </div>
+      <div className="row">
+        <h3>年</h3>
+        <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {stripePrices.year
+            .filter((item) => !item.name.includes('FreeAI'))
+            .map((onePrice: IStripePrice) => {
               return (
                 <Card
                   key={onePrice.priceId}
@@ -165,7 +152,6 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
                 </Card>
               );
             })}
-          </div>
         </div>
       </div>
     </div>
