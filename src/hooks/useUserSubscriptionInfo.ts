@@ -24,7 +24,7 @@ export interface useUserSubscriptionInfo_output {
     hasNoAvailableSubscription: boolean;
   };
 }
-export const useUserStripeinfo = (props: useUserSubscriptionInfo_input): useUserSubscriptionInfo_output => {
+export const useUserSubscriptionInfo = (props: useUserSubscriptionInfo_input): useUserSubscriptionInfo_output => {
   const { userId, accessToken } = props;
 
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ export const useUserStripeinfo = (props: useUserSubscriptionInfo_input): useUser
     }
 
     const userSubscriptionResults: ISubscirptionMix = await dispatch(
-      getSubscriptionInfoAction(userId.toString(), accessToken, CONSTANTS_GPT_AI_FLOW_COMMON)
+      getSubscriptionInfoAction(userId.toString(), accessToken, CONSTANTS_GPT_AI_FLOW_COMMON) as any
     );
 
     if (!userSubscriptionResults) {

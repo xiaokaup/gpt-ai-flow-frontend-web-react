@@ -15,6 +15,7 @@ import { useUserInfo } from '../../../hooks/useUserInfo';
 import { useUserStripeinfo } from '../../../hooks/useUserStripeInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
+import { useUserSubscriptionInfo } from '../../../hooks/useUserSubscriptionInfo';
 
 export interface ITabPanel {
   key: EUserRolePermissionDB_name;
@@ -28,25 +29,24 @@ type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
   // === Stripe subscription - start ===
-  const { userData: userInfo, isBetaUser } = useUserInfo();
+  const { userData, isBetaUser } = useUserInfo();
   const {
     id: userId,
     stripeCustomerId,
     token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
     userRoles = [],
     userRolePermissions = [],
-  } = userInfo;
+  } = userData;
 
   if (!userId) {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
   }
 
   const {
-    stripeSubscriptionInfo,
+    userSubscriptionInfo,
     check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserStripeinfo({
+  } = useUserSubscriptionInfo({
     userId,
-    stripeCustomerId: stripeCustomerId ?? '',
     accessToken: userAccessToken,
   });
 
@@ -60,8 +60,6 @@ const ProModeWindow = () => {
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
-    userInfo,
-    stripeSubscriptionInfo,
     userRolePermissionsWithStripeSubscriptionInfo,
   });
   // === ProMode Data - end ===
@@ -116,7 +114,7 @@ const ProModeWindow = () => {
         value,
         children,
         disabled:
-          stripeSubscriptionInfo.name !== ESubscriptionName.NONE
+          userSubscriptionInfo.name !== ESubscriptionName.NONE
             ? !userRolePermissionsWithStripeSubscriptionInfo.includes(value)
             : true,
       },
