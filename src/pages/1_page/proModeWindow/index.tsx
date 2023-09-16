@@ -2,19 +2,19 @@ import '../../../styles/global.css';
 import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 
-import { useRef, useState } from 'react';
+import React from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import { Alert, Button, Select, Tabs, message } from 'antd';
 
-import { EStripeSubscriptionName } from '../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 
 import { useProModeSetDataUI } from './useProModeSetDataUI';
 import { useUserInfo } from '../../../hooks/useUserInfo';
-import { useUserStripeinfo } from '../../../hooks/useUserStripeInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import React from 'react';
+import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
+import { useUserSubscriptionInfo } from '../../../hooks/useUserSubscriptionInfo';
 
 export interface ITabPanel {
   key: EUserRolePermissionDB_name;
@@ -28,25 +28,24 @@ type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
   // === Stripe subscription - start ===
-  const { userData: userInfo, isBetaUser } = useUserInfo();
+  const { userData, isBetaUser } = useUserInfo();
   const {
     id: userId,
     stripeCustomerId,
     token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
     userRoles = [],
     userRolePermissions = [],
-  } = userInfo;
+  } = userData;
 
   if (!userId) {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
   }
 
   const {
-    stripeSubscriptionInfo,
+    userSubscriptionInfo,
     check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserStripeinfo({
+  } = useUserSubscriptionInfo({
     userId,
-    stripeCustomerId: stripeCustomerId ?? '',
     accessToken: userAccessToken,
   });
 
@@ -60,8 +59,6 @@ const ProModeWindow = () => {
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
-    userInfo,
-    stripeSubscriptionInfo,
     userRolePermissionsWithStripeSubscriptionInfo,
   });
   // === ProMode Data - end ===
@@ -116,7 +113,7 @@ const ProModeWindow = () => {
         value,
         children,
         disabled:
-          stripeSubscriptionInfo.name !== EStripeSubscriptionName.NONE
+          userSubscriptionInfo.name !== ESubscriptionName.NONE
             ? !userRolePermissionsWithStripeSubscriptionInfo.includes(value)
             : true,
       },
