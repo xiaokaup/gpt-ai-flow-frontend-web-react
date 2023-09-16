@@ -86,7 +86,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
               </CopyToClipboard>
             </div>
           </div>
-          <Button type="link" href="https://www.gptaiflow.com/business/prices-zh">
+          <Button type="link" target="_blank" href="https://www.gptaiflow.com/business/prices-zh">
             <h3>开始试用(已付费或单次成功付款成功后请刷新页面)</h3>
           </Button>
         </div>
@@ -136,9 +136,9 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
 
             {hasNoAvailableSubscription && userId && (
               <div className="row">
-                {/* <SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription
+                <SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription
                   currencySymbol={ECurrencySymbol.CNY}
-                /> */}
+                />
               </div>
             )}
           </div>

@@ -38,6 +38,7 @@ export const SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscript
                     actions={[
                       <a
                         href={oneProduct.paymentUrl}
+                        target="_blank"
                         style={{
                           display: 'inline',
                           padding: '.5rem',
@@ -77,6 +78,7 @@ export const SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscript
                     actions={[
                       <a
                         href={oneProduct.paymentUrl}
+                        target="_blank"
                         style={{
                           display: 'inline',
                           padding: '.5rem',
@@ -116,6 +118,7 @@ export const SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscript
                     actions={[
                       <a
                         href={oneProduct.paymentUrl}
+                        target="_blank"
                         style={{
                           display: 'inline',
                           padding: '.5rem',

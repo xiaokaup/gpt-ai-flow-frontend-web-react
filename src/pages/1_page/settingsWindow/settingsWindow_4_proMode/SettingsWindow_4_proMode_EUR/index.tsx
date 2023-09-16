@@ -90,7 +90,7 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
               </CopyToClipboard>
             </div>
           </div>
-          <Button type="link" href="https://www.gptaiflow.com/business/prices">
+          <Button type="link" target="_blank" href="https://www.gptaiflow.com/business/prices">
             <h3>开始试用(已付费或单次成功付款成功后请刷新页面)</h3>
           </Button>
         </div>
