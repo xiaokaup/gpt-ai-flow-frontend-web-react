@@ -39,7 +39,19 @@ export const SettingsWindow_4_proMode = () => {
   };
 
   return (
-    <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+    <div
+      id="settingsWindowContainer"
+      className="container"
+      style={{
+        marginTop: 12,
+        marginLeft: 12,
+        padding: '2rem',
+        background: '#fff',
+        border: '1px solid #E8E8E8',
+        borderRadius: '.4rem',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
+      }}
+    >
       <div className="row">
         <Select
           defaultValue={region}
