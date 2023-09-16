@@ -4,16 +4,15 @@ import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import { userReducer } from './userReducer';
 import { ILocalReducerState, localReducer } from './localReducer';
 import { proModeReducer } from './proModeReducer';
-import { stripeReducer } from './stripeReducer';
 import { IStripeSubscriptionInfo } from '../../gpt-ai-flow-common/interface-app/IStripe';
 import { ISubscirptionMix } from '../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import { subscriptionReducer } from './SubscriptionReducer';
 
 export interface IReduxRootState {
   counterInfo: ICounterReducerState;
   user: IUserData;
   local: ILocalReducerState;
   proModeSet: string;
-  stripe: IStripeSubscriptionInfo;
   subscriptionInfo: ISubscirptionMix;
 }
 
@@ -23,6 +22,5 @@ export const createRootReducer = () =>
     user: userReducer,
     local: localReducer,
     proModeSet: proModeReducer,
-    stripe: stripeReducer,
-    subscriptionInfo: stripeReducer,
+    subscriptionInfo: subscriptionReducer,
   });

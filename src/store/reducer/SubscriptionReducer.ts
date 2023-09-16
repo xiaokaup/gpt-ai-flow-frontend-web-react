@@ -5,7 +5,7 @@ import { IAction } from '../store';
 
 const initialState: ISubscirptionMix = ISubscriptionMixFile.ISubscriptionMix_default;
 
-export const stripeReducer = (state: ISubscirptionMix = initialState, action: IAction) => {
+export const subscriptionReducer = (state: ISubscirptionMix = initialState, action: IAction) => {
   const { type, payload } = action;
 
   switch (type) {
