@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 import IStripeFile, { IStripeSubscriptionInfo } from '../gpt-ai-flow-common/interface-app/IStripe';
-import { EStripeSubscriptionName, EStripeSubscriptionStatus } from '../gpt-ai-flow-common/enum-app/EStripeSubscription';
+import { EStripeSubscriptionStatus } from '../gpt-ai-flow-common/enum-app/EStripeSubscription';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
 import { getSubscriptionNicknameAndStatusAction } from '../store/actions/stripeActions';
 import { IReduxRootState } from '../store/reducer';
+import { ESubscriptionName } from '../gpt-ai-flow-common/enum-app/ESubscription';
 
 interface useUserStripeinfo_input {
   userId: number;
@@ -41,7 +42,7 @@ export const useUserStripeinfo = (
 
   const hasAvailableSubscription =
     stripeSubscriptionInfo &&
-    [EStripeSubscriptionName.START_AI, EStripeSubscriptionName.EXPERT_AI, EStripeSubscriptionName.MASTER_AI].includes(
+    [ESubscriptionName.START_AI, ESubscriptionName.EXPERT_AI, ESubscriptionName.MASTER_AI].includes(
       stripeSubscriptionInfo.name
     ) &&
     (stripeSubscriptionInfo.status === EStripeSubscriptionStatus.TRIALING ||

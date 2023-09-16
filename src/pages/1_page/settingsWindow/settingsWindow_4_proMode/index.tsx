@@ -14,7 +14,7 @@ import { useUserStripeinfo } from '../../../../hooks/useUserStripeInfo';
 import { SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TStripeConstantFile, { ECurrencySymbol } from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import { EStripeSubscriptionPeriod } from '../../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
+import { ESubscriptionPeriod } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
 
 export const SettingsWindow_4_proMode = () => {
   const { userData } = useUserInfo();
@@ -53,7 +53,7 @@ export const SettingsWindow_4_proMode = () => {
     );
 
     const stripePriceListCurrentPeriod =
-      stripePriceListAllPeriod[stripeSubscriptionInfo?.period ?? EStripeSubscriptionPeriod.NONE];
+      stripePriceListAllPeriod[stripeSubscriptionInfo?.period ?? ESubscriptionPeriod.NONE];
     const userSubscriptionName =
       stripePriceListCurrentPeriod?.find((item) => item.priceId === stripeSubscriptionInfo?.priceId)?.name ?? '';
     setSubscriptionName(userSubscriptionName);

@@ -10,7 +10,7 @@ import { IReduxRootState } from '../../../../store/reducer';
 import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
-import { EStripeSubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
+import { ESubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
 
 const modelTypeOptions = [
   {
@@ -75,7 +75,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
           </label>
         </div>
-        {stripeSubscriptionInfo && stripeSubscriptionInfo.version === EStripeSubscriptionVersion.OFFICIAL_MODAL && (
+        {stripeSubscriptionInfo && stripeSubscriptionInfo.version === ESubscriptionVersion.OFFICIAL_MODAL && (
           <div>
             <span>
               你已经选择使用官方的模型解决方案，<b>此处无需填写</b>

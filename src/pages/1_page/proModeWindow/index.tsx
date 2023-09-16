@@ -7,7 +7,6 @@ import { useRef, useState, useEffect } from 'react';
 
 import { Alert, Button, Select, Tabs, message } from 'antd';
 
-import { EStripeSubscriptionName } from '../../../gpt-ai-flow-common/enum-app/EStripeSubscription';
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 
@@ -15,6 +14,7 @@ import { useProModeSetDataUI } from './useProModeSetDataUI';
 import { useUserInfo } from '../../../hooks/useUserInfo';
 import { useUserStripeinfo } from '../../../hooks/useUserStripeInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
 
 export interface ITabPanel {
   key: EUserRolePermissionDB_name;
@@ -116,7 +116,7 @@ const ProModeWindow = () => {
         value,
         children,
         disabled:
-          stripeSubscriptionInfo.name !== EStripeSubscriptionName.NONE
+          stripeSubscriptionInfo.name !== ESubscriptionName.NONE
             ? !userRolePermissionsWithStripeSubscriptionInfo.includes(value)
             : true,
       },
