@@ -65,9 +65,6 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     accessToken: userAccessToken as string,
   });
 
-  console.log('userData', userData);
-  console.log('userAccessToken', userAccessToken);
-
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
   const [isTextInputAsText, setIsTextInputAsText] = useState<boolean>(false);
