@@ -9,8 +9,8 @@ import { EOpenAiModel } from '../../../../gpt-ai-flow-common/interface-app/IAIFl
 import { IReduxRootState } from '../../../../store/reducer';
 import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
-import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { ESubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
+import { ISubscirptionMix } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 
 const modelTypeOptions = [
   {
@@ -24,12 +24,12 @@ const modelTypeOptions = [
 ];
 
 interface ISettingsWindow_1_local_basic_input {
-  stripeSubscriptionInfo: IStripeSubscriptionInfo;
+  userSubscriptionInfo: ISubscirptionMix;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { stripeSubscriptionInfo } = props;
+  const { userSubscriptionInfo } = props;
 
   const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -75,7 +75,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
           </label>
         </div>
-        {stripeSubscriptionInfo && stripeSubscriptionInfo.version === ESubscriptionVersion.OFFICIAL_MODAL && (
+        {userSubscriptionInfo && userSubscriptionInfo.version === ESubscriptionVersion.OFFICIAL_MODAL && (
           <div>
             <span>
               你已经选择使用官方的模型解决方案，<b>此处无需填写</b>
