@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Tabs, TabsProps } from 'antd';
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
 import { useUserInfo } from '../../../../hooks/useUserInfo';
-import { useUserStripeinfo } from '../../../../hooks/useUserStripeInfo';
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useUserSubscriptionInfo } from '../../../../hooks/useUserSubscriptionInfo';
 
@@ -30,9 +29,9 @@ export const SettingsWindow_1_local = () => {
   }
 
   const {
-    init: initStripeSubscriptionInfo,
+    // init: initStripeSubscriptionInfo,
     userSubscriptionInfo,
-    check: { hasAvailableSubscription, hasNoAvailableSubscription },
+    // check: { hasAvailableSubscription, hasNoAvailableSubscription },
   } = useUserSubscriptionInfo({
     userId,
     accessToken: userAccessToken,

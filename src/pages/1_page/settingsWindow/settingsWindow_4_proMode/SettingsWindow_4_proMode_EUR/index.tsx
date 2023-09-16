@@ -1,20 +1,20 @@
-import '../../../../styles/global.css';
-import '../../../../styles/layout.scss';
+import '../../../../../styles/global.css';
+import '../../../../../styles/layout.scss';
 
-import paymentPageDemo from '../../../../../assets/presentation/2023-08-23-payment-page.png';
+import paymentPageDemo from '../../../../../../assets/presentation/2023-08-23-payment-page.png';
 
 import React, { useEffect, useState } from 'react';
-import _ from 'lodash';
 
 import { Alert, Button } from 'antd';
 
-import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
-import { useUserStripeinfo } from '../../../../hooks/useUserStripeInfo';
+import ITokenDB from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import { useUserInfo } from '../../../../../hooks/useUserInfo';
 import { SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TStripeConstantFile, { ECurrencySymbol } from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import { ESubscriptionPeriod } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TStripeConstantFile, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import { ESubscriptionPeriod } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
+import { useUserSubscriptionInfo } from '../../../../../hooks/useUserSubscriptionInfo';
+import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 export const SettingsWindow_4_proMode = () => {
   const { userData } = useUserInfo();
@@ -35,11 +35,10 @@ export const SettingsWindow_4_proMode = () => {
 
   const {
     init: initStripeSubscriptionInfo,
-    stripeSubscriptionInfo,
+    userSubscriptionInfo,
     check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserStripeinfo({
+  } = useUserSubscriptionInfo({
     userId,
-    stripeCustomerId,
     accessToken: userAccessToken,
   });
 
@@ -53,11 +52,13 @@ export const SettingsWindow_4_proMode = () => {
     );
 
     const stripePriceListCurrentPeriod =
-      stripePriceListAllPeriod[stripeSubscriptionInfo?.period ?? ESubscriptionPeriod.NONE];
+      stripePriceListAllPeriod[userSubscriptionInfo?.period ?? ESubscriptionPeriod.NONE];
     const userSubscriptionName =
-      stripePriceListCurrentPeriod?.find((item) => item.priceId === stripeSubscriptionInfo?.priceId)?.name ?? '';
+      stripePriceListCurrentPeriod?.find(
+        (item) => item.priceId === (userSubscriptionInfo as IStripeSubscriptionInfo)?.priceId
+      )?.name ?? '';
     setSubscriptionName(userSubscriptionName);
-  }, [stripeSubscriptionInfo.name, currencySymbol]);
+  }, [userSubscriptionInfo.name, currencySymbol]);
 
   return (
     <div
@@ -101,22 +102,22 @@ export const SettingsWindow_4_proMode = () => {
           <div className="row">
             套餐名称: {subscriptionName}
             <br />
-            套餐时长: {stripeSubscriptionInfo?.period}
+            套餐时长: {userSubscriptionInfo?.period}
             <br />
-            套餐版本: {stripeSubscriptionInfo?.version}
+            套餐版本: {userSubscriptionInfo?.version}
             <br />
-            套餐状态: {stripeSubscriptionInfo?.status}
+            套餐状态: {(userSubscriptionInfo as IStripeSubscriptionInfo)?.status}
             <br />
           </div>
 
           <div className="row">
             是否有默认支付方式:
-            {stripeSubscriptionInfo?.hasDefaultPamentMethod ? '是' : '否'}
+            {(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod ? '是' : '否'}
           </div>
 
           {hasNoAvailableSubscription && (
             <div className="row">
-              {!stripeSubscriptionInfo?.hasDefaultPamentMethod && (
+              {!(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && (
                 <div className="row">
                   <Alert
                     message={
@@ -131,7 +132,7 @@ export const SettingsWindow_4_proMode = () => {
                 </div>
               )}
 
-              {stripeSubscriptionInfo?.hasDefaultPamentMethod && userId && (
+              {(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && userId && (
                 <SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription
                   userId={userId.toString()}
                   stripeCustomerId={stripeCustomerId}

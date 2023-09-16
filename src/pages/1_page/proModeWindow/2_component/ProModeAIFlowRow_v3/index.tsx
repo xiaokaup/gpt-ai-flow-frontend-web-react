@@ -56,7 +56,11 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const { id: userId, token: userToken } = userData;
   const userAccessToken = userToken?.accessToken;
 
-  const { userSubscriptionInfo } = useUserSubscriptionInfo({
+  const {
+    // init: initStripeSubscriptionInfo,
+    userSubscriptionInfo,
+    // check: { hasAvailableSubscription, hasNoAvailableSubscription },
+  } = useUserSubscriptionInfo({
     userId: userId as number,
     accessToken: userAccessToken as string,
   });

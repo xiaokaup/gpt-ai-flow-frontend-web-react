@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Card, Select, message } from 'antd';
-import TStripeConstant, { ECurrencySymbol } from '../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import TBackendStripe from '../../../../tools/3_unit/TBackendStripe';
-import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TStripeConstant, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IStripePrice } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
+import TBackendStripe from '../../../../../tools/3_unit/TBackendStripe';
+import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 
 interface SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription_input {
   userId: string;
   stripeCustomerId: string;
   accessToken: string;
-  initStripeSubscriptionInfo: () => Promise<IStripeSubscriptionInfo>;
+  initStripeSubscriptionInfo: () => Promise<ISubscirptionMix>;
   currencySymbol: ECurrencySymbol;
   setCurrencySymbol: (newCurrencySymbol: ECurrencySymbol) => void;
 }
@@ -72,7 +73,7 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
         <div className="row">
           <h3>月</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {stripePrices.month.map((onePrice) => {
+            {stripePrices.month.map((onePrice: IStripePrice) => {
               return (
                 <Card
                   key={onePrice.priceId}
@@ -94,7 +95,7 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
                     </Button>,
                   ]}
                 >
-                  {onePrice.features.map((oneFeature) => {
+                  {onePrice.features.map((oneFeature: string) => {
                     return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
                   })}
                 </Card>
@@ -105,7 +106,7 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
         <div className="row">
           <h3>季度</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {stripePrices.quarter.map((onePrice) => {
+            {stripePrices.quarter.map((onePrice: IStripePrice) => {
               return (
                 <Card
                   key={onePrice.priceId}
@@ -126,7 +127,7 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
                     </Button>,
                   ]}
                 >
-                  {onePrice.features.map((oneFeature) => {
+                  {onePrice.features.map((oneFeature: string) => {
                     return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
                   })}
                 </Card>
@@ -137,7 +138,7 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
         <div className="row">
           <h3>年</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {stripePrices.year.map((onePrice) => {
+            {stripePrices.year.map((onePrice: IStripePrice) => {
               return (
                 <Card
                   key={onePrice.priceId}
@@ -158,7 +159,7 @@ export const SettingsWindow_4_proMode_casse_hasStripeCustomerId_notSubscription 
                     </Button>,
                   ]}
                 >
-                  {onePrice.features.map((oneFeature) => {
+                  {onePrice.features.map((oneFeature: string) => {
                     return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
                   })}
                 </Card>

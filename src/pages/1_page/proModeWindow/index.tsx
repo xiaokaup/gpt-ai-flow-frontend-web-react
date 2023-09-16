@@ -12,7 +12,6 @@ import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 
 import { useProModeSetDataUI } from './useProModeSetDataUI';
 import { useUserInfo } from '../../../hooks/useUserInfo';
-import { useUserStripeinfo } from '../../../hooks/useUserStripeInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { useUserSubscriptionInfo } from '../../../hooks/useUserSubscriptionInfo';
