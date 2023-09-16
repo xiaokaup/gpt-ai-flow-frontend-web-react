@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Tabs, TabsProps } from 'antd';
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
 import { useUserInfo } from '../../../../hooks/useUserInfo';
-import { useUserStripeinfo } from '../../../../hooks/useUserStripeInfo';
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import { useUserSubscriptionInfo } from '../../../../hooks/useUserSubscriptionInfo';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
@@ -29,12 +29,11 @@ export const SettingsWindow_1_local = () => {
   }
 
   const {
-    init: initStripeSubscriptionInfo,
-    stripeSubscriptionInfo,
-    check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserStripeinfo({
+    // init: initStripeSubscriptionInfo,
+    userSubscriptionInfo,
+    // check: { hasAvailableSubscription, hasNoAvailableSubscription },
+  } = useUserSubscriptionInfo({
     userId,
-    stripeCustomerId,
     accessToken: userAccessToken,
   });
 
@@ -46,7 +45,7 @@ export const SettingsWindow_1_local = () => {
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: `基本`,
-      children: <SettingsWindow_1_local_basic stripeSubscriptionInfo={stripeSubscriptionInfo} />,
+      children: <SettingsWindow_1_local_basic userSubscriptionInfo={userSubscriptionInfo} />,
     },
   ];
 

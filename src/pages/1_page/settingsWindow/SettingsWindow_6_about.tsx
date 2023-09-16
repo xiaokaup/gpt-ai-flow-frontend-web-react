@@ -1,4 +1,3 @@
-import { EAppVersion } from '../../../gpt-ai-flow-common/enum-app/EAppVersion';
 import '../../../styles/global.css';
 
 import React from 'react';
@@ -31,7 +30,7 @@ export const SettingsWindow_6_about = () => {
 
         <hr />
         <div className="row">
-          <span>版本: {EAppVersion.LATEST}</span>
+          <span>版本: v0.1.28</span>
         </div>
       </div>
     </div>
