@@ -9,6 +9,8 @@ module.exports = {
       'warn',
       { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
     ],
+
+    '@typescript-eslint/no-explicit-any': 'warn',
   },
   plugins: ['@typescript-eslint', 'unused-imports'],
 };

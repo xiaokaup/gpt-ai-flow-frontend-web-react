@@ -11,7 +11,7 @@ import {
   IAICommandsResults_v4,
   IAICommands_v4,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
-import { ISendChatGPTRequestToBackend_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
@@ -34,6 +34,8 @@ interface ProModeAIFlowRow_v3_input {
   aiCommandsSettings: IAICommands_v4[];
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
+  const creativityValue = useCreativityValueContext();
+
   const {
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
@@ -121,11 +123,9 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const stopInstructionAIFlowResults = (paraRequestControllersMap: Map<string, AbortController>) => {
     console.log('stopInstructionAIFlowResults - start');
 
-    let index = 0;
-    for (let [uuid, requestController] of paraRequestControllersMap.entries()) {
+    for (const [uuid, requestController] of paraRequestControllersMap.entries()) {
       console.log(`uuid: ${uuid}, controller: ${requestController}`);
       requestController.abort();
-      index++;
     }
 
     // setRequestControllersMap(tempMap);
@@ -254,7 +254,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       const resquestContentPrompt = buildPrompt(index, aiCommands, aiComandsResults);
       // console.log('resquestContent', resquestContentPrompt);
 
-      const reponseResult: void | ISendChatGPTRequestToBackend_ouput = await sendChatGPTRequestAsStreamToBackendProxy(
+      /* const reponseResult: void | ISendChatGPTRequestToBackend_ouput = */ await sendChatGPTRequestAsStreamToBackendProxy(
         {
           userId: userId?.toString() ?? '',
           openaiSecret: openAIApiKey,
@@ -262,6 +262,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           openaiOptions: {
             // openaiModel: EOpenAiModel.GPT_4,
             openaiModel: proModeModelType,
+            temperature: creativityValue,
           },
           userStripeSubscriptionInfo: userSubscriptionInfo,
         },

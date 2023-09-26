@@ -173,7 +173,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_upZhu
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
-          defaultContextPromptType={EProMode_v2_upZhu_contextType.TECH_AND_KNOWLEDGE}
+          defaultContextPromptType={EProMode_v2_upZhu_contextType.KNOWLEDGE_SHARE}
           defaultContextTypesForSelect={Object.keys(PROMODE_UP_ZHU_DATA.context) as EProMode_v2_upZhu_contextType[]}
         />
       ),
