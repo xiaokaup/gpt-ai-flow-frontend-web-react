@@ -8,9 +8,9 @@ import { Input, message } from 'antd';
 
 import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
 import {
-  IInstructionINputCommandsResults_v3,
-  IInstructionInputCommands_v3,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
+  IAICommandsResults_v4,
+  IAICommands_v4,
+} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import { ISendChatGPTRequestToBackend_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
@@ -20,9 +20,6 @@ import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useSelector } from 'react-redux';
-import { IStoreStorage } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import { useUserInfo } from '../../../../../hooks/useUserInfo';
 import { useUserSubscriptionInfo } from '../../../../../hooks/useUserSubscriptionInfo';
 
@@ -34,7 +31,7 @@ interface ProModeAIFlowRow_v3_input {
   handledContextPrompt: string;
   defaulInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
-  aiCommandsSettings: IInstructionInputCommands_v3[];
+  aiCommandsSettings: IAICommands_v4[];
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const {
@@ -105,7 +102,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // Request controllers - end
 
   // Instruction input commands - start
-  const [aiCommands, setAiCommands] = useState<IInstructionInputCommands_v3[]>(aiCommandsSettings ?? []);
+  const [aiCommands, setAiCommands] = useState<IAICommands_v4[]>(aiCommandsSettings ?? []);
   useEffect(() => {
     // Update Selects UI after swith context
     setAiCommands(
@@ -164,8 +161,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   const buildPrompt = (
     index: number,
-    paraInstructionInputCCommandList: IInstructionInputCommands_v3[],
-    paraRequestReultsList: IInstructionINputCommandsResults_v3[]
+    paraInstructionInputCCommandList: IAICommands_v4[],
+    paraRequestReultsList: IAICommandsResults_v4[]
   ): IPrompt[] => {
     const results = [
       {
@@ -245,7 +242,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     return results;
   };
   const getOneInstructionAiFlowResult = async (
-    oneInstructionInputCommnad: IInstructionInputCommands_v3,
+    oneInstructionInputCommnad: IAICommands_v4,
     index: number,
     requestController: AbortController
   ) => {
@@ -300,12 +297,12 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 指令集部分 - end ===
 
   // === 指令集输出结果部分 - start ===
-  const [aiComandsResults, setAiComandsResults] = useState<IInstructionINputCommandsResults_v3[]>([]);
+  const [aiComandsResults, setAiComandsResults] = useState<IAICommandsResults_v4[]>([]);
   const [updateRequestResultsCount, setUpdateRequestResultsCount] = useState<number>(0); // Refresh the component
 
   const syncAiCommandsResultsByAiCommands = (
-    paraAiCommands: IInstructionInputCommands_v3[],
-    paraAiCommandsReuslts: IInstructionINputCommandsResults_v3[]
+    paraAiCommands: IAICommands_v4[],
+    paraAiCommandsReuslts: IAICommandsResults_v4[]
   ) => {
     if (paraAiCommandsReuslts.length >= paraAiCommands.length) {
       return;

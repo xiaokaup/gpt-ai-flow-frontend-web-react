@@ -7,19 +7,19 @@ import { Input } from 'antd';
 import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 import {
-  IInstructionINputCommandsResults_v3,
-  IInstructionInputCommands_v3,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
+  IAICommandsResults_v4,
+  IAICommands_v4,
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 
 const { TextArea } = Input;
 
 interface InstructionInputColumn_v3_CustomizeTextArea_input {
   index: number;
-  item: IInstructionInputCommands_v3;
-  aiCommands: IInstructionInputCommands_v3[];
-  setAiCommands: Dispatch<SetStateAction<IInstructionInputCommands_v3[]>>;
+  item: IAICommands_v4;
+  aiCommands: IAICommands_v4[];
+  setAiCommands: Dispatch<SetStateAction<IAICommands_v4[]>>;
   removeRequestControllerItem: (uuid: string) => void;
-  setAiComandsResults: Dispatch<SetStateAction<IInstructionINputCommandsResults_v3[]>>;
+  setAiComandsResults: Dispatch<SetStateAction<IAICommandsResults_v4[]>>;
 }
 
 export const InstructionInputColumn_v3_CustomizeTextArea = (

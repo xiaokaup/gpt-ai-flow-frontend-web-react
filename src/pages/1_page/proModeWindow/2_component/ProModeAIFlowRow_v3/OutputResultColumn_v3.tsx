@@ -9,9 +9,9 @@ import { Button, Input, Empty, message } from 'antd';
 import { RedoOutlined, BorderOutlined, CopyOutlined, EditOutlined } from '@ant-design/icons';
 
 import {
-  IInstructionINputCommandsResults_v3,
-  IInstructionInputCommands_v3,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
+  IAICommandsResults_v4,
+  IAICommands_v4,
+} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 
 const { TextArea } = Input;
 
@@ -19,7 +19,7 @@ export interface IOuputIndicatorComponent_input {
   stopInstructionAIFlowResults: (paraRequestControllersMap: Map<string, AbortController>) => void;
   getInstructionAIFlowResults: () => void;
   getOneInstructionAiFlowResult: (
-    oneInstructionAiFlowResult: IInstructionInputCommands_v3,
+    oneInstructionAiFlowResult: IAICommands_v4,
     index: number,
     requestController: AbortController
   ) => void;
@@ -28,9 +28,9 @@ export interface IOuputIndicatorComponent_input {
   addRequestControllerItem: (key: string, value: AbortController) => void;
   removeRequestControllerItem: (key: string) => void;
 
-  aiCommands: IInstructionInputCommands_v3[];
-  aiComandsResults: IInstructionINputCommandsResults_v3[];
-  setAiComandsResults: Dispatch<SetStateAction<IInstructionINputCommandsResults_v3[]>>;
+  aiCommands: IAICommands_v4[];
+  aiComandsResults: IAICommandsResults_v4[];
+  setAiComandsResults: Dispatch<SetStateAction<IAICommandsResults_v4[]>>;
 }
 export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => {
   const {
@@ -77,7 +77,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
       <div className="row row_results">
         {aiComandsResults.length <= 0 && <Empty description="暂无结果" style={{ marginTop: 30 }} />}
 
-        {aiCommands.map((item: IInstructionInputCommands_v3, index: number) => {
+        {aiCommands.map((item: IAICommands_v4, index: number) => {
           const { uuid } = item;
 
           if (!aiComandsResults[index]) {

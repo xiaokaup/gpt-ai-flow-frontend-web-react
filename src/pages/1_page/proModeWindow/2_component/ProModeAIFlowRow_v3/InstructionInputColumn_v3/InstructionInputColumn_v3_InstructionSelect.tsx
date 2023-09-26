@@ -10,19 +10,19 @@ import { PlusCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/ic
 
 import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import {
-  IInstructionINputCommandsResults_v3,
-  IInstructionInputCommands_v3,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
+  IAICommandsResults_v4,
+  IAICommands_v4,
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 
 interface InstructionInputColumn_v3_InstructionSelect_input {
   index: number;
-  item: IInstructionInputCommands_v3;
+  item: IAICommands_v4;
   instructionCommandsSelectOptions: IAIFlow[];
-  aiCommands: IInstructionInputCommands_v3[];
-  setAiCommands: Dispatch<SetStateAction<IInstructionInputCommands_v3[]>>;
+  aiCommands: IAICommands_v4[];
+  setAiCommands: Dispatch<SetStateAction<IAICommands_v4[]>>;
   removeRequestControllerItem: (uuid: string) => void;
-  setAiComandsResults: Dispatch<SetStateAction<IInstructionINputCommandsResults_v3[]>>;
+  setAiComandsResults: Dispatch<SetStateAction<IAICommandsResults_v4[]>>;
   toggleAiCommandsIsShowInputsForm: () => void;
 }
 
@@ -52,7 +52,7 @@ export const InstructionInputColumn_v3_InstructionSelect = (
 
     newComands[index].aiFlowInstance = oneInstruction;
 
-    const hasPlaceholder = TString.hasPlaceholder(oneInstruction.defaultValue); // Update hasPlaceHolder for IInstructionInputCommands_v3 after select a new aiFlow
+    const hasPlaceholder = TString.hasPlaceholder(oneInstruction.defaultValue); // Update hasPlaceHolder for IAICommands_v4 after select a new aiFlow
     newComands[index].hasPlaceholder = hasPlaceholder;
     newComands[index].isDirty = hasPlaceholder ? true : false;
     newComands[index].isShowInputsForm = hasPlaceholder;

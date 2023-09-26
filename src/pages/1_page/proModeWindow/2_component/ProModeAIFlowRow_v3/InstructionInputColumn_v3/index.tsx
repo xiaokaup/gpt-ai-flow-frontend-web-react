@@ -10,9 +10,9 @@ import { Input } from 'antd';
 import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { IAIFlow, EAIFlowType, EAIFlowRole } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import {
-  IInstructionInputCommands_v3,
-  IInstructionINputCommandsResults_v3,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
+  IAICommands_v4,
+  IAICommandsResults_v4,
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
 import { InstructionInputColumn_v3_InstructionSelect } from './InstructionInputColumn_v3_InstructionSelect';
@@ -26,9 +26,9 @@ interface InstructionInputColumn_v3_input {
   defaultOutputIndicatorAiCommands: IAIFlow[];
   addRequestControllerItem: (uuid: string, value: AbortController) => void;
   removeRequestControllerItem: (uuid: string) => void;
-  aiCommands: IInstructionInputCommands_v3[];
-  setAiCommands: React.Dispatch<React.SetStateAction<IInstructionInputCommands_v3[]>>;
-  setAiComandsResults: React.Dispatch<React.SetStateAction<IInstructionINputCommandsResults_v3[]>>;
+  aiCommands: IAICommands_v4[];
+  setAiCommands: React.Dispatch<React.SetStateAction<IAICommands_v4[]>>;
+  setAiComandsResults: React.Dispatch<React.SetStateAction<IAICommandsResults_v4[]>>;
 }
 
 export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input) => {
@@ -73,7 +73,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
       <div className="row">指令集</div>
       <div className="row">
         <div className="row row_instructions_ouputIndicator_ai_flow_commands">
-          {aiCommands.map((item: IInstructionInputCommands_v3, index: number) => {
+          {aiCommands.map((item: IAICommands_v4, index: number) => {
             if (item.aiFlowInstance.type === EAIFlowType.INSTRUCTION) {
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.value}`}>
