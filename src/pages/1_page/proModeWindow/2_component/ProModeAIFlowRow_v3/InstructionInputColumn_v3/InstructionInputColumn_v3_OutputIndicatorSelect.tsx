@@ -54,7 +54,7 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
 
     const hasPlaceholder = TString.hasPlaceholder(oneOuputIndicator.defaultValue); // Update hasPlaceHolder for IAICommands_v4 after select a new aiFlow
     newComands[index].hasPlaceholder = hasPlaceholder;
-    newComands[index].isDirty = hasPlaceholder ? true : false;
+    newComands[index].isDirty = !!hasPlaceholder;
     newComands[index].isShowInputsForm = hasPlaceholder;
 
     setAiCommands(newComands);

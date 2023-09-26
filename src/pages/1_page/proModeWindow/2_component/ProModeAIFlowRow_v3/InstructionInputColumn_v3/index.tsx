@@ -181,7 +181,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   aiFlowInstance: instructionCommandsSelectOptions[0],
                   isTemporary: false,
                   hasPlaceholder: hasPlaceHolder,
-                  isDirty: hasPlaceHolder ? true : false,
+                  isDirty: !!hasPlaceHolder,
                   isShowInputsForm: hasPlaceHolder,
                 },
               ]);
@@ -244,7 +244,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   aiFlowInstance: ouputIndicatorCommandsSelectOptions[0],
                   isTemporary: false,
                   hasPlaceholder: hasPlaceHolder,
-                  isDirty: hasPlaceHolder ? true : false,
+                  isDirty: !!hasPlaceHolder,
                   isShowInputsForm: hasPlaceHolder,
                 },
               ]);

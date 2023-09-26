@@ -43,7 +43,7 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
 
     // 使用 isMounted 标志检查组件是否还处于挂载状态
     if (isMounted.current) {
-      setUserData(newUserData);
+      setUserData({ ...userData, ...newUserData });
     }
   };
 

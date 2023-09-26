@@ -50,8 +50,6 @@ import { ProModePage_career } from './1_pages/ProModePage_career';
 import { ProModePage_upZhu } from './1_pages/ProModePage_upZhu';
 import { ProModePage_productManager } from './1_pages/ProModePage_productManager';
 import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpert';
-import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IStripeSubscriptionInfo } from '../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface useProModeSetDataUI_input {
   userRolePermissionsWithStripeSubscriptionInfo: string[];
