@@ -152,95 +152,95 @@ const ProModeWindow = () => {
   // === tab panels - end ===
 
   return (
-    <CreativityValueProvider value={creativityValue}>
-      <SubscriptionValueProvider value={userSubscriptionInfoHookResult}>
-        <div className="drag-region" style={{ width: '100%' }}>
-          <div className="container">
-            <div
-              className="row top_block_add_tab"
-              style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
+    <div className="drag-region" style={{ width: '100%' }}>
+      <div className="container">
+        <div
+          className="row top_block_add_tab"
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
+        >
+          <div>
+            <Select
+              showSearch
+              placeholder="选择专业界面"
+              optionFilterProp="children"
+              onChange={onProModeSelectorChange}
+              onSearch={onProModeSelectorSearch}
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              options={[
+                {
+                  value: '',
+                  label: '请选择',
+                },
+                ...defaultTabPanels.map((item: { value: string; label: string }) => {
+                  return {
+                    value: item.value,
+                    label: item.label,
+                  };
+                }),
+              ]}
+              style={{ width: 180 }}
+            />
+            <Button
+              type="primary"
+              style={{ marginLeft: 8 }}
+              onClick={() => {
+                if (!selectedProdMode) {
+                  message.error('请选择专业界面');
+                  return;
+                }
+
+                if (!userRolePermissionsWithStripeSubscriptionInfo.includes(selectedProdMode)) {
+                  message.error('你没有权限使用此面板');
+                  return;
+                }
+
+                addTabPanel(selectedProdMode);
+              }}
             >
-              <div>
-                <Select
-                  showSearch
-                  placeholder="选择专业界面"
-                  optionFilterProp="children"
-                  onChange={onProModeSelectorChange}
-                  onSearch={onProModeSelectorSearch}
-                  filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-                  options={[
-                    {
-                      value: '',
-                      label: '请选择',
-                    },
-                    ...defaultTabPanels.map((item: { value: string; label: string }) => {
-                      return {
-                        value: item.value,
-                        label: item.label,
-                      };
-                    }),
-                  ]}
-                  style={{ width: 180 }}
-                />
-                <Button
-                  type="primary"
-                  style={{ marginLeft: 8 }}
-                  onClick={() => {
-                    if (!selectedProdMode) {
-                      message.error('请选择专业界面');
-                      return;
-                    }
+              添加
+            </Button>
 
-                    if (!userRolePermissionsWithStripeSubscriptionInfo.includes(selectedProdMode)) {
-                      message.error('你没有权限使用此面板');
-                      return;
-                    }
+            <span style={{ color: '#5D6370', marginLeft: '1rem' }}>创意值: {creativityValue}</span>
+          </div>
 
-                    addTabPanel(selectedProdMode);
-                  }}
-                >
-                  添加
-                </Button>
+          <div>
+            <Slider
+              min={0}
+              max={1.4}
+              step={0.1}
+              onChange={(newValue: number) => {
+                setCreativityValue(newValue);
+              }}
+              value={creativityValue}
+              marks={{
+                0: '精确',
+                1.4: '创造',
+              }}
+              style={{ width: 200, marginLeft: '2rem', marginRight: '2rem' }}
+            />
+          </div>
+        </div>
 
-                <span style={{ color: '#5D6370', marginLeft: '1rem' }}>创意值: {creativityValue}</span>
-              </div>
+        {hasNoAvailableSubscription && !isBetaUser && (
+          <div className="row">
+            <Alert
+              message={
+                <span>
+                  John是一位忙碌的职场人士，但在订阅我们产品后，他发现了平衡工作和生活的新秘诀。
+                  <a href="https://www.gptaiflow.com/business/prices" target="_blank">
+                    <span style={{ color: '#1677FF' }}>点击这里</span>
+                  </a>
+                </span>
+              }
+              type="info"
+              style={{ cursor: 'pointer' }}
+            />
+          </div>
+        )}
 
-              <div>
-                <Slider
-                  min={0}
-                  max={1.4}
-                  step={0.1}
-                  onChange={(newValue: number) => {
-                    setCreativityValue(newValue);
-                  }}
-                  value={creativityValue}
-                  marks={{
-                    0: '精确',
-                    1.4: '创造',
-                  }}
-                  style={{ width: 200, marginLeft: '2rem', marginRight: '2rem' }}
-                />
-              </div>
-            </div>
-
-            {hasNoAvailableSubscription && !isBetaUser && (
-              <div className="row">
-                <Alert
-                  message={
-                    <span>
-                      John是一位忙碌的职场人士，但在订阅我们产品后，他发现了平衡工作和生活的新秘诀。
-                      <a href="https://www.gptaiflow.com/business/prices" target="_blank">
-                        <span style={{ color: '#1677FF' }}>点击这里</span>
-                      </a>
-                    </span>
-                  }
-                  type="info"
-                  style={{ cursor: 'pointer' }}
-                />
-              </div>
-            )}
-
-            <div className="row bottom_block_tabs">
+        <div className="row bottom_block_tabs">
+          <CreativityValueProvider value={creativityValue}>
+            <SubscriptionValueProvider value={userSubscriptionInfoHookResult}>
               <Tabs
                 size="small"
                 hideAdd
@@ -257,11 +257,11 @@ const ProModeWindow = () => {
                   );
                 })}
               </Tabs>
-            </div>
-          </div>
+            </SubscriptionValueProvider>
+          </CreativityValueProvider>
         </div>
-      </SubscriptionValueProvider>
-    </CreativityValueProvider>
+      </div>
+    </div>
   );
 };
 

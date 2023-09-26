@@ -72,20 +72,31 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
   const [isTextInputAsText, setIsTextInputAsText] = useState<boolean>(false);
+  const [hasExampleText, setHasExampleText] = useState<boolean>();
+  const [exampleText, setExampleText] = useState<string>();
 
   const onInputContentTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log('Change:', e.target.value);
 
     setTextInputContent(e.target.value);
   };
+  const onInputExampleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log('Change:', e.target.value);
+
+    setExampleText(e.target.value);
+  };
   // === 用户输入部分 - end ===
 
   // === 获取全部结果 与 停止全部结果 - start ===
   useEffect(() => {
-    clickSearchAllResultsButtonCount && getInstructionAIFlowResults();
+    if (clickSearchAllResultsButtonCount) {
+      getInstructionAIFlowResults();
+    }
   }, [clickSearchAllResultsButtonCount]);
   useEffect(() => {
-    clickStopSearchAllResultsButtonCount && stopInstructionAIFlowResults(requestControllersMap);
+    if (clickStopSearchAllResultsButtonCount) {
+      stopInstructionAIFlowResults(requestControllersMap);
+    }
   }, [clickStopSearchAllResultsButtonCount]);
   // === 获取全部结果 与 停止全部结果 - end ===
 
@@ -137,6 +148,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
     console.log('stopInstructionAIFlowResults - end');
   };
+
   const getInstructionAIFlowResults = async () => {
     console.log('getInstructionAIFlowResults - start');
 
@@ -166,10 +178,10 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   const buildPrompt = (
     index: number,
-    paraInstructionInputCCommandList: IAICommands_v4[],
-    paraRequestReultsList: IAICommandsResults_v4[]
+    paraAICommandsList: IAICommands_v4[],
+    paraAICommandsReultsList: IAICommandsResults_v4[]
   ): IPrompt[] => {
-    const results = [
+    const newPrompts = [
       {
         role: EAIFlowRole.SYSTEM,
         content: handledContextPrompt,
@@ -177,7 +189,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     ];
 
     // === buildPrompt - init command for this ${index} - start ===
-    const oneInstructionOuputIndicatorCommand = paraInstructionInputCCommandList[index];
+    const oneInstructionOuputIndicatorCommand = paraAICommandsList[index];
 
     let resquestContentForThisIndex = '';
 
@@ -196,35 +208,40 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         resquestContentForThisIndex += `\n---\n${textInputContent}`;
       }
 
-      results.push({
+      if (hasExampleText && exampleText) {
+        resquestContentForThisIndex += `\n\n案例:"""\n${exampleText}\n"""`;
+      }
+
+      newPrompts.push({
         role: EAIFlowRole.USER,
         content: resquestContentForThisIndex,
       });
 
-      return results;
+      return newPrompts;
     }
     // === buildPrompt - first command - end ===
 
     // === buildPrompt - for the rest commands - start ===
     // Add Previous history - start
     for (let i = 0; i < index; i++) {
-      const oneInstructionOuputIndicatorCommandLoop = paraInstructionInputCCommandList[i];
+      const oneAICommand = paraAICommandsList[i];
+      const oneAICommandResult = paraAICommandsReultsList[i];
 
       let resquestContentForPrevious = '';
 
-      if (oneInstructionOuputIndicatorCommandLoop.aiFlowInstance.value) {
-        resquestContentForPrevious += oneInstructionOuputIndicatorCommandLoop.aiFlowInstance.value;
+      if (oneAICommand.aiFlowInstance.value) {
+        resquestContentForPrevious += oneAICommand.aiFlowInstance.value;
       }
 
-      results.push({
+      newPrompts.push({
         role: EAIFlowRole.USER,
         content: resquestContentForPrevious,
       });
 
-      if (paraRequestReultsList[i].value) {
-        results.push({
+      if (oneAICommandResult && oneAICommandResult.value) {
+        newPrompts.push({
           role: EAIFlowRole.ASSISTANT,
-          content: paraRequestReultsList[i].value,
+          content: oneAICommandResult.value,
         });
       }
     }
@@ -238,13 +255,17 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       resquestContentForThisIndex += `\n---\n${textInputContent}`;
     }
 
-    results.push({
+    if (hasExampleText && exampleText) {
+      resquestContentForThisIndex += `\n\n案例:"""\n${exampleText}\n"""`;
+    }
+
+    newPrompts.push({
       role: EAIFlowRole.USER,
       content: resquestContentForThisIndex,
     });
     // === buildPrompt - for the rest commands - end ===
 
-    return results;
+    return newPrompts;
   };
   const getOneInstructionAiFlowResult = async (
     oneInstructionInputCommnad: IAICommands_v4,
@@ -257,7 +278,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       const { signal } = requestController;
 
       const resquestContentPrompt = buildPrompt(index, aiCommands, aiComandsResults);
-      // console.log('resquestContent', resquestContentPrompt);
+      // console.log('resquestContentPrompt', resquestContentPrompt);
 
       /* const reponseResult: void | ISendChatGPTRequestToBackend_ouput = */ await sendChatGPTRequestAsStreamToBackendProxy(
         {
@@ -292,8 +313,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         if (error.name === 'AbortError') {
           console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
         } else {
-          message.error(error.message);
           console.error('Fetch request failed:', error);
+          message.error(error.message);
         }
       });
     } catch (error) {
@@ -350,7 +371,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
         <div className="row">
           <div className="row">
-            <label>内容: 补充信息</label>
+            <div>内容: 补充信息</div>
             {/* <Button
             size="small"
             onClick={() => {
@@ -367,6 +388,20 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           </Button> */}
           </div>
           <div className="row">
+            {hasExampleText && (
+              <div>
+                <TextArea
+                  name="inputContent"
+                  // showCount
+                  // maxLength={100}
+                  rows={4}
+                  style={{ marginBottom: -1 }}
+                  value={exampleText}
+                  onChange={onInputExampleTextChange}
+                  placeholder="根据此段内容作为模仿内容"
+                />
+              </div>
+            )}
             <div>
               <TextArea
                 name="inputContent"
@@ -388,6 +423,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                 }}
               >
                 作为文本
+              </Checkbox>
+              <Checkbox
+                value={isTextInputAsText}
+                onChange={(e: CheckboxChangeEvent) => {
+                  console.log(`checked = ${e.target.checked}`);
+                  setHasExampleText(e.target.checked);
+                }}
+              >
+                模仿段落
               </Checkbox>
             </div>
           </div>

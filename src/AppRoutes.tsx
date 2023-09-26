@@ -1,8 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { CreativityValueProvider } from './gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 // import { CounterComponent } from './CounterComponent';
 import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
