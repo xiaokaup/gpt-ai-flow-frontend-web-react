@@ -276,6 +276,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           setAiComandsResults(aiComandsResults);
           setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
         })(index),
+        // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
         ((index: number) => () => {
           console.log('AfterRequestAsStreamFunc');
         })(index),
@@ -299,6 +300,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   // === 指令集输出结果部分 - start ===
   const [aiComandsResults, setAiComandsResults] = useState<IAICommandsResults_v4[]>([]);
+  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const [updateRequestResultsCount, setUpdateRequestResultsCount] = useState<number>(0); // Refresh the component
 
   const syncAiCommandsResultsByAiCommands = (

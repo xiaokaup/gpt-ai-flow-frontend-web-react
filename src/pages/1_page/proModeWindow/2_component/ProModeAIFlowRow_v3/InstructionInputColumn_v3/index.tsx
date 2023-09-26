@@ -1,25 +1,24 @@
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
-import iconFormat from '../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
-
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-import { Input } from 'antd';
 import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
+
+import iconFormat from '../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
+
 import { IAIFlow, EAIFlowType, EAIFlowRole } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
+
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
+
 import { InstructionInputColumn_v3_InstructionSelect } from './InstructionInputColumn_v3_InstructionSelect';
 import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InstructionInputColumn_v3_OutputIndicatorSelect';
 import { InstructionInputColumn_v3_CustomizeTextArea } from './InstructionInputColumn_v3_CustomizeTextArea';
-
-const { TextArea } = Input;
 
 interface InstructionInputColumn_v3_input {
   defaultInstructionAiCommands: IAIFlow[];

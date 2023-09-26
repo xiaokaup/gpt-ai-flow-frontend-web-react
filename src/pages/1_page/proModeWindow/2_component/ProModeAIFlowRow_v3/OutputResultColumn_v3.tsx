@@ -1,12 +1,16 @@
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
+import './OutputResultColumn_v3.scss';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import ReactMarkdown from 'react-markdown';
+import html2canvas from 'html2canvas';
 import copy from 'copy-to-clipboard';
 
 import { Button, Input, Empty, message } from 'antd';
 import { RedoOutlined, BorderOutlined, CopyOutlined, EditOutlined } from '@ant-design/icons';
+
+import iconShare from '../../../../../../assets/icons-customize/icon-share/icon-share-18x18.png';
 
 import {
   IAICommandsResults_v4,
@@ -16,6 +20,8 @@ import {
 const { TextArea } = Input;
 
 export interface IOuputIndicatorComponent_input {
+  hasAvailableSubscription: boolean;
+
   stopInstructionAIFlowResults: (paraRequestControllersMap: Map<string, AbortController>) => void;
   getInstructionAIFlowResults: () => void;
   getOneInstructionAiFlowResult: (
@@ -34,6 +40,8 @@ export interface IOuputIndicatorComponent_input {
 }
 export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => {
   const {
+    hasAvailableSubscription,
+
     stopInstructionAIFlowResults,
     getOneInstructionAiFlowResult,
     getInstructionAIFlowResults,
@@ -49,32 +57,95 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
 
   return (
     <>
-      <div className="row row_buttons">
-        <label>结果</label>
+      <div
+        className="row row_buttons"
+        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}
+      >
+        <div>
+          <span>结果</span>
 
-        <Button
-          size="small"
-          onClick={() => {
-            stopInstructionAIFlowResults(requestControllersMap);
+          <Button
+            size="small"
+            onClick={() => {
+              stopInstructionAIFlowResults(requestControllersMap);
+            }}
+            style={{ marginLeft: 6 }}
+          >
+            停止
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            onClick={() => {
+              getInstructionAIFlowResults();
+            }}
+            style={{ marginLeft: 6 }}
+            disabled={false}
+          >
+            获取
+          </Button>
+        </div>
+
+        <img
+          className="share_button"
+          style={{
+            border: '1px solid #d9d9d9',
+            borderRadius: '.25rem',
+            padding: 4,
+            cursor: 'pointer',
+
+            marginLeft: '.4rem',
+
+            flex: '0 1 auto',
           }}
-          style={{ marginLeft: 6 }}
-        >
-          停止
-        </Button>
-        <Button
-          type="primary"
-          size="small"
+          src={iconShare}
+          alt="shareButton"
           onClick={() => {
-            getInstructionAIFlowResults();
+            const resultsElement = document.getElementById('aiCommandResults_container');
+            if (!resultsElement) {
+              return;
+            }
+
+            html2canvas(resultsElement).then(function (canvas) {
+              // Convert canvas to a Blob
+              canvas.toBlob(function (blob) {
+                if (!blob) {
+                  return;
+                }
+
+                // Create a blob URL
+                const blobURL = URL.createObjectURL(blob);
+                // Create a link element for downloading
+                const downloadLink = document.createElement('a');
+                downloadLink.href = blobURL;
+
+                // Set the filename for the downloaded file (you can customize this)
+                // Get the current date and time
+                const now = new Date();
+
+                // Extract date and time components
+                const year = now.getFullYear();
+                const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based, so add 1 and pad with '0'
+                const day = now.getDate().toString().padStart(2, '0');
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const dateTimeString = `${year}${month}${day}-${hours}${minutes}${seconds}`;
+                const capturedImageFileName = `${dateTimeString}_captured_image.png`;
+
+                downloadLink.download = capturedImageFileName;
+
+                // Trigger the download by simulating a click on the link
+                downloadLink.click();
+                // Clean up the blob URL
+                URL.revokeObjectURL(blobURL);
+              }, 'image/png'); // Specify the desired file format (e.g., image/png)
+            });
           }}
-          style={{ marginLeft: 6 }}
-          disabled={false}
-        >
-          获取
-        </Button>
+        />
       </div>
 
-      <div className="row row_results">
+      <div id="aiCommandResults_container" className="row row_results">
         {aiComandsResults.length <= 0 && <Empty description="暂无结果" style={{ marginTop: 30 }} />}
 
         {aiCommands.map((item: IAICommands_v4, index: number) => {
@@ -101,32 +172,36 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                 alignItems: 'flex-start',
               }}
             >
-              {!aiComandsResults[index].isEditing && (
-                <div
-                  style={{
-                    border: '1px solid #d9d9d9',
-                    borderRadius: '.25rem',
-                    padding: '.25rem',
-
-                    flex: '1 1 auto',
-                  }}
-                >
-                  <div className="output_block">
-                    <ReactMarkdown>{aiComandsResults[index].value}</ReactMarkdown>
+              <div style={{ flex: '1 1 auto' }}>
+                {!aiComandsResults[index].isEditing && (
+                  <div
+                    style={{
+                      border: '1px solid #d9d9d9',
+                      borderRadius: '.25rem',
+                      padding: '.25rem',
+                    }}
+                  >
+                    <div
+                      className={
+                        hasAvailableSubscription ? 'output_block' : 'output_block output_block_with_watermarker'
+                      }
+                    >
+                      <ReactMarkdown>{aiComandsResults[index].value}</ReactMarkdown>
+                    </div>
                   </div>
-                </div>
-              )}
-              {aiComandsResults[index].isEditing && (
-                <TextArea
-                  rows={8}
-                  value={aiComandsResults[index].value}
-                  onChange={(e) => {
-                    const newAiCommandsResults = [...aiComandsResults];
-                    newAiCommandsResults[index].value = e.target.value;
-                    setAiComandsResults(newAiCommandsResults);
-                  }}
-                />
-              )}
+                )}
+                {aiComandsResults[index].isEditing && (
+                  <TextArea
+                    rows={8}
+                    value={aiComandsResults[index].value}
+                    onChange={(e) => {
+                      const newAiCommandsResults = [...aiComandsResults];
+                      newAiCommandsResults[index].value = e.target.value;
+                      setAiComandsResults(newAiCommandsResults);
+                    }}
+                  />
+                )}
+              </div>
 
               <div className="buttons_group">
                 <div className="edit_button">
