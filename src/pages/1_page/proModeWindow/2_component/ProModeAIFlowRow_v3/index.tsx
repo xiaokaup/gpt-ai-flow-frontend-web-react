@@ -5,6 +5,7 @@ import './index.scss';
 import React, { useEffect, useState } from 'react';
 
 import { Input, message } from 'antd';
+import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
 import {
@@ -14,14 +15,14 @@ import {
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { useSubscriptionValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
+import { useUserInfo } from '../../../../../hooks/useUserInfo';
+import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
+
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
-
-import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useUserInfo } from '../../../../../hooks/useUserInfo';
-import { useUserSubscriptionInfo } from '../../../../../hooks/useUserSubscriptionInfo';
 
 const { TextArea } = Input;
 
@@ -35,6 +36,10 @@ interface ProModeAIFlowRow_v3_input {
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const creativityValue = useCreativityValueContext();
+  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useSubscriptionValueContext();
+  const {
+    check: { hasAvailableSubscription },
+  } = userSubscriptionInfoHookResult;
 
   const {
     clickSearchAllResultsButtonCount,
@@ -390,6 +395,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       </div>
       <div className="right_side_results_column column" style={{ flex: '1 1 70%' }}>
         <OutputResultColumn_v3
+          hasAvailableSubscription={hasAvailableSubscription}
           // Call requests
           stopInstructionAIFlowResults={stopInstructionAIFlowResults}
           getInstructionAIFlowResults={getInstructionAIFlowResults}
