@@ -68,7 +68,9 @@ const ProModeWindow = () => {
 
   const userDefaultTabs: ITabPanel[] = [];
   const itemFound = defaultTabPanels.find((item) => item.value === EUserRolePermissionDB_name.COMMUNICATION);
-  itemFound && userDefaultTabs.push(itemFound);
+  if (itemFound) {
+    userDefaultTabs.push(itemFound);
+  }
 
   if (hasAvailableSubscription || isBetaUser) {
     const itemsFound = defaultTabPanels.filter((item) => item.value !== EUserRolePermissionDB_name.COMMUNICATION);
@@ -105,7 +107,8 @@ const ProModeWindow = () => {
       return;
     }
 
-    const newActiveTabPanelKey = `${newTabPanelIndex.current++}`;
+    newTabPanelIndex.current += 1; // Increment the property value
+    const newActiveTabPanelKey = `${newTabPanelIndex.current}`;
     const { label, value, children } = newTabPanel;
 
     setTabPanels([
@@ -239,8 +242,8 @@ const ProModeWindow = () => {
         )}
 
         <div className="row bottom_block_tabs">
-          <CreativityValueProvider value={creativityValue}>
-            <SubscriptionValueProvider value={userSubscriptionInfoHookResult}>
+          <SubscriptionValueProvider value={userSubscriptionInfoHookResult}>
+            <CreativityValueProvider value={creativityValue}>
               <Tabs
                 size="small"
                 hideAdd
@@ -257,8 +260,8 @@ const ProModeWindow = () => {
                   );
                 })}
               </Tabs>
-            </SubscriptionValueProvider>
-          </CreativityValueProvider>
+            </CreativityValueProvider>
+          </SubscriptionValueProvider>
         </div>
       </div>
     </div>

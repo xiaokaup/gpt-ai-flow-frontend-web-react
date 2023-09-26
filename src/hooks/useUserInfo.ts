@@ -64,7 +64,7 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
     userData: {
       ...userData,
       userRolePermissions: [
-        // ...window.env.PROMODE_FREE_PROMODE_PERMISSIONS,
+        ...CONSTANTS_GPT_AI_FLOW_COMMON.PROMODE_FREE_PROMODE_PERMISSIONS,
         ...(userData.userRolePermissions || []),
       ],
     },

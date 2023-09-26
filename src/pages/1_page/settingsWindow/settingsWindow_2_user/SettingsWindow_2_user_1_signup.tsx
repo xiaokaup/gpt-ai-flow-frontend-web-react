@@ -4,7 +4,7 @@ import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
-import IUserDBFile, { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import React, { useEffect } from 'react';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
@@ -16,10 +16,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../../../hooks/useUserInfo';
 
-interface ISettingsWindow_2_user_1_signup_input {
-  // setPageCase: (paraPageCase: EUserPageCase) => void;
-}
-export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_signup_input) => {
+// interface ISettingsWindow_2_user_1_signup_input {
+//   setPageCase: (paraPageCase: EUserPageCase) => void;
+// }
+export const SettingsWindow_2_user_1_signup = () => {
   // const { setPageCase } = props;
 
   const dispatch = useDispatch();
