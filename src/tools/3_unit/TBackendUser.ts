@@ -10,7 +10,7 @@ export const getUser = async (
   accessToken: string,
   env: IConstantGptAiFlowHandler
 ): Promise<IUserDB> => {
-  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/get/user/${userId}/?hasToken=true&hasUserRolePermission=true`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/get/user/${userId}/?hasToken=true&hasUserRolePermission=true&hasSubscription=true`;
 
   const results = await fetchWithRetry(url, {
     method: 'GET',
