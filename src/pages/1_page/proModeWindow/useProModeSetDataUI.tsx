@@ -81,6 +81,21 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
 
   const defaultTabPanels: ITabPanel[] = [
     {
+      key: EUserRolePermissionDB_name.COMMUNICATION,
+      label: PROMODE_COMMUNICATION_DATA.tabInfo.name,
+      value: EUserRolePermissionDB_name.COMMUNICATION,
+      children: (
+        <ProModePage_communication
+          PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
+          defaultContextPromptType={EProMode_v2_communication_contextType.BUILD_IN}
+          defaultContextTypesForSelect={
+            Object.keys(PROMODE_COMMUNICATION_DATA.context) as EProMode_v2_communication_contextType[]
+          }
+        />
+      ),
+      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMUNICATION),
+    },
+    {
       key: EUserRolePermissionDB_name.COPY_WRITING,
       label: PROMODE_COPY_WRITING_DATA.tabInfo.name,
       value: EUserRolePermissionDB_name.COPY_WRITING,
@@ -148,21 +163,6 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.CAREER),
-    },
-    {
-      key: EUserRolePermissionDB_name.COMMUNICATION,
-      label: PROMODE_COMMUNICATION_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.COMMUNICATION,
-      children: (
-        <ProModePage_communication
-          PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
-          defaultContextPromptType={EProMode_v2_communication_contextType.BUILD_IN}
-          defaultContextTypesForSelect={
-            Object.keys(PROMODE_COMMUNICATION_DATA.context) as EProMode_v2_communication_contextType[]
-          }
-        />
-      ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMUNICATION),
     },
     {
       key: EUserRolePermissionDB_name.VIDEO_PRODUCTION,
