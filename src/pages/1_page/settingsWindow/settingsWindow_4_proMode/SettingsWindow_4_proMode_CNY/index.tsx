@@ -37,11 +37,10 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
   } = useSubscriptionDataOutput;
   const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(!!Subscription?.id);
   const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionDataFromStorage);
-  const [isExpired, setIsExpired] = useState<boolean>(new Date(subscriptionData.expiredAt) < new Date());
+  const isExpired = new Date(subscriptionData?.expiredAt) < new Date();
 
   useEffect(() => {
     setSubscriptionData(subscriptionDataFromStorage);
-    setIsExpired(new Date(subscriptionDataFromStorage.expiredAt) < new Date());
   }, [subscriptionDataFromStorage]);
 
   const startATrialSubscription = async () => {
@@ -57,8 +56,6 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
     message.success('免费试用已开启');
     setHasAnyoneSubscriptionRecord(true);
     setSubscriptionData(results);
-    const newIsExpired = new Date(results.expiredAt) < new Date();
-    setIsExpired(newIsExpired);
   };
 
   return (
