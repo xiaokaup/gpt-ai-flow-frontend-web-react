@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import {
   EProMode_v2_career_contextType,
@@ -36,10 +37,12 @@ import {
   EProMode_v2_marketingExpert_contextType,
   IProMode_v2_marketingExpert,
 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_marketingExpert';
+import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
+import IProMode_v2File, { IProMode_v2 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
-import { useProModeSetData } from '../../../hooks/useProModeSetData';
-
-import { ITabPanel } from '.';
+import { IReduxRootState } from '../../../store/reducer/index';
 
 import { ProModePage_copyWriting } from './1_pages/ProModePage_copyWriting';
 import { ProModePage_xiaoHongShu } from './1_pages/ProModePage_xiaoHongShu';
@@ -51,13 +54,32 @@ import { ProModePage_upZhu } from './1_pages/ProModePage_upZhu';
 import { ProModePage_productManager } from './1_pages/ProModePage_productManager';
 import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpert';
 
+import { ITabPanel } from '.';
+
 interface useProModeSetDataUI_input {
   userRolePermissionsWithStripeSubscriptionInfo: string[];
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const { userRolePermissionsWithStripeSubscriptionInfo } = props;
 
-  const { proModeSetData: proModeSetFromStore } = useProModeSetData();
+  const encryptedProModeSetFromStore: string = useSelector(
+    (state: IReduxRootState) => state.proModeSet ?? IProMode_v2File.IProMode_v2_default
+  );
+
+  const proModeSetFromStorage = TCryptoJSFile.decrypt(
+    encryptedProModeSetFromStore,
+    CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+  );
+
+  const { proModeSetData: proModeSetFromStore } = useProModeSetData({
+    proModeSetData: proModeSetFromStorage,
+    // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
+    onProModeSetDataChange: (newPromodeSetData: IProMode_v2) => {
+      // dispatch(updateProModeDataAction(newPromodeSetData) as any); // @BUG: infinite loop to update redux store
+    },
+    getDecryptObj: TCryptoJSFile.decrypt,
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
 
   const PROMODE_COPY_WRITING_DATA = proModeSetFromStore[
     EUserRolePermissionDB_name.COPY_WRITING

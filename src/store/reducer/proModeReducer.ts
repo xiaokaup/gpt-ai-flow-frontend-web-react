@@ -30,6 +30,11 @@ export const proModeReducer = (state: string = initialState, action: IAction) =>
         payload,
         CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
       );
+    // case UPDATE_PROMODE_DATA:
+    //   return TCryptoJSFile.encrypt(
+    //     payload,
+    //     CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+    //   );
     case USER_LOGOUT:
       return initialState;
     default:
