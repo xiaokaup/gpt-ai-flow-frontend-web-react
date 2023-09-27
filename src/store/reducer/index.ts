@@ -6,6 +6,7 @@ import { ILocalReducerState, localReducer } from './localReducer';
 import { proModeReducer } from './proModeReducer';
 import { ISubscirptionMix } from '../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import { subscriptionReducer } from './SubscriptionReducer';
+import { IInputsCache, inputsCacheReduer } from './inputsCacheReducer';
 
 export interface IReduxRootState {
   counterInfo: ICounterReducerState;
@@ -13,6 +14,7 @@ export interface IReduxRootState {
   local: ILocalReducerState;
   proModeSet: string;
   subscription: ISubscirptionMix;
+  inputsCache: IInputsCache;
 }
 
 export const createRootReducer = () =>
@@ -22,4 +24,5 @@ export const createRootReducer = () =>
     local: localReducer,
     proModeSet: proModeReducer,
     subscription: subscriptionReducer,
+    inputsCache: inputsCacheReduer,
   });
