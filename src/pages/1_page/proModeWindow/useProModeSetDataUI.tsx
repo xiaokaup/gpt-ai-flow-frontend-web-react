@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import {
   EProMode_v2_career_contextType,
@@ -41,7 +41,9 @@ import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeS
 import IProMode_v2File, { IProMode_v2 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 
+import { updateProModeDataAction } from '../../../store/actions/proModeActions';
 import { IReduxRootState } from '../../../store/reducer/index';
 
 import { ProModePage_copyWriting } from './1_pages/ProModePage_copyWriting';
@@ -55,13 +57,14 @@ import { ProModePage_productManager } from './1_pages/ProModePage_productManager
 import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpert';
 
 import { ITabPanel } from '.';
-import { IUserData } from 'gpt-ai-flow-common/interface-app/IUserData';
 
 interface useProModeSetDataUI_input {
   userDataFromStorage: IUserData;
   userRolePermissionsWithStripeSubscriptionInfo: string[];
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
+  const dispatch = useDispatch();
+
   const { userDataFromStorage, userRolePermissionsWithStripeSubscriptionInfo } = props;
 
   const encryptedProModeSetFromStore: string = useSelector(
@@ -73,12 +76,17 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
   );
 
+  const [hasUpdateProModeData, setHasUpdateProModeData] = useState<boolean>(false);
   const { proModeSetData } = useProModeSetData({
     userDataFromStorage,
     proModeSetData: proModeSetFromStorage,
     // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
     onProModeSetDataChange: (newPromodeSetData: IProMode_v2) => {
-      // dispatch(updateProModeDataAction(newPromodeSetData) as any); // @BUG: infinite loop to update redux store
+      if (hasUpdateProModeData) {
+        return;
+      }
+      setHasUpdateProModeData(true);
+      dispatch(updateProModeDataAction(newPromodeSetData) as any); // @XXX: Use hasSetProModeData to break infinite loop to update redux store without call backend API
     },
     getDecryptObj: TCryptoJSFile.decrypt,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
