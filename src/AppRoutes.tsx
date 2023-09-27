@@ -1,8 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
+import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
+import IUserDataFile, { IUserData } from './gpt-ai-flow-common/interface-app/IUserData';
+
 import { AppLayout, AppLayoutCenter } from './AppLayout';
+import { IReduxRootState } from './store/reducer';
 // import { CounterComponent } from './CounterComponent';
+
 import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
 import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_2_login';
 import { SettingsWindow_2_user_3_info } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_3_info';
@@ -11,17 +18,24 @@ import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsW
 import { SettingsWindow_1_local } from './pages/1_page/settingsWindow/settingsWindow_1_local';
 import ProModeWindow from './pages/1_page/proModeWindow';
 import { SettingsWindow_6_about } from './pages/1_page/settingsWindow/SettingsWindow_6_about';
-import { useUserInfo } from './hooks/useUserInfo';
 import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
 
 export const AppRoutes = () => {
-  const { userData, isAuthenticated } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData, isAuthenticated } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
 
   const router = createBrowserRouter([
     // {
     //   path: '/counter',
     //   element: (
-    //     <AppLayout>
+    //     <AppLayout isAuthenticated={isAuthenticated}>
     //       <CounterComponent />
     //     </AppLayout>
     //   ),
@@ -29,7 +43,7 @@ export const AppRoutes = () => {
     {
       path: '/',
       element: (
-        <AppLayoutCenter>
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <SettingsWindow_2_user_2_login />
         </AppLayoutCenter>
       ),
@@ -37,7 +51,7 @@ export const AppRoutes = () => {
     {
       path: '/signUp',
       element: (
-        <AppLayoutCenter>
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <SettingsWindow_2_user_1_signup />
         </AppLayoutCenter>
       ),
@@ -45,7 +59,7 @@ export const AppRoutes = () => {
     {
       path: '/login',
       element: (
-        <AppLayoutCenter>
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <SettingsWindow_2_user_2_login />
         </AppLayoutCenter>
       ),
@@ -53,7 +67,7 @@ export const AppRoutes = () => {
     {
       path: '/info',
       element: (
-        <AppLayout>
+        <AppLayout isAuthenticated={isAuthenticated}>
           <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
           <SettingsWindow_1_local />
           <SettingsWindow_4_proMode />
@@ -64,7 +78,7 @@ export const AppRoutes = () => {
     {
       path: '/changePassword',
       element: (
-        <AppLayoutCenter>
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
         </AppLayoutCenter>
       ),
@@ -72,7 +86,7 @@ export const AppRoutes = () => {
     {
       path: '/forgetPassword',
       element: (
-        <AppLayoutCenter>
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <SettingsWindow_2_user_5_forgetPassword />
         </AppLayoutCenter>
       ),
@@ -80,7 +94,7 @@ export const AppRoutes = () => {
     {
       path: '/proMode',
       element: (
-        <AppLayoutCenter>
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <ProModeWindow />
         </AppLayoutCenter>
       ),

@@ -49,8 +49,8 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
   const contextPromptHavePlaceHolder = TString.hasPlaceholder(contextPrompt);
   const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextPromptType].value);
 
-  const [showUserContextInputs, setShowUserContextInputs] = useState<boolean>(false);
-  const [isUserContextInputsDirty, setIsUserContextInputsDirty] = useState<boolean>(false);
+  const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
+  const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
   const handleContextTypeChange = (paraContextPromptType: EProMode_v2_career_contextType) => {
     console.log(`selected ${paraContextPromptType}`);
@@ -58,7 +58,7 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
     setContextPrompt(contextPrompts[paraContextPromptType].value);
     setHandledContextPrompt(contextPrompts[paraContextPromptType].value);
 
-    setIsUserContextInputsDirty(false);
+    setIsContextInputsDirty(false);
 
     if (TString.hasPlaceholder(contextPrompts[paraContextPromptType].defaultValue)) {
       message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
@@ -93,8 +93,8 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
         </div>
         <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
           场景
-          {isUserContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
-          {!isUserContextInputsDirty && (
+          {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
+          {!isContextInputsDirty && (
             <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
           )}
           :
@@ -109,33 +109,27 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
               };
             })}
           />{' '}
-          {contextPromptHavePlaceHolder && !showUserContextInputs && (
-            <EditOutlined
-              style={{ fontSize: 18, marginLeft: '.4rem' }}
-              onClick={() => setShowUserContextInputs(true)}
-            />
+          {contextPromptHavePlaceHolder && !showContextInputs && (
+            <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
           )}
-          {contextPromptHavePlaceHolder && showUserContextInputs && (
-            <EditOutlined
-              style={{ fontSize: 18, marginLeft: '.4rem' }}
-              onClick={() => setShowUserContextInputs(false)}
-            />
+          {contextPromptHavePlaceHolder && showContextInputs && (
+            <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(false)} />
           )}
         </div>
       </div>
 
       <div className="row">
-        {/* {!showUserContextInputs && (
+        {/* {!showContextInputs && (
           <div className="row" style={{ display: 'flex' }}>
             <div className="column">{contextPrompt}</div>
             <div className="column">{handledContextPrompt}</div>
           </div>
         )} */}
         <DynamicFormForContextPrompt
-          containerStyle={showUserContextInputs ? {} : { display: 'none' }}
+          containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={contextPrompt}
           setHandledContextPrompt={setHandledContextPrompt}
-          setIsUserContextInputsDirty={setIsUserContextInputsDirty}
+          setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>
 

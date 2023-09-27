@@ -3,9 +3,13 @@ import '../../../../../styles/layout.scss';
 import './index.scss';
 
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
+
+import { IReduxRootState } from 'store/reducer';
+import { udpateSubscriptionAction } from '../../../../../store/actions/subscriptionActions';
 
 import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
 import {
@@ -17,9 +21,18 @@ import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useSubscriptionValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
-import { useUserInfo } from '../../../../../hooks/useUserInfo';
-import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
+
+import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
+import {
+  IUseSubscriptionData_output,
+  useSubscriptionData,
+} from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+import ISubscriptionMixFile, {
+  ISubscirptionMix,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -35,11 +48,13 @@ interface ProModeAIFlowRow_v3_input {
   aiCommandsSettings: IAICommands_v4[];
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
+  const dispatch = useDispatch();
+
   const creativityValue = useCreativityValueContext();
-  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useSubscriptionValueContext();
+  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionValueContext();
   const {
     check: { hasAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
+  } = useSubscriptionDataOutput;
 
   const {
     clickSearchAllResultsButtonCount,
@@ -56,17 +71,29 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     proMode: { model_type: proModeModelType },
   } = localData;
 
-  const { userData } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
   const { id: userId, token: userToken } = userData;
   const userAccessToken = userToken?.accessToken;
 
-  const {
-    // init: initStripeSubscriptionInfo,
-    userSubscriptionInfo,
-    // check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserSubscriptionInfo({
+  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  });
+  const { subscriptionData } = useSubscriptionData({
     userId: userId as number,
     accessToken: userAccessToken as string,
+    subscriptionDataFromStorage,
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
+      dispatch(udpateSubscriptionAction(newItem) as any);
+    },
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
   // === 用户输入部分 - start ===
@@ -290,7 +317,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             openaiModel: proModeModelType,
             temperature: creativityValue,
           },
-          userStripeSubscriptionInfo: userSubscriptionInfo,
+          subscriptionData,
         },
         () => {
           console.log('beforeSendRequestAsStreamFunc');

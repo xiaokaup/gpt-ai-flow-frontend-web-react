@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Tabs, TabsProps } from 'antd';
-import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
+
+import { IReduxRootState } from 'store/reducer';
+import { udpateSubscriptionAction } from '../../../../store/actions/subscriptionActions';
+
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { useUserSubscriptionInfo } from '../../../../hooks/useUserSubscriptionInfo';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
+import { useSubscriptionData } from '../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+import ISubscriptionMixFile, {
+  ISubscirptionMix,
+} from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+
+import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
@@ -12,7 +23,17 @@ enum ESettingsWindow_1_local_tabKey {
 }
 
 export const SettingsWindow_1_local = () => {
-  const { userData } = useUserInfo();
+  const dispatch = useDispatch();
+
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
   const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default } = userData;
 
   if (!userId) {
@@ -23,13 +44,17 @@ export const SettingsWindow_1_local = () => {
     );
   }
 
-  const {
-    // init: initStripeSubscriptionInfo,
-    userSubscriptionInfo,
-    // check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserSubscriptionInfo({
+  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  });
+  const { subscriptionData } = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
+    subscriptionDataFromStorage,
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
+      dispatch(udpateSubscriptionAction(newItem) as any);
+    },
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
   const [selectedTabKey, setSelectedTabKey] = useState<ESettingsWindow_1_local_tabKey>(
@@ -40,7 +65,7 @@ export const SettingsWindow_1_local = () => {
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: `基本`,
-      children: <SettingsWindow_1_local_basic userSubscriptionInfo={userSubscriptionInfo} />,
+      children: <SettingsWindow_1_local_basic subscriptionData={subscriptionData} />,
     },
   ];
 

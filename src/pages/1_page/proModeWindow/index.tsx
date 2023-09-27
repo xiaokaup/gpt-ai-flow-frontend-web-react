@@ -4,19 +4,29 @@ import '../../../styles/layout.scss';
 
 import React from 'react';
 import { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IReduxRootState } from 'store/reducer';
 
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
-
 import { useProModeSetDataUI } from './useProModeSetDataUI';
-import { useUserInfo } from '../../../hooks/useUserInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { SubscriptionValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
-import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../hooks/useUserSubscriptionInfo';
+import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
+import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
+import ISubscriptionMixFile, {
+  ISubscirptionMix,
+} from '../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import {
+  useSubscriptionData,
+  IUseSubscriptionData_output,
+} from '../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+
+import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
 
 export interface ITabPanel {
   key: EUserRolePermissionDB_name;
@@ -29,10 +39,21 @@ export interface ITabPanel {
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
+  const dispatch = useDispatch();
+
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
 
   // === Stripe subscription - start ===
-  const { userData, isBetaUser } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData, isBetaUser } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
+
   const {
     id: userId,
     token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
@@ -43,14 +64,22 @@ const ProModeWindow = () => {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
   }
 
-  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useUserSubscriptionInfo({
+  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  });
+  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
+    subscriptionDataFromStorage,
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
+      dispatch(udpateSubscriptionAction(newItem) as any);
+    },
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const {
-    userSubscriptionInfo,
+    subscriptionData,
     check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
+  } = useSubscriptionDataOutput;
 
   const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
 
@@ -62,6 +91,7 @@ const ProModeWindow = () => {
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
+    userDataFromStorage: userData,
     userRolePermissionsWithStripeSubscriptionInfo,
   });
   // === ProMode Data - end ===
@@ -119,7 +149,7 @@ const ProModeWindow = () => {
         value,
         children,
         disabled:
-          userSubscriptionInfo.name !== ESubscriptionName.NONE
+          subscriptionData.name !== ESubscriptionName.NONE
             ? !userRolePermissionsWithStripeSubscriptionInfo.includes(value)
             : true,
       },
@@ -242,7 +272,7 @@ const ProModeWindow = () => {
         )}
 
         <div className="row bottom_block_tabs">
-          <SubscriptionValueProvider value={userSubscriptionInfoHookResult}>
+          <SubscriptionValueProvider value={useSubscriptionDataOutput}>
             <CreativityValueProvider value={creativityValue}>
               <Tabs
                 size="small"

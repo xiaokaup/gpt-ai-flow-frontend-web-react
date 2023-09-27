@@ -1,9 +1,9 @@
 import React from 'react';
-import { Dropdown, Layout, Menu, MenuProps } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Layout, Menu, MenuProps } from 'antd';
 import { Link } from 'react-router-dom';
-import { useUserInfo } from './hooks/useUserInfo';
+
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
+
 import translate from './i18nProvider/translate';
 import { useLocalInfo } from './hooks/useLocalInfo';
 import { saveLocalAction } from './store/actions/localActions';
@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 const { Header, Content, Footer } = Layout;
 
 interface Layout_input {
+  isAuthenticated: boolean;
   children: React.ReactNode;
 }
 
@@ -100,9 +101,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
 };
 
 export const AppLayout = (props: Layout_input) => {
-  const { children } = props;
-
-  const { isAuthenticated } = useUserInfo();
+  const { isAuthenticated, children } = props;
 
   return (
     <Layout className="layout_container" style={{ background: '#fff' }}>
@@ -125,9 +124,7 @@ export const AppLayout = (props: Layout_input) => {
 };
 
 export const AppLayoutCenter = (props: Layout_input) => {
-  const { children } = props;
-
-  const { isAuthenticated } = useUserInfo();
+  const { isAuthenticated, children } = props;
 
   return (
     <Layout className="layout_container" style={{ background: '#fff' }}>

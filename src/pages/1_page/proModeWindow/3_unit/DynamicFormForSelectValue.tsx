@@ -2,8 +2,15 @@ import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
 import React, { useState } from 'react';
-import { Button, Form, Input, message } from 'antd';
-import { useUserInputsCache } from '../../../../hooks/useUserInputsCache';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { Button, Form, Input } from 'antd';
+
+import { IReduxRootState } from '../../../../store/reducer';
+import { updateInputsCache } from '../../../../store/actions/inputsCacheActions';
+
+import IInputsCacheFile, { IInputsCache } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { useInputsCache } from '../../../../gpt-ai-flow-common/hooks/useInputsCache';
 
 interface DynamicFormForSelectValue_input {
   containerStyle: any;
@@ -14,7 +21,17 @@ interface DynamicFormForSelectValue_input {
 }
 
 export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input) {
-  const { userInputsCache, setUserInputsCache } = useUserInputsCache();
+  const dispatch = useDispatch();
+
+  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+  });
+  const { inputsCache, setInputsCache } = useInputsCache({
+    inputsCacheFromStorage,
+    onInputsCacheChange: (newItem: IInputsCache) => {
+      dispatch(updateInputsCache(newItem) as any);
+    },
+  });
 
   const {
     containerStyle,
@@ -38,7 +55,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
 
   const handleInputChange = (placeholder: string, value: string) => {
     setAICommandsIsDirty(true);
-    setUserInputsCache((prevInputs: any) => ({
+    setInputsCache((prevInputs: any) => ({
       ...prevInputs,
       [placeholder]: value,
     }));
@@ -48,7 +65,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
     let result = contextPromptWithPlaceholder;
 
     placeholders.forEach((placeholder) => {
-      const value = userInputsCache[placeholder] || '';
+      const value = inputsCache[placeholder] || '';
       if (value.trim()) {
         result = result.replace(new RegExp(`{${placeholder}}`, 'g'), value);
       }
@@ -62,7 +79,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
   return (
     <div className="row" style={containerStyle}>
       <div className="row">
-        <Form layout="inline" initialValues={userInputsCache}>
+        <Form layout="inline" initialValues={inputsCache}>
           {placeholders.map((placeholder, index) => (
             <div key={index}>
               <Form.Item
@@ -77,7 +94,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
               >
                 <Input
                   type="text"
-                  value={userInputsCache[placeholder]}
+                  value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />
               </Form.Item>
