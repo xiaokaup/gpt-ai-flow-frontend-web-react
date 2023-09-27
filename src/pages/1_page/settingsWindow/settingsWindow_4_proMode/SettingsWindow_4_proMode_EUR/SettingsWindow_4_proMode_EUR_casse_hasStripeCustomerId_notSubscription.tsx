@@ -3,7 +3,7 @@ import { Button, Card, message } from 'antd';
 import TStripeConstant, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IStripePrice } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
-import TBackendStripe from '../../../../../tools/3_unit/TBackendStripe';
+import TBackendStripe from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 
 interface SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription_input {
