@@ -3,19 +3,23 @@ import '../../../../styles/layout.scss';
 
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
-import { useUserInputsCache } from '../../../../hooks/useUserInputsCache';
+import { useInputsCache } from '../../../../gpt-ai-flow-common/hooks/useInputsCache';
 
 interface DynamicFormForContextPrompt_input {
   containerStyle: any;
   contextPromptWithPlaceholder: string;
   setHandledContextPrompt: (value: string) => void;
-  setIsUserContextInputsDirty: (value: boolean) => void;
+  setIsContextInputsDirty: (value: boolean) => void;
 }
 
 export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_input) {
-  const { userInputsCache, setUserInputsCache } = useUserInputsCache();
+  const inputsCacheFromStorage: { [key: string]: string } = {};
+  const { inputsCache, setInputsCache } = useInputsCache({
+    inputsCacheFromStorage,
+    onInputsCacheChange: (newIntem: { [key: string]: string }) => {},
+  });
 
-  const { containerStyle, contextPromptWithPlaceholder, setHandledContextPrompt, setIsUserContextInputsDirty } = props;
+  const { containerStyle, contextPromptWithPlaceholder, setHandledContextPrompt, setIsContextInputsDirty } = props;
 
   const [placeholders, setPlaceholders] = useState<string[]>([]);
 
@@ -39,8 +43,8 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
   }, [contextPromptWithPlaceholder]);
 
   const handleInputChange = (placeholder: string, value: string) => {
-    setIsUserContextInputsDirty(true);
-    setUserInputsCache((prevInputs) => ({
+    setIsContextInputsDirty(true);
+    setInputsCache((prevInputs) => ({
       ...prevInputs,
       [placeholder]: value,
     }));
@@ -72,14 +76,14 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
     // }
 
     placeholders.forEach((placeholder) => {
-      const value = userInputsCache[placeholder] || '';
+      const value = inputsCache[placeholder] || '';
       if (value.trim()) {
         result = result.replace(new RegExp(`{${placeholder}}`, 'g'), value);
       }
     });
 
     setHandledContextPrompt(result);
-    setIsUserContextInputsDirty(false);
+    setIsContextInputsDirty(false);
     message.success('填写成功');
   };
 
@@ -87,7 +91,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
     <div className="row" style={containerStyle}>
       <div>填写需要的部分(未填写部分将以{' {占位符} '}的方式显示)，点击最右边的 📝 显示/隐藏 背景细节表单</div>
       <div className="row">
-        <Form layout="inline" initialValues={userInputsCache}>
+        <Form layout="inline" initialValues={inputsCache}>
           {placeholders.map((placeholder, index) => (
             <div key={index}>
               <Form.Item
@@ -99,7 +103,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
               >
                 <Input
                   type="text"
-                  value={userInputsCache[placeholder]}
+                  value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />
               </Form.Item>
