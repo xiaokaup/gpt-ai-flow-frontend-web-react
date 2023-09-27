@@ -2,7 +2,7 @@ import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 import './OutputResultColumn_v3.scss';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import html2canvas from 'html2canvas';
 import copy from 'copy-to-clipboard';
@@ -39,6 +39,8 @@ export interface IOuputIndicatorComponent_input {
   setAiComandsResults: Dispatch<SetStateAction<IAICommandsResults_v4[]>>;
 }
 export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => {
+  const captureOuputResultsRef = useRef<HTMLDivElement>(null);
+
   const {
     hasAvailableSubscription,
 
@@ -101,7 +103,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
           src={iconShare}
           alt="shareButton"
           onClick={() => {
-            const resultsElement = document.getElementById('aiCommandResults_container');
+            const resultsElement = captureOuputResultsRef.current;
             if (!resultsElement) {
               return;
             }
@@ -145,7 +147,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
         />
       </div>
 
-      <div id="aiCommandResults_container" className="row row_results">
+      <div ref={captureOuputResultsRef} className="row row_results">
         {aiComandsResults.length <= 0 && <Empty description="暂无结果" style={{ marginTop: 30 }} />}
 
         {aiCommands.map((item: IAICommands_v4, index: number) => {
