@@ -4,3 +4,6 @@ build
 .env*
 
 *.scss.d.ts
+
+# OSX
+.DS_Store
