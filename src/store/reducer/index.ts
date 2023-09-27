@@ -4,7 +4,6 @@ import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import { userReducer } from './userReducer';
 import { ILocalReducerState, localReducer } from './localReducer';
 import { proModeReducer } from './proModeReducer';
-import { IStripeSubscriptionInfo } from '../../gpt-ai-flow-common/interface-app/IStripe';
 import { ISubscirptionMix } from '../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import { subscriptionReducer } from './SubscriptionReducer';
 

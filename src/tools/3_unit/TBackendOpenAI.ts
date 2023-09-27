@@ -10,7 +10,7 @@ import {
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import TLimitFile from '../../gpt-ai-flow-common/tools/TLimit';
-import { getApiKeyHeadersForNodeBackend } from '../../tools/2_component/TAuth';
+import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
 
 // export const sendChatGPTRequestAsJsonToBackendProxy = async (
 //   data: ISendChatGPTRequestToBackend_input,

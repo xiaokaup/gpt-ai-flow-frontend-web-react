@@ -1,7 +1,7 @@
 import { ISubscirptionMix } from '../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { getApiKeyHeadersForNodeBackend } from '../2_component/TAuth';
-import { fetchWithRetry } from '../4_base/TRequest';
+import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
+import { fetchWithRetry } from '../../gpt-ai-flow-common/tools/4_base/TRequest';
 
 export const getSubscriptionInfo = async (
   userId: string,

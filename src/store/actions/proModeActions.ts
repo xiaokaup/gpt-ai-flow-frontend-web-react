@@ -1,7 +1,6 @@
+import TBackendProModeDataFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendProModeData';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IReduxRootState } from '../reducer';
-import TBackendProModeDataFile from '../../tools/3_unit/TBackendProModeData';
-import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 
 export const SYNC_PROMODE_DATA = 'SYNC_PROMODE_DATA';
 export const sync_proModeDataAction =
@@ -11,9 +10,10 @@ export const sync_proModeDataAction =
     getDecryptObj: (ciphertext: string, key: string) => any,
     env: IConstantGptAiFlowHandler
   ) =>
+  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const results = await TBackendProModeDataFile.getProModeDataFromBackend(userId, accessToken, getDecryptObj, env);
+      const results = await TBackendProModeDataFile.sync_proModeData(userId, accessToken, getDecryptObj, env);
 
       dispatch({ type: SYNC_PROMODE_DATA, payload: results });
 
