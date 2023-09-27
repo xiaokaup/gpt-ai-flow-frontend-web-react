@@ -36,8 +36,8 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
     // check: { hasNoAvailableSubscription },
   } = userSubscriptionInfoHookResult;
   const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(!!Subscription?.id);
-  const [userSubscriptionInfo, setUserSubscriptionInfo] = useState<ISubscirptionMix>(userSubscriptionInfoFromInput);
-  const [isExpired, setIsExpired] = useState<boolean>(new Date(userSubscriptionInfo.expiredAt) < new Date());
+  const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(userSubscriptionInfoFromInput);
+  const [isExpired, setIsExpired] = useState<boolean>(new Date(subscriptionData.expiredAt) < new Date());
 
   const startATrialSubscription = async () => {
     if (!userId) {
@@ -51,7 +51,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
     );
     message.success('免费试用已开启');
     setHasAnyoneSubscriptionRecord(true);
-    setUserSubscriptionInfo(results);
+    setSubscriptionData(results);
     const newIsExpired = new Date(results.expiredAt) < new Date();
     setIsExpired(newIsExpired);
   };
@@ -91,15 +91,15 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
 
       {hasAnyoneSubscriptionRecord &&
         !isExpired &&
-        userSubscriptionInfo.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT && (
+        subscriptionData.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT && (
           <div className="row">
             <p>请到海外地区查看您的订阅</p>
           </div>
         )}
 
       {hasAnyoneSubscriptionRecord &&
-        (userSubscriptionInfo.paymentType === ESubscriptionPaymentType.NONE ||
-          userSubscriptionInfo.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT ||
+        (subscriptionData.paymentType === ESubscriptionPaymentType.NONE ||
+          subscriptionData.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT ||
           isExpired) && (
           <div className="row">
             <div className="row">
@@ -119,15 +119,15 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
             </div>
 
             <div className="row">
-              套餐名称: {userSubscriptionInfo?.name}
+              套餐名称: {subscriptionData?.name}
               <br />
-              套餐时长: {userSubscriptionInfo?.period}
+              套餐时长: {subscriptionData?.period}
               <br />
-              套餐版本: {userSubscriptionInfo?.version}
+              套餐版本: {subscriptionData?.version}
               <br />
               套餐到期:{' '}
-              {userSubscriptionInfo.expiredAt && new Date(userSubscriptionInfo.expiredAt)?.toISOString().split('T')[0]}
-              {userSubscriptionInfo.expiredAt && isExpired ? '(已失效)' : ''}
+              {subscriptionData.expiredAt && new Date(subscriptionData.expiredAt)?.toISOString().split('T')[0]}
+              {subscriptionData.expiredAt && isExpired ? '(已失效)' : ''}
             </div>
 
             {/* {hasNoAvailableSubscription && ( */}

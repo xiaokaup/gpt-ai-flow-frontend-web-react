@@ -18,8 +18,6 @@ import ISubscriptionMixFile, {
   ISubscirptionMix,
 } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 
-import { useUserSubscriptionInfo } from '../../../../hooks/useUserSubscriptionInfo';
-
 import { SettingsWindow_4_proMode_EUR } from './SettingsWindow_4_proMode_EUR';
 import { SettingsWindow_4_proMode_CNY } from './SettingsWindow_4_proMode_CNY';
 
