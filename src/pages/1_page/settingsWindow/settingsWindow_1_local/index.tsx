@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { IReduxRootState } from 'store/reducer';
 
 import { Tabs, TabsProps } from 'antd';
+
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
+
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useUserSubscriptionInfo } from '../../../../hooks/useUserSubscriptionInfo';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
@@ -12,7 +18,15 @@ enum ESettingsWindow_1_local_tabKey {
 }
 
 export const SettingsWindow_1_local = () => {
-  const { userData } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
   const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default } = userData;
 
   if (!userId) {

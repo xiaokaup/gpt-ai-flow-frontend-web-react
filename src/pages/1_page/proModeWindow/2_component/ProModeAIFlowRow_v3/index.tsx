@@ -3,6 +3,8 @@ import '../../../../../styles/layout.scss';
 import './index.scss';
 
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { IReduxRootState } from 'store/reducer';
 
 import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
@@ -17,12 +19,14 @@ import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useSubscriptionValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
+
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
-import { useUserInfo } from '../../../../../hooks/useUserInfo';
 import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
+import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 
 const { TextArea } = Input;
 
@@ -56,7 +60,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     proMode: { model_type: proModeModelType },
   } = localData;
 
-  const { userData } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
   const { id: userId, token: userToken } = userData;
   const userAccessToken = userToken?.accessToken;
 

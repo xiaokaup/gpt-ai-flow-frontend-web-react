@@ -7,8 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
-import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import {
   authLoginByEmailAndPasswordAction,
   userUpdateUserPasswordActionAction_v1,

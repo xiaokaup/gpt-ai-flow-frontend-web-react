@@ -1,24 +1,35 @@
 import '../../../../styles/global.css';
 
+import translate from '../../../../i18nProvider/translate';
+
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IReduxRootState } from 'store/reducer';
 
-import { useNavigate } from 'react-router-dom';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
-import translate from '../../../../i18nProvider/translate';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 
 interface ISettingsWindow_2_user_2_login_input {}
 export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { isAuthenticated } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
 
   useEffect(() => {
     if (isAuthenticated) {

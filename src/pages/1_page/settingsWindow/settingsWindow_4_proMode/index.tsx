@@ -1,22 +1,33 @@
-/* eslint-disable react/jsx-pascal-case */
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { IReduxRootState } from 'store/reducer';
+
 import { Select } from 'antd';
 
 import { ERegion } from '../../../../gpt-ai-flow-common/enum-app/ERegion';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
+
 import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../../hooks/useUserSubscriptionInfo';
 
-// @ts-ignore
 import { SettingsWindow_4_proMode_EUR } from './SettingsWindow_4_proMode_EUR';
-// @ts-ignore
 import { SettingsWindow_4_proMode_CNY } from './SettingsWindow_4_proMode_CNY';
-import React from 'react';
 
 export const SettingsWindow_4_proMode = () => {
   const [region, setRegion] = useState<ERegion>(ERegion.DEFAULT);
 
-  const { userData } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
   const { id: userId, token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default } = userData;
 
   if (!userId) {

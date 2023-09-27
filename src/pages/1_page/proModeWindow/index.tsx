@@ -4,6 +4,8 @@ import '../../../styles/layout.scss';
 
 import React from 'react';
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { IReduxRootState } from 'store/reducer';
 
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
@@ -11,11 +13,12 @@ import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-dat
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 
 import { useProModeSetDataUI } from './useProModeSetDataUI';
-import { useUserInfo } from '../../../hooks/useUserInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { SubscriptionValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
+import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../hooks/useUserSubscriptionInfo';
 
 export interface ITabPanel {
@@ -32,7 +35,16 @@ const ProModeWindow = () => {
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
 
   // === Stripe subscription - start ===
-  const { userData, isBetaUser } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData, isBetaUser } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
+
   const {
     id: userId,
     token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
