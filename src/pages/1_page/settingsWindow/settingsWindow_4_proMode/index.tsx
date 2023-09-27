@@ -44,7 +44,7 @@ export const SettingsWindow_4_proMode = () => {
   }
 
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
-    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionData({

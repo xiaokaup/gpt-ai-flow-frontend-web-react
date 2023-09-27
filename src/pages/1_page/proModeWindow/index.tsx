@@ -62,7 +62,7 @@ const ProModeWindow = () => {
   }
 
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
-    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
   const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionData({
     userId,

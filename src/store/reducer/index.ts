@@ -12,7 +12,7 @@ export interface IReduxRootState {
   user: IUserData;
   local: ILocalReducerState;
   proModeSet: string;
-  subscriptionInfo: ISubscirptionMix;
+  subscription: ISubscirptionMix;
 }
 
 export const createRootReducer = () =>
@@ -21,5 +21,5 @@ export const createRootReducer = () =>
     user: userReducer,
     local: localReducer,
     proModeSet: proModeReducer,
-    subscriptionInfo: subscriptionReducer,
+    subscription: subscriptionReducer,
   });

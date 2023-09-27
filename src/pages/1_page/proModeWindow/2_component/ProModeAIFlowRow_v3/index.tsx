@@ -79,13 +79,9 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const userAccessToken = userToken?.accessToken;
 
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
-    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
-  const {
-    // init: initStripeSubscriptionInfo,
-    subscriptionData,
-    // check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useSubscriptionData({
+  const { subscriptionData } = useSubscriptionData({
     userId: userId as number,
     accessToken: userAccessToken as string,
     subscriptionDataFromStorage,

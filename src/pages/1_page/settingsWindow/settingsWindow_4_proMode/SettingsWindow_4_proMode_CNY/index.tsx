@@ -1,7 +1,7 @@
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CopyOutlined } from '@ant-design/icons';
 
@@ -30,6 +30,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
     Subscription,
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
   } = userData;
+  console.log('useSubscriptionDataOutput', useSubscriptionDataOutput);
 
   const {
     subscriptionData: subscriptionDataFromStorage,
@@ -38,6 +39,10 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
   const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(!!Subscription?.id);
   const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionDataFromStorage);
   const [isExpired, setIsExpired] = useState<boolean>(new Date(subscriptionData.expiredAt) < new Date());
+
+  useEffect(() => {
+    setSubscriptionData(subscriptionDataFromStorage);
+  }, [subscriptionDataFromStorage]);
 
   const startATrialSubscription = async () => {
     if (!userId) {

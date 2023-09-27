@@ -41,13 +41,9 @@ export const SettingsWindow_1_local = () => {
   }
 
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
-    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
-  const {
-    // init: initStripeSubscriptionInfo,
-    subscriptionData,
-    // check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useSubscriptionData({
+  const { subscriptionData } = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,
