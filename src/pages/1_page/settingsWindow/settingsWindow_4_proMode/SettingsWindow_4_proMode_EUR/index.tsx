@@ -3,24 +3,21 @@ import '../../../../../styles/layout.scss';
 
 import paymentPageDemo from '../../../../../../assets/presentation/2023-08-23-payment-page.png';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import { Alert, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 
-import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TStripeConstantFile, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import {
-  ESubscriptionPaymentType,
-  ESubscriptionPeriod,
-} from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
+import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
-import CopyToClipboard from 'react-copy-to-clipboard';
+
+import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
 
 interface SettingsWindow_4_proMode_EUR_input {
   userData: IUserData;
