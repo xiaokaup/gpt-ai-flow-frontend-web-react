@@ -37,6 +37,11 @@ import {
   EProMode_v2_marketingExpert_contextType,
   IProMode_v2_marketingExpert,
 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_marketingExpert';
+import {
+  EProMode_v2_ai_contextType,
+  IProMode_v2_ai,
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_ai';
+
 import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
 import IProMode_v2File, { IProMode_v2 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
@@ -55,6 +60,7 @@ import { ProModePage_career } from './1_pages/ProModePage_career';
 import { ProModePage_upZhu } from './1_pages/ProModePage_upZhu';
 import { ProModePage_productManager } from './1_pages/ProModePage_productManager';
 import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpert';
+import { ProModePage_ai } from './1_pages/ProModePage_ai';
 
 import { ITabPanel } from '.';
 
@@ -97,10 +103,9 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     EUserRolePermissionDB_name.COMMUNICATION
   ] as IProMode_v2_communication;
   const PROMODE_UP_ZHU_DATA = proModeSetData[EUserRolePermissionDB_name.VIDEO_PRODUCTION] as IProMode_v2_upZhu;
-  const PROMODE_UP_PRODUCT_MANAGER = proModeSetData[EUserRolePermissionDB_name.PRODUCT] as IProMode_v2_productManager;
-  const PROMODE_UP_MARKETING_EXPERT = proModeSetData[
-    EUserRolePermissionDB_name.MARKETING
-  ] as IProMode_v2_marketingExpert;
+  const PROMODE_PRODUCT_MANAGER = proModeSetData[EUserRolePermissionDB_name.PRODUCT] as IProMode_v2_productManager;
+  const PROMODE_MARKETING_EXPERT = proModeSetData[EUserRolePermissionDB_name.MARKETING] as IProMode_v2_marketingExpert;
+  const PROMODE_AI = proModeSetData[EUserRolePermissionDB_name.AI] as IProMode_v2_ai;
 
   const defaultTabPanels: ITabPanel[] = [
     {
@@ -149,17 +154,17 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.XIAO_HONG_SHU),
     },
     {
-      key: EUserRolePermissionDB_name.SEO,
-      label: PROMODE_SEO_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.SEO,
+      key: EUserRolePermissionDB_name.AI,
+      label: PROMODE_AI.tabInfo.name,
+      value: EUserRolePermissionDB_name.AI,
       children: (
-        <ProModePage_seo
-          PROMODE_DATA={PROMODE_SEO_DATA}
-          defaultContextType={EProMode_v2_seo_contextType.BUILD_IN}
-          defaultContextTypesForSelect={Object.keys(PROMODE_SEO_DATA.context) as EProMode_v2_seo_contextType[]}
+        <ProModePage_ai
+          PROMODE_DATA={PROMODE_AI}
+          defaultContextType={PROMODE_AI.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_AI.context) as EProMode_v2_ai_contextType[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.SEO),
+      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.AI),
     },
     {
       key: EUserRolePermissionDB_name.COMMENT,
@@ -202,14 +207,14 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     },
     {
       key: EUserRolePermissionDB_name.PRODUCT,
-      label: PROMODE_UP_PRODUCT_MANAGER.tabInfo.name,
+      label: PROMODE_PRODUCT_MANAGER.tabInfo.name,
       value: EUserRolePermissionDB_name.PRODUCT,
       children: (
         <ProModePage_productManager
-          PROMODE_DATA={PROMODE_UP_PRODUCT_MANAGER}
+          PROMODE_DATA={PROMODE_PRODUCT_MANAGER}
           defaultContextType={EProMode_v2_productManager_contextType.BUILD_IN}
           defaultContextTypesForSelect={
-            Object.keys(PROMODE_UP_PRODUCT_MANAGER.context) as EProMode_v2_productManager_contextType[]
+            Object.keys(PROMODE_PRODUCT_MANAGER.context) as EProMode_v2_productManager_contextType[]
           }
         />
       ),
@@ -217,18 +222,31 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     },
     {
       key: EUserRolePermissionDB_name.MARKETING,
-      label: PROMODE_UP_MARKETING_EXPERT.tabInfo.name,
+      label: PROMODE_MARKETING_EXPERT.tabInfo.name,
       value: EUserRolePermissionDB_name.MARKETING,
       children: (
         <ProModePage_marketingExpert
-          PROMODE_DATA={PROMODE_UP_MARKETING_EXPERT}
+          PROMODE_DATA={PROMODE_MARKETING_EXPERT}
           defaultContextType={EProMode_v2_marketingExpert_contextType.BUILD_IN}
           defaultContextTypesForSelect={
-            Object.keys(PROMODE_UP_MARKETING_EXPERT.context) as EProMode_v2_marketingExpert_contextType[]
+            Object.keys(PROMODE_MARKETING_EXPERT.context) as EProMode_v2_marketingExpert_contextType[]
           }
         />
       ),
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.MARKETING),
+    },
+    {
+      key: EUserRolePermissionDB_name.SEO,
+      label: PROMODE_SEO_DATA.tabInfo.name,
+      value: EUserRolePermissionDB_name.SEO,
+      children: (
+        <ProModePage_seo
+          PROMODE_DATA={PROMODE_SEO_DATA}
+          defaultContextType={EProMode_v2_seo_contextType.BUILD_IN}
+          defaultContextTypesForSelect={Object.keys(PROMODE_SEO_DATA.context) as EProMode_v2_seo_contextType[]}
+        />
+      ),
+      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.SEO),
     },
   ];
 
