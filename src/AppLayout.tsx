@@ -1,13 +1,18 @@
 import React from 'react';
-import { Dropdown, Layout, Menu, MenuProps } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Layout, Menu, MenuProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { useUserInfo } from './hooks/useUserInfo';
+
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
+import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
+import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
+import IUserDataFile, { IUserData } from './gpt-ai-flow-common/interface-app/IUserData';
+
 import translate from './i18nProvider/translate';
 import { useLocalInfo } from './hooks/useLocalInfo';
 import { saveLocalAction } from './store/actions/localActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IReduxRootState } from 'store/reducer';
 
 const { Header, Content, Footer } = Layout;
 
@@ -102,7 +107,15 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
 export const AppLayout = (props: Layout_input) => {
   const { children } = props;
 
-  const { isAuthenticated } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { isAuthenticated } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
 
   return (
     <Layout className="layout_container" style={{ background: '#fff' }}>

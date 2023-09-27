@@ -55,12 +55,14 @@ import { ProModePage_productManager } from './1_pages/ProModePage_productManager
 import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpert';
 
 import { ITabPanel } from '.';
+import { IUserData } from 'gpt-ai-flow-common/interface-app/IUserData';
 
 interface useProModeSetDataUI_input {
+  userDataFromStorage: IUserData;
   userRolePermissionsWithStripeSubscriptionInfo: string[];
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
-  const { userRolePermissionsWithStripeSubscriptionInfo } = props;
+  const { userDataFromStorage, userRolePermissionsWithStripeSubscriptionInfo } = props;
 
   const encryptedProModeSetFromStore: string = useSelector(
     (state: IReduxRootState) => state.proModeSet ?? IProMode_v2File.IProMode_v2_default
@@ -72,6 +74,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   );
 
   const { proModeSetData: proModeSetFromStore } = useProModeSetData({
+    userDataFromStorage,
     proModeSetData: proModeSetFromStorage,
     // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
     onProModeSetDataChange: (newPromodeSetData: IProMode_v2) => {

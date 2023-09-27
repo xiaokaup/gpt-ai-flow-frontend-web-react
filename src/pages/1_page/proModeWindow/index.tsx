@@ -62,6 +62,7 @@ const ProModeWindow = () => {
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
+    userDataFromStorage: userData,
     userRolePermissionsWithStripeSubscriptionInfo,
   });
   // === ProMode Data - end ===
