@@ -8,21 +8,21 @@ import { PlusCircleOutlined, MinusCircleOutlined, EditOutlined } from '@ant-desi
 import iconSuccessful from '../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
 import iconWrong from '../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
-import {
-  EProMode_v2_productManager_contextType,
-  IProMode_v2_productManager,
-} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_productManager';
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
+import {
+  EProMode_v2_ai_contextType,
+  IProMode_v2_ai,
+} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_ai';
 
 interface IProModePage_copyWriting_input {
-  PROMODE_DATA: IProMode_v2_productManager;
-  defaultContextType: EProMode_v2_productManager_contextType;
-  defaultContextTypesForSelect: EProMode_v2_productManager_contextType[];
+  PROMODE_DATA: IProMode_v2_ai;
+  defaultContextType: EProMode_v2_ai_contextType;
+  defaultContextTypesForSelect: EProMode_v2_ai_contextType[];
 }
 
-export const ProModePage_productManager = (props: IProModePage_copyWriting_input) => {
+export const ProModePage_ai = (props: IProModePage_copyWriting_input) => {
   const { PROMODE_DATA, defaultContextType, defaultContextTypesForSelect } = props;
 
   // console.log('props', props);
@@ -44,7 +44,7 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
   // === Context input - start ===
   const contextPrompts = PROMODE_DATA.context;
 
-  const [contextType, setContextType] = useState<EProMode_v2_productManager_contextType>(defaultContextType);
+  const [contextType, setContextType] = useState<EProMode_v2_ai_contextType>(defaultContextType);
   const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextType].value);
   const contextPromptHavePlaceHolder = TString.hasPlaceholder(contextPrompt);
   const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextType].value);
@@ -52,7 +52,7 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
-  const handleContextTypeChange = (paraContextPromptType: EProMode_v2_productManager_contextType) => {
+  const handleContextTypeChange = (paraContextPromptType: EProMode_v2_ai_contextType) => {
     console.log(`selected ${paraContextPromptType}`);
     setContextType(paraContextPromptType);
     setContextPrompt(contextPrompts[paraContextPromptType].value);

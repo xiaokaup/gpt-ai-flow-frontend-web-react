@@ -110,7 +110,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_communication
           PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
-          defaultContextPromptType={EProMode_v2_communication_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_communication_contextType.BUILD_IN}
           defaultContextTypesForSelect={
             Object.keys(PROMODE_COMMUNICATION_DATA.context) as EProMode_v2_communication_contextType[]
           }
@@ -125,7 +125,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_copyWriting
           PROMODE_DATA={PROMODE_COPY_WRITING_DATA}
-          defaultContextPromptType={EProMode_v2_copyWriting_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_copyWriting_contextType.BUILD_IN}
           defaultContextTypesForSelect={
             Object.keys(PROMODE_COPY_WRITING_DATA.context) as EProMode_v2_copyWriting_contextType[]
           }
@@ -140,7 +140,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_xiaoHongShu
           PROMODE_DATA={PROMODE_XIAO_HONG_SHU_DATA}
-          defaultContextPromptType={EProMode_v2_xiaoHongShu_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_xiaoHongShu_contextType.BUILD_IN}
           defaultContextTypesForSelect={
             Object.keys(PROMODE_XIAO_HONG_SHU_DATA.context) as EProMode_v2_xiaoHongShu_contextType[]
           }
@@ -155,7 +155,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_seo
           PROMODE_DATA={PROMODE_SEO_DATA}
-          defaultContextPromptType={EProMode_v2_seo_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_seo_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.keys(PROMODE_SEO_DATA.context) as EProMode_v2_seo_contextType[]}
         />
       ),
@@ -168,7 +168,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_comment
           PROMODE_DATA={PROMODE_COMMENT_DATA}
-          defaultContextPromptType={EProMode_v2_comment_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_comment_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.keys(PROMODE_COMMENT_DATA.context) as EProMode_v2_comment_contextType[]}
         />
       ),
@@ -181,7 +181,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_career
           PROMODE_DATA={PROMODE_CAREER_DATA}
-          defaultContextPromptType={EProMode_v2_career_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_career_contextType.BUILD_IN}
           defaultContextTypesForSelect={Object.keys(PROMODE_CAREER_DATA.context) as EProMode_v2_career_contextType[]}
         />
       ),
@@ -194,7 +194,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_upZhu
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
-          defaultContextPromptType={EProMode_v2_upZhu_contextType.KNOWLEDGE_SHARE}
+          defaultContextType={EProMode_v2_upZhu_contextType.KNOWLEDGE_SHARE}
           defaultContextTypesForSelect={Object.keys(PROMODE_UP_ZHU_DATA.context) as EProMode_v2_upZhu_contextType[]}
         />
       ),
@@ -207,7 +207,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_productManager
           PROMODE_DATA={PROMODE_UP_PRODUCT_MANAGER}
-          defaultContextPromptType={EProMode_v2_productManager_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_productManager_contextType.BUILD_IN}
           defaultContextTypesForSelect={
             Object.keys(PROMODE_UP_PRODUCT_MANAGER.context) as EProMode_v2_productManager_contextType[]
           }
@@ -222,7 +222,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       children: (
         <ProModePage_marketingExpert
           PROMODE_DATA={PROMODE_UP_MARKETING_EXPERT}
-          defaultContextPromptType={EProMode_v2_marketingExpert_contextType.BUILD_IN}
+          defaultContextType={EProMode_v2_marketingExpert_contextType.BUILD_IN}
           defaultContextTypesForSelect={
             Object.keys(PROMODE_UP_MARKETING_EXPERT.context) as EProMode_v2_marketingExpert_contextType[]
           }

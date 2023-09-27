@@ -18,12 +18,12 @@ import {
 
 interface IProModePage_copyWriting_input {
   PROMODE_DATA: IProMode_v2_seo;
-  defaultContextPromptType: EProMode_v2_seo_contextType;
+  defaultContextType: EProMode_v2_seo_contextType;
   defaultContextTypesForSelect: EProMode_v2_seo_contextType[];
 }
 
 export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { PROMODE_DATA, defaultContextType, defaultContextTypesForSelect } = props;
 
   // console.log('props', props);
 
@@ -44,17 +44,17 @@ export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
   // === Context input - start ===
   const contextPrompts = PROMODE_DATA.context;
 
-  const [contextPromptType, setContextPromptType] = useState<EProMode_v2_seo_contextType>(defaultContextPromptType);
-  const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextPromptType].value);
+  const [contextType, setContextType] = useState<EProMode_v2_seo_contextType>(defaultContextType);
+  const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextType].value);
   const contextPromptHavePlaceHolder = TString.hasPlaceholder(contextPrompt);
-  const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextPromptType].value);
+  const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextType].value);
 
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
   const handleContextTypeChange = (paraContextPromptType: EProMode_v2_seo_contextType) => {
     console.log(`selected ${paraContextPromptType}`);
-    setContextPromptType(paraContextPromptType);
+    setContextType(paraContextPromptType);
     setContextPrompt(contextPrompts[paraContextPromptType].value);
     setHandledContextPrompt(contextPrompts[paraContextPromptType].value);
 
@@ -99,8 +99,8 @@ export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
           )}
           :
           <Select
-            defaultValue={contextPromptType}
-            style={{ width: 120, marginLeft: '.4rem' }}
+            defaultValue={contextType}
+            style={{ width: 150, marginLeft: '.4rem' }}
             onChange={handleContextTypeChange}
             options={defaultContextTypesForSelect.map((item) => {
               return {
@@ -141,9 +141,9 @@ export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}
-                defaulInstructionAiCommands={PROMODE_DATA.instruction[contextPromptType]}
-                defaultOutputIndicatorAiCommands={PROMODE_DATA.outputIndicator[contextPromptType]}
-                aiCommandsSettings={PROMODE_DATA.defaultAiCommandsSettings[contextPromptType]}
+                defaulInstructionAiCommands={PROMODE_DATA.instruction[contextType]}
+                defaultOutputIndicatorAiCommands={PROMODE_DATA.outputIndicator[contextType]}
+                aiCommandsSettings={PROMODE_DATA.defaultAiCommandsSettings[contextType]}
               />
               <hr style={{ margin: 10 }} />
             </div>
