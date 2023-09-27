@@ -24,10 +24,10 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 
 interface SettingsWindow_4_proMode_EUR_input {
   userData: IUserData;
-  userSubscriptionInfoHookResult: IUseSubscriptionData_output;
+  useSubscriptionDataOutput: IUseSubscriptionData_output;
 }
 export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR_input) => {
-  const { userData, userSubscriptionInfoHookResult } = props;
+  const { userData, useSubscriptionDataOutput } = props;
   const {
     id: userId,
     email: userEmail,
@@ -39,7 +39,7 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
     init: initStripeSubscriptionInfo,
     subscriptionData,
     check: { hasNoAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
+  } = useSubscriptionDataOutput;
   const isExpired = new Date((subscriptionData as ISubscriptionDB)?.expiredAt) < new Date();
 
   const [subscriptionName, setSubscriptionName] = useState<string>(subscriptionData.name);

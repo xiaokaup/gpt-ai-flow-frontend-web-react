@@ -47,7 +47,7 @@ export const SettingsWindow_4_proMode = () => {
     return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const userSubscriptionInfoHookResult: IUseSubscriptionData_output = useSubscriptionData({
+  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,
@@ -87,18 +87,12 @@ export const SettingsWindow_4_proMode = () => {
       </div>
       {region === ERegion.ZH && (
         <div className="row">
-          <SettingsWindow_4_proMode_CNY
-            userData={userData}
-            userSubscriptionInfoHookResult={userSubscriptionInfoHookResult}
-          />
+          <SettingsWindow_4_proMode_CNY userData={userData} useSubscriptionDataOutput={useSubscriptionDataOutput} />
         </div>
       )}
       {region === ERegion.OVERSEAS && (
         <div className="row">
-          <SettingsWindow_4_proMode_EUR
-            userData={userData}
-            userSubscriptionInfoHookResult={userSubscriptionInfoHookResult}
-          />
+          <SettingsWindow_4_proMode_EUR userData={userData} useSubscriptionDataOutput={useSubscriptionDataOutput} />
         </div>
       )}
     </div>

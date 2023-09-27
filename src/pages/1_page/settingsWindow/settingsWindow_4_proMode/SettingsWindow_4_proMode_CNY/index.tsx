@@ -20,10 +20,10 @@ import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription 
 
 interface SettingsWindow_4_proMode_CNY_input {
   userData: IUserData;
-  userSubscriptionInfoHookResult: IUseSubscriptionData_output;
+  useSubscriptionDataOutput: IUseSubscriptionData_output;
 }
 export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
-  const { userData, userSubscriptionInfoHookResult } = props;
+  const { userData, useSubscriptionDataOutput } = props;
   const {
     id: userId,
     email: userEmail,
@@ -32,11 +32,11 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
   } = userData;
 
   const {
-    subscriptionData: userSubscriptionInfoFromInput,
+    subscriptionData: subscriptionDataFromStorage,
     // check: { hasNoAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
+  } = useSubscriptionDataOutput;
   const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(!!Subscription?.id);
-  const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(userSubscriptionInfoFromInput);
+  const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionDataFromStorage);
   const [isExpired, setIsExpired] = useState<boolean>(new Date(subscriptionData.expiredAt) < new Date());
 
   const startATrialSubscription = async () => {

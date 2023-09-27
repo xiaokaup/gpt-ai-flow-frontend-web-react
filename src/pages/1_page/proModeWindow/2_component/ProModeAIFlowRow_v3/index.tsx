@@ -46,10 +46,10 @@ interface ProModeAIFlowRow_v3_input {
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const creativityValue = useCreativityValueContext();
-  const userSubscriptionInfoHookResult: IUseSubscriptionData_output = useSubscriptionValueContext();
+  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionValueContext();
   const {
     check: { hasAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
+  } = useSubscriptionDataOutput;
 
   const {
     clickSearchAllResultsButtonCount,

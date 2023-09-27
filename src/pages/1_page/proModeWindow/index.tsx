@@ -61,20 +61,20 @@ const ProModeWindow = () => {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
   }
 
-  const userSubscriptionInfoFromStore: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
     return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
-  const userSubscriptionInfoHookResult: IUseSubscriptionData_output = useSubscriptionData({
+  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
-    subscriptionDataFromStorage: userSubscriptionInfoFromStore,
+    subscriptionDataFromStorage,
     onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const {
     subscriptionData,
     check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
+  } = useSubscriptionDataOutput;
 
   const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
 
@@ -267,7 +267,7 @@ const ProModeWindow = () => {
         )}
 
         <div className="row bottom_block_tabs">
-          <SubscriptionValueProvider value={userSubscriptionInfoHookResult}>
+          <SubscriptionValueProvider value={useSubscriptionDataOutput}>
             <CreativityValueProvider value={creativityValue}>
               <Tabs
                 size="small"
