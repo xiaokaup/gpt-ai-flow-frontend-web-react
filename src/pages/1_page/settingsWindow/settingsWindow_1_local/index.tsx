@@ -13,12 +13,7 @@ enum ESettingsWindow_1_local_tabKey {
 
 export const SettingsWindow_1_local = () => {
   const { userData } = useUserInfo();
-  const {
-    id: userId,
-    email: userEmail,
-    token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
-    stripeCustomerId = '',
-  } = userData;
+  const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default } = userData;
 
   if (!userId) {
     return (

@@ -3,9 +3,9 @@ import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 
 import React from 'react';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 
-import { Alert, Button, Select, Tabs, message } from 'antd';
+import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
@@ -14,7 +14,9 @@ import { useProModeSetDataUI } from './useProModeSetDataUI';
 import { useUserInfo } from '../../../hooks/useUserInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
-import { useUserSubscriptionInfo } from '../../../hooks/useUserSubscriptionInfo';
+import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
+import { SubscriptionValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../hooks/useUserSubscriptionInfo';
 
 export interface ITabPanel {
   key: EUserRolePermissionDB_name;
@@ -27,13 +29,13 @@ export interface ITabPanel {
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
+  const [creativityValue, setCreativityValue] = useState<number>(0.8);
+
   // === Stripe subscription - start ===
   const { userData, isBetaUser } = useUserInfo();
   const {
     id: userId,
-    stripeCustomerId,
     token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
-    userRoles = [],
     userRolePermissions = [],
   } = userData;
 
@@ -41,13 +43,14 @@ const ProModeWindow = () => {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
   }
 
-  const {
-    userSubscriptionInfo,
-    check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserSubscriptionInfo({
+  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useUserSubscriptionInfo({
     userId,
     accessToken: userAccessToken,
   });
+  const {
+    userSubscriptionInfo,
+    check: { hasAvailableSubscription, hasNoAvailableSubscription },
+  } = userSubscriptionInfoHookResult;
 
   const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
 
@@ -65,7 +68,9 @@ const ProModeWindow = () => {
 
   const userDefaultTabs: ITabPanel[] = [];
   const itemFound = defaultTabPanels.find((item) => item.value === EUserRolePermissionDB_name.COMMUNICATION);
-  itemFound && userDefaultTabs.push(itemFound);
+  if (itemFound) {
+    userDefaultTabs.push(itemFound);
+  }
 
   if (hasAvailableSubscription || isBetaUser) {
     const itemsFound = defaultTabPanels.filter((item) => item.value !== EUserRolePermissionDB_name.COMMUNICATION);
@@ -102,7 +107,8 @@ const ProModeWindow = () => {
       return;
     }
 
-    const newActiveTabPanelKey = `${newTabPanelIndex.current++}`;
+    newTabPanelIndex.current += 1; // Increment the property value
+    const newActiveTabPanelKey = `${newTabPanelIndex.current}`;
     const { label, value, children } = newTabPanel;
 
     setTabPanels([
@@ -151,47 +157,71 @@ const ProModeWindow = () => {
   return (
     <div className="drag-region" style={{ width: '100%' }}>
       <div className="container">
-        <div className="row top_block_add_tab">
-          <Select
-            showSearch
-            placeholder="选择专业界面"
-            optionFilterProp="children"
-            onChange={onProModeSelectorChange}
-            onSearch={onProModeSelectorSearch}
-            filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-            options={[
-              {
-                value: '',
-                label: '请选择',
-              },
-              ...defaultTabPanels.map((item: { value: string; label: string }) => {
-                return {
-                  value: item.value,
-                  label: item.label,
-                };
-              }),
-            ]}
-            style={{ width: 180 }}
-          />
-          <Button
-            type="primary"
-            style={{ marginLeft: 8 }}
-            onClick={() => {
-              if (!selectedProdMode) {
-                message.error('请选择专业界面');
-                return;
-              }
+        <div
+          className="row top_block_add_tab"
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
+        >
+          <div>
+            <Select
+              showSearch
+              placeholder="选择专业界面"
+              optionFilterProp="children"
+              onChange={onProModeSelectorChange}
+              onSearch={onProModeSelectorSearch}
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              options={[
+                {
+                  value: '',
+                  label: '请选择',
+                },
+                ...defaultTabPanels.map((item: { value: string; label: string }) => {
+                  return {
+                    value: item.value,
+                    label: item.label,
+                  };
+                }),
+              ]}
+              style={{ width: 180 }}
+            />
+            <Button
+              type="primary"
+              style={{ marginLeft: 8 }}
+              onClick={() => {
+                if (!selectedProdMode) {
+                  message.error('请选择专业界面');
+                  return;
+                }
 
-              if (!userRolePermissionsWithStripeSubscriptionInfo.includes(selectedProdMode)) {
-                message.error('你没有权限使用此面板');
-                return;
-              }
+                if (!userRolePermissionsWithStripeSubscriptionInfo.includes(selectedProdMode)) {
+                  message.error('你没有权限使用此面板');
+                  return;
+                }
 
-              addTabPanel(selectedProdMode);
-            }}
-          >
-            添加
-          </Button>
+                addTabPanel(selectedProdMode);
+              }}
+            >
+              添加
+            </Button>
+
+            <span style={{ color: '#5D6370', marginLeft: '1rem' }}>创意值: {creativityValue}</span>
+          </div>
+
+          <div>
+            <Slider
+              min={0}
+              max={1.4}
+              step={0.1}
+              onChange={(newValue: number) => {
+                setCreativityValue(newValue);
+              }}
+              value={creativityValue}
+              marks={{
+                0: '精确',
+                1.4: '创造',
+              }}
+              style={{ width: 200, marginLeft: '2rem', marginRight: '2rem' }}
+            />
+          </div>
         </div>
 
         {hasNoAvailableSubscription && !isBetaUser && (
@@ -212,22 +242,26 @@ const ProModeWindow = () => {
         )}
 
         <div className="row bottom_block_tabs">
-          <Tabs
-            size="small"
-            hideAdd
-            onChange={onTabsChange}
-            activeKey={activeTabPanelKey}
-            type="editable-card"
-            onEdit={onEditTabPanel}
-          >
-            {tabPanels.map((pane) => {
-              return (
-                <Tabs.TabPane tab={pane.label} key={pane.key} disabled={pane.disabled}>
-                  {pane.children}
-                </Tabs.TabPane>
-              );
-            })}
-          </Tabs>
+          <SubscriptionValueProvider value={userSubscriptionInfoHookResult}>
+            <CreativityValueProvider value={creativityValue}>
+              <Tabs
+                size="small"
+                hideAdd
+                onChange={onTabsChange}
+                activeKey={activeTabPanelKey}
+                type="editable-card"
+                onEdit={onEditTabPanel}
+              >
+                {tabPanels.map((pane) => {
+                  return (
+                    <Tabs.TabPane tab={pane.label} key={pane.key} disabled={pane.disabled}>
+                      {pane.children}
+                    </Tabs.TabPane>
+                  );
+                })}
+              </Tabs>
+            </CreativityValueProvider>
+          </SubscriptionValueProvider>
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import '../../../../styles/layout.scss';
 import React, { useEffect } from 'react';
 
 import { Button, Descriptions } from 'antd';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogoutAction } from '../../../../store/actions/userActions';

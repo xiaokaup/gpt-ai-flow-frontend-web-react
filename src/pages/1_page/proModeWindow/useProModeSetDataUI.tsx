@@ -50,8 +50,6 @@ import { ProModePage_career } from './1_pages/ProModePage_career';
 import { ProModePage_upZhu } from './1_pages/ProModePage_upZhu';
 import { ProModePage_productManager } from './1_pages/ProModePage_productManager';
 import { ProModePage_marketingExpert } from './1_pages/ProModePage_marketingExpert';
-import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IStripeSubscriptionInfo } from '../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface useProModeSetDataUI_input {
   userRolePermissionsWithStripeSubscriptionInfo: string[];
@@ -82,6 +80,21 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   ] as IProMode_v2_marketingExpert;
 
   const defaultTabPanels: ITabPanel[] = [
+    {
+      key: EUserRolePermissionDB_name.COMMUNICATION,
+      label: PROMODE_COMMUNICATION_DATA.tabInfo.name,
+      value: EUserRolePermissionDB_name.COMMUNICATION,
+      children: (
+        <ProModePage_communication
+          PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
+          defaultContextPromptType={EProMode_v2_communication_contextType.BUILD_IN}
+          defaultContextTypesForSelect={
+            Object.keys(PROMODE_COMMUNICATION_DATA.context) as EProMode_v2_communication_contextType[]
+          }
+        />
+      ),
+      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMUNICATION),
+    },
     {
       key: EUserRolePermissionDB_name.COPY_WRITING,
       label: PROMODE_COPY_WRITING_DATA.tabInfo.name,
@@ -152,28 +165,13 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.CAREER),
     },
     {
-      key: EUserRolePermissionDB_name.COMMUNICATION,
-      label: PROMODE_COMMUNICATION_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.COMMUNICATION,
-      children: (
-        <ProModePage_communication
-          PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
-          defaultContextPromptType={EProMode_v2_communication_contextType.BUILD_IN}
-          defaultContextTypesForSelect={
-            Object.keys(PROMODE_COMMUNICATION_DATA.context) as EProMode_v2_communication_contextType[]
-          }
-        />
-      ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMUNICATION),
-    },
-    {
       key: EUserRolePermissionDB_name.VIDEO_PRODUCTION,
       label: PROMODE_UP_ZHU_DATA.tabInfo.name,
       value: EUserRolePermissionDB_name.VIDEO_PRODUCTION,
       children: (
         <ProModePage_upZhu
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
-          defaultContextPromptType={EProMode_v2_upZhu_contextType.TECH_AND_KNOWLEDGE}
+          defaultContextPromptType={EProMode_v2_upZhu_contextType.KNOWLEDGE_SHARE}
           defaultContextTypesForSelect={Object.keys(PROMODE_UP_ZHU_DATA.context) as EProMode_v2_upZhu_contextType[]}
         />
       ),

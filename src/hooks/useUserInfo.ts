@@ -43,7 +43,7 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
 
     // 使用 isMounted 标志检查组件是否还处于挂载状态
     if (isMounted.current) {
-      setUserData(newUserData);
+      setUserData({ ...userData, ...newUserData });
     }
   };
 
@@ -64,7 +64,7 @@ export const useUserInfo = (): IUseUserInfo_ouput => {
     userData: {
       ...userData,
       userRolePermissions: [
-        // ...window.env.PROMODE_FREE_PROMODE_PERMISSIONS,
+        ...CONSTANTS_GPT_AI_FLOW_COMMON.PROMODE_FREE_PROMODE_PERMISSIONS,
         ...(userData.userRolePermissions || []),
       ],
     },

@@ -1,6 +1,5 @@
 import { fetchWithRetry } from '../../tools/4_base/TRequest';
 import { getApiKeyHeadersForNodeBackend } from '../../tools/2_component/TAuth';
-import { IStripeSubscriptionInfo } from '../../gpt-ai-flow-common/interface-app/IStripe';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 
 export const createSubscirptionByStripeCustomerId = async (

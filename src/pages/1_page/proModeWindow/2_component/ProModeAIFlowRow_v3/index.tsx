@@ -5,26 +5,24 @@ import './index.scss';
 import React, { useEffect, useState } from 'react';
 
 import { Input, message } from 'antd';
+import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
 import {
-  IInstructionINputCommandsResults_v3,
-  IInstructionInputCommands_v3,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
-import { ISendChatGPTRequestToBackend_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+  IAICommandsResults_v4,
+  IAICommands_v4,
+} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
+import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { useSubscriptionValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
+import { useUserInfo } from '../../../../../hooks/useUserInfo';
+import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
+
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
-
-import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useSelector } from 'react-redux';
-import { IStoreStorage } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
-import { useUserInfo } from '../../../../../hooks/useUserInfo';
-import { useUserSubscriptionInfo } from '../../../../../hooks/useUserSubscriptionInfo';
 
 const { TextArea } = Input;
 
@@ -34,9 +32,15 @@ interface ProModeAIFlowRow_v3_input {
   handledContextPrompt: string;
   defaulInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
-  aiCommandsSettings: IInstructionInputCommands_v3[];
+  aiCommandsSettings: IAICommands_v4[];
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
+  const creativityValue = useCreativityValueContext();
+  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useSubscriptionValueContext();
+  const {
+    check: { hasAvailableSubscription },
+  } = userSubscriptionInfoHookResult;
+
   const {
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
@@ -68,20 +72,31 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
   const [isTextInputAsText, setIsTextInputAsText] = useState<boolean>(false);
+  const [hasExampleText, setHasExampleText] = useState<boolean>();
+  const [exampleText, setExampleText] = useState<string>();
 
   const onInputContentTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log('Change:', e.target.value);
 
     setTextInputContent(e.target.value);
   };
+  const onInputExampleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log('Change:', e.target.value);
+
+    setExampleText(e.target.value);
+  };
   // === 用户输入部分 - end ===
 
   // === 获取全部结果 与 停止全部结果 - start ===
   useEffect(() => {
-    clickSearchAllResultsButtonCount && getInstructionAIFlowResults();
+    if (clickSearchAllResultsButtonCount) {
+      getInstructionAIFlowResults();
+    }
   }, [clickSearchAllResultsButtonCount]);
   useEffect(() => {
-    clickStopSearchAllResultsButtonCount && stopInstructionAIFlowResults(requestControllersMap);
+    if (clickStopSearchAllResultsButtonCount) {
+      stopInstructionAIFlowResults(requestControllersMap);
+    }
   }, [clickStopSearchAllResultsButtonCount]);
   // === 获取全部结果 与 停止全部结果 - end ===
 
@@ -105,7 +120,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // Request controllers - end
 
   // Instruction input commands - start
-  const [aiCommands, setAiCommands] = useState<IInstructionInputCommands_v3[]>(aiCommandsSettings ?? []);
+  const [aiCommands, setAiCommands] = useState<IAICommands_v4[]>(aiCommandsSettings ?? []);
   useEffect(() => {
     // Update Selects UI after swith context
     setAiCommands(
@@ -124,17 +139,16 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const stopInstructionAIFlowResults = (paraRequestControllersMap: Map<string, AbortController>) => {
     console.log('stopInstructionAIFlowResults - start');
 
-    let index = 0;
-    for (let [uuid, requestController] of paraRequestControllersMap.entries()) {
+    for (const [uuid, requestController] of paraRequestControllersMap.entries()) {
       console.log(`uuid: ${uuid}, controller: ${requestController}`);
       requestController.abort();
-      index++;
     }
 
     // setRequestControllersMap(tempMap);
 
     console.log('stopInstructionAIFlowResults - end');
   };
+
   const getInstructionAIFlowResults = async () => {
     console.log('getInstructionAIFlowResults - start');
 
@@ -164,10 +178,10 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   const buildPrompt = (
     index: number,
-    paraInstructionInputCCommandList: IInstructionInputCommands_v3[],
-    paraRequestReultsList: IInstructionINputCommandsResults_v3[]
+    paraAICommandsList: IAICommands_v4[],
+    paraAICommandsReultsList: IAICommandsResults_v4[]
   ): IPrompt[] => {
-    const results = [
+    const newPrompts = [
       {
         role: EAIFlowRole.SYSTEM,
         content: handledContextPrompt,
@@ -175,77 +189,86 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     ];
 
     // === buildPrompt - init command for this ${index} - start ===
-    const oneInstructionOuputIndicatorCommand = paraInstructionInputCCommandList[index];
+    const finalOneAICommand = paraAICommandsList[index];
 
-    let resquestContentForThisIndex = '';
+    let finalResquestContent = '';
 
-    if (oneInstructionOuputIndicatorCommand.aiFlowInstance.value) {
-      resquestContentForThisIndex += oneInstructionOuputIndicatorCommand.aiFlowInstance.value;
+    if (finalOneAICommand.aiFlowInstance.value) {
+      finalResquestContent += finalOneAICommand.aiFlowInstance.value;
     }
     // === buildPrompt - init command for this ${index} - end ===
 
     // === buildPrompt - first command - start ===
     if (index === 0) {
       if (textInputContent && isTextInputAsText) {
-        resquestContentForThisIndex += `\n---\n文本:"""\n${textInputContent}\n"""`;
+        finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
       }
 
       if (textInputContent && !isTextInputAsText) {
-        resquestContentForThisIndex += `\n---\n${textInputContent}`;
+        finalResquestContent += `\n---\n${textInputContent}`;
       }
 
-      results.push({
+      if (hasExampleText && exampleText) {
+        finalResquestContent += `\n\n案例:"""\n${exampleText}\n"""`;
+      }
+
+      newPrompts.push({
         role: EAIFlowRole.USER,
-        content: resquestContentForThisIndex,
+        content: finalResquestContent,
       });
 
-      return results;
+      return newPrompts;
     }
     // === buildPrompt - first command - end ===
 
     // === buildPrompt - for the rest commands - start ===
     // Add Previous history - start
     for (let i = 0; i < index; i++) {
-      const oneInstructionOuputIndicatorCommandLoop = paraInstructionInputCCommandList[i];
+      const oneAICommand = paraAICommandsList[i];
+      const oneAICommandResult = paraAICommandsReultsList[i];
 
       let resquestContentForPrevious = '';
 
-      if (oneInstructionOuputIndicatorCommandLoop.aiFlowInstance.value) {
-        resquestContentForPrevious += oneInstructionOuputIndicatorCommandLoop.aiFlowInstance.value;
+      if (oneAICommand.aiFlowInstance.value) {
+        resquestContentForPrevious += oneAICommand.aiFlowInstance.value;
       }
 
-      results.push({
+      newPrompts.push({
         role: EAIFlowRole.USER,
         content: resquestContentForPrevious,
       });
 
-      if (paraRequestReultsList[i].value) {
-        results.push({
+      if (oneAICommandResult && oneAICommandResult.value) {
+        newPrompts.push({
           role: EAIFlowRole.ASSISTANT,
-          content: paraRequestReultsList[i].value,
+          content: oneAICommandResult.value,
         });
       }
     }
     // Add Previous history - end
 
     if (textInputContent && isTextInputAsText) {
-      resquestContentForThisIndex += `\n---\n文本:"""\n${textInputContent}\n"""`;
+      finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
     }
 
     if (textInputContent && !isTextInputAsText) {
-      resquestContentForThisIndex += `\n---\n${textInputContent}`;
+      finalResquestContent += `\n---\n${textInputContent}`;
     }
 
-    results.push({
+    if (hasExampleText && exampleText) {
+      finalResquestContent += `\n\n案例:"""\n${exampleText}\n"""`;
+    }
+
+    newPrompts.push({
       role: EAIFlowRole.USER,
-      content: resquestContentForThisIndex,
+      content: finalResquestContent,
     });
     // === buildPrompt - for the rest commands - end ===
 
-    return results;
+    return newPrompts;
   };
   const getOneInstructionAiFlowResult = async (
-    oneInstructionInputCommnad: IInstructionInputCommands_v3,
+    oneInstructionInputCommnad: IAICommands_v4,
     index: number,
     requestController: AbortController
   ) => {
@@ -255,9 +278,9 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       const { signal } = requestController;
 
       const resquestContentPrompt = buildPrompt(index, aiCommands, aiComandsResults);
-      // console.log('resquestContent', resquestContentPrompt);
+      // console.log('resquestContentPrompt', resquestContentPrompt);
 
-      const reponseResult: void | ISendChatGPTRequestToBackend_ouput = await sendChatGPTRequestAsStreamToBackendProxy(
+      /* const reponseResult: void | ISendChatGPTRequestToBackend_ouput = */ await sendChatGPTRequestAsStreamToBackendProxy(
         {
           userId: userId?.toString() ?? '',
           openaiSecret: openAIApiKey,
@@ -265,6 +288,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           openaiOptions: {
             // openaiModel: EOpenAiModel.GPT_4,
             openaiModel: proModeModelType,
+            temperature: creativityValue,
           },
           userStripeSubscriptionInfo: userSubscriptionInfo,
         },
@@ -278,6 +302,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           setAiComandsResults(aiComandsResults);
           setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
         })(index),
+        // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
         ((index: number) => () => {
           console.log('AfterRequestAsStreamFunc');
         })(index),
@@ -288,8 +313,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         if (error.name === 'AbortError') {
           console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
         } else {
-          message.error(error.message);
           console.error('Fetch request failed:', error);
+          message.error(error.message);
         }
       });
     } catch (error) {
@@ -300,12 +325,13 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 指令集部分 - end ===
 
   // === 指令集输出结果部分 - start ===
-  const [aiComandsResults, setAiComandsResults] = useState<IInstructionINputCommandsResults_v3[]>([]);
+  const [aiComandsResults, setAiComandsResults] = useState<IAICommandsResults_v4[]>([]);
+  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const [updateRequestResultsCount, setUpdateRequestResultsCount] = useState<number>(0); // Refresh the component
 
   const syncAiCommandsResultsByAiCommands = (
-    paraAiCommands: IInstructionInputCommands_v3[],
-    paraAiCommandsReuslts: IInstructionINputCommandsResults_v3[]
+    paraAiCommands: IAICommands_v4[],
+    paraAiCommandsReuslts: IAICommandsResults_v4[]
   ) => {
     if (paraAiCommandsReuslts.length >= paraAiCommands.length) {
       return;
@@ -345,7 +371,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
         <div className="row">
           <div className="row">
-            <label>内容: 补充信息</label>
+            <div>内容: 补充信息</div>
             {/* <Button
             size="small"
             onClick={() => {
@@ -362,6 +388,20 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           </Button> */}
           </div>
           <div className="row">
+            {hasExampleText && (
+              <div>
+                <TextArea
+                  name="inputContent"
+                  // showCount
+                  // maxLength={100}
+                  rows={4}
+                  style={{ marginBottom: -1 }}
+                  value={exampleText}
+                  onChange={onInputExampleTextChange}
+                  placeholder="根据此段内容作为模仿内容"
+                />
+              </div>
+            )}
             <div>
               <TextArea
                 name="inputContent"
@@ -384,12 +424,22 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
               >
                 作为文本
               </Checkbox>
+              <Checkbox
+                value={isTextInputAsText}
+                onChange={(e: CheckboxChangeEvent) => {
+                  console.log(`checked = ${e.target.checked}`);
+                  setHasExampleText(e.target.checked);
+                }}
+              >
+                模仿段落
+              </Checkbox>
             </div>
           </div>
         </div>
       </div>
       <div className="right_side_results_column column" style={{ flex: '1 1 70%' }}>
         <OutputResultColumn_v3
+          hasAvailableSubscription={hasAvailableSubscription}
           // Call requests
           stopInstructionAIFlowResults={stopInstructionAIFlowResults}
           getInstructionAIFlowResults={getInstructionAIFlowResults}

@@ -15,8 +15,6 @@ import {
   EProMode_v2_career_contextType,
   IProMode_v2_career,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_career';
-import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface IProModePage_career_input {
   PROMODE_DATA: IProMode_v2_career;
@@ -127,14 +125,12 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
       </div>
 
       <div className="row">
-        {!showUserContextInputs && (
-          <>
-            {/* <div className="row" style={{ display: 'flex' }}>
-              <div className="column">{contextPrompt}</div>
-              <div className="column">{handledContextPrompt}</div>
-            </div> */}
-          </>
-        )}
+        {/* {!showUserContextInputs && (
+          <div className="row" style={{ display: 'flex' }}>
+            <div className="column">{contextPrompt}</div>
+            <div className="column">{handledContextPrompt}</div>
+          </div>
+        )} */}
         <DynamicFormForContextPrompt
           containerStyle={showUserContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={contextPrompt}

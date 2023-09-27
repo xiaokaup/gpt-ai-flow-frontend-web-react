@@ -15,8 +15,6 @@ import {
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
-import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface IProModePage_copyWriting_input {
   PROMODE_DATA: IProMode_v2_productManager;
@@ -128,14 +126,12 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
       </div>
 
       <div className="row">
-        {!showUserContextInputs && (
-          <>
-            {/* <div className="row" style={{ display: 'flex' }}>
-              <div className="column">{contextPrompt}</div>
-              <div className="column">{handledContextPrompt}</div>
-            </div> */}
-          </>
-        )}
+        {/* {!showUserContextInputs && (
+          <div className="row" style={{ display: 'flex' }}>
+            <div className="column">{contextPrompt}</div>
+            <div className="column">{handledContextPrompt}</div>
+          </div>
+        )} */}
         <DynamicFormForContextPrompt
           containerStyle={showUserContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={contextPrompt}

@@ -30,6 +30,33 @@ export const getSubscriptionInfo = async (
   return results;
 };
 
+export const startATrialSubscriptionForCNY = async (
+  userId: string,
+  accessToken: string,
+  env: IConstantGptAiFlowHandler
+): Promise<ISubscirptionMix> => {
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/get/startATrialSubscriptionForCNY/for/userId/${userId}/`;
+
+  const results = await fetchWithRetry(url, {
+    method: 'GET',
+    ...getApiKeyHeadersForNodeBackend(
+      {
+        accessToken,
+      },
+      env
+    ),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data.results;
+    })
+    .catch((error) => {
+      console.log('error', error);
+    });
+
+  return results;
+};
+
 const TBackendSubscriptionFile = {
   getSubscriptionInfo,
 };
