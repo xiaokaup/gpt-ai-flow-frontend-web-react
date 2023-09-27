@@ -13,9 +13,9 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/conf
 import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
-import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 
 import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
 
