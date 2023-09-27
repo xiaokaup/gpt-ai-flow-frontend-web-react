@@ -29,6 +29,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
     email: userEmail,
     Subscription,
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
+    stripeCustomerId = '',
   } = userData;
 
   const {
@@ -91,7 +92,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
         </div>
       )}
 
-      {hasAnyoneSubscriptionRecord &&
+      {stripeCustomerId &&
         !isExpired &&
         subscriptionData.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT && (
           <div className="row">

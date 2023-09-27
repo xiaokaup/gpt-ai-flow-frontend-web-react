@@ -28,9 +28,11 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
   const {
     id: userId,
     email: userEmail,
+    Subscription,
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
     stripeCustomerId = '',
   } = userData;
+  const hasAnyoneSubscriptionRecord = !!Subscription?.id;
 
   const {
     init: initStripeSubscriptionInfo,
@@ -67,11 +69,13 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
         </div>
       )}
 
-      {stripeCustomerId && !isExpired && subscriptionData.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT && (
-        <div className="row">
-          <p>请到国内地区查看您的订阅</p>
-        </div>
-      )}
+      {hasAnyoneSubscriptionRecord &&
+        !isExpired &&
+        subscriptionData.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT && (
+          <div className="row">
+            <p>请到国内地区查看您的订阅</p>
+          </div>
+        )}
 
       {stripeCustomerId &&
         (subscriptionData.paymentType === ESubscriptionPaymentType.NONE ||
