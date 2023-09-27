@@ -2,10 +2,15 @@ import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Button, Form, Input } from 'antd';
 
+import { IReduxRootState } from '../../../../store/reducer';
+import { updateInputsCache } from '../../../../store/actions/inputsCacheActions';
+
+import IInputsCacheFile, { IInputsCache } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { useInputsCache } from '../../../../gpt-ai-flow-common/hooks/useInputsCache';
-import { IInputsCache } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 interface DynamicFormForSelectValue_input {
   containerStyle: any;
@@ -16,10 +21,16 @@ interface DynamicFormForSelectValue_input {
 }
 
 export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input) {
-  const inputsCacheFromStorage: IInputsCache = {};
+  const dispatch = useDispatch();
+
+  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+  });
   const { inputsCache, setInputsCache } = useInputsCache({
     inputsCacheFromStorage,
-    onInputsCacheChange: (newIntem: IInputsCache) => {},
+    onInputsCacheChange: (newItem: IInputsCache) => {
+      dispatch(updateInputsCache(newItem) as any);
+    },
   });
 
   const {

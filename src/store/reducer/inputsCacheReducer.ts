@@ -1,7 +1,9 @@
+import IInputsCacheFile, { IInputsCache } from '../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+
 import { USER_LOGOUT } from '../actions/userActions';
 import { UPDATE_INPUTS_CACHE } from '../actions/inputsCacheActions';
+
 import { IAction } from '../store';
-import IInputsCacheFile, { IInputsCache } from 'gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 export const inputsCacheReduer = (state: IInputsCache = IInputsCacheFile.IInputsCache_default, action: IAction) => {
   const { type, payload } = action;
