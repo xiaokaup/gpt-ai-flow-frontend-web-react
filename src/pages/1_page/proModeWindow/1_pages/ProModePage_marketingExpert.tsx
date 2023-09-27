@@ -100,7 +100,7 @@ export const ProModePage_marketingExpert = (props: IProModePage_copyWriting_inpu
           :
           <Select
             defaultValue={contextType}
-            style={{ width: 120, marginLeft: '.4rem' }}
+            style={{ width: 150, marginLeft: '.4rem' }}
             onChange={handleContextTypeChange}
             options={defaultContextTypesForSelect.map((item) => {
               return {

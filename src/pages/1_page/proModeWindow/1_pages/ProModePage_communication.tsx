@@ -100,7 +100,7 @@ export const ProModePage_communication = (props: IProModePage_communication_inpu
           :
           <Select
             defaultValue={contextType}
-            style={{ width: 120, marginLeft: '.4rem' }}
+            style={{ width: 150, marginLeft: '.4rem' }}
             onChange={handleContextTypeChange}
             options={defaultContextTypesForSelect.map((item) => {
               return {

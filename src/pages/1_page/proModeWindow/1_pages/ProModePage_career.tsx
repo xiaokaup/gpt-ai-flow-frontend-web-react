@@ -100,7 +100,7 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
           :
           <Select
             defaultValue={contextType}
-            style={{ width: 120, marginLeft: '.4rem' }}
+            style={{ width: 150, marginLeft: '.4rem' }}
             onChange={handleContextTypeChange}
             options={defaultContextTypesForSelect.map((item) => {
               return {
