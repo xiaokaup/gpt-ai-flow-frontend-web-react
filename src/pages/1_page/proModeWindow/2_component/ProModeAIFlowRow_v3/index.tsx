@@ -189,32 +189,32 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     ];
 
     // === buildPrompt - init command for this ${index} - start ===
-    const oneInstructionOuputIndicatorCommand = paraAICommandsList[index];
+    const finalOneAICommand = paraAICommandsList[index];
 
-    let resquestContentForThisIndex = '';
+    let finalResquestContent = '';
 
-    if (oneInstructionOuputIndicatorCommand.aiFlowInstance.value) {
-      resquestContentForThisIndex += oneInstructionOuputIndicatorCommand.aiFlowInstance.value;
+    if (finalOneAICommand.aiFlowInstance.value) {
+      finalResquestContent += finalOneAICommand.aiFlowInstance.value;
     }
     // === buildPrompt - init command for this ${index} - end ===
 
     // === buildPrompt - first command - start ===
     if (index === 0) {
       if (textInputContent && isTextInputAsText) {
-        resquestContentForThisIndex += `\n---\n文本:"""\n${textInputContent}\n"""`;
+        finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
       }
 
       if (textInputContent && !isTextInputAsText) {
-        resquestContentForThisIndex += `\n---\n${textInputContent}`;
+        finalResquestContent += `\n---\n${textInputContent}`;
       }
 
       if (hasExampleText && exampleText) {
-        resquestContentForThisIndex += `\n\n案例:"""\n${exampleText}\n"""`;
+        finalResquestContent += `\n\n案例:"""\n${exampleText}\n"""`;
       }
 
       newPrompts.push({
         role: EAIFlowRole.USER,
-        content: resquestContentForThisIndex,
+        content: finalResquestContent,
       });
 
       return newPrompts;
@@ -248,20 +248,20 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     // Add Previous history - end
 
     if (textInputContent && isTextInputAsText) {
-      resquestContentForThisIndex += `\n---\n文本:"""\n${textInputContent}\n"""`;
+      finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
     }
 
     if (textInputContent && !isTextInputAsText) {
-      resquestContentForThisIndex += `\n---\n${textInputContent}`;
+      finalResquestContent += `\n---\n${textInputContent}`;
     }
 
     if (hasExampleText && exampleText) {
-      resquestContentForThisIndex += `\n\n案例:"""\n${exampleText}\n"""`;
+      finalResquestContent += `\n\n案例:"""\n${exampleText}\n"""`;
     }
 
     newPrompts.push({
       role: EAIFlowRole.USER,
-      content: resquestContentForThisIndex,
+      content: finalResquestContent,
     });
     // === buildPrompt - for the rest commands - end ===
 
