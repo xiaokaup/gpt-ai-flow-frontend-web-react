@@ -42,6 +42,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
 
   useEffect(() => {
     setSubscriptionData(subscriptionDataFromStorage);
+    setIsExpired(new Date(subscriptionDataFromStorage.expiredAt) < new Date());
   }, [subscriptionDataFromStorage]);
 
   const startATrialSubscription = async () => {
