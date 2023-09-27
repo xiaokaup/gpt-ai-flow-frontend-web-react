@@ -15,7 +15,7 @@ import {
   ESubscriptionPaymentType,
   ESubscriptionPeriod,
 } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
-import { useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
+import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
@@ -24,7 +24,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 
 interface SettingsWindow_4_proMode_EUR_input {
   userData: IUserData;
-  userSubscriptionInfoHookResult: useUserSubscriptionInfo_output;
+  userSubscriptionInfoHookResult: IUseSubscriptionData_output;
 }
 export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR_input) => {
   const { userData, userSubscriptionInfoHookResult } = props;
@@ -37,12 +37,12 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
 
   const {
     init: initStripeSubscriptionInfo,
-    userSubscriptionInfo,
+    subscriptionData,
     check: { hasNoAvailableSubscription },
   } = userSubscriptionInfoHookResult;
-  const isExpired = new Date((userSubscriptionInfo as ISubscriptionDB)?.expiredAt) < new Date();
+  const isExpired = new Date((subscriptionData as ISubscriptionDB)?.expiredAt) < new Date();
 
-  const [subscriptionName, setSubscriptionName] = useState<string>(userSubscriptionInfo.name);
+  const [subscriptionName, setSubscriptionName] = useState<string>(subscriptionData.name);
 
   useEffect(() => {
     const stripePriceListAllPeriod = TStripeConstantFile.getStripePrices(
@@ -50,22 +50,21 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
       ECurrencySymbol.EUR
     );
 
-    const stripePriceListCurrentPeriod =
-      stripePriceListAllPeriod[userSubscriptionInfo?.period ?? ESubscriptionPeriod.NONE];
+    const stripePriceListCurrentPeriod = stripePriceListAllPeriod[subscriptionData?.period ?? ESubscriptionPeriod.NONE];
     const userSubscriptionName =
       stripePriceListCurrentPeriod?.find(
-        (item) => item.priceId === (userSubscriptionInfo as IStripeSubscriptionInfo)?.priceId
+        (item) => item.priceId === (subscriptionData as IStripeSubscriptionInfo)?.priceId
       )?.name ?? '';
 
     if (userSubscriptionName) {
       setSubscriptionName(userSubscriptionName);
     }
   }, [
-    userSubscriptionInfo.name,
-    userSubscriptionInfo,
-    userSubscriptionInfo?.period,
+    subscriptionData.name,
+    subscriptionData,
+    subscriptionData?.period,
     // @ts-ignore
-    userSubscriptionInfo?.priceId,
+    subscriptionData?.priceId,
   ]);
 
   return (
@@ -96,17 +95,15 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
         </div>
       )}
 
-      {stripeCustomerId &&
-        !isExpired &&
-        userSubscriptionInfo.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT && (
-          <div className="row">
-            <p>请到国内地区查看您的订阅</p>
-          </div>
-        )}
+      {stripeCustomerId && !isExpired && subscriptionData.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT && (
+        <div className="row">
+          <p>请到国内地区查看您的订阅</p>
+        </div>
+      )}
 
       {stripeCustomerId &&
-        (userSubscriptionInfo.paymentType === ESubscriptionPaymentType.NONE ||
-          userSubscriptionInfo.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT ||
+        (subscriptionData.paymentType === ESubscriptionPaymentType.NONE ||
+          subscriptionData.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT ||
           isExpired) && (
           <div className="row">
             <div className="row">
@@ -137,25 +134,25 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
             <div className="row">
               套餐名称: {subscriptionName}
               <br />
-              套餐时长: {userSubscriptionInfo?.period}
+              套餐时长: {subscriptionData?.period}
               <br />
-              套餐版本: {userSubscriptionInfo?.version}
+              套餐版本: {subscriptionData?.version}
               <br />
-              套餐状态: {(userSubscriptionInfo as IStripeSubscriptionInfo)?.status}
+              套餐状态: {(subscriptionData as IStripeSubscriptionInfo)?.status}
               <br />
               套餐到期:{' '}
-              {(userSubscriptionInfo as ISubscriptionDB)?.expiredAt &&
-                new Date((userSubscriptionInfo as ISubscriptionDB)?.expiredAt)?.toISOString().split('T')[0]}
-              {(userSubscriptionInfo as ISubscriptionDB)?.expiredAt && isExpired ? '(已失效)' : ''}
+              {(subscriptionData as ISubscriptionDB)?.expiredAt &&
+                new Date((subscriptionData as ISubscriptionDB)?.expiredAt)?.toISOString().split('T')[0]}
+              {(subscriptionData as ISubscriptionDB)?.expiredAt && isExpired ? '(已失效)' : ''}
             </div>
             <div className="row">
               是否有默认支付方式:
-              {(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod ? '是' : '否'}
+              {(subscriptionData as IStripeSubscriptionInfo)?.hasDefaultPamentMethod ? '是' : '否'}
             </div>
 
             {hasNoAvailableSubscription && (
               <div className="row">
-                {!(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && (
+                {!(subscriptionData as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && (
                   <div className="row">
                     <Alert
                       message={
@@ -170,7 +167,7 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
                   </div>
                 )}
 
-                {(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && userId && (
+                {(subscriptionData as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && userId && (
                   <SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription
                     userId={userId.toString()}
                     stripeCustomerId={stripeCustomerId}

@@ -7,10 +7,13 @@ import { Tabs, TabsProps } from 'antd';
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
 
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { useUserSubscriptionInfo } from '../../../../hooks/useUserSubscriptionInfo';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
+import ISubscriptionMixFile, {
+  ISubscirptionMix,
+} from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import { useSubscriptionData } from '../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
@@ -37,13 +40,19 @@ export const SettingsWindow_1_local = () => {
     );
   }
 
+  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  });
   const {
     // init: initStripeSubscriptionInfo,
-    userSubscriptionInfo,
+    subscriptionData,
     // check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserSubscriptionInfo({
+  } = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
+    subscriptionDataFromStorage,
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
   const [selectedTabKey, setSelectedTabKey] = useState<ESettingsWindow_1_local_tabKey>(
@@ -54,7 +63,7 @@ export const SettingsWindow_1_local = () => {
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: `基本`,
-      children: <SettingsWindow_1_local_basic userSubscriptionInfo={userSubscriptionInfo} />,
+      children: <SettingsWindow_1_local_basic userSubscriptionInfo={subscriptionData} />,
     },
   ];
 

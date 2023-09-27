@@ -22,11 +22,17 @@ import { useSubscriptionValueContext } from '../../../../../gpt-ai-flow-common/c
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
-import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import ISubscriptionMixFile, {
+  ISubscirptionMix,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import {
+  IUseSubscriptionData_output,
+  useSubscriptionData,
+} from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 
 const { TextArea } = Input;
 
@@ -40,7 +46,7 @@ interface ProModeAIFlowRow_v3_input {
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const creativityValue = useCreativityValueContext();
-  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useSubscriptionValueContext();
+  const userSubscriptionInfoHookResult: IUseSubscriptionData_output = useSubscriptionValueContext();
   const {
     check: { hasAvailableSubscription },
   } = userSubscriptionInfoHookResult;
@@ -72,13 +78,19 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const { id: userId, token: userToken } = userData;
   const userAccessToken = userToken?.accessToken;
 
+  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  });
   const {
     // init: initStripeSubscriptionInfo,
-    userSubscriptionInfo,
+    subscriptionData,
     // check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useUserSubscriptionInfo({
+  } = useSubscriptionData({
     userId: userId as number,
     accessToken: userAccessToken as string,
+    subscriptionDataFromStorage,
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
   // === 用户输入部分 - start ===
@@ -302,7 +314,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             openaiModel: proModeModelType,
             temperature: creativityValue,
           },
-          userStripeSubscriptionInfo: userSubscriptionInfo,
+          userStripeSubscriptionInfo: subscriptionData,
         },
         () => {
           console.log('beforeSendRequestAsStreamFunc');

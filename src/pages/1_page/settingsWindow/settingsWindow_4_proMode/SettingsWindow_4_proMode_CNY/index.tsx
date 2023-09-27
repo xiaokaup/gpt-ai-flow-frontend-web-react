@@ -11,7 +11,7 @@ import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUser
 import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
+import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { startATrialSubscriptionForCNY } from '../../../../../tools/3_unit/TBackendSubscription';
@@ -20,7 +20,7 @@ import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription 
 
 interface SettingsWindow_4_proMode_CNY_input {
   userData: IUserData;
-  userSubscriptionInfoHookResult: useUserSubscriptionInfo_output;
+  userSubscriptionInfoHookResult: IUseSubscriptionData_output;
 }
 export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
   const { userData, userSubscriptionInfoHookResult } = props;
@@ -32,7 +32,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
   } = userData;
 
   const {
-    userSubscriptionInfo: userSubscriptionInfoFromInput,
+    subscriptionData: userSubscriptionInfoFromInput,
     // check: { hasNoAvailableSubscription },
   } = userSubscriptionInfoHookResult;
   const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(!!Subscription?.id);

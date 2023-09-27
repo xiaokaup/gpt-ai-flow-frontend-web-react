@@ -19,7 +19,13 @@ import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/Cr
 import { SubscriptionValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../hooks/useUserSubscriptionInfo';
+import ISubscriptionMixFile, {
+  ISubscirptionMix,
+} from '../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import {
+  useSubscriptionData,
+  IUseSubscriptionData_output,
+} from '../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 
 export interface ITabPanel {
   key: EUserRolePermissionDB_name;
@@ -55,12 +61,18 @@ const ProModeWindow = () => {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
   }
 
-  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useUserSubscriptionInfo({
+  const userSubscriptionInfoFromStore: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  });
+  const userSubscriptionInfoHookResult: IUseSubscriptionData_output = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
+    subscriptionDataFromStorage: userSubscriptionInfoFromStore,
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const {
-    userSubscriptionInfo,
+    subscriptionData,
     check: { hasAvailableSubscription, hasNoAvailableSubscription },
   } = userSubscriptionInfoHookResult;
 
@@ -132,7 +144,7 @@ const ProModeWindow = () => {
         value,
         children,
         disabled:
-          userSubscriptionInfo.name !== ESubscriptionName.NONE
+          subscriptionData.name !== ESubscriptionName.NONE
             ? !userRolePermissionsWithStripeSubscriptionInfo.includes(value)
             : true,
       },

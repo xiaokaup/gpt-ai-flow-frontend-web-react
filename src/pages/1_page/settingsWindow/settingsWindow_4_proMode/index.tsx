@@ -10,8 +10,15 @@ import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITok
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
+import {
+  IUseSubscriptionData_output,
+  useSubscriptionData,
+} from '../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+import ISubscriptionMixFile, {
+  ISubscirptionMix,
+} from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 
-import { useUserSubscriptionInfo, useUserSubscriptionInfo_output } from '../../../../hooks/useUserSubscriptionInfo';
+import { useUserSubscriptionInfo } from '../../../../hooks/useUserSubscriptionInfo';
 
 import { SettingsWindow_4_proMode_EUR } from './SettingsWindow_4_proMode_EUR';
 import { SettingsWindow_4_proMode_CNY } from './SettingsWindow_4_proMode_CNY';
@@ -38,10 +45,16 @@ export const SettingsWindow_4_proMode = () => {
     );
   }
 
+  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
+    return state.subscriptionInfo ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  });
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const userSubscriptionInfoHookResult: useUserSubscriptionInfo_output = useUserSubscriptionInfo({
+  const userSubscriptionInfoHookResult: IUseSubscriptionData_output = useSubscriptionData({
     userId,
     accessToken: userAccessToken,
+    subscriptionDataFromStorage,
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
   const hanleRegionSelectChange = (value: string) => {
