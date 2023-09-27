@@ -73,7 +73,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
   );
 
-  const { proModeSetData: proModeSetFromStore } = useProModeSetData({
+  const { proModeSetData } = useProModeSetData({
     userDataFromStorage,
     proModeSetData: proModeSetFromStorage,
     // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
@@ -84,23 +84,19 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const PROMODE_COPY_WRITING_DATA = proModeSetFromStore[
-    EUserRolePermissionDB_name.COPY_WRITING
-  ] as IProMode_v2_copyWriting;
-  const PROMODE_XIAO_HONG_SHU_DATA = proModeSetFromStore[
+  const PROMODE_COPY_WRITING_DATA = proModeSetData[EUserRolePermissionDB_name.COPY_WRITING] as IProMode_v2_copyWriting;
+  const PROMODE_XIAO_HONG_SHU_DATA = proModeSetData[
     EUserRolePermissionDB_name.XIAO_HONG_SHU
   ] as IProMode_v2_xiaoHongShu;
-  const PROMODE_SEO_DATA = proModeSetFromStore[EUserRolePermissionDB_name.SEO] as IProMode_v2_seo;
-  const PROMODE_COMMENT_DATA = proModeSetFromStore[EUserRolePermissionDB_name.COMMENT] as IProMode_v2_comment;
-  const PROMODE_CAREER_DATA = proModeSetFromStore[EUserRolePermissionDB_name.CAREER] as IProMode_v2_career;
-  const PROMODE_COMMUNICATION_DATA = proModeSetFromStore[
+  const PROMODE_SEO_DATA = proModeSetData[EUserRolePermissionDB_name.SEO] as IProMode_v2_seo;
+  const PROMODE_COMMENT_DATA = proModeSetData[EUserRolePermissionDB_name.COMMENT] as IProMode_v2_comment;
+  const PROMODE_CAREER_DATA = proModeSetData[EUserRolePermissionDB_name.CAREER] as IProMode_v2_career;
+  const PROMODE_COMMUNICATION_DATA = proModeSetData[
     EUserRolePermissionDB_name.COMMUNICATION
   ] as IProMode_v2_communication;
-  const PROMODE_UP_ZHU_DATA = proModeSetFromStore[EUserRolePermissionDB_name.VIDEO_PRODUCTION] as IProMode_v2_upZhu;
-  const PROMODE_UP_PRODUCT_MANAGER = proModeSetFromStore[
-    EUserRolePermissionDB_name.PRODUCT
-  ] as IProMode_v2_productManager;
-  const PROMODE_UP_MARKETING_EXPERT = proModeSetFromStore[
+  const PROMODE_UP_ZHU_DATA = proModeSetData[EUserRolePermissionDB_name.VIDEO_PRODUCTION] as IProMode_v2_upZhu;
+  const PROMODE_UP_PRODUCT_MANAGER = proModeSetData[EUserRolePermissionDB_name.PRODUCT] as IProMode_v2_productManager;
+  const PROMODE_UP_MARKETING_EXPERT = proModeSetData[
     EUserRolePermissionDB_name.MARKETING
   ] as IProMode_v2_marketingExpert;
 

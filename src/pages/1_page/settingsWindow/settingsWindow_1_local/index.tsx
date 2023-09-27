@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { IReduxRootState } from 'store/reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Tabs, TabsProps } from 'antd';
 
-import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
+import { IReduxRootState } from 'store/reducer';
+import { udpateSubscriptionAction } from '../../../../store/actions/subscriptionActions';
 
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -15,12 +15,16 @@ import ISubscriptionMixFile, {
 } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import { useSubscriptionData } from '../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 
+import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
+
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
   SHORTCUT = 'shortcut',
 }
 
 export const SettingsWindow_1_local = () => {
+  const dispatch = useDispatch();
+
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
@@ -47,7 +51,9 @@ export const SettingsWindow_1_local = () => {
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,
-    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
+      dispatch(udpateSubscriptionAction(newItem) as any);
+    },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

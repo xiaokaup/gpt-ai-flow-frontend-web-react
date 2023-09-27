@@ -4,14 +4,13 @@ import '../../../styles/layout.scss';
 
 import React from 'react';
 import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IReduxRootState } from 'store/reducer';
 
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
-
 import { useProModeSetDataUI } from './useProModeSetDataUI';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
@@ -27,6 +26,8 @@ import {
   IUseSubscriptionData_output,
 } from '../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 
+import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
+
 export interface ITabPanel {
   key: EUserRolePermissionDB_name;
   label: string;
@@ -38,6 +39,8 @@ export interface ITabPanel {
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
+  const dispatch = useDispatch();
+
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
 
   // === Stripe subscription - start ===
@@ -68,7 +71,9 @@ const ProModeWindow = () => {
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,
-    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
+      dispatch(udpateSubscriptionAction(newItem) as any);
+    },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const {

@@ -3,11 +3,13 @@ import '../../../../../styles/layout.scss';
 import './index.scss';
 
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { IReduxRootState } from 'store/reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
+
+import { IReduxRootState } from 'store/reducer';
+import { udpateSubscriptionAction } from '../../../../../store/actions/subscriptionActions';
 
 import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
 import {
@@ -23,8 +25,6 @@ import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData
 
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 
-import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
-import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import ISubscriptionMixFile, {
   ISubscirptionMix,
@@ -33,6 +33,9 @@ import {
   IUseSubscriptionData_output,
   useSubscriptionData,
 } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+
+import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
+import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 
 const { TextArea } = Input;
 
@@ -45,6 +48,8 @@ interface ProModeAIFlowRow_v3_input {
   aiCommandsSettings: IAICommands_v4[];
 }
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
+  const dispatch = useDispatch();
+
   const creativityValue = useCreativityValueContext();
   const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionValueContext();
   const {
@@ -85,7 +90,9 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     userId: userId as number,
     accessToken: userAccessToken as string,
     subscriptionDataFromStorage,
-    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
+      dispatch(udpateSubscriptionAction(newItem) as any);
+    },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

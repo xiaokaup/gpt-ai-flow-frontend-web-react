@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-
-import { IReduxRootState } from 'store/reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Select } from 'antd';
+
+import { IReduxRootState } from 'store/reducer';
+import { udpateSubscriptionAction } from '../../../../store/actions/subscriptionActions';
 
 import { ERegion } from '../../../../gpt-ai-flow-common/enum-app/ERegion';
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
@@ -22,6 +23,8 @@ import { SettingsWindow_4_proMode_EUR } from './SettingsWindow_4_proMode_EUR';
 import { SettingsWindow_4_proMode_CNY } from './SettingsWindow_4_proMode_CNY';
 
 export const SettingsWindow_4_proMode = () => {
+  const dispatch = useDispatch();
+
   const [region, setRegion] = useState<ERegion>(ERegion.DEFAULT);
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
@@ -51,7 +54,9 @@ export const SettingsWindow_4_proMode = () => {
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,
-    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {},
+    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
+      dispatch(udpateSubscriptionAction(newItem) as any);
+    },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

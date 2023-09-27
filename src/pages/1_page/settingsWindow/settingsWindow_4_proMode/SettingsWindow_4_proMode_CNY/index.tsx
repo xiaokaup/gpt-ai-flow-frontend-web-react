@@ -30,7 +30,6 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
     Subscription,
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
   } = userData;
-  console.log('useSubscriptionDataOutput', useSubscriptionDataOutput);
 
   const {
     subscriptionData: subscriptionDataFromStorage,
