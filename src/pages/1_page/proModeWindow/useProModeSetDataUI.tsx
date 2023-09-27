@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import {
@@ -76,17 +76,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
   );
 
-  const [hasUpdateProModeData, setHasUpdateProModeData] = useState<boolean>(false);
   const { proModeSetData } = useProModeSetData({
     userDataFromStorage,
     proModeSetData: proModeSetFromStorage,
-    // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
     onProModeSetDataChange: (newPromodeSetData: IProMode_v2) => {
-      if (hasUpdateProModeData) {
-        return;
-      }
-      setHasUpdateProModeData(true);
-      dispatch(updateProModeDataAction(newPromodeSetData) as any); // @XXX: Use hasSetProModeData to break infinite loop to update redux store without call backend API
+      dispatch(updateProModeDataAction(proModeSetData) as any);
     },
     getDecryptObj: TCryptoJSFile.decrypt,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
