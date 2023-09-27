@@ -18,12 +18,12 @@ import {
 
 interface IProModePage_comment_input {
   PROMODE_DATA: IProMode_v2_comment;
-  defaultContextPromptType: EProMode_v2_comment_contextType;
+  defaultContextType: EProMode_v2_comment_contextType;
   defaultContextTypesForSelect: EProMode_v2_comment_contextType[];
 }
 
 export const ProModePage_comment = (props: IProModePage_comment_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { PROMODE_DATA, defaultContextType, defaultContextTypesForSelect } = props;
 
   // console.log('props', props);
 
@@ -44,17 +44,17 @@ export const ProModePage_comment = (props: IProModePage_comment_input) => {
   // === Context input - start ===
   const contextPrompts = PROMODE_DATA.context;
 
-  const [contextPromptType, setContextPromptType] = useState<EProMode_v2_comment_contextType>(defaultContextPromptType);
-  const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextPromptType].value);
+  const [contextType, setContextType] = useState<EProMode_v2_comment_contextType>(defaultContextType);
+  const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextType].value);
   const contextPromptHavePlaceHolder = TString.hasPlaceholder(contextPrompt);
-  const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextPromptType].value);
+  const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextType].value);
 
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
   const handleContextTypeChange = (paraContextPromptType: EProMode_v2_comment_contextType) => {
     console.log(`selected ${paraContextPromptType}`);
-    setContextPromptType(paraContextPromptType);
+    setContextType(paraContextPromptType);
     setContextPrompt(contextPrompts[paraContextPromptType].value);
     setHandledContextPrompt(contextPrompts[paraContextPromptType].value);
 
@@ -99,7 +99,7 @@ export const ProModePage_comment = (props: IProModePage_comment_input) => {
           )}
           :
           <Select
-            defaultValue={contextPromptType}
+            defaultValue={contextType}
             style={{ width: 120, marginLeft: '.4rem' }}
             onChange={handleContextTypeChange}
             options={defaultContextTypesForSelect.map((item) => {
@@ -141,9 +141,9 @@ export const ProModePage_comment = (props: IProModePage_comment_input) => {
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}
-                defaulInstructionAiCommands={PROMODE_DATA.instruction[contextPromptType]}
-                defaultOutputIndicatorAiCommands={PROMODE_DATA.outputIndicator[contextPromptType]}
-                aiCommandsSettings={PROMODE_DATA.defaultAiCommandsSettings[contextPromptType]}
+                defaulInstructionAiCommands={PROMODE_DATA.instruction[contextType]}
+                defaultOutputIndicatorAiCommands={PROMODE_DATA.outputIndicator[contextType]}
+                aiCommandsSettings={PROMODE_DATA.defaultAiCommandsSettings[contextType]}
               />
               <hr style={{ margin: 10 }} />
             </div>
