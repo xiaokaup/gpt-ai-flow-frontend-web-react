@@ -70,7 +70,7 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
   }
 
   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChat`;
-  if (data.userStripeSubscriptionInfo?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+  if (data.subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChatWithOfficialKey`;
   }
 
@@ -135,7 +135,7 @@ export const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = as
   };
 
   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResume`;
-  if (data.userStripeSubscriptionInfo?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+  if (data.subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResumeWithOfficialKey`;
   }
 

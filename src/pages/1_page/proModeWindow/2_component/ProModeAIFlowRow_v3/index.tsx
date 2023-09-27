@@ -317,7 +317,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             openaiModel: proModeModelType,
             temperature: creativityValue,
           },
-          userStripeSubscriptionInfo: subscriptionData,
+          subscriptionData,
         },
         () => {
           console.log('beforeSendRequestAsStreamFunc');
