@@ -5,9 +5,10 @@ import '../../../styles/layout.scss';
 import React from 'react';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IReduxRootState } from 'store/reducer';
 
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
+
+import { IReduxRootState } from '../../../store/reducer';
 
 import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';

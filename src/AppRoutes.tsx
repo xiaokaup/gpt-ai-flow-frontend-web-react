@@ -19,6 +19,7 @@ import { SettingsWindow_1_local } from './pages/1_page/settingsWindow/settingsWi
 import ProModeWindow from './pages/1_page/proModeWindow';
 import { SettingsWindow_6_about } from './pages/1_page/settingsWindow/SettingsWindow_6_about';
 import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
+import { LogoutPage } from './pages/1_page/logoutPage';
 
 export const AppRoutes = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
@@ -96,6 +97,14 @@ export const AppRoutes = () => {
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <ProModeWindow />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/forgetPassword',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <LogoutPage />
         </AppLayoutCenter>
       ),
     },
