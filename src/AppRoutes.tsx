@@ -101,7 +101,7 @@ export const AppRoutes = () => {
       ),
     },
     {
-      path: '/forgetPassword',
+      path: '/logout',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
           <LogoutPage />
