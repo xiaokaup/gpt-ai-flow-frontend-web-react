@@ -186,72 +186,91 @@ const ProModeWindow = () => {
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
-      <div className="container">
+      <div className="container" style={{ position: 'relative' }}>
+        <div className="row top_block_add_tab">
+          <Select
+            showSearch
+            placeholder="选择专业界面"
+            optionFilterProp="children"
+            onChange={onProModeSelectorChange}
+            onSearch={onProModeSelectorSearch}
+            filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+            options={[
+              {
+                value: '',
+                label: '请选择',
+              },
+              ...defaultTabPanels.map((item: { value: string; label: string }) => {
+                return {
+                  value: item.value,
+                  label: item.label,
+                };
+              }),
+            ]}
+            style={{ width: 180 }}
+          />
+
+          <Button
+            type="primary"
+            style={{ marginLeft: 8 }}
+            onClick={() => {
+              if (!selectedProdMode) {
+                message.error('请选择专业界面');
+                return;
+              }
+
+              if (!userRolePermissionsWithStripeSubscriptionInfo.includes(selectedProdMode)) {
+                message.error('你没有权限使用此面板');
+                return;
+              }
+
+              addTabPanel(selectedProdMode);
+            }}
+          >
+            添加
+          </Button>
+        </div>
+
         <div
-          className="row top_block_add_tab"
-          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}
+          className="block_creativity_value_slider"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+
+            position: 'sticky',
+            top: 0,
+
+            backgroundColor: '#fff',
+            zIndex: 10,
+            borderBottom: '1px solid #E8E8E8',
+            marginBottom: '.4rem',
+          }}
         >
-          <div>
-            <Select
-              showSearch
-              placeholder="选择专业界面"
-              optionFilterProp="children"
-              onChange={onProModeSelectorChange}
-              onSearch={onProModeSelectorSearch}
-              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={[
-                {
-                  value: '',
-                  label: '请选择',
-                },
-                ...defaultTabPanels.map((item: { value: string; label: string }) => {
-                  return {
-                    value: item.value,
-                    label: item.label,
-                  };
-                }),
-              ]}
-              style={{ width: 180 }}
-            />
-            <Button
-              type="primary"
-              style={{ marginLeft: 8 }}
-              onClick={() => {
-                if (!selectedProdMode) {
-                  message.error('请选择专业界面');
-                  return;
-                }
+          <span style={{ color: '#5D6370', marginLeft: '1rem' }}>创意值: {creativityValue}</span>
 
-                if (!userRolePermissionsWithStripeSubscriptionInfo.includes(selectedProdMode)) {
-                  message.error('你没有权限使用此面板');
-                  return;
-                }
+          <Slider
+            min={0}
+            max={1.6}
+            step={0.1}
+            onChange={(newValue: number) => {
+              setCreativityValue(newValue);
+            }}
+            value={creativityValue}
+            marks={{
+              0: '精确',
+              1.6: '创造',
+            }}
+            style={{
+              position: 'relative',
+              top: 4,
 
-                addTabPanel(selectedProdMode);
-              }}
-            >
-              添加
-            </Button>
-
-            <span style={{ color: '#5D6370', marginLeft: '1rem' }}>创意值: {creativityValue}</span>
-          </div>
-
-          <div>
-            <Slider
-              min={0}
-              max={1.4}
-              step={0.1}
-              onChange={(newValue: number) => {
-                setCreativityValue(newValue);
-              }}
-              value={creativityValue}
-              marks={{
-                0: '精确',
-                1.4: '创造',
-              }}
-              style={{ width: 200, marginLeft: '2rem', marginRight: '2rem' }}
-            />
-          </div>
+              width: 200,
+              marginLeft: '2rem',
+              marginRight: '2rem',
+            }}
+          />
         </div>
 
         {hasNoAvailableSubscription && !isBetaUser && (
@@ -260,7 +279,7 @@ const ProModeWindow = () => {
               message={
                 <span>
                   John是一位忙碌的职场人士，但在订阅我们产品后，他发现了平衡工作和生活的新秘诀。
-                  <a href="https://www.gptaiflow.com/business/prices" target="_blank">
+                  <a href="https://www.gptaiflow.com/business/prices-zh" target="_blank">
                     <span style={{ color: '#1677FF' }}>点击这里</span>
                   </a>
                 </span>
