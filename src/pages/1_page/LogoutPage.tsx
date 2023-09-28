@@ -17,5 +17,5 @@ export const LogoutPage = () => {
     }, 1000);
   });
 
-  return <div>登出</div>;
+  return <div>登出...</div>;
 };
