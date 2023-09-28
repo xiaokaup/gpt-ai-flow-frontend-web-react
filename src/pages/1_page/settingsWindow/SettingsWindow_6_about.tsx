@@ -25,12 +25,12 @@ export const SettingsWindow_6_about = () => {
         </div>
         <div className="row">
           如有任何反馈(bug 或 建议), 请发送至邮箱 <a href="mailto:hello@gptaiflow.com">hello@gptaiflow.com</a> 或通过{' '}
-          <a href="https://wj.qq.com/s2/12214642/c9c6">产品反馈页面</a> 告诉我们
+          <a href="https://wj.qq.com/s2/13154598/1770/">产品反馈页面</a> 告诉我们
         </div>
 
         <hr />
         <div className="row">
-          <span>版本: v0.1.28</span>
+          <span>版本: v0.1.29</span>
         </div>
       </div>
     </div>

@@ -1,34 +1,33 @@
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
-import iconFormat from '../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
-
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-import { Input } from 'antd';
 import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
+
+import iconFormat from '../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
+
 import { IAIFlow, EAIFlowType, EAIFlowRole } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import {
-  IInstructionInputCommands_v3,
-  IInstructionINputCommandsResults_v3,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAIFlowRow_v3';
+  IAICommands_v4,
+  IAICommandsResults_v4,
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
+
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
+
 import { InstructionInputColumn_v3_InstructionSelect } from './InstructionInputColumn_v3_InstructionSelect';
 import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InstructionInputColumn_v3_OutputIndicatorSelect';
 import { InstructionInputColumn_v3_CustomizeTextArea } from './InstructionInputColumn_v3_CustomizeTextArea';
-
-const { TextArea } = Input;
 
 interface InstructionInputColumn_v3_input {
   defaultInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
   addRequestControllerItem: (uuid: string, value: AbortController) => void;
   removeRequestControllerItem: (uuid: string) => void;
-  aiCommands: IInstructionInputCommands_v3[];
-  setAiCommands: React.Dispatch<React.SetStateAction<IInstructionInputCommands_v3[]>>;
-  setAiComandsResults: React.Dispatch<React.SetStateAction<IInstructionINputCommandsResults_v3[]>>;
+  aiCommands: IAICommands_v4[];
+  setAiCommands: React.Dispatch<React.SetStateAction<IAICommands_v4[]>>;
+  setAiComandsResults: React.Dispatch<React.SetStateAction<IAICommandsResults_v4[]>>;
 }
 
 export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input) => {
@@ -73,7 +72,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
       <div className="row">指令集</div>
       <div className="row">
         <div className="row row_instructions_ouputIndicator_ai_flow_commands">
-          {aiCommands.map((item: IInstructionInputCommands_v3, index: number) => {
+          {aiCommands.map((item: IAICommands_v4, index: number) => {
             if (item.aiFlowInstance.type === EAIFlowType.INSTRUCTION) {
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.value}`}>
@@ -181,7 +180,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   aiFlowInstance: instructionCommandsSelectOptions[0],
                   isTemporary: false,
                   hasPlaceholder: hasPlaceHolder,
-                  isDirty: hasPlaceHolder ? true : false,
+                  isDirty: !!hasPlaceHolder,
                   isShowInputsForm: hasPlaceHolder,
                 },
               ]);
@@ -244,7 +243,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   aiFlowInstance: ouputIndicatorCommandsSelectOptions[0],
                   isTemporary: false,
                   hasPlaceholder: hasPlaceHolder,
-                  isDirty: hasPlaceHolder ? true : false,
+                  isDirty: !!hasPlaceHolder,
                   isShowInputsForm: hasPlaceHolder,
                 },
               ]);

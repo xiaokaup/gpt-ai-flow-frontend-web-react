@@ -1,31 +1,36 @@
 import '../../../../styles/global.css';
 
-import { Button, Form, Input, message } from 'antd';
-import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
-// import { EUserPageCase } from ".";
-// import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
-import IUserDBFile, { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
-import React, { useEffect } from 'react';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useDispatch } from 'react-redux';
+import { IReduxRootState } from 'store/reducer';
 import {
   authRegisterByEmailAndPasswordAction_v0,
   getUserProfileByEmailAction_v2,
 } from '../../../../store/actions/userActions';
-import { useNavigate } from 'react-router-dom';
-import { useUserInfo } from '../../../../hooks/useUserInfo';
 
-interface ISettingsWindow_2_user_1_signup_input {
-  // setPageCase: (paraPageCase: EUserPageCase) => void;
-}
-export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_signup_input) => {
-  // const { setPageCase } = props;
+import { Button, Form, Input, message } from 'antd';
+import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 
+import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import React, { useEffect } from 'react';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
+import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+
+export const SettingsWindow_2_user_1_signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useUserInfo();
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { isAuthenticated } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
 
   useEffect(() => {
     if (isAuthenticated) {

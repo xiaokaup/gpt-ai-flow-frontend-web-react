@@ -1,72 +1,67 @@
-/* eslint-disable react/jsx-pascal-case */
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CopyOutlined } from '@ant-design/icons';
 
 import { Button, message } from 'antd';
 
-import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
-import TStripeConstantFile, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import {
-  ESubscriptionPaymentType,
-  ESubscriptionPeriod,
-} from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
-import { useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
-
-// @ts-ignore
-import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
+import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
+import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { startATrialSubscriptionForCNY } from '../../../../../tools/3_unit/TBackendSubscription';
+
+import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
 
 interface SettingsWindow_4_proMode_CNY_input {
   userData: IUserData;
-  userSubscriptionInfoHookResult: useUserSubscriptionInfo_output;
+  useSubscriptionDataOutput: IUseSubscriptionData_output;
 }
 export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
-  const { userData, userSubscriptionInfoHookResult } = props;
-  const { id: userId, email: userEmail, stripeCustomerId = '' } = userData;
+  const { userData, useSubscriptionDataOutput } = props;
+  const {
+    id: userId,
+    email: userEmail,
+    Subscription,
+    token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
+    stripeCustomerId = '',
+  } = userData;
 
   const {
-    userSubscriptionInfo,
-    check: { hasNoAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
-  const isExpired = new Date((userSubscriptionInfo as ISubscriptionDB)?.expiredAt) < new Date();
+    subscriptionData: subscriptionDataFromStorage,
+    // check: { hasNoAvailableSubscription },
+  } = useSubscriptionDataOutput;
+  const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(!!Subscription?.id);
+  const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionDataFromStorage);
+  const isExpired = new Date(subscriptionData?.expiredAt) < new Date();
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [subscriptionName, setSubscriptionName] = useState<string>(userSubscriptionInfo.name);
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    const stripePriceListAllPeriod = TStripeConstantFile.getStripePrices(
-      CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV,
-      ECurrencySymbol.CNY
-    );
+    setSubscriptionData(subscriptionDataFromStorage);
+  }, [subscriptionDataFromStorage]);
 
-    const stripePriceListCurrentPeriod =
-      stripePriceListAllPeriod[userSubscriptionInfo?.period ?? ESubscriptionPeriod.NONE];
-    const userSubscriptionName =
-      stripePriceListCurrentPeriod?.find(
-        (item) => item.priceId === (userSubscriptionInfo as IStripeSubscriptionInfo)?.priceId
-      )?.name ?? '';
-
-    if (userSubscriptionName) {
-      setSubscriptionName(userSubscriptionName);
+  const startATrialSubscription = async () => {
+    if (!userId) {
+      message.error('请登录');
+      return;
     }
-  }, [
-    userSubscriptionInfo.name,
-    userSubscriptionInfo,
-    userSubscriptionInfo?.period,
-    // @ts-ignore
-    userSubscriptionInfo?.priceId,
-  ]);
+    const results = await startATrialSubscriptionForCNY(
+      userId?.toString(),
+      userAccessToken,
+      CONSTANTS_GPT_AI_FLOW_COMMON
+    );
+    message.success('免费试用已开启');
+    setHasAnyoneSubscriptionRecord(true);
+    setSubscriptionData(results);
+  };
 
   return (
     <div className="row">
-      {!stripeCustomerId && (
+      {!hasAnyoneSubscriptionRecord && (
         <div className="row">
           <div className="row">
             <div>(请确保填写的邮箱与账户邮箱一致)</div>
@@ -86,23 +81,28 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
               </CopyToClipboard>
             </div>
           </div>
-          <Button type="link" target="_blank" href="https://www.gptaiflow.com/business/prices-zh">
-            <h3>开始试用(已付费或单次成功付款成功后请刷新页面)</h3>
+          <Button
+            type="primary"
+            onClick={() => {
+              startATrialSubscription();
+            }}
+          >
+            开始试用(已付费或单次成功付款成功后请刷新页面)
           </Button>
         </div>
       )}
 
       {stripeCustomerId &&
         !isExpired &&
-        userSubscriptionInfo.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT && (
+        subscriptionData.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT && (
           <div className="row">
             <p>请到海外地区查看您的订阅</p>
           </div>
         )}
 
-      {stripeCustomerId &&
-        (userSubscriptionInfo.paymentType === ESubscriptionPaymentType.NONE ||
-          userSubscriptionInfo.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT ||
+      {hasAnyoneSubscriptionRecord &&
+        (subscriptionData.paymentType === ESubscriptionPaymentType.NONE ||
+          subscriptionData.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT ||
           isExpired) && (
           <div className="row">
             <div className="row">
@@ -122,25 +122,24 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
             </div>
 
             <div className="row">
-              套餐名称: {subscriptionName}
+              套餐名称: {subscriptionData?.name}
               <br />
-              套餐时长: {userSubscriptionInfo?.period}
+              套餐时长: {subscriptionData?.period}
               <br />
-              套餐版本: {userSubscriptionInfo?.version}
+              套餐版本: {subscriptionData?.version}
               <br />
               套餐到期:{' '}
-              {(userSubscriptionInfo as ISubscriptionDB)?.expiredAt &&
-                new Date((userSubscriptionInfo as ISubscriptionDB)?.expiredAt)?.toISOString().split('T')[0]}
-              {(userSubscriptionInfo as ISubscriptionDB)?.expiredAt && isExpired ? '(已失效)' : ''}
+              {subscriptionData.expiredAt && new Date(subscriptionData.expiredAt)?.toISOString().split('T')[0]}
+              {subscriptionData.expiredAt && isExpired ? '(已失效)' : ''}
             </div>
 
-            {hasNoAvailableSubscription && userId && (
-              <div className="row">
-                <SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription
-                  currencySymbol={ECurrencySymbol.CNY}
-                />
-              </div>
-            )}
+            {/* {hasNoAvailableSubscription && ( */}
+            <div className="row">
+              <SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription
+                currencySymbol={ECurrencySymbol.CNY}
+              />
+            </div>
+            {/* )} */}
           </div>
         )}
     </div>

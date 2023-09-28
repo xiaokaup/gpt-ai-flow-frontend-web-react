@@ -15,17 +15,15 @@ import {
   EProMode_v2_career_contextType,
   IProMode_v2_career,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_career';
-import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IStripeSubscriptionInfo } from '../../../../gpt-ai-flow-common/interface-app/IStripe';
 
 interface IProModePage_career_input {
   PROMODE_DATA: IProMode_v2_career;
-  defaultContextPromptType: EProMode_v2_career_contextType;
+  defaultContextType: EProMode_v2_career_contextType;
   defaultContextTypesForSelect: EProMode_v2_career_contextType[];
 }
 
 export const ProModePage_career = (props: IProModePage_career_input) => {
-  const { PROMODE_DATA, defaultContextPromptType, defaultContextTypesForSelect } = props;
+  const { PROMODE_DATA, defaultContextType, defaultContextTypesForSelect } = props;
 
   // console.log('props', props);
 
@@ -46,21 +44,21 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
   // === Context input - start ===
   const contextPrompts = PROMODE_DATA.context;
 
-  const [contextPromptType, setContextPromptType] = useState<EProMode_v2_career_contextType>(defaultContextPromptType);
-  const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextPromptType].value);
+  const [contextType, setContextType] = useState<EProMode_v2_career_contextType>(defaultContextType);
+  const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextType].value);
   const contextPromptHavePlaceHolder = TString.hasPlaceholder(contextPrompt);
-  const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextPromptType].value);
+  const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextType].value);
 
-  const [showUserContextInputs, setShowUserContextInputs] = useState<boolean>(false);
-  const [isUserContextInputsDirty, setIsUserContextInputsDirty] = useState<boolean>(false);
+  const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
+  const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
   const handleContextTypeChange = (paraContextPromptType: EProMode_v2_career_contextType) => {
     console.log(`selected ${paraContextPromptType}`);
-    setContextPromptType(paraContextPromptType);
+    setContextType(paraContextPromptType);
     setContextPrompt(contextPrompts[paraContextPromptType].value);
     setHandledContextPrompt(contextPrompts[paraContextPromptType].value);
 
-    setIsUserContextInputsDirty(false);
+    setIsContextInputsDirty(false);
 
     if (TString.hasPlaceholder(contextPrompts[paraContextPromptType].defaultValue)) {
       message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
@@ -95,14 +93,14 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
         </div>
         <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
           场景
-          {isUserContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
-          {!isUserContextInputsDirty && (
+          {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
+          {!isContextInputsDirty && (
             <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
           )}
           :
           <Select
-            defaultValue={contextPromptType}
-            style={{ width: 120, marginLeft: '.4rem' }}
+            defaultValue={contextType}
+            style={{ width: 150, marginLeft: '.4rem' }}
             onChange={handleContextTypeChange}
             options={defaultContextTypesForSelect.map((item) => {
               return {
@@ -111,35 +109,27 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
               };
             })}
           />{' '}
-          {contextPromptHavePlaceHolder && !showUserContextInputs && (
-            <EditOutlined
-              style={{ fontSize: 18, marginLeft: '.4rem' }}
-              onClick={() => setShowUserContextInputs(true)}
-            />
+          {contextPromptHavePlaceHolder && !showContextInputs && (
+            <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
           )}
-          {contextPromptHavePlaceHolder && showUserContextInputs && (
-            <EditOutlined
-              style={{ fontSize: 18, marginLeft: '.4rem' }}
-              onClick={() => setShowUserContextInputs(false)}
-            />
+          {contextPromptHavePlaceHolder && showContextInputs && (
+            <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(false)} />
           )}
         </div>
       </div>
 
       <div className="row">
-        {!showUserContextInputs && (
-          <>
-            {/* <div className="row" style={{ display: 'flex' }}>
-              <div className="column">{contextPrompt}</div>
-              <div className="column">{handledContextPrompt}</div>
-            </div> */}
-          </>
-        )}
+        {/* {!showContextInputs && (
+          <div className="row" style={{ display: 'flex' }}>
+            <div className="column">{contextPrompt}</div>
+            <div className="column">{handledContextPrompt}</div>
+          </div>
+        )} */}
         <DynamicFormForContextPrompt
-          containerStyle={showUserContextInputs ? {} : { display: 'none' }}
+          containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={contextPrompt}
           setHandledContextPrompt={setHandledContextPrompt}
-          setIsUserContextInputsDirty={setIsUserContextInputsDirty}
+          setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>
 
@@ -151,9 +141,9 @@ export const ProModePage_career = (props: IProModePage_career_input) => {
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}
-                defaulInstructionAiCommands={PROMODE_DATA.instruction[contextPromptType]}
-                defaultOutputIndicatorAiCommands={PROMODE_DATA.outputIndicator[contextPromptType]}
-                aiCommandsSettings={PROMODE_DATA.defaultAiCommandsSettings[contextPromptType]}
+                defaulInstructionAiCommands={PROMODE_DATA.instruction[contextType]}
+                defaultOutputIndicatorAiCommands={PROMODE_DATA.outputIndicator[contextType]}
+                aiCommandsSettings={PROMODE_DATA.defaultAiCommandsSettings[contextType]}
               />
               <hr style={{ margin: 10 }} />
             </div>

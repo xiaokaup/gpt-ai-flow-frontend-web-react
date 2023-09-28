@@ -1,8 +1,8 @@
-import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
-import { fetchWithRetry } from '../../tools/4_base/TRequest';
-import { getApiKeyHeadersForNodeBackend } from '../../tools/2_component/TAuth';
-import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { message } from 'antd';
+import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
+import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
+import { fetchWithRetry } from '../../gpt-ai-flow-common/tools/4_base/TRequest';
 
 // === Request - start ===
 export const getUser = async (
@@ -10,7 +10,7 @@ export const getUser = async (
   accessToken: string,
   env: IConstantGptAiFlowHandler
 ): Promise<IUserDB> => {
-  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/get/user/${userId}/?hasToken=true&hasUserRolePermission=true`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/get/user/${userId}/?hasToken=true&hasUserRolePermission=true&hasSubscription=true`;
 
   const results = await fetchWithRetry(url, {
     method: 'GET',

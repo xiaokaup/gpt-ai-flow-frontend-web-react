@@ -10,7 +10,7 @@ import {
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import TLimitFile from '../../gpt-ai-flow-common/tools/TLimit';
-import { getApiKeyHeadersForNodeBackend } from '../../tools/2_component/TAuth';
+import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
 
 // export const sendChatGPTRequestAsJsonToBackendProxy = async (
 //   data: ISendChatGPTRequestToBackend_input,
@@ -70,7 +70,7 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
   }
 
   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChat`;
-  if (data.userStripeSubscriptionInfo.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+  if (data.subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChatWithOfficialKey`;
   }
 
@@ -93,6 +93,7 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
@@ -134,7 +135,7 @@ export const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = as
   };
 
   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResume`;
-  if (data.userStripeSubscriptionInfo.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+  if (data.subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResumeWithOfficialKey`;
   }
 

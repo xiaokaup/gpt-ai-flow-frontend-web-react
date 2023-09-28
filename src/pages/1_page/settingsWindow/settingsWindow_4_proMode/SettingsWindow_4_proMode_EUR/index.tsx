@@ -3,70 +3,43 @@ import '../../../../../styles/layout.scss';
 
 import paymentPageDemo from '../../../../../../assets/presentation/2023-08-23-payment-page.png';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import { Alert, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 
-import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TStripeConstantFile, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import {
-  ESubscriptionPaymentType,
-  ESubscriptionPeriod,
-} from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
-import { useUserSubscriptionInfo_output } from '../../../../../hooks/useUserSubscriptionInfo';
+import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
+import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+
+import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
 
 interface SettingsWindow_4_proMode_EUR_input {
   userData: IUserData;
-  userSubscriptionInfoHookResult: useUserSubscriptionInfo_output;
+  useSubscriptionDataOutput: IUseSubscriptionData_output;
 }
 export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR_input) => {
-  const { userData, userSubscriptionInfoHookResult } = props;
+  const { userData, useSubscriptionDataOutput } = props;
   const {
     id: userId,
     email: userEmail,
+    Subscription,
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
     stripeCustomerId = '',
   } = userData;
+  const hasAnyoneSubscriptionRecord = !!Subscription?.id;
 
   const {
     init: initStripeSubscriptionInfo,
-    userSubscriptionInfo,
+    subscriptionData,
     check: { hasNoAvailableSubscription },
-  } = userSubscriptionInfoHookResult;
-  const isExpired = new Date((userSubscriptionInfo as ISubscriptionDB)?.expiredAt) < new Date();
-
-  const [subscriptionName, setSubscriptionName] = useState<string>(userSubscriptionInfo.name);
-
-  useEffect(() => {
-    const stripePriceListAllPeriod = TStripeConstantFile.getStripePrices(
-      CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV,
-      ECurrencySymbol.EUR
-    );
-
-    const stripePriceListCurrentPeriod =
-      stripePriceListAllPeriod[userSubscriptionInfo?.period ?? ESubscriptionPeriod.NONE];
-    const userSubscriptionName =
-      stripePriceListCurrentPeriod?.find(
-        (item) => item.priceId === (userSubscriptionInfo as IStripeSubscriptionInfo)?.priceId
-      )?.name ?? '';
-
-    if (userSubscriptionName) {
-      setSubscriptionName(userSubscriptionName);
-    }
-  }, [
-    userSubscriptionInfo.name,
-    userSubscriptionInfo,
-    userSubscriptionInfo?.period,
-    // @ts-ignore
-    userSubscriptionInfo?.priceId,
-  ]);
+  } = useSubscriptionDataOutput;
+  const isExpired = new Date(subscriptionData?.expiredAt) < new Date();
 
   return (
     <div className="row">
@@ -96,17 +69,17 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
         </div>
       )}
 
-      {stripeCustomerId &&
+      {hasAnyoneSubscriptionRecord &&
         !isExpired &&
-        userSubscriptionInfo.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT && (
+        subscriptionData.paymentType === ESubscriptionPaymentType.ONE_OFF_PAYMENT && (
           <div className="row">
             <p>请到国内地区查看您的订阅</p>
           </div>
         )}
 
       {stripeCustomerId &&
-        (userSubscriptionInfo.paymentType === ESubscriptionPaymentType.NONE ||
-          userSubscriptionInfo.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT ||
+        (subscriptionData.paymentType === ESubscriptionPaymentType.NONE ||
+          subscriptionData.paymentType === ESubscriptionPaymentType.RECURRING_PAYMENT ||
           isExpired) && (
           <div className="row">
             <div className="row">
@@ -135,27 +108,26 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
             </div>
 
             <div className="row">
-              套餐名称: {subscriptionName}
+              套餐名称: {subscriptionData?.name}
               <br />
-              套餐时长: {userSubscriptionInfo?.period}
+              套餐时长: {subscriptionData?.period}
               <br />
-              套餐版本: {userSubscriptionInfo?.version}
+              套餐版本: {subscriptionData?.version}
               <br />
-              套餐状态: {(userSubscriptionInfo as IStripeSubscriptionInfo)?.status}
+              套餐状态: {(subscriptionData as IStripeSubscriptionInfo)?.status}
               <br />
               套餐到期:{' '}
-              {(userSubscriptionInfo as ISubscriptionDB)?.expiredAt &&
-                new Date((userSubscriptionInfo as ISubscriptionDB)?.expiredAt)?.toISOString().split('T')[0]}
-              {(userSubscriptionInfo as ISubscriptionDB)?.expiredAt && isExpired ? '(已失效)' : ''}
+              {subscriptionData?.expiredAt && new Date(subscriptionData?.expiredAt)?.toISOString().split('T')[0]}
+              {subscriptionData?.expiredAt && isExpired ? '(已失效)' : ''}
             </div>
             <div className="row">
               是否有默认支付方式:
-              {(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod ? '是' : '否'}
+              {(subscriptionData as IStripeSubscriptionInfo)?.hasDefaultPamentMethod ? '是' : '否'}
             </div>
 
             {hasNoAvailableSubscription && (
               <div className="row">
-                {!(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && (
+                {!(subscriptionData as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && (
                   <div className="row">
                     <Alert
                       message={
@@ -170,7 +142,7 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
                   </div>
                 )}
 
-                {(userSubscriptionInfo as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && userId && (
+                {(subscriptionData as IStripeSubscriptionInfo)?.hasDefaultPamentMethod && userId && (
                   <SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription
                     userId={userId.toString()}
                     stripeCustomerId={stripeCustomerId}
