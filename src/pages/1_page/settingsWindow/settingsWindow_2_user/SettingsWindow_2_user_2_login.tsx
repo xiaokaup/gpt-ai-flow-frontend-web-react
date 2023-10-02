@@ -141,21 +141,6 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                 忘记密码
               </span>
             </div>
-
-            {/* <div>
-              <a href="/user/forgetpassword">
-                <Button
-                  type="text"
-                  size="small"
-                  style={{
-                    padding: 0,
-                    // color: color_gray
-                  }}
-                >
-                  Forgot password
-                </Button>
-              </a>
-            </div> */}
           </Form.Item>
         </Form>
       </div>
