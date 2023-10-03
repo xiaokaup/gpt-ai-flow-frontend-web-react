@@ -85,7 +85,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
         </>
       )}
       <Menu.Item key="proMode-doc">
-        <Link to="https://www.gptaiflow.com/docs/proudct/proMode-presentation">文档</Link>
+        <Link to="https://www.gptaiflow.com/docs/application-scenarios/introduction">文档</Link>
       </Menu.Item>
       {/* <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
