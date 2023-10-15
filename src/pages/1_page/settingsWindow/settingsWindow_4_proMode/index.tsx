@@ -12,9 +12,9 @@ import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interfa
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import {
-  IUseSubscriptionData_output,
-  useSubscriptionData,
-} from '../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+  IUseSubscriptionMixData_output,
+  useSubscriptionMixData,
+} from '../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 
 import ISubscriptionMixFile, {
   ISubscirptionMix,
@@ -51,7 +51,7 @@ export const SettingsWindow_4_proMode = () => {
     return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionData({
+  const useSubscriptionDataOutput: IUseSubscriptionMixData_output = useSubscriptionMixData({
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,

@@ -20,16 +20,16 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { useSubscriptionValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { useSubscriptionMixValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionMixProviderContext';
 
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import {
-  IUseSubscriptionData_output,
-  useSubscriptionData,
-} from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+  IUseSubscriptionMixData_output,
+  useSubscriptionMixData,
+} from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 import ISubscriptionMixFile, {
   ISubscirptionMix,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
@@ -51,7 +51,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const dispatch = useDispatch();
 
   const creativityValue = useCreativityValueContext();
-  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionValueContext();
+  const useSubscriptionDataOutput: IUseSubscriptionMixData_output = useSubscriptionMixValueContext();
   const {
     check: { hasAvailableSubscription },
   } = useSubscriptionDataOutput;
@@ -86,7 +86,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
     return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
-  const { subscriptionData } = useSubscriptionData({
+  const { subscriptionMixData: subscriptionData } = useSubscriptionMixData({
     userId: userId as number,
     accessToken: userAccessToken as string,
     subscriptionDataFromStorage,

@@ -10,7 +10,7 @@ import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
-import { useSubscriptionData } from '../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+import { useSubscriptionMixData } from '../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 import ISubscriptionMixFile, {
   ISubscirptionMix,
 } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
@@ -47,7 +47,7 @@ export const SettingsWindow_1_local = () => {
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
     return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
-  const { subscriptionData } = useSubscriptionData({
+  const { subscriptionMixData: subscriptionData } = useSubscriptionMixData({
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,
