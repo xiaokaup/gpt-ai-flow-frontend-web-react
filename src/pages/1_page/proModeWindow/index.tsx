@@ -28,11 +28,12 @@ import {
 } from '../../../gpt-ai-flow-common/hooks/useSubscriptionData';
 
 import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
+import { EUserRoleDB_name } from 'gpt-ai-flow-common/enum-database/EUserRoleDB';
 
 export interface ITabPanel {
-  key: EUserRolePermissionDB_name;
+  key: EUserRoleDB_name;
   label: string;
-  value: EUserRolePermissionDB_name;
+  value: EUserRoleDB_name;
   children: React.ReactNode;
   disabled: boolean;
 }
@@ -93,7 +94,7 @@ const ProModeWindow = () => {
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
     userDataFromStorage: userData,
-    userRolePermissionsWithStripeSubscriptionInfo,
+    userRoles: userRolePermissionsWithStripeSubscriptionInfo,
   });
   // === ProMode Data - end ===
 
