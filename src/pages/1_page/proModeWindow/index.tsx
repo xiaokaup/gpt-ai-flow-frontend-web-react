@@ -16,16 +16,16 @@ import { useProModeSetDataUI } from './useProModeSetDataUI';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { SubscriptionValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { SubscriptionMixValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionMixProviderContext';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import ISubscriptionMixFile, {
   ISubscirptionMix,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import {
-  useSubscriptionData,
-  IUseSubscriptionData_output,
-} from '../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+  useSubscriptionMixData,
+  IUseSubscriptionMixData_output,
+} from '../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 
 import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
 import { EUserRoleDB_name } from 'gpt-ai-flow-common/enum-database/EUserRoleDB';
@@ -56,11 +56,7 @@ const ProModeWindow = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const {
-    id: userId,
-    token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
-    userRolePermissions = [],
-  } = userData;
+  const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default, userRoles = [] } = userData;
 
   if (!userId) {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
@@ -69,7 +65,7 @@ const ProModeWindow = () => {
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
     return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
-  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionData({
+  const useSubscriptionDataOutput: IUseSubscriptionMixData_output = useSubscriptionMixData({
     userId,
     accessToken: userAccessToken,
     subscriptionDataFromStorage,
@@ -79,42 +75,26 @@ const ProModeWindow = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const {
-    subscriptionData,
+    subscriptionMixData: subscriptionData,
     check: { hasAvailableSubscription, hasNoAvailableSubscription },
   } = useSubscriptionDataOutput;
-
-  const userRolePermissionsWithStripeSubscriptionInfo = userRolePermissions;
-
-  if (hasAvailableSubscription || isBetaUser) {
-    userRolePermissionsWithStripeSubscriptionInfo.push(
-      ...CONSTANTS_GPT_AI_FLOW_COMMON.PROMODE_PAYMENT_PROMODE_PERMISSIONS
-    );
-  }
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
     userDataFromStorage: userData,
-    userRoles: userRolePermissionsWithStripeSubscriptionInfo,
+    userRoles,
   });
   // === ProMode Data - end ===
 
   const userDefaultTabs: ITabPanel[] = [];
-  const itemFound = defaultTabPanels.find((item) => item.value === EUserRolePermissionDB_name.COMMUNICATION);
-  if (itemFound) {
-    userDefaultTabs.push(itemFound);
-  }
-
-  if (hasAvailableSubscription || isBetaUser) {
-    const itemsFound = defaultTabPanels.filter((item) => item.value !== EUserRolePermissionDB_name.COMMUNICATION);
-    userDefaultTabs.push(...itemsFound);
-  }
+  userDefaultTabs.push(...defaultTabPanels);
 
   // === proMode selector - start ===
-  const [selectedProdMode, setSelectedProdMode] = useState<EUserRolePermissionDB_name>();
+  const [selectedProdMode, setSelectedProdMode] = useState<EUserRoleDB_name>();
 
   const onProModeSelectorChange = (value: string) => {
     console.log(`selected ${value}`);
-    setSelectedProdMode(value as EUserRolePermissionDB_name);
+    setSelectedProdMode(value as EUserRoleDB_name);
   };
 
   const onProModeSelectorSearch = (value: string) => {
@@ -123,15 +103,15 @@ const ProModeWindow = () => {
   // === proMode selector - end ===
 
   // === tab panels - start ===
-  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EUserRolePermissionDB_name>(userDefaultTabs[0].key);
+  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EUserRoleDB_name>(userDefaultTabs[0].key);
   const [tabPanels, setTabPanels] = useState(userDefaultTabs);
   const newTabPanelIndex = useRef(defaultTabPanels.length);
 
   const onTabsChange = (key: string) => {
-    setActiveTabPanelKey(key as EUserRolePermissionDB_name);
+    setActiveTabPanelKey(key as EUserRoleDB_name);
   };
 
-  const addTabPanel = (paraSelectedProdMode: EUserRolePermissionDB_name) => {
+  const addTabPanel = (paraSelectedProdMode: EUserRoleDB_name) => {
     const newTabPanel = defaultTabPanels.find((item) => item.value === paraSelectedProdMode);
 
     if (!newTabPanel) {
@@ -146,17 +126,14 @@ const ProModeWindow = () => {
     setTabPanels([
       ...tabPanels,
       {
-        key: newActiveTabPanelKey as EUserRolePermissionDB_name,
+        key: newActiveTabPanelKey as EUserRoleDB_name,
         label: `${newActiveTabPanelKey}-${label}`,
         value,
         children,
-        disabled:
-          subscriptionData.name !== ESubscriptionName.NONE
-            ? !userRolePermissionsWithStripeSubscriptionInfo.includes(value)
-            : true,
+        disabled: subscriptionData.name !== ESubscriptionName.NONE ? !userRoles.includes(value) : true,
       },
     ]);
-    setActiveTabPanelKey(newActiveTabPanelKey as EUserRolePermissionDB_name);
+    setActiveTabPanelKey(newActiveTabPanelKey as EUserRoleDB_name);
   };
 
   const removeTabPanel = (targetKey: TargetKey) => {
@@ -221,7 +198,7 @@ const ProModeWindow = () => {
                 return;
               }
 
-              if (!userRolePermissionsWithStripeSubscriptionInfo.includes(selectedProdMode)) {
+              if (!userRoles.includes(selectedProdMode)) {
                 message.error('你没有权限使用此面板');
                 return;
               }
@@ -293,7 +270,7 @@ const ProModeWindow = () => {
         )}
 
         <div className="row bottom_block_tabs">
-          <SubscriptionValueProvider value={useSubscriptionDataOutput}>
+          <SubscriptionMixValueProvider value={useSubscriptionDataOutput}>
             <CreativityValueProvider value={creativityValue}>
               <Tabs
                 size="small"
@@ -312,7 +289,7 @@ const ProModeWindow = () => {
                 })}
               </Tabs>
             </CreativityValueProvider>
-          </SubscriptionValueProvider>
+          </SubscriptionMixValueProvider>
         </div>
       </div>
     </div>
