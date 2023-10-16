@@ -15,9 +15,9 @@ import { IUseSubscriptionMixData_output } from '../../../../../gpt-ai-flow-commo
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { startATrialSubscriptionForCNY } from '../../../../../tools/3_unit/TBackendSubscription';
+import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
 
 import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
-import { ISubscriptionDB } from 'gpt-ai-flow-common/interface-database/ISubscriptionDB';
 
 interface SettingsWindow_4_proMode_CNY_input {
   userData: IUserData;

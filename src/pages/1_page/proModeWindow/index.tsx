@@ -25,9 +25,9 @@ import {
   useSubscriptionMixData,
   IUseSubscriptionMixData_output,
 } from '../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
+import { EUserRoleDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRoleDB';
 
 import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
-import { EUserRoleDB_name } from 'gpt-ai-flow-common/enum-database/EUserRoleDB';
 
 export interface ITabPanel {
   key: EUserRoleDB_name;
@@ -51,7 +51,7 @@ const ProModeWindow = () => {
 
   const { userData, isBetaUser } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData: IUserData) => {},
+    onUserDataChange: (newUserData_without_token: IUserData) => {},
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

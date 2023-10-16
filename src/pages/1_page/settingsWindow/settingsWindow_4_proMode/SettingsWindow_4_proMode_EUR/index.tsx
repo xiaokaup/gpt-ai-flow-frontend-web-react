@@ -16,9 +16,9 @@ import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum
 import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { IUseSubscriptionMixData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
+import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
 
 import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
-import { ISubscriptionDB } from 'gpt-ai-flow-common/interface-database/ISubscriptionDB';
 
 interface SettingsWindow_4_proMode_EUR_input {
   userData: IUserData;
