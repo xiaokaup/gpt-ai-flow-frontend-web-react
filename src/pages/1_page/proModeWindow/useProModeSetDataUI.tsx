@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { EUserRoleDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRoleDB';
@@ -9,8 +10,9 @@ import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { IProMode_v2_ContextTypes } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_contextTypes';
 import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
 
-import { updateProModeDataAction } from '../../../store/actions/proModeActions';
 import { IReduxRootState } from '../../../store/reducer/index';
+import { updateProModeDataAction } from '../../../store/actions/proModeActions';
+import { userLogoutAction } from '../../../store/actions/userActions';
 
 import { ProModePage_copyWriting } from './1_pages/ProModePage_copyWriting';
 import { ProModePage_xiaoHongShu } from './1_pages/ProModePage_xiaoHongShu';
@@ -31,6 +33,8 @@ interface useProModeSetDataUI_input {
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const { userDataFromStorage, userRoles } = props;
 
@@ -63,6 +67,25 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const PROMODE_PRODUCT_MANAGER = proModeSetData[EUserRoleDB_name.PRODUCT_MANAGER];
   const PROMODE_MARKETING_EXPERT = proModeSetData[EUserRoleDB_name.MARKETING_MANAGER];
   const PROMODE_SEO_DATA = proModeSetData[EUserRoleDB_name.SEO_MANAGER];
+
+  if (
+    !PROMODE_COMMUNICATION_DATA ||
+    !PROMODE_COPY_WRITING_DATA ||
+    !PROMODE_XIAO_HONG_SHU_DATA ||
+    !PROMODE_AI ||
+    !PROMODE_COMMENT_DATA ||
+    !PROMODE_CAREER_DATA ||
+    !PROMODE_UP_ZHU_DATA ||
+    !PROMODE_PRODUCT_MANAGER ||
+    !PROMODE_MARKETING_EXPERT ||
+    !PROMODE_SEO_DATA
+  ) {
+    dispatch(userLogoutAction() as any);
+    setTimeout(() => {
+      navigate('/login');
+      window.location.reload();
+    }, 1000);
+  }
 
   const defaultTabPanels: ITabPanel[] = [
     {
