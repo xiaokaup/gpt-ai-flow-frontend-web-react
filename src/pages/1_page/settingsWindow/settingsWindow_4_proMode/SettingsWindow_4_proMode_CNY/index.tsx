@@ -11,32 +11,35 @@ import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUser
 import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+import { IUseSubscriptionMixData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { startATrialSubscriptionForCNY } from '../../../../../tools/3_unit/TBackendSubscription';
+import TBackendSubscriptionMixFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendSubscription';
+import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
 
 import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
 
 interface SettingsWindow_4_proMode_CNY_input {
   userData: IUserData;
-  useSubscriptionDataOutput: IUseSubscriptionData_output;
+  useSubscriptionDataOutput: IUseSubscriptionMixData_output;
 }
 export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
   const { userData, useSubscriptionDataOutput } = props;
   const {
     id: userId,
     email: userEmail,
-    Subscription,
+    subscription,
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
     stripeCustomerId = '',
   } = userData;
 
   const {
-    subscriptionData: subscriptionDataFromStorage,
+    subscriptionMixData: subscriptionDataFromStorage,
     // check: { hasNoAvailableSubscription },
   } = useSubscriptionDataOutput;
-  const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(!!Subscription?.id);
+  const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(
+    !!(subscription as ISubscriptionDB)?.id
+  );
   const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionDataFromStorage);
   const isExpired = new Date(subscriptionData?.expiredAt) < new Date();
 
@@ -49,7 +52,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
       message.error('请登录');
       return;
     }
-    const results = await startATrialSubscriptionForCNY(
+    const results = await TBackendSubscriptionMixFile.startATrialSubscriptionForCNY(
       userId?.toString(),
       userAccessToken,
       CONSTANTS_GPT_AI_FLOW_COMMON

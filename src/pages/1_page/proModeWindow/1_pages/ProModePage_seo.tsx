@@ -9,21 +9,27 @@ import iconSuccessful from '../../../../../assets/icons-customize/icon-status-su
 import iconWrong from '../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
+import {
+  IProMode_v2_values,
+  IProMode_v2_oneProMode,
+} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
+import { IProMode_v2_ContextTypes } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_contextTypes';
+import { EProMode_v2_seoManager_contextType } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_10_seoManager';
+
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
-import {
-  IProMode_v2_seo,
-  EProMode_v2_seo_contextType,
-} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_seo';
 
 interface IProModePage_copyWriting_input {
-  PROMODE_DATA: IProMode_v2_seo;
-  defaultContextType: EProMode_v2_seo_contextType;
-  defaultContextTypesForSelect: EProMode_v2_seo_contextType[];
+  PROMODE_DATA: IProMode_v2_values;
+  DEFAULT_CONTEXT_TYPE: IProMode_v2_ContextTypes;
+  defaultContextTypesForSelect: IProMode_v2_ContextTypes[];
 }
 
 export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
-  const { PROMODE_DATA, defaultContextType, defaultContextTypesForSelect } = props;
+  const { PROMODE_DATA, DEFAULT_CONTEXT_TYPE, defaultContextTypesForSelect } = props;
+
+  const proModeData = PROMODE_DATA as IProMode_v2_oneProMode<EProMode_v2_seoManager_contextType>;
+  const defaultContextType = DEFAULT_CONTEXT_TYPE as EProMode_v2_seoManager_contextType;
 
   // console.log('props', props);
 
@@ -42,9 +48,9 @@ export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
   // === Search trigger for all children component - end ===
 
   // === Context input - start ===
-  const contextPrompts = PROMODE_DATA.context;
+  const contextPrompts = proModeData.context;
 
-  const [contextType, setContextType] = useState<EProMode_v2_seo_contextType>(defaultContextType);
+  const [contextType, setContextType] = useState<EProMode_v2_seoManager_contextType>(defaultContextType);
   const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextType].value);
   const contextPromptHavePlaceHolder = TString.hasPlaceholder(contextPrompt);
   const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextType].value);
@@ -52,7 +58,7 @@ export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
-  const handleContextTypeChange = (paraContextPromptType: EProMode_v2_seo_contextType) => {
+  const handleContextTypeChange = (paraContextPromptType: EProMode_v2_seoManager_contextType) => {
     console.log(`selected ${paraContextPromptType}`);
     setContextType(paraContextPromptType);
     setContextPrompt(contextPrompts[paraContextPromptType].value);
@@ -104,7 +110,7 @@ export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
             onChange={handleContextTypeChange}
             options={defaultContextTypesForSelect.map((item) => {
               return {
-                label: contextPrompts[item].name,
+                label: contextPrompts[item as EProMode_v2_seoManager_contextType].name,
                 value: item,
               };
             })}
@@ -141,9 +147,9 @@ export const ProModePage_seo = (props: IProModePage_copyWriting_input) => {
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={handledContextPrompt}
-                defaulInstructionAiCommands={PROMODE_DATA.instruction[contextType]}
-                defaultOutputIndicatorAiCommands={PROMODE_DATA.outputIndicator[contextType]}
-                aiCommandsSettings={PROMODE_DATA.defaultAiCommandsSettings[contextType]}
+                defaulInstructionAiCommands={proModeData.instruction[contextType]}
+                defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType]}
+                aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType]}
               />
               <hr style={{ margin: 10 }} />
             </div>

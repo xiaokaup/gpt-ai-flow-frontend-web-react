@@ -28,7 +28,7 @@ export const AppRoutes = () => {
 
   const { userData, isAuthenticated } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData: IUserData) => {},
+    onUserDataChange: (newUserData_without_token: IUserData) => {},
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
@@ -71,8 +71,8 @@ export const AppRoutes = () => {
         <AppLayout isAuthenticated={isAuthenticated}>
           <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
           <SettingsWindow_1_local />
-          <SettingsWindow_4_proMode />
           <SettingsWindow_6_about />
+          <SettingsWindow_4_proMode />
         </AppLayout>
       ),
     },
