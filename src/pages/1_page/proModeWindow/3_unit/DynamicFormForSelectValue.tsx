@@ -65,7 +65,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
     let result = contextPromptWithPlaceholder;
 
     placeholders.forEach((placeholder) => {
-      const value = inputsCache[placeholder] || '';
+      const value = inputsCache[placeholder] || placeholder; // Set default value to placeholder if no value is typed by user
       if (value.trim()) {
         result = result.replace(new RegExp(`{${placeholder}}`, 'g'), value);
       }
