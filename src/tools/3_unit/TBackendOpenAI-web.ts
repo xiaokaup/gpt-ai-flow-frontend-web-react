@@ -15,7 +15,7 @@ import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2
 
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 
-export const sendChatGPTRequestAsStreamToBackendProxy = async (
+const sendChatGPTRequestAsStreamToBackendProxy = async (
   data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
   beforeSendRequestAsStreamFunc: () => void,
   updateResultFromRequestAsStreamFunc: (resultText: string) => void,
@@ -88,7 +88,7 @@ export const sendChatGPTRequestAsStreamToBackendProxy = async (
 };
 
 // @USELESS: for software only, not for web
-export const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = async (
+const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = async (
   data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
   accessToken: string,
   env: IConstantGptAiFlowHandler,
@@ -124,7 +124,7 @@ export const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = as
 };
 
 // @USELESS: for software only, not for web
-export const sendChatGPTRequestForGetVectorToBackendProxy = async (
+const sendChatGPTRequestForGetVectorToBackendProxy = async (
   data: ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
   accessToken: string,
   env: IConstantGptAiFlowHandler,
@@ -153,3 +153,9 @@ export const sendChatGPTRequestForGetVectorToBackendProxy = async (
 
   return dataResults.results;
 };
+
+const TBackendOpenAIFile = {
+  sendChatGPTRequestAsStreamToBackendProxy,
+};
+
+export default TBackendOpenAIFile;
