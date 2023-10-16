@@ -14,7 +14,7 @@ import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/I
 import { IUseSubscriptionMixData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { startATrialSubscriptionForCNY } from '../../../../../tools/3_unit/TBackendSubscription';
+import TBackendSubscriptionFile from '../../../../../tools/3_unit/TBackendSubscription';
 import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
 
 import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
@@ -52,7 +52,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
       message.error('请登录');
       return;
     }
-    const results = await startATrialSubscriptionForCNY(
+    const results = await TBackendSubscriptionFile.startATrialSubscriptionForCNY(
       userId?.toString(),
       userAccessToken,
       CONSTANTS_GPT_AI_FLOW_COMMON
