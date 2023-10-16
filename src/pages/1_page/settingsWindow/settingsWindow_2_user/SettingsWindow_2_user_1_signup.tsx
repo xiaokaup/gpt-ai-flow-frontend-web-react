@@ -28,7 +28,7 @@ export const SettingsWindow_2_user_1_signup = () => {
 
   const { isAuthenticated } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData: IUserData) => {},
+    onUserDataChange: (newUserData_without_token: IUserData) => {},
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

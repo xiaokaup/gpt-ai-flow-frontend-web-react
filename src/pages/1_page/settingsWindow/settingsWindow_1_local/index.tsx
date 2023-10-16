@@ -31,7 +31,7 @@ export const SettingsWindow_1_local = () => {
 
   const { userData } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData: IUserData) => {},
+    onUserDataChange: (newUserData_without_token: IUserData) => {},
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default } = userData;
