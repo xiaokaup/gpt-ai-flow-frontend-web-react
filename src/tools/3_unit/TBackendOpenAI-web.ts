@@ -92,7 +92,7 @@ const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = async (
   data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
   accessToken: string,
   env: IConstantGptAiFlowHandler,
-  TCrypto: ITCryptoJSFile
+  TCryptoFile: ITCryptoJSFile
 ): Promise<ISendChatGPTRequestAsStreamToBackendProxy_output> => {
   const options: any = {
     method: 'POST',
@@ -103,7 +103,7 @@ const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = async (
       env
     ),
     body: JSON.stringify({
-      data: TCrypto.encrypt(data, env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+      data: TCryptoFile.encrypt(data, env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
     } as IBackendOpenAI_dataField_encrypted_input),
   };
 
