@@ -68,6 +68,35 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const PROMODE_MARKETING_EXPERT = proModeSetData[EUserRoleDB_name.MARKETING_MANAGER];
   const PROMODE_SEO_DATA = proModeSetData[EUserRoleDB_name.SEO_MANAGER];
 
+  // if (
+  //   !PROMODE_COMMUNICATION_DATA ||
+  //   !PROMODE_COMMUNICATION_DATA.tabInfo ||
+  //   !PROMODE_COPY_WRITING_DATA ||
+  //   !PROMODE_COPY_WRITING_DATA.tabInfo ||
+  //   !PROMODE_XIAO_HONG_SHU_DATA ||
+  //   !PROMODE_XIAO_HONG_SHU_DATA.tabInfo ||
+  //   !PROMODE_AI ||
+  //   !PROMODE_AI.tabInfo ||
+  //   !PROMODE_COMMENT_DATA ||
+  //   !PROMODE_COMMENT_DATA.tabInfo ||
+  //   !PROMODE_CAREER_DATA ||
+  //   !PROMODE_CAREER_DATA.tabInfo ||
+  //   !PROMODE_UP_ZHU_DATA ||
+  //   !PROMODE_UP_ZHU_DATA.tabInfo ||
+  //   !PROMODE_PRODUCT_MANAGER ||
+  //   !PROMODE_PRODUCT_MANAGER.tabInfo ||
+  //   !PROMODE_MARKETING_EXPERT ||
+  //   !PROMODE_MARKETING_EXPERT.tabInfo ||
+  //   !PROMODE_SEO_DATA ||
+  //   !PROMODE_SEO_DATA.tabInfo
+  // ) {
+  //   dispatch(userLogoutAction() as any);
+  //   setTimeout(() => {
+  //     navigate('/login');
+  //     window.location.reload();
+  //   }, 1000);
+  // }
+
   const defaultTabPanels: ITabPanel[] = [
     {
       key: EUserRoleDB_name.COMMUNICATION_MANAGER,
