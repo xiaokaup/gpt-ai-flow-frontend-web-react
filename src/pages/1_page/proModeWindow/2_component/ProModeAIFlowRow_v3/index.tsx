@@ -11,7 +11,7 @@ import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { IReduxRootState } from 'store/reducer';
 import { udpateSubscriptionAction } from '../../../../../store/actions/subscriptionActions';
 
-import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
+import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
 import {
   IAICommandsResults_v4,
   IAICommands_v4,
@@ -20,16 +20,16 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { useSubscriptionValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionProviderContext';
+import { useSubscriptionMixValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionMixProviderContext';
 
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import {
-  IUseSubscriptionData_output,
-  useSubscriptionData,
-} from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+  IUseSubscriptionMixData_output,
+  useSubscriptionMixData,
+} from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 import ISubscriptionMixFile, {
   ISubscirptionMix,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
@@ -51,7 +51,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const dispatch = useDispatch();
 
   const creativityValue = useCreativityValueContext();
-  const useSubscriptionDataOutput: IUseSubscriptionData_output = useSubscriptionValueContext();
+  const useSubscriptionDataOutput: IUseSubscriptionMixData_output = useSubscriptionMixValueContext();
   const {
     check: { hasAvailableSubscription },
   } = useSubscriptionDataOutput;
@@ -77,7 +77,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   const { userData } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData: IUserData) => {},
+    onUserDataChange: (newUserData_without_token: IUserData) => {},
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const { id: userId, token: userToken } = userData;
@@ -86,7 +86,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
     return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
   });
-  const { subscriptionData } = useSubscriptionData({
+  const { subscriptionMixData: subscriptionData } = useSubscriptionMixData({
     userId: userId as number,
     accessToken: userAccessToken as string,
     subscriptionDataFromStorage,
@@ -203,7 +203,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     console.log('getInstructionAIFlowResults - end');
   };
 
-  const buildPrompt = (
+  const buildOpenAIPrompts = (
     index: number,
     paraAICommandsList: IAICommands_v4[],
     paraAICommandsReultsList: IAICommandsResults_v4[]
@@ -215,7 +215,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       },
     ];
 
-    // === buildPrompt - init command for this ${index} - start ===
+    // === buildOpenAIPrompts - init command for this ${index} - start ===
     const finalOneAICommand = paraAICommandsList[index];
 
     let finalResquestContent = '';
@@ -223,20 +223,29 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     if (finalOneAICommand.aiFlowInstance.value) {
       finalResquestContent += finalOneAICommand.aiFlowInstance.value;
     }
-    // === buildPrompt - init command for this ${index} - end ===
+    // === buildOpenAIPrompts - init command for this ${index} - end ===
 
-    // === buildPrompt - first command - start ===
+    // === buildOpenAIPrompts - first command - start ===
     if (index === 0) {
+      if (hasExampleText && exampleText) {
+        newPrompts.push(
+          {
+            role: EAIFlowRole.USER,
+            content: '仿写要求',
+          },
+          {
+            role: EAIFlowRole.ASSISTANT,
+            content: exampleText,
+          }
+        );
+      }
+
       if (textInputContent && isTextInputAsText) {
         finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
       }
 
       if (textInputContent && !isTextInputAsText) {
         finalResquestContent += `\n---\n${textInputContent}`;
-      }
-
-      if (hasExampleText && exampleText) {
-        finalResquestContent += `\n\n案例:"""\n${exampleText}\n"""`;
       }
 
       newPrompts.push({
@@ -246,9 +255,9 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
       return newPrompts;
     }
-    // === buildPrompt - first command - end ===
+    // === buildOpenAIPrompts - first command - end ===
 
-    // === buildPrompt - for the rest commands - start ===
+    // === buildOpenAIPrompts - for the rest commands - start ===
     // Add Previous history - start
     for (let i = 0; i < index; i++) {
       const oneAICommand = paraAICommandsList[i];
@@ -274,6 +283,19 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     }
     // Add Previous history - end
 
+    if (hasExampleText && exampleText) {
+      newPrompts.push(
+        {
+          role: EAIFlowRole.USER,
+          content: '仿写要求',
+        },
+        {
+          role: EAIFlowRole.ASSISTANT,
+          content: exampleText,
+        }
+      );
+    }
+
     if (textInputContent && isTextInputAsText) {
       finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
     }
@@ -282,15 +304,11 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       finalResquestContent += `\n---\n${textInputContent}`;
     }
 
-    if (hasExampleText && exampleText) {
-      finalResquestContent += `\n\n案例:"""\n${exampleText}\n"""`;
-    }
-
     newPrompts.push({
       role: EAIFlowRole.USER,
       content: finalResquestContent,
     });
-    // === buildPrompt - for the rest commands - end ===
+    // === buildOpenAIPrompts - for the rest commands - end ===
 
     return newPrompts;
   };
@@ -304,10 +322,10 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
       const { signal } = requestController;
 
-      const resquestContentPrompt = buildPrompt(index, aiCommands, aiComandsResults);
+      const resquestContentPrompt = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
       // console.log('resquestContentPrompt', resquestContentPrompt);
 
-      /* const reponseResult: void | ISendChatGPTRequestToBackend_ouput = */ await sendChatGPTRequestAsStreamToBackendProxy(
+      /* const reponseResult: void | ISendChatGPTRequestAsStreamToBackendProxy_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
         {
           userId: userId?.toString() ?? '',
           openaiSecret: openAIApiKey,

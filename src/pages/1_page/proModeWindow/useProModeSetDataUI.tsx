@@ -1,55 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { EUserRolePermissionDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRolePermissionDB';
-import {
-  EProMode_v2_career_contextType,
-  IProMode_v2_career,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_career';
-import {
-  EProMode_v2_comment_contextType,
-  IProMode_v2_comment,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_comment';
-import {
-  EProMode_v2_communication_contextType,
-  IProMode_v2_communication,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_communication';
-import {
-  EProMode_v2_copyWriting_contextType,
-  IProMode_v2_copyWriting,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_copyWriting';
-import {
-  EProMode_v2_seo_contextType,
-  IProMode_v2_seo,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_seo';
-import {
-  EProMode_v2_xiaoHongShu_contextType,
-  IProMode_v2_xiaoHongShu,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_xiaoHongShu';
-import {
-  EProMode_v2_upZhu_contextType,
-  IProMode_v2_upZhu,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_upZhu';
-import {
-  EProMode_v2_productManager_contextType,
-  IProMode_v2_productManager,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_productManager';
-import {
-  EProMode_v2_marketingExpert_contextType,
-  IProMode_v2_marketingExpert,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_marketingExpert';
-import {
-  EProMode_v2_ai_contextType,
-  IProMode_v2_ai,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_ai';
+import { useNavigate } from 'react-router-dom';
 
-import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { EUserRoleDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRoleDB';
 import IProMode_v2File, { IProMode_v2 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IProMode_v2_ContextTypes } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_contextTypes';
+import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
 
-import { updateProModeDataAction } from '../../../store/actions/proModeActions';
 import { IReduxRootState } from '../../../store/reducer/index';
+import { updateProModeDataAction } from '../../../store/actions/proModeActions';
+import { userLogoutAction } from '../../../store/actions/userActions';
 
 import { ProModePage_copyWriting } from './1_pages/ProModePage_copyWriting';
 import { ProModePage_xiaoHongShu } from './1_pages/ProModePage_xiaoHongShu';
@@ -66,12 +29,14 @@ import { ITabPanel } from '.';
 
 interface useProModeSetDataUI_input {
   userDataFromStorage: IUserData;
-  userRolePermissionsWithStripeSubscriptionInfo: string[];
+  userRoles: string[];
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const dispatch = useDispatch();
 
-  const { userDataFromStorage, userRolePermissionsWithStripeSubscriptionInfo } = props;
+  const navigate = useNavigate();
+
+  const { userDataFromStorage, userRoles } = props;
 
   const encryptedProModeSetFromStore: string = useSelector(
     (state: IReduxRootState) => state.proModeSet ?? IProMode_v2File.IProMode_v2_default
@@ -86,167 +51,182 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     userDataFromStorage,
     proModeSetData: proModeSetFromStorage,
     onProModeSetDataChange: (newPromodeSetData: IProMode_v2) => {
-      dispatch(updateProModeDataAction(proModeSetData) as any);
+      dispatch(updateProModeDataAction(newPromodeSetData) as any);
     },
     getDecryptObj: TCryptoJSFile.decrypt,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const PROMODE_COPY_WRITING_DATA = proModeSetData[EUserRolePermissionDB_name.COPY_WRITING] as IProMode_v2_copyWriting;
-  const PROMODE_XIAO_HONG_SHU_DATA = proModeSetData[
-    EUserRolePermissionDB_name.XIAO_HONG_SHU
-  ] as IProMode_v2_xiaoHongShu;
-  const PROMODE_SEO_DATA = proModeSetData[EUserRolePermissionDB_name.SEO] as IProMode_v2_seo;
-  const PROMODE_COMMENT_DATA = proModeSetData[EUserRolePermissionDB_name.COMMENT] as IProMode_v2_comment;
-  const PROMODE_CAREER_DATA = proModeSetData[EUserRolePermissionDB_name.CAREER] as IProMode_v2_career;
-  const PROMODE_COMMUNICATION_DATA = proModeSetData[
-    EUserRolePermissionDB_name.COMMUNICATION
-  ] as IProMode_v2_communication;
-  const PROMODE_UP_ZHU_DATA = proModeSetData[EUserRolePermissionDB_name.VIDEO_PRODUCTION] as IProMode_v2_upZhu;
-  const PROMODE_PRODUCT_MANAGER = proModeSetData[EUserRolePermissionDB_name.PRODUCT] as IProMode_v2_productManager;
-  const PROMODE_MARKETING_EXPERT = proModeSetData[EUserRolePermissionDB_name.MARKETING] as IProMode_v2_marketingExpert;
-  const PROMODE_AI = proModeSetData[EUserRolePermissionDB_name.AI] as IProMode_v2_ai;
+  const PROMODE_COMMUNICATION_DATA = proModeSetData[EUserRoleDB_name.COMMUNICATION_MANAGER];
+  const PROMODE_COPY_WRITING_DATA = proModeSetData[EUserRoleDB_name.COPY_WRITING_MANAGER];
+  const PROMODE_XIAO_HONG_SHU_DATA = proModeSetData[EUserRoleDB_name.XIAO_HONG_SHU_MANAGER];
+  const PROMODE_AI = proModeSetData[EUserRoleDB_name.AI_ASSISTANT];
+  const PROMODE_COMMENT_DATA = proModeSetData[EUserRoleDB_name.COMMENT_MANAGER];
+  const PROMODE_CAREER_DATA = proModeSetData[EUserRoleDB_name.CAREER_MANAGER];
+  const PROMODE_UP_ZHU_DATA = proModeSetData[EUserRoleDB_name.UP_ZHU];
+  const PROMODE_PRODUCT_MANAGER = proModeSetData[EUserRoleDB_name.PRODUCT_MANAGER];
+  const PROMODE_MARKETING_EXPERT = proModeSetData[EUserRoleDB_name.MARKETING_MANAGER];
+  const PROMODE_SEO_DATA = proModeSetData[EUserRoleDB_name.SEO_MANAGER];
+
+  if (
+    !PROMODE_COMMUNICATION_DATA ||
+    !PROMODE_COMMUNICATION_DATA.tabInfo ||
+    !PROMODE_COPY_WRITING_DATA ||
+    !PROMODE_COPY_WRITING_DATA.tabInfo ||
+    !PROMODE_XIAO_HONG_SHU_DATA ||
+    !PROMODE_XIAO_HONG_SHU_DATA.tabInfo ||
+    !PROMODE_AI ||
+    !PROMODE_AI.tabInfo ||
+    !PROMODE_COMMENT_DATA ||
+    !PROMODE_COMMENT_DATA.tabInfo ||
+    !PROMODE_CAREER_DATA ||
+    !PROMODE_CAREER_DATA.tabInfo ||
+    !PROMODE_UP_ZHU_DATA ||
+    !PROMODE_UP_ZHU_DATA.tabInfo ||
+    !PROMODE_PRODUCT_MANAGER ||
+    !PROMODE_PRODUCT_MANAGER.tabInfo ||
+    !PROMODE_MARKETING_EXPERT ||
+    !PROMODE_MARKETING_EXPERT.tabInfo ||
+    !PROMODE_SEO_DATA ||
+    !PROMODE_SEO_DATA.tabInfo
+  ) {
+    dispatch(userLogoutAction() as any);
+    setTimeout(() => {
+      navigate('/login');
+      window.location.reload();
+    }, 1000);
+  }
 
   const defaultTabPanels: ITabPanel[] = [
     {
-      key: EUserRolePermissionDB_name.COMMUNICATION,
+      key: EUserRoleDB_name.COMMUNICATION_MANAGER,
       label: PROMODE_COMMUNICATION_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.COMMUNICATION,
+      value: EUserRoleDB_name.COMMUNICATION_MANAGER,
       children: (
         <ProModePage_communication
           PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
-          defaultContextType={PROMODE_COMMUNICATION_DATA.defaultContextType}
-          defaultContextTypesForSelect={
-            Object.keys(PROMODE_COMMUNICATION_DATA.context) as EProMode_v2_communication_contextType[]
-          }
+          DEFAULT_CONTEXT_TYPE={PROMODE_COMMUNICATION_DATA.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_COMMUNICATION_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMUNICATION),
+      disabled: !userRoles.includes(EUserRoleDB_name.COMMUNICATION_MANAGER),
     },
     {
-      key: EUserRolePermissionDB_name.COPY_WRITING,
+      key: EUserRoleDB_name.COPY_WRITING_MANAGER,
       label: PROMODE_COPY_WRITING_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.COPY_WRITING,
+      value: EUserRoleDB_name.COPY_WRITING_MANAGER,
       children: (
         <ProModePage_copyWriting
           PROMODE_DATA={PROMODE_COPY_WRITING_DATA}
-          defaultContextType={PROMODE_COPY_WRITING_DATA.defaultContextType}
-          defaultContextTypesForSelect={
-            Object.keys(PROMODE_COPY_WRITING_DATA.context) as EProMode_v2_copyWriting_contextType[]
-          }
+          DEFAULT_CONTEXT_TYPE={PROMODE_COPY_WRITING_DATA.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_COPY_WRITING_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COPY_WRITING),
+      disabled: !userRoles.includes(EUserRoleDB_name.COPY_WRITING_MANAGER),
     },
     {
-      key: EUserRolePermissionDB_name.XIAO_HONG_SHU,
+      key: EUserRoleDB_name.XIAO_HONG_SHU_MANAGER,
       label: PROMODE_XIAO_HONG_SHU_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.XIAO_HONG_SHU,
+      value: EUserRoleDB_name.XIAO_HONG_SHU_MANAGER,
       children: (
         <ProModePage_xiaoHongShu
           PROMODE_DATA={PROMODE_XIAO_HONG_SHU_DATA}
-          defaultContextType={PROMODE_XIAO_HONG_SHU_DATA.defaultContextType}
-          defaultContextTypesForSelect={
-            Object.keys(PROMODE_XIAO_HONG_SHU_DATA.context) as EProMode_v2_xiaoHongShu_contextType[]
-          }
+          DEFAULT_CONTEXT_TYPE={PROMODE_XIAO_HONG_SHU_DATA.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_XIAO_HONG_SHU_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.XIAO_HONG_SHU),
+      disabled: !userRoles.includes(EUserRoleDB_name.XIAO_HONG_SHU_MANAGER),
     },
     {
-      key: EUserRolePermissionDB_name.AI,
+      key: EUserRoleDB_name.AI_ASSISTANT,
       label: PROMODE_AI.tabInfo.name,
-      value: EUserRolePermissionDB_name.AI,
+      value: EUserRoleDB_name.AI_ASSISTANT,
       children: (
         <ProModePage_ai
           PROMODE_DATA={PROMODE_AI}
-          defaultContextType={PROMODE_AI.defaultContextType}
-          defaultContextTypesForSelect={Object.keys(PROMODE_AI.context) as EProMode_v2_ai_contextType[]}
+          DEFAULT_CONTEXT_TYPE={PROMODE_AI.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_AI.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.AI),
+      disabled: !userRoles.includes(EUserRoleDB_name.AI_ASSISTANT),
     },
     {
-      key: EUserRolePermissionDB_name.COMMENT,
+      key: EUserRoleDB_name.COMMENT_MANAGER,
       label: PROMODE_COMMENT_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.COMMENT,
+      value: EUserRoleDB_name.COMMENT_MANAGER,
       children: (
         <ProModePage_comment
           PROMODE_DATA={PROMODE_COMMENT_DATA}
-          defaultContextType={PROMODE_COMMENT_DATA.defaultContextType}
-          defaultContextTypesForSelect={Object.keys(PROMODE_COMMENT_DATA.context) as EProMode_v2_comment_contextType[]}
+          DEFAULT_CONTEXT_TYPE={PROMODE_COMMENT_DATA.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_COMMENT_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.COMMENT),
+      disabled: !userRoles.includes(EUserRoleDB_name.COMMENT_MANAGER),
     },
     {
-      key: EUserRolePermissionDB_name.CAREER,
+      key: EUserRoleDB_name.CAREER_MANAGER,
       label: PROMODE_CAREER_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.CAREER,
+      value: EUserRoleDB_name.CAREER_MANAGER,
       children: (
         <ProModePage_career
           PROMODE_DATA={PROMODE_CAREER_DATA}
-          defaultContextType={PROMODE_CAREER_DATA.defaultContextType}
-          defaultContextTypesForSelect={Object.keys(PROMODE_CAREER_DATA.context) as EProMode_v2_career_contextType[]}
+          DEFAULT_CONTEXT_TYPE={PROMODE_CAREER_DATA.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_CAREER_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.CAREER),
+      disabled: !userRoles.includes(EUserRoleDB_name.CAREER_MANAGER),
     },
     {
-      key: EUserRolePermissionDB_name.VIDEO_PRODUCTION,
+      key: EUserRoleDB_name.UP_ZHU,
       label: PROMODE_UP_ZHU_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.VIDEO_PRODUCTION,
+      value: EUserRoleDB_name.UP_ZHU,
       children: (
         <ProModePage_upZhu
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
-          defaultContextType={PROMODE_UP_ZHU_DATA.defaultContextType}
-          defaultContextTypesForSelect={Object.keys(PROMODE_UP_ZHU_DATA.context) as EProMode_v2_upZhu_contextType[]}
+          DEFAULT_CONTEXT_TYPE={PROMODE_UP_ZHU_DATA.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_UP_ZHU_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.VIDEO_PRODUCTION),
+      disabled: !userRoles.includes(EUserRoleDB_name.UP_ZHU),
     },
     {
-      key: EUserRolePermissionDB_name.PRODUCT,
+      key: EUserRoleDB_name.PRODUCT_MANAGER,
       label: PROMODE_PRODUCT_MANAGER.tabInfo.name,
-      value: EUserRolePermissionDB_name.PRODUCT,
+      value: EUserRoleDB_name.PRODUCT_MANAGER,
       children: (
         <ProModePage_productManager
           PROMODE_DATA={PROMODE_PRODUCT_MANAGER}
-          defaultContextType={PROMODE_PRODUCT_MANAGER.defaultContextType}
-          defaultContextTypesForSelect={
-            Object.keys(PROMODE_PRODUCT_MANAGER.context) as EProMode_v2_productManager_contextType[]
-          }
+          DEFAULT_CONTEXT_TYPE={PROMODE_PRODUCT_MANAGER.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_PRODUCT_MANAGER.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.PRODUCT),
+      disabled: !userRoles.includes(EUserRoleDB_name.PRODUCT_MANAGER),
     },
     {
-      key: EUserRolePermissionDB_name.MARKETING,
+      key: EUserRoleDB_name.MARKETING_MANAGER,
       label: PROMODE_MARKETING_EXPERT.tabInfo.name,
-      value: EUserRolePermissionDB_name.MARKETING,
+      value: EUserRoleDB_name.MARKETING_MANAGER,
       children: (
         <ProModePage_marketingExpert
           PROMODE_DATA={PROMODE_MARKETING_EXPERT}
-          defaultContextType={PROMODE_MARKETING_EXPERT.defaultContextType}
-          defaultContextTypesForSelect={
-            Object.keys(PROMODE_MARKETING_EXPERT.context) as EProMode_v2_marketingExpert_contextType[]
-          }
+          DEFAULT_CONTEXT_TYPE={PROMODE_MARKETING_EXPERT.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_MARKETING_EXPERT.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.MARKETING),
+      disabled: !userRoles.includes(EUserRoleDB_name.MARKETING_MANAGER),
     },
     {
-      key: EUserRolePermissionDB_name.SEO,
+      key: EUserRoleDB_name.SEO_MANAGER,
       label: PROMODE_SEO_DATA.tabInfo.name,
-      value: EUserRolePermissionDB_name.SEO,
+      value: EUserRoleDB_name.SEO_MANAGER,
       children: (
         <ProModePage_seo
           PROMODE_DATA={PROMODE_SEO_DATA}
-          defaultContextType={PROMODE_SEO_DATA.defaultContextType}
-          defaultContextTypesForSelect={Object.keys(PROMODE_SEO_DATA.context) as EProMode_v2_seo_contextType[]}
+          DEFAULT_CONTEXT_TYPE={PROMODE_SEO_DATA.defaultContextType}
+          defaultContextTypesForSelect={Object.keys(PROMODE_SEO_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRolePermissionsWithStripeSubscriptionInfo.includes(EUserRolePermissionDB_name.SEO),
+      disabled: !userRoles.includes(EUserRoleDB_name.SEO_MANAGER),
     },
   ];
 

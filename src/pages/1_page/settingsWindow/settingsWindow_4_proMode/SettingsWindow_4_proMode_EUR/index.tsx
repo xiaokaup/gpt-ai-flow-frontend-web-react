@@ -15,28 +15,29 @@ import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripe
 import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IUseSubscriptionData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionData';
+import { IUseSubscriptionMixData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
+import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
 
 import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
 
 interface SettingsWindow_4_proMode_EUR_input {
   userData: IUserData;
-  useSubscriptionDataOutput: IUseSubscriptionData_output;
+  useSubscriptionDataOutput: IUseSubscriptionMixData_output;
 }
 export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR_input) => {
   const { userData, useSubscriptionDataOutput } = props;
   const {
     id: userId,
     email: userEmail,
-    Subscription,
+    subscription,
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
     stripeCustomerId = '',
   } = userData;
-  const hasAnyoneSubscriptionRecord = !!Subscription?.id;
+  const hasAnyoneSubscriptionRecord = !!(subscription as ISubscriptionDB)?.id;
 
   const {
     init: initStripeSubscriptionInfo,
-    subscriptionData,
+    subscriptionMixData: subscriptionData,
     check: { hasNoAvailableSubscription },
   } = useSubscriptionDataOutput;
   const isExpired = new Date(subscriptionData?.expiredAt) < new Date();
