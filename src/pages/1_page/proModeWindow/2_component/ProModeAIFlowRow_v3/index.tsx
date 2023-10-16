@@ -11,7 +11,7 @@ import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { IReduxRootState } from 'store/reducer';
 import { udpateSubscriptionAction } from '../../../../../store/actions/subscriptionActions';
 
-import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI';
+import { sendChatGPTRequestAsStreamToBackendProxy } from '../../../../../tools/3_unit/TBackendOpenAI-for-web';
 import {
   IAICommandsResults_v4,
   IAICommands_v4,
