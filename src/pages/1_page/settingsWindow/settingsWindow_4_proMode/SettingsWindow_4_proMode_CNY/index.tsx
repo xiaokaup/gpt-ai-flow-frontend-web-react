@@ -34,18 +34,18 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
   } = userData;
 
   const {
-    subscriptionMixData: subscriptionDataFromStorage,
+    subscriptionMixData,
     // check: { hasNoAvailableSubscription },
   } = useSubscriptionDataOutput;
   const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(
     !!(subscription as ISubscriptionDB)?.id
   );
-  const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionDataFromStorage);
+  const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionMixData);
   const isExpired = new Date(subscriptionData?.expiredAt) < new Date();
 
   useEffect(() => {
-    setSubscriptionData(subscriptionDataFromStorage);
-  }, [subscriptionDataFromStorage]);
+    setSubscriptionData(subscriptionMixData);
+  }, [subscriptionMixData]);
 
   const startATrialSubscription = async () => {
     if (!userId) {
