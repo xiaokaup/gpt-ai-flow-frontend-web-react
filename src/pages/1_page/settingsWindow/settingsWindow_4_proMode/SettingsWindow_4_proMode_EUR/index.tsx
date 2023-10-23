@@ -65,9 +65,7 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
             </div>
           </div>
           <Button type="link" target="_blank" href="https://www.gptaiflow.com/business/prices">
-            <h3>
-              开始试用(已付费或单次成功付款成功后请 <b>重新登录</b>)
-            </h3>
+            <h3>开始试用(已付费或单次成功付款成功后请刷新页面)</h3>
           </Button>
         </div>
       )}

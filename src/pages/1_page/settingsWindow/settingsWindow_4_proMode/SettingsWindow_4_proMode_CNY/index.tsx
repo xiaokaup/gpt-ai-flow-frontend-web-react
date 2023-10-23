@@ -90,7 +90,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
               startATrialSubscription();
             }}
           >
-            开始试用(已付费或单次成功付款成功后请 <b>重新登录</b>)
+            开始试用(已付费或单次成功付款成功后请刷新页面)
           </Button>
         </div>
       )}
