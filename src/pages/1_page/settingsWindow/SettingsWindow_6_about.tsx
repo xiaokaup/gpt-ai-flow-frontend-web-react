@@ -30,7 +30,7 @@ export const SettingsWindow_6_about = () => {
 
         <hr />
         <div className="row">
-          <span>版本: v0.1.29</span>
+          <span>版本: v0.1.30</span>
         </div>
       </div>
     </div>
