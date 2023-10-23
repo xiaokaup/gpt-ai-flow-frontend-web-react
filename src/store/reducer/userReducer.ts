@@ -21,7 +21,12 @@ export const userReducer = (state: IUserReducerState = IUserDataFile.IUserData_d
       if (state.userRoles.length === payload.userRoles?.length) return state;
       if (state.userRolePermissions.length === payload.userRolePermissions?.length) return state;
 
-      return { ...state, ...payload };
+      const newUniqueUserRoles = Array.from(new Set([...state.userRoles, ...payload.userRoles]));
+      const newUniqueUserRolePermissions = Array.from(
+        new Set([...state.userRolePermissions, ...payload.userRolePermissions])
+      );
+
+      return { ...state, userRoles: newUniqueUserRoles, userRolePermissions: newUniqueUserRolePermissions };
     case USER_LOGOUT:
       return IUserDataFile.IUserData_default;
     case USER_UPDATE_USER_PASSWORD_V1:
