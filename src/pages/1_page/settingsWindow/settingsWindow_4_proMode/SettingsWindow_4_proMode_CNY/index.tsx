@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CopyOutlined } from '@ant-design/icons';
 
+import _ from 'lodash';
 import { Button, message } from 'antd';
 
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
@@ -13,18 +14,23 @@ import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum
 import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { IUseSubscriptionMixData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import CONSTANTS_GPT_AI_FLOW_COMMON, {
+  IConstantGptAiFlowHandler,
+} from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendSubscriptionMixFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendSubscription';
 import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
+import TBackendUser from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
 
 import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
 
 interface SettingsWindow_4_proMode_CNY_input {
   userData: IUserData;
+  setUserData: (newUserData: IUserData) => void;
   useSubscriptionDataOutput: IUseSubscriptionMixData_output;
+  env: IConstantGptAiFlowHandler;
 }
 export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
-  const { userData, useSubscriptionDataOutput } = props;
+  const { userData, setUserData, useSubscriptionDataOutput, env } = props;
   const {
     id: userId,
     email: userEmail,
@@ -57,9 +63,19 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
       userAccessToken,
       CONSTANTS_GPT_AI_FLOW_COMMON
     );
+
+    const userDataFromBackend = await TBackendUser.sync_user(userId.toString(), userAccessToken, env);
+    if (!userDataFromBackend) {
+      message.error('请您尝试重新登录账号 (无法获取用户数据)');
+      return;
+    }
+
+    const newUserData: Partial<IUserData> = _.omit(userDataFromBackend, ['token']);
+
     message.success('免费试用已开启');
     setHasAnyoneSubscriptionRecord(true);
     setSubscriptionData(results);
+    setUserData({ ...userData, ...newUserData }); // Hook doesn't update token info, the token info will be updated manually
   };
 
   return (
