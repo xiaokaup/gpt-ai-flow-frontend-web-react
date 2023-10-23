@@ -80,17 +80,10 @@ export const authRegisterByEmailAndPasswordAction_v0 =
     }
   };
 
-export const SYNC_USER = 'SYNC_USER';
-export const syncUserAction =
-  (userId: string, userAccessToken: string, env: IConstantGptAiFlowHandler) =>
-  async (dispatch: any, getState: () => IReduxRootState) => {
-    try {
-      const userResults = await TBackendUserFile.getUser(userId, userAccessToken, env);
-
-      return userResults;
-    } catch (error) {
-      console.log('syncUserAction error', error);
-    }
+export const UPDATE_USER_ROLES_AND_USER_PERMISSIONS = 'UPDATE_USER_ROLES_AND_USER_PERMISSIONS';
+export const updateUserRolesAndUserPermissionsAction =
+  (newUser: IUserData) => async (dispatch: any, getState: () => IReduxRootState) => {
+    dispatch({ type: UPDATE_USER_ROLES_AND_USER_PERMISSIONS, payload: newUser });
   };
 
 export const USER_LOGOUT = 'USER_LOGOUT';

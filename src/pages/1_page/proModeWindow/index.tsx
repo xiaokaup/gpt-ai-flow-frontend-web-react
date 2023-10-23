@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
+import { updateUserRolesAndUserPermissionsAction } from '../../../store/actions/userActions';
 
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useProModeSetDataUI } from './useProModeSetDataUI';
@@ -48,10 +49,19 @@ const ProModeWindow = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
+  const {
+    token: { accessToken },
+  } = userDataFromStorage;
 
   const { userData, isBetaUser } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {},
+    onUserDataChange: (newUserData_without_token: IUserData) => {
+      if (!newUserData_without_token.id) {
+        return;
+      }
+
+      dispatch(updateUserRolesAndUserPermissionsAction(newUserData_without_token) as any);
+    },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
