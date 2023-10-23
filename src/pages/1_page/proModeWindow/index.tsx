@@ -55,12 +55,12 @@ const ProModeWindow = () => {
 
   const { userData, isBetaUser } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData_without_update_token: IUserData) => {
-      if (!newUserData_without_update_token.id) {
+    onUserDataChange: (newUserData_without_token: IUserData) => {
+      if (!newUserData_without_token.id) {
         return;
       }
 
-      dispatch(updateUserRolesAndUserPermissionsAction(newUserData_without_update_token) as any);
+      dispatch(updateUserRolesAndUserPermissionsAction(newUserData_without_token) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
