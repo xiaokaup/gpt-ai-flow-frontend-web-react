@@ -32,7 +32,7 @@ export const SettingsWindow_4_proMode = () => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
 
-  const { userData, setUserData } = useUserData({
+  const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_update_token: IUserData) => {},
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
@@ -93,12 +93,7 @@ export const SettingsWindow_4_proMode = () => {
       </div>
       {region === ERegion.ZH && (
         <div className="row">
-          <SettingsWindow_4_proMode_CNY
-            userData={userData}
-            setUserData={setUserData}
-            useSubscriptionDataOutput={useSubscriptionDataOutput}
-            env={CONSTANTS_GPT_AI_FLOW_COMMON}
-          />
+          <SettingsWindow_4_proMode_CNY userData={userData} useSubscriptionDataOutput={useSubscriptionDataOutput} />
         </div>
       )}
       {region === ERegion.OVERSEAS && (
