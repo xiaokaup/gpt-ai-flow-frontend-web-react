@@ -67,7 +67,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={`${globalRoutesPrefix}/user/signUp`}
+          path={`${globalRoutesPrefix}/signUp`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_1_signup />
