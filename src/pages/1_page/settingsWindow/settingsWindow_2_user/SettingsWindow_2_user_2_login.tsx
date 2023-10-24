@@ -5,13 +5,12 @@ import translate from '../../../../i18nProvider/translate';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { IReduxRootState } from 'store/reducer';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
-import { globalRoutesPrefix } from '../../../../AppRoutes';
 import { authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
+import { IReduxRootState } from 'store/reducer';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
@@ -34,7 +33,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(`${globalRoutesPrefix}/proMode`);
+      navigate('/proMode');
     }
   }, [isAuthenticated, navigate]);
 
@@ -48,7 +47,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
         throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
       }
 
-      navigate(`${globalRoutesPrefix}/proMode`);
+      navigate('/proMode');
       window.location.reload();
     } catch (error: any) {
       message.error({
@@ -126,7 +125,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                 <Button
                   type="default"
                   onClick={() => {
-                    navigate(`${globalRoutesPrefix}/signUp`);
+                    navigate('/signUp');
                   }}
                 >
                   注册
@@ -136,7 +135,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               <span
                 style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
                 onClick={() => {
-                  navigate(`${globalRoutesPrefix}/forgetPassword`);
+                  navigate('/forgetPassword');
                 }}
               >
                 忘记密码

@@ -4,15 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxRootState } from 'store/reducer';
-
-import { Button, Form, Input, message } from 'antd';
-import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
-
-import { globalRoutesPrefix } from '../../../../AppRoutes';
 import {
   authRegisterByEmailAndPasswordAction_v0,
   getUserProfileByEmailAction_v2,
 } from '../../../../store/actions/userActions';
+
+import { Button, Form, Input, message } from 'antd';
+import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import React, { useEffect } from 'react';
@@ -36,7 +34,7 @@ export const SettingsWindow_2_user_1_signup = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(`${globalRoutesPrefix}/info`);
+      navigate('/info');
     }
   }, [isAuthenticated, navigate]);
 
@@ -76,7 +74,7 @@ export const SettingsWindow_2_user_1_signup = () => {
       }
 
       message.success('用户创建成功');
-      navigate(`${globalRoutesPrefix}/login`);
+      navigate('/login');
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -176,7 +174,7 @@ export const SettingsWindow_2_user_1_signup = () => {
                 <Button
                   type="default"
                   onClick={() => {
-                    navigate(`${globalRoutesPrefix}/login`);
+                    navigate('/login');
                   }}
                 >
                   登录
