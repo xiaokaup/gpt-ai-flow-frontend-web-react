@@ -45,7 +45,7 @@ export const AppRoutes = () => {
         /> */}
 
         <Route
-          path={'/'}
+          path={'/web/'}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_2_login />
@@ -53,7 +53,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={'/signUp'}
+          path={'/web/signUp'}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_1_signup />
@@ -61,7 +61,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={'/login'}
+          path={'/web/login'}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_2_login />
@@ -69,7 +69,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={'/info'}
+          path={'/web/info'}
           element={
             <AppLayout isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
@@ -80,7 +80,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={'/changePassword'}
+          path={'/web/changePassword'}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
@@ -88,7 +88,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={'/forgetPassword'}
+          path={'/web/forgetPassword'}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_5_forgetPassword />
@@ -96,7 +96,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={'/proMode'}
+          path={'/web/proMode'}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <ProModeWindow />
@@ -104,7 +104,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path={'/logout'}
+          path={'/web/logout'}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <LogoutPage />
