@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
+import { globalRoutesPrefix } from '../../../../AppRoutes';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import {
   authLoginByEmailAndPasswordAction,
@@ -26,7 +27,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate(`${globalRoutesPrefix}/login`);
     }
   }, [isAuthenticated, navigate]);
 
@@ -53,7 +54,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
       );
 
       message.success('密码修改成功');
-      navigate('/info');
+      navigate(`${globalRoutesPrefix}/info`);
       window.location.reload();
     } catch (error: Error | any) {
       message.error({
@@ -134,7 +135,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
                   <Button
                     type="default"
                     onClick={() => {
-                      navigate('/info');
+                      navigate(`${globalRoutesPrefix}/info`);
                     }}
                   >
                     返回

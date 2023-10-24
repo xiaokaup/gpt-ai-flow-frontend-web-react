@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { globalRoutesPrefix } from '../../../AppRoutes';
+
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { EUserRoleDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRoleDB';
 import IProMode_v2File, { IProMode_v2 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
@@ -92,7 +94,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   ) {
     dispatch(userLogoutAction() as any);
     setTimeout(() => {
-      navigate('/login');
+      navigate(`${globalRoutesPrefix}/login`);
       window.location.reload();
     }, 1000);
   }
