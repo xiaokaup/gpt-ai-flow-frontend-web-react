@@ -22,7 +22,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/web/login');
+      navigate('/login');
     }
   }, [isAuthenticated, navigate]);
 
@@ -74,7 +74,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
       <div className="row">
         <Button
           onClick={() => {
-            navigate('/web/changePassword');
+            navigate('/changePassword');
           }}
         >
           修改密码
@@ -93,7 +93,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
             dispatch(userLogoutAction() as any);
             setTimeout(() => {
-              navigate('/web/login');
+              navigate('/login');
               window.location.reload();
             }, 1000);
           }}

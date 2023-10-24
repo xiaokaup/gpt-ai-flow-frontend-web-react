@@ -38,7 +38,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
         duration: 3,
       });
 
-      navigate('/web/login');
+      navigate('/login');
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -107,7 +107,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
                   type="default"
                   onClick={() => {
                     // setPageCase(EUserPageCase.LOGIN);
-                    navigate('/web/login');
+                    navigate('/login');
                   }}
                 >
                   登录

@@ -26,7 +26,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/web/login');
+      navigate('/login');
     }
   }, [isAuthenticated, navigate]);
 
@@ -53,7 +53,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
       );
 
       message.success('密码修改成功');
-      navigate('/web/info');
+      navigate('/info');
       window.location.reload();
     } catch (error: Error | any) {
       message.error({
@@ -134,7 +134,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
                   <Button
                     type="default"
                     onClick={() => {
-                      navigate('/web/info');
+                      navigate('/info');
                     }}
                   >
                     返回

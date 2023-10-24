@@ -33,7 +33,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/web/proMode');
+      navigate('/proMode');
     }
   }, [isAuthenticated, navigate]);
 
@@ -47,7 +47,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
         throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
       }
 
-      navigate('/web/proMode');
+      navigate('/proMode');
       window.location.reload();
     } catch (error: any) {
       message.error({
@@ -125,7 +125,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                 <Button
                   type="default"
                   onClick={() => {
-                    navigate('/web/signUp');
+                    navigate('/signUp');
                   }}
                 >
                   注册
@@ -135,7 +135,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               <span
                 style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
                 onClick={() => {
-                  navigate('/web/forgetPassword');
+                  navigate('/forgetPassword');
                 }}
               >
                 忘记密码

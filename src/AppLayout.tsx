@@ -67,20 +67,20 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       {!isAuthenticated && (
         <>
           <Menu.Item key="1">
-            <Link to="/web/login">登录</Link>
+            <Link to="/login">登录</Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/web/signUp">注册</Link>
+            <Link to="/signUp">注册</Link>
           </Menu.Item>
         </>
       )}
       {isAuthenticated && (
         <>
           <Menu.Item key="3">
-            <Link to="/web/proMode">专业模式</Link>
+            <Link to="/proMode">专业模式</Link>
           </Menu.Item>
           <Menu.Item key="4">
-            <Link to="/web/info">用户</Link>
+            <Link to="/info">用户</Link>
           </Menu.Item>
         </>
       )}
