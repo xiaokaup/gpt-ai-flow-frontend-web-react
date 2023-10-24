@@ -34,7 +34,7 @@ export const SettingsWindow_2_user_1_signup = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/info');
+      navigate('/web/info');
     }
   }, [isAuthenticated, navigate]);
 
@@ -74,7 +74,7 @@ export const SettingsWindow_2_user_1_signup = () => {
       }
 
       message.success('用户创建成功');
-      navigate('/login');
+      navigate('/web/login');
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -174,7 +174,7 @@ export const SettingsWindow_2_user_1_signup = () => {
                 <Button
                   type="default"
                   onClick={() => {
-                    navigate('/login');
+                    navigate('/web/login');
                   }}
                 >
                   登录

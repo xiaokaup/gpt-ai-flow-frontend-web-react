@@ -12,7 +12,7 @@ export const LogoutPage = () => {
   useEffect(() => {
     dispatch(userLogoutAction() as any);
     setTimeout(() => {
-      navigate('/login');
+      navigate('/web/login');
       window.location.reload();
     }, 1000);
   });
