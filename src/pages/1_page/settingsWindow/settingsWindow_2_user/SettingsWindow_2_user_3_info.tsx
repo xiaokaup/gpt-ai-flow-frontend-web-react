@@ -6,8 +6,6 @@ import React, { useEffect } from 'react';
 import { Button, Descriptions } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-import { globalRoutesPrefix } from '../../../../AppRoutes';
 import { userLogoutAction } from '../../../../store/actions/userActions';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 
@@ -24,7 +22,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate(`${globalRoutesPrefix}/login`);
+      navigate('/login');
     }
   }, [isAuthenticated, navigate]);
 
@@ -76,7 +74,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
       <div className="row">
         <Button
           onClick={() => {
-            navigate(`${globalRoutesPrefix}/changePassword`);
+            navigate('/changePassword');
           }}
         >
           修改密码
@@ -95,8 +93,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
             dispatch(userLogoutAction() as any);
             setTimeout(() => {
-              navigate(`${globalRoutesPrefix}/login`);
-
+              navigate('/login');
               window.location.reload();
             }, 1000);
           }}

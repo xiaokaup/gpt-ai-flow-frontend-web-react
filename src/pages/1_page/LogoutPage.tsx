@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { globalRoutesPrefix } from '../../AppRoutes';
 import { userLogoutAction } from '../../store/actions/userActions';
 
 export const LogoutPage = () => {
@@ -13,8 +12,7 @@ export const LogoutPage = () => {
   useEffect(() => {
     dispatch(userLogoutAction() as any);
     setTimeout(() => {
-      navigate(`${globalRoutesPrefix}/login`);
-
+      navigate('/login');
       window.location.reload();
     }, 1000);
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
@@ -21,8 +21,6 @@ import { SettingsWindow_6_about } from './pages/1_page/settingsWindow/SettingsWi
 import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
 import { LogoutPage } from './pages/1_page/LogoutPage';
 
-export const globalRoutesPrefix = '/web';
-
 export const AppRoutes = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -34,99 +32,83 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  // return <RouterProvider router={<AppRoutePrefix>router</AppRoutePrefix>} />;
+  const router = createBrowserRouter([
+    // {
+    //   path: '/counter',
+    //   element: (
+    //     <AppLayout isAuthenticated={isAuthenticated}>
+    //       <CounterComponent />
+    //     </AppLayout>
+    //   ),
+    // },
+    {
+      path: '/',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <SettingsWindow_2_user_2_login />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/signUp',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <SettingsWindow_2_user_1_signup />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/login',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <SettingsWindow_2_user_2_login />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/info',
+      element: (
+        <AppLayout isAuthenticated={isAuthenticated}>
+          <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
+          <SettingsWindow_1_local />
+          <SettingsWindow_6_about />
+          <SettingsWindow_4_proMode />
+        </AppLayout>
+      ),
+    },
+    {
+      path: '/changePassword',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/forgetPassword',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <SettingsWindow_2_user_5_forgetPassword />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/proMode',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <ProModeWindow />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/logout',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <LogoutPage />
+        </AppLayoutCenter>
+      ),
+    },
+  ]);
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        {/* <Route
-          path={`${globalUrlPrefix}/counter`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <CounterComponent />
-            </AppLayoutCenter>
-          }
-        /> */}
-
-        <Route
-          path={`/`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <SettingsWindow_2_user_2_login />
-            </AppLayoutCenter>
-          }
-        />
-
-        {/* === /web/ - start === */}
-        <Route
-          path={`${globalRoutesPrefix}/`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <SettingsWindow_2_user_2_login />
-            </AppLayoutCenter>
-          }
-        />
-        <Route
-          path={`${globalRoutesPrefix}/signUp`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <SettingsWindow_2_user_1_signup />
-            </AppLayoutCenter>
-          }
-        />
-        <Route
-          path={`${globalRoutesPrefix}/login`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <SettingsWindow_2_user_2_login />
-            </AppLayoutCenter>
-          }
-        />
-        <Route
-          path={`${globalRoutesPrefix}/info`}
-          element={
-            <AppLayout isAuthenticated={isAuthenticated}>
-              <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
-              <SettingsWindow_1_local />
-              <SettingsWindow_6_about />
-              <SettingsWindow_4_proMode />
-            </AppLayout>
-          }
-        />
-        <Route
-          path={`${globalRoutesPrefix}/changePassword`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
-            </AppLayoutCenter>
-          }
-        />
-        <Route
-          path={`${globalRoutesPrefix}/forgetPassword`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <SettingsWindow_2_user_5_forgetPassword />
-            </AppLayoutCenter>
-          }
-        />
-        <Route
-          path={`${globalRoutesPrefix}/proMode`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <ProModeWindow />
-            </AppLayoutCenter>
-          }
-        />
-        <Route
-          path={`${globalRoutesPrefix}/logout`}
-          element={
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
-              <LogoutPage />
-            </AppLayoutCenter>
-          }
-        />
-        {/* === /web/ - end === */}
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
