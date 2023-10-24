@@ -20,7 +20,8 @@ import ProModeWindow from './pages/1_page/proModeWindow';
 import { SettingsWindow_6_about } from './pages/1_page/settingsWindow/SettingsWindow_6_about';
 import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
 import { LogoutPage } from './pages/1_page/LogoutPage';
-// import { AppRoutePrefix } from './AppRoutePrefix';
+
+export const globalRoutesPrefix = '/web';
 
 export const AppRoutes = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
@@ -39,7 +40,7 @@ export const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         {/* <Route
-          path="/counter"
+          path={`${globalUrlPrefix}/counter`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <CounterComponent />
@@ -47,9 +48,18 @@ export const AppRoutes = () => {
           }
         /> */}
 
-        {/* <Route path="/web/" element={<AppRoutePrefix />}></Route> */}
         <Route
-          path="/"
+          path={`/`}
+          element={
+            <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <SettingsWindow_2_user_2_login />
+            </AppLayoutCenter>
+          }
+        />
+
+        {/* === /web/ - start === */}
+        <Route
+          path={`${globalRoutesPrefix}/`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_2_login />
@@ -57,7 +67,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="/signUp"
+          path={`${globalRoutesPrefix}/user/signUp`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_1_signup />
@@ -65,7 +75,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="/login"
+          path={`${globalRoutesPrefix}/login`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_2_login />
@@ -73,7 +83,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="/info"
+          path={`${globalRoutesPrefix}/info`}
           element={
             <AppLayout isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
@@ -84,7 +94,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="/changePassword"
+          path={`${globalRoutesPrefix}/changePassword`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
@@ -92,7 +102,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="/forgetPassword"
+          path={`${globalRoutesPrefix}/forgetPassword`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <SettingsWindow_2_user_5_forgetPassword />
@@ -100,7 +110,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="/proMode"
+          path={`${globalRoutesPrefix}/proMode`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <ProModeWindow />
@@ -108,13 +118,14 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="/logout"
+          path={`${globalRoutesPrefix}/logout`}
           element={
             <AppLayoutCenter isAuthenticated={isAuthenticated}>
               <LogoutPage />
             </AppLayoutCenter>
           }
         />
+        {/* === /web/ - end === */}
       </Routes>
     </BrowserRouter>
   );
