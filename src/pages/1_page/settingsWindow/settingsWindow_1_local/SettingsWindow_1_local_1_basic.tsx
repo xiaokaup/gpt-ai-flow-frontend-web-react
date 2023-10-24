@@ -11,8 +11,9 @@ import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 import { ESubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { ISubscirptionMix } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import TSubscriptionMixFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscriptionMix';
 
-const modelTypeOptions = [
+const modelTypeOptionsPayment = [
   {
     value: EOpenAiModel.GPT_3_point_5_TURBO,
     label: 'GPT-3.5',
@@ -23,6 +24,13 @@ const modelTypeOptions = [
   },
 ];
 
+const modelTypeOptionsFree = [
+  {
+    value: EOpenAiModel.GPT_3_point_5_TURBO,
+    label: 'GPT-3.5',
+  },
+];
+
 interface ISettingsWindow_1_local_basic_input {
   subscriptionData: ISubscirptionMix;
 }
@@ -30,6 +38,9 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const dispatch = useDispatch();
 
   const { subscriptionData } = props;
+  const { isBetaUser } = subscriptionData;
+  const { hasAvailableSubscription } = TSubscriptionMixFile.checkSubscriptionAvailability(subscriptionData);
+  const hasAccessGPT_4 = hasAvailableSubscription || isBetaUser;
 
   const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -121,7 +132,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={modelTypeOptions}
+          options={hasAccessGPT_4 ? modelTypeOptionsPayment : modelTypeOptionsFree}
         />
       </div>
       <div className="row" style={{ marginTop: '.75rem' }}>
