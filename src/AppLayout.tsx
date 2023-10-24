@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu, MenuProps } from 'antd';
 import { Link } from 'react-router-dom';
 
+import { globalRoutesPrefix } from './AppRoutes';
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 
 import translate from './i18nProvider/translate';
@@ -67,20 +68,20 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       {!isAuthenticated && (
         <>
           <Menu.Item key="1">
-            <Link to="/login">登录</Link>
+            <Link to={`${globalRoutesPrefix}/login`}>登录</Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/signUp">注册</Link>
+            <Link to={`${globalRoutesPrefix}/signUp`}>注册</Link>
           </Menu.Item>
         </>
       )}
       {isAuthenticated && (
         <>
           <Menu.Item key="3">
-            <Link to="/proMode">专业模式</Link>
+            <Link to={`${globalRoutesPrefix}/proMode`}>专业模式</Link>
           </Menu.Item>
           <Menu.Item key="4">
-            <Link to="/info">用户</Link>
+            <Link to={`${globalRoutesPrefix}/info`}>用户</Link>
           </Menu.Item>
         </>
       )}

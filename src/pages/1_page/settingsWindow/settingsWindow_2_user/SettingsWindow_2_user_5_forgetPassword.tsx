@@ -6,9 +6,12 @@ import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
 import { useNavigate } from 'react-router-dom';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useDispatch } from 'react-redux';
+
+import { globalRoutesPrefix } from '../../../../AppRoutes';
 import { userResetPasswordWithEmailAction } from '../../../../store/actions/userActions';
+
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 
 interface SettingsWindow_2_user_5_forgetPassword_input {
@@ -36,7 +39,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
         duration: 3,
       });
 
-      navigate('/login');
+      navigate(`${globalRoutesPrefix}/login`);
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -105,7 +108,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
                   type="default"
                   onClick={() => {
                     // setPageCase(EUserPageCase.LOGIN);
-                    navigate('/login');
+                    navigate(`${globalRoutesPrefix}/login`);
                   }}
                 >
                   登录
