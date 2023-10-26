@@ -1,5 +1,5 @@
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { EOpenAiModel } from '../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { EOpenAiModel } from '../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
 import IProMode_v2File from '../../gpt-ai-flow-common/interface-backend/IProMode_v2';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import { SYNC_PROMODE_DATA, UPDATE_PROMODE_DATA } from '../actions/proModeActions';

@@ -17,7 +17,7 @@ import {
   IAICommands_v4,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { IAIFlow, IPrompt, EAIFlowRole } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { IAIFlow, IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useSubscriptionMixValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionMixProviderContext';
@@ -26,6 +26,7 @@ import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
+import { EAIFlowRole } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import {
   IUseSubscriptionMixData_output,
   useSubscriptionMixData,

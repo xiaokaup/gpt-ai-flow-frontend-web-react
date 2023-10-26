@@ -5,10 +5,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Checkbox, Select, message } from 'antd';
 
-import { EOpenAiModel } from '../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import { IReduxRootState } from '../../../../store/reducer';
 import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
+
+import { EOpenAiModel } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
 import { ESubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { ISubscirptionMix } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import TSubscriptionMixFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscriptionMix';
