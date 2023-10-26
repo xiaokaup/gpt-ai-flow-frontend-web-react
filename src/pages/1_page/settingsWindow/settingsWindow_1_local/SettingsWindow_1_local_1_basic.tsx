@@ -5,31 +5,49 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Checkbox, Select, message } from 'antd';
 
-import { EOpenAiModel } from '../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import { IReduxRootState } from '../../../../store/reducer';
 import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
+
+import { EOpenAiModel } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
 import { ESubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { ISubscirptionMix } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import TSubscriptionMixFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscriptionMix';
 
-const modelTypeOptionsPayment = [
-  {
-    value: EOpenAiModel.GPT_3_point_5_TURBO,
-    label: 'GPT-3.5',
-  },
-  {
-    value: EOpenAiModel.GPT_4,
-    label: 'GPT-4',
-  },
-];
+const getModelTypeOptions = (subscriptionData: ISubscirptionMix) => {
+  const { isBetaUser } = subscriptionData;
+  const { hasAvailableSubscription } = TSubscriptionMixFile.checkSubscriptionAvailability(subscriptionData);
+  const hasAccessGPT_4 = hasAvailableSubscription || isBetaUser;
 
-const modelTypeOptionsFree = [
-  {
-    value: EOpenAiModel.GPT_3_point_5_TURBO,
-    label: 'GPT-3.5',
-  },
-];
+  if (hasAccessGPT_4) {
+    if (subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+      return [
+        {
+          value: EOpenAiModel.GPT_3_point_5_TURBO,
+          label: 'GPT-3.5',
+        },
+      ];
+    }
+
+    return [
+      {
+        value: EOpenAiModel.GPT_3_point_5_TURBO,
+        label: 'GPT-3.5',
+      },
+      {
+        value: EOpenAiModel.GPT_4,
+        label: 'GPT-4',
+      },
+    ];
+  }
+
+  return [
+    {
+      value: EOpenAiModel.GPT_3_point_5_TURBO,
+      label: 'GPT-3.5',
+    },
+  ];
+};
 
 interface ISettingsWindow_1_local_basic_input {
   subscriptionData: ISubscirptionMix;
@@ -38,9 +56,6 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const dispatch = useDispatch();
 
   const { subscriptionData } = props;
-  const { isBetaUser } = subscriptionData;
-  const { hasAvailableSubscription } = TSubscriptionMixFile.checkSubscriptionAvailability(subscriptionData);
-  const hasAccessGPT_4 = hasAvailableSubscription || isBetaUser;
 
   const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -132,7 +147,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={hasAccessGPT_4 ? modelTypeOptionsPayment : modelTypeOptionsFree}
+          options={getModelTypeOptions(subscriptionData)}
         />
       </div>
       <div className="row" style={{ marginTop: '.75rem' }}>

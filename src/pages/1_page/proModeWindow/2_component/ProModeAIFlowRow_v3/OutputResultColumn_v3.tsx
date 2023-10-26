@@ -23,6 +23,7 @@ export interface IOuputIndicatorComponent_input {
   hasAvailableSubscription: boolean;
 
   stopInstructionAIFlowResults: (paraRequestControllersMap: Map<string, AbortController>) => void;
+  checkAiCommandsThenUploadCustomizedAiCommand: () => void;
   getInstructionAIFlowResults: () => void;
   getOneInstructionAiFlowResult: (
     oneInstructionAiFlowResult: IAICommands_v4,
@@ -45,8 +46,9 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
     hasAvailableSubscription,
 
     stopInstructionAIFlowResults,
-    getOneInstructionAiFlowResult,
+    checkAiCommandsThenUploadCustomizedAiCommand,
     getInstructionAIFlowResults,
+    getOneInstructionAiFlowResult,
 
     requestControllersMap,
     addRequestControllerItem,
@@ -79,6 +81,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
             type="primary"
             size="small"
             onClick={() => {
+              checkAiCommandsThenUploadCustomizedAiCommand();
               getInstructionAIFlowResults();
             }}
             style={{ marginLeft: 6 }}

@@ -1,5 +1,5 @@
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
-import { EOpenAiModel } from '../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { EOpenAiModel } from '../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
 import { SAVE_LOCAL } from '../actions/localActions';
 import { USER_LOGOUT } from '../actions/userActions';
 import { IAction } from '../store';
