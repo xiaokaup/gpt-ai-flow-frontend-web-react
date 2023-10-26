@@ -26,7 +26,7 @@ import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
-import { EAIFlowRole } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import {
   IUseSubscriptionMixData_output,
   useSubscriptionMixData,
@@ -34,6 +34,8 @@ import {
 import ISubscriptionMixFile, {
   ISubscirptionMix,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
+import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -175,6 +177,28 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     // setRequestControllersMap(tempMap);
 
     console.log('stopInstructionAIFlowResults - end');
+  };
+
+  const checkAiCommandsThenUploadCustomizedAiCommand = async () => {
+    for (const oneAiCommand of aiCommands) {
+      if (
+        oneAiCommand.isTemporary &&
+        oneAiCommand.aiFlowInstance.type === EAIFlowType.CUSTOMIZE &&
+        oneAiCommand.aiFlowInstance.value
+      ) {
+        TBackendUserInputFile.postUserInput(
+          {
+            userId: userId as number,
+            inputTypeId: EInputTypeDBFile.EInputTypeDB_preData[EInputTypeDB_typeName.PROMODE_CUSTOME_COMMAND]
+              ?.id as number,
+            jsonValue: { value: oneAiCommand.aiFlowInstance.value },
+            source: 'proModeInterface-web',
+          },
+          userAccessToken,
+          CONSTANTS_GPT_AI_FLOW_COMMON
+        );
+      }
+    }
   };
 
   const getInstructionAIFlowResults = async () => {
@@ -488,6 +512,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           hasAvailableSubscription={hasAvailableSubscription}
           // Call requests
           stopInstructionAIFlowResults={stopInstructionAIFlowResults}
+          checkAiCommandsThenUploadCustomizedAiCommand={checkAiCommandsThenUploadCustomizedAiCommand}
           getInstructionAIFlowResults={getInstructionAIFlowResults}
           getOneInstructionAiFlowResult={getOneInstructionAiFlowResult}
           // Manage requests
