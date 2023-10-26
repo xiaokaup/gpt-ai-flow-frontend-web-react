@@ -7,12 +7,13 @@ import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 import iconFormat from '../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
 
-import { IAIFlow, EAIFlowType, EAIFlowRole } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
+import { EAIFlowRole, EAIFlowType } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
 
