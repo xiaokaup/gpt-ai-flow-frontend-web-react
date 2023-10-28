@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
@@ -8,6 +8,7 @@ import IUserDataFile, { IUserData } from './gpt-ai-flow-common/interface-app/IUs
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { IReduxRootState } from './store/reducer';
+import { updateRolesAndPermissionsAndIsBetaUserAction } from './store/actions/userActions';
 // import { CounterComponent } from './CounterComponent';
 
 import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
@@ -22,13 +23,21 @@ import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settings
 import { LogoutPage } from './pages/1_page/LogoutPage';
 
 export const AppRoutes = () => {
+  const dispatch = useDispatch();
+
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
 
   const { userData, isAuthenticated } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {},
+    onUserDataChange: (newUserData_without_token: IUserData) => {
+      if (!newUserData_without_token.id) {
+        return;
+      }
+
+      dispatch(updateRolesAndPermissionsAndIsBetaUserAction(newUserData_without_token) as any);
+    },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

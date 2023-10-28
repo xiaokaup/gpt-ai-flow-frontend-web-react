@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
-import { updateRolesAndPermissionsAction } from '../../../store/actions/userActions';
+import { updateRolesAndPermissionsAndIsBetaUserAction } from '../../../store/actions/userActions';
 
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useProModeSetDataUI } from './useProModeSetDataUI';
@@ -57,7 +57,7 @@ const ProModeWindow = () => {
         return;
       }
 
-      dispatch(updateRolesAndPermissionsAction(newUserData_without_token) as any);
+      dispatch(updateRolesAndPermissionsAndIsBetaUserAction(newUserData_without_token) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
