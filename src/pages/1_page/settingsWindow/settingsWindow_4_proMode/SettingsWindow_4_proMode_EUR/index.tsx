@@ -3,7 +3,7 @@ import '../../../../../styles/layout.scss';
 
 import paymentPageDemo from '../../../../../../assets/presentation/2023-08-23-payment-page.png';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import { Alert, Button, message } from 'antd';
@@ -33,7 +33,13 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
     stripeCustomerId = '',
   } = userData;
-  const hasAnyoneSubscriptionRecord = !!(subscription as ISubscriptionDB)?.id;
+  const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(
+    !!(subscription as ISubscriptionDB)?.id
+  );
+
+  useEffect(() => {
+    setHasAnyoneSubscriptionRecord(!!(userData.subscription as ISubscriptionDB)?.id);
+  }, [userData.subscription.name, userData.subscription.version, userData.subscription.expiredAt]);
 
   const {
     init: initStripeSubscriptionInfo,

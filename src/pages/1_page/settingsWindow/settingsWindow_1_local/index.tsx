@@ -65,7 +65,7 @@ export const SettingsWindow_1_local = () => {
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: `基本`,
-      children: <SettingsWindow_1_local_basic subscriptionData={subscriptionData} />,
+      children: <SettingsWindow_1_local_basic userData={userData} subscriptionData={subscriptionData} />,
     },
   ];
 

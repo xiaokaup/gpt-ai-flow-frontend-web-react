@@ -1,12 +1,9 @@
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import IUserDBFile, { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
-import { IReduxRootState } from '../reducer';
-import { Dispatch } from 'react';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
-import TBackendUserFile from '../../tools/3_unit/TBackendUser';
+import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
+import { IReduxRootState } from '../reducer';
 
 // type MyAction = {
 //   type: string;
@@ -80,10 +77,10 @@ export const authRegisterByEmailAndPasswordAction_v0 =
     }
   };
 
-export const UPDATE_USER_ROLES_AND_USER_PERMISSIONS = 'UPDATE_USER_ROLES_AND_USER_PERMISSIONS';
-export const updateUserRolesAndUserPermissionsAction =
+export const UPDATTE_SPECIFIC_USER_DATA = 'UPDATTE_SPECIFIC_USER_DATA';
+export const updateSpecificUserData =
   (newUser: IUserData) => async (dispatch: any, getState: () => IReduxRootState) => {
-    dispatch({ type: UPDATE_USER_ROLES_AND_USER_PERMISSIONS, payload: newUser });
+    dispatch({ type: UPDATTE_SPECIFIC_USER_DATA, payload: newUser });
   };
 
 export const USER_LOGOUT = 'USER_LOGOUT';

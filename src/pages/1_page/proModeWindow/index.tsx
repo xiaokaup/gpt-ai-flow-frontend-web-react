@@ -2,14 +2,14 @@ import '../../../styles/global.css';
 import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
-import { updateUserRolesAndUserPermissionsAction } from '../../../store/actions/userActions';
+import { updateSpecificUserData } from '../../../store/actions/userActions';
 
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useProModeSetDataUI } from './useProModeSetDataUI';
@@ -26,14 +26,14 @@ import {
   useSubscriptionMixData,
   IUseSubscriptionMixData_output,
 } from '../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
-import { EUserRoleDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRoleDB';
+import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 
 import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
 
 export interface ITabPanel {
-  key: EUserRoleDB_name;
+  key: EServiceCategoryDB_name;
   label: string;
-  value: EUserRoleDB_name;
+  value: EServiceCategoryDB_name;
   children: React.ReactNode;
   disabled: boolean;
 }
@@ -49,23 +49,21 @@ const ProModeWindow = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
-  const {
-    token: { accessToken },
-  } = userDataFromStorage;
 
-  const { userData, isBetaUser } = useUserData({
+  const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {
-      if (!newUserData_without_token.id) {
-        return;
-      }
-
-      dispatch(updateUserRolesAndUserPermissionsAction(newUserData_without_token) as any);
+      dispatch(updateSpecificUserData(newUserData_without_token) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default, userRoles = [] } = userData;
+  const {
+    id: userId,
+    token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
+    serviceCategories = [],
+    isBetaUser,
+  } = userData;
 
   if (!userId) {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
@@ -91,19 +89,16 @@ const ProModeWindow = () => {
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
     userDataFromStorage: userData,
-    userRoles,
+    serviceCategories,
   });
   // === ProMode Data - end ===
 
-  const userDefaultTabs: ITabPanel[] = [];
-  userDefaultTabs.push(...defaultTabPanels);
-
   // === proMode selector - start ===
-  const [selectedProdMode, setSelectedProdMode] = useState<EUserRoleDB_name>();
+  const [selectedProdMode, setSelectedProdMode] = useState<EServiceCategoryDB_name>();
 
   const onProModeSelectorChange = (value: string) => {
     console.log(`selected ${value}`);
-    setSelectedProdMode(value as EUserRoleDB_name);
+    setSelectedProdMode(value as EServiceCategoryDB_name);
   };
 
   const onProModeSelectorSearch = (value: string) => {
@@ -112,15 +107,22 @@ const ProModeWindow = () => {
   // === proMode selector - end ===
 
   // === tab panels - start ===
-  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EUserRoleDB_name>(userDefaultTabs[0].key);
-  const [tabPanels, setTabPanels] = useState(userDefaultTabs);
+  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EServiceCategoryDB_name>();
+  const [tabPanels, setTabPanels] = useState<ITabPanel[]>([]);
   const newTabPanelIndex = useRef(defaultTabPanels.length);
 
+  useEffect(() => {
+    if (defaultTabPanels.length > 0) {
+      setActiveTabPanelKey(defaultTabPanels[0].key);
+      setTabPanels(defaultTabPanels);
+    }
+  }, [defaultTabPanels?.length, defaultTabPanels[1]?.disabled]);
+
   const onTabsChange = (key: string) => {
-    setActiveTabPanelKey(key as EUserRoleDB_name);
+    setActiveTabPanelKey(key as EServiceCategoryDB_name);
   };
 
-  const addTabPanel = (paraSelectedProdMode: EUserRoleDB_name) => {
+  const addTabPanel = (paraSelectedProdMode: EServiceCategoryDB_name) => {
     const newTabPanel = defaultTabPanels.find((item) => item.value === paraSelectedProdMode);
 
     if (!newTabPanel) {
@@ -135,14 +137,14 @@ const ProModeWindow = () => {
     setTabPanels([
       ...tabPanels,
       {
-        key: newActiveTabPanelKey as EUserRoleDB_name,
+        key: newActiveTabPanelKey as EServiceCategoryDB_name,
         label: `${newActiveTabPanelKey}-${label}`,
         value,
         children,
-        disabled: subscriptionData.name !== ESubscriptionName.NONE ? !userRoles.includes(value) : true,
+        disabled: subscriptionData.name !== ESubscriptionName.NONE ? !serviceCategories.includes(value) : true,
       },
     ]);
-    setActiveTabPanelKey(newActiveTabPanelKey as EUserRoleDB_name);
+    setActiveTabPanelKey(newActiveTabPanelKey as EServiceCategoryDB_name);
   };
 
   const removeTabPanel = (targetKey: TargetKey) => {
@@ -207,7 +209,7 @@ const ProModeWindow = () => {
                 return;
               }
 
-              if (!userRoles.includes(selectedProdMode)) {
+              if (!serviceCategories.includes(selectedProdMode)) {
                 message.error('你没有权限使用此面板');
                 return;
               }
