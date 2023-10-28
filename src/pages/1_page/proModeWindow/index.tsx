@@ -26,14 +26,14 @@ import {
   useSubscriptionMixData,
   IUseSubscriptionMixData_output,
 } from '../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
-import { ERoleDB_name } from '../../../gpt-ai-flow-common/enum-database/ERoleDB';
+import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 
 import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
 
 export interface ITabPanel {
-  key: ERoleDB_name;
+  key: EServiceCategoryDB_name;
   label: string;
-  value: ERoleDB_name;
+  value: EServiceCategoryDB_name;
   children: React.ReactNode;
   disabled: boolean;
 }
@@ -93,7 +93,7 @@ const ProModeWindow = () => {
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
     userDataFromStorage: userData,
-    userRoles: serviceCategories,
+    serviceCategories,
   });
   // === ProMode Data - end ===
 
@@ -101,11 +101,11 @@ const ProModeWindow = () => {
   userDefaultTabs.push(...defaultTabPanels);
 
   // === proMode selector - start ===
-  const [selectedProdMode, setSelectedProdMode] = useState<ERoleDB_name>();
+  const [selectedProdMode, setSelectedProdMode] = useState<EServiceCategoryDB_name>();
 
   const onProModeSelectorChange = (value: string) => {
     console.log(`selected ${value}`);
-    setSelectedProdMode(value as ERoleDB_name);
+    setSelectedProdMode(value as EServiceCategoryDB_name);
   };
 
   const onProModeSelectorSearch = (value: string) => {
@@ -114,15 +114,15 @@ const ProModeWindow = () => {
   // === proMode selector - end ===
 
   // === tab panels - start ===
-  const [activeTabPanelKey, setActiveTabPanelKey] = useState<ERoleDB_name>(userDefaultTabs[0].key);
+  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EServiceCategoryDB_name>(userDefaultTabs[0].key);
   const [tabPanels, setTabPanels] = useState(userDefaultTabs);
   const newTabPanelIndex = useRef(defaultTabPanels.length);
 
   const onTabsChange = (key: string) => {
-    setActiveTabPanelKey(key as ERoleDB_name);
+    setActiveTabPanelKey(key as EServiceCategoryDB_name);
   };
 
-  const addTabPanel = (paraSelectedProdMode: ERoleDB_name) => {
+  const addTabPanel = (paraSelectedProdMode: EServiceCategoryDB_name) => {
     const newTabPanel = defaultTabPanels.find((item) => item.value === paraSelectedProdMode);
 
     if (!newTabPanel) {
@@ -137,14 +137,14 @@ const ProModeWindow = () => {
     setTabPanels([
       ...tabPanels,
       {
-        key: newActiveTabPanelKey as ERoleDB_name,
+        key: newActiveTabPanelKey as EServiceCategoryDB_name,
         label: `${newActiveTabPanelKey}-${label}`,
         value,
         children,
         disabled: subscriptionData.name !== ESubscriptionName.NONE ? !serviceCategories.includes(value) : true,
       },
     ]);
-    setActiveTabPanelKey(newActiveTabPanelKey as ERoleDB_name);
+    setActiveTabPanelKey(newActiveTabPanelKey as EServiceCategoryDB_name);
   };
 
   const removeTabPanel = (targetKey: TargetKey) => {

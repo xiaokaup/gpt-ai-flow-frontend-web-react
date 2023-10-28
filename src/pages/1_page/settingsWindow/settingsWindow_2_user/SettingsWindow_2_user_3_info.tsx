@@ -58,14 +58,14 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
           <Descriptions.Item label={'名字'}>{userData.lastName}</Descriptions.Item>
           <Descriptions.Item label={'昵称'}>{userData.displayName}</Descriptions.Item>
           <Descriptions.Item label={'邮箱'}>{userData.email}</Descriptions.Item>
-          {(userData.userRoles ?? []).length > 0 && (
+          {(userData.roles ?? []).length > 0 && (
             <Descriptions.Item label="角色" span={3}>
-              {(userData.userRoles ?? []).join(', ')}
+              {(userData.roles ?? []).join(', ')}
             </Descriptions.Item>
           )}
-          {(userData.userRolePermissions ?? []).length > 0 && (
+          {(userData.permissions ?? []).length > 0 && (
             <Descriptions.Item label="权限" span={3}>
-              {(userData.userRolePermissions ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
+              {(userData.permissions ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
             </Descriptions.Item>
           )}
         </Descriptions>

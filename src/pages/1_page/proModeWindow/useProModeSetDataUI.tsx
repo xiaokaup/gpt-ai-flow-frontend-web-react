@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { ERoleDB_name } from '../../../gpt-ai-flow-common/enum-database/ERoleDB';
+import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 import IProMode_v2File, { IProMode_v2 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
-import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
-import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { IProMode_v2_ContextTypes } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_contextTypes';
+import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
 
 import { IReduxRootState } from '../../../store/reducer/index';
 import { updateProModeDataAction } from '../../../store/actions/proModeActions';
@@ -29,14 +29,14 @@ import { ITabPanel } from '.';
 
 interface useProModeSetDataUI_input {
   userDataFromStorage: IUserData;
-  userRoles: string[];
+  serviceCategories: string[];
 }
 export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const { userDataFromStorage, userRoles } = props;
+  const { userDataFromStorage, serviceCategories } = props;
 
   const encryptedProModeSetFromStore: string = useSelector(
     (state: IReduxRootState) => state.proModeSet ?? IProMode_v2File.IProMode_v2_default
@@ -50,23 +50,23 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const { proModeSetData } = useProModeSetData({
     userDataFromStorage,
     proModeSetData: proModeSetFromStorage,
-    onProModeSetDataChange: (newPromodeSetData: IProMode_v2) => {
+    onProModeSetDataChange: (newPromodeSetData: Omit<IProMode_v2, EServiceCategoryDB_name.DEFAULT>) => {
       dispatch(updateProModeDataAction(newPromodeSetData) as any);
     },
     getDecryptObj: TCryptoJSFile.decrypt,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const PROMODE_COMMUNICATION_DATA = proModeSetData[ERoleDB_name.COMMUNICATION_MANAGER];
-  const PROMODE_COPY_WRITING_DATA = proModeSetData[ERoleDB_name.COPY_WRITING_MANAGER];
-  const PROMODE_XIAO_HONG_SHU_DATA = proModeSetData[ERoleDB_name.XIAO_HONG_SHU_MANAGER];
-  const PROMODE_AI = proModeSetData[ERoleDB_name.AI_ASSISTANT];
-  const PROMODE_COMMENT_DATA = proModeSetData[ERoleDB_name.COMMENT_MANAGER];
-  const PROMODE_CAREER_DATA = proModeSetData[ERoleDB_name.CAREER_MANAGER];
-  const PROMODE_UP_ZHU_DATA = proModeSetData[ERoleDB_name.UP_ZHU];
-  const PROMODE_PRODUCT_MANAGER = proModeSetData[ERoleDB_name.PRODUCT_MANAGER];
-  const PROMODE_MARKETING_EXPERT = proModeSetData[ERoleDB_name.MARKETING_MANAGER];
-  const PROMODE_SEO_DATA = proModeSetData[ERoleDB_name.SEO_MANAGER];
+  const PROMODE_COMMUNICATION_DATA = proModeSetData[EServiceCategoryDB_name.COMMUNICATION_MANAGER];
+  const PROMODE_COPY_WRITING_DATA = proModeSetData[EServiceCategoryDB_name.COPY_WRITING_MANAGER];
+  const PROMODE_XIAO_HONG_SHU_DATA = proModeSetData[EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER];
+  const PROMODE_AI = proModeSetData[EServiceCategoryDB_name.AI_ASSISTANT];
+  const PROMODE_COMMENT_DATA = proModeSetData[EServiceCategoryDB_name.COMMENT_MANAGER];
+  const PROMODE_CAREER_DATA = proModeSetData[EServiceCategoryDB_name.CAREER_MANAGER];
+  const PROMODE_UP_ZHU_DATA = proModeSetData[EServiceCategoryDB_name.UP_ZHU];
+  const PROMODE_PRODUCT_MANAGER = proModeSetData[EServiceCategoryDB_name.PRODUCT_MANAGER];
+  const PROMODE_MARKETING_EXPERT = proModeSetData[EServiceCategoryDB_name.MARKETING_MANAGER];
+  const PROMODE_SEO_DATA = proModeSetData[EServiceCategoryDB_name.SEO_MANAGER];
 
   if (
     !PROMODE_COMMUNICATION_DATA ||
@@ -99,9 +99,9 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
 
   const defaultTabPanels: ITabPanel[] = [
     {
-      key: ERoleDB_name.COMMUNICATION_MANAGER,
+      key: EServiceCategoryDB_name.COMMUNICATION_MANAGER,
       label: PROMODE_COMMUNICATION_DATA.tabInfo.name,
-      value: ERoleDB_name.COMMUNICATION_MANAGER,
+      value: EServiceCategoryDB_name.COMMUNICATION_MANAGER,
       children: (
         <ProModePage_communication
           PROMODE_DATA={PROMODE_COMMUNICATION_DATA}
@@ -109,12 +109,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_COMMUNICATION_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.COMMUNICATION_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.COMMUNICATION_MANAGER),
     },
     {
-      key: ERoleDB_name.COPY_WRITING_MANAGER,
+      key: EServiceCategoryDB_name.COPY_WRITING_MANAGER,
       label: PROMODE_COPY_WRITING_DATA.tabInfo.name,
-      value: ERoleDB_name.COPY_WRITING_MANAGER,
+      value: EServiceCategoryDB_name.COPY_WRITING_MANAGER,
       children: (
         <ProModePage_copyWriting
           PROMODE_DATA={PROMODE_COPY_WRITING_DATA}
@@ -122,12 +122,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_COPY_WRITING_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.COPY_WRITING_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.COPY_WRITING_MANAGER),
     },
     {
-      key: ERoleDB_name.XIAO_HONG_SHU_MANAGER,
+      key: EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER,
       label: PROMODE_XIAO_HONG_SHU_DATA.tabInfo.name,
-      value: ERoleDB_name.XIAO_HONG_SHU_MANAGER,
+      value: EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER,
       children: (
         <ProModePage_xiaoHongShu
           PROMODE_DATA={PROMODE_XIAO_HONG_SHU_DATA}
@@ -135,12 +135,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_XIAO_HONG_SHU_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.XIAO_HONG_SHU_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER),
     },
     {
-      key: ERoleDB_name.AI_ASSISTANT,
+      key: EServiceCategoryDB_name.AI_ASSISTANT,
       label: PROMODE_AI.tabInfo.name,
-      value: ERoleDB_name.AI_ASSISTANT,
+      value: EServiceCategoryDB_name.AI_ASSISTANT,
       children: (
         <ProModePage_ai
           PROMODE_DATA={PROMODE_AI}
@@ -148,12 +148,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_AI.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.AI_ASSISTANT),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.AI_ASSISTANT),
     },
     {
-      key: ERoleDB_name.COMMENT_MANAGER,
+      key: EServiceCategoryDB_name.COMMENT_MANAGER,
       label: PROMODE_COMMENT_DATA.tabInfo.name,
-      value: ERoleDB_name.COMMENT_MANAGER,
+      value: EServiceCategoryDB_name.COMMENT_MANAGER,
       children: (
         <ProModePage_comment
           PROMODE_DATA={PROMODE_COMMENT_DATA}
@@ -161,12 +161,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_COMMENT_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.COMMENT_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.COMMENT_MANAGER),
     },
     {
-      key: ERoleDB_name.CAREER_MANAGER,
+      key: EServiceCategoryDB_name.CAREER_MANAGER,
       label: PROMODE_CAREER_DATA.tabInfo.name,
-      value: ERoleDB_name.CAREER_MANAGER,
+      value: EServiceCategoryDB_name.CAREER_MANAGER,
       children: (
         <ProModePage_career
           PROMODE_DATA={PROMODE_CAREER_DATA}
@@ -174,12 +174,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_CAREER_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.CAREER_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.CAREER_MANAGER),
     },
     {
-      key: ERoleDB_name.UP_ZHU,
+      key: EServiceCategoryDB_name.UP_ZHU,
       label: PROMODE_UP_ZHU_DATA.tabInfo.name,
-      value: ERoleDB_name.UP_ZHU,
+      value: EServiceCategoryDB_name.UP_ZHU,
       children: (
         <ProModePage_upZhu
           PROMODE_DATA={PROMODE_UP_ZHU_DATA}
@@ -187,12 +187,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_UP_ZHU_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.UP_ZHU),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.UP_ZHU),
     },
     {
-      key: ERoleDB_name.PRODUCT_MANAGER,
+      key: EServiceCategoryDB_name.PRODUCT_MANAGER,
       label: PROMODE_PRODUCT_MANAGER.tabInfo.name,
-      value: ERoleDB_name.PRODUCT_MANAGER,
+      value: EServiceCategoryDB_name.PRODUCT_MANAGER,
       children: (
         <ProModePage_productManager
           PROMODE_DATA={PROMODE_PRODUCT_MANAGER}
@@ -200,12 +200,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_PRODUCT_MANAGER.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.PRODUCT_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.PRODUCT_MANAGER),
     },
     {
-      key: ERoleDB_name.MARKETING_MANAGER,
+      key: EServiceCategoryDB_name.MARKETING_MANAGER,
       label: PROMODE_MARKETING_EXPERT.tabInfo.name,
-      value: ERoleDB_name.MARKETING_MANAGER,
+      value: EServiceCategoryDB_name.MARKETING_MANAGER,
       children: (
         <ProModePage_marketingExpert
           PROMODE_DATA={PROMODE_MARKETING_EXPERT}
@@ -213,12 +213,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_MARKETING_EXPERT.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.MARKETING_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.MARKETING_MANAGER),
     },
     {
-      key: ERoleDB_name.SEO_MANAGER,
+      key: EServiceCategoryDB_name.SEO_MANAGER,
       label: PROMODE_SEO_DATA.tabInfo.name,
-      value: ERoleDB_name.SEO_MANAGER,
+      value: EServiceCategoryDB_name.SEO_MANAGER,
       children: (
         <ProModePage_seo
           PROMODE_DATA={PROMODE_SEO_DATA}
@@ -226,7 +226,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           defaultContextTypesForSelect={Object.keys(PROMODE_SEO_DATA.context) as IProMode_v2_ContextTypes[]}
         />
       ),
-      disabled: !userRoles.includes(ERoleDB_name.SEO_MANAGER),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.SEO_MANAGER),
     },
   ];
 
