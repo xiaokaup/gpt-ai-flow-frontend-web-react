@@ -26,14 +26,14 @@ import {
   useSubscriptionMixData,
   IUseSubscriptionMixData_output,
 } from '../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
-import { EUserRoleDB_name } from '../../../gpt-ai-flow-common/enum-database/EUserRoleDB';
+import { ERoleDB_name } from '../../../gpt-ai-flow-common/enum-database/ERoleDB';
 
 import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
 
 export interface ITabPanel {
-  key: EUserRoleDB_name;
+  key: ERoleDB_name;
   label: string;
-  value: EUserRoleDB_name;
+  value: ERoleDB_name;
   children: React.ReactNode;
   disabled: boolean;
 }
@@ -49,11 +49,8 @@ const ProModeWindow = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
-  const {
-    token: { accessToken },
-  } = userDataFromStorage;
 
-  const { userData, isBetaUser } = useUserData({
+  const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {
       if (!newUserData_without_token.id) {
@@ -65,7 +62,12 @@ const ProModeWindow = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default, userRoles = [] } = userData;
+  const {
+    id: userId,
+    token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
+    serviceCategories = [],
+    isBetaUser,
+  } = userData;
 
   if (!userId) {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
@@ -91,7 +93,7 @@ const ProModeWindow = () => {
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
     userDataFromStorage: userData,
-    userRoles,
+    userRoles: serviceCategories,
   });
   // === ProMode Data - end ===
 
@@ -99,11 +101,11 @@ const ProModeWindow = () => {
   userDefaultTabs.push(...defaultTabPanels);
 
   // === proMode selector - start ===
-  const [selectedProdMode, setSelectedProdMode] = useState<EUserRoleDB_name>();
+  const [selectedProdMode, setSelectedProdMode] = useState<ERoleDB_name>();
 
   const onProModeSelectorChange = (value: string) => {
     console.log(`selected ${value}`);
-    setSelectedProdMode(value as EUserRoleDB_name);
+    setSelectedProdMode(value as ERoleDB_name);
   };
 
   const onProModeSelectorSearch = (value: string) => {
@@ -112,15 +114,15 @@ const ProModeWindow = () => {
   // === proMode selector - end ===
 
   // === tab panels - start ===
-  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EUserRoleDB_name>(userDefaultTabs[0].key);
+  const [activeTabPanelKey, setActiveTabPanelKey] = useState<ERoleDB_name>(userDefaultTabs[0].key);
   const [tabPanels, setTabPanels] = useState(userDefaultTabs);
   const newTabPanelIndex = useRef(defaultTabPanels.length);
 
   const onTabsChange = (key: string) => {
-    setActiveTabPanelKey(key as EUserRoleDB_name);
+    setActiveTabPanelKey(key as ERoleDB_name);
   };
 
-  const addTabPanel = (paraSelectedProdMode: EUserRoleDB_name) => {
+  const addTabPanel = (paraSelectedProdMode: ERoleDB_name) => {
     const newTabPanel = defaultTabPanels.find((item) => item.value === paraSelectedProdMode);
 
     if (!newTabPanel) {
@@ -135,14 +137,14 @@ const ProModeWindow = () => {
     setTabPanels([
       ...tabPanels,
       {
-        key: newActiveTabPanelKey as EUserRoleDB_name,
+        key: newActiveTabPanelKey as ERoleDB_name,
         label: `${newActiveTabPanelKey}-${label}`,
         value,
         children,
-        disabled: subscriptionData.name !== ESubscriptionName.NONE ? !userRoles.includes(value) : true,
+        disabled: subscriptionData.name !== ESubscriptionName.NONE ? !serviceCategories.includes(value) : true,
       },
     ]);
-    setActiveTabPanelKey(newActiveTabPanelKey as EUserRoleDB_name);
+    setActiveTabPanelKey(newActiveTabPanelKey as ERoleDB_name);
   };
 
   const removeTabPanel = (targetKey: TargetKey) => {
@@ -207,7 +209,7 @@ const ProModeWindow = () => {
                 return;
               }
 
-              if (!userRoles.includes(selectedProdMode)) {
+              if (!serviceCategories.includes(selectedProdMode)) {
                 message.error('你没有权限使用此面板');
                 return;
               }
