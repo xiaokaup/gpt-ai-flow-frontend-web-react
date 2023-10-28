@@ -32,10 +32,6 @@ export const AppRoutes = () => {
   const { userData, isAuthenticated } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {
-      if (!newUserData_without_token.id) {
-        return;
-      }
-
       dispatch(updateSpecificUserData(newUserData_without_token) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,

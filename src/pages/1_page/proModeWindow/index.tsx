@@ -2,7 +2,7 @@ import '../../../styles/global.css';
 import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -53,10 +53,6 @@ const ProModeWindow = () => {
   const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {
-      if (!newUserData_without_token.id) {
-        return;
-      }
-
       dispatch(updateSpecificUserData(newUserData_without_token) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
@@ -97,9 +93,6 @@ const ProModeWindow = () => {
   });
   // === ProMode Data - end ===
 
-  const userDefaultTabs: ITabPanel[] = [];
-  userDefaultTabs.push(...defaultTabPanels);
-
   // === proMode selector - start ===
   const [selectedProdMode, setSelectedProdMode] = useState<EServiceCategoryDB_name>();
 
@@ -114,9 +107,16 @@ const ProModeWindow = () => {
   // === proMode selector - end ===
 
   // === tab panels - start ===
-  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EServiceCategoryDB_name>(userDefaultTabs[0].key);
-  const [tabPanels, setTabPanels] = useState(userDefaultTabs);
+  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EServiceCategoryDB_name>();
+  const [tabPanels, setTabPanels] = useState<ITabPanel[]>([]);
   const newTabPanelIndex = useRef(defaultTabPanels.length);
+
+  useEffect(() => {
+    if (defaultTabPanels.length > 0) {
+      setActiveTabPanelKey(defaultTabPanels[0].key);
+      setTabPanels(defaultTabPanels);
+    }
+  }, [defaultTabPanels?.length, defaultTabPanels[1]?.disabled]);
 
   const onTabsChange = (key: string) => {
     setActiveTabPanelKey(key as EServiceCategoryDB_name);
