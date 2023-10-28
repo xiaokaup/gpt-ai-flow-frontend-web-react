@@ -5,7 +5,7 @@ import {
   USER_LOGOUT,
   USER_SIGN_UP,
   USER_UPDATE_USER_PASSWORD_V1,
-  UPDATE_ROLES_AND_PERMISSIONS_AND_IS_BETA_USER,
+  UPDATTE_SPECIFIC_USER_DATA,
 } from '../actions/userActions';
 import { IAction } from '../store';
 
@@ -17,15 +17,28 @@ export const userReducer = (state: IUserReducerState = IUserDataFile.IUserData_d
   switch (type) {
     case USER_LOGIN:
       return payload;
-    case UPDATE_ROLES_AND_PERMISSIONS_AND_IS_BETA_USER:
+    case UPDATTE_SPECIFIC_USER_DATA:
       if (state.roles.length === payload.roles?.length) return state;
+      if (state.services.length === payload.services?.length) return state;
+      if (state.serviceCategories.length === payload.serviceCategories?.length) return state;
       if (state.permissions.length === payload.permissions?.length) return state;
       if (state.isBetaUser === payload.isBetaUser) return state;
 
       const newUniqueRoles = Array.from(new Set([...state.roles, ...payload.roles]));
+      const newUniqueServices = Array.from(new Set([...state.services, ...payload.services]));
+      const newUniqueServiceCategories = Array.from(
+        new Set([...state.serviceCategories, ...payload.serviceCategories])
+      );
       const newUniquePermissions = Array.from(new Set([...state.permissions, ...payload.permissions]));
 
-      return { ...state, roles: newUniqueRoles, permissions: newUniquePermissions, isBetaUser: payload.isBetaUser };
+      return {
+        ...state,
+        roles: newUniqueRoles,
+        services: newUniqueServices,
+        serviceCategories: newUniqueServiceCategories,
+        permissions: newUniquePermissions,
+        isBetaUser: payload.isBetaUser,
+      };
     case USER_LOGOUT:
       return IUserDataFile.IUserData_default;
     case USER_UPDATE_USER_PASSWORD_V1:

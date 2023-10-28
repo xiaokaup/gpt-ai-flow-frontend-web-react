@@ -8,7 +8,7 @@ import IUserDataFile, { IUserData } from './gpt-ai-flow-common/interface-app/IUs
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { IReduxRootState } from './store/reducer';
-import { updateRolesAndPermissionsAndIsBetaUserAction } from './store/actions/userActions';
+import { updateSpecificUserData } from './store/actions/userActions';
 // import { CounterComponent } from './CounterComponent';
 
 import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
@@ -36,7 +36,7 @@ export const AppRoutes = () => {
         return;
       }
 
-      dispatch(updateRolesAndPermissionsAndIsBetaUserAction(newUserData_without_token) as any);
+      dispatch(updateSpecificUserData(newUserData_without_token) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });

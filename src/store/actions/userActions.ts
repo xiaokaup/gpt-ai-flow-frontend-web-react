@@ -77,10 +77,10 @@ export const authRegisterByEmailAndPasswordAction_v0 =
     }
   };
 
-export const UPDATE_ROLES_AND_PERMISSIONS_AND_IS_BETA_USER = 'UPDATE_ROLES_AND_PERMISSIONS_AND_IS_BETA_USER';
-export const updateRolesAndPermissionsAndIsBetaUserAction =
+export const UPDATTE_SPECIFIC_USER_DATA = 'UPDATTE_SPECIFIC_USER_DATA';
+export const updateSpecificUserData =
   (newUser: IUserData) => async (dispatch: any, getState: () => IReduxRootState) => {
-    dispatch({ type: UPDATE_ROLES_AND_PERMISSIONS_AND_IS_BETA_USER, payload: newUser });
+    dispatch({ type: UPDATTE_SPECIFIC_USER_DATA, payload: newUser });
   };
 
 export const USER_LOGOUT = 'USER_LOGOUT';
