@@ -63,9 +63,9 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
               {(userData.roles ?? []).join(', ')}
             </Descriptions.Item>
           )}
-          {(userData.permissions ?? []).length > 0 && (
-            <Descriptions.Item label="权限" span={3}>
-              {(userData.permissions ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
+          {(userData.serviceCategories ?? []).length > 0 && (
+            <Descriptions.Item label="服务类型" span={3}>
+              {(userData.serviceCategories ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
             </Descriptions.Item>
           )}
         </Descriptions>
