@@ -1,6 +1,7 @@
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import IUserDBFile, { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
+import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
+import TBackendUserFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
 import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import { IReduxRootState } from '../reducer';
@@ -14,7 +15,7 @@ export const USER_GET_USER_PROFILE_BY_EMAIL_v2 = 'USER_GET_USER_PROFILE_BY_EMAIL
 export const getUserProfileByEmailAction_v2 =
   (email: string, env: IConstantGptAiFlowHandler) => async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const userFound: IUserDB = await TSettingsWindow_2_user.getUserProfileByEmail_v2(email, env);
+      const userFound: IUserDB = await TBackendUserFile.getUserProfileByEmail_v2(email, env);
 
       if (userFound?.id) {
         return new Error('这个电子邮件已经注册');
@@ -51,19 +52,10 @@ export const authLoginByEmailAndPasswordAction =
 
 export const USER_SIGN_UP = 'USER_SIGN_UP';
 export const authRegisterByEmailAndPasswordAction_v0 =
-  (email: string, password: string, first_name: string, last_name: string, env: IConstantGptAiFlowHandler) =>
+  (userDB: IUserDB, env: IConstantGptAiFlowHandler, uniqueCode: string | undefined) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const newUser: IUserDB = await TSettingsWindow_2_user.authRegisterByEmailAndPassword_v0(
-        {
-          ...IUserDBFile.IUserDB_default,
-          email: email,
-          password: password,
-          firstName: first_name,
-          lastName: last_name ?? '',
-        },
-        env
-      );
+      const newUser: IUserDB = await TBackendUserFile.authRegisterByEmailAndPassword_v0(userDB, env, uniqueCode);
 
       if (!newUser?.id) {
         return new Error('注册失败，请再试一次或尝试另一个电子邮件地址');
