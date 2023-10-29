@@ -110,7 +110,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
                     navigate('/login');
                   }}
                 >
-                  登录
+                  返回
                 </Button>
               </span>
             </Form.Item>
