@@ -34,7 +34,12 @@ export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referra
   }, []);
 
   const generateReferralLink = async () => {
-    await TBackendInviteLinkFile.generateInviteLink(userId, accessToken, CONSTANTS_GPT_AI_FLOW_COMMON);
+    const results = await TBackendInviteLinkFile.generateInviteLink(userId, accessToken, CONSTANTS_GPT_AI_FLOW_COMMON);
+
+    if (results.error) {
+      message.warning(results.error?.message);
+    }
+
     init();
   };
 
