@@ -2,7 +2,7 @@ import '../../../styles/global.css';
 
 import React from 'react';
 
-export const SettingsWindow_6_about = () => {
+export const SettingsWindow_7_about = () => {
   return (
     <div
       id="SettingsWindow_6_about"

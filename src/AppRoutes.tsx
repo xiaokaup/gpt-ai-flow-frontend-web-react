@@ -13,14 +13,12 @@ import { updateSpecificUserData } from './store/actions/userActions';
 
 import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
 import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_2_login';
-import { SettingsWindow_2_user_3_info } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_3_info';
 import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
-import { SettingsWindow_1_local } from './pages/1_page/settingsWindow/settingsWindow_1_local';
+
 import ProModeWindow from './pages/1_page/proModeWindow';
-import { SettingsWindow_6_about } from './pages/1_page/settingsWindow/SettingsWindow_6_about';
-import { SettingsWindow_4_proMode } from './pages/1_page/settingsWindow/settingsWindow_4_proMode';
 import { LogoutPage } from './pages/1_page/LogoutPage';
+import { SettingsWindow } from './pages/1_page/settingsWindow';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -74,10 +72,7 @@ export const AppRoutes = () => {
       path: '/info',
       element: (
         <AppLayout isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
-          <SettingsWindow_1_local />
-          <SettingsWindow_6_about />
-          <SettingsWindow_4_proMode />
+          <SettingsWindow userData={userData} isAuthenticated={isAuthenticated} />
         </AppLayout>
       ),
     },
