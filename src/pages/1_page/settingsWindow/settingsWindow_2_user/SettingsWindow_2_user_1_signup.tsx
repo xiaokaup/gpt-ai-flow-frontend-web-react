@@ -1,7 +1,7 @@
 import '../../../../styles/global.css';
 
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxRootState } from 'store/reducer';
@@ -30,6 +30,8 @@ interface IUserRegisterForm {
 export const SettingsWindow_2_user_1_signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const query = new URLSearchParams(useLocation().search);
+  const uniqueCodeFromUrl = query.get('uniqueCode');
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -114,7 +116,7 @@ export const SettingsWindow_2_user_1_signup = () => {
       <div className="row">
         <Form
           name="basic"
-          initialValues={{ remember: true }}
+          initialValues={{ uniqueCode: uniqueCodeFromUrl }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           style={{ width: 300 }}
