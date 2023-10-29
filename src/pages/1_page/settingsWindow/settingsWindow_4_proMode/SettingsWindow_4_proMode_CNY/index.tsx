@@ -32,20 +32,24 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
     stripeCustomerId = '',
   } = userData;
+  const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(
+    !!(subscription as ISubscriptionDB)?.id
+  );
+
+  useEffect(() => {
+    setHasAnyoneSubscriptionRecord(!!(userData.subscription as ISubscriptionDB)?.id);
+  }, [userData.subscription.name, userData.subscription.version, userData.subscription.expiredAt]);
 
   const {
     subscriptionMixData: subscriptionDataFromStorage,
     // check: { hasNoAvailableSubscription },
   } = useSubscriptionDataOutput;
-  const [hasAnyoneSubscriptionRecord, setHasAnyoneSubscriptionRecord] = useState<boolean>(
-    !!(subscription as ISubscriptionDB)?.id
-  );
   const [subscriptionData, setSubscriptionData] = useState<ISubscirptionMix>(subscriptionDataFromStorage);
   const isExpired = new Date(subscriptionData?.expiredAt) < new Date();
 
   useEffect(() => {
     setSubscriptionData(subscriptionDataFromStorage);
-  }, [subscriptionDataFromStorage]);
+  }, [subscriptionDataFromStorage.name, subscriptionDataFromStorage.version, subscriptionDataFromStorage.expiredAt]);
 
   const startATrialSubscription = async () => {
     if (!userId) {

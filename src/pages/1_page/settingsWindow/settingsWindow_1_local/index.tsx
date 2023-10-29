@@ -65,24 +65,12 @@ export const SettingsWindow_1_local = () => {
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: `基本`,
-      children: <SettingsWindow_1_local_basic subscriptionData={subscriptionData} />,
+      children: <SettingsWindow_1_local_basic userData={userData} subscriptionData={subscriptionData} />,
     },
   ];
 
   return (
-    <div
-      id="SettingsWIndow_1_local"
-      className="row"
-      style={{
-        marginTop: 12,
-        marginLeft: 12,
-        padding: '2rem',
-        background: '#fff',
-        border: '1px solid #E8E8E8',
-        borderRadius: '.4rem',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05)',
-      }}
-    >
+    <div id="SettingsWIndow_1_local" className="row">
       <Tabs
         defaultActiveKey={selectedTabKey}
         items={tabItems}

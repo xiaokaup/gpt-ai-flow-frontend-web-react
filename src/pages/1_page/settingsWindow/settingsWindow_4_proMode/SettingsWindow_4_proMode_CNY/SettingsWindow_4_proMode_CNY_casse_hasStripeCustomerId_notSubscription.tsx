@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card } from 'antd';
+import { Alert, Card } from 'antd';
 
 import TStripeConstant, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -17,6 +17,9 @@ export const SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscript
 
   return (
     <div className="row">
+      <div className="row">
+        <Alert message={<span>如果更换订阅类型过程中出现无法访问的情况，请尝试重新登录用户账号</span>} type="info" />
+      </div>
       <div className="row">
         <div className="row">
           <h3>月</h3>

@@ -12,10 +12,11 @@ import { saveLocalAction } from '../../../../store/actions/localActions';
 import { EOpenAiModel } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
 import { ESubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { ISubscirptionMix } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import TSubscriptionMixFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscriptionMix';
 
-const getModelTypeOptions = (subscriptionData: ISubscirptionMix) => {
-  const { isBetaUser } = subscriptionData;
+const getModelTypeOptions = (userData: IUserData, subscriptionData: ISubscirptionMix) => {
+  const { isBetaUser } = userData;
   const { hasAvailableSubscription } = TSubscriptionMixFile.checkSubscriptionAvailability(subscriptionData);
   const hasAccessGPT_4 = hasAvailableSubscription || isBetaUser;
 
@@ -50,12 +51,13 @@ const getModelTypeOptions = (subscriptionData: ISubscirptionMix) => {
 };
 
 interface ISettingsWindow_1_local_basic_input {
+  userData: IUserData;
   subscriptionData: ISubscirptionMix;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { subscriptionData } = props;
+  const { userData, subscriptionData } = props;
 
   const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -147,7 +149,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={getModelTypeOptions(subscriptionData)}
+          options={getModelTypeOptions(userData, subscriptionData)}
         />
       </div>
       <div className="row" style={{ marginTop: '.75rem' }}>

@@ -1,26 +1,37 @@
 import '../../../../styles/global.css';
 
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxRootState } from 'store/reducer';
+
+import { Button, Form, Input, Tooltip, message } from 'antd';
+import { MailOutlined, LockOutlined, UserOutlined, TeamOutlined, InfoCircleOutlined } from '@ant-design/icons';
+
 import {
   authRegisterByEmailAndPasswordAction_v0,
   getUserProfileByEmailAction_v2,
 } from '../../../../store/actions/userActions';
 
-import { Button, Form, Input, message } from 'antd';
-import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
-
-import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
-import React, { useEffect } from 'react';
+import { IUserDB, IUserDB_default } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 
+interface IUserRegisterForm {
+  email: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+  confirm_password: string;
+  uniqueCode?: string;
+}
 export const SettingsWindow_2_user_1_signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const query = new URLSearchParams(useLocation().search);
+  const uniqueCodeFromUrl = query.get('uniqueCode');
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -38,18 +49,12 @@ export const SettingsWindow_2_user_1_signup = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: IUserRegisterForm) => {
     try {
       if (values.confirm_password !== values.password) {
         message.error('请确认两次输入的密码是相同的');
         return;
       }
-
-      // const userFound: IUserDB = await TSettingsWindow_2_user.getUserProfileByEmail_v2(
-      //   values.email,
-      //   // window.env
-      //   {}
-      // );
 
       const userFound: IUserDB = (await dispatch(
         getUserProfileByEmailAction_v2(values.email, CONSTANTS_GPT_AI_FLOW_COMMON) as any
@@ -61,11 +66,15 @@ export const SettingsWindow_2_user_1_signup = () => {
 
       const newUser = await dispatch(
         authRegisterByEmailAndPasswordAction_v0(
-          values.email,
-          values.password,
-          values.first_name,
-          values.last_name,
-          CONSTANTS_GPT_AI_FLOW_COMMON
+          {
+            ...IUserDB_default,
+            email: values.email,
+            password: values.password,
+            firstName: values.first_name,
+            lastName: values.last_name ?? '',
+          },
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+          values.uniqueCode
         ) as any
       );
 
@@ -107,7 +116,7 @@ export const SettingsWindow_2_user_1_signup = () => {
       <div className="row">
         <Form
           name="basic"
-          initialValues={{ remember: true }}
+          initialValues={{ uniqueCode: uniqueCodeFromUrl }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           style={{ width: 300 }}
@@ -165,6 +174,19 @@ export const SettingsWindow_2_user_1_signup = () => {
             <Input.Password prefix={<LockOutlined />} placeholder={'确认密码'} />
           </Form.Item>
 
+          <Form.Item name="uniqueCode">
+            <Input
+              prefix={<TeamOutlined />}
+              placeholder={'邀请码(可选)'}
+              maxLength={6}
+              suffix={
+                <Tooltip title="请确保邀请码是有效的">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+          </Form.Item>
+
           <Form.Item>
             <div>
               <Button className="sign_up_with_password_provider_button" type="primary" htmlType="submit">
@@ -177,7 +199,7 @@ export const SettingsWindow_2_user_1_signup = () => {
                     navigate('/login');
                   }}
                 >
-                  登录
+                  返回
                 </Button>
               </span>
             </div>
