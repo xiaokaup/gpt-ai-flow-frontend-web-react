@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxRootState } from 'store/reducer';
 
-import { Button, Form, Input, message } from 'antd';
-import { MailOutlined, LockOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Tooltip, message } from 'antd';
+import { MailOutlined, LockOutlined, UserOutlined, TeamOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 import {
   authRegisterByEmailAndPasswordAction_v0,
@@ -175,7 +175,16 @@ export const SettingsWindow_2_user_1_signup = () => {
           </Form.Item>
 
           <Form.Item name="uniqueCode">
-            <Input prefix={<TeamOutlined />} placeholder={'邀请码(可选)'} maxLength={6} />
+            <Input
+              prefix={<TeamOutlined />}
+              placeholder={'邀请码(可选)'}
+              maxLength={6}
+              suffix={
+                <Tooltip title="请确保邀请码是有效的">
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
           </Form.Item>
 
           <Form.Item>
