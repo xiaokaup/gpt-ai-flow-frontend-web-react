@@ -1,7 +1,7 @@
 import TBackendProModeDataFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendProModeData';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IReduxRootState } from '../reducer';
-import { IProMode_v2 } from '../../gpt-ai-flow-common/interface-backend/IProMode_v2';
+import { IProMode_v3 } from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { EServiceCategoryDB_name } from '../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 
 export const SYNC_PROMODE_DATA = 'SYNC_PROMODE_DATA';
@@ -27,6 +27,6 @@ export const sync_proModeDataAction =
 
 export const UPDATE_PROMODE_DATA = 'UPDATE_PROMODE_DATA';
 export const updateProModeDataAction =
-  (newPromodeSetData: Omit<IProMode_v2, EServiceCategoryDB_name.DEFAULT>) => async (dispatch: any) => {
+  (newPromodeSetData: Omit<IProMode_v3, EServiceCategoryDB_name.DEFAULT>) => async (dispatch: any) => {
     dispatch({ type: UPDATE_PROMODE_DATA, payload: newPromodeSetData });
   };

@@ -7,9 +7,12 @@ export const SettingsWindow_7_about = () => {
     <div id="SettingsWindow_6_about" className="container">
       <div id="settingsWindowContainer" className="container" style={{ padding: '8px 10px' }}>
         <div className="row">
-          官方网站: <a href="https://gptaiflow.com">gptaiflow.com</a>
+          官方网站: <a href="https://www.gptaiflow.com">www.gptaiflow.com</a>
           <br />
-          常见问题: <a href="https://www.gptaiflow.com/docs/proudct/faq">点击这里</a>
+          常见问题:{' '}
+          <a href="https://www.gptaiflow.com/docs/proudct/gpt-ai-flow-guide-and-faq">
+            www.gptaiflow.com/docs/proudct/gpt-ai-flow-guide-and-faq
+          </a>
         </div>
         <div className="row">
           如有任何反馈(bug 或 建议), 请发送至邮箱 <a href="mailto:hello@gptaiflow.com">hello@gptaiflow.com</a> 或通过{' '}
