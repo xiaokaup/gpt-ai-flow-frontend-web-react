@@ -11,9 +11,9 @@ import iconWrong from '../../../../../assets/icons-customize/icon-status-wrong/i
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
 import { IProMode_v3_oneProMode } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import {
-  EProMode_v3_02_copyWritingManager_contextType,
-  EProMode_v3_02_copyWritingManager_contextTypeStage,
-} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_02_copyWritingManager';
+  EProMode_v3_06_careerManager_contextType,
+  EProMode_v3_06_careerManager_contextTypeStage,
+} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_06_careerManager';
 import {
   IProMode_v3_contextTypes,
   IProMode_v3_contextTypeStages,
@@ -21,14 +21,15 @@ import {
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
-interface IProModePage_copyWriting_input {
+
+interface IProModePage_career_input {
   PROMODE_DATA: IProMode_v3_oneProMode<
-    EProMode_v3_02_copyWritingManager_contextType,
-    EProMode_v3_02_copyWritingManager_contextTypeStage
+    EProMode_v3_06_careerManager_contextType,
+    EProMode_v3_06_careerManager_contextTypeStage
   >;
 }
 
-export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_input) => {
+export const ProModePage_v3_06_careerManager = (props: IProModePage_career_input) => {
   const { PROMODE_DATA } = props;
 
   const DEFAULT_CONTEXT_TYPE = PROMODE_DATA.default.defaultContextType;
@@ -60,9 +61,9 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
   // === Search trigger for all children component - end ===
 
   // === Context input - start ===
-  const [contextType, setContextType] = useState<EProMode_v3_02_copyWritingManager_contextType>(defaultContextType);
+  const [contextType, setContextType] = useState<EProMode_v3_06_careerManager_contextType>(defaultContextType);
   const [contextTypeStage, setContextTypeStage] =
-    useState<EProMode_v3_02_copyWritingManager_contextTypeStage>(defaultContextTypeStage);
+    useState<EProMode_v3_06_careerManager_contextTypeStage>(defaultContextTypeStage);
   const [defautContext, setDefaultContext] = useState<string>(
     contextPrompts[contextType].stages[contextTypeStage].defaultValue
   );
@@ -74,7 +75,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
-  const handleContextTypeChange = (paraContextType: EProMode_v3_02_copyWritingManager_contextType) => {
+  const handleContextTypeChange = (paraContextType: EProMode_v3_06_careerManager_contextType) => {
     console.log(`selected ${paraContextType}`);
     setContextType(paraContextType);
     const selectedDefaultValue = contextPrompts[paraContextType].stages[contextTypeStage].defaultValue;
@@ -88,7 +89,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
     }
   };
 
-  const handleContextTypeStageChange = (paraContextTypeStage: EProMode_v3_02_copyWritingManager_contextTypeStage) => {
+  const handleContextTypeStageChange = (paraContextTypeStage: EProMode_v3_06_careerManager_contextTypeStage) => {
     console.log(`selected ${paraContextTypeStage}`);
     setContextTypeStage(paraContextTypeStage);
     const selectedDefaultValue = contextPrompts[contextType].stages[paraContextTypeStage].defaultValue;
@@ -141,7 +142,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
               onChange={handleContextTypeChange}
               options={defaultContextTypesForSelect.map((item) => {
                 return {
-                  label: contextPrompts[item as EProMode_v3_02_copyWritingManager_contextType].name,
+                  label: contextPrompts[item as EProMode_v3_06_careerManager_contextType].name,
                   value: item,
                 };
               })}
@@ -155,8 +156,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
               onChange={handleContextTypeStageChange}
               options={defaultContextTypeStagesForSelect.map((item) => {
                 return {
-                  label:
-                    contextPrompts[contextType].stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage].name,
+                  label: contextPrompts[contextType].stages[item as EProMode_v3_06_careerManager_contextTypeStage].name,
                   value: item,
                 };
               })}

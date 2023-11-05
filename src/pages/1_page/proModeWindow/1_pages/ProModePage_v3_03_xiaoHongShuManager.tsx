@@ -29,7 +29,7 @@ interface IProModePage_xiaoHongShu_input {
   >;
 }
 
-export const ProModePage_v3_03_xiaoHongShu = (props: IProModePage_xiaoHongShu_input) => {
+export const ProModePage_v3_03_xiaoHongShuManager = (props: IProModePage_xiaoHongShu_input) => {
   const { PROMODE_DATA } = props;
 
   const DEFAULT_CONTEXT_TYPE = PROMODE_DATA.default.defaultContextType;

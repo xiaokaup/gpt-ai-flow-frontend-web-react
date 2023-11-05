@@ -16,16 +16,17 @@ import { IReduxRootState } from '../../../store/reducer/index';
 import { updateProModeDataAction } from '../../../store/actions/proModeActions';
 import { userLogoutAction } from '../../../store/actions/userActions';
 
-import { ProModePage_v3_01_communicationManager } from './1_pages/ProModePage_communication';
-import { ProModePage_v3_02_copyWriting } from './1_pages/ProModePage_copyWriting';
-import { ProModePage_v3_03_xiaoHongShu } from './1_pages/ProModePage_xiaoHongShu';
-import { ProModePage_v3_04_aiAssistant } from './1_pages/ProModePage_ai';
-import { ProModePage_v3_05_commentManager } from './1_pages/ProModePage_comment';
-import { ProModePage_v3_06_career } from './1_pages/ProModePage_career';
-import { ProModePage_v3_07_upZhu } from './1_pages/ProModePage_upZhu';
-import { ProModePage_v3_08_productManager } from './1_pages/ProModePage_productManager';
-import { ProModePage_v3_09_marketingManager } from './1_pages/ProModePage_marketingExpert';
-import { ProModePage_v3_10_seoManager } from './1_pages/ProModePage_seo';
+import { ProModePage_v3_01_communicationManager } from './1_pages/ProModePage_v3_01_communicationManager';
+import { ProModePage_v3_02_copyWritingManager } from './1_pages/ProModePage_v3_02_copyWritingManager';
+import { ProModePage_v3_03_xiaoHongShuManager } from './1_pages/ProModePage_v3_03_xiaoHongShuManager';
+import { ProModePage_v3_04_aiAssistant } from './1_pages/ProModePage_v3_04_aiAssistant';
+import { ProModePage_v3_05_commentManager } from './1_pages/ProModePage_v3_05_commentManager';
+import { ProModePage_v3_06_careerManager } from './1_pages/ProModePage_v3_06_careerManager';
+import { ProModePage_v3_07_upZhu } from './1_pages/ProModePage_v3_07_upZhu';
+import { ProModePage_v3_08_productManager } from './1_pages/ProModePage_v3_08_productManager';
+import { ProModePage_v3_09_marketingManager } from './1_pages/ProModePage_v3_09_marketingManager';
+import { ProModePage_v3_10_seoManager } from './1_pages/ProModePage_v3_10_seoManager';
+import { ProModePage_v3_11_customerAssistant } from './1_pages/ProModePage_v3_11_customerAssistant';
 
 import { ITabPanel } from '.';
 import {
@@ -168,7 +169,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       label: PROMODE_COPY_WRITING_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.COPY_WRITING_MANAGER,
       children: (
-        <ProModePage_v3_02_copyWriting
+        <ProModePage_v3_02_copyWritingManager
           PROMODE_DATA={
             PROMODE_COPY_WRITING_DATA as IProMode_v3_oneProMode<
               EProMode_v3_02_copyWritingManager_contextType,
@@ -184,7 +185,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       label: PROMODE_XIAO_HONG_SHU_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER,
       children: (
-        <ProModePage_v3_03_xiaoHongShu
+        <ProModePage_v3_03_xiaoHongShuManager
           PROMODE_DATA={
             PROMODE_XIAO_HONG_SHU_DATA as IProMode_v3_oneProMode<
               EProMode_v3_03_xiaoHongShuManager_contextType,
@@ -211,22 +212,22 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.AI_ASSISTANT),
     },
-    // {
-    //   key: EServiceCategoryDB_name.CUSTOMER_ASSISTANT,
-    //   label: PROMODE_CUSTOMER_ASSISTANT_DATA.tabInfo.name,
-    //   value: EServiceCategoryDB_name.CUSTOMER_ASSISTANT,
-    //   children: (
-    //     <ProModePage_v3_11_customerAssistant
-    //       PROMODE_DATA={
-    //         PROMODE_CUSTOMER_ASSISTANT_DATA as IProMode_v3_oneProMode<
-    //           EProMode_v3_11_customerAssistant_contextType,
-    //           EProMode_v3_11_customerAssistant_contextTypeStage
-    //         >
-    //       }
-    //     />
-    //   ),
-    //   disabled: !serviceCategories.includes(EServiceCategoryDB_name.CUSTOMER_ASSISTANT),
-    // },
+    {
+      key: EServiceCategoryDB_name.CUSTOMER_ASSISTANT,
+      label: PROMODE_CUSTOMER_ASSISTANT_DATA.tabInfo.name,
+      value: EServiceCategoryDB_name.CUSTOMER_ASSISTANT,
+      children: (
+        <ProModePage_v3_11_customerAssistant
+          PROMODE_DATA={
+            PROMODE_CUSTOMER_ASSISTANT_DATA as IProMode_v3_oneProMode<
+              EProMode_v3_11_customerAssistant_contextType,
+              EProMode_v3_11_customerAssistant_contextTypeStage
+            >
+          }
+        />
+      ),
+      disabled: !serviceCategories.includes(EServiceCategoryDB_name.CUSTOMER_ASSISTANT),
+    },
     {
       key: EServiceCategoryDB_name.COMMENT_MANAGER,
       label: PROMODE_COMMENT_DATA.tabInfo.name,
@@ -248,7 +249,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       label: PROMODE_CAREER_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.CAREER_MANAGER,
       children: (
-        <ProModePage_v3_06_career
+        <ProModePage_v3_06_careerManager
           PROMODE_DATA={
             PROMODE_CAREER_DATA as IProMode_v3_oneProMode<
               EProMode_v3_06_careerManager_contextType,
