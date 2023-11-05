@@ -9,33 +9,33 @@ import iconSuccessful from '../../../../../assets/icons-customize/icon-status-su
 import iconWrong from '../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
-
 import {
-  IProMode_v2_values,
   IProMode_v2_oneProMode,
+  IProMode_v2_values,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
+import { EProMode_v2_aiAssistant_contextType } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_4_aiAssistant';
 import { IProMode_v2_ContextTypes } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/index_contextTypes';
-import { EProMode_v2_copyWritingManager_contextType } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_2_copyWritingManager';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
 import { IProMode_v3_oneProMode } from 'gpt-ai-flow-common/interface-backend/IProMode_v3';
 import {
-  EProMode_v3_02_copyWritingManager_contextType,
-  EProMode_v3_02_copyWritingManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_02_copyWritingManager';
-import {
   IProMode_v3_contextTypes,
   IProMode_v3_contextTypeStages,
 } from 'gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
+import {
+  EProMode_v3_11_customerAssistant_contextType,
+  EProMode_v3_11_customerAssistant_contextTypeStage,
+} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_11_customerAssistant';
+
 interface IProModePage_copyWriting_input {
   PROMODE_DATA: IProMode_v3_oneProMode<
-    EProMode_v3_02_copyWritingManager_contextType,
-    EProMode_v3_02_copyWritingManager_contextTypeStage
+    EProMode_v3_11_customerAssistant_contextType,
+    EProMode_v3_11_customerAssistant_contextTypeStage
   >;
 }
 
-export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_input) => {
+export const ProModePage_v3_11_customerAssistant = (props: IProModePage_copyWriting_input) => {
   const { PROMODE_DATA } = props;
 
   const DEFAULT_CONTEXT_TYPE = PROMODE_DATA.default.defaultContextType;
@@ -67,13 +67,13 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
   // === Search trigger for all children component - end ===
 
   // === Context input - start ===
-  const [contextType, setContextType] = useState<EProMode_v3_02_copyWritingManager_contextType>(defaultContextType);
+  const [contextType, setContextType] = useState<EProMode_v3_11_customerAssistant_contextType>(defaultContextType);
   const [contextTypeStage, setContextTypeStage] =
-    useState<EProMode_v3_02_copyWritingManager_contextTypeStage>(defaultContextTypeStage);
-  const [defautContext, setDefaultContext] = useState<string>(
+    useState<EProMode_v3_11_customerAssistant_contextTypeStage>(defaultContextTypeStage);
+  const [defaultContext, setDefaultContext] = useState<string>(
     contextPrompts[contextType].stages[contextTypeStage].defaultValue
   );
-  const defaultContextHavePlaceHolder = TString.hasPlaceholder(defautContext);
+  const defaultContextHavePlaceHolder = TString.hasPlaceholder(defaultContext);
   const [contextHandled, setContextHandled] = useState<string>(
     contextPrompts[contextType].stages[contextTypeStage].value
   );
@@ -81,7 +81,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
-  const handleContextTypeChange = (paraContextType: EProMode_v3_02_copyWritingManager_contextType) => {
+  const handleContextTypeChange = (paraContextType: EProMode_v3_11_customerAssistant_contextType) => {
     console.log(`selected ${paraContextType}`);
     setContextType(paraContextType);
     const selectedDefaultValue = contextPrompts[paraContextType].stages[contextTypeStage].defaultValue;
@@ -95,7 +95,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
     }
   };
 
-  const handleContextTypeStageChange = (paraContextTypeStage: EProMode_v3_02_copyWritingManager_contextTypeStage) => {
+  const handleContextTypeStageChange = (paraContextTypeStage: EProMode_v3_11_customerAssistant_contextTypeStage) => {
     console.log(`selected ${paraContextTypeStage}`);
     setContextTypeStage(paraContextTypeStage);
     const selectedDefaultValue = contextPrompts[contextType].stages[paraContextTypeStage].defaultValue;
@@ -148,7 +148,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
               onChange={handleContextTypeChange}
               options={defaultContextTypesForSelect.map((item) => {
                 return {
-                  label: contextPrompts[item as EProMode_v3_02_copyWritingManager_contextType].name,
+                  label: contextPrompts[item as EProMode_v3_11_customerAssistant_contextType].name,
                   value: item,
                 };
               })}
@@ -163,7 +163,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
               options={defaultContextTypeStagesForSelect.map((item) => {
                 return {
                   label:
-                    contextPrompts[contextType].stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage].name,
+                    contextPrompts[contextType].stages[item as EProMode_v3_11_customerAssistant_contextTypeStage].name,
                   value: item,
                 };
               })}
@@ -187,7 +187,7 @@ export const ProModePage_v3_02_copyWriting = (props: IProModePage_copyWriting_in
         )} */}
         <DynamicFormForContextPrompt
           containerStyle={showContextInputs ? {} : { display: 'none' }}
-          contextPromptWithPlaceholder={defautContext}
+          contextPromptWithPlaceholder={defaultContext}
           setHandledContextPrompt={setContextHandled}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />

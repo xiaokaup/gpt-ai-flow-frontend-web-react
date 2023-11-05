@@ -18,18 +18,37 @@ import { EProMode_v2_productManager_contextType } from '../../../../gpt-ai-flow-
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
+import { IProMode_v3_oneProMode } from 'gpt-ai-flow-common/interface-backend/IProMode_v3';
+import {
+  EProMode_v3_08_productManager_contextType,
+  EProMode_v3_08_productManager_contextTypeStage,
+} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_08_productManager';
+import {
+  IProMode_v3_contextTypes,
+  IProMode_v3_contextTypeStages,
+} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
 
 interface IProModePage_copyWriting_input {
-  PROMODE_DATA: IProMode_v2_values;
-  DEFAULT_CONTEXT_TYPE: IProMode_v2_ContextTypes;
-  defaultContextTypesForSelect: IProMode_v2_ContextTypes[];
+  PROMODE_DATA: IProMode_v3_oneProMode<
+    EProMode_v3_08_productManager_contextType,
+    EProMode_v3_08_productManager_contextTypeStage
+  >;
 }
 
-export const ProModePage_productManager = (props: IProModePage_copyWriting_input) => {
-  const { PROMODE_DATA, DEFAULT_CONTEXT_TYPE, defaultContextTypesForSelect } = props;
+export const ProModePage_v3_08_productManager = (props: IProModePage_copyWriting_input) => {
+  const { PROMODE_DATA } = props;
 
-  const proModeData = PROMODE_DATA as IProMode_v2_oneProMode<EProMode_v2_productManager_contextType>;
-  const defaultContextType = DEFAULT_CONTEXT_TYPE as EProMode_v2_productManager_contextType;
+  const DEFAULT_CONTEXT_TYPE = PROMODE_DATA.default.defaultContextType;
+  const DEFAULT_CONTEXT_TYPE_STAGE = PROMODE_DATA.default.defaultContextTypeStage;
+
+  const proModeData = PROMODE_DATA;
+  const defaultContextType = DEFAULT_CONTEXT_TYPE;
+  const defaultContextTypeStage = DEFAULT_CONTEXT_TYPE_STAGE;
+  const contextPrompts = proModeData.context;
+  const defaultContextTypesForSelect = Object.keys(contextPrompts) as IProMode_v3_contextTypes[];
+  const defaultContextTypeStagesForSelect = Object.keys(
+    contextPrompts[defaultContextType].stages
+  ) as IProMode_v3_contextTypeStages[];
 
   // console.log('props', props);
 
@@ -48,29 +67,47 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
   // === Search trigger for all children component - end ===
 
   // === Context input - start ===
-  const contextPrompts = proModeData.context;
-
-  const [contextType, setContextType] = useState<EProMode_v2_productManager_contextType>(defaultContextType);
-  const [contextPrompt, setContextPrompt] = useState<string>(contextPrompts[contextType].value);
-  const contextPromptHavePlaceHolder = TString.hasPlaceholder(contextPrompt);
-  const [handledContextPrompt, setHandledContextPrompt] = useState<string>(contextPrompts[contextType].value);
+  const [contextType, setContextType] = useState<EProMode_v3_08_productManager_contextType>(defaultContextType);
+  const [contextTypeStage, setContextTypeStage] =
+    useState<EProMode_v3_08_productManager_contextTypeStage>(defaultContextTypeStage);
+  const [defautContext, setDefaultContext] = useState<string>(
+    contextPrompts[contextType].stages[contextTypeStage].defaultValue
+  );
+  const defaultContextHavePlaceHolder = TString.hasPlaceholder(defautContext);
+  const [contextHandled, setContextHandled] = useState<string>(
+    contextPrompts[contextType].stages[contextTypeStage].value
+  );
 
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
 
-  const handleContextTypeChange = (paraContextPromptType: EProMode_v2_productManager_contextType) => {
-    console.log(`selected ${paraContextPromptType}`);
-    setContextType(paraContextPromptType);
-    setContextPrompt(contextPrompts[paraContextPromptType].value);
-    setHandledContextPrompt(contextPrompts[paraContextPromptType].value);
+  const handleContextTypeChange = (paraContextType: EProMode_v3_08_productManager_contextType) => {
+    console.log(`selected ${paraContextType}`);
+    setContextType(paraContextType);
+    const selectedDefaultValue = contextPrompts[paraContextType].stages[contextTypeStage].defaultValue;
+    setDefaultContext(selectedDefaultValue);
+    setContextHandled(contextPrompts[paraContextType].stages[contextTypeStage].value);
 
     setIsContextInputsDirty(false);
 
-    if (TString.hasPlaceholder(contextPrompts[paraContextPromptType].defaultValue)) {
+    if (TString.hasPlaceholder(selectedDefaultValue)) {
       message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
     }
   };
 
+  const handleContextTypeStageChange = (paraContextTypeStage: EProMode_v3_08_productManager_contextTypeStage) => {
+    console.log(`selected ${paraContextTypeStage}`);
+    setContextTypeStage(paraContextTypeStage);
+    const selectedDefaultValue = contextPrompts[contextType].stages[paraContextTypeStage].defaultValue;
+    setDefaultContext(selectedDefaultValue);
+    setContextHandled(contextPrompts[contextType].stages[paraContextTypeStage].value);
+
+    setIsContextInputsDirty(false);
+
+    if (TString.hasPlaceholder(selectedDefaultValue)) {
+      message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
+    }
+  };
   // === Context input - end ===
 
   return (
@@ -97,30 +134,47 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
             获取全部结果
           </Button>
         </div>
-        <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
-          场景
-          {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
-          {!isContextInputsDirty && (
-            <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
-          )}
-          :
-          <Select
-            defaultValue={contextType}
-            style={{ width: 150, marginLeft: '.4rem' }}
-            onChange={handleContextTypeChange}
-            options={defaultContextTypesForSelect.map((item) => {
-              return {
-                label: contextPrompts[item as EProMode_v2_productManager_contextType].name,
-                value: item,
-              };
-            })}
-          />{' '}
-          {contextPromptHavePlaceHolder && !showContextInputs && (
-            <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
-          )}
-          {contextPromptHavePlaceHolder && showContextInputs && (
-            <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(false)} />
-          )}
+        <div className="column" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
+            场景
+            {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
+            {!isContextInputsDirty && (
+              <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
+            )}
+            :
+            <Select
+              defaultValue={contextType}
+              style={{ width: 150, marginLeft: '.4rem' }}
+              onChange={handleContextTypeChange}
+              options={defaultContextTypesForSelect.map((item) => {
+                return {
+                  label: contextPrompts[item as EProMode_v3_08_productManager_contextType].name,
+                  value: item,
+                };
+              })}
+            />
+          </div>
+          <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
+            阶段 :
+            <Select
+              defaultValue={contextTypeStage}
+              style={{ width: 150, marginLeft: '.4rem' }}
+              onChange={handleContextTypeStageChange}
+              options={defaultContextTypeStagesForSelect.map((item) => {
+                return {
+                  label:
+                    contextPrompts[contextType].stages[item as EProMode_v3_08_productManager_contextTypeStage].name,
+                  value: item,
+                };
+              })}
+            />{' '}
+            {defaultContextHavePlaceHolder && !showContextInputs && (
+              <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
+            )}
+            {defaultContextHavePlaceHolder && showContextInputs && (
+              <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(false)} />
+            )}
+          </div>
         </div>
       </div>
 
@@ -133,8 +187,8 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
         )} */}
         <DynamicFormForContextPrompt
           containerStyle={showContextInputs ? {} : { display: 'none' }}
-          contextPromptWithPlaceholder={contextPrompt}
-          setHandledContextPrompt={setHandledContextPrompt}
+          contextPromptWithPlaceholder={defautContext}
+          setHandledContextPrompt={setContextHandled}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>
@@ -146,10 +200,10 @@ export const ProModePage_productManager = (props: IProModePage_copyWriting_input
               <ProModeAIFlowRow_v3
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
-                handledContextPrompt={handledContextPrompt}
-                defaulInstructionAiCommands={proModeData.instruction[contextType]}
-                defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType]}
-                aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType]}
+                handledContextPrompt={contextHandled}
+                defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage]}
+                defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage]}
+                aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType][contextTypeStage]}
               />
               <hr style={{ margin: 10 }} />
             </div>
