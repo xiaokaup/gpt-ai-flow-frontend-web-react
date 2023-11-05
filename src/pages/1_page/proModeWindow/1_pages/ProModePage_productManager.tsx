@@ -13,7 +13,7 @@ import {
   IProMode_v2_values,
   IProMode_v2_oneProMode,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
-import { IProMode_v2_ContextTypes } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_contextTypes';
+import { IProMode_v2_ContextTypes } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/index_contextTypes';
 import { EProMode_v2_productManager_contextType } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_8_productManager';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';

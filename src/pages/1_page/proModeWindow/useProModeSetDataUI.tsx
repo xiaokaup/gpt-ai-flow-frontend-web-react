@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 import IProMode_v2File, { IProMode_v2 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
-import { IProMode_v2_ContextTypes } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_contextTypes';
+import { IProMode_v2_ContextTypes } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v2/index_contextTypes';
 import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';

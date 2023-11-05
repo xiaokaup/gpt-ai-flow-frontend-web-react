@@ -14,7 +14,7 @@ import {
   IProMode_v2_values,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
 import { EProMode_v2_xiaoHongShuManager_contextType } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_3_xiaoHongShuManager';
-import { IProMode_v2_ContextTypes } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_contextTypes';
+import { IProMode_v2_ContextTypes } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/index_contextTypes';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
