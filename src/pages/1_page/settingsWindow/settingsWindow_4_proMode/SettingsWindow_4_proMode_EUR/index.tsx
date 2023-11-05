@@ -39,7 +39,12 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
 
   useEffect(() => {
     setHasAnyoneSubscriptionRecord(!!(userData.subscription as ISubscriptionDB)?.id);
-  }, [userData.subscription.name, userData.subscription.version, userData.subscription.expiredAt]);
+  }, [
+    (userData.subscription as ISubscriptionDB).id,
+    userData.subscription.name,
+    userData.subscription.version,
+    userData.subscription.expiredAt,
+  ]);
 
   const {
     init: initStripeSubscriptionInfo,
