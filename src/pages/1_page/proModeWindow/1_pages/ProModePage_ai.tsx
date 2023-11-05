@@ -9,24 +9,18 @@ import iconSuccessful from '../../../../../assets/icons-customize/icon-status-su
 import iconWrong from '../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
-import {
-  IProMode_v2_oneProMode,
-  IProMode_v2_values,
-} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2';
-import { EProMode_v2_aiAssistant_contextType } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/IProMode_v2_4_aiAssistant';
-import { IProMode_v2_ContextTypes } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v2/index_contextTypes';
-
-import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
-import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
-import { IProMode_v3_oneProMode } from 'gpt-ai-flow-common/interface-backend/IProMode_v3';
+import { IProMode_v3_oneProMode } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import {
   EProMode_v3_04_aiAssistant_contextType,
   EProMode_v3_04_aiAssistant_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_04_aiAssistant';
+} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_04_aiAssistant';
 import {
   IProMode_v3_contextTypes,
   IProMode_v3_contextTypeStages,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
+} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
+
+import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
+import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
 
 interface IProModePage_copyWriting_input {
   PROMODE_DATA: IProMode_v3_oneProMode<
