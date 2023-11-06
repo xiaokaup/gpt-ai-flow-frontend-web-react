@@ -129,6 +129,27 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
         </div>
         <div className="column" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
           <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
+            阶段 :
+            <Select
+              defaultValue={contextTypeStage}
+              style={{ width: 150, marginLeft: '.4rem' }}
+              onChange={handleContextTypeStageChange}
+              options={defaultContextTypeStagesForSelect.map((item) => {
+                return {
+                  label:
+                    contextPrompts[contextType].stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage].name,
+                  value: item,
+                };
+              })}
+            />
+            {defaultContextHavePlaceHolder && !showContextInputs && (
+              <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
+            )}
+            {defaultContextHavePlaceHolder && showContextInputs && (
+              <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(false)} />
+            )}
+          </div>
+          <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
             场景
             {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
             {!isContextInputsDirty && (
@@ -146,27 +167,6 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
                 };
               })}
             />
-          </div>
-          <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
-            阶段 :
-            <Select
-              defaultValue={contextTypeStage}
-              style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={handleContextTypeStageChange}
-              options={defaultContextTypeStagesForSelect.map((item) => {
-                return {
-                  label:
-                    contextPrompts[contextType].stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage].name,
-                  value: item,
-                };
-              })}
-            />{' '}
-            {defaultContextHavePlaceHolder && !showContextInputs && (
-              <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
-            )}
-            {defaultContextHavePlaceHolder && showContextInputs && (
-              <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(false)} />
-            )}
           </div>
         </div>
       </div>
