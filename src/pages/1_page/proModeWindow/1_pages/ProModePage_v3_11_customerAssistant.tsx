@@ -130,25 +130,6 @@ export const ProModePage_v3_11_customerAssistant = (props: IProModePage_copyWrit
         </div>
         <div className="column" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
           <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
-            场景
-            {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
-            {!isContextInputsDirty && (
-              <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
-            )}
-            :
-            <Select
-              defaultValue={contextType}
-              style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={handleContextTypeChange}
-              options={defaultContextTypesForSelect.map((item) => {
-                return {
-                  label: contextPrompts[item as EProMode_v3_11_customerAssistant_contextType].name,
-                  value: item,
-                };
-              })}
-            />
-          </div>
-          <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
             阶段 :
             <Select
               defaultValue={contextTypeStage}
@@ -168,6 +149,25 @@ export const ProModePage_v3_11_customerAssistant = (props: IProModePage_copyWrit
             {defaultContextHavePlaceHolder && showContextInputs && (
               <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(false)} />
             )}
+          </div>
+          <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
+            场景
+            {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
+            {!isContextInputsDirty && (
+              <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
+            )}
+            :
+            <Select
+              defaultValue={contextType}
+              style={{ width: 150, marginLeft: '.4rem' }}
+              onChange={handleContextTypeChange}
+              options={defaultContextTypesForSelect.map((item) => {
+                return {
+                  label: contextPrompts[item as EProMode_v3_11_customerAssistant_contextType].name,
+                  value: item,
+                };
+              })}
+            />
           </div>
         </div>
       </div>
