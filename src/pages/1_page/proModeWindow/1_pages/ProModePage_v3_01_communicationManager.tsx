@@ -143,7 +143,7 @@ export const ProModePage_v3_01_communicationManager = (props: IProModePage_commu
                   value: item,
                 };
               })}
-            />{' '}
+            />
             {defaultContextHavePlaceHolder && !showContextInputs && (
               <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
             )}

@@ -141,7 +141,7 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
                   value: item,
                 };
               })}
-            />{' '}
+            />
             {defaultContextHavePlaceHolder && !showContextInputs && (
               <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
             )}

@@ -142,7 +142,7 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
                   value: item,
                 };
               })}
-            />{' '}
+            />
             {defaultContextHavePlaceHolder && !showContextInputs && (
               <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
             )}
