@@ -7,8 +7,8 @@ import {
   IBackendOpenAI_dataField_encrypted_input,
   ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
   ISendChatGPTRequestAsStreamToBackendProxy_output,
-  ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
-  ISendChatGPTRequestForGetVectorToBackendProxy_output,
+  // ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
+  // ISendChatGPTRequestForGetVectorToBackendProxy_output,
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile, { ITCryptoJSFile } from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
@@ -87,72 +87,72 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
   };
 };
 
-// @USELESS: for software only, not for web
-const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = async (
-  data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
-  accessToken: string,
-  env: IConstantGptAiFlowHandler,
-  TCryptoFile: ITCryptoJSFile
-): Promise<ISendChatGPTRequestAsStreamToBackendProxy_output> => {
-  const options: any = {
-    method: 'POST',
-    ...getApiKeyHeadersForNodeBackend(
-      {
-        accessToken,
-      },
-      env
-    ),
-    body: JSON.stringify({
-      data: TCryptoFile.encrypt(data, env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-    } as IBackendOpenAI_dataField_encrypted_input),
-  };
+// @TODELETE: for software only, not for web
+// const sendChatGPTRequestForResumeMessagesToBackendProxy_used_in_main = async (
+//   data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
+//   accessToken: string,
+//   env: IConstantGptAiFlowHandler,
+//   TCryptoFile: ITCryptoJSFile
+// ): Promise<ISendChatGPTRequestAsStreamToBackendProxy_output> => {
+//   const options: any = {
+//     method: 'POST',
+//     ...getApiKeyHeadersForNodeBackend(
+//       {
+//         accessToken,
+//       },
+//       env
+//     ),
+//     body: JSON.stringify({
+//       data: TCryptoFile.encrypt(data, env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+//     } as IBackendOpenAI_dataField_encrypted_input),
+//   };
 
-  let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResume`;
-  if (data.subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
-    url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResumeWithOfficialKey`;
-  }
+//   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResume`;
+//   if (data.subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+//     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/generateResumeWithOfficialKey`;
+//   }
 
-  const response = await fetch(url, options);
+//   const response = await fetch(url, options);
 
-  const tmp = await response.json();
+//   const tmp = await response.json();
 
-  return {
-    status: response.status,
-    statusText: response.statusText,
-    results: tmp?.results,
-  };
-};
+//   return {
+//     status: response.status,
+//     statusText: response.statusText,
+//     results: tmp?.results,
+//   };
+// };
 
-// @USELESS: for software only, not for web
-const sendChatGPTRequestForGetVectorToBackendProxy = async (
-  data: ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
-  accessToken: string,
-  env: IConstantGptAiFlowHandler,
-  TCryptoFile: ITCryptoJSFile
-): Promise<number[] | Error> => {
-  const options: any = {
-    method: 'POST',
-    ...getApiKeyHeadersForNodeBackend(
-      {
-        accessToken,
-      },
-      env
-    ),
-    body: JSON.stringify({
-      data: TCryptoFile.encrypt(data, env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-    } as IBackendOpenAI_dataField_encrypted_input),
-  };
+// @TODELETE: for software only, not for web
+// const sendChatGPTRequestForGetVectorToBackendProxy = async (
+//   data: ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
+//   accessToken: string,
+//   env: IConstantGptAiFlowHandler,
+//   TCryptoFile: ITCryptoJSFile
+// ): Promise<number[] | Error> => {
+//   const options: any = {
+//     method: 'POST',
+//     ...getApiKeyHeadersForNodeBackend(
+//       {
+//         accessToken,
+//       },
+//       env
+//     ),
+//     body: JSON.stringify({
+//       data: TCryptoFile.encrypt(data, env.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+//     } as IBackendOpenAI_dataField_encrypted_input),
+//   };
 
-  let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v3.2.1/getVector`;
-  if (data.subscriptionData.version === ESubscriptionVersion.OFFICIAL_MODAL) {
-    url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v3.2.1/getVectorWithOfficialKey`;
-  }
+//   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/getVector`;
+//   if (data.subscriptionData.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+//     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/getVectorWithOfficialKey`;
+//   }
 
-  const response = await fetch(url, options);
-  const dataResults = (await response.json()) as ISendChatGPTRequestForGetVectorToBackendProxy_output;
+//   const response = await fetch(url, options);
+//   const dataResults = (await response.json()) as ISendChatGPTRequestForGetVectorToBackendProxy_output;
 
-  return dataResults.results;
-};
+//   return dataResults.results;
+// };
 
 const TBackendOpenAIFile = {
   sendChatGPTRequestAsStreamToBackendProxy,
