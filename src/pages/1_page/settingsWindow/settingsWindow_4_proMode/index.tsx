@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Select } from 'antd';
@@ -18,14 +18,13 @@ import {
   IUseSubscriptionDB_v2Data_output,
   useSubscription_v2Data,
 } from '../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
+import IRegionDBFile from '../../../../gpt-ai-flow-common/interface-database/IRegionDB';
 
 import { SettingsWindow_4_proMode_EUR } from './SettingsWindow_4_proMode_EUR';
 import { SettingsWindow_4_proMode_CNY } from './SettingsWindow_4_proMode_CNY';
 
 export const SettingsWindow_4_proMode = () => {
   const dispatch = useDispatch();
-
-  const [region, setRegion] = useState<ERegionDB_code>(ERegionDB_code.ZH);
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -60,17 +59,28 @@ export const SettingsWindow_4_proMode = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
+  const { subscription_v2Data } = useSubscription_v2DataOutput;
+  const { Region } = subscription_v2Data ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
+  const { code: regionCodeFromStorage = ERegionDB_code.ZH } = Region ?? IRegionDBFile.IRegionDB_default;
+
+  const [regionCode, setRegionCode] = useState<ERegionDB_code>(regionCodeFromStorage);
+
   const hanleRegionSelectChange = (value: string) => {
     console.log(`selected ${value}`);
-    setRegion(value as ERegionDB_code);
+    setRegionCode(value as ERegionDB_code);
   };
+
+  useEffect(() => {
+    setRegionCode(regionCodeFromStorage);
+  }, [regionCodeFromStorage]);
 
   return (
     <div id="settingsWindowContainer" className="container">
       <div className="row">
         <Select
-          defaultValue={region}
+          defaultValue={regionCode}
           style={{ width: 120 }}
+          value={regionCode}
           onChange={hanleRegionSelectChange}
           options={[
             { label: '国内', value: ERegionDB_code.ZH },
@@ -78,7 +88,7 @@ export const SettingsWindow_4_proMode = () => {
           ]}
         />
       </div>
-      {region === ERegionDB_code.ZH && (
+      {regionCode === ERegionDB_code.ZH && (
         <div className="row">
           <SettingsWindow_4_proMode_CNY
             userData={userData}
@@ -86,7 +96,7 @@ export const SettingsWindow_4_proMode = () => {
           />
         </div>
       )}
-      {region === ERegionDB_code.EN && (
+      {regionCode === ERegionDB_code.EN && (
         <div className="row">
           <SettingsWindow_4_proMode_EUR
             userData={userData}
