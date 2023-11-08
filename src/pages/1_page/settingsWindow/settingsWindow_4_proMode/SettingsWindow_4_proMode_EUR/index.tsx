@@ -1,7 +1,7 @@
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 
-import paymentPageDemo from '../../../../../../assets/presentation/2023-08-23-payment-page.png';
+import paymentPageDemo from '../../../../../../assets/presentation/2023-11-08-img-2-Add-default-payment-method.png';
 
 import React, { useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
