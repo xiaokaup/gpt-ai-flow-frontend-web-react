@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, TabsProps } from 'antd';
 
 import { IReduxRootState } from 'store/reducer';
-import { udpateSubscriptionAction } from '../../../../store/actions/subscriptionActions';
+import { udpateSubscriptionDBAction_v2 } from '../../../../store/actions/subscriptionDBActions_v2';
 
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
-import { useSubscriptionMixData } from '../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
-import ISubscriptionMixFile, {
-  ISubscirptionMix,
-} from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import ISubscriptionDB_v2File, {
+  ISubscriptionDB_v2,
+} from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import { useSubscription_v2Data } from '../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
 
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
 
@@ -44,15 +44,15 @@ export const SettingsWindow_1_local = () => {
     );
   }
 
-  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
-    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  const subscription_v2DataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
+    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
   });
-  const { subscriptionMixData: subscriptionData } = useSubscriptionMixData({
+  const { subscription_v2Data } = useSubscription_v2Data({
     userId,
     accessToken: userAccessToken,
-    subscriptionDataFromStorage,
-    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
-      dispatch(udpateSubscriptionAction(newItem) as any);
+    subscription_v2DataFromStorage: subscription_v2DataFromStorage,
+    onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
+      dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
@@ -65,7 +65,7 @@ export const SettingsWindow_1_local = () => {
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: `基本`,
-      children: <SettingsWindow_1_local_basic userData={userData} subscriptionData={subscriptionData} />,
+      children: <SettingsWindow_1_local_basic userData={userData} subscription_v2Data={subscription_v2Data} />,
     },
   ];
 

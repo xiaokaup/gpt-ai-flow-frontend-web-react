@@ -1,8 +1,6 @@
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { ESubscriptionVersion } from '../../gpt-ai-flow-common/enum-app/ESubscription';
-
 import {
   IBackendOpenAI_dataField_encrypted_input,
   ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
@@ -12,8 +10,8 @@ import {
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile, { ITCryptoJSFile } from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
-
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
+import { EProductDB_version } from '../../gpt-ai-flow-common/enum-database/EProductDB';
 
 const sendChatGPTRequestAsStreamToBackendProxy = async (
   data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
@@ -42,7 +40,13 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
   }
 
   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChat`;
-  if (data.subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+
+  const subscriptionIsExpired =
+    data.subscriptionData?.expiredAt && new Date(data.subscriptionData?.expiredAt) < new Date();
+  if (
+    !subscriptionIsExpired &&
+    data.subscriptionData?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL
+  ) {
     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChatWithOfficialKey`;
   }
 

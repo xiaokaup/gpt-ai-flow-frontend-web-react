@@ -10,18 +10,18 @@ import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
 import { EOpenAiModel } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
-import { ESubscriptionVersion } from '../../../../gpt-ai-flow-common/enum-app/ESubscription';
-import { ISubscirptionMix } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import TSubscriptionMixFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscriptionMix';
+import { ISubscriptionDB_v2 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import { EProductDB_version } from '../../../../gpt-ai-flow-common/enum-database/EProductDB';
+import TSubscription_v2CommonFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscription_v2';
 
-const getModelTypeOptions = (userData: IUserData, subscriptionData: ISubscirptionMix) => {
+const getModelTypeOptions = (userData: IUserData, subscription_v2Data: ISubscriptionDB_v2) => {
   const { isBetaUser } = userData;
-  const { hasAvailableSubscription } = TSubscriptionMixFile.checkSubscriptionAvailability(subscriptionData);
-  const hasAccessGPT_4 = hasAvailableSubscription || isBetaUser;
+  const hasAvailableSubscriptionDB_v2 = TSubscription_v2CommonFile.checkSubscription_v2IsAvailable(subscription_v2Data);
+  const hasAccessGPT_4 = hasAvailableSubscriptionDB_v2 || isBetaUser;
 
   if (hasAccessGPT_4) {
-    if (subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL) {
+    if (subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL) {
       return [
         {
           value: EOpenAiModel.GPT_3_point_5_TURBO,
@@ -34,6 +34,10 @@ const getModelTypeOptions = (userData: IUserData, subscriptionData: ISubscirptio
       {
         value: EOpenAiModel.GPT_3_point_5_TURBO,
         label: 'GPT-3.5',
+      },
+      {
+        value: EOpenAiModel.GPT_4_PREVIEW,
+        label: 'GPT-4-preview',
       },
       {
         value: EOpenAiModel.GPT_4,
@@ -52,12 +56,13 @@ const getModelTypeOptions = (userData: IUserData, subscriptionData: ISubscirptio
 
 interface ISettingsWindow_1_local_basic_input {
   userData: IUserData;
-  subscriptionData: ISubscirptionMix;
+  subscription_v2Data: ISubscriptionDB_v2;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { userData, subscriptionData } = props;
+  const { userData, subscription_v2Data } = props;
+  const subscriptionIsExpired = subscription_v2Data?.expiredAt && new Date(subscription_v2Data?.expiredAt) < new Date();
 
   const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -103,13 +108,22 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
           </label>
         </div>
-        {subscriptionData?.version === ESubscriptionVersion.OFFICIAL_MODAL && (
-          <div>
-            <span>
-              你已经选择使用官方的模型解决方案，<b>此处无需填写</b>
-            </span>
-          </div>
-        )}
+        {!subscriptionIsExpired &&
+          subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
+            <div>
+              <span>
+                你已经选择使用官方模型解决方案，<b>此处无需填写</b>
+              </span>
+            </div>
+          )}
+        {subscriptionIsExpired &&
+          subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
+            <div>
+              <span>
+                你选择使用的官方模型解决方案，<b>已过期</b>，请到 <b>专业模式</b> 设置面板重启方案
+              </span>
+            </div>
+          )}
       </div>
 
       {/* <div className="row" style={{ marginTop: '.75rem' }}>
@@ -149,7 +163,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={getModelTypeOptions(userData, subscriptionData)}
+          options={getModelTypeOptions(userData, subscription_v2Data)}
         />
       </div>
       <div className="row" style={{ marginTop: '.75rem' }}>

@@ -32,47 +32,47 @@ import { ITabPanel } from '.';
 import {
   EProMode_v3_01_communicationManager_contextType,
   EProMode_v3_01_communicationManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_01_communicationManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_01_communicationManager';
 import {
   EProMode_v3_02_copyWritingManager_contextType,
   EProMode_v3_02_copyWritingManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_02_copyWritingManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_02_copyWritingManager';
 import {
   EProMode_v3_03_xiaoHongShuManager_contextType,
   EProMode_v3_03_xiaoHongShuManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_03_xiaoHongShuManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_03_xiaoHongShuManager';
 import {
   EProMode_v3_04_aiAssistant_contextType,
   EProMode_v3_04_aiAssistant_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_04_aiAssistant';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_04_aiAssistant';
 import {
   EProMode_v3_05_commentManager_contextType,
   EProMode_v3_05_commentManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_05_commentManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_05_commentManager';
 import {
   EProMode_v3_06_careerManager_contextType,
   EProMode_v3_06_careerManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_06_careerManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_06_careerManager';
 import {
   EProMode_v3_07_upZhu_contextType,
   EProMode_v3_07_upZhu_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_07_upZhu';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_07_upZhu';
 import {
   EProMode_v3_08_productManager_contextType,
   EProMode_v3_08_productManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_08_productManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_08_productManager';
 import {
   EProMode_v3_09_marketingManager_contextType,
   EProMode_v3_09_marketingManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_09_marketingManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_09_marketingManager';
 import {
   EProMode_v3_10_seoManager_contextType,
   EProMode_v3_10_seoManager_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_10_seoManager';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_10_seoManager';
 import {
   EProMode_v3_11_customerAssistant_contextType,
   EProMode_v3_11_customerAssistant_contextTypeStage,
-} from 'gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_11_customerAssistant';
+} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_11_customerAssistant';
 
 interface useProModeSetDataUI_input {
   userDataFromStorage: IUserData;

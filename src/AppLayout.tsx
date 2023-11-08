@@ -77,10 +77,10 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       {isAuthenticated && (
         <>
           <Menu.Item key="3">
-            <Link to="/proMode">专业模式</Link>
+            <Link to="/info">用户</Link>
           </Menu.Item>
           <Menu.Item key="4">
-            <Link to="/info">用户</Link>
+            <Link to="/proMode">专业模式</Link>
           </Menu.Item>
         </>
       )}
