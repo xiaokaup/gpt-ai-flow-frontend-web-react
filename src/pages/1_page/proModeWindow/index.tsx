@@ -271,7 +271,7 @@ const ProModeWindow = () => {
               message={
                 <span>
                   John是一位忙碌的职场人士，但在订阅我们产品后，他发现了平衡工作和生活的新秘诀。
-                  <a href="https://www.gptaiflow.com/business/prices-zh" target="_blank">
+                  <a href="https://www.gptaiflow.com/download" target="_blank">
                     <span style={{ color: '#1677FF' }}>点击这里</span>
                   </a>
                 </span>
