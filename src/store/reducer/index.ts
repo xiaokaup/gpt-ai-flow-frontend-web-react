@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import { ISubscirptionMix } from '../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import { ISubscriptionDB_v2 } from '../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { IInputsCache } from '../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 import { ICounterReducerState, counterReducer } from './CounterReducer';
@@ -17,6 +18,7 @@ export interface IReduxRootState {
   local: ILocalReducerState;
   proModeSet: string;
   subscription: ISubscirptionMix;
+  subscription_V2: ISubscriptionDB_v2;
   inputsCache: IInputsCache;
 }
 
