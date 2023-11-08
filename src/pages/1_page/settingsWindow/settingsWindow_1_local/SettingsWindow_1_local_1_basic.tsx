@@ -36,6 +36,10 @@ const getModelTypeOptions = (userData: IUserData, subscription_v2Data: ISubscrip
         label: 'GPT-3.5',
       },
       {
+        value: EOpenAiModel.GPT_4_PREVIEW,
+        label: 'GPT-4-preview',
+      },
+      {
         value: EOpenAiModel.GPT_4,
         label: 'GPT-4',
       },
