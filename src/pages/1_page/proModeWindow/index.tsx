@@ -9,26 +9,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
+import { udpateSubscriptionDBAction_v2 } from '../../../store/actions/subscriptionDBActions_v2';
 import { updateSpecificUserData } from '../../../store/actions/userActions';
 
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useProModeSetDataUI } from './useProModeSetDataUI';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { ESubscriptionName } from '../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { SubscriptionMixValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionMixProviderContext';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import ISubscriptionMixFile, {
-  ISubscirptionMix,
-} from '../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
-import {
-  useSubscriptionMixData,
-  IUseSubscriptionMixData_output,
-} from '../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
 import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
-
-import { udpateSubscriptionAction } from '../../../store/actions/subscriptionActions';
+import ISubscriptionDB_v2File, {
+  ISubscriptionDB_v2,
+} from '../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import {
+  IUseSubscriptionDB_v2Data_output,
+  useSubscription_v2Data,
+} from '../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
+import { EProductDB_name } from '../../../gpt-ai-flow-common/enum-database/EProductDB';
+import { SubscriptionDB_v2ValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 
 export interface ITabPanel {
   key: EServiceCategoryDB_name;
@@ -69,22 +68,22 @@ const ProModeWindow = () => {
     return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
   }
 
-  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
-    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  const subscriptionDataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
+    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
   });
-  const useSubscriptionDataOutput: IUseSubscriptionMixData_output = useSubscriptionMixData({
+  const useSubscriptionDB_v2DataOutput: IUseSubscriptionDB_v2Data_output = useSubscription_v2Data({
     userId,
     accessToken: userAccessToken,
-    subscriptionDataFromStorage,
-    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
-      dispatch(udpateSubscriptionAction(newItem) as any);
+    subscription_v2DataFromStorage: subscriptionDataFromStorage,
+    onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
+      dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const {
-    subscriptionMixData: subscriptionData,
-    check: { hasAvailableSubscription, hasNoAvailableSubscription },
-  } = useSubscriptionDataOutput;
+    subscription_v2Data: subscriptionData,
+    check: { hasAvailableSubscription_v2 },
+  } = useSubscriptionDB_v2DataOutput;
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
@@ -141,7 +140,10 @@ const ProModeWindow = () => {
         label: `${newActiveTabPanelKey}-${label}`,
         value,
         children,
-        disabled: subscriptionData.name !== ESubscriptionName.NONE ? !serviceCategories.includes(value) : true,
+        disabled:
+          subscriptionData.Product_Limit?.Product?.name !== EProductDB_name.DEFAULT
+            ? !serviceCategories.includes(value)
+            : true,
       },
     ]);
     setActiveTabPanelKey(newActiveTabPanelKey as EServiceCategoryDB_name);
@@ -263,13 +265,13 @@ const ProModeWindow = () => {
           />
         </div>
 
-        {hasNoAvailableSubscription && !isBetaUser && (
+        {!hasAvailableSubscription_v2 && !isBetaUser && (
           <div className="row">
             <Alert
               message={
                 <span>
                   John是一位忙碌的职场人士，但在订阅我们产品后，他发现了平衡工作和生活的新秘诀。
-                  <a href="https://www.gptaiflow.com/business/prices-zh" target="_blank">
+                  <a href="https://www.app.gptaiflow.com/info" target="_blank">
                     <span style={{ color: '#1677FF' }}>点击这里</span>
                   </a>
                 </span>
@@ -281,8 +283,8 @@ const ProModeWindow = () => {
         )}
 
         <div className="row bottom_block_tabs">
-          <SubscriptionMixValueProvider value={useSubscriptionDataOutput}>
-            <CreativityValueProvider value={creativityValue}>
+          <CreativityValueProvider value={creativityValue}>
+            <SubscriptionDB_v2ValueProvider value={useSubscriptionDB_v2DataOutput}>
               <Tabs
                 size="small"
                 hideAdd
@@ -299,8 +301,8 @@ const ProModeWindow = () => {
                   );
                 })}
               </Tabs>
-            </CreativityValueProvider>
-          </SubscriptionMixValueProvider>
+            </SubscriptionDB_v2ValueProvider>
+          </CreativityValueProvider>
         </div>
       </div>
     </div>

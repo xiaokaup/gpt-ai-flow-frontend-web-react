@@ -2,6 +2,8 @@ import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/const
 import { ISubscirptionMix } from '../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import TBackendSubscriptionFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendSubscription';
 
+// @TODELETE: subscription_v1 file
+
 export const GET_SUBSCRIPTION_DATA = 'GET_SUBSCRIPTION_DATA';
 export const getSubscriptionInfoAction =
   (userId: string, accessToken: string, env: IConstantGptAiFlowHandler) => async (dispatch: any) => {

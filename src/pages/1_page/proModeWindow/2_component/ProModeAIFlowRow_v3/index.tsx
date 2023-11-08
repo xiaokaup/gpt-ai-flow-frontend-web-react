@@ -9,7 +9,7 @@ import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 import { IReduxRootState } from 'store/reducer';
-import { udpateSubscriptionAction } from '../../../../../store/actions/subscriptionActions';
+import { udpateSubscriptionDBAction_v2 } from '../../../../../store/actions/subscriptionDBActions_v2';
 
 import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
 import {
@@ -20,22 +20,22 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { IAIFlow, IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { useSubscriptionMixValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionMixProviderContext';
 
 import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import {
-  IUseSubscriptionMixData_output,
-  useSubscriptionMixData,
-} from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
-import ISubscriptionMixFile, {
-  ISubscirptionMix,
-} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
 import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
 import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
+import {
+  IUseSubscriptionDB_v2Data_output,
+  useSubscription_v2Data,
+} from '../../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
+import ISubscriptionDB_v2File, {
+  ISubscriptionDB_v2,
+} from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -54,10 +54,10 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const dispatch = useDispatch();
 
   const creativityValue = useCreativityValueContext();
-  const useSubscriptionDataOutput: IUseSubscriptionMixData_output = useSubscriptionMixValueContext();
+  const useSubscriptionDB_v2DataOutput: IUseSubscriptionDB_v2Data_output = useSubscriptionDB_v2ValueContext();
   const {
-    check: { hasAvailableSubscription },
-  } = useSubscriptionDataOutput;
+    check: { hasAvailableSubscription_v2: hasAvailableSubscription },
+  } = useSubscriptionDB_v2DataOutput;
 
   const {
     clickSearchAllResultsButtonCount,
@@ -86,15 +86,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const { id: userId, token: userToken } = userData;
   const userAccessToken = userToken?.accessToken;
 
-  const subscriptionDataFromStorage: ISubscirptionMix = useSelector((state: IReduxRootState) => {
-    return state.subscription ?? ISubscriptionMixFile.ISubscriptionMix_default;
+  const subscription_v2DataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
+    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
   });
-  const { subscriptionMixData: subscriptionData } = useSubscriptionMixData({
+  const { subscription_v2Data } = useSubscription_v2Data({
     userId: userId as number,
     accessToken: userAccessToken as string,
-    subscriptionDataFromStorage,
-    onSubscriptionDataChange: (newItem: ISubscirptionMix) => {
-      dispatch(udpateSubscriptionAction(newItem) as any);
+    subscription_v2DataFromStorage,
+    onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
+      dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
     },
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
@@ -360,7 +360,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             openaiModel: proModeModelType,
             temperature: creativityValue,
           },
-          subscriptionData,
+          subscriptionData: subscription_v2Data,
         },
         () => {
           console.log('beforeSendRequestAsStreamFunc');
