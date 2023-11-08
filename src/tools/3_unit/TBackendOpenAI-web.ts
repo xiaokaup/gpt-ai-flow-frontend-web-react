@@ -40,7 +40,13 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
   }
 
   let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChat`;
-  if (data.subscriptionData?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL) {
+
+  const subscriptionIsExpired =
+    data.subscriptionData?.expiredAt && new Date(data.subscriptionData?.expiredAt) < new Date();
+  if (
+    !subscriptionIsExpired &&
+    data.subscriptionData?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL
+  ) {
     url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChatWithOfficialKey`;
   }
 
