@@ -1,70 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Button, Card, message } from 'antd';
 import TStripeConstant, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IStripePrice } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import TBackendStripe from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import { ISubscirptionMix } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/ISubscriptionMix';
+import TBackendStripeFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 interface SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription_input {
+  createAndOpenStripeBillingSession: () => void;
   userId: string;
-  stripeCustomerId: string;
-  accessToken: string;
-  initStripeSubscriptionInfo: () => Promise<ISubscirptionMix>;
+  userAccessToken: string;
   currencySymbol: ECurrencySymbol;
 }
 export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription = (
   props: SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription_input
 ) => {
-  const { userId, stripeCustomerId, accessToken, initStripeSubscriptionInfo, currencySymbol } = props;
+  const { createAndOpenStripeBillingSession, userId, userAccessToken, currencySymbol } = props;
 
-  const stripePrices = TStripeConstant.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON, currencySymbol);
+  const [hasSubscriptions, setHasSubscriptions] = useState<boolean>(false);
 
-  const [hasClickedCreateSubscription, setHasClickedCreateSubscription] = useState(false);
-
-  const handleCreateSubscription = (selectedPriceId: string) => async () => {
-    if (!stripeCustomerId) {
-      return;
-    }
-
-    if (!selectedPriceId) {
-      message.error('请选择套餐');
-      return;
-    }
-
-    setHasClickedCreateSubscription(true);
-    const newSubscription = await TBackendStripe.createSubscirptionByStripeCustomerId(
+  const init = async () => {
+    const subscriptionResults = await TBackendStripeFile.getListStripeSubscriptionsByStripeCustomerId(
       userId,
-      stripeCustomerId,
-      selectedPriceId,
-      accessToken,
+      userAccessToken,
       CONSTANTS_GPT_AI_FLOW_COMMON
     );
 
-    message.success('订阅成功');
-    initStripeSubscriptionInfo();
+    if (subscriptionResults.data.length > 0) {
+      setHasSubscriptions(true);
+      return;
+    }
+    setHasSubscriptions(false);
+  };
 
-    setTimeout(() => {
-      setHasClickedCreateSubscription(false);
-    }, 1000);
+  useEffect(() => {
+    init();
+  }, []);
+
+  const stripePrices = TStripeConstant.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON, currencySymbol);
+
+  const createAndOpenStripeCheckoutSession = async (priceId: string) => {
+    const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSessionForEUR(
+      userId,
+      priceId,
+      userAccessToken,
+      CONSTANTS_GPT_AI_FLOW_COMMON
+    );
+
+    window.open(checkoutSessionResults.url, '_blank', 'noreferrer');
   };
 
   return (
     <div className="row">
+      <div className="row">是否已有订阅: {hasSubscriptions ? '是' : '否'}</div>
       <div className="row">
-        <Alert message={<span>如果更换订阅类型过程中出现无法访问的情况，请尝试重新登录用户账号</span>} type="info" />
+        <Alert type="info" message={<span>如果更换订阅类型过程中出现无法访问的情况，请尝试重新登录用户账号</span>} />
       </div>
       <div className="row">
         <div className="row">
-          <h3>月</h3>
+          <h3>月度</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {stripePrices.month
               .filter((item) => !item.name.includes('FreeAI'))
-              .map((onePrice: IStripePrice) => {
+              .map((oneProduct) => {
                 return (
                   <Card
-                    key={onePrice.priceId}
-                    title={onePrice.name}
+                    key={oneProduct.priceId}
+                    title={oneProduct.name}
                     // extra={<a href="#">More</a>}
                     style={{
                       width: 350,
@@ -74,16 +77,21 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
                     bodyStyle={{}}
                     actions={[
                       <Button
-                        disabled={hasClickedCreateSubscription}
                         type="primary"
-                        onClick={handleCreateSubscription(onePrice.priceId)}
+                        onClick={() => {
+                          if (!hasSubscriptions) {
+                            createAndOpenStripeCheckoutSession(oneProduct.priceId);
+                            return;
+                          }
+                          createAndOpenStripeBillingSession();
+                        }}
                       >
                         订阅
                       </Button>,
                     ]}
                   >
-                    {onePrice.features.map((oneFeature: string) => {
-                      return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
+                    {oneProduct.features.map((oneFeature) => {
+                      return <p key={`${oneProduct.priceId}-${oneFeature}`}>{oneFeature}</p>;
                     })}
                   </Card>
                 );
@@ -95,11 +103,11 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {stripePrices.quarter
               .filter((item) => !item.name.includes('FreeAI'))
-              .map((onePrice: IStripePrice) => {
+              .map((oneProduct) => {
                 return (
                   <Card
-                    key={onePrice.priceId}
-                    title={onePrice.name}
+                    key={oneProduct.priceId}
+                    title={oneProduct.name}
                     // extra={<a href="#">More</a>}
                     style={{
                       width: 350,
@@ -108,16 +116,21 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
                     }}
                     actions={[
                       <Button
-                        disabled={hasClickedCreateSubscription}
                         type="primary"
-                        onClick={handleCreateSubscription(onePrice.priceId)}
+                        onClick={() => {
+                          if (!hasSubscriptions) {
+                            createAndOpenStripeCheckoutSession(oneProduct.priceId);
+                            return;
+                          }
+                          createAndOpenStripeBillingSession();
+                        }}
                       >
                         订阅
                       </Button>,
                     ]}
                   >
-                    {onePrice.features.map((oneFeature: string) => {
-                      return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
+                    {oneProduct.features.map((oneFeature) => {
+                      return <p key={`${oneProduct.priceId}-${oneFeature}`}>{oneFeature}</p>;
                     })}
                   </Card>
                 );
@@ -125,15 +138,15 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
           </div>
         </div>
         <div className="row">
-          <h3>年</h3>
+          <h3>年度</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {stripePrices.year
               .filter((item) => !item.name.includes('FreeAI'))
-              .map((onePrice: IStripePrice) => {
+              .map((oneProduct) => {
                 return (
                   <Card
-                    key={onePrice.priceId}
-                    title={onePrice.name}
+                    key={oneProduct.priceId}
+                    title={oneProduct.name}
                     // extra={<a href="#">More</a>}
                     style={{
                       width: 350,
@@ -142,16 +155,21 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
                     }}
                     actions={[
                       <Button
-                        disabled={hasClickedCreateSubscription}
                         type="primary"
-                        onClick={handleCreateSubscription(onePrice.priceId)}
+                        onClick={() => {
+                          if (!hasSubscriptions) {
+                            createAndOpenStripeCheckoutSession(oneProduct.priceId);
+                            return;
+                          }
+                          createAndOpenStripeBillingSession();
+                        }}
                       >
                         订阅
                       </Button>,
                     ]}
                   >
-                    {onePrice.features.map((oneFeature: string) => {
-                      return <p key={`${onePrice.priceId}-${oneFeature}`}>{oneFeature}</p>;
+                    {oneProduct.features.map((oneFeature: string) => {
+                      return <p key={`${oneProduct.priceId}-${oneFeature}`}>{oneFeature}</p>;
                     })}
                   </Card>
                 );

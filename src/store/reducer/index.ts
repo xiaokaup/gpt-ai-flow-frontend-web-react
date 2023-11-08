@@ -18,7 +18,7 @@ export interface IReduxRootState {
   local: ILocalReducerState;
   proModeSet: string;
   subscription: ISubscirptionMix;
-  subscription_V2: ISubscriptionDB_v2;
+  subscription_v2: ISubscriptionDB_v2;
   inputsCache: IInputsCache;
 }
 
