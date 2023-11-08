@@ -4,7 +4,7 @@ import { Alert, Button, Card } from 'antd';
 
 import TStripeConstant, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TBackendStripeFile from 'gpt-ai-flow-common/tools/3_unit/TBackendStripe';
+import TBackendStripeFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 interface SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription_input {
   currencySymbol: ECurrencySymbol;

@@ -1,28 +1,24 @@
 import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 
-import paymentPageDemo from '../../../../../../assets/presentation/2023-11-08-img-2-Add-default-payment-method.png';
+// import paymentPageDemo from '../../../../../../assets/presentation/2023-11-08-img-2-Add-default-payment-method.png';
 
 import React, { useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import { Alert, Button, Tag, message } from 'antd';
+import { Button, Tag, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import { ESubscriptionPaymentType } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
-import { IStripeSubscriptionInfo } from '../../../../../gpt-ai-flow-common/interface-app/IStripe';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IUseSubscriptionMixData_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscriptionMixData';
-import { ISubscriptionDB } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB';
+import { IUseSubscriptionDB_v2Data_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
+import TBackendStripeFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
+import TBackendSubscription_v2File from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendSubscription_v2';
+import { ERegionDB_code } from '../../../../../gpt-ai-flow-common/enum-database/ERegionDB';
 
 import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
-import { IUseSubscriptionDB_v2Data_output } from 'gpt-ai-flow-common/hooks/useSubscription_v2Data';
-import TBackendStripeFile from 'gpt-ai-flow-common/tools/3_unit/TBackendStripe';
-import TBackendSubscription_v2File from 'gpt-ai-flow-common/tools/3_unit/TBackendSubscription_v2';
-import { ERegionDB_code } from 'gpt-ai-flow-common/enum-database/ERegionDB';
 
 interface SettingsWindow_4_proMode_EUR_input {
   userData: IUserData;
