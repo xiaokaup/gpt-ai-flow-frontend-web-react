@@ -2,15 +2,15 @@ import '../../../styles/global.css';
 import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 
-import React, { useEffect } from 'react';
-import { useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
 import { udpateSubscriptionDBAction_v2 } from '../../../store/actions/subscriptionDBActions_v2';
-import { updateSpecificUserData } from '../../../store/actions/userActions';
+import { updateSpecificUserData, userLogoutAction } from '../../../store/actions/userActions';
 
 import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useProModeSetDataUI } from './useProModeSetDataUI';
@@ -41,6 +41,7 @@ type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const ProModeWindow = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
 
@@ -65,7 +66,16 @@ const ProModeWindow = () => {
   } = userData;
 
   if (!userId) {
-    return <>请先到设置界面登录用户，并确认套餐是否为正常状态</>;
+    dispatch(userLogoutAction() as any);
+    setTimeout(() => {
+      navigate('/login');
+      window.location.reload();
+    }, 1000);
+    return (
+      <>
+        请先到设置界面登录用户，并确认套餐是否为正常状态 <Link to="/logout">登出</Link>
+      </>
+    );
   }
 
   const subscriptionDataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
