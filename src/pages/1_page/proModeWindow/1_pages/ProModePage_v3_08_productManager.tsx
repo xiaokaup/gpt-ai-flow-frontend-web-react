@@ -80,6 +80,9 @@ export const ProModePage_v3_08_productManager = (props: IProModePage_copyWriting
     setContextType(paraContextType);
     const selectedDefaultValue = contextPrompts[paraContextType].stages[contextTypeStage].defaultValue;
     setDefaultContext(selectedDefaultValue);
+    if (!contextPrompts[paraContextType].stages[contextTypeStage].value) {
+      handleContextTypeStageChange(EProMode_v3_08_productManager_contextTypeStage.PRODUCT_MANAGER_DEFAULT);
+    }
     setContextHandled(contextPrompts[paraContextType].stages[contextTypeStage].value);
 
     setIsContextInputsDirty(false);
@@ -135,13 +138,18 @@ export const ProModePage_v3_08_productManager = (props: IProModePage_copyWriting
               defaultValue={contextTypeStage}
               style={{ width: 150, marginLeft: '.4rem' }}
               onChange={handleContextTypeStageChange}
-              options={defaultContextTypeStagesForSelect.map((item) => {
-                return {
-                  label:
-                    contextPrompts[contextType].stages[item as EProMode_v3_08_productManager_contextTypeStage].name,
-                  value: item,
-                };
-              })}
+              options={defaultContextTypeStagesForSelect
+                .map((item) => {
+                  return {
+                    label:
+                      contextPrompts[contextType].stages[item as EProMode_v3_08_productManager_contextTypeStage].name,
+                    value: item,
+                    disabled:
+                      contextPrompts[contextType].stages[item as EProMode_v3_08_productManager_contextTypeStage]
+                        .disable,
+                  };
+                })
+                .filter((item) => !item.disabled || item.label)}
             />
             {defaultContextHavePlaceHolder && !showContextInputs && (
               <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setShowContextInputs(true)} />
@@ -161,12 +169,15 @@ export const ProModePage_v3_08_productManager = (props: IProModePage_copyWriting
               defaultValue={contextType}
               style={{ width: 150, marginLeft: '.4rem' }}
               onChange={handleContextTypeChange}
-              options={defaultContextTypesForSelect.map((item) => {
-                return {
-                  label: contextPrompts[item as EProMode_v3_08_productManager_contextType].name,
-                  value: item,
-                };
-              })}
+              options={defaultContextTypesForSelect
+                .map((item) => {
+                  return {
+                    label: contextPrompts[item as EProMode_v3_08_productManager_contextType].name,
+                    value: item,
+                    disabled: contextPrompts[item as EProMode_v3_08_productManager_contextType].disable,
+                  };
+                })
+                .filter((item) => !item.disabled || item.label)}
             />
           </div>
         </div>
@@ -195,9 +206,9 @@ export const ProModePage_v3_08_productManager = (props: IProModePage_copyWriting
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 handledContextPrompt={contextHandled}
-                defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage]}
-                defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage]}
-                aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType][contextTypeStage]}
+                defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage] ?? []}
+                defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage] ?? []}
+                aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType][contextTypeStage] ?? []}
               />
               <hr style={{ margin: 10 }} />
             </div>
