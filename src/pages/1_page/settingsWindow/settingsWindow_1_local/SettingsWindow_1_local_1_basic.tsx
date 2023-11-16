@@ -20,28 +20,30 @@ const getModelTypeOptions = (userData: IUserData, subscription_v2Data: ISubscrip
   const hasAvailableSubscriptionDB_v2 = TSubscription_v2CommonFile.checkSubscription_v2IsAvailable(subscription_v2Data);
   const hasAccessGPT_4 = hasAvailableSubscriptionDB_v2 || isBetaUser;
 
-  if (hasAccessGPT_4) {
-    if (subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL) {
-      return [
-        {
-          value: EOpenAiModel.GPT_3_point_5_TURBO,
-          label: 'GPT-3.5',
-        },
-      ];
-    }
-
+  if (
+    hasAccessGPT_4 &&
+    (isBetaUser || (new Date(subscription_v2Data.expiredAt) >= new Date() && subscription_v2Data.productLimitId === 2))
+  ) {
     return [
       {
         value: EOpenAiModel.GPT_3_point_5_TURBO,
-        label: 'GPT-3.5',
+        label: EOpenAiModel.GPT_3_point_5_TURBO,
+      },
+      {
+        value: EOpenAiModel.GPT_3_point_5_TUEBO_1106,
+        label: EOpenAiModel.GPT_3_point_5_TUEBO_1106,
+      },
+      {
+        value: EOpenAiModel.GPT_3_point_5_TUEBO_16K,
+        label: EOpenAiModel.GPT_3_point_5_TUEBO_16K,
       },
       {
         value: EOpenAiModel.GPT_4_PREVIEW,
-        label: 'GPT-4-preview',
+        label: EOpenAiModel.GPT_4_PREVIEW,
       },
       {
         value: EOpenAiModel.GPT_4,
-        label: 'GPT-4',
+        label: EOpenAiModel.GPT_4,
       },
     ];
   }
@@ -49,7 +51,7 @@ const getModelTypeOptions = (userData: IUserData, subscription_v2Data: ISubscrip
   return [
     {
       value: EOpenAiModel.GPT_3_point_5_TURBO,
-      label: 'GPT-3.5',
+      label: EOpenAiModel.GPT_3_point_5_TURBO,
     },
   ];
 };
@@ -164,6 +166,9 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
           options={getModelTypeOptions(userData, subscription_v2Data)}
+          style={{
+            width: 200,
+          }}
         />
       </div>
       <div className="row" style={{ marginTop: '.75rem' }}>
