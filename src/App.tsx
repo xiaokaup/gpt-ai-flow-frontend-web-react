@@ -6,7 +6,7 @@ import { configureStore } from './store/store';
 
 import { PersistGate } from 'redux-persist/integration/react';
 import { AppRoutes } from './AppRoutes';
-import { I18nPropvider } from './i18nProvider';
+import { I18nPropvider } from './gpt-ai-flow-common/i18nProvider';
 import { useLocalInfo } from './hooks/useLocalInfo';
 
 const { store, persistor } = configureStore();

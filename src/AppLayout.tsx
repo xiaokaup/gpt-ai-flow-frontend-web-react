@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 
-import translate from './i18nProvider/translate';
+import translate from './gpt-ai-flow-common/i18nProvider/translate';
 import { useLocalInfo } from './hooks/useLocalInfo';
 import { saveLocalAction } from './store/actions/localActions';
 import { useDispatch } from 'react-redux';
