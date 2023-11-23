@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layout, Menu, MenuProps } from 'antd';
+import { Dropdown, Layout, Menu, MenuProps } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
@@ -87,7 +88,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="proMode-doc">
         <Link to="https://www.gptaiflow.com/docs/application-scenarios/introduction">文档</Link>
       </Menu.Item>
-      {/* <Menu.Item key="switch-language">
+      <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
             {translate(locale.toLocaleUpperCase())}
@@ -95,7 +96,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
             <DownOutlined style={{ position: 'relative', top: 1 }} />
           </a>
         </Dropdown>
-      </Menu.Item> */}
+      </Menu.Item>
     </Menu>
   );
 };
