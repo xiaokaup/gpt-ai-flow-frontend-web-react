@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Checkbox, Select, message } from 'antd';
 
 import { IReduxRootState } from '../../../../store/reducer';
-import { ILocalReducerState } from '../../../../store/reducer/localReducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
 import { EOpenAiModel } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
@@ -14,6 +13,7 @@ import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserDat
 import { ISubscriptionDB_v2 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { EProductDB_version } from '../../../../gpt-ai-flow-common/enum-database/EProductDB';
 import TSubscription_v2CommonFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscription_v2';
+import { IStoreStorageLocalSettings } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 const getModelTypeOptions = (userData: IUserData, subscription_v2Data: ISubscriptionDB_v2) => {
   const { isBetaUser } = userData;
@@ -66,7 +66,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const { userData, subscription_v2Data } = props;
   const subscriptionIsExpired = subscription_v2Data?.expiredAt && new Date(subscription_v2Data?.expiredAt) < new Date();
 
-  const localFromStore: ILocalReducerState = useSelector((state: IReduxRootState) => {
+  const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
   });
 
