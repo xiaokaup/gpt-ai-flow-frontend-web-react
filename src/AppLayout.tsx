@@ -1,13 +1,16 @@
 import React from 'react';
-import { Layout, Menu, MenuProps } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dropdown, Layout, Menu, MenuProps } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
-
-import translate from './i18nProvider/translate';
-import { useLocalInfo } from './hooks/useLocalInfo';
 import { saveLocalAction } from './store/actions/localActions';
-import { useDispatch } from 'react-redux';
+import { IReduxRootState } from './store/reducer';
+
+import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
+import translate from './gpt-ai-flow-common/i18nProvider/translate';
+import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
+import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,12 +24,21 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
 
   const dispatch = useDispatch();
 
-  const { localData } = useLocalInfo();
-  const { locale } = localData;
+  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  });
+  const { localSettings } = useLocalSettings({
+    localSettingsFromStorage: localSettingsFromStore,
+    onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
+      const newLocalSettings = { ...localSettings, ...newItem };
+      dispatch(saveLocalAction(newLocalSettings) as any);
+    },
+  });
+  const { locale } = localSettings;
 
   const handleSwithLanguage = (nextLocal: ELocale) => {
-    const newLocalData = { ...localData, locale: nextLocal };
-    dispatch(saveLocalAction(newLocalData) as any);
+    const newLocalSettings = { ...localSettings, locale: nextLocal };
+    dispatch(saveLocalAction(newLocalSettings) as any);
     window.location.reload();
   };
 
@@ -87,15 +99,15 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="proMode-doc">
         <Link to="https://www.gptaiflow.com/docs/application-scenarios/introduction">文档</Link>
       </Menu.Item>
-      {/* <Menu.Item key="switch-language">
+      <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            {translate(locale.toLocaleUpperCase())}
+            {translate((locale as ELocale)?.toLocaleUpperCase())}
             &nbsp;
             <DownOutlined style={{ position: 'relative', top: 1 }} />
           </a>
         </Dropdown>
-      </Menu.Item> */}
+      </Menu.Item>
     </Menu>
   );
 };

@@ -1,24 +1,40 @@
 // import logo from "./logo.svg";
 
 import React from 'react';
-import { Provider } from 'react-redux';
-import { configureStore } from './store/store';
-
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+
+import { configureStore } from './store/store';
+import { saveLocalAction } from './store/actions/localActions';
+import { IReduxRootState } from './store/reducer';
+
 import { AppRoutes } from './AppRoutes';
-import { I18nPropvider } from './i18nProvider';
-import { useLocalInfo } from './hooks/useLocalInfo';
+
+import { I18nPropvider } from './gpt-ai-flow-common/i18nProvider';
+import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
+import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 
 const { store, persistor } = configureStore();
 
 // persistor.purge();
 
 const AppInStoreProvider = () => {
-  const { localData } = useLocalInfo();
-  const { locale } = localData;
+  const dispatch = useDispatch();
+  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  });
+  const { localSettings } = useLocalSettings({
+    localSettingsFromStorage: localSettingsFromStore,
+    onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
+      const newLocalSettings = { ...localSettings, ...newItem };
+      dispatch(saveLocalAction(newLocalSettings) as any);
+    },
+  });
+  const { locale } = localSettings;
 
   return (
-    <I18nPropvider locale={locale}>
+    <I18nPropvider locale={locale as ELocale}>
       <div className="App">
         <AppRoutes />
       </div>

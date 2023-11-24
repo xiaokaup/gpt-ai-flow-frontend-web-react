@@ -1,6 +1,6 @@
 import '../../../../styles/global.css';
 
-import translate from '../../../../i18nProvider/translate';
+import translate from '../../../../gpt-ai-flow-common/i18nProvider/translate';
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
