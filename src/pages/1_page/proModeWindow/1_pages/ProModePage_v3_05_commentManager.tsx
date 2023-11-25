@@ -1,7 +1,7 @@
 import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Select, message } from 'antd';
 import { PlusCircleOutlined, MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -14,10 +14,7 @@ import {
   EProMode_v3_05_commentManager_contextType,
   EProMode_v3_05_commentManager_contextTypeStage,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_05_commentManager';
-import {
-  IProMode_v3_contextTypes,
-  IProMode_v3_contextTypeStages,
-} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
+import { IProMode_v3_contextTypeStages } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
@@ -38,11 +35,12 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
   const proModeData = PROMODE_DATA;
   const defaultContextType = DEFAULT_CONTEXT_TYPE;
   const defaultContextTypeStage = DEFAULT_CONTEXT_TYPE_STAGE;
-  const contextPrompts = proModeData.context;
-  const defaultContextTypesForSelect = Object.keys(contextPrompts) as IProMode_v3_contextTypes[];
-  const defaultContextTypeStagesForSelect = Object.keys(
-    contextPrompts[defaultContextType].stages
-  ) as IProMode_v3_contextTypeStages[];
+  const contexts = proModeData.context;
+  const contextDefault = contexts[EProMode_v3_05_commentManager_contextType.DEFAULT];
+  const contextDefaultStageDefault =
+    contexts[EProMode_v3_05_commentManager_contextType.DEFAULT].stages[
+      EProMode_v3_05_commentManager_contextTypeStage.DEFAULT
+    ];
 
   // console.log('props', props);
 
@@ -65,47 +63,50 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
   const [contextTypeStage, setContextTypeStage] =
     useState<EProMode_v3_05_commentManager_contextTypeStage>(defaultContextTypeStage);
   const [defautContext, setDefaultContext] = useState<string>(
-    contextPrompts[contextType].stages[contextTypeStage].defaultValue
+    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue
   );
   const defaultContextHavePlaceHolder = TString.hasPlaceholder(defautContext);
   const [contextHandled, setContextHandled] = useState<string>(
-    contextPrompts[contextType].stages[contextTypeStage].value
+    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).value
   );
 
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
-
-  const handleContextTypeChange = (paraContextType: EProMode_v3_05_commentManager_contextType) => {
-    console.log(`selected ${paraContextType}`);
-    setContextType(paraContextType);
-    const selectedDefaultValue = contextPrompts[paraContextType].stages[contextTypeStage].defaultValue;
-    setDefaultContext(selectedDefaultValue);
-    if (!contextPrompts[paraContextType].stages[contextTypeStage].value) {
-      handleContextTypeStageChange(EProMode_v3_05_commentManager_contextTypeStage.DEFAULT);
-    }
-    setContextHandled(contextPrompts[paraContextType].stages[contextTypeStage].value);
-
-    setIsContextInputsDirty(false);
-
-    if (TString.hasPlaceholder(selectedDefaultValue)) {
-      message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
-    }
-  };
-
-  const handleContextTypeStageChange = (paraContextTypeStage: EProMode_v3_05_commentManager_contextTypeStage) => {
-    console.log(`selected ${paraContextTypeStage}`);
-    setContextTypeStage(paraContextTypeStage);
-    const selectedDefaultValue = contextPrompts[contextType].stages[paraContextTypeStage].defaultValue;
-    setDefaultContext(selectedDefaultValue);
-    setContextHandled(contextPrompts[contextType].stages[paraContextTypeStage].value);
-
-    setIsContextInputsDirty(false);
-
-    if (TString.hasPlaceholder(selectedDefaultValue)) {
-      message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
-    }
-  };
   // === Context input - end ===
+
+  // === Contexts and stages - start ===
+  const defaultContextTypesForSelect = Object.keys(contexts);
+  const [contextTypeStagesListForSelect, setContextTypeStagesListForSelect] = useState<IProMode_v3_contextTypeStages[]>(
+    Object.keys(contexts[contextType]?.stages ?? {}) as IProMode_v3_contextTypeStages[]
+  );
+  // === Contexts and stages - end ===
+
+  useEffect(() => {
+    // Refresh contextTypeStagesList
+    setContextTypeStagesListForSelect(
+      Object.keys(contexts[contextType]?.stages ?? {}) as IProMode_v3_contextTypeStages[]
+    );
+
+    // Update contextDefaultValue and contextValue
+    const selectedDefaultValue = contexts[contextType]?.stages[contextTypeStage]?.defaultValue;
+    const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
+
+    if (!selectedDefaultValue || !selectedValue) {
+      setContextTypeStage(EProMode_v3_05_commentManager_contextTypeStage.DEFAULT);
+      return;
+    }
+
+    if (selectedDefaultValue && selectedValue) {
+      setDefaultContext(selectedDefaultValue);
+      setContextHandled(selectedValue);
+
+      if (TString.hasPlaceholder(selectedDefaultValue)) {
+        message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
+      }
+    }
+
+    setIsContextInputsDirty(false);
+  }, [contextType, contextTypeStage]);
 
   return (
     <div className="panel_container">
@@ -136,17 +137,19 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
             阶段 :
             <Select
               defaultValue={contextTypeStage}
+              value={contextTypeStage}
               style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={handleContextTypeStageChange}
-              options={defaultContextTypeStagesForSelect
+              onChange={(paraContextTypeStage: EProMode_v3_05_commentManager_contextTypeStage) => {
+                console.log(`selected context stage: ${paraContextTypeStage}`);
+                setContextTypeStage(paraContextTypeStage);
+              }}
+              options={contextTypeStagesListForSelect
                 .map((item) => {
                   return {
-                    label:
-                      contextPrompts[contextType].stages[item as EProMode_v3_05_commentManager_contextTypeStage].name,
+                    label: contexts[contextType]?.stages[item as EProMode_v3_05_commentManager_contextTypeStage]?.name,
                     value: item,
                     disabled:
-                      contextPrompts[contextType].stages[item as EProMode_v3_05_commentManager_contextTypeStage]
-                        .disable,
+                      contexts[contextType]?.stages[item as EProMode_v3_05_commentManager_contextTypeStage]?.disable,
                   };
                 })
                 .filter((item) => !item.disabled || item.label)}
@@ -167,14 +170,18 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
             :
             <Select
               defaultValue={contextType}
+              value={contextType}
               style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={handleContextTypeChange}
+              onChange={(paraContextType: EProMode_v3_05_commentManager_contextType) => {
+                console.log(`selected context: ${paraContextType}`);
+                setContextType(paraContextType);
+              }}
               options={defaultContextTypesForSelect
                 .map((item) => {
                   return {
-                    label: contextPrompts[item as EProMode_v3_05_commentManager_contextType].name,
+                    label: contexts[item as EProMode_v3_05_commentManager_contextType]?.name,
                     value: item,
-                    disabled: contextPrompts[item as EProMode_v3_05_commentManager_contextType].disable,
+                    disabled: contexts[item as EProMode_v3_05_commentManager_contextType]?.disable,
                   };
                 })
                 .filter((item) => !item.disabled || item.label)}
