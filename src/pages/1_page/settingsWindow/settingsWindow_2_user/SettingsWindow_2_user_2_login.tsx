@@ -119,7 +119,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
           <Form.Item>
             <div>
               <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
-                登录
+                {translate('LOGIN')}
               </Button>
               <span style={{ marginLeft: 20 }}>
                 <Button
