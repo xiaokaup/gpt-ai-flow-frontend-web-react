@@ -1,4 +1,6 @@
-import ISubscriptionDB_v2File, { ISubscriptionDB_v2 } from 'gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import ISubscriptionDB_v2File, {
+  ISubscriptionDB_v2,
+} from '../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { GET_SUBSCRIPTION_DATA_V2, UPDATE_SUBSCRIPTION_DATA_V2 } from '../actions/subscriptionDBActions_v2';
 import { USER_LOGOUT } from '../actions/userActions';
 import { IAction } from '../store';

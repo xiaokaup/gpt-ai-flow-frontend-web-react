@@ -10,6 +10,7 @@ import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 import { IReduxRootState } from 'store/reducer';
 import { udpateSubscriptionDBAction_v2 } from '../../../../../store/actions/subscriptionDBActions_v2';
+import { saveLocalAction } from '../../../../../store/actions/localActions';
 
 import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
 import {
@@ -20,8 +21,6 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { IAIFlow, IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-
-import { useLocalInfo } from '../../../../../hooks/useLocalInfo';
 
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
@@ -36,6 +35,10 @@ import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
+import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
+import IStoreStorageFile, {
+  IStoreStorageLocalSettings,
+} from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -68,11 +71,20 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     aiCommandsSettings,
   } = props;
 
-  const { localData } = useLocalInfo();
+  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  });
+  const { localSettings } = useLocalSettings({
+    localSettingsFromStorage: localSettingsFromStore,
+    onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
+      const newLocalSettings = { ...localSettings, ...newItem };
+      dispatch(saveLocalAction(newLocalSettings) as any);
+    },
+  });
   const {
     openAIApiKey,
     proMode: { model_type: proModeModelType },
-  } = localData;
+  } = localSettings;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
