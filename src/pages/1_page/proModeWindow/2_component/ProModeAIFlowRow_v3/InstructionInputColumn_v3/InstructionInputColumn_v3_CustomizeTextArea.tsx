@@ -60,7 +60,7 @@ export const InstructionInputColumn_v3_CustomizeTextArea = (
       </div>
       <TextArea
         name="customizeInstruction"
-        rows={2}
+        autoSize={{ minRows: 4, maxRows: 12 }}
         value={index === editingInstructionAiFlowIndex ? editingInstructionAiFlowValue : item.aiFlowInstance.value}
         onChange={onCustomizeInstructionInputChange(index)}
         onBlur={onCustomizeInstructionInputBlur(index)}
