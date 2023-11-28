@@ -2,11 +2,14 @@ import '../../../../../styles/global.css';
 import '../../../../../styles/layout.scss';
 import './index.scss';
 
+import _ from 'lodash';
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { SwapOutlined } from '@ant-design/icons';
 
 import { IReduxRootState } from 'store/reducer';
 import { udpateSubscriptionDBAction_v2 } from '../../../../../store/actions/subscriptionDBActions_v2';
@@ -48,7 +51,8 @@ const { TextArea } = Input;
 interface ProModeAIFlowRow_v3_input {
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
-  handledContextPrompt: string;
+  contexthandled: string;
+  contextExamples: { value: string }[];
   defaulInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
   aiCommandsSettings: IAICommands_v4[];
@@ -65,7 +69,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const {
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
-    handledContextPrompt,
+    contexthandled,
+    contextExamples,
     defaulInstructionAiCommands,
     defaultOutputIndicatorAiCommands,
     aiCommandsSettings,
@@ -114,7 +119,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
   const [isTextInputAsText, setIsTextInputAsText] = useState<boolean>(false);
-  const [hasExampleText, setHasExampleText] = useState<boolean>();
+  const [isExampleMode, setIsExampleMode] = useState<boolean>();
   const [exampleText, setExampleText] = useState<string>();
 
   const onInputContentTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -248,7 +253,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     const newPrompts = [
       {
         role: EAIFlowRole.SYSTEM,
-        content: handledContextPrompt,
+        content: contexthandled,
       },
     ];
 
@@ -264,15 +269,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
     // === buildOpenAIPrompts - first command - start ===
     if (index === 0) {
-      if (hasExampleText && exampleText) {
+      if (isExampleMode && exampleText) {
         newPrompts.push(
           {
             role: EAIFlowRole.USER,
-            content: '仿写要求',
+            content: `根据以下原文本内容：\n${exampleText}\n分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写。`,
           },
           {
             role: EAIFlowRole.ASSISTANT,
-            content: exampleText,
+            content: '好的，已经分析相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
           }
         );
       }
@@ -289,6 +294,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         role: EAIFlowRole.USER,
         content: finalResquestContent,
       });
+
+      // console.log('newPrompts', newPrompts);
 
       return newPrompts;
     }
@@ -320,15 +327,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     }
     // Add Previous history - end
 
-    if (hasExampleText && exampleText) {
+    if (isExampleMode && exampleText) {
       newPrompts.push(
         {
           role: EAIFlowRole.USER,
-          content: '仿写要求',
+          content: `根据以下原文本内容：\n${exampleText}\n分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写。`,
         },
         {
           role: EAIFlowRole.ASSISTANT,
-          content: exampleText,
+          content: '好的，已经分析相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
         }
       );
     }
@@ -470,13 +477,11 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           </Button> */}
           </div>
           <div className="row">
-            {hasExampleText && (
+            {isExampleMode && (
               <div>
                 <TextArea
                   name="inputContent"
-                  // showCount
-                  // maxLength={100}
-                  rows={4}
+                  autoSize={{ minRows: 4, maxRows: 12 }}
                   style={{ marginBottom: -1 }}
                   value={exampleText}
                   onChange={onInputExampleTextChange}
@@ -487,10 +492,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             <div>
               <TextArea
                 name="inputContent"
-                // showCount
-                // maxLength={100}
-                rows={6}
-                // style={{ height: 120, marginBottom: 24 }}
+                autoSize={{ minRows: 6, maxRows: 24 }}
                 value={textInputContent}
                 onChange={onInputContentTextAreaChange}
                 placeholder="根据此段内容运行指令"
@@ -510,11 +512,27 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                 value={isTextInputAsText}
                 onChange={(e: CheckboxChangeEvent) => {
                   console.log(`checked = ${e.target.checked}`);
-                  setHasExampleText(e.target.checked);
+                  setIsExampleMode(e.target.checked);
                 }}
               >
-                模仿段落
+                模仿内容
               </Checkbox>
+              {isExampleMode && contextExamples.length > 0 && (
+                <SwapOutlined
+                  style={{
+                    marginTop: 4,
+
+                    fontSize: 18,
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '.25rem',
+                    padding: 4,
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    setExampleText(_.sample(contextExamples)?.value ?? '');
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

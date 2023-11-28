@@ -212,7 +212,7 @@ export const ProModePage_v3_08_productManager = (props: IProModePage_copyWriting
               <ProModeAIFlowRow_v3
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
-                handledContextPrompt={contextHandled}
+                contexthandled={contextHandled}
                 defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage] ?? []}
                 defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage] ?? []}
                 aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType][contextTypeStage] ?? []}

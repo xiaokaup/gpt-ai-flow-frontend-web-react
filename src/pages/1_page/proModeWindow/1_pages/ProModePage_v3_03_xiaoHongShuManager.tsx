@@ -214,7 +214,7 @@ export const ProModePage_v3_03_xiaoHongShuManager = (props: IProModePage_xiaoHon
               <ProModeAIFlowRow_v3
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
-                handledContextPrompt={contextHandled}
+                contexthandled={contextHandled}
                 defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage] ?? []}
                 defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage] ?? []}
                 aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType][contextTypeStage] ?? []}
