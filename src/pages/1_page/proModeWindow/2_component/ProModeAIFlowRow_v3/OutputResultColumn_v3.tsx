@@ -197,7 +197,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                 )}
                 {aiComandsResults[index].isEditing && (
                   <TextArea
-                    rows={8}
+                    autoSize={{ minRows: 6, maxRows: 24 }}
                     value={aiComandsResults[index].value}
                     onChange={(e) => {
                       const newAiCommandsResults = [...aiComandsResults];
