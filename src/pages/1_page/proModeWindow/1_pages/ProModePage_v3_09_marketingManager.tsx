@@ -69,6 +69,7 @@ export const ProModePage_v3_09_marketingManager = (props: IProModePage_copyWriti
   const [contextHandled, setContextHandled] = useState<string>(
     ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).value
   );
+  const [contextExamples, setContextExamples] = useState<{ value: string }[]>([]);
 
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
@@ -90,6 +91,7 @@ export const ProModePage_v3_09_marketingManager = (props: IProModePage_copyWriti
     // Update contextDefaultValue and contextValue
     const selectedDefaultValue = contexts[contextType]?.stages[contextTypeStage]?.defaultValue;
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
+    const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
     if (!selectedDefaultValue || !selectedValue) {
       setContextTypeStage(EProMode_v3_09_marketingManager_contextTypeStage.DEFAULT);
@@ -99,6 +101,7 @@ export const ProModePage_v3_09_marketingManager = (props: IProModePage_copyWriti
     if (selectedDefaultValue && selectedValue) {
       setDefaultContext(selectedDefaultValue);
       setContextHandled(selectedValue);
+      setContextExamples(selectedExamples);
 
       if (TString.hasPlaceholder(selectedDefaultValue)) {
         message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
@@ -214,6 +217,7 @@ export const ProModePage_v3_09_marketingManager = (props: IProModePage_copyWriti
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 contexthandled={contextHandled}
+                contextExamples={contextExamples}
                 defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage] ?? []}
                 defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage] ?? []}
                 aiCommandsSettings={proModeData.defaultAiCommandsSettings[contextType][contextTypeStage] ?? []}
