@@ -101,6 +101,7 @@ export const ProModePage_v3_11_customerAssistant = (props: IProModePage_copyWrit
     if (selectedDefaultValue && selectedValue) {
       setDefaultContext(selectedDefaultValue);
       setContextHandled(selectedValue);
+      setContextExamples(selectedExamples);
 
       if (TString.hasPlaceholder(selectedDefaultValue)) {
         message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
