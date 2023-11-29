@@ -4,7 +4,7 @@ import '../../../../styles/layout.scss';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
 import { IReduxRootState } from '../../../../store/reducer';
