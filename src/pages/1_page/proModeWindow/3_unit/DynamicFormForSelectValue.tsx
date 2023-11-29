@@ -4,7 +4,8 @@ import '../../../../styles/layout.scss';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 
 import { IReduxRootState } from '../../../../store/reducer';
 import { updateInputsCache } from '../../../../store/actions/inputsCacheActions';
@@ -79,7 +80,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
   return (
     <div className="row" style={containerStyle}>
       <div className="row">
-        <Form layout="inline" initialValues={inputsCache}>
+        <Form initialValues={inputsCache}>
           {placeholders.map((placeholder, index) => (
             <div key={index}>
               <Form.Item
@@ -92,8 +93,8 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
                   marginTop: '.4rem',
                 }}
               >
-                <Input
-                  type="text"
+                <TextArea
+                  autoSize={{ minRows: 1, maxRows: 12 }}
                   value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />

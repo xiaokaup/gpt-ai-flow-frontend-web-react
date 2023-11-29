@@ -4,7 +4,8 @@ import '../../../../styles/layout.scss';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, message } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 
 import { IReduxRootState } from '../../../../store/reducer';
 import { updateInputsCache } from '../../../../store/actions/inputsCacheActions';
@@ -104,7 +105,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
     <div className="row" style={containerStyle}>
       <div>填写需要的部分(可选)，点击最右边的 📝 显示/隐藏 背景细节表单</div>
       <div className="row">
-        <Form layout="inline" initialValues={inputsCache}>
+        <Form initialValues={inputsCache}>
           {placeholders.map((placeholder, index) => (
             <div key={index}>
               <Form.Item
@@ -114,8 +115,8 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
                 //   rules={[{ required: true }]}
                 style={{ marginRight: '1rem', marginTop: '1rem' }}
               >
-                <Input
-                  type="text"
+                <TextArea
+                  autoSize={{ minRows: 1, maxRows: 12 }}
                   value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />
@@ -127,7 +128,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
 
       <div className="row">
         <Button type="primary" onClick={generateContextNoPlaceHolder}>
-          确定背景细节
+          确定场景阶段细节
         </Button>
       </div>
     </div>
