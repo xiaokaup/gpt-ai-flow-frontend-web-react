@@ -10,7 +10,7 @@ import { IReduxRootState } from './store/reducer';
 
 import { AppRoutes } from './AppRoutes';
 
-import { I18nPropvider } from './gpt-ai-flow-common/i18nProvider';
+import { I18nProvider } from './gpt-ai-flow-common/i18nProvider';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
@@ -34,11 +34,11 @@ const AppInStoreProvider = () => {
   const { locale } = localSettings;
 
   return (
-    <I18nPropvider locale={locale as ELocale}>
+    <I18nProvider locale={locale as ELocale}>
       <div className="App">
         <AppRoutes />
       </div>
-    </I18nPropvider>
+    </I18nProvider>
   );
 };
 
