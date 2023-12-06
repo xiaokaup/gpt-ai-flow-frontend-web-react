@@ -33,9 +33,11 @@ export const ProModePage_v3_07_upZhu = (props: IProModePage_copyWriting_input) =
   const defaultContextType = DEFAULT_CONTEXT_TYPE;
   const defaultContextTypeStage = DEFAULT_CONTEXT_TYPE_STAGE;
   const contexts = proModeData.context;
-  const contextDefault = contexts[EProMode_v3_07_upZhu_contextType.DEFAULT];
+  const contextDefault = contexts[EProMode_v3_07_upZhu_contextType.CONTEXT_TYPE_1_KNOWLEDGE_SHARE_AS_DEFAULT];
   const contextDefaultStageDefault =
-    contexts[EProMode_v3_07_upZhu_contextType.DEFAULT].stages[EProMode_v3_07_upZhu_contextTypeStage.DEFAULT];
+    contexts[EProMode_v3_07_upZhu_contextType.CONTEXT_TYPE_1_KNOWLEDGE_SHARE_AS_DEFAULT].stages[
+      EProMode_v3_07_upZhu_contextTypeStage.DEFAULT
+    ];
 
   // console.log('props', props);
 
