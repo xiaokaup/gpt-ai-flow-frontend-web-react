@@ -147,8 +147,10 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     }, 1000);
   }
 
-  const defaultTabPanels: ITabPanel[] = [
-    {
+  const defaultTabPanels: ITabPanel[] = [];
+
+  if (PROMODE_COMMUNICATION_DATA?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.COMMUNICATION_MANAGER,
       label: PROMODE_COMMUNICATION_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.COMMUNICATION_MANAGER,
@@ -163,8 +165,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.COMMUNICATION_MANAGER),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_COPY_WRITING_DATA?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.COPY_WRITING_MANAGER,
       label: PROMODE_COPY_WRITING_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.COPY_WRITING_MANAGER,
@@ -179,8 +184,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.COPY_WRITING_MANAGER),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_XIAO_HONG_SHU_DATA?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER,
       label: PROMODE_XIAO_HONG_SHU_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER,
@@ -195,8 +203,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_AI?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.AI_ASSISTANT,
       label: PROMODE_AI.tabInfo.name,
       value: EServiceCategoryDB_name.AI_ASSISTANT,
@@ -211,8 +222,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.AI_ASSISTANT),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_CUSTOMER_ASSISTANT_DATA?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.CUSTOMER_ASSISTANT,
       label: PROMODE_CUSTOMER_ASSISTANT_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.CUSTOMER_ASSISTANT,
@@ -227,8 +241,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.CUSTOMER_ASSISTANT),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_COMMENT_DATA?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.COMMENT_MANAGER,
       label: PROMODE_COMMENT_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.COMMENT_MANAGER,
@@ -243,8 +260,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.COMMENT_MANAGER),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_CAREER_DATA?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.CAREER_MANAGER,
       label: PROMODE_CAREER_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.CAREER_MANAGER,
@@ -259,8 +279,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.CAREER_MANAGER),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_UP_ZHU_DATA?.tabInfo.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.UP_ZHU,
       label: PROMODE_UP_ZHU_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.UP_ZHU,
@@ -275,8 +298,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.UP_ZHU),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_PRODUCT_MANAGER?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.PRODUCT_MANAGER,
       label: PROMODE_PRODUCT_MANAGER.tabInfo.name,
       value: EServiceCategoryDB_name.PRODUCT_MANAGER,
@@ -291,8 +317,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.PRODUCT_MANAGER),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_MARKETING_EXPERT?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.MARKETING_MANAGER,
       label: PROMODE_MARKETING_EXPERT.tabInfo.name,
       value: EServiceCategoryDB_name.MARKETING_MANAGER,
@@ -307,8 +336,11 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.MARKETING_MANAGER),
-    },
-    {
+    });
+  }
+
+  if (PROMODE_SEO_DATA?.tabInfo?.name) {
+    defaultTabPanels.push({
       key: EServiceCategoryDB_name.SEO_MANAGER,
       label: PROMODE_SEO_DATA.tabInfo.name,
       value: EServiceCategoryDB_name.SEO_MANAGER,
@@ -323,8 +355,8 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
         />
       ),
       disabled: !serviceCategories.includes(EServiceCategoryDB_name.SEO_MANAGER),
-    },
-  ];
+    });
+  }
 
   return {
     defaultTabPanels,
