@@ -273,11 +273,12 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         newPrompts.push(
           {
             role: EAIFlowRole.USER,
-            content: `根据以下原文本内容：\n${exampleText}\n分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写。`,
+            content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
+  原文本内容: """${exampleText}"""`,
           },
           {
             role: EAIFlowRole.ASSISTANT,
-            content: '好的，已经分析相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
+            content: '好的，已经分析原文本内容相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
           }
         );
       }
@@ -331,11 +332,12 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       newPrompts.push(
         {
           role: EAIFlowRole.USER,
-          content: `根据以下原文本内容：\n${exampleText}\n分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写。`,
+          content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
+原文本内容: """${exampleText}"""`,
         },
         {
           role: EAIFlowRole.ASSISTANT,
-          content: '好的，已经分析相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
+          content: '好的，已经分析原文本内容相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
         }
       );
     }
