@@ -17,6 +17,7 @@ interface DynamicFormForContextPrompt_input {
   containerStyle: any;
   contextPromptWithPlaceholder: string;
   setHandledContextPrompt: (value: string) => void;
+  setShowContextInputs: (value: boolean) => void;
   setIsContextInputsDirty: (value: boolean) => void;
 }
 
@@ -33,7 +34,13 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
     },
   });
 
-  const { containerStyle, contextPromptWithPlaceholder, setHandledContextPrompt, setIsContextInputsDirty } = props;
+  const {
+    containerStyle,
+    contextPromptWithPlaceholder,
+    setHandledContextPrompt,
+    setShowContextInputs,
+    setIsContextInputsDirty,
+  } = props;
 
   const [placeholders, setPlaceholders] = useState<string[]>([]);
 
@@ -127,8 +134,17 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
       </div>
 
       <div className="row">
-        <Button type="primary" onClick={generateContextNoPlaceHolder}>
+        <Button type="primary" size="small" onClick={generateContextNoPlaceHolder}>
           确定场景阶段细节
+        </Button>
+        <Button
+          size="small"
+          style={{ marginLeft: '.4rem' }}
+          onClick={() => {
+            setShowContextInputs(false);
+          }}
+        >
+          关闭
         </Button>
       </div>
     </div>
