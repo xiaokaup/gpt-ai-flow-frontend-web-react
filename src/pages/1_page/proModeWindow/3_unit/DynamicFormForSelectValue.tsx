@@ -4,7 +4,7 @@ import '../../../../styles/layout.scss';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Button, Form } from 'antd';
+import { Button, Form, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
 import { IReduxRootState } from '../../../../store/reducer';
@@ -74,7 +74,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
 
     setHandledContextPrompt(result);
     setAICommandsIsDirty(false);
-    toggleAiCommandsIsShowInputsForm();
+    message.success('填写成功');
   };
 
   return (
@@ -105,8 +105,17 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
       </div>
 
       <div className="row">
-        <Button type="primary" onClick={generateCommandValueNoPlaceHolder}>
+        <Button type="primary" size="small" onClick={generateCommandValueNoPlaceHolder}>
           确定指令细节
+        </Button>
+        <Button
+          size="small"
+          style={{ marginLeft: '.4rem' }}
+          onClick={() => {
+            toggleAiCommandsIsShowInputsForm();
+          }}
+        >
+          关闭
         </Button>
       </div>
     </div>
