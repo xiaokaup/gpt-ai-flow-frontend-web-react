@@ -127,8 +127,8 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     !PROMODE_AI.tabInfo ||
     !PROMODE_COMMENT_DATA ||
     !PROMODE_COMMENT_DATA.tabInfo ||
-    !PROMODE_CAREER_DATA ||
-    !PROMODE_CAREER_DATA.tabInfo ||
+    !PROMODE_CAREER_DATA || // @TODELETE
+    !PROMODE_CAREER_DATA.tabInfo || // @TODELETE
     !PROMODE_UP_ZHU_DATA ||
     !PROMODE_UP_ZHU_DATA.tabInfo ||
     !PROMODE_PRODUCT_MANAGER ||
