@@ -106,6 +106,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
     setHandledContextPrompt(result);
     setIsContextInputsDirty(false);
     message.success('填写成功');
+    setShowContextInputs(false);
   };
 
   return (
@@ -136,15 +137,6 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
       <div className="row">
         <Button type="primary" size="small" onClick={generateContextNoPlaceHolder}>
           确定场景阶段细节
-        </Button>
-        <Button
-          size="small"
-          style={{ marginLeft: '.4rem' }}
-          onClick={() => {
-            setShowContextInputs(false);
-          }}
-        >
-          关闭
         </Button>
       </div>
     </div>
