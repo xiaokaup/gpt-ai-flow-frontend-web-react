@@ -32,10 +32,10 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
 
   const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModel>(
-    localFromStore.chatMode?.model_type ?? EOpenAiModel.GPT_3_point_5_TURBO
+    localFromStore.chatMode?.model_type ?? EOpenAiModel.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
   );
   const [proModeModelType, setProModeModelType] = useState<EOpenAiModel>(
-    localFromStore.proMode?.model_type ?? EOpenAiModel.GPT_3_point_5_TURBO
+    localFromStore.proMode?.model_type ?? EOpenAiModel.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
   );
 
   const onSaveLocalSettings = () => {
