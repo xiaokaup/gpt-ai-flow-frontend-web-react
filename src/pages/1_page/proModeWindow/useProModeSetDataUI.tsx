@@ -85,7 +85,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
 
   const { userDataFromStorage, serviceCategories } = props;
 
-  const encryptedProModeSetFromStore: string = useSelector(
+  const encryptedProModeSetFromStore = useSelector(
     (state: IReduxRootState) => state.proModeSet ?? IProMode_v3File.IProMode_v3_default
   );
 

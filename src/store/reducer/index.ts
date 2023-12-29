@@ -17,7 +17,7 @@ export interface IReduxRootState {
   counterInfo: ICounterReducerState;
   user: IUserData;
   local: IStoreStorageLocalSettings;
-  proModeSet: IProMode_v3;
+  proModeSet: string; // OK, not IProMode_v3
   // subscription: ISubscirptionMix;
   subscription_v2: ISubscriptionDB_v2;
   inputsCache: IInputsCache;
