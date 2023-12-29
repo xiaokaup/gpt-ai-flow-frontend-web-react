@@ -95,7 +95,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
                 }}
               >
                 <TextArea
-                  autoSize={{ minRows: 1, maxRows: 12 }}
+                  autoSize
                   value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />

@@ -124,7 +124,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
                 style={{ marginRight: '1rem', marginTop: '1rem' }}
               >
                 <TextArea
-                  autoSize={{ minRows: 1, maxRows: 12 }}
+                  autoSize
                   value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />
