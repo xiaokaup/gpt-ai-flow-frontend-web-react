@@ -483,7 +483,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
               <div>
                 <TextArea
                   name="inputContent"
-                  autoSize={{ minRows: 4, maxRows: 12 }}
+                  autoSize
                   style={{ marginBottom: -1 }}
                   value={exampleText}
                   onChange={onInputExampleTextChange}
@@ -494,7 +494,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             <div>
               <TextArea
                 name="inputContent"
-                autoSize={{ minRows: 6, maxRows: 24 }}
+                autoSize
                 value={textInputContent}
                 onChange={onInputContentTextAreaChange}
                 placeholder="根据此段内容运行指令"

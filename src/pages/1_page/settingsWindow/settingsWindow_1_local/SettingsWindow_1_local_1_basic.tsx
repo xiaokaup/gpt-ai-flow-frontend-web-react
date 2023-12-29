@@ -12,49 +12,8 @@ import { EOpenAiModel } from '../../../../gpt-ai-flow-common/enum-backend/EOpenA
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { ISubscriptionDB_v2 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { EProductDB_version } from '../../../../gpt-ai-flow-common/enum-database/EProductDB';
-import TSubscription_v2CommonFile from '../../../../gpt-ai-flow-common/tools/3_unit/TSbuscription_v2';
 import { IStoreStorageLocalSettings } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-
-const getModelTypeOptions = (userData: IUserData, subscription_v2Data: ISubscriptionDB_v2) => {
-  const { isBetaUser } = userData;
-  const hasAvailableSubscriptionDB_v2 = TSubscription_v2CommonFile.checkSubscription_v2IsAvailable(subscription_v2Data);
-  const hasAccessGPT_4 = hasAvailableSubscriptionDB_v2 || isBetaUser;
-
-  if (
-    hasAccessGPT_4 &&
-    (isBetaUser || (new Date(subscription_v2Data.expiredAt) >= new Date() && subscription_v2Data.productLimitId === 2))
-  ) {
-    return [
-      {
-        value: EOpenAiModel.GPT_3_point_5_TURBO,
-        label: EOpenAiModel.GPT_3_point_5_TURBO,
-      },
-      {
-        value: EOpenAiModel.GPT_3_point_5_TUEBO_1106,
-        label: EOpenAiModel.GPT_3_point_5_TUEBO_1106,
-      },
-      {
-        value: EOpenAiModel.GPT_3_point_5_TUEBO_16K,
-        label: EOpenAiModel.GPT_3_point_5_TUEBO_16K,
-      },
-      {
-        value: EOpenAiModel.GPT_4_PREVIEW,
-        label: EOpenAiModel.GPT_4_PREVIEW,
-      },
-      {
-        value: EOpenAiModel.GPT_4,
-        label: EOpenAiModel.GPT_4,
-      },
-    ];
-  }
-
-  return [
-    {
-      value: EOpenAiModel.GPT_3_point_5_TURBO,
-      label: EOpenAiModel.GPT_3_point_5_TURBO,
-    },
-  ];
-};
+import TModelsFile from '../../../../gpt-ai-flow-common/tools/3_unit/TModels';
 
 interface ISettingsWindow_1_local_basic_input {
   userData: IUserData;
@@ -165,7 +124,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={getModelTypeOptions(userData, subscription_v2Data)}
+          options={TModelsFile.getModelTypeOptions(userData, subscription_v2Data)}
           style={{
             width: 200,
           }}
