@@ -42,6 +42,7 @@ import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLoc
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -60,6 +61,7 @@ interface ProModeAIFlowRow_v3_input {
 export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const dispatch = useDispatch();
 
+  const proModeModalValue = useProModeModelValueProviderContext();
   const creativityValue = useCreativityValueContext();
   const useSubscriptionDB_v2DataOutput: IUseSubscriptionDB_v2Data_output = useSubscriptionDB_v2ValueContext();
   const {
@@ -86,10 +88,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       dispatch(saveLocalAction(newLocalSettings) as any);
     },
   });
-  const {
-    openAIApiKey,
-    proMode: { model_type: proModeModelType },
-  } = localSettings;
+  const { openAIApiKey } = localSettings;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -377,8 +376,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           openaiSecret: openAIApiKey,
           prompt: resquestContentPrompt,
           openaiOptions: {
-            // openaiModel: EOpenAiModel.GPT_4,
-            openaiModel: proModeModelType,
+            openaiModel: proModeModalValue,
             temperature: creativityValue,
           },
           subscriptionData: subscription_v2Data,
@@ -483,7 +481,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
               <div>
                 <TextArea
                   name="inputContent"
-                  autoSize={{ minRows: 4, maxRows: 12 }}
+                  autoSize={{ minRows: 2 }}
                   style={{ marginBottom: -1 }}
                   value={exampleText}
                   onChange={onInputExampleTextChange}
@@ -494,7 +492,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             <div>
               <TextArea
                 name="inputContent"
-                autoSize={{ minRows: 6, maxRows: 24 }}
+                autoSize={{ minRows: 4 }}
                 value={textInputContent}
                 onChange={onInputContentTextAreaChange}
                 placeholder="根据此段内容运行指令"
