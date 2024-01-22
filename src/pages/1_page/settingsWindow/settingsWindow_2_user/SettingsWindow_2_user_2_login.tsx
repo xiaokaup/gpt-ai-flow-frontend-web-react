@@ -76,7 +76,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       }}
     >
       <div className="row">
-        <h2>{translate('LOGIN')}</h2>
+        <h2>{translate('Login')}</h2>
       </div>
       <div className="row block_email_and_password">
         <Form
