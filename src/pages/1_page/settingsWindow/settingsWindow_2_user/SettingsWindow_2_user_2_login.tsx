@@ -1,6 +1,6 @@
 import '../../../../styles/global.css';
 
-import translate from '../../../../gpt-ai-flow-common/i18nProvider/translate';
+import { translate } from '../../../../gpt-ai-flow-common/i18nProvider/translate';
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,7 +76,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       }}
     >
       <div className="row">
-        <h2>{translate('LOGIN')}</h2>
+        <h2>{translate('Login')}</h2>
       </div>
       <div className="row block_email_and_password">
         <Form
@@ -119,7 +119,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
           <Form.Item>
             <div>
               <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
-                {translate('LOGIN')}
+                {translate('Login')}
               </Button>
               <span style={{ marginLeft: 20 }}>
                 <Button

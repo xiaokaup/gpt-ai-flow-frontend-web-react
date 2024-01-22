@@ -6,17 +6,18 @@ import '../../../../../styles/layout.scss';
 import React, { useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import { Button, Tag, message } from 'antd';
+import { Alert, Button, Tag, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
-import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { ERegionDB_code } from '../../../../../gpt-ai-flow-common/enum-database/ERegionDB';
+import { ESubscriptionVersion } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
 import { IUseSubscriptionDB_v2Data_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
 import TBackendStripeFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendSubscription_v2File from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendSubscription_v2';
-import { ERegionDB_code } from '../../../../../gpt-ai-flow-common/enum-database/ERegionDB';
 
 import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
 
@@ -57,7 +58,7 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
     subscription_v2Data.expiredAt,
   ]);
 
-  const startATrialSubscriptionForEUR = async () => {
+  const startATrialSubscriptionForEUR_with_subscriptionVersion = async (subscriptionVersion: ESubscriptionVersion) => {
     if (!userId) {
       message.error('请登录');
       return;
@@ -72,6 +73,7 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
     const results = await TBackendSubscription_v2File.startATrialSubscription_v2ForEUR(
       userId.toString(),
       stripeCustomerId,
+      subscriptionVersion,
       userAccessToken,
       CONSTANTS_GPT_AI_FLOW_COMMON
     );
@@ -88,6 +90,10 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
       userAccessToken,
       CONSTANTS_GPT_AI_FLOW_COMMON
     );
+
+    if (billingSessionResults?.status === 'error') {
+      message.error(billingSessionResults.message);
+    }
 
     window.open(billingSessionResults.url, '_blank', 'noreferrer');
   };
@@ -114,14 +120,33 @@ export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR
               </CopyToClipboard>
             </div>
           </div>
-          <Button
-            type="primary"
-            onClick={() => {
-              startATrialSubscriptionForEUR();
-            }}
-          >
-            开始试用(已付费或单次成功付款成功后请刷新页面)
-          </Button>
+          <div className="row" style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
+            <Button
+              type="primary"
+              onClick={() => {
+                startATrialSubscriptionForEUR_with_subscriptionVersion(ESubscriptionVersion.OFFICIAL_MODAL);
+              }}
+              style={{ marginTop: '.2rem' }}
+            >
+              开始试用 入门模型版 (避免繁琐设置，直接体验)
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                startATrialSubscriptionForEUR_with_subscriptionVersion(ESubscriptionVersion.TOOL);
+              }}
+              style={{ marginTop: '.2rem' }}
+            >
+              开始试用 入门工具版 (需自备 OpenAI 密匙)
+            </Button>
+          </div>
+          <div className="row">
+            <Alert
+              type="info"
+              style={{ cursor: 'pointer' }}
+              message={<span>已付费或单次成功付款成功后请刷新页面或重启软件</span>}
+            />
+          </div>
         </div>
       )}
 
