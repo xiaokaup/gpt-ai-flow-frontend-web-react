@@ -49,10 +49,10 @@ import {
   EProMode_v3_05_commentManager_contextType,
   EProMode_v3_05_commentManager_contextTypeStage,
 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_05_commentManager';
-import {
-  EProMode_v3_06_careerManager_contextType,
-  EProMode_v3_06_careerManager_contextTypeStage,
-} from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_06_careerManager';
+// import {
+//   EProMode_v3_06_careerManager_contextType,
+//   EProMode_v3_06_careerManager_contextTypeStage,
+// } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_06_careerManager';
 import {
   EProMode_v3_07_upZhu_contextType,
   EProMode_v3_07_upZhu_contextTypeStage,
@@ -127,8 +127,8 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     !PROMODE_AI.tabInfo ||
     !PROMODE_COMMENT_DATA ||
     !PROMODE_COMMENT_DATA.tabInfo ||
-    !PROMODE_CAREER_DATA || // @TODELETE
-    !PROMODE_CAREER_DATA.tabInfo || // @TODELETE
+    // !PROMODE_CAREER_DATA || // @TODELETE
+    // !PROMODE_CAREER_DATA.tabInfo || // @TODELETE
     !PROMODE_UP_ZHU_DATA ||
     !PROMODE_UP_ZHU_DATA.tabInfo ||
     !PROMODE_PRODUCT_MANAGER ||
@@ -263,24 +263,24 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     });
   }
 
-  if (PROMODE_CAREER_DATA?.tabInfo?.name) {
-    defaultTabPanels.push({
-      key: EServiceCategoryDB_name.CAREER_MANAGER,
-      label: PROMODE_CAREER_DATA.tabInfo.name,
-      value: EServiceCategoryDB_name.CAREER_MANAGER,
-      children: (
-        <ProModePage_v3_06_careerManager
-          PROMODE_DATA={
-            PROMODE_CAREER_DATA as IProMode_v3_oneProMode<
-              EProMode_v3_06_careerManager_contextType,
-              EProMode_v3_06_careerManager_contextTypeStage
-            >
-          }
-        />
-      ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.CAREER_MANAGER),
-    });
-  }
+  // if (PROMODE_CAREER_DATA?.tabInfo?.name) {
+  //   defaultTabPanels.push({
+  //     key: EServiceCategoryDB_name.CAREER_MANAGER,
+  //     label: PROMODE_CAREER_DATA.tabInfo.name,
+  //     value: EServiceCategoryDB_name.CAREER_MANAGER,
+  //     children: (
+  //       <ProModePage_v3_06_careerManager
+  //         PROMODE_DATA={
+  //           PROMODE_CAREER_DATA as IProMode_v3_oneProMode<
+  //             EProMode_v3_06_careerManager_contextType,
+  //             EProMode_v3_06_careerManager_contextTypeStage
+  //           >
+  //         }
+  //       />
+  //     ),
+  //     disabled: !serviceCategories.includes(EServiceCategoryDB_name.CAREER_MANAGER),
+  //   });
+  // }
 
   if (PROMODE_UP_ZHU_DATA?.tabInfo.name) {
     defaultTabPanels.push({
