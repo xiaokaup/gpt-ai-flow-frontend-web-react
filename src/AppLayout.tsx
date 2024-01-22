@@ -8,7 +8,7 @@ import { saveLocalAction } from './store/actions/localActions';
 import { IReduxRootState } from './store/reducer';
 
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
-import translate from './gpt-ai-flow-common/i18nProvider/translate';
+import { translate } from './gpt-ai-flow-common/i18nProvider/translate';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
@@ -44,24 +44,24 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
 
   const items: MenuProps['items'] = [
     {
-      key: 'en',
-      label: (
-        <div onClick={() => handleSwithLanguage(ELocale.EN)}>
-          <span role="img" aria-label="English">
-            🇺🇸
-          </span>
-          &nbsp;{translate('ENGLISH')}
-        </div>
-      ),
-    },
-    {
       key: 'zh',
       label: (
         <div onClick={() => handleSwithLanguage(ELocale.ZH)}>
           <span role="img" aria-label="Chinese">
             🇨🇳
           </span>
-          &nbsp;{translate('CHINESE')}
+          &nbsp;{translate(ELocale.ZH)}
+        </div>
+      ),
+    },
+    {
+      key: 'en',
+      label: (
+        <div onClick={() => handleSwithLanguage(ELocale.EN)}>
+          <span role="img" aria-label="English">
+            🇺🇸
+          </span>
+          &nbsp;{translate(ELocale.EN)}
         </div>
       ),
     },
@@ -99,15 +99,15 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="proMode-doc">
         <Link to="https://www.gptaiflow.com/docs/application-scenarios/introduction">文档</Link>
       </Menu.Item>
-      {/* <Menu.Item key="switch-language">
+      <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            {translate((locale as ELocale)?.toLocaleUpperCase())}
+            {translate(locale)}
             &nbsp;
             <DownOutlined style={{ position: 'relative', top: 1 }} />
           </a>
         </Dropdown>
-      </Menu.Item> */}
+      </Menu.Item>
     </Menu>
   );
 };
