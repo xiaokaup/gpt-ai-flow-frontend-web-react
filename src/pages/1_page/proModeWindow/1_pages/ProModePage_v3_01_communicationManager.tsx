@@ -206,6 +206,7 @@ export const ProModePage_v3_01_communicationManager = (props: IProModePage_commu
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defautContext}
           setHandledContextPrompt={setContextHandled}
+          setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>

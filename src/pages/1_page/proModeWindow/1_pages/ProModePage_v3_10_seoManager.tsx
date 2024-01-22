@@ -202,6 +202,7 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defautContext}
           setHandledContextPrompt={setContextHandled}
+          setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>

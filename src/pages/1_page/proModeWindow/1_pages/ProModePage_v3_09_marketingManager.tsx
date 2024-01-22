@@ -205,6 +205,7 @@ export const ProModePage_v3_09_marketingManager = (props: IProModePage_copyWriti
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defautContext}
           setHandledContextPrompt={setContextHandled}
+          setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>

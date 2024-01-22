@@ -17,6 +17,7 @@ interface DynamicFormForContextPrompt_input {
   containerStyle: any;
   contextPromptWithPlaceholder: string;
   setHandledContextPrompt: (value: string) => void;
+  setShowContextInputs: (value: boolean) => void;
   setIsContextInputsDirty: (value: boolean) => void;
 }
 
@@ -33,7 +34,13 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
     },
   });
 
-  const { containerStyle, contextPromptWithPlaceholder, setHandledContextPrompt, setIsContextInputsDirty } = props;
+  const {
+    containerStyle,
+    contextPromptWithPlaceholder,
+    setHandledContextPrompt,
+    setShowContextInputs,
+    setIsContextInputsDirty,
+  } = props;
 
   const [placeholders, setPlaceholders] = useState<string[]>([]);
 
@@ -99,6 +106,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
     setHandledContextPrompt(result);
     setIsContextInputsDirty(false);
     message.success('填写成功');
+    setShowContextInputs(false);
   };
 
   return (
@@ -116,7 +124,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
                 style={{ marginRight: '1rem', marginTop: '1rem' }}
               >
                 <TextArea
-                  autoSize={{ minRows: 1, maxRows: 12 }}
+                  autoSize
                   value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />
@@ -127,7 +135,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
       </div>
 
       <div className="row">
-        <Button type="primary" onClick={generateContextNoPlaceHolder}>
+        <Button type="primary" size="small" onClick={generateContextNoPlaceHolder}>
           确定场景阶段细节
         </Button>
       </div>

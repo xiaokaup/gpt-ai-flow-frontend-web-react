@@ -200,6 +200,7 @@ export const ProModePage_v3_07_upZhu = (props: IProModePage_copyWriting_input) =
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defautContext}
           setHandledContextPrompt={setContextHandled}
+          setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>

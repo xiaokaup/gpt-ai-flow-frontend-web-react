@@ -205,6 +205,7 @@ export const ProModePage_v3_11_customerAssistant = (props: IProModePage_copyWrit
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defaultContext}
           setHandledContextPrompt={setContextHandled}
+          setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>

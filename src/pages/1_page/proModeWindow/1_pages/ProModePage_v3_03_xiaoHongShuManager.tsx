@@ -206,6 +206,7 @@ export const ProModePage_v3_03_xiaoHongShuManager = (props: IProModePage_xiaoHon
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defaultContext}
           setHandledContextPrompt={setContextHandled}
+          setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
       </div>

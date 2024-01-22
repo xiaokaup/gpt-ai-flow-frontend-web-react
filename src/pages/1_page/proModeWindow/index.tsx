@@ -16,6 +16,7 @@ import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useProModeSetDataUI } from './useProModeSetDataUI';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
+import { ProModeModelValueProvider } from '../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
@@ -28,6 +29,12 @@ import {
 } from '../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
 import { EProductDB_name } from '../../../gpt-ai-flow-common/enum-database/EProductDB';
 import { SubscriptionDB_v2ValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
+
+import { EOpenAiModel } from '../../../gpt-ai-flow-common/enum-backend/EOpenAIModel';
+import IStoreStorageFile, {
+  IStoreStorageLocalSettings,
+} from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import TModelsFile from '../../../gpt-ai-flow-common/tools/3_unit/TModels';
 
 export interface ITabPanel {
   key: EServiceCategoryDB_name;
@@ -48,6 +55,15 @@ const ProModeWindow = () => {
   // === Stripe subscription - start ===
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
+  });
+  const localDataFromStorage: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  });
+  const {
+    proMode: { model_type },
+  } = localDataFromStorage;
+  const subscription_v2FromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
+    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
   });
 
   const { userData } = useUserData({
@@ -113,6 +129,12 @@ const ProModeWindow = () => {
   const onProModeSelectorSearch = (value: string) => {
     console.log('search:', value);
   };
+
+  // Model select
+  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel>(model_type);
+  const [subscription_v2Data] = useState<ISubscriptionDB_v2>(
+    subscription_v2FromStorage ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default
+  );
   // === proMode selector - end ===
 
   // === tab panels - start ===
@@ -188,49 +210,54 @@ const ProModeWindow = () => {
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
-      <div className="container" style={{ position: 'relative' }}>
-        <div className="row top_block_add_tab">
-          <Select
-            showSearch
-            placeholder="选择专业界面"
-            optionFilterProp="children"
-            onChange={onProModeSelectorChange}
-            onSearch={onProModeSelectorSearch}
-            filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-            options={[
-              {
-                value: '',
-                label: '请选择',
-              },
-              ...defaultTabPanels.map((item: { value: string; label: string }) => {
-                return {
-                  value: item.value,
-                  label: item.label,
-                };
-              }),
-            ]}
-            style={{ width: 180 }}
-          />
+      <div className="container proModeContainer" style={{ position: 'relative', overflow: 'auto' }}>
+        <div
+          className="row top_block"
+          // style={{ display: 'flex', justifyContent: 'space-between' }}
+        >
+          <div className="row top_block_add_tab">
+            <Select
+              showSearch
+              placeholder="选择专业界面"
+              optionFilterProp="children"
+              onChange={onProModeSelectorChange}
+              onSearch={onProModeSelectorSearch}
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              options={[
+                {
+                  value: '',
+                  label: '请选择',
+                },
+                ...defaultTabPanels.map((item: { value: string; label: string }) => {
+                  return {
+                    value: item.value,
+                    label: item.label,
+                  };
+                }),
+              ]}
+              style={{ width: 180 }}
+            />
 
-          <Button
-            type="primary"
-            style={{ marginLeft: 8 }}
-            onClick={() => {
-              if (!selectedProdMode) {
-                message.error('请选择专业界面');
-                return;
-              }
+            <Button
+              type="primary"
+              style={{ marginLeft: 8 }}
+              onClick={() => {
+                if (!selectedProdMode) {
+                  message.error('请选择专业界面');
+                  return;
+                }
 
-              if (!serviceCategories.includes(selectedProdMode)) {
-                message.error('你没有权限使用此面板');
-                return;
-              }
+                if (!serviceCategories.includes(selectedProdMode)) {
+                  message.error('你没有权限使用此面板');
+                  return;
+                }
 
-              addTabPanel(selectedProdMode);
-            }}
-          >
-            添加
-          </Button>
+                addTabPanel(selectedProdMode);
+              }}
+            >
+              添加
+            </Button>
+          </div>
         </div>
 
         <div
@@ -273,6 +300,27 @@ const ProModeWindow = () => {
               marginRight: '2rem',
             }}
           />
+
+          <div className="gptModelSwitch">
+            <Select
+              value={proModeModelType}
+              showSearch
+              placeholder="选择模型"
+              optionFilterProp="children"
+              onChange={(value: string) => {
+                console.log(`selected ${value}`);
+                setProModeModelType(value as EOpenAiModel);
+              }}
+              onSearch={(value: string) => {
+                console.log('search:', value);
+              }}
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              options={TModelsFile.getModelTypeOptions(userData, subscription_v2Data)}
+              style={{
+                width: 180,
+              }}
+            />
+          </div>
         </div>
 
         {!hasAvailableSubscription_v2 && !isBetaUser && (
@@ -293,26 +341,28 @@ const ProModeWindow = () => {
         )}
 
         <div className="row bottom_block_tabs">
-          <CreativityValueProvider value={creativityValue}>
-            <SubscriptionDB_v2ValueProvider value={useSubscriptionDB_v2DataOutput}>
-              <Tabs
-                size="small"
-                hideAdd
-                onChange={onTabsChange}
-                activeKey={activeTabPanelKey}
-                type="editable-card"
-                onEdit={onEditTabPanel}
-              >
-                {tabPanels.map((pane) => {
-                  return (
-                    <Tabs.TabPane tab={pane.label} key={pane.key} disabled={pane.disabled}>
-                      {pane.children}
-                    </Tabs.TabPane>
-                  );
-                })}
-              </Tabs>
-            </SubscriptionDB_v2ValueProvider>
-          </CreativityValueProvider>
+          <ProModeModelValueProvider value={proModeModelType}>
+            <CreativityValueProvider value={creativityValue}>
+              <SubscriptionDB_v2ValueProvider value={useSubscriptionDB_v2DataOutput}>
+                <Tabs
+                  size="small"
+                  hideAdd
+                  onChange={onTabsChange}
+                  activeKey={activeTabPanelKey}
+                  type="editable-card"
+                  onEdit={onEditTabPanel}
+                >
+                  {tabPanels.map((pane) => {
+                    return (
+                      <Tabs.TabPane tab={pane.label} key={pane.key} disabled={pane.disabled}>
+                        {pane.children}
+                      </Tabs.TabPane>
+                    );
+                  })}
+                </Tabs>
+              </SubscriptionDB_v2ValueProvider>
+            </CreativityValueProvider>
+          </ProModeModelValueProvider>
         </div>
       </div>
     </div>

@@ -75,6 +75,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
     setHandledContextPrompt(result);
     setAICommandsIsDirty(false);
     message.success('填写成功');
+    toggleAiCommandsIsShowInputsForm();
   };
 
   return (
@@ -94,7 +95,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
                 }}
               >
                 <TextArea
-                  autoSize={{ minRows: 1, maxRows: 12 }}
+                  autoSize
                   value={inputsCache[placeholder]}
                   onChange={(e) => handleInputChange(placeholder, e.target.value)}
                 />
@@ -107,15 +108,6 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
       <div className="row">
         <Button type="primary" size="small" onClick={generateCommandValueNoPlaceHolder}>
           确定指令细节
-        </Button>
-        <Button
-          size="small"
-          style={{ marginLeft: '.4rem' }}
-          onClick={() => {
-            toggleAiCommandsIsShowInputsForm();
-          }}
-        >
-          关闭
         </Button>
       </div>
     </div>
