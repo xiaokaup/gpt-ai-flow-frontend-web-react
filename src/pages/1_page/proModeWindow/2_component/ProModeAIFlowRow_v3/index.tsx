@@ -298,7 +298,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         chatHistory,
         inputPrompt: {
           role: EAIFlowRole.USER,
-          content: finalResquestContent,
+          content: finalResquestContent.trim(),
         },
       };
     }
@@ -358,7 +358,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       chatHistory,
       inputPrompt: {
         role: EAIFlowRole.USER,
-        content: finalResquestContent,
+        content: finalResquestContent.trim(),
       },
     };
   };
