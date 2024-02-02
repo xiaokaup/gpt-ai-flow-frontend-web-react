@@ -376,6 +376,22 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       // console.log('resquestContentPrompt', resquestContentPrompt);
       const { systemPrompt, chatHistory, inputPrompt } = prompsResults;
 
+      const beforeSendRequestFunc = () => {
+        console.log('beforeSendRequestAsStreamFunc');
+      };
+
+      const updateResultsFunc = (index: number) => (resultText: string) => {
+        // console.log('resultText', resultText);
+        aiComandsResults[index].value = resultText || '';
+        aiComandsResults[index].isEditing = false;
+        setAiComandsResults(aiComandsResults);
+        setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
+      };
+
+      const afterEndRequestFunc = (index: number) => () => {
+        console.log('AfterRequestAsStreamFunc');
+      };
+
       /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
         {
           userId: userId?.toString() ?? '',
@@ -387,20 +403,10 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           },
           subscriptionData: subscription_v2Data,
         },
-        () => {
-          console.log('beforeSendRequestAsStreamFunc');
-        },
-        ((index: number) => (resultText: string) => {
-          // console.log('resultText', resultText);
-          aiComandsResults[index].value = resultText || '';
-          aiComandsResults[index].isEditing = false;
-          setAiComandsResults(aiComandsResults);
-          setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
-        })(index),
+        beforeSendRequestFunc,
+        updateResultsFunc(index),
         // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-        ((index: number) => () => {
-          console.log('AfterRequestAsStreamFunc');
-        })(index),
+        afterEndRequestFunc(index),
         userAccessToken as string,
         CONSTANTS_GPT_AI_FLOW_COMMON,
         signal
