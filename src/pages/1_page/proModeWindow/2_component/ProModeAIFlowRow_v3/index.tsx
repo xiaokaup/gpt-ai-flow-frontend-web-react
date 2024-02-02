@@ -330,27 +330,30 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     }
     // Add Previous history - end
 
-    if (isExampleMode && exampleText) {
-      chatHistory.push(
-        {
-          role: EAIFlowRole.USER,
-          content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
-原文本内容: """${exampleText}"""`,
-        },
-        {
-          role: EAIFlowRole.ASSISTANT,
-          content: '好的，已经分析原文本内容相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
-        }
-      );
-    }
+    // === start - 从第二个指令链开始，我们不会考虑用户输入的补充信息以及模仿内容 ===
+    //     if (isExampleMode && exampleText) {
+    //       chatHistory.push(
+    //         {
+    //           role: EAIFlowRole.USER,
+    //           content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
+    // 原文本内容: """${exampleText}"""`,
+    //         },
+    //         {
+    //           role: EAIFlowRole.ASSISTANT,
+    //           content: '好的，已经分析原文本内容相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
+    //         }
+    //       );
+    //     }
 
-    if (textInputContent && isTextInputAsText) {
-      finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
-    }
+    //     if (textInputContent && isTextInputAsText) {
+    //       finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
+    //     }
 
-    if (textInputContent && !isTextInputAsText) {
-      finalResquestContent += `\n---\n${textInputContent}`;
-    }
+    //     if (textInputContent && !isTextInputAsText) {
+    //       finalResquestContent += `\n---\n${textInputContent}`;
+    //     }
+    // === end - 从第二个指令链开始，我们不会考虑用户输入的补充信息以及模仿内容 ===
+
     // === buildOpenAIPrompts - for the rest commands - end ===
 
     return {
