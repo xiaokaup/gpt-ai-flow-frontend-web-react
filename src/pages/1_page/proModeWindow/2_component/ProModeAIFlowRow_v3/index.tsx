@@ -46,6 +46,7 @@ import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
+import { IBuildOpenAIPrompts_ouput } from 'gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 
 const { TextArea } = Input;
 
@@ -248,13 +249,13 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     index: number,
     paraAICommandsList: IAICommands_v4[],
     paraAICommandsReultsList: IAICommandsResults_v4[]
-  ): IPrompt[] => {
-    const newPrompts = [
-      {
-        role: EAIFlowRole.SYSTEM,
-        content: contexthandled,
-      },
-    ];
+  ): IBuildOpenAIPrompts_ouput => {
+    const systemPrompt: IPrompt = {
+      role: EAIFlowRole.SYSTEM,
+      content: contexthandled,
+    };
+
+    const chatHistory = [];
 
     // === buildOpenAIPrompts - init command for this ${index} - start ===
     const finalOneAICommand = paraAICommandsList[index];
@@ -269,7 +270,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     // === buildOpenAIPrompts - first command - start ===
     if (index === 0) {
       if (isExampleMode && exampleText) {
-        newPrompts.push(
+        chatHistory.push(
           {
             role: EAIFlowRole.USER,
             content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
@@ -290,14 +291,16 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         finalResquestContent += `\n---\n${textInputContent}`;
       }
 
-      newPrompts.push({
-        role: EAIFlowRole.USER,
-        content: finalResquestContent,
-      });
-
       // console.log('newPrompts', newPrompts);
 
-      return newPrompts;
+      return {
+        systemPrompt,
+        chatHistory,
+        inputPrompt: {
+          role: EAIFlowRole.USER,
+          content: finalResquestContent.trim(),
+        },
+      };
     }
     // === buildOpenAIPrompts - first command - end ===
 
@@ -313,13 +316,13 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         resquestContentForPrevious += oneAICommand.aiFlowInstance.value;
       }
 
-      newPrompts.push({
+      chatHistory.push({
         role: EAIFlowRole.USER,
         content: resquestContentForPrevious,
       });
 
       if (oneAICommandResult && oneAICommandResult.value) {
-        newPrompts.push({
+        chatHistory.push({
           role: EAIFlowRole.ASSISTANT,
           content: oneAICommandResult.value,
         });
@@ -328,7 +331,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     // Add Previous history - end
 
     if (isExampleMode && exampleText) {
-      newPrompts.push(
+      chatHistory.push(
         {
           role: EAIFlowRole.USER,
           content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
@@ -348,14 +351,16 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     if (textInputContent && !isTextInputAsText) {
       finalResquestContent += `\n---\n${textInputContent}`;
     }
-
-    newPrompts.push({
-      role: EAIFlowRole.USER,
-      content: finalResquestContent,
-    });
     // === buildOpenAIPrompts - for the rest commands - end ===
 
-    return newPrompts;
+    return {
+      systemPrompt,
+      chatHistory,
+      inputPrompt: {
+        role: EAIFlowRole.USER,
+        content: finalResquestContent.trim(),
+      },
+    };
   };
   const getOneInstructionAiFlowResult = async (
     oneInstructionInputCommnad: IAICommands_v4,
@@ -367,34 +372,41 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
       const { signal } = requestController;
 
-      const resquestContentPrompt = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
+      const prompsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
       // console.log('resquestContentPrompt', resquestContentPrompt);
+      const { systemPrompt, chatHistory, inputPrompt } = prompsResults;
 
-      /* const reponseResult: void | ISendChatGPTRequestAsStreamToBackendProxy_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
+      const beforeSendRequestFunc = () => {
+        console.log('beforeSendRequestAsStreamFunc');
+      };
+
+      const updateResultsFunc = (index: number) => (resultText: string) => {
+        // console.log('resultText', resultText);
+        aiComandsResults[index].value = resultText || '';
+        aiComandsResults[index].isEditing = false;
+        setAiComandsResults(aiComandsResults);
+        setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
+      };
+
+      const afterEndRequestFunc = (index: number) => () => {
+        console.log('AfterRequestAsStreamFunc');
+      };
+
+      /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
         {
           userId: userId?.toString() ?? '',
           openaiSecret: openAIApiKey,
-          prompt: resquestContentPrompt,
+          prompt: [systemPrompt, ...chatHistory, inputPrompt],
           openaiOptions: {
             openaiModel: proModeModalValue,
             temperature: creativityValue,
           },
           subscriptionData: subscription_v2Data,
         },
-        () => {
-          console.log('beforeSendRequestAsStreamFunc');
-        },
-        ((index: number) => (resultText: string) => {
-          // console.log('resultText', resultText);
-          aiComandsResults[index].value = resultText || '';
-          aiComandsResults[index].isEditing = false;
-          setAiComandsResults(aiComandsResults);
-          setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
-        })(index),
+        beforeSendRequestFunc,
+        updateResultsFunc(index),
         // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-        ((index: number) => () => {
-          console.log('AfterRequestAsStreamFunc');
-        })(index),
+        afterEndRequestFunc(index),
         userAccessToken as string,
         CONSTANTS_GPT_AI_FLOW_COMMON,
         signal
