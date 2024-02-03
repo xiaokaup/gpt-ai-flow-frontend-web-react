@@ -546,7 +546,14 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                     cursor: 'pointer',
                   }}
                   onClick={() => {
-                    setExampleText(_.sample(contextExamples)?.defaultValue ?? '');
+                    const oneContextExample = _.sample(contextExamples);
+
+                    if (!oneContextExample?.defaultValue) {
+                      message.error('没有模仿内容');
+                      return;
+                    }
+
+                    setExampleText(oneContextExample.defaultValue);
                     message.success('已随机选择一条模仿内容');
                   }}
                 />
