@@ -198,6 +198,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   };
 
   const checkAiCommandsThenUploadCustomizedAiCommand = async () => {
+    // @JIEAN: 可以上传其他指令，只要是了解用户如何使用自定义指令的表格内容
     for (const oneAiCommand of aiCommands) {
       if (
         oneAiCommand.isTemporary &&
@@ -545,7 +546,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                     cursor: 'pointer',
                   }}
                   onClick={() => {
-                    setExampleText(_.sample(contextExamples)?.value ?? '');
+                    setExampleText(_.sample(contextExamples)?.defaultValue ?? '');
+                    message.success('已随机选择一条模仿内容');
                   }}
                 />
               )}
