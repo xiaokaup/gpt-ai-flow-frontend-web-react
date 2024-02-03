@@ -377,9 +377,9 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
       const { signal } = requestController;
 
-      const prompsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
-      // console.log('prompsResults', prompsResults);
-      const { systemPrompt, chatHistory, inputPrompt } = prompsResults;
+      const promptsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
+      // console.log('promptsResults', promptsResults);
+      const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
 
       const beforeSendRequestFunc = () => {
         console.log('beforeSendRequestAsStreamFunc');
