@@ -25,28 +25,29 @@ import { IAIFlow, IPrompt } from '../../../../../gpt-ai-flow-common/interface-ap
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
-import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
-import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
-import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 import {
   IUseSubscriptionDB_v2Data_output,
   useSubscription_v2Data,
 } from '../../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
-import ISubscriptionDB_v2File, {
-  ISubscriptionDB_v2,
-} from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
-import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
-import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import ISubscriptionDB_v2File, {
+  ISubscriptionDB_v2,
+} from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
+import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
+import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { IBuildOpenAIPrompts_ouput } from 'gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from 'gpt-ai-flow-common/interface-backend/IProMode_v3';
+import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
+import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
-import { IBuildOpenAIPrompts_ouput } from 'gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 
 const { TextArea } = Input;
 
@@ -54,7 +55,7 @@ interface ProModeAIFlowRow_v3_input {
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
   contexthandled: string;
-  contextExamples: { value: string }[];
+  contextExamples: IProMode_v3_onePromode_oneContext_oneStage_examples[];
   defaulInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
   aiCommandsSettings: IAICommands_v4[];
