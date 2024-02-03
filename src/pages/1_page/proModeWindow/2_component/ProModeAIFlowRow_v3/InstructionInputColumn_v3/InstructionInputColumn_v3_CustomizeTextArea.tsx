@@ -15,7 +15,6 @@ const { TextArea } = Input;
 
 interface InstructionInputColumn_v3_CustomizeTextArea_input {
   index: number;
-  item: IAICommands_v4;
   aiCommands: IAICommands_v4[];
   setAiCommands: Dispatch<SetStateAction<IAICommands_v4[]>>;
   removeRequestControllerItem: (uuid: string) => void;
@@ -25,23 +24,26 @@ interface InstructionInputColumn_v3_CustomizeTextArea_input {
 export const InstructionInputColumn_v3_CustomizeTextArea = (
   props: InstructionInputColumn_v3_CustomizeTextArea_input
 ) => {
-  const { index, item, aiCommands, setAiCommands, removeRequestControllerItem, setAiComandsResults } = props;
+  const { index, aiCommands, setAiCommands, removeRequestControllerItem, setAiComandsResults } = props;
+
+  const thisAiCommand = aiCommands[index];
 
   const [editingInstructionAiFlowIndex, setEditingInstructionAiFlowIndex] = useState<number | null>(null);
   const [editingInstructionAiFlowValue, setEditingInstructionAiFlowValue] = useState<string>('');
 
-  const onCustomizeInstructionInputChange = (index: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onCustomizeInstructionInputChange = (paraIndex: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     console.log('Change:', e.target.value);
 
-    setEditingInstructionAiFlowIndex(index);
+    setEditingInstructionAiFlowIndex(paraIndex);
     setEditingInstructionAiFlowValue(e.target.value);
   };
-  const onCustomizeInstructionInputBlur = (index: number) => (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const onCustomizeInstructionInputBlur = (paraIndex: number) => (e: React.FocusEvent<HTMLTextAreaElement>) => {
     console.log('Blur:', e.target.value);
 
-    const newCommands = [...aiCommands];
-    newCommands[index].aiFlowInstance.value = e.target.value;
-    setAiCommands(newCommands);
+    const newAiCommands = [...aiCommands];
+    newAiCommands[paraIndex].aiFlowInstance.defaultValue = e.target.value;
+    newAiCommands[paraIndex].aiFlowInstance.value = e.target.value;
+    setAiCommands(newAiCommands);
 
     setEditingInstructionAiFlowIndex(null);
     setEditingInstructionAiFlowValue('');
@@ -61,7 +63,9 @@ export const InstructionInputColumn_v3_CustomizeTextArea = (
       <TextArea
         name="customizeInstruction"
         autoSize
-        value={index === editingInstructionAiFlowIndex ? editingInstructionAiFlowValue : item.aiFlowInstance.value}
+        value={
+          index === editingInstructionAiFlowIndex ? editingInstructionAiFlowValue : thisAiCommand.aiFlowInstance.value
+        }
         onChange={onCustomizeInstructionInputChange(index)}
         onBlur={onCustomizeInstructionInputBlur(index)}
         placeholder="自定义指令"

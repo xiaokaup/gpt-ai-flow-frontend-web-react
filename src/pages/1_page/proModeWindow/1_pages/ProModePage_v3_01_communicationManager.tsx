@@ -9,7 +9,10 @@ import iconSuccessful from '../../../../../assets/icons-customize/icon-status-su
 import iconWrong from '../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
-import { IProMode_v3_oneProMode } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
+import {
+  IProMode_v3_oneProMode,
+  IProMode_v3_onePromode_oneContext_oneStage_examples,
+} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import {
   EProMode_v3_01_communicationManager_contextType,
   EProMode_v3_01_communicationManager_contextTypeStage,
@@ -67,9 +70,9 @@ export const ProModePage_v3_01_communicationManager = (props: IProModePage_commu
   );
   const defaultContextHavePlaceHolder = TString.hasPlaceholder(defautContext);
   const [contextHandled, setContextHandled] = useState<string>(
-    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).value
+    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue
   );
-  const [contextExamples, setContextExamples] = useState<{ value: string }[]>([]);
+  const [contextExamples, setContextExamples] = useState<IProMode_v3_onePromode_oneContext_oneStage_examples[]>([]);
 
   const [showContextInputs, setShowContextInputs] = useState<boolean>(false);
   const [isContextInputsDirty, setIsContextInputsDirty] = useState<boolean>(false);
@@ -109,7 +112,7 @@ export const ProModePage_v3_01_communicationManager = (props: IProModePage_commu
     }
 
     setIsContextInputsDirty(false);
-  }, [contextType, contextTypeStage]);
+  }, [contextType, contextTypeStage, contexts]);
 
   return (
     <div className="panel_container">
@@ -205,7 +208,7 @@ export const ProModePage_v3_01_communicationManager = (props: IProModePage_commu
         <DynamicFormForContextPrompt
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defautContext}
-          setHandledContextPrompt={setContextHandled}
+          setContextHandled={setContextHandled}
           setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}
         />
