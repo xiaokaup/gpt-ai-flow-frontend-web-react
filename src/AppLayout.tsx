@@ -130,7 +130,7 @@ export const AppLayout = (props: Layout_input) => {
       </Content>
 
       {/* Footer */}
-      <Footer style={{ textAlign: 'center' }}>Copyright © 2023 GPT AI Flow</Footer>
+      <Footer style={{ textAlign: 'center' }}>Copyright © {new Date().getFullYear()} GPT AI Flow</Footer>
     </Layout>
   );
 };
@@ -162,7 +162,7 @@ export const AppLayoutCenter = (props: Layout_input) => {
       </Content>
 
       {/* Footer */}
-      <Footer style={{ textAlign: 'center' }}>Copyright © 2023 GPT AI Flow</Footer>
+      <Footer style={{ textAlign: 'center' }}>Copyright © {new Date().getFullYear()} GPT AI Flow</Footer>
     </Layout>
   );
 };

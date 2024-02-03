@@ -18,7 +18,6 @@ import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 
 interface InstructionInputColumn_v3_OutputIndicatorSelect_input {
   index: number;
-  item: IAICommands_v4;
   ouputIndicatorCommandsSelectOptions: IAIFlow[];
   aiCommands: IAICommands_v4[];
   setAiCommands: Dispatch<SetStateAction<IAICommands_v4[]>>;
@@ -32,7 +31,6 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
 ) => {
   const {
     index,
-    item,
     ouputIndicatorCommandsSelectOptions,
     aiCommands,
     setAiCommands,
@@ -41,23 +39,25 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
     toggleAiCommandsIsShowInputsForm,
   } = props;
 
-  const onOutputIndicatorCommandsSelectChange = (index: number) => (value: string) => {
+  const thisAiCommand = aiCommands[index];
+
+  const onOutputIndicatorCommandsSelectChange = (paraIndex: number) => (value: string) => {
     console.log(`selected ${value}`);
-    const newComands = [...aiCommands];
+    const newAiCommands = [...aiCommands];
 
     const oneOuputIndicator = ouputIndicatorCommandsSelectOptions.find((item) => item.uuid === value);
     if (!oneOuputIndicator) {
       message.error('指令不存在');
       return;
     }
-    newComands[index].aiFlowInstance = oneOuputIndicator;
+    newAiCommands[paraIndex].aiFlowInstance = oneOuputIndicator;
 
     const hasPlaceholder = TString.hasPlaceholder(oneOuputIndicator.defaultValue); // Update hasPlaceHolder for IAICommands_v4 after select a new aiFlow
-    newComands[index].hasPlaceholder = hasPlaceholder;
-    newComands[index].isDirty = !!hasPlaceholder;
-    newComands[index].isShowInputsForm = hasPlaceholder;
+    newAiCommands[paraIndex].hasPlaceholder = hasPlaceholder;
+    newAiCommands[paraIndex].isDirty = !!hasPlaceholder;
+    newAiCommands[paraIndex].isShowInputsForm = hasPlaceholder;
 
-    setAiCommands(newComands);
+    setAiCommands(newAiCommands);
   };
 
   return (
@@ -73,11 +73,11 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
         <img id="iconFormat" src={iconFormat} alt="icon format" style={{ width: 16, marginRight: 4 }} />
       </div>
       <Select
-        disabled={!item.aiFlowInstance.isActive}
+        disabled={!thisAiCommand.aiFlowInstance.isActive}
         showSearch
         placeholder="选择输出提示"
         optionFilterProp="children"
-        value={item.aiFlowInstance.uuid}
+        value={thisAiCommand.aiFlowInstance.uuid}
         onChange={onOutputIndicatorCommandsSelectChange(index)}
         onSearch={(value: string) => {
           console.log('search:', value);
@@ -94,10 +94,12 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
         style={{ flex: '1 1 auto' }}
       />
 
-      {item.isDirty && <img src={iconWrong} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />}
-      {!item.isDirty && <img src={iconSuccessful} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />}
+      {thisAiCommand.isDirty && <img src={iconWrong} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />}
+      {!thisAiCommand.isDirty && (
+        <img src={iconSuccessful} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />
+      )}
 
-      {item.hasPlaceholder && (
+      {thisAiCommand.hasPlaceholder && (
         <EditOutlined style={{ fontSize: 18, marginLeft: '.2rem' }} onClick={toggleAiCommandsIsShowInputsForm} />
       )}
 

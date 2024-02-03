@@ -1,20 +1,17 @@
+import TCryptoJSFile from 'gpt-ai-flow-common/tools/TCrypto-js';
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ISendConversationalRetrievalChainToBackendProxy_dataField_input } from '../../gpt-ai-flow-common/interface-backend/IBackendLangchain';
 import {
-  IBackendOpenAI_dataField_encrypted_input,
-  ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
   IChatGPTStreamResponse_output,
-  // ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
-  // ISendChatGPTRequestForGetVectorToBackendProxy_output,
+  IBackendOpenAI_dataField_encrypted_input,
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
-import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
-import { EProductDB_version } from '../../gpt-ai-flow-common/enum-database/EProductDB';
 
-const sendChatGPTRequestAsStreamToBackendProxy = async (
-  data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
+const sendConversationalRetrievalChainToBackendProxy = async (
+  data: ISendConversationalRetrievalChainToBackendProxy_dataField_input,
   beforeSendRequestAsStreamFunc: () => void,
   updateResultFromRequestAsStreamFunc: (resultText: string) => void,
   AfterRequestAsStreamFunc: () => void,
@@ -22,6 +19,8 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
   env: IConstantGptAiFlowHandler,
   signal?: AbortSignal
 ): Promise<IChatGPTStreamResponse_output> => {
+  const { category } = data;
+
   const options: any = {
     method: 'POST',
     ...getApiKeyHeadersForNodeBackend(
@@ -39,16 +38,7 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
     options.signal = signal;
   }
 
-  let url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChat`;
-
-  const subscriptionIsExpired =
-    data.subscriptionData?.expiredAt && new Date(data.subscriptionData?.expiredAt) < new Date();
-  if (
-    !subscriptionIsExpired &&
-    data.subscriptionData?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL
-  ) {
-    url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/openai/v4.4.0/streamChatWithOfficialKey`;
-  }
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/${category}`;
 
   const response = await fetch(url, options);
 
@@ -69,8 +59,8 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
+      // eslint-disable-next-line no-await-in-loop
       const { value, done } = await reader.read();
       if (done) break;
 
@@ -91,8 +81,8 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
   };
 };
 
-const TBackendOpenAIFile = {
-  sendChatGPTRequestAsStreamToBackendProxy,
+const TLangchainFile = {
+  sendConversationalRetrievalChainToBackendProxy,
 };
 
-export default TBackendOpenAIFile;
+export default TLangchainFile;
