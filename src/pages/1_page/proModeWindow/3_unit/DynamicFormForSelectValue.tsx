@@ -37,7 +37,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
   const {
     containerStyle,
     contextSelectValueWithPlaceholder: contextPromptWithPlaceholder,
-    setHandledSelectValue: setHandledContextPrompt,
+    setHandledSelectValue,
     setAICommandsIsDirty,
     toggleAiCommandsIsShowInputsForm,
   } = props;
@@ -72,7 +72,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
       }
     });
 
-    setHandledContextPrompt(result);
+    setHandledSelectValue(result);
     setAICommandsIsDirty(false);
     message.success('填写成功');
     toggleAiCommandsIsShowInputsForm();
