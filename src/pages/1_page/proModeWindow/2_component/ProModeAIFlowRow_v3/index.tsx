@@ -403,7 +403,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           openaiSecret: openAIApiKey,
           prompt: [systemPrompt, ...chatHistory, inputPrompt],
           openaiOptions: {
-            openaiModel: proModeModalValue,
+            openaiModelType: proModeModalValue,
             temperature: creativityValue,
           },
           subscriptionData: subscription_v2Data,
