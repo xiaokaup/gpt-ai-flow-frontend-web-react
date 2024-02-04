@@ -15,7 +15,6 @@ import { IReduxRootState } from 'store/reducer';
 import { udpateSubscriptionDBAction_v2 } from '../../../../../store/actions/subscriptionDBActions_v2';
 import { saveLocalAction } from '../../../../../store/actions/localActions';
 
-import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
 import {
   IAICommandsResults_v4,
   IAICommands_v4,
@@ -38,13 +37,18 @@ import ISubscriptionDB_v2File, {
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
 import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import { IBuildOpenAIPrompts_ouput } from 'gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
-import { IProMode_v3_onePromode_oneContext_oneStage_examples } from 'gpt-ai-flow-common/interface-backend/IProMode_v3';
+import { ELangchainRetrivalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
+import TLangchainRetrivalFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TLangchainRetrival';
+import { IBuildOpenAIPrompts_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
+
+import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
+import TBackendLangchainFile from '../../../../../tools/3_unit/TLangchain-web';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -120,6 +124,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
   const [isTextInputAsText, setIsTextInputAsText] = useState<boolean>(false);
+  const [isUseOfficialDatabase, setIsUseOfficialDatabase] = useState<boolean>();
   const [isExampleMode, setIsExampleMode] = useState<boolean>();
   const [exampleText, setExampleText] = useState<string>();
 
@@ -380,6 +385,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       const promptsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
       // console.log('promptsResults', promptsResults);
       const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
+      const langchainRetrivalDocType = TLangchainRetrivalFile.getRetrivalTypeByContextValue(systemPrompt.content);
 
       const beforeSendRequestFunc = () => {
         console.log('beforeSendRequestAsStreamFunc');
@@ -397,32 +403,61 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         console.log('AfterRequestAsStreamFunc');
       };
 
-      /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
-        {
-          userId: userId?.toString() ?? '',
-          openaiSecret: openAIApiKey,
-          prompt: [systemPrompt, ...chatHistory, inputPrompt],
-          openaiOptions: {
-            openaiModelType: proModeModalValue,
-            temperature: creativityValue,
+      if (isUseOfficialDatabase && langchainRetrivalDocType === ELangchainRetrivalDocType.TYPE_XIAO_HONG_SHU_DOC) {
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.sendConversationalRetrievalChainToBackendProxy(
+          {
+            langchainRetrivalDocType,
+            chatHistory: [systemPrompt, ...chatHistory],
+            input: inputPrompt.content,
+            openaiOptions: {
+              openaiModelType: proModeModalValue,
+              temperature: creativityValue,
+            },
           },
-          subscriptionData: subscription_v2Data,
-        },
-        beforeSendRequestFunc,
-        updateResultsFunc(index),
-        // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-        afterEndRequestFunc(index),
-        userAccessToken as string,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-        signal
-      ).catch((error: Error) => {
-        if (error.name === 'AbortError') {
-          console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
-        } else {
-          console.error('Fetch request failed:', error);
-          message.error(error.message);
-        }
-      });
+          beforeSendRequestFunc,
+          // eslint-disable-next-line @typescript-eslint/no-shadow
+          updateResultsFunc(index),
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          afterEndRequestFunc(index),
+          userAccessToken,
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+          signal
+        ).catch((error: Error) => {
+          if (error.name === 'AbortError') {
+            console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
+          } else {
+            console.error('Fetch request failed:', error);
+            message.error(error.message);
+          }
+        });
+      } else {
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
+          {
+            userId: userId?.toString() ?? '',
+            openaiSecret: openAIApiKey,
+            prompt: [systemPrompt, ...chatHistory, inputPrompt],
+            openaiOptions: {
+              openaiModelType: proModeModalValue,
+              temperature: creativityValue,
+            },
+            subscriptionData: subscription_v2Data,
+          },
+          beforeSendRequestFunc,
+          updateResultsFunc(index),
+          // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
+          afterEndRequestFunc(index),
+          userAccessToken,
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+          signal
+        ).catch((error: Error) => {
+          if (error.name === 'AbortError') {
+            console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
+          } else {
+            console.error('Fetch request failed:', error);
+            message.error(error.message);
+          }
+        });
+      }
     } catch (error) {
       console.log('Error', error);
     }
@@ -524,6 +559,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                 }}
               >
                 作为文本
+              </Checkbox>
+              <Checkbox
+                value={isTextInputAsText}
+                onChange={(e: CheckboxChangeEvent) => {
+                  console.log(`checked = ${e.target.checked}`);
+                  setIsUseOfficialDatabase(e.target.checked);
+                }}
+              >
+                官方数据库(测试调整)
               </Checkbox>
               <Checkbox
                 value={isTextInputAsText}
