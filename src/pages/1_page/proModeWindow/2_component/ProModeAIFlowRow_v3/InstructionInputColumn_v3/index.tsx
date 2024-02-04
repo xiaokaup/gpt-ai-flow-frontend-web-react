@@ -63,9 +63,9 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
   // === OutputIndicator result - end ===
 
   const toggleAiCommandsIsShowInputsForm = (index: number) => {
-    const newList = [...aiCommands];
-    newList[index].isShowInputsForm = !newList[index].isShowInputsForm;
-    setAiCommands(newList);
+    const newAiCommands = [...aiCommands];
+    newAiCommands[index].isShowInputsForm = !newAiCommands[index].isShowInputsForm;
+    setAiCommands(newAiCommands);
   };
 
   return (
@@ -76,10 +76,9 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
           {aiCommands.map((item: IAICommands_v4, index: number) => {
             if (item.aiFlowInstance.type === EAIFlowType.INSTRUCTION) {
               return (
-                <div className="row" key={`${index}-${item.aiFlowInstance.value}`}>
+                <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_InstructionSelect
                     index={index}
-                    item={item}
                     instructionCommandsSelectOptions={instructionCommandsSelectOptions}
                     aiCommands={aiCommands}
                     setAiCommands={setAiCommands}
@@ -99,9 +98,9 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                         setAiCommands(newAiCommands);
                       }}
                       setAICommandsIsDirty={(value: boolean) => {
-                        const newList = [...aiCommands];
-                        newList[index].isDirty = value;
-                        setAiCommands(newList);
+                        const newAiCommands = [...aiCommands];
+                        newAiCommands[index].isDirty = value;
+                        setAiCommands(newAiCommands);
                       }}
                       toggleAiCommandsIsShowInputsForm={() => {
                         toggleAiCommandsIsShowInputsForm(index);
@@ -114,10 +113,9 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
 
             if (item.aiFlowInstance.type === EAIFlowType.CUSTOMIZE) {
               return (
-                <div className="row" key={`${index}-${item.aiFlowInstance.value}`}>
+                <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_CustomizeTextArea
                     index={index}
-                    item={item}
                     aiCommands={aiCommands}
                     setAiCommands={setAiCommands}
                     removeRequestControllerItem={removeRequestControllerItem}
@@ -129,10 +127,9 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
 
             if (item.aiFlowInstance.type === EAIFlowType.OUTPUT_INDICATOR) {
               return (
-                <div className="row" key={`${index}-${item.aiFlowInstance.value}`}>
+                <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_OutputIndicatorSelect
                     index={index}
-                    item={item}
                     ouputIndicatorCommandsSelectOptions={ouputIndicatorCommandsSelectOptions}
                     aiCommands={aiCommands}
                     setAiCommands={setAiCommands}
@@ -164,6 +161,8 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                 </div>
               );
             }
+
+            return <></>;
           })}
         </div>
 
@@ -199,14 +198,14 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   uuid,
                   aiFlowInstance: {
                     uuid,
+                    role: EAIFlowRole.USER,
                     type: EAIFlowType.CUSTOMIZE,
-                    defaultValue: '',
-                    value: '',
                     isActive: true,
                     name: '',
                     summary: '',
+                    defaultValue: '',
+                    value: '',
                     tags: [],
-                    role: EAIFlowRole.USER,
                   },
                   isTemporary: true,
 

@@ -17,7 +17,6 @@ import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 
 interface InstructionInputColumn_v3_InstructionSelect_input {
   index: number;
-  item: IAICommands_v4;
   instructionCommandsSelectOptions: IAIFlow[];
   aiCommands: IAICommands_v4[];
   setAiCommands: Dispatch<SetStateAction<IAICommands_v4[]>>;
@@ -31,7 +30,6 @@ export const InstructionInputColumn_v3_InstructionSelect = (
 ) => {
   const {
     index,
-    item,
     instructionCommandsSelectOptions,
     aiCommands,
     setAiCommands,
@@ -40,9 +38,11 @@ export const InstructionInputColumn_v3_InstructionSelect = (
     toggleAiCommandsIsShowInputsForm,
   } = props;
 
-  const onInstructionCommandsSelectChange = (index: number) => (value: string) => {
+  const thisAiCommand = aiCommands[index];
+
+  const onInstructionCommandsSelectChange = (paraIndex: number) => (value: string) => {
     console.log(`onInstructionCommandsSelectChange selected ${value}`);
-    const newComands = [...aiCommands];
+    const newAiCommands = [...aiCommands];
 
     const oneInstruction = instructionCommandsSelectOptions.find((item) => item.uuid === value);
     if (!oneInstruction) {
@@ -50,14 +50,14 @@ export const InstructionInputColumn_v3_InstructionSelect = (
       return;
     }
 
-    newComands[index].aiFlowInstance = oneInstruction;
+    newAiCommands[paraIndex].aiFlowInstance = oneInstruction;
 
     const hasPlaceholder = TString.hasPlaceholder(oneInstruction.defaultValue); // Update hasPlaceHolder for IAICommands_v4 after select a new aiFlow
-    newComands[index].hasPlaceholder = hasPlaceholder;
-    newComands[index].isDirty = !!hasPlaceholder;
-    newComands[index].isShowInputsForm = hasPlaceholder;
+    newAiCommands[paraIndex].hasPlaceholder = hasPlaceholder;
+    newAiCommands[paraIndex].isDirty = !!hasPlaceholder;
+    newAiCommands[paraIndex].isShowInputsForm = hasPlaceholder;
 
-    setAiCommands(newComands);
+    setAiCommands(newAiCommands);
   };
 
   return (
@@ -73,11 +73,11 @@ export const InstructionInputColumn_v3_InstructionSelect = (
         <PlusCircleOutlined style={{ fontSize: 16, marginRight: 4 }} />
       </div>
       <Select
-        disabled={!item.aiFlowInstance.isActive}
+        disabled={!thisAiCommand.aiFlowInstance.isActive}
         showSearch
         placeholder="选择指令提示"
         optionFilterProp="children"
-        value={item.aiFlowInstance.uuid}
+        value={thisAiCommand.aiFlowInstance.uuid}
         onChange={onInstructionCommandsSelectChange(index)}
         onSearch={(value: string) => {
           console.log('search:', value);
@@ -94,10 +94,12 @@ export const InstructionInputColumn_v3_InstructionSelect = (
         style={{ flex: '1 1 auto' }}
       />
 
-      {item.isDirty && <img src={iconWrong} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />}
-      {!item.isDirty && <img src={iconSuccessful} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />}
+      {thisAiCommand.isDirty && <img src={iconWrong} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />}
+      {!thisAiCommand.isDirty && (
+        <img src={iconSuccessful} alt="" style={{ width: 18, height: 18, marginLeft: '.2rem' }} />
+      )}
 
-      {item.hasPlaceholder && (
+      {thisAiCommand.hasPlaceholder && (
         <EditOutlined style={{ fontSize: 18, marginLeft: '.2rem' }} onClick={toggleAiCommandsIsShowInputsForm} />
       )}
 

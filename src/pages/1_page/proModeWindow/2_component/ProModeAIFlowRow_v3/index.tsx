@@ -15,7 +15,6 @@ import { IReduxRootState } from 'store/reducer';
 import { udpateSubscriptionDBAction_v2 } from '../../../../../store/actions/subscriptionDBActions_v2';
 import { saveLocalAction } from '../../../../../store/actions/localActions';
 
-import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
 import {
   IAICommandsResults_v4,
   IAICommands_v4,
@@ -25,24 +24,31 @@ import { IAIFlow, IPrompt } from '../../../../../gpt-ai-flow-common/interface-ap
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
-import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
-import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
-import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 import {
   IUseSubscriptionDB_v2Data_output,
   useSubscription_v2Data,
 } from '../../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
-import ISubscriptionDB_v2File, {
-  ISubscriptionDB_v2,
-} from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
-import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
-import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import ISubscriptionDB_v2File, {
+  ISubscriptionDB_v2,
+} from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
+import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
+import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
+import { ELangchainRetrievalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
+import TLangchainRetrievalFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TLangchainRetrieval';
+import { IBuildOpenAIPrompts_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
+import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
+
+import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
+import TBackendLangchainFile from '../../../../../tools/3_unit/TLangchain-web';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -52,8 +58,8 @@ const { TextArea } = Input;
 interface ProModeAIFlowRow_v3_input {
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
-  contexthandled: string;
-  contextExamples: { value: string }[];
+  contextHandled: string;
+  contextExamples: IProMode_v3_onePromode_oneContext_oneStage_examples[];
   defaulInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
   aiCommandsSettings: IAICommands_v4[];
@@ -71,12 +77,13 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const {
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
-    contexthandled,
+    contextHandled,
     contextExamples,
     defaulInstructionAiCommands,
     defaultOutputIndicatorAiCommands,
     aiCommandsSettings,
   } = props;
+  const langchainRetrievalDocType = TLangchainRetrievalFile.getRetrievalTypeByContextValue(contextHandled);
 
   const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
@@ -118,6 +125,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
   const [isTextInputAsText, setIsTextInputAsText] = useState<boolean>(false);
+  const [isUseOfficialDatabase, setIsUseOfficialDatabase] = useState<boolean>();
   const [isExampleMode, setIsExampleMode] = useState<boolean>();
   const [exampleText, setExampleText] = useState<string>();
 
@@ -196,6 +204,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   };
 
   const checkAiCommandsThenUploadCustomizedAiCommand = async () => {
+    // @JIEAN: 可以上传其他指令，只要是了解用户如何使用自定义指令的表格内容
     for (const oneAiCommand of aiCommands) {
       if (
         oneAiCommand.isTemporary &&
@@ -248,28 +257,26 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     index: number,
     paraAICommandsList: IAICommands_v4[],
     paraAICommandsReultsList: IAICommandsResults_v4[]
-  ): IPrompt[] => {
-    const newPrompts = [
-      {
-        role: EAIFlowRole.SYSTEM,
-        content: contexthandled,
-      },
-    ];
+  ): IBuildOpenAIPrompts_ouput => {
+    const systemPrompt: IPrompt = {
+      role: EAIFlowRole.SYSTEM,
+      content: contextHandled,
+    };
+
+    const chatHistory = [];
 
     // === buildOpenAIPrompts - init command for this ${index} - start ===
     const finalOneAICommand = paraAICommandsList[index];
 
     let finalResquestContent = '';
 
-    if (finalOneAICommand.aiFlowInstance.value) {
-      finalResquestContent += finalOneAICommand.aiFlowInstance.value;
-    }
+    finalResquestContent += finalOneAICommand.aiFlowInstance.value || finalOneAICommand.aiFlowInstance.defaultValue;
     // === buildOpenAIPrompts - init command for this ${index} - end ===
 
     // === buildOpenAIPrompts - first command - start ===
     if (index === 0) {
       if (isExampleMode && exampleText) {
-        newPrompts.push(
+        chatHistory.push(
           {
             role: EAIFlowRole.USER,
             content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
@@ -290,14 +297,16 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         finalResquestContent += `\n---\n${textInputContent}`;
       }
 
-      newPrompts.push({
-        role: EAIFlowRole.USER,
-        content: finalResquestContent,
-      });
-
       // console.log('newPrompts', newPrompts);
 
-      return newPrompts;
+      return {
+        systemPrompt,
+        chatHistory,
+        inputPrompt: {
+          role: EAIFlowRole.USER,
+          content: finalResquestContent.trim(),
+        },
+      };
     }
     // === buildOpenAIPrompts - first command - end ===
 
@@ -307,19 +316,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       const oneAICommand = paraAICommandsList[i];
       const oneAICommandResult = paraAICommandsReultsList[i];
 
-      let resquestContentForPrevious = '';
+      const resquestContentForPrevious = oneAICommand.aiFlowInstance.value || oneAICommand.aiFlowInstance.defaultValue;
 
-      if (oneAICommand.aiFlowInstance.value) {
-        resquestContentForPrevious += oneAICommand.aiFlowInstance.value;
-      }
-
-      newPrompts.push({
+      chatHistory.push({
         role: EAIFlowRole.USER,
         content: resquestContentForPrevious,
       });
 
       if (oneAICommandResult && oneAICommandResult.value) {
-        newPrompts.push({
+        chatHistory.push({
           role: EAIFlowRole.ASSISTANT,
           content: oneAICommandResult.value,
         });
@@ -327,35 +332,40 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     }
     // Add Previous history - end
 
-    if (isExampleMode && exampleText) {
-      newPrompts.push(
-        {
-          role: EAIFlowRole.USER,
-          content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
-原文本内容: """${exampleText}"""`,
-        },
-        {
-          role: EAIFlowRole.ASSISTANT,
-          content: '好的，已经分析原文本内容相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
-        }
-      );
-    }
+    // === start - 从第二个指令链开始，我们不会考虑用户输入的补充信息以及模仿内容 ===
+    //     if (isExampleMode && exampleText) {
+    //       chatHistory.push(
+    //         {
+    //           role: EAIFlowRole.USER,
+    //           content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
+    // 原文本内容: """${exampleText}"""`,
+    //         },
+    //         {
+    //           role: EAIFlowRole.ASSISTANT,
+    //           content: '好的，已经分析原文本内容相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
+    //         }
+    //       );
+    //     }
 
-    if (textInputContent && isTextInputAsText) {
-      finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
-    }
+    //     if (textInputContent && isTextInputAsText) {
+    //       finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
+    //     }
 
-    if (textInputContent && !isTextInputAsText) {
-      finalResquestContent += `\n---\n${textInputContent}`;
-    }
+    //     if (textInputContent && !isTextInputAsText) {
+    //       finalResquestContent += `\n---\n${textInputContent}`;
+    //     }
+    // === end - 从第二个指令链开始，我们不会考虑用户输入的补充信息以及模仿内容 ===
 
-    newPrompts.push({
-      role: EAIFlowRole.USER,
-      content: finalResquestContent,
-    });
     // === buildOpenAIPrompts - for the rest commands - end ===
 
-    return newPrompts;
+    return {
+      systemPrompt,
+      chatHistory,
+      inputPrompt: {
+        role: EAIFlowRole.USER,
+        content: finalResquestContent.trim(),
+      },
+    };
   };
   const getOneInstructionAiFlowResult = async (
     oneInstructionInputCommnad: IAICommands_v4,
@@ -367,45 +377,84 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
       const { signal } = requestController;
 
-      const resquestContentPrompt = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
-      // console.log('resquestContentPrompt', resquestContentPrompt);
+      const promptsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
+      // console.log('promptsResults', promptsResults);
+      const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
+      const langchainRetrievalDocType = TLangchainRetrievalFile.getRetrievalTypeByContextValue(systemPrompt.content);
 
-      /* const reponseResult: void | ISendChatGPTRequestAsStreamToBackendProxy_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
-        {
-          userId: userId?.toString() ?? '',
-          openaiSecret: openAIApiKey,
-          prompt: resquestContentPrompt,
-          openaiOptions: {
-            openaiModel: proModeModalValue,
-            temperature: creativityValue,
+      const beforeSendRequestFunc = () => {
+        console.log('beforeSendRequestAsStreamFunc');
+      };
+
+      const updateResultsFunc = (index: number) => (resultText: string) => {
+        // console.log('resultText', resultText);
+        aiComandsResults[index].value = resultText || '';
+        aiComandsResults[index].isEditing = false;
+        setAiComandsResults(aiComandsResults);
+        setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
+      };
+
+      const afterEndRequestFunc = (index: number) => () => {
+        console.log('AfterRequestAsStreamFunc');
+      };
+
+      if (isUseOfficialDatabase && langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC) {
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.sendConversationalRetrievalChainToBackendProxy(
+          {
+            langchainRetrievalDocType,
+            chatHistory: [systemPrompt, ...chatHistory],
+            input: inputPrompt.content,
+            openaiOptions: {
+              openaiModel: proModeModalValue, // @TODELETE: 临时使用
+              openaiModelType: proModeModalValue,
+              temperature: creativityValue,
+            },
           },
-          subscriptionData: subscription_v2Data,
-        },
-        () => {
-          console.log('beforeSendRequestAsStreamFunc');
-        },
-        ((index: number) => (resultText: string) => {
-          // console.log('resultText', resultText);
-          aiComandsResults[index].value = resultText || '';
-          aiComandsResults[index].isEditing = false;
-          setAiComandsResults(aiComandsResults);
-          setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
-        })(index),
-        // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-        ((index: number) => () => {
-          console.log('AfterRequestAsStreamFunc');
-        })(index),
-        userAccessToken as string,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-        signal
-      ).catch((error: Error) => {
-        if (error.name === 'AbortError') {
-          console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
-        } else {
-          console.error('Fetch request failed:', error);
-          message.error(error.message);
-        }
-      });
+          beforeSendRequestFunc,
+          // eslint-disable-next-line @typescript-eslint/no-shadow
+          updateResultsFunc(index),
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          afterEndRequestFunc(index),
+          userAccessToken,
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+          signal
+        ).catch((error: Error) => {
+          if (error.name === 'AbortError') {
+            console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
+          } else {
+            console.error('Fetch request failed:', error);
+            message.error(error.message);
+          }
+        });
+      } else {
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
+          {
+            userId: userId?.toString() ?? '',
+            openaiSecret: openAIApiKey,
+            prompt: [systemPrompt, ...chatHistory, inputPrompt],
+            openaiOptions: {
+              openaiModel: proModeModalValue, // @TODELETE: 临时使用
+              openaiModelType: proModeModalValue,
+              temperature: creativityValue,
+            },
+            subscriptionData: subscription_v2Data,
+          },
+          beforeSendRequestFunc,
+          updateResultsFunc(index),
+          // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
+          afterEndRequestFunc(index),
+          userAccessToken,
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+          signal
+        ).catch((error: Error) => {
+          if (error.name === 'AbortError') {
+            console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
+          } else {
+            console.error('Fetch request failed:', error);
+            message.error(error.message);
+          }
+        });
+      }
     } catch (error) {
       console.log('Error', error);
     }
@@ -508,6 +557,17 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
               >
                 作为文本
               </Checkbox>
+              {langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC && (
+                <Checkbox
+                  value={isTextInputAsText}
+                  onChange={(e: CheckboxChangeEvent) => {
+                    console.log(`checked = ${e.target.checked}`);
+                    setIsUseOfficialDatabase(e.target.checked);
+                  }}
+                >
+                  官方数据库(测试阶段)
+                </Checkbox>
+              )}
               <Checkbox
                 value={isTextInputAsText}
                 onChange={(e: CheckboxChangeEvent) => {
@@ -529,7 +589,15 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                     cursor: 'pointer',
                   }}
                   onClick={() => {
-                    setExampleText(_.sample(contextExamples)?.value ?? '');
+                    const oneContextExample = _.sample(contextExamples);
+
+                    if (!oneContextExample?.defaultValue) {
+                      message.error('没有模仿内容');
+                      return;
+                    }
+
+                    setExampleText(oneContextExample.defaultValue);
+                    message.success('已随机选择一条模仿内容');
                   }}
                 />
               )}

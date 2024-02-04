@@ -16,7 +16,7 @@ import IInputsCacheFile, { IInputsCache } from '../../../../gpt-ai-flow-common/i
 interface DynamicFormForContextPrompt_input {
   containerStyle: any;
   contextPromptWithPlaceholder: string;
-  setHandledContextPrompt: (value: string) => void;
+  setContextHandled: (value: string) => void;
   setShowContextInputs: (value: boolean) => void;
   setIsContextInputsDirty: (value: boolean) => void;
 }
@@ -37,7 +37,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
   const {
     containerStyle,
     contextPromptWithPlaceholder,
-    setHandledContextPrompt,
+    setContextHandled,
     setShowContextInputs,
     setIsContextInputsDirty,
   } = props;
@@ -103,7 +103,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
       }
     });
 
-    setHandledContextPrompt(result);
+    setContextHandled(result);
     setIsContextInputsDirty(false);
     message.success('填写成功');
     setShowContextInputs(false);
