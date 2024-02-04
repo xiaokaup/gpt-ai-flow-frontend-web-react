@@ -563,7 +563,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                     setIsUseOfficialDatabase(e.target.checked);
                   }}
                 >
-                  官方数据库(测试调整)
+                  官方数据库(测试阶段)
                 </Checkbox>
               )}
               <Checkbox
