@@ -269,9 +269,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
     let finalResquestContent = '';
 
-    if (finalOneAICommand.aiFlowInstance.value) {
-      finalResquestContent += finalOneAICommand.aiFlowInstance.value;
-    }
+    finalResquestContent += finalOneAICommand.aiFlowInstance.value || finalOneAICommand.aiFlowInstance.defaultValue;
     // === buildOpenAIPrompts - init command for this ${index} - end ===
 
     // === buildOpenAIPrompts - first command - start ===
