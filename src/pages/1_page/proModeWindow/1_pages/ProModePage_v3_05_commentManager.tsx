@@ -219,7 +219,7 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
               <ProModeAIFlowRow_v3
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
-                contexthandled={contextHandled}
+                contextHandled={contextHandled}
                 contextExamples={contextExamples}
                 defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage] ?? []}
                 defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage] ?? []}

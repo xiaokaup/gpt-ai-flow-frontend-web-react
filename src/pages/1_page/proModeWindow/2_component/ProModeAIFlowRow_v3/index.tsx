@@ -58,7 +58,7 @@ const { TextArea } = Input;
 interface ProModeAIFlowRow_v3_input {
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
-  contexthandled: string;
+  contextHandled: string;
   contextExamples: IProMode_v3_onePromode_oneContext_oneStage_examples[];
   defaulInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
@@ -77,12 +77,13 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const {
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
-    contexthandled,
+    contextHandled,
     contextExamples,
     defaulInstructionAiCommands,
     defaultOutputIndicatorAiCommands,
     aiCommandsSettings,
   } = props;
+  const langchainRetrievalDocType = TLangchainRetrievalFile.getRetrievalTypeByContextValue(contextHandled);
 
   const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
@@ -259,7 +260,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   ): IBuildOpenAIPrompts_ouput => {
     const systemPrompt: IPrompt = {
       role: EAIFlowRole.SYSTEM,
-      content: contexthandled,
+      content: contextHandled,
     };
 
     const chatHistory = [];
@@ -558,15 +559,17 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
               >
                 作为文本
               </Checkbox>
-              <Checkbox
-                value={isTextInputAsText}
-                onChange={(e: CheckboxChangeEvent) => {
-                  console.log(`checked = ${e.target.checked}`);
-                  setIsUseOfficialDatabase(e.target.checked);
-                }}
-              >
-                官方数据库(测试调整)
-              </Checkbox>
+              {langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC && (
+                <Checkbox
+                  value={isTextInputAsText}
+                  onChange={(e: CheckboxChangeEvent) => {
+                    console.log(`checked = ${e.target.checked}`);
+                    setIsUseOfficialDatabase(e.target.checked);
+                  }}
+                >
+                  官方数据库(测试调整)
+                </Checkbox>
+              )}
               <Checkbox
                 value={isTextInputAsText}
                 onChange={(e: CheckboxChangeEvent) => {

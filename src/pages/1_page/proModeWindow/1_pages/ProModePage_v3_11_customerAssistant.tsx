@@ -220,7 +220,7 @@ export const ProModePage_v3_11_customerAssistant = (props: IProModePage_copyWrit
               <ProModeAIFlowRow_v3
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
-                contexthandled={contextHandled}
+                contextHandled={contextHandled}
                 contextExamples={contextExamples}
                 defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage] ?? []}
                 defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage] ?? []}
