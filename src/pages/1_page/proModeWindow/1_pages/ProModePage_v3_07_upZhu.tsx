@@ -215,7 +215,7 @@ export const ProModePage_v3_07_upZhu = (props: IProModePage_copyWriting_input) =
               <ProModeAIFlowRow_v3
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
-                contexthandled={contextHandled}
+                contextHandled={contextHandled}
                 contextExamples={contextExamples}
                 defaulInstructionAiCommands={proModeData.instruction[contextType][contextTypeStage] ?? []}
                 defaultOutputIndicatorAiCommands={proModeData.outputIndicator[contextType][contextTypeStage] ?? []}
