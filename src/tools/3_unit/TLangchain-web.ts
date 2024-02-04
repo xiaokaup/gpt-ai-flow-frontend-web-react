@@ -19,7 +19,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
   env: IConstantGptAiFlowHandler,
   signal?: AbortSignal
 ): Promise<IChatGPTStreamResponse_output> => {
-  const { langchainRetrivalDocType } = data;
+  const { langchainRetrievalDocType } = data;
 
   const options: any = {
     method: 'POST',
@@ -38,7 +38,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
     options.signal = signal;
   }
 
-  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/${langchainRetrivalDocType}`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/${langchainRetrievalDocType}`;
 
   const response = await fetch(url, options);
 
@@ -107,7 +107,7 @@ const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_
     options.signal = signal;
   }
 
-  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/langchainRetrivalDocType/gpt-ai-flow-doc`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/langchainRetrievalDocType/gpt-ai-flow-doc`;
 
   const response = await fetch(url, options);
 

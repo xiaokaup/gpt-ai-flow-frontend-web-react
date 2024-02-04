@@ -39,8 +39,8 @@ import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLoc
 import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
-import { ELangchainRetrivalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import TLangchainRetrivalFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TLangchainRetrival';
+import { ELangchainRetrievalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
+import TLangchainRetrievalFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TLangchainRetrieval';
 import { IBuildOpenAIPrompts_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
@@ -385,7 +385,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       const promptsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
       // console.log('promptsResults', promptsResults);
       const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
-      const langchainRetrivalDocType = TLangchainRetrivalFile.getRetrivalTypeByContextValue(systemPrompt.content);
+      const langchainRetrievalDocType = TLangchainRetrievalFile.getRetrievalTypeByContextValue(systemPrompt.content);
 
       const beforeSendRequestFunc = () => {
         console.log('beforeSendRequestAsStreamFunc');
@@ -403,10 +403,10 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         console.log('AfterRequestAsStreamFunc');
       };
 
-      if (isUseOfficialDatabase && langchainRetrivalDocType === ELangchainRetrivalDocType.TYPE_XIAO_HONG_SHU_DOC) {
+      if (isUseOfficialDatabase && langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC) {
         /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.sendConversationalRetrievalChainToBackendProxy(
           {
-            langchainRetrivalDocType,
+            langchainRetrievalDocType,
             chatHistory: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
             openaiOptions: {
