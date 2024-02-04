@@ -316,11 +316,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       const oneAICommand = paraAICommandsList[i];
       const oneAICommandResult = paraAICommandsReultsList[i];
 
-      let resquestContentForPrevious = '';
-
-      if (oneAICommand.aiFlowInstance.value) {
-        resquestContentForPrevious += oneAICommand.aiFlowInstance.value;
-      }
+      const resquestContentForPrevious = oneAICommand.aiFlowInstance.value || oneAICommand.aiFlowInstance.defaultValue;
 
       chatHistory.push({
         role: EAIFlowRole.USER,
