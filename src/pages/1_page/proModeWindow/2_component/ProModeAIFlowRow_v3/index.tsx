@@ -405,6 +405,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             chatHistory: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
             openaiOptions: {
+              openaiModel: proModeModalValue, // @TODELETE: 临时使用
               openaiModelType: proModeModalValue,
               temperature: creativityValue,
             },
@@ -432,6 +433,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             openaiSecret: openAIApiKey,
             prompt: [systemPrompt, ...chatHistory, inputPrompt],
             openaiOptions: {
+              openaiModel: proModeModalValue, // @TODELETE: 临时使用
               openaiModelType: proModeModalValue,
               temperature: creativityValue,
             },
