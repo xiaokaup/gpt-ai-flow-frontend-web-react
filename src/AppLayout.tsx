@@ -125,7 +125,7 @@ export const AppLayout = (props: Layout_input) => {
       </Header>
 
       {/* Body/Content */}
-      <Content style={{ padding: '20px 50px' }}>
+      <Content>
         <div className="site-layout-content">{children}</div>
       </Content>
 
@@ -147,7 +147,7 @@ export const AppLayoutCenter = (props: Layout_input) => {
       </Header>
 
       {/* Body/Content */}
-      <Content style={{ padding: '20px 50px' }}>
+      <Content>
         <div
           className="site-layout-content"
           style={{
