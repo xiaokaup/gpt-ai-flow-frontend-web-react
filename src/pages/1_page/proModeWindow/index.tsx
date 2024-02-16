@@ -210,7 +210,7 @@ const ProModeWindow = () => {
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
-      <div className="container proModeContainer" style={{ position: 'relative', overflow: 'auto' }}>
+      <div className="container proModeContainer" style={{ position: 'relative', overflow: 'auto', margin: '1rem 0' }}>
         <div
           className="row top_block"
           // style={{ display: 'flex', justifyContent: 'space-between' }}
