@@ -130,7 +130,12 @@ export const AppLayout = (props: Layout_input) => {
       </Content>
 
       {/* Footer */}
-      <Footer style={{ textAlign: 'center' }}>Copyright © {new Date().getFullYear()} GPT AI Flow</Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        Copyright © {new Date().getFullYear()} GPT AI Flow Powered by{' '}
+        <a href="https://digitechjoy.com/" style={{ color: '#000' }}>
+          DigitechJoy
+        </a>
+      </Footer>
     </Layout>
   );
 };
@@ -162,7 +167,12 @@ export const AppLayoutCenter = (props: Layout_input) => {
       </Content>
 
       {/* Footer */}
-      <Footer style={{ textAlign: 'center' }}>Copyright © {new Date().getFullYear()} GPT AI Flow</Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        Copyright © {new Date().getFullYear()} GPT AI Flow Powered by{' '}
+        <a href="https://digitechjoy.com/" style={{ color: '#000' }}>
+          DigitechJoy
+        </a>
+      </Footer>
     </Layout>
   );
 };
