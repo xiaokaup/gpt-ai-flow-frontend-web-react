@@ -8,9 +8,9 @@ import { saveLocalAction } from './store/actions/localActions';
 import { IReduxRootState } from './store/reducer';
 
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
-import { translate } from './gpt-ai-flow-common/i18nProvider/translate';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { getT } from './gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 const { Header, Content, Footer } = Layout;
 
@@ -35,6 +35,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
     },
   });
   const { locale } = localSettings;
+  const t = getT(locale);
 
   const handleSwithLanguage = (nextLocal: ELocale) => {
     const newLocalSettings = { ...localSettings, locale: nextLocal };
@@ -50,7 +51,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
           <span role="img" aria-label="Chinese">
             🇨🇳
           </span>
-          &nbsp;{translate(ELocale.ZH)}
+          &nbsp;{t.get(ELocale.ZH)}
         </div>
       ),
     },
@@ -61,7 +62,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
           <span role="img" aria-label="English">
             🇺🇸
           </span>
-          &nbsp;{translate(ELocale.EN)}
+          &nbsp;{t.get(ELocale.EN)}
         </div>
       ),
     },
@@ -102,7 +103,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            {translate(locale)}
+            {t.get(locale)}
             &nbsp;
             <DownOutlined style={{ position: 'relative', top: 1 }} />
           </a>
