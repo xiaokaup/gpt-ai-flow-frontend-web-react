@@ -63,7 +63,7 @@ export const AppRoutes = () => {
       path: '/signUp',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_1_signup />
+          <SettingsWindow_2_user_1_signup t={t} />
         </AppLayoutCenter>
       ),
     },
@@ -79,7 +79,7 @@ export const AppRoutes = () => {
       path: '/info',
       element: (
         <AppLayout isAuthenticated={isAuthenticated}>
-          <SettingsWindow userData={userData} isAuthenticated={isAuthenticated} />
+          <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
         </AppLayout>
       ),
     },
@@ -87,7 +87,7 @@ export const AppRoutes = () => {
       path: '/changePassword',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
+          <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
         </AppLayoutCenter>
       ),
     },

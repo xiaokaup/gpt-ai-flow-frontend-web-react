@@ -18,6 +18,7 @@ import { IUserDB, IUserDB_default } from '../../../../gpt-ai-flow-common/interfa
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface IUserRegisterForm {
   email: string;
@@ -27,9 +28,16 @@ interface IUserRegisterForm {
   confirm_password: string;
   uniqueCode?: string;
 }
-export const SettingsWindow_2_user_1_signup = () => {
+
+interface ISettingsWindow_2_user_1_signup_input {
+  t: IGetT_output;
+}
+export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_signup_input) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { t } = props;
+
   const query = new URLSearchParams(useLocation().search);
   const uniqueCodeFromUrl = query.get('uniqueCode');
 
@@ -52,7 +60,7 @@ export const SettingsWindow_2_user_1_signup = () => {
   const onFinish = async (values: IUserRegisterForm) => {
     try {
       if (values.confirm_password !== values.password) {
-        message.error('请确认两次输入的密码是相同的');
+        message.error(t.get('Please confirm that the passwords entered twice are the same'));
         return;
       }
 
@@ -61,7 +69,7 @@ export const SettingsWindow_2_user_1_signup = () => {
       )) as any;
 
       if (userFound?.id) {
-        return new Error('这个电子邮件已经注册');
+        throw new Error(t.get('This email has already been registered'));
       }
 
       const newUser = await dispatch(
@@ -79,10 +87,10 @@ export const SettingsWindow_2_user_1_signup = () => {
       );
 
       if (!newUser?.id) {
-        return new Error('注册失败，请再试一次或尝试另一个电子邮件地址');
+        throw new Error(t.get('Registration failed, please try again or try another email address'));
       }
 
-      message.success('用户创建成功');
+      message.success(t.get('User created successfully'));
       navigate('/login');
     } catch (error: Error | any) {
       message.error({
@@ -94,7 +102,7 @@ export const SettingsWindow_2_user_1_signup = () => {
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('失败:', errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -111,7 +119,7 @@ export const SettingsWindow_2_user_1_signup = () => {
       }}
     >
       <div className="row">
-        <h2>注册</h2>
+        <h2>{t.get('Sign Up')}</h2>
       </div>
       <div className="row">
         <Form
@@ -126,9 +134,9 @@ export const SettingsWindow_2_user_1_signup = () => {
             rules={[
               {
                 required: true,
-                message: '请输入你的电子邮件地址',
+                message: t.getHTML('Please enter your {text}', { text: t.get('Email') }),
               },
-              { type: 'email', message: '请以正确的格式输入' },
+              { type: 'email', message: t.get('Please enter in the correct format') },
             ]}
           >
             <Input prefix={<MailOutlined />} placeholder={'邮件'} />
@@ -139,15 +147,15 @@ export const SettingsWindow_2_user_1_signup = () => {
             rules={[
               {
                 required: true,
-                message: '请输入你的名字',
+                message: t.getHTML('Please enter your {text}', { text: t.get('First Name') }),
               },
             ]}
           >
-            <Input prefix={<UserOutlined />} placeholder={'名字'} />
+            <Input prefix={<UserOutlined />} placeholder={t.get('First Name')} />
           </Form.Item>
 
           <Form.Item name="last_name">
-            <Input prefix={<UserOutlined />} placeholder={'姓'} />
+            <Input prefix={<UserOutlined />} placeholder={t.get('Last Name')} />
           </Form.Item>
 
           <Form.Item
@@ -155,11 +163,11 @@ export const SettingsWindow_2_user_1_signup = () => {
             rules={[
               {
                 required: true,
-                message: '请输入你的密码',
+                message: t.getHTML('Please enter your {text}', { text: t.get('Password') }),
               },
             ]}
           >
-            <Input.Password prefix={<LockOutlined />} placeholder={'密码'} />
+            <Input.Password prefix={<LockOutlined />} placeholder={t.get('Password')} />
           </Form.Item>
 
           <Form.Item
@@ -167,20 +175,20 @@ export const SettingsWindow_2_user_1_signup = () => {
             rules={[
               {
                 required: true,
-                message: '请再次输入你的密码',
+                message: t.getHTML('Please enter again your {text}', { text: t.get('Password') }),
               },
             ]}
           >
-            <Input.Password prefix={<LockOutlined />} placeholder={'确认密码'} />
+            <Input.Password prefix={<LockOutlined />} placeholder={t.get('Confirm password')} />
           </Form.Item>
 
           <Form.Item name="uniqueCode">
             <Input
               prefix={<TeamOutlined />}
-              placeholder={'邀请码(可选)'}
+              placeholder={`${t.get('Invitation code')} (${t.get('Optional')})`}
               maxLength={6}
               suffix={
-                <Tooltip title="请确保邀请码是有效的">
+                <Tooltip title={t.getHTML('Please ensure the {text} is valid', { text: t.get('Invitation code') })}>
                   <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                 </Tooltip>
               }
@@ -190,7 +198,7 @@ export const SettingsWindow_2_user_1_signup = () => {
           <Form.Item>
             <div>
               <Button className="sign_up_with_password_provider_button" type="primary" htmlType="submit">
-                提交
+                {t.get('Submit')}
               </Button>
               <span style={{ marginLeft: 20 }}>
                 <Button
@@ -199,7 +207,7 @@ export const SettingsWindow_2_user_1_signup = () => {
                     navigate('/login');
                   }}
                 >
-                  返回
+                  {t.get('Return')}
                 </Button>
               </span>
             </div>

@@ -5,19 +5,21 @@ import React from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
-import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
+// import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { useNavigate } from 'react-router-dom';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TSettingsWindow_2_user from './TSettingsWindow_2_user';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+// import TSettingsWindow_2_user from './TSettingsWindow_2_user';
 import { useDispatch } from 'react-redux';
 import { userResetPasswordWithEmailAction } from '../../../../store/actions/userActions';
 // import TSettingsWindow_2_user from "./TSettingsWindow_2_user";
 
 interface SettingsWindow_2_user_5_forgetPassword_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
+  t: IGetT_output;
 }
 export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_user_5_forgetPassword_input) => {
-  // const { setPageCase } = props;
+  const { t } = props;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,15 +27,15 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
   const onFinish = async (values: any) => {
     try {
       const userResults = await dispatch(
-        userResetPasswordWithEmailAction(values.email, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        userResetPasswordWithEmailAction(t, values.email, CONSTANTS_GPT_AI_FLOW_COMMON) as any
       );
 
       if (!userResults) {
-        return new Error('这个电子邮件未被注册在，请再试一次或尝试另一个电子邮件地址');
+        return new Error(t.get('This email was not registered in, please try again or try another email address'));
       }
 
       message.success({
-        content: <span>一封包含新密码的电子邮件已经发到你的邮箱中</span>,
+        content: <span>{t.get('An email containing the new password has been sent to your mailbox')}</span>,
         key: 'auth',
         duration: 3,
       });
@@ -66,7 +68,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
       }}
     >
       <div className="row">
-        <h2>忘记密码</h2>
+        <h2>{t.get('Forget password')}</h2>
       </div>
       <div className="row forgetpassowrd_page_content">
         <div
@@ -75,7 +77,9 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
           }}
         >
           <div style={{ fontSize: 18, width: 500, padding: '20px 10px' }}>
-            请输入与您的账户关联的电子邮件地址，我们将向您发送重置密码的链接。
+            {t.get(
+              'Please enter the email address associated with your account, and we will send you a link to reset your password'
+            )}
           </div>
 
           <Form
@@ -90,17 +94,17 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
               rules={[
                 {
                   required: true,
-                  message: '请输入邮件',
+                  message: t.getHTML('Please enter your {text}', { text: t.get('Email') }),
                 },
-                { type: 'email', message: '请输入正确的邮件' },
+                { type: 'email', message: t.getHTML('Please enter the correct email') },
               ]}
             >
-              <Input prefix={<MailOutlined />} placeholder={'邮件'} />
+              <Input prefix={<MailOutlined />} placeholder={t.get('Email')} />
             </Form.Item>
 
             <Form.Item>
               <Button type="primary" htmlType="submit">
-                提交
+                {t.get('Submit')}
               </Button>
               <span style={{ marginLeft: 20 }}>
                 <Button
@@ -110,7 +114,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
                     navigate('/login');
                   }}
                 >
-                  返回
+                  {t.get('Return')}
                 </Button>
               </span>
             </Form.Item>

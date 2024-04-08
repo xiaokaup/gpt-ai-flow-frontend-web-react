@@ -14,15 +14,17 @@ import { ISubscriptionDB_v2 } from '../../../../gpt-ai-flow-common/interface-dat
 import { EProductDB_version } from '../../../../gpt-ai-flow-common/enum-database/EProductDB';
 import { IStoreStorageLocalSettings } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TModelsFile from '../../../../gpt-ai-flow-common/tools/3_unit/TModels';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface ISettingsWindow_1_local_basic_input {
+  t: IGetT_output;
   userData: IUserData;
   subscription_v2Data: ISubscriptionDB_v2;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { userData, subscription_v2Data } = props;
+  const { t, userData, subscription_v2Data } = props;
   const subscriptionIsExpired = subscription_v2Data?.expiredAt && new Date(subscription_v2Data?.expiredAt) < new Date();
 
   const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
@@ -66,14 +68,17 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
               value={openAIApiKey ?? ''}
               onChange={(e) => setOpenAIApiKey(e.target.value)}
             />
-            <span>(目前仅支持 海外用户 及 带有 VPN 梯子的国内用户)</span>
           </label>
         </div>
         {!subscriptionIsExpired &&
           subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
             <div>
               <span>
-                你已经选择使用官方模型解决方案，<b>此处无需填写</b>
+                {t.getHTML(
+                  'You have already chosen to use the official model solution, <b>there is no need to fill this out</b>',
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  { b: (chunks: any) => <b>{chunks}</b> }
+                )}
               </span>
             </div>
           )}
@@ -81,7 +86,11 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
             <div>
               <span>
-                你选择使用的官方模型解决方案，<b>已过期</b>，请到 <b>专业模式</b> 设置面板重启方案
+                {t.getHTML(
+                  'The solution you have chosen to use, <b>has expired</b>, please go to the <b>ProMode</b> settings panel to restart the solution',
+                  // eslint-disable-next-line react/no-unstable-nested-components
+                  { b: (chunks: any) => <b>{chunks}</b> }
+                )}
               </span>
             </div>
           )}
@@ -109,12 +118,12 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
       </div> */}
       <div className="row" style={{ marginTop: '.75rem' }}>
         <div>
-          <b>专业模式 大模型</b>
+          <b>{t.get('ProMode model')}</b>
         </div>
         <Select
           value={proModeModelType}
           showSearch
-          placeholder="模型类型"
+          placeholder={t.get('Model type')}
           optionFilterProp="children"
           onChange={(value: string) => {
             console.log(`selected ${value}`);
@@ -136,10 +145,10 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           id="userSaveSettingsBtn"
           onClick={() => {
             onSaveLocalSettings();
-            message.success('保存成功');
+            message.success(t.get('Save successfully'));
           }}
         >
-          保存
+          {t.get('Save')}
         </Button>
       </div>
     </div>

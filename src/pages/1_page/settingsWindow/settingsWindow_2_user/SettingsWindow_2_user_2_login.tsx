@@ -47,7 +47,11 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       );
 
       if (!userAndTokenData) {
-        throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
+        throw new Error(
+          t.get(
+            "The user's email is not registered or the password is incorrect. If the problem persists, please contact the administrator"
+          )
+        );
       }
 
       navigate('/proMode');
@@ -62,7 +66,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   };
 
   const onEmailAndPasswordSignInFaild = (errorInfo: any) => {
-    console.log('失败:', errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -96,15 +100,15 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             rules={[
               {
                 required: true,
-                message: '请输入你的邮箱',
+                message: t.getHTML('Please enter your {text}', { text: t.get('Email') }),
               },
               {
                 type: 'email',
-                message: '请以正确的格式输入',
+                message: t.getHTML('Please enter in the correct format'),
               },
             ]}
           >
-            <Input prefix={<MailOutlined />} placeholder={'邮箱'} />
+            <Input prefix={<MailOutlined />} placeholder={t.get('Email')} />
           </Form.Item>
 
           <Form.Item
@@ -112,11 +116,11 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             rules={[
               {
                 required: true,
-                message: '请输入你的密码',
+                message: t.getHTML('Please enter your {text}', { text: t.get('Password') }),
               },
             ]}
           >
-            <Input.Password prefix={<LockOutlined />} placeholder={'密码'} />
+            <Input.Password prefix={<LockOutlined />} placeholder={t.get('Password')} />
           </Form.Item>
 
           <Form.Item>
@@ -131,7 +135,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                     navigate('/signUp');
                   }}
                 >
-                  注册
+                  {t.get('Sign Up')}
                 </Button>
               </span>
               <br />
@@ -141,7 +145,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                   navigate('/forgetPassword');
                 }}
               >
-                忘记密码
+                {t.get('Forget password')}
               </span>
             </div>
           </Form.Item>

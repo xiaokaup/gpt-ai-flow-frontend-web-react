@@ -1,27 +1,37 @@
 import '../../../styles/global.css';
 
 import React from 'react';
+import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
-export const SettingsWindow_7_about = () => {
+interface SettingsWindow_7_about_input {
+  t: IGetT_output;
+}
+export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
+  const { t } = props;
   return (
     <div id="SettingsWindow_6_about" className="container">
       <div id="settingsWindowContainer" className="container" style={{ padding: '8px 10px' }}>
         <div className="row">
-          官方网站: <a href="https://www.gptaiflow.com">www.gptaiflow.com</a>
+          {t.get('Official website')}: <a href="https://www.gptaiflow.com">www.gptaiflow.com</a>
           <br />
-          常见问题:{' '}
+          {t.get('Frequently Asked Questions')}:{' '}
           <a href="https://www.gptaiflow.com/docs/proudct/gpt-ai-flow-guide-and-faq">
             www.gptaiflow.com/docs/proudct/gpt-ai-flow-guide-and-faq
           </a>
         </div>
         <div className="row">
-          如有任何反馈(bug 或 建议), 请发送至邮箱 <a href="mailto:hello@gptaiflow.com">hello@gptaiflow.com</a> 或通过{' '}
-          <a href="https://wj.qq.com/s2/13154598/1770/">产品反馈页面</a> 告诉我们
+          {t.getHTML(
+            `If you have any feedback (bugs or suggestions), please send it to <a href="mailto:{email}">{email}</a> or let us know via the <a href="https://wj.qq.com/s2/13154598/1770/">{userQuestionnaire}</a>`,
+            {
+              email: 'hello@gptaiflow.com',
+              userQuestionnaire: t.get('user questionnaire'),
+            }
+          )}
         </div>
 
         <hr />
         <div className="row">
-          <span>版本: v0.1.42</span>
+          <span>{t.get('Release version')}: v0.1.42</span>
         </div>
       </div>
     </div>
