@@ -15,8 +15,10 @@ import {
   IAICommands_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
+import { IGetT_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface InstructionInputColumn_v3_OutputIndicatorSelect_input {
+  t: IGetT_output;
   index: number;
   ouputIndicatorCommandsSelectOptions: IAIFlow[];
   aiCommands: IAICommands_v4[];
@@ -30,6 +32,7 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
   props: InstructionInputColumn_v3_OutputIndicatorSelect_input
 ) => {
   const {
+    t,
     index,
     ouputIndicatorCommandsSelectOptions,
     aiCommands,
@@ -47,7 +50,7 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
 
     const oneOuputIndicator = ouputIndicatorCommandsSelectOptions.find((item) => item.uuid === value);
     if (!oneOuputIndicator) {
-      message.error('指令不存在');
+      message.error(t.get('Command does not exist'));
       return;
     }
     newAiCommands[paraIndex].aiFlowInstance = oneOuputIndicator;
@@ -75,7 +78,7 @@ export const InstructionInputColumn_v3_OutputIndicatorSelect = (
       <Select
         disabled={!thisAiCommand.aiFlowInstance.isActive}
         showSearch
-        placeholder="选择输出提示"
+        placeholder={t.get('Select Output Prompts')}
         optionFilterProp="children"
         value={thisAiCommand.aiFlowInstance.uuid}
         onChange={onOutputIndicatorCommandsSelectChange(index)}

@@ -16,10 +16,12 @@ import {
   IAICommandsResults_v4,
   IAICommands_v4,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
+import { IGetT_output } from '../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 const { TextArea } = Input;
 
 export interface IOuputIndicatorComponent_input {
+  t: IGetT_output;
   hasAvailableSubscription: boolean;
 
   stopInstructionAIFlowResults: (paraRequestControllersMap: Map<string, AbortController>) => void;
@@ -43,6 +45,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
   const captureOuputResultsRef = useRef<HTMLDivElement>(null);
 
   const {
+    t,
     hasAvailableSubscription,
 
     stopInstructionAIFlowResults,
@@ -66,7 +69,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}
       >
         <div>
-          <span>结果</span>
+          <span>{t.get('Result')}</span>
 
           <Button
             size="small"
@@ -75,7 +78,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
             }}
             style={{ marginLeft: 6 }}
           >
-            停止
+            {t.get('Stop')}
           </Button>
           <Button
             type="primary"
@@ -87,7 +90,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
             style={{ marginLeft: 6 }}
             disabled={false}
           >
-            获取
+            {t.get('Request')}
           </Button>
         </div>
 
@@ -151,7 +154,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
       </div>
 
       <div ref={captureOuputResultsRef} className="row row_results">
-        {aiComandsResults.length <= 0 && <Empty description="暂无结果" style={{ marginTop: 30 }} />}
+        {aiComandsResults.length <= 0 && <Empty description={t.get('No results yet')} style={{ marginTop: 30 }} />}
 
         {aiCommands.map((item: IAICommands_v4, index: number) => {
           const { uuid } = item;
@@ -246,7 +249,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                     onClick={() => {
                       console.log('复制结果');
                       copy(aiComandsResults[index].value);
-                      message.success('复制成功');
+                      message.success(t.get('Copy successful'));
                     }}
                   />
                 </div>

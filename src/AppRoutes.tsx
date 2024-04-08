@@ -103,7 +103,7 @@ export const AppRoutes = () => {
       path: '/proMode',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <ProModeWindow />
+          <ProModeWindow t={t} />
         </AppLayoutCenter>
       ),
     },
