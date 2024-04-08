@@ -18,11 +18,13 @@ import {
   EProMode_v3_10_seoManager_contextTypeStage,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_10_seoManager';
 import { IProMode_v3_contextTypeStages } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
 
 interface IProModePage_copyWriting_input {
+  t: IGetT_output;
   PROMODE_DATA: IProMode_v3_oneProMode<
     EProMode_v3_10_seoManager_contextType,
     EProMode_v3_10_seoManager_contextTypeStage
@@ -30,7 +32,7 @@ interface IProModePage_copyWriting_input {
 }
 
 export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_input) => {
-  const { PROMODE_DATA } = props;
+  const { t, PROMODE_DATA } = props;
 
   const DEFAULT_CONTEXT_TYPE = PROMODE_DATA.default.defaultContextType;
   const DEFAULT_CONTEXT_TYPE_STAGE = PROMODE_DATA.default.defaultContextTypeStage;
@@ -105,7 +107,7 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
       setContextExamples(selectedExamples);
 
       if (TString.hasPlaceholder(selectedDefaultValue)) {
-        message.warning('点击右侧修改 📝 按钮填写具体场景信息', 5);
+        message.warning(t.get('Click on the Modify 📝 button on the right to fill in specific context information'), 5);
       }
     }
 
@@ -123,7 +125,7 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
               stopSearchAllResultsForPannel();
             }}
           >
-            停止全部结果
+            {t.get('Stop All Results')}
           </Button>
           <Button
             type="primary"
@@ -133,12 +135,12 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
               searchAllResultsForPannel();
             }}
           >
-            获取全部结果
+            {t.get('Get all results')}
           </Button>
         </div>
         <div className="column" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
           <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
-            阶段 :
+            {t.get('Stage')} :
             <Select
               defaultValue={contextTypeStage}
               value={contextTypeStage}
@@ -166,7 +168,7 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
             )}
           </div>
           <div className="column" style={{ display: 'flex', alignItems: 'center' }}>
-            场景
+            {t.get('Context')}
             {isContextInputsDirty && <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />}
             {!isContextInputsDirty && (
               <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
@@ -202,6 +204,7 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
           </div>
         )} */}
         <DynamicFormForContextPrompt
+          t={t}
           containerStyle={showContextInputs ? {} : { display: 'none' }}
           contextPromptWithPlaceholder={defautContext}
           setContextHandled={setContextHandled}
@@ -215,6 +218,7 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
           return (
             <div className="row" key={rowIndex}>
               <ProModeAIFlowRow_v3
+                t={t}
                 clickSearchAllResultsButtonCount={clickSearchAllResultsButtonCount}
                 clickStopSearchAllResultsButtonCount={clickStopSearchAllResultsButtonCount}
                 contextHandled={contextHandled}

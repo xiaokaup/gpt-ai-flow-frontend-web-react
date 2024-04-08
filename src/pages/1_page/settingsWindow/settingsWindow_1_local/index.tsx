@@ -14,6 +14,7 @@ import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { useSubscription_v2Data } from '../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
 
@@ -22,8 +23,13 @@ enum ESettingsWindow_1_local_tabKey {
   SHORTCUT = 'shortcut',
 }
 
-export const SettingsWindow_1_local = () => {
+interface ISettingsWindow_1_local_input {
+  t: IGetT_output;
+}
+export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => {
   const dispatch = useDispatch();
+
+  const { t } = props;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -39,7 +45,7 @@ export const SettingsWindow_1_local = () => {
   if (!userId) {
     return (
       <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
-        请先注册用户并登录
+        {t.get('Please register a user and log in first')}
       </div>
     );
   }
@@ -64,8 +70,8 @@ export const SettingsWindow_1_local = () => {
   const tabItems: TabsProps['items'] = [
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
-      label: `基本`,
-      children: <SettingsWindow_1_local_basic userData={userData} subscription_v2Data={subscription_v2Data} />,
+      label: t.get('Basic'),
+      children: <SettingsWindow_1_local_basic t={t} userData={userData} subscription_v2Data={subscription_v2Data} />,
     },
   ];
 

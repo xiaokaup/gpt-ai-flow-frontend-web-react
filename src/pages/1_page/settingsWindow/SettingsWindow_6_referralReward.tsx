@@ -10,15 +10,16 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/con
 import TBackendInviteLinkFile from '../../../gpt-ai-flow-common/tools/3_unit/TBackendInviteLink';
 import { IInviteLinkDB } from '../../../gpt-ai-flow-common/interface-database/IInviteLinkDB';
 import { ISequelize_whereCondition_searchResults } from '../../../gpt-ai-flow-common/interface-backend/ISequelize';
+import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface ISettingsWindow_6_referralReward_input {
+  t: IGetT_output;
   userId: string;
   accessToken: string;
 }
-export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referralReward_input) => {
-  const { userId, accessToken } = props;
 
-  if (!userId || !accessToken) return <>请先到设置界面登录用户</>;
+const SettingsWindow_6_referralReward_login = (props: ISettingsWindow_6_referralReward_input) => {
+  const { t, userId, accessToken } = props;
 
   const [inviteLinks, setInviteLinks] = useState<IInviteLinkDB[]>([]);
 
@@ -48,9 +49,9 @@ export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referra
       <div className="row" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div className="row" style={{ textAlign: 'center' }}>
           <span style={{ fontSize: '1.2rem' }}>
-            如果你喜欢我们的产品，分享链接给朋友
+            {t.get('If you like our product, share the link with a friend')}
             <br />
-            使用 GPT AI Flow, 赢得 +3天 免费试用 奖励。
+            {t.get('Use GPT AI Flow, win a +3 day free trial bonus.')}
           </span>
         </div>
 
@@ -60,12 +61,12 @@ export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referra
             generateReferralLink();
           }}
         >
-          获取推荐链接
+          {t.get('Get Referral Link')}
         </Button>
       </div>
 
       <div className="row">
-        {inviteLinks.length === 0 && <div>暂无推荐链接</div>}
+        {inviteLinks.length === 0 && <div>{t.get('No referral links')}</div>}
         {inviteLinks.map((item) => {
           const { currentUse, maxUse, expiredAt, uniqueCode } = item;
 
@@ -76,7 +77,7 @@ export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referra
 
           return (
             <div key={uniqueCode}>
-              <h3 style={{ fontSize: '1.2rem' }}>推荐链接:</h3>
+              <h3 style={{ fontSize: '1.2rem' }}>{t.get('Referral links')}:</h3>
               <div style={{ marginTop: '.8rem' }}>
                 <a href={openLink} style={{ fontSize: '1rem' }}>
                   {openLink}
@@ -86,14 +87,14 @@ export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referra
                 </span>
                 {isExpired && (
                   <span style={{ marginLeft: 8 }}>
-                    <Tag color="red">已失效</Tag>
+                    <Tag color="red">{t.get('expired')}</Tag>
                   </span>
                 )}
                 <CopyToClipboard
                   text={openLink}
                   onCopy={() => {
                     message.success({
-                      content: <span>复制成功 !</span>,
+                      content: <span>{t.get('Copy successful')} !</span>,
                       key: 'copy',
                       duration: 3,
                     });
@@ -108,4 +109,12 @@ export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referra
       </div>
     </div>
   );
+};
+
+export const SettingsWindow_6_referralReward = (props: ISettingsWindow_6_referralReward_input) => {
+  const { t, userId, accessToken } = props;
+
+  if (!userId || !accessToken) return <>{t.get('Please go to the setup interface to log in the user first')}</>;
+
+  return <SettingsWindow_6_referralReward_login t={t} userId={userId} accessToken={accessToken} />;
 };

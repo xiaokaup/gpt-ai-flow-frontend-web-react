@@ -3,8 +3,10 @@ import { Alert, Button, Card } from 'antd';
 import TStripeConstant, { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendStripeFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
+import { IGetT_output } from '../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription_input {
+  t: IGetT_output;
   createAndOpenStripeBillingSession: () => void;
   userId: string;
   userAccessToken: string;
@@ -13,7 +15,7 @@ interface SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription
 export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription = (
   props: SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription_input
 ) => {
-  const { createAndOpenStripeBillingSession, userId, userAccessToken, currencySymbol } = props;
+  const { t, createAndOpenStripeBillingSession, userId, userAccessToken, currencySymbol } = props;
 
   const [hasSubscriptions, setHasSubscriptions] = useState<boolean>(false);
 
@@ -50,13 +52,24 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
 
   return (
     <div className="row">
-      <div className="row">是否已有订阅: {hasSubscriptions ? '是' : '否'}</div>
       <div className="row">
-        <Alert type="info" message={<span>如果更换订阅类型过程中出现无法访问的情况，请尝试重新登录用户账号</span>} />
+        {t.get('Whether or not you already have a subscription')}: {hasSubscriptions ? t.get('Yes') : t.get('No')}
+      </div>
+      <div className="row">
+        <Alert
+          type="info"
+          message={
+            <span>
+              {t.get(
+                'If you are unable to access your subscription while changing subscription types, try logging into your user account again'
+              )}
+            </span>
+          }
+        />
       </div>
       <div className="row">
         <div className="row">
-          <h3>月度</h3>
+          <h3>{t.get('Monthly')}</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {stripePrices.month
               .filter((item) => !item.name.includes('FreeAI'))
@@ -71,7 +84,7 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
                       marginLeft: '.8rem',
                       marginBottom: '.8rem',
                     }}
-                    bodyStyle={{}}
+                    // bodyStyle={{}}
                     actions={[
                       <Button
                         type="primary"
@@ -83,7 +96,7 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
                           createAndOpenStripeBillingSession();
                         }}
                       >
-                        订阅
+                        {t.get('Subscription')}
                       </Button>,
                     ]}
                   >
@@ -96,7 +109,7 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
           </div>
         </div>
         <div className="row">
-          <h3>季度</h3>
+          <h3>{t.get('Quarterly')}</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {stripePrices.quarter
               .filter((item) => !item.name.includes('FreeAI'))
@@ -122,7 +135,7 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
                           createAndOpenStripeBillingSession();
                         }}
                       >
-                        订阅
+                        {t.get('Subscription')}
                       </Button>,
                     ]}
                   >
@@ -135,7 +148,7 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
           </div>
         </div>
         <div className="row">
-          <h3>年度</h3>
+          <h3>{t.get('Annually')}</h3>
           <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {stripePrices.year
               .filter((item) => !item.name.includes('FreeAI'))
@@ -161,7 +174,7 @@ export const SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscript
                           createAndOpenStripeBillingSession();
                         }}
                       >
-                        订阅
+                        {t.get('Subscription')}
                       </Button>,
                     ]}
                   >

@@ -14,8 +14,10 @@ import {
   IAICommands_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
+import { IGetT_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface InstructionInputColumn_v3_InstructionSelect_input {
+  t: IGetT_output;
   index: number;
   instructionCommandsSelectOptions: IAIFlow[];
   aiCommands: IAICommands_v4[];
@@ -29,6 +31,7 @@ export const InstructionInputColumn_v3_InstructionSelect = (
   props: InstructionInputColumn_v3_InstructionSelect_input
 ) => {
   const {
+    t,
     index,
     instructionCommandsSelectOptions,
     aiCommands,
@@ -46,7 +49,7 @@ export const InstructionInputColumn_v3_InstructionSelect = (
 
     const oneInstruction = instructionCommandsSelectOptions.find((item) => item.uuid === value);
     if (!oneInstruction) {
-      message.error('指令不存在');
+      message.error(t.get('Command does not exist'));
       return;
     }
 
@@ -75,7 +78,7 @@ export const InstructionInputColumn_v3_InstructionSelect = (
       <Select
         disabled={!thisAiCommand.aiFlowInstance.isActive}
         showSearch
-        placeholder="选择指令提示"
+        placeholder={t.get('Select command prompts')}
         optionFilterProp="children"
         value={thisAiCommand.aiFlowInstance.uuid}
         onChange={onInstructionCommandsSelectChange(index)}

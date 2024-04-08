@@ -8,18 +8,20 @@ import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
   authLoginByEmailAndPasswordAction,
   userUpdateUserPasswordActionAction_v1,
 } from '../../../../store/actions/userActions';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
 interface SettingsWindow_2_user_4_changePassword_input {
+  t: IGetT_output;
   userData: IUserData;
   isAuthenticated: boolean;
 }
 export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_user_4_changePassword_input) => {
-  const { userData, isAuthenticated } = props;
+  const { t, userData, isAuthenticated } = props;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,12 +41,13 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
       );
 
       if (!userAndTokenData || !userAndTokenData.id || !userAndTokenData.token) {
-        message.error('出现了一些问题，请重新登录再试一次');
+        message.error(t.get('There were some problems, please log in again and try once more'));
         return;
       }
 
       await dispatch(
         userUpdateUserPasswordActionAction_v1(
+          t,
           userAndTokenData.id,
           values.newPassword,
           userAndTokenData.token.accessToken,
@@ -52,7 +55,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
         ) as any
       );
 
-      message.success('密码修改成功');
+      message.success(t.get('Password successfully changed'));
       navigate('/info');
       window.location.reload();
     } catch (error: Error | any) {
@@ -65,7 +68,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('失败:', errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -82,7 +85,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
       }}
     >
       <div className="row">
-        <h2>修改密码</h2>
+        <h2>{t.get('Change password')}</h2>
       </div>
       <div className="row signup_page_content">
         <div
@@ -107,28 +110,28 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
               rules={[
                 {
                   required: true,
-                  message: '请输入你的密码',
+                  message: t.getHTML('Please enter your {text}', { text: t.get('Password') }),
                 },
               ]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder={'密码'} />
+              <Input.Password prefix={<LockOutlined />} placeholder={t.get('Password')} />
             </Form.Item>
             <Form.Item
               name="newPassword"
               rules={[
                 {
                   required: true,
-                  message: '请输入你的新密码',
+                  message: t.getHTML('Please enter your {text}', { text: t.get('New password') }),
                 },
               ]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder={'新密码'} />
+              <Input.Password prefix={<LockOutlined />} placeholder={t.get('New password')} />
             </Form.Item>
 
             <Form.Item>
               <div>
                 <Button type="primary" htmlType="submit">
-                  提交
+                  {t.get('Submit')}
                 </Button>
                 <span style={{ marginLeft: 20 }}>
                   <Button
@@ -137,7 +140,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
                       navigate('/info');
                     }}
                   >
-                    返回
+                    {t.get('Return')}
                   </Button>
                 </span>
               </div>

@@ -3,6 +3,7 @@ import { IConstantGptAiFlowHandler } from '../../../../gpt-ai-flow-common/config
 import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { removeEmptyValues } from '../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
 import { fetchWithRetry } from '../../../../gpt-ai-flow-common/tools/4_base/TRequest';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 const authLoginByEmailAndPassword = async (
   email: string,
@@ -28,6 +29,7 @@ const authLoginByEmailAndPassword = async (
 };
 
 export const updateUserPassword_v1 = async (
+  t: IGetT_output,
   userId: number,
   newPassword: string,
   accessToken: string,
@@ -47,7 +49,7 @@ export const updateUserPassword_v1 = async (
   })
     .then((res) => {
       if (res.status !== 200) {
-        throw new Error('修改密码失败，请输入正确的密码');
+        throw new Error(t.get('Failed to change password, please enter the correct password'));
       }
       return res.json();
     })

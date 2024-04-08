@@ -19,6 +19,8 @@ import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsW
 import ProModeWindow from './pages/1_page/proModeWindow';
 import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
+import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { getT } from './gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,11 @@ export const AppRoutes = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
   });
+  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  });
+  const { locale } = localSettingsFromStore;
+  const t = getT(locale);
 
   const { userData, isAuthenticated } = useUserData({
     userDataFromStorage,
@@ -48,7 +55,7 @@ export const AppRoutes = () => {
       path: '/',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_2_login />
+          <SettingsWindow_2_user_2_login t={t} />
         </AppLayoutCenter>
       ),
     },
@@ -56,7 +63,7 @@ export const AppRoutes = () => {
       path: '/signUp',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_1_signup />
+          <SettingsWindow_2_user_1_signup t={t} />
         </AppLayoutCenter>
       ),
     },
@@ -64,7 +71,7 @@ export const AppRoutes = () => {
       path: '/login',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_2_login />
+          <SettingsWindow_2_user_2_login t={t} />
         </AppLayoutCenter>
       ),
     },
@@ -72,7 +79,7 @@ export const AppRoutes = () => {
       path: '/info',
       element: (
         <AppLayout isAuthenticated={isAuthenticated}>
-          <SettingsWindow userData={userData} isAuthenticated={isAuthenticated} />
+          <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
         </AppLayout>
       ),
     },
@@ -80,7 +87,7 @@ export const AppRoutes = () => {
       path: '/changePassword',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_4_changePassword userData={userData} isAuthenticated={isAuthenticated} />
+          <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
         </AppLayoutCenter>
       ),
     },
@@ -88,7 +95,7 @@ export const AppRoutes = () => {
       path: '/forgetPassword',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_5_forgetPassword />
+          <SettingsWindow_2_user_5_forgetPassword t={t} />
         </AppLayoutCenter>
       ),
     },
@@ -96,7 +103,7 @@ export const AppRoutes = () => {
       path: '/proMode',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <ProModeWindow />
+          <ProModeWindow t={t} />
         </AppLayoutCenter>
       ),
     },
@@ -104,7 +111,7 @@ export const AppRoutes = () => {
       path: '/logout',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <LogoutPage />
+          <LogoutPage t={t} />
         </AppLayoutCenter>
       ),
     },

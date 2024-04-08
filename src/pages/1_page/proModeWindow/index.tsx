@@ -35,20 +35,20 @@ import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TModelsFile from '../../../gpt-ai-flow-common/tools/3_unit/TModels';
+import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
-export interface ITabPanel {
-  key: EServiceCategoryDB_name;
-  label: string;
-  value: EServiceCategoryDB_name;
-  children: React.ReactNode;
-  disabled: boolean;
-}
+import { ITabPanel } from './proModeWindowType';
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-const ProModeWindow = () => {
+interface IProModeWindow_input {
+  t: IGetT_output;
+}
+const ProModeWindow = (props: IProModeWindow_input) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { t } = props;
 
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
 
@@ -89,7 +89,10 @@ const ProModeWindow = () => {
     }, 1000);
     return (
       <>
-        请先到设置界面登录用户，并确认套餐是否为正常状态 <Link to="/logout">登出</Link>
+        {t.get(
+          'Please go to the setup interface to log in the user first, and make sure that the package is in normal status'
+        )}{' '}
+        <Link to="/logout">{t.get('Logout')}</Link>
       </>
     );
   }
@@ -113,6 +116,7 @@ const ProModeWindow = () => {
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
+    t,
     userDataFromStorage: userData,
     serviceCategories,
   });
@@ -157,7 +161,7 @@ const ProModeWindow = () => {
     const newTabPanel = defaultTabPanels.find((item) => item.value === paraSelectedProdMode);
 
     if (!newTabPanel) {
-      message.error('未找到对应的专业界面');
+      message.error(t.get('The corresponding ProMode interface was not found'));
       return;
     }
 
@@ -197,7 +201,7 @@ const ProModeWindow = () => {
 
     if (action === 'add') {
       if (!selectedProdMode) {
-        message.error('请选择专业界面');
+        message.error(t.get('Please select the ProMode interface'));
         return;
       }
 
@@ -218,7 +222,7 @@ const ProModeWindow = () => {
           <div className="row top_block_add_tab">
             <Select
               showSearch
-              placeholder="选择专业界面"
+              placeholder={t.get('Select the ProMode interface')}
               optionFilterProp="children"
               onChange={onProModeSelectorChange}
               onSearch={onProModeSelectorSearch}
@@ -226,7 +230,7 @@ const ProModeWindow = () => {
               options={[
                 {
                   value: '',
-                  label: '请选择',
+                  label: t.get('Please select'),
                 },
                 ...defaultTabPanels.map((item: { value: string; label: string }) => {
                   return {
@@ -243,19 +247,19 @@ const ProModeWindow = () => {
               style={{ marginLeft: 8 }}
               onClick={() => {
                 if (!selectedProdMode) {
-                  message.error('请选择专业界面');
+                  message.error(t.get('Please select the ProMode interface'));
                   return;
                 }
 
                 if (!serviceCategories.includes(selectedProdMode)) {
-                  message.error('你没有权限使用此面板');
+                  message.error(t.get("You don't have permission to use this panel"));
                   return;
                 }
 
                 addTabPanel(selectedProdMode);
               }}
             >
-              添加
+              {t.get('Add')}
             </Button>
           </div>
         </div>
@@ -277,7 +281,9 @@ const ProModeWindow = () => {
             marginBottom: '.4rem',
           }}
         >
-          <span style={{ color: '#5D6370', marginLeft: '1rem' }}>创意值: {creativityValue}</span>
+          <span style={{ color: '#5D6370', marginLeft: '1rem' }}>
+            {t.get('Creative value')}: {creativityValue}
+          </span>
 
           <Slider
             min={0}
@@ -288,8 +294,8 @@ const ProModeWindow = () => {
             }}
             value={creativityValue}
             marks={{
-              0: '精确',
-              1.6: '创造',
+              0: t.get('Precise'),
+              1.6: t.get('Creative'),
             }}
             style={{
               position: 'relative',
@@ -305,7 +311,7 @@ const ProModeWindow = () => {
             <Select
               value={proModeModelType}
               showSearch
-              placeholder="选择模型"
+              placeholder={t.get('Select Model')}
               optionFilterProp="children"
               onChange={(value: string) => {
                 console.log(`selected ${value}`);
@@ -328,9 +334,11 @@ const ProModeWindow = () => {
             <Alert
               message={
                 <span>
-                  John是一位忙碌的职场人士，但在订阅我们产品后，他发现了平衡工作和生活的新秘诀。
+                  {t.get(
+                    'John is a busy working professional, but after subscribing to our products, he discovered a new secret to work-life balance.'
+                  )}
                   <a href="https://www.app.gptaiflow.com/info" target="_blank">
-                    <span style={{ color: '#1677FF' }}>点击这里</span>
+                    <span style={{ color: '#1677FF' }}>{t.get('Click here')}</span>
                   </a>
                 </span>
               }

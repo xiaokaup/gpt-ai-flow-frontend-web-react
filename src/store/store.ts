@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, Middleware } from 'redux';
 import { createRootReducer } from './reducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from '@react-native-async-storage/async-storage';
@@ -30,7 +30,7 @@ export function configureStore(initialState = {}) {
   let settingMiddleware;
 
   if (!isProd) {
-    settingMiddleware = applyMiddleware(thunk, createLogger());
+    settingMiddleware = applyMiddleware(thunk, createLogger() as Middleware<any, any, any>);
   } else {
     settingMiddleware = applyMiddleware(thunk);
   }
