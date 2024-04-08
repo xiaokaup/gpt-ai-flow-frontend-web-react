@@ -31,7 +31,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
   return (
     <>
       <div style={containerStyle}>
-        <SettingsWindow_2_user_3_info userData={userData} isAuthenticated={isAuthenticated} />
+        <SettingsWindow_2_user_3_info t={t} userData={userData} isAuthenticated={isAuthenticated} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_1_local t={t} />
@@ -40,7 +40,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
         <SettingsWindow_7_about t={t} />
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_4_proMode />
+        <SettingsWindow_4_proMode t={t} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_6_referralReward t={t} userId={userId.toString()} accessToken={accessToken} />

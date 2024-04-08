@@ -95,7 +95,7 @@ export const AppRoutes = () => {
       path: '/forgetPassword',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_5_forgetPassword />
+          <SettingsWindow_2_user_5_forgetPassword t={t} />
         </AppLayoutCenter>
       ),
     },
