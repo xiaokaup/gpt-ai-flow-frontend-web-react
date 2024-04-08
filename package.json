@@ -24,6 +24,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^17.0.1",
     "react-intl": "^6.4.5",
+    "react-intl-universal": "^2.11.1",
     "react-markdown": "^8.0.7",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.15.0",
