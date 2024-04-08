@@ -16,15 +16,18 @@ import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/I
 import TBackendStripeFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendSubscription_v2File from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendSubscription_v2';
+import { IGetT_output } from '../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
+import { FreeVersionAnnounce } from '../FreeVersionAnnounce';
 
 interface SettingsWindow_4_proMode_CNY_input {
+  t: IGetT_output;
   userData: IUserData;
   useSubscription_v2DataOutput: IUseSubscriptionDB_v2Data_output;
 }
 export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
-  const { userData, useSubscription_v2DataOutput } = props;
+  const { t, userData, useSubscription_v2DataOutput } = props;
   const {
     id: userId,
     email: userEmail,
@@ -32,7 +35,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
   } = userData;
 
   if (!userId) {
-    return <>请登录</>;
+    return <>{t.get('Please register a user and log in first')}</>;
   }
 
   const { subscription_v2Data, setSubscription_v2Data } = useSubscription_v2DataOutput;
@@ -56,7 +59,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
 
   const startATrialSubscriptionForCNY_with_subscriptionVersion = async (subscriptionVersion: ESubscriptionVersion) => {
     if (!userId) {
-      message.error('请登录');
+      message.error(t.get('Please register a user and log in first'));
       return;
     }
 
@@ -74,7 +77,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
       CONSTANTS_GPT_AI_FLOW_COMMON
     );
 
-    message.success('免费试用已开启');
+    message.success(t.get('Free trial is now open'));
     setHasTrialForSubscription_v2(true);
     setSubscription_v2Data(results);
   };
@@ -84,14 +87,16 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
       {!hasTrialForSubscription_v2 && (
         <div className="row hasNotStartTrial">
           <div className="row">
-            <div>(请确保填写的邮箱与账户邮箱一致)</div>
             <div>
-              邮箱: {userEmail}
+              ({t.get('Please make sure the email address you fill in is the same as your account email address')})
+            </div>
+            <div>
+              {t.get('Email')}: {userEmail}
               <CopyToClipboard
                 text={userEmail}
                 onCopy={() => {
                   message.success({
-                    content: <span>复制成功 !</span>,
+                    content: <span>{t.get('Copy successful')} !</span>,
                     key: 'copy',
                     duration: 3,
                   });
@@ -109,7 +114,8 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
               }}
               style={{ marginTop: '.2rem' }}
             >
-              开始试用 入门模型版 (避免繁琐设置，直接体验)
+              {t.get('Getting Started: Getting Started with the StarterAI Model Edition')} (
+              {t.get('Avoid the tedious setup and get right to it')})
             </Button>
             <Button
               type="primary"
@@ -118,14 +124,20 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
               }}
               style={{ marginTop: '.2rem' }}
             >
-              开始试用 入门工具版 (需自备 OpenAI 密匙)
+              {t.get('Start Trial Getting StartedAI Tools Edition')} ({t.get('Requires your own OpenAI key')})
             </Button>
           </div>
           <div className="row">
             <Alert
               type="info"
               style={{ cursor: 'pointer' }}
-              message={<span>已付费或单次成功付款成功后请刷新页面或重启软件</span>}
+              message={
+                <span>
+                  {t.get(
+                    'Please refresh the page or restart the software after the payment has been made or a single successful payment has been made'
+                  )}
+                </span>
+              }
             />
           </div>
         </div>
@@ -135,19 +147,19 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
         <div className="row hasStartTrial">
           {stripeCustomerId && subscription_v2Data.Region?.code === ERegionDB_code.EN && (
             <div className="row">
-              <p>请到海外地区查看您的订阅</p>
+              <p>{t.get('Please check your subscription in overseas regions')}</p>
             </div>
           )}
 
           {subscription_v2Data.Region?.code === ERegionDB_code.ZH && (
             <div className="row subscirption_zh">
               <div className="row">
-                邮箱: {userEmail}
+                {t.get('Email')}: {userEmail}
                 <CopyToClipboard
                   text={userEmail}
                   onCopy={() => {
                     message.success({
-                      content: <span>复制成功 !</span>,
+                      content: <span>{t.get('Copy successful')} !</span>,
                       key: 'copy',
                       duration: 3,
                     });
@@ -158,13 +170,13 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
               </div>
 
               <div className="row">
-                套餐名称: {subscription_v2Data?.Product_Limit?.Product?.name}
+                {t.get('Subscription Name')}: {subscription_v2Data?.Product_Limit?.Product?.name}
                 <br />
-                套餐时长: {subscription_v2Data.period}
+                {t.get('Subscription Duration')}: {subscription_v2Data.period}
                 <br />
-                套餐版本: {subscription_v2Data?.Product_Limit?.Product?.version}
+                {t.get('Subscription Version')}: {subscription_v2Data?.Product_Limit?.Product?.version}
                 <br />
-                套餐到期:{' '}
+                {t.get('Subscription Expiry Date')}:{' '}
                 <span>
                   <span className="column">
                     {subscription_v2Data.expiredAt &&
@@ -172,9 +184,9 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
                   </span>
                   <span className="column">
                     {subscription_v2Data.expiredAt && isExpired ? (
-                      <Tag color="#f50">已过期</Tag>
+                      <Tag color="#f50">{t.get('Expired')}</Tag>
                     ) : (
-                      <Tag color="#2db7f5">有效</Tag>
+                      <Tag color="#2db7f5">{t.get('Valid')}</Tag>
                     )}
                   </span>
                 </span>
@@ -182,6 +194,7 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
 
               <div className="row">
                 <SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription
+                  t={t}
                   currencySymbol={ECurrencySymbol.CNY}
                   userId={userId.toString()}
                   userAccessToken={userAccessToken}
@@ -191,6 +204,8 @@ export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY
           )}
         </div>
       )}
+
+      <FreeVersionAnnounce locale={t.currentLocale} subscription_v2Data={subscription_v2Data} />
     </div>
   );
 };

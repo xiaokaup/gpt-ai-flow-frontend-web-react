@@ -21,14 +21,13 @@ import { ProModePage_v3_02_copyWritingManager } from './1_pages/ProModePage_v3_0
 import { ProModePage_v3_03_xiaoHongShuManager } from './1_pages/ProModePage_v3_03_xiaoHongShuManager';
 import { ProModePage_v3_04_aiAssistant } from './1_pages/ProModePage_v3_04_aiAssistant';
 import { ProModePage_v3_05_commentManager } from './1_pages/ProModePage_v3_05_commentManager';
-import { ProModePage_v3_06_careerManager } from './1_pages/ProModePage_v3_06_careerManager';
+// import { ProModePage_v3_06_careerManager } from './1_pages/ProModePage_v3_06_careerManager';
 import { ProModePage_v3_07_upZhu } from './1_pages/ProModePage_v3_07_upZhu';
 import { ProModePage_v3_08_productManager } from './1_pages/ProModePage_v3_08_productManager';
 import { ProModePage_v3_09_marketingManager } from './1_pages/ProModePage_v3_09_marketingManager';
 import { ProModePage_v3_10_seoManager } from './1_pages/ProModePage_v3_10_seoManager';
 import { ProModePage_v3_11_customerAssistant } from './1_pages/ProModePage_v3_11_customerAssistant';
 
-import { ITabPanel } from '.';
 import {
   EProMode_v3_01_communicationManager_contextType,
   EProMode_v3_01_communicationManager_contextTypeStage,
@@ -73,8 +72,12 @@ import {
   EProMode_v3_11_customerAssistant_contextType,
   EProMode_v3_11_customerAssistant_contextTypeStage,
 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_11_customerAssistant';
+import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+
+import { ITabPanel } from './proModeWindowType';
 
 interface useProModeSetDataUI_input {
+  t: IGetT_output;
   userDataFromStorage: IUserData;
   serviceCategories: string[];
 }
@@ -83,7 +86,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
 
   const navigate = useNavigate();
 
-  const { userDataFromStorage, serviceCategories } = props;
+  const { t, userDataFromStorage, serviceCategories } = props;
 
   const encryptedProModeSetFromStore = useSelector(
     (state: IReduxRootState) => state.proModeSet ?? IProMode_v3File.IProMode_v3_default
@@ -156,6 +159,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.COMMUNICATION_MANAGER,
       children: (
         <ProModePage_v3_01_communicationManager
+          t={t}
           PROMODE_DATA={
             PROMODE_COMMUNICATION_DATA as IProMode_v3_oneProMode<
               EProMode_v3_01_communicationManager_contextType,
@@ -175,6 +179,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.COPY_WRITING_MANAGER,
       children: (
         <ProModePage_v3_02_copyWritingManager
+          t={t}
           PROMODE_DATA={
             PROMODE_COPY_WRITING_DATA as IProMode_v3_oneProMode<
               EProMode_v3_02_copyWritingManager_contextType,
@@ -194,6 +199,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER,
       children: (
         <ProModePage_v3_03_xiaoHongShuManager
+          t={t}
           PROMODE_DATA={
             PROMODE_XIAO_HONG_SHU_DATA as IProMode_v3_oneProMode<
               EProMode_v3_03_xiaoHongShuManager_contextType,
@@ -213,6 +219,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.AI_ASSISTANT,
       children: (
         <ProModePage_v3_04_aiAssistant
+          t={t}
           PROMODE_DATA={
             PROMODE_AI as IProMode_v3_oneProMode<
               EProMode_v3_04_aiAssistant_contextType,
@@ -232,6 +239,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.CUSTOMER_ASSISTANT,
       children: (
         <ProModePage_v3_11_customerAssistant
+          t={t}
           PROMODE_DATA={
             PROMODE_CUSTOMER_ASSISTANT_DATA as IProMode_v3_oneProMode<
               EProMode_v3_11_customerAssistant_contextType,
@@ -251,6 +259,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.COMMENT_MANAGER,
       children: (
         <ProModePage_v3_05_commentManager
+          t={t}
           PROMODE_DATA={
             PROMODE_COMMENT_DATA as IProMode_v3_oneProMode<
               EProMode_v3_05_commentManager_contextType,
@@ -270,6 +279,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   //     value: EServiceCategoryDB_name.CAREER_MANAGER,
   //     children: (
   //       <ProModePage_v3_06_careerManager
+  //         t={t}
   //         PROMODE_DATA={
   //           PROMODE_CAREER_DATA as IProMode_v3_oneProMode<
   //             EProMode_v3_06_careerManager_contextType,
@@ -289,6 +299,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.UP_ZHU,
       children: (
         <ProModePage_v3_07_upZhu
+          t={t}
           PROMODE_DATA={
             PROMODE_UP_ZHU_DATA as IProMode_v3_oneProMode<
               EProMode_v3_07_upZhu_contextType,
@@ -308,6 +319,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.PRODUCT_MANAGER,
       children: (
         <ProModePage_v3_08_productManager
+          t={t}
           PROMODE_DATA={
             PROMODE_PRODUCT_MANAGER as IProMode_v3_oneProMode<
               EProMode_v3_08_productManager_contextType,
@@ -327,6 +339,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.MARKETING_MANAGER,
       children: (
         <ProModePage_v3_09_marketingManager
+          t={t}
           PROMODE_DATA={
             PROMODE_MARKETING_EXPERT as IProMode_v3_oneProMode<
               EProMode_v3_09_marketingManager_contextType,
@@ -346,6 +359,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       value: EServiceCategoryDB_name.SEO_MANAGER,
       children: (
         <ProModePage_v3_10_seoManager
+          t={t}
           PROMODE_DATA={
             PROMODE_SEO_DATA as IProMode_v3_oneProMode<
               EProMode_v3_10_seoManager_contextType,

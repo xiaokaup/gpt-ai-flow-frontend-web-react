@@ -12,8 +12,10 @@ import { updateInputsCache } from '../../../../store/actions/inputsCacheActions'
 
 import { useInputsCache } from '../../../../gpt-ai-flow-common/hooks/useInputsCache';
 import IInputsCacheFile, { IInputsCache } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface DynamicFormForContextPrompt_input {
+  t: IGetT_output;
   containerStyle: any;
   contextPromptWithPlaceholder: string;
   setContextHandled: (value: string) => void;
@@ -35,6 +37,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
   });
 
   const {
+    t,
     containerStyle,
     contextPromptWithPlaceholder,
     setContextHandled,
@@ -105,13 +108,15 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
 
     setContextHandled(result);
     setIsContextInputsDirty(false);
-    message.success('填写成功');
+    message.success(t.get('Fill in successfully'));
     setShowContextInputs(false);
   };
 
   return (
     <div className="row" style={containerStyle}>
-      <div>填写需要的部分(可选)，点击最右边的 📝 显示/隐藏 背景细节表单</div>
+      <div>
+        {t.get('Fill in the desired sections (optional) and click 📝 Show/Hide Context Details Form on the right side')}
+      </div>
       <div className="row">
         <Form initialValues={inputsCache}>
           {placeholders.map((placeholder, index) => (
@@ -136,7 +141,7 @@ export function DynamicFormForContextPrompt(props: DynamicFormForContextPrompt_i
 
       <div className="row">
         <Button type="primary" size="small" onClick={generateContextNoPlaceHolder}>
-          确定场景阶段细节
+          {t.get('Define context details')}
         </Button>
       </div>
     </div>

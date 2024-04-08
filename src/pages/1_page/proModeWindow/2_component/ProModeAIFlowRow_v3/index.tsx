@@ -46,6 +46,7 @@ import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-f
 import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
+import { IGetT_output } from '../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
 import TBackendLangchainFile from '../../../../../tools/3_unit/TLangchain-web';
@@ -56,6 +57,7 @@ import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 const { TextArea } = Input;
 
 interface ProModeAIFlowRow_v3_input {
+  t: IGetT_output;
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
   contextHandled: string;
@@ -75,6 +77,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   } = useSubscriptionDB_v2DataOutput;
 
   const {
+    t,
     clickSearchAllResultsButtonCount,
     clickStopSearchAllResultsButtonCount,
     contextHandled,
@@ -279,18 +282,20 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
         chatHistory.push(
           {
             role: EAIFlowRole.USER,
-            content: `根据以下原文本内容, 分析其独特的风格，包括语言节奏、修辞手法、情感色彩等，并基于这种风格进行仿写:
-  原文本内容: """${exampleText}"""`,
+            content: `${t.get('According to the content of the following original text, analyze its unique style, including the rhythm of language, rhetorical devices, emotional color, etc., and write a parody based on this style:')}
+${t.get('Original content')}: """${exampleText}"""`,
           },
           {
             role: EAIFlowRole.ASSISTANT,
-            content: '好的，已经分析原文本内容相应的风格和写法，之后的消息中我将帮助您仿写类似的内容。',
+            content: t.get(
+              'Okay, have analyzed the style and writing style corresponding to the original text of this content, after that in the message I will help you to imitate a similar content.'
+            ),
           }
         );
       }
 
       if (textInputContent && isTextInputAsText) {
-        finalResquestContent += `\n---\n文本:"""\n${textInputContent}\n"""`;
+        finalResquestContent += `\n---\n${t.get('texts')}:"""\n${textInputContent}\n"""`;
       }
 
       if (textInputContent && !isTextInputAsText) {
@@ -497,6 +502,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       <div className="left_side_user_input_column column" style={{ flex: '1 1 30%' }}>
         <div className="row">
           <InstructionInputColumn_v3
+            t={t}
             defaultInstructionAiCommands={defaulInstructionAiCommands}
             defaultOutputIndicatorAiCommands={defaultOutputIndicatorAiCommands}
             aiCommands={aiCommands}
@@ -509,7 +515,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
         <div className="row">
           <div className="row">
-            <div>内容: 补充信息</div>
+            <div>{t.get('Contents: Additional information')}</div>
             {/* <Button
             size="small"
             onClick={() => {
@@ -534,7 +540,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                   style={{ marginBottom: -1 }}
                   value={exampleText}
                   onChange={onInputExampleTextChange}
-                  placeholder="根据此段内容作为模仿内容"
+                  placeholder={t.get('Use this content as a imitation content')}
                 />
               </div>
             )}
@@ -544,7 +550,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                 autoSize={{ minRows: 4 }}
                 value={textInputContent}
                 onChange={onInputContentTextAreaChange}
-                placeholder="根据此段内容运行指令"
+                placeholder={t.get('Run commands based on the this content')}
               />
             </div>
             <div>
@@ -555,7 +561,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                   setIsTextInputAsText(e.target.checked);
                 }}
               >
-                作为文本
+                {t.get('As text')}
               </Checkbox>
               {langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC && (
                 <Checkbox
@@ -565,7 +571,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                     setIsUseOfficialDatabase(e.target.checked);
                   }}
                 >
-                  官方数据库(测试阶段)
+                  {t.get('Official database (testing phase)')}
                 </Checkbox>
               )}
               <Checkbox
@@ -575,7 +581,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                   setIsExampleMode(e.target.checked);
                 }}
               >
-                模仿内容
+                {t.get('Imitation content')}
               </Checkbox>
               {isExampleMode && contextExamples.length > 0 && (
                 <SwapOutlined
@@ -592,12 +598,12 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
                     const oneContextExample = _.sample(contextExamples);
 
                     if (!oneContextExample?.defaultValue) {
-                      message.error('没有模仿内容');
+                      message.error(t.get('No imitation content'));
                       return;
                     }
 
                     setExampleText(oneContextExample.defaultValue);
-                    message.success('已随机选择一条模仿内容');
+                    message.success(t.get('A imitation content has been randomly selected'));
                   }}
                 />
               )}
@@ -607,6 +613,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       </div>
       <div className="right_side_results_column column" style={{ flex: '1 1 70%' }}>
         <OutputResultColumn_v3
+          t={t}
           hasAvailableSubscription={hasAvailableSubscription}
           // Call requests
           stopInstructionAIFlowResults={stopInstructionAIFlowResults}

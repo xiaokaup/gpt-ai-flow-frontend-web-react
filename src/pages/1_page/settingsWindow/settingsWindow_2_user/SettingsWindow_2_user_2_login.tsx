@@ -1,7 +1,5 @@
 import '../../../../styles/global.css';
 
-import { translate } from '../../../../gpt-ai-flow-common/i18nProvider/translate';
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,11 +13,16 @@ import { IReduxRootState } from 'store/reducer';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
-interface ISettingsWindow_2_user_2_login_input {}
+interface ISettingsWindow_2_user_2_login_input {
+  t: IGetT_output;
+}
 export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { t } = props;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -44,7 +47,11 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       );
 
       if (!userAndTokenData) {
-        throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
+        throw new Error(
+          t.get(
+            "The user's email is not registered or the password is incorrect. If the problem persists, please contact the administrator"
+          )
+        );
       }
 
       navigate('/proMode');
@@ -59,7 +66,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   };
 
   const onEmailAndPasswordSignInFaild = (errorInfo: any) => {
-    console.log('失败:', errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -76,7 +83,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       }}
     >
       <div className="row">
-        <h2>{translate('Login')}</h2>
+        <h2>{t.get('Login')}</h2>
       </div>
       <div className="row block_email_and_password">
         <Form
@@ -93,15 +100,15 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             rules={[
               {
                 required: true,
-                message: '请输入你的邮箱',
+                message: t.getHTML('Please enter your {text}', { text: t.get('Email') }),
               },
               {
                 type: 'email',
-                message: '请以正确的格式输入',
+                message: t.getHTML('Please enter in the correct format'),
               },
             ]}
           >
-            <Input prefix={<MailOutlined />} placeholder={'邮箱'} />
+            <Input prefix={<MailOutlined />} placeholder={t.get('Email')} />
           </Form.Item>
 
           <Form.Item
@@ -109,17 +116,17 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             rules={[
               {
                 required: true,
-                message: '请输入你的密码',
+                message: t.getHTML('Please enter your {text}', { text: t.get('Password') }),
               },
             ]}
           >
-            <Input.Password prefix={<LockOutlined />} placeholder={'密码'} />
+            <Input.Password prefix={<LockOutlined />} placeholder={t.get('Password')} />
           </Form.Item>
 
           <Form.Item>
             <div>
               <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
-                {translate('Login')}
+                {t.get('Login')}
               </Button>
               <span style={{ marginLeft: 20 }}>
                 <Button
@@ -128,7 +135,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                     navigate('/signUp');
                   }}
                 >
-                  注册
+                  {t.get('Sign Up')}
                 </Button>
               </span>
               <br />
@@ -138,7 +145,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                   navigate('/forgetPassword');
                 }}
               >
-                忘记密码
+                {t.get('Forget password')}
               </span>
             </div>
           </Form.Item>

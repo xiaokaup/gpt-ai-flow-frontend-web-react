@@ -12,8 +12,10 @@ import { updateInputsCache } from '../../../../store/actions/inputsCacheActions'
 
 import IInputsCacheFile, { IInputsCache } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { useInputsCache } from '../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface DynamicFormForSelectValue_input {
+  t: IGetT_output;
   containerStyle: any;
   contextSelectValueWithPlaceholder: string;
   setHandledSelectValue: (value: string) => void;
@@ -35,6 +37,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
   });
 
   const {
+    t,
     containerStyle,
     contextSelectValueWithPlaceholder: contextPromptWithPlaceholder,
     setHandledSelectValue,
@@ -74,7 +77,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
 
     setHandledSelectValue(result);
     setAICommandsIsDirty(false);
-    message.success('填写成功');
+    message.success(t.get('Fill in successfully'));
     toggleAiCommandsIsShowInputsForm();
   };
 
@@ -107,7 +110,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
 
       <div className="row">
         <Button type="primary" size="small" onClick={generateCommandValueNoPlaceHolder}>
-          确定指令细节
+          {t.get('Define command details')}
         </Button>
       </div>
     </div>

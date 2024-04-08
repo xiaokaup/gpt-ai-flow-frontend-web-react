@@ -2,6 +2,7 @@ import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/const
 import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
+import { IGetT_output } from '../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import { IReduxRootState } from '../reducer';
@@ -82,12 +83,13 @@ export const userLogoutAction = () => async (dispatch: any, getState: () => IRed
 
 export const USER_RESET_PASSWORD_WITH_EMAIL = 'USER_RESET_PASSWORD_WITH_EMAIL';
 export const userResetPasswordWithEmailAction =
-  (email: string, env: IConstantGptAiFlowHandler) => async (dispatch: any, getState: () => IReduxRootState) => {
+  (t: IGetT_output, email: string, env: IConstantGptAiFlowHandler) =>
+  async (dispatch: any, getState: () => IReduxRootState) => {
     try {
       const userResults = await TSettingsWindow_2_user.resetPasswordWithEmail(email, env);
 
       if (!userResults) {
-        return new Error('这个电子邮件未被注册在，请再试一次或尝试另一个电子邮件地址');
+        return new Error(t.get('This email was not registered in, please try again or try another email address'));
       }
 
       dispatch({ type: USER_RESET_PASSWORD_WITH_EMAIL, payload: userResults });
@@ -100,10 +102,10 @@ export const userResetPasswordWithEmailAction =
 
 export const USER_UPDATE_USER_PASSWORD_V1 = 'USER_UPDATE_USER_PASSWORD_V1';
 export const userUpdateUserPasswordActionAction_v1 =
-  (userId: number, newPassword: string, accessToken: string, env: IConstantGptAiFlowHandler) =>
+  (t: IGetT_output, userId: number, newPassword: string, accessToken: string, env: IConstantGptAiFlowHandler) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const userResults = await TSettingsWindow_2_user.updateUserPassword_v1(userId, newPassword, accessToken, env);
+      const userResults = await TSettingsWindow_2_user.updateUserPassword_v1(t, userId, newPassword, accessToken, env);
 
       dispatch({ type: USER_UPDATE_USER_PASSWORD_V1, payload: userResults });
 

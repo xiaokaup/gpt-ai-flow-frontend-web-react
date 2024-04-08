@@ -13,6 +13,7 @@ import {
   IAICommandsResults_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
+import { IGetT_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 import { EAIFlowRole, EAIFlowType } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
@@ -22,6 +23,7 @@ import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InstructionIn
 import { InstructionInputColumn_v3_CustomizeTextArea } from './InstructionInputColumn_v3_CustomizeTextArea';
 
 interface InstructionInputColumn_v3_input {
+  t: IGetT_output;
   defaultInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
   addRequestControllerItem: (uuid: string, value: AbortController) => void;
@@ -33,6 +35,7 @@ interface InstructionInputColumn_v3_input {
 
 export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input) => {
   const {
+    t,
     defaultInstructionAiCommands,
     defaultOutputIndicatorAiCommands,
     addRequestControllerItem,
@@ -70,7 +73,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
 
   return (
     <>
-      <div className="row">指令集</div>
+      <div className="row">{t.get('Instruction set')}</div>
       <div className="row">
         <div className="row row_instructions_ouputIndicator_ai_flow_commands">
           {aiCommands.map((item: IAICommands_v4, index: number) => {
@@ -78,6 +81,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_InstructionSelect
+                    t={t}
                     index={index}
                     instructionCommandsSelectOptions={instructionCommandsSelectOptions}
                     aiCommands={aiCommands}
@@ -90,6 +94,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   />
                   {item.hasPlaceholder && (
                     <DynamicFormForSelectValue
+                      t={t}
                       containerStyle={item.isShowInputsForm ? {} : { display: 'none' }}
                       contextSelectValueWithPlaceholder={item.aiFlowInstance.defaultValue}
                       setHandledSelectValue={(value: string) => {
@@ -115,6 +120,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_CustomizeTextArea
+                    t={t}
                     index={index}
                     aiCommands={aiCommands}
                     setAiCommands={setAiCommands}
@@ -129,6 +135,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_OutputIndicatorSelect
+                    t={t}
                     index={index}
                     ouputIndicatorCommandsSelectOptions={ouputIndicatorCommandsSelectOptions}
                     aiCommands={aiCommands}
@@ -141,6 +148,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   />
                   {item.hasPlaceholder && (
                     <DynamicFormForSelectValue
+                      t={t}
                       containerStyle={item.isShowInputsForm ? {} : { display: 'none' }}
                       contextSelectValueWithPlaceholder={item.aiFlowInstance.defaultValue}
                       setHandledSelectValue={(value: string) => {

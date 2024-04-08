@@ -10,10 +10,12 @@ import {
   IAICommandsResults_v4,
   IAICommands_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
+import { IGetT_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 const { TextArea } = Input;
 
 interface InstructionInputColumn_v3_CustomizeTextArea_input {
+  t: IGetT_output;
   index: number;
   aiCommands: IAICommands_v4[];
   setAiCommands: Dispatch<SetStateAction<IAICommands_v4[]>>;
@@ -24,7 +26,7 @@ interface InstructionInputColumn_v3_CustomizeTextArea_input {
 export const InstructionInputColumn_v3_CustomizeTextArea = (
   props: InstructionInputColumn_v3_CustomizeTextArea_input
 ) => {
-  const { index, aiCommands, setAiCommands, removeRequestControllerItem, setAiComandsResults } = props;
+  const { t, index, aiCommands, setAiCommands, removeRequestControllerItem, setAiComandsResults } = props;
 
   const thisAiCommand = aiCommands[index];
 
@@ -68,7 +70,7 @@ export const InstructionInputColumn_v3_CustomizeTextArea = (
         }
         onChange={onCustomizeInstructionInputChange(index)}
         onBlur={onCustomizeInstructionInputBlur(index)}
-        placeholder="自定义指令"
+        placeholder={t.get('Custom prompt command')}
       />
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <MinusCircleOutlined

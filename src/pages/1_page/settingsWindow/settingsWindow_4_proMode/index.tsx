@@ -19,38 +19,27 @@ import {
   useSubscription_v2Data,
 } from '../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
 import IRegionDBFile from '../../../../gpt-ai-flow-common/interface-database/IRegionDB';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 import { SettingsWindow_4_proMode_EUR } from './SettingsWindow_4_proMode_EUR';
 import { SettingsWindow_4_proMode_CNY } from './SettingsWindow_4_proMode_CNY';
 
-export const SettingsWindow_4_proMode = () => {
-  const dispatch = useDispatch();
+interface ISettingsWindow_4_proMode_login_input {
+  t: IGetT_output;
+  userData: IUserData;
+  dispatch: any;
+}
+const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_input) => {
+  const { t, userData, dispatch } = props;
 
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
-  });
-
-  const { userData } = useUserData({
-    userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {},
-    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-  });
   const { id: userId, token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default } = userData;
-
-  if (!userId) {
-    return (
-      <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
-        请先注册用户并登录
-      </div>
-    );
-  }
 
   const subscriptionDataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
     return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
   });
 
   const useSubscription_v2DataOutput: IUseSubscriptionDB_v2Data_output = useSubscription_v2Data({
-    userId,
+    userId: userId as number,
     accessToken: userAccessToken,
     subscription_v2DataFromStorage: subscriptionDataFromStorage,
     onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
@@ -83,14 +72,15 @@ export const SettingsWindow_4_proMode = () => {
           value={regionCode}
           onChange={hanleRegionSelectChange}
           options={[
-            { label: '国内', value: ERegionDB_code.ZH },
-            { label: '海外', value: ERegionDB_code.EN },
+            { label: t.get('Domestic'), value: ERegionDB_code.ZH },
+            { label: t.get('Overseas'), value: ERegionDB_code.EN },
           ]}
         />
       </div>
       {regionCode === ERegionDB_code.ZH && (
         <div className="row">
           <SettingsWindow_4_proMode_CNY
+            t={t}
             userData={userData}
             useSubscription_v2DataOutput={useSubscription_v2DataOutput}
           />
@@ -99,6 +89,7 @@ export const SettingsWindow_4_proMode = () => {
       {regionCode === ERegionDB_code.EN && (
         <div className="row">
           <SettingsWindow_4_proMode_EUR
+            t={t}
             userData={userData}
             useSubscription_v2DataOutput={useSubscription_v2DataOutput}
           />
@@ -106,4 +97,31 @@ export const SettingsWindow_4_proMode = () => {
       )}
     </div>
   );
+};
+
+export const SettingsWindow_4_proMode = (props: { t: IGetT_output }) => {
+  const dispatch = useDispatch();
+
+  const { t } = props;
+
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDataFile.IUserData_default;
+  });
+
+  const { userData } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData_without_token: IUserData) => {},
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
+  const { id: userId, token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default } = userData;
+
+  if (!userId) {
+    return (
+      <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+        {t.get('Please register a user and log in first')}
+      </div>
+    );
+  }
+
+  return <SettingsWindow_4_proMode_login t={t} userData={userData} dispatch={dispatch} />;
 };

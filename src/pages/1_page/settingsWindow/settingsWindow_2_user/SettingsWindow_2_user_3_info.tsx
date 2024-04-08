@@ -8,13 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogoutAction } from '../../../../store/actions/userActions';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
 interface ISettingsWindow_2_user_3_info_input {
+  t: IGetT_output;
   userData: IUserData;
   isAuthenticated: boolean;
 }
 export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_info_input) => {
-  const { userData, isAuthenticated } = props;
+  const { t, userData, isAuthenticated } = props;
 
   const dispatch = useDispatch();
 
@@ -36,24 +38,24 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
       <div className="row block_user_info">
         <Descriptions
-          title={'个人资料'}
+          title={t.get('Personal Information')}
           // layout="vertical"
           // column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
         >
           {/* <Descriptions.Item label={t('Account type')}>
             {internalRoles?.join(',') ?? 'User'}
           </Descriptions.Item> */}
-          <Descriptions.Item label={'姓'}>{userData.firstName}</Descriptions.Item>
-          <Descriptions.Item label={'名字'}>{userData.lastName}</Descriptions.Item>
-          <Descriptions.Item label={'昵称'}>{userData.displayName}</Descriptions.Item>
-          <Descriptions.Item label={'邮箱'}>{userData.email}</Descriptions.Item>
+          <Descriptions.Item label={t.get('First Name')}>{userData.firstName}</Descriptions.Item>
+          <Descriptions.Item label={t.get('Last Name')}>{userData.lastName}</Descriptions.Item>
+          <Descriptions.Item label={t.get('Display Name')}>{userData.displayName}</Descriptions.Item>
+          <Descriptions.Item label={t.get('Email')}>{userData.email}</Descriptions.Item>
           {(userData.roles ?? []).length > 0 && (
-            <Descriptions.Item label="角色" span={3}>
+            <Descriptions.Item label={t.get('Role')} span={3}>
               {(userData.roles ?? []).join(', ')}
             </Descriptions.Item>
           )}
           {(userData.serviceCategories ?? []).length > 0 && (
-            <Descriptions.Item label="服务类型" span={3}>
+            <Descriptions.Item label={t.get('Service Type')} span={3}>
               {(userData.serviceCategories ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
             </Descriptions.Item>
           )}
@@ -66,7 +68,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
             navigate('/changePassword');
           }}
         >
-          修改密码
+          {t.get('Change password')}
         </Button>
       </div>
 
@@ -88,7 +90,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
           }}
           style={{ cursor: 'pointer', marginTop: 10, marginBottom: 14 }}
         >
-          登出
+          {t.get('Logout')}
         </Button>
       </div>
     </div>
