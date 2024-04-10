@@ -113,6 +113,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
     subscription_v2Data: subscriptionData,
     check: { hasAvailableSubscription_v2 },
   } = useSubscriptionDB_v2DataOutput;
+  const isFreeVersion = true;
 
   // === ProMode Data - start ===
   const { defaultTabPanels } = useProModeSetDataUI({
@@ -329,7 +330,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
           </div>
         </div>
 
-        {!hasAvailableSubscription_v2 && !isBetaUser && (
+        {!isFreeVersion && !hasAvailableSubscription_v2 && !isBetaUser && (
           <div className="row">
             <Alert
               message={
