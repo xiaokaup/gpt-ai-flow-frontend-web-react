@@ -21,7 +21,7 @@ export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
         </div>
         <div className="row">
           {t.getHTML(
-            `If you have any feedback (bugs or suggestions), please send it to <a href="mailto:{email}">{email}</a> or let us know via the <a href="https://wj.qq.com/s2/13154598/1770/">{userQuestionnaire}</a>`,
+            `If you have any feedback (bugs or suggestions), please send it to <a href="mailto:{email}">{email}</a> or let us know via the <a target="_blank" href="{link}">{userQuestionnaire}</a>`,
             {
               email: 'hello@gptaiflow.com',
               userQuestionnaire: t.get('user questionnaire'),
