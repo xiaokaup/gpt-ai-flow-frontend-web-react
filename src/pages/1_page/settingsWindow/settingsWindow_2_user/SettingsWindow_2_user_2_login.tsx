@@ -13,10 +13,10 @@ import { IReduxRootState } from 'store/reducer';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface ISettingsWindow_2_user_2_login_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
 }
 export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_login_input) => {
   const dispatch = useDispatch();
@@ -31,6 +31,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   const { isAuthenticated } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {},
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
@@ -43,7 +44,12 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
       const userAndTokenData = await dispatch(
-        authLoginByEmailAndPasswordAction(values.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        authLoginByEmailAndPasswordAction(
+          values.email,
+          values.password,
+          t.currentLocale,
+          CONSTANTS_GPT_AI_FLOW_COMMON
+        ) as any
       );
 
       if (!userAndTokenData) {

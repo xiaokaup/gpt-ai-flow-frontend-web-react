@@ -15,10 +15,10 @@ import {
   IAICommands_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
-import { IGetT_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface InstructionInputColumn_v3_OutputIndicatorSelect_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   index: number;
   ouputIndicatorCommandsSelectOptions: IAIFlow[];
   aiCommands: IAICommands_v4[];

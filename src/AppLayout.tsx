@@ -10,7 +10,7 @@ import { IReduxRootState } from './store/reducer';
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { getT } from './gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 
 const { Header, Content, Footer } = Layout;
 

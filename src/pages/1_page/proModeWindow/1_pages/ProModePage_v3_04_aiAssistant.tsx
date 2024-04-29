@@ -18,13 +18,13 @@ import {
   EProMode_v3_04_aiAssistant_contextTypeStage,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_04_aiAssistant';
 import { IProMode_v3_contextTypeStages } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
 
 interface IProModePage_copyWriting_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   PROMODE_DATA: IProMode_v3_oneProMode<
     EProMode_v3_04_aiAssistant_contextType,
     EProMode_v3_04_aiAssistant_contextTypeStage

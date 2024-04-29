@@ -19,6 +19,7 @@
     "crypto-js": "^4.1.1",
     "dotenv-webpack": "^8.0.1",
     "html2canvas": "^1.4.1",
+    "i18next": "^23.11.3",
     "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.1.0",

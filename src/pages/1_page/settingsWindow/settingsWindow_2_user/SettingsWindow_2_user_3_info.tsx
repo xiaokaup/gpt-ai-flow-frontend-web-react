@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogoutAction } from '../../../../store/actions/userActions';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface ISettingsWindow_2_user_3_info_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   userData: IUserData;
   isAuthenticated: boolean;
 }
