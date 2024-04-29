@@ -13,7 +13,7 @@ import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 import { EProductDB_version } from '../../gpt-ai-flow-common/enum-database/EProductDB';
 
-const sendChatGPTRequestAsStreamToBackendProxy = async (
+const sendChatGPTRequestAsStreamToBackendProxy_to_delete = async (
   data: ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
   beforeSendRequestAsStreamFunc: () => void,
   updateResultFromRequestAsStreamFunc: (resultText: string) => void,
@@ -92,7 +92,7 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
 };
 
 const TBackendOpenAIFile = {
-  sendChatGPTRequestAsStreamToBackendProxy,
+  sendChatGPTRequestAsStreamToBackendProxy: sendChatGPTRequestAsStreamToBackendProxy_to_delete,
 };
 
 export default TBackendOpenAIFile;

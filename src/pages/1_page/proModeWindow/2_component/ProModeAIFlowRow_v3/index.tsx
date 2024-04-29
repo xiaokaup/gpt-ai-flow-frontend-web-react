@@ -48,9 +48,9 @@ import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../..
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { LangchainRetrivalService } from '../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
 import { IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IPrompt';
+import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 
-import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
-import TBackendLangchainFile from '../../../../../tools/3_unit/TLangchain-web';
+import TBackendLangchainFile from '../../../../../tools/3_unit/TBackendLangchain-web';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -436,23 +436,25 @@ ${t.get('Original content')}: """${exampleText}"""`,
           }
         });
       } else {
-        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postChatChain(
           {
-            userId: userId?.toString() ?? '',
-            openaiSecret: openAIApiKey,
-            prompt: [systemPrompt, ...chatHistory, inputPrompt],
-            openaiOptions: {
-              openaiModel: proModeModalValue, // @TODELETE: 临时使用
-              openaiModelType: proModeModalValue,
+            // userId: userId?.toString() ?? '',
+            productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
+            modelSecret: openAIApiKey,
+            modelOptions: {
+              openaiModelType: proModeModalValue, // @TODELETE: 临时使用
               temperature: creativityValue,
             },
-            subscriptionData: subscription_v2Data,
+            history: [systemPrompt, ...chatHistory],
+            input: inputPrompt.content,
+            locale,
           },
           beforeSendRequestFunc,
           updateResultsFunc(index),
           // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
           afterEndRequestFunc(index),
           userAccessToken,
+          locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           signal
         ).catch((error: Error) => {
