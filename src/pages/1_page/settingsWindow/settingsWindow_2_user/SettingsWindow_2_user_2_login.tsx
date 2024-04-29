@@ -44,7 +44,12 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
       const userAndTokenData = await dispatch(
-        authLoginByEmailAndPasswordAction(values.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        authLoginByEmailAndPasswordAction(
+          values.email,
+          values.password,
+          t.currentLocale,
+          CONSTANTS_GPT_AI_FLOW_COMMON
+        ) as any
       );
 
       if (!userAndTokenData) {

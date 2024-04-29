@@ -37,7 +37,12 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
 
     try {
       const userAndTokenData: IUserData = await dispatch(
-        authLoginByEmailAndPasswordAction(userData.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        authLoginByEmailAndPasswordAction(
+          userData.email,
+          values.password,
+          t.currentLocale,
+          CONSTANTS_GPT_AI_FLOW_COMMON
+        ) as any
       );
 
       if (!userAndTokenData || !userAndTokenData.id || !userAndTokenData.token) {
@@ -51,6 +56,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
           userAndTokenData.id,
           values.newPassword,
           userAndTokenData.token.accessToken,
+          t.currentLocale,
           CONSTANTS_GPT_AI_FLOW_COMMON
         ) as any
       );

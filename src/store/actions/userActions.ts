@@ -4,9 +4,7 @@ import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-
-import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
-import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
+import TBackendAuthFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendAuth';
 
 import { IReduxRootState } from '../reducer';
 
@@ -35,12 +33,13 @@ export const getUserProfileByEmailAction_v2 =
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const authLoginByEmailAndPasswordAction =
-  (email: string, password: string, env: IConstantGptAiFlowHandler) =>
+  (email: string, password: string, locale: ELocale, env: IConstantGptAiFlowHandler) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const userAndTokenData: IUserDB = await TSettingsWindow_2_userFile.authLoginByEmailAndPassword(
+      const userAndTokenData: IUserDB = await TBackendAuthFile.authLoginByEmailAndPassword(
         email,
         password,
+        locale,
         env
       );
       if (!userAndTokenData) {
@@ -92,10 +91,10 @@ export const userLogoutAction = () => async (dispatch: any, getState: () => IRed
 
 export const USER_RESET_PASSWORD_WITH_EMAIL = 'USER_RESET_PASSWORD_WITH_EMAIL';
 export const userResetPasswordWithEmailAction =
-  (t: IGetT_frontend_output, email: string, env: IConstantGptAiFlowHandler) =>
+  (t: IGetT_frontend_output, email: string, locale: ELocale, env: IConstantGptAiFlowHandler) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const userResults = await TSettingsWindow_2_user.resetPasswordWithEmail(email, env);
+      const userResults = await TBackendAuthFile.resetPasswordWithEmail(email, locale, env);
 
       if (!userResults) {
         return new Error(t.get('This email was not registered in, please try again or try another email address'));
@@ -116,11 +115,19 @@ export const userUpdateUserPasswordActionAction_v1 =
     userId: number,
     newPassword: string,
     accessToken: string,
+    locale: ELocale,
     env: IConstantGptAiFlowHandler
   ) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const userResults = await TSettingsWindow_2_user.updateUserPassword_v1(t, userId, newPassword, accessToken, env);
+      const userResults = await TBackendAuthFile.updateUserPassword_v1(
+        t,
+        userId,
+        newPassword,
+        accessToken,
+        locale,
+        env
+      );
 
       dispatch({ type: USER_UPDATE_USER_PASSWORD_V1, payload: userResults });
 
