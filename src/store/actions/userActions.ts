@@ -2,9 +2,12 @@ import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/const
 import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
-import { IGetT_output } from '../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
+import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+
 import TSettingsWindow_2_user from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
 import TSettingsWindow_2_userFile from '../../pages/1_page/settingsWindow/settingsWindow_2_user/TSettingsWindow_2_user';
+
 import { IReduxRootState } from '../reducer';
 
 // type MyAction = {
@@ -14,9 +17,10 @@ import { IReduxRootState } from '../reducer';
 
 export const USER_GET_USER_PROFILE_BY_EMAIL_v2 = 'USER_GET_USER_PROFILE_BY_EMAIL';
 export const getUserProfileByEmailAction_v2 =
-  (email: string, env: IConstantGptAiFlowHandler) => async (dispatch: any, getState: () => IReduxRootState) => {
+  (email: string, locale: ELocale, env: IConstantGptAiFlowHandler) =>
+  async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const userFound: IUserDB = await TBackendUserFile.getUserProfileByEmail_v2(email, env);
+      const userFound: IUserDB = await TBackendUserFile.getUserProfileByEmail_v2(email, locale, env);
 
       if (userFound?.id) {
         return new Error('这个电子邮件已经注册');
@@ -53,10 +57,15 @@ export const authLoginByEmailAndPasswordAction =
 
 export const USER_SIGN_UP = 'USER_SIGN_UP';
 export const authRegisterByEmailAndPasswordAction_v0 =
-  (userDB: IUserDB, env: IConstantGptAiFlowHandler, uniqueCode: string | undefined) =>
+  (userDB: IUserDB, locale: ELocale, env: IConstantGptAiFlowHandler, uniqueCode: string | undefined) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
-      const newUser: IUserDB = await TBackendUserFile.authRegisterByEmailAndPassword_v0(userDB, env, uniqueCode);
+      const newUser: IUserDB = await TBackendUserFile.authRegisterByEmailAndPassword_v0(
+        userDB,
+        locale,
+        env,
+        uniqueCode
+      );
 
       if (!newUser?.id) {
         return new Error('注册失败，请再试一次或尝试另一个电子邮件地址');
@@ -83,7 +92,7 @@ export const userLogoutAction = () => async (dispatch: any, getState: () => IRed
 
 export const USER_RESET_PASSWORD_WITH_EMAIL = 'USER_RESET_PASSWORD_WITH_EMAIL';
 export const userResetPasswordWithEmailAction =
-  (t: IGetT_output, email: string, env: IConstantGptAiFlowHandler) =>
+  (t: IGetT_frontend_output, email: string, env: IConstantGptAiFlowHandler) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
       const userResults = await TSettingsWindow_2_user.resetPasswordWithEmail(email, env);
@@ -102,7 +111,13 @@ export const userResetPasswordWithEmailAction =
 
 export const USER_UPDATE_USER_PASSWORD_V1 = 'USER_UPDATE_USER_PASSWORD_V1';
 export const userUpdateUserPasswordActionAction_v1 =
-  (t: IGetT_output, userId: number, newPassword: string, accessToken: string, env: IConstantGptAiFlowHandler) =>
+  (
+    t: IGetT_frontend_output,
+    userId: number,
+    newPassword: string,
+    accessToken: string,
+    env: IConstantGptAiFlowHandler
+  ) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
       const userResults = await TSettingsWindow_2_user.updateUserPassword_v1(t, userId, newPassword, accessToken, env);

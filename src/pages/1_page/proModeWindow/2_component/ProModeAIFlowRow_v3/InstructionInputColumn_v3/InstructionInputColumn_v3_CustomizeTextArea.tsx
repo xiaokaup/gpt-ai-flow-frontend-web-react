@@ -10,12 +10,12 @@ import {
   IAICommandsResults_v4,
   IAICommands_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
-import { IGetT_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 const { TextArea } = Input;
 
 interface InstructionInputColumn_v3_CustomizeTextArea_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   index: number;
   aiCommands: IAICommands_v4[];
   setAiCommands: Dispatch<SetStateAction<IAICommands_v4[]>>;

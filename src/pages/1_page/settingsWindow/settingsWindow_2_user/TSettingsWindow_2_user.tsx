@@ -1,9 +1,9 @@
-import { getApiKeyHeadersForNodeBackend } from '../../../../gpt-ai-flow-common/tools/2_component/TAuth';
+import { AuthService } from '../../../../gpt-ai-flow-common/tools/2_class/SAuth';
 import { IConstantGptAiFlowHandler } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { removeEmptyValues } from '../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
 import { fetchWithRetry } from '../../../../gpt-ai-flow-common/tools/4_base/TRequest';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 const authLoginByEmailAndPassword = async (
   email: string,
@@ -14,7 +14,7 @@ const authLoginByEmailAndPassword = async (
 
   const results = await fetchWithRetry(url, {
     method: 'POST',
-    ...getApiKeyHeadersForNodeBackend({}, env),
+    ...AuthService.getApiKeyHeadersForNodeBackend({}, env),
     body: JSON.stringify(removeEmptyValues({ email, password })),
   })
     .then((res) => res.json())
@@ -29,7 +29,7 @@ const authLoginByEmailAndPassword = async (
 };
 
 export const updateUserPassword_v1 = async (
-  t: IGetT_output,
+  t: IGetT_frontend_output,
   userId: number,
   newPassword: string,
   accessToken: string,
@@ -39,7 +39,7 @@ export const updateUserPassword_v1 = async (
 
   const results = await fetch(url, {
     method: 'PUT',
-    ...getApiKeyHeadersForNodeBackend(
+    ...AuthService.getApiKeyHeadersForNodeBackend(
       {
         accessToken,
       },
@@ -65,7 +65,7 @@ export const resetPasswordWithEmail = async (email: string, env: IConstantGptAiF
     `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v0.0/post/auth/reset/userPassword/by/email/`,
     {
       method: 'POST',
-      ...getApiKeyHeadersForNodeBackend({}, env),
+      ...AuthService.getApiKeyHeadersForNodeBackend({}, env),
       body: JSON.stringify({ to: email }),
     }
   )

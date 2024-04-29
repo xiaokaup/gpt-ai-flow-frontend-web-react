@@ -16,12 +16,12 @@ import {
   IAICommandsResults_v4,
   IAICommands_v4,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
-import { IGetT_output } from '../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 const { TextArea } = Input;
 
 export interface IOuputIndicatorComponent_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   hasAvailableSubscription: boolean;
 
   stopInstructionAIFlowResults: (paraRequestControllersMap: Map<string, AbortController>) => void;

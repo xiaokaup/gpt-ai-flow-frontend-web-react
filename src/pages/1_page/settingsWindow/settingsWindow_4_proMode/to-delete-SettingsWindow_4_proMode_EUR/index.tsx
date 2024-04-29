@@ -1,32 +1,35 @@
 // import '../../../../../styles/global.css';
 // import '../../../../../styles/layout.scss';
 
+// // import paymentPageDemo from '../../../../../../assets/presentation/2023-11-08-img-2-Add-default-payment-method.png';
+
 // import React, { useEffect, useState } from 'react';
-// import { CopyToClipboard } from 'react-copy-to-clipboard';
-// import { CopyOutlined } from '@ant-design/icons';
+// import CopyToClipboard from 'react-copy-to-clipboard';
 
 // import { Alert, Button, Tag, message } from 'antd';
+// import { CopyOutlined } from '@ant-design/icons';
 
 // import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+// import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 // import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 // import { ERegionDB_code } from '../../../../../gpt-ai-flow-common/enum-database/ERegionDB';
 // import { ESubscriptionVersion } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
 // import { IUseSubscriptionDB_v2Data_output } from '../../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
-// import ITokenDBFile from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 // import TBackendStripeFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 // import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 // import TBackendSubscription_v2File from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendSubscription_v2';
 // import { IGetT_output } from '../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
 
-// import { SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription';
 // import { FreeVersionAnnounce } from '../FreeVersionAnnounce';
 
-// interface SettingsWindow_4_proMode_CNY_input {
+// import { SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription } from './SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription';
+
+// interface SettingsWindow_4_proMode_EUR_input {
 //   t: IGetT_output;
 //   userData: IUserData;
 //   useSubscription_v2DataOutput: IUseSubscriptionDB_v2Data_output;
 // }
-// export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
+// export const SettingsWindow_4_proMode_EUR = (props: SettingsWindow_4_proMode_EUR_input) => {
 //   const { t, userData, useSubscription_v2DataOutput } = props;
 //   const {
 //     id: userId,
@@ -38,26 +41,28 @@
 //     return <>{t.get('Please register a user and log in first')}</>;
 //   }
 
-//   const { subscription_v2Data, setSubscription_v2Data } = useSubscription_v2DataOutput;
-//   const { hasTrial, stripeCustomerId } = subscription_v2Data;
-//   const [hasTrialForSubscription_v2, setHasTrialForSubscription_v2] = useState<boolean>(hasTrial);
-//   const isExpired = new Date(subscription_v2Data.expiredAt) < new Date();
+//   const {
+//     init: initStripeSubscriptionInfo,
+//     subscription_v2Data,
+//     setSubscription_v2Data,
+//     check: { hasAvailableSubscription_v2 },
+//     // hasDefaultPamentMethod,
+//   } = useSubscription_v2DataOutput;
+//   const [hasTrialForSubscription_v2, setHasTrialForSubscription_v2] = useState<boolean>(subscription_v2Data.hasTrial);
+//   const isExpired = new Date(subscription_v2Data?.expiredAt) < new Date();
 
 //   useEffect(() => {
-//     setSubscription_v2Data(subscription_v2Data);
 //     setHasTrialForSubscription_v2(subscription_v2Data.hasTrial);
 //   }, [
 //     subscription_v2Data.id,
 //     subscription_v2Data.userId,
 //     subscription_v2Data.productLimitId,
-//     subscription_v2Data.period,
 //     subscription_v2Data.regionId,
 //     subscription_v2Data.hasTrial,
 //     subscription_v2Data.expiredAt,
-//     subscription_v2Data.stripeCustomerId,
 //   ]);
 
-//   const startATrialSubscriptionForCNY_with_subscriptionVersion = async (subscriptionVersion: ESubscriptionVersion) => {
+//   const startATrialSubscriptionForEUR_with_subscriptionVersion = async (subscriptionVersion: ESubscriptionVersion) => {
 //     if (!userId) {
 //       message.error(t.get('Please register a user and log in first'));
 //       return;
@@ -69,7 +74,7 @@
 //       CONSTANTS_GPT_AI_FLOW_COMMON
 //     );
 //     const { id: stripeCustomerId } = stripeCustomer;
-//     const results = await TBackendSubscription_v2File.startATrialSubscription_v2ForCNY(
+//     const results = await TBackendSubscription_v2File.startATrialSubscription_v2ForEUR(
 //       userId.toString(),
 //       stripeCustomerId,
 //       subscriptionVersion,
@@ -78,12 +83,27 @@
 //     );
 
 //     message.success(t.get('Free trial is now open'));
+
 //     setHasTrialForSubscription_v2(true);
 //     setSubscription_v2Data(results);
 //   };
 
+//   const createAndOpenStripeBillingSession = async () => {
+//     const billingSessionResults = await TBackendStripeFile.createStripeBillingPortal(
+//       userId.toString(),
+//       userAccessToken,
+//       CONSTANTS_GPT_AI_FLOW_COMMON
+//     );
+
+//     if (billingSessionResults?.status === 'error') {
+//       message.error(billingSessionResults.message);
+//     }
+
+//     window.open(billingSessionResults.url, '_blank', 'noreferrer');
+//   };
+
 //   return (
-//     <div className="row pageContainer">
+//     <div className="row">
 //       {!hasTrialForSubscription_v2 && (
 //         <div className="row hasNotStartTrial">
 //           <div className="row">
@@ -110,7 +130,7 @@
 //             <Button
 //               type="primary"
 //               onClick={() => {
-//                 startATrialSubscriptionForCNY_with_subscriptionVersion(ESubscriptionVersion.OFFICIAL_MODAL);
+//                 startATrialSubscriptionForEUR_with_subscriptionVersion(ESubscriptionVersion.OFFICIAL_MODAL);
 //               }}
 //               style={{ marginTop: '.2rem' }}
 //             >
@@ -120,7 +140,7 @@
 //             <Button
 //               type="primary"
 //               onClick={() => {
-//                 startATrialSubscriptionForCNY_with_subscriptionVersion(ESubscriptionVersion.TOOL);
+//                 startATrialSubscriptionForEUR_with_subscriptionVersion(ESubscriptionVersion.TOOL);
 //               }}
 //               style={{ marginTop: '.2rem' }}
 //             >
@@ -145,14 +165,14 @@
 
 //       {hasTrialForSubscription_v2 && (
 //         <div className="row hasStartTrial">
-//           {stripeCustomerId && subscription_v2Data.Region?.code === ERegionDB_code.EN && (
+//           {subscription_v2Data.Region?.code === ERegionDB_code.ZH && (
 //             <div className="row">
-//               <p>{t.get('Please check your subscription in overseas regions')}</p>
+//               <p>{t.get('Please check your subscription in your domestic region')}</p>
 //             </div>
 //           )}
 
-//           {subscription_v2Data.Region?.code === ERegionDB_code.ZH && (
-//             <div className="row subscirption_zh">
+//           {subscription_v2Data.Region?.code === ERegionDB_code.EN && (
+//             <div className="row subscription_en">
 //               <div className="row">
 //                 {t.get('Email')}: {userEmail}
 //                 <CopyToClipboard
@@ -167,6 +187,16 @@
 //                 >
 //                   <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
 //                 </CopyToClipboard>
+//               </div>
+//               <div className="row">
+//                 <Button
+//                   type="primary"
+//                   onClick={() => {
+//                     createAndOpenStripeBillingSession();
+//                   }}
+//                 >
+//                   {t.get('My Subscription')}
+//                 </Button>
 //               </div>
 
 //               <div className="row">
@@ -183,7 +213,7 @@
 //                       new Date(subscription_v2Data.expiredAt)?.toISOString().split('T')[0]}
 //                   </span>
 //                   <span className="column">
-//                     {subscription_v2Data.expiredAt && isExpired ? (
+//                     {subscription_v2Data?.expiredAt && isExpired ? (
 //                       <Tag color="#f50">{t.get('Expired')}</Tag>
 //                     ) : (
 //                       <Tag color="#2db7f5">{t.get('Valid')}</Tag>
@@ -192,14 +222,37 @@
 //                 </span>
 //               </div>
 
+//               {/*
 //               <div className="row">
-//                 <SettingsWindow_4_proMode_CNY_casse_hasStripeCustomerId_notSubscription
-//                   t={t}
-//                   currencySymbol={ECurrencySymbol.CNY}
-//                   userId={userId.toString()}
-//                   userAccessToken={userAccessToken}
-//                 />
-//               </div>
+//                 是否有默认支付方式:
+//                 {hasDefaultPamentMethod ? '是' : '否'}
+//                 {!hasDefaultPamentMethod && (
+//                   <div className="row">
+//                     <Alert
+//                       type="info"
+//                       message={
+//                         <span>
+//                           需要重新购买订阅，请先点击‘我的订阅’按钮，在支付管理页面中添加并设置为
+//                           <b style={{ color: '#3875f6' }}>默认</b>支付方式
+//                         </span>
+//                       }
+//                     />
+//                     <img src={paymentPageDemo} alt="" style={{ width: '100%', marginTop: '1rem' }} />
+//                   </div>
+//                 )}
+//               </div> */}
+
+//               {userId && (
+//                 <div className="row">
+//                   <SettingsWindow_4_proMode_EUR_casse_hasStripeCustomerId_notSubscription
+//                     t={t}
+//                     createAndOpenStripeBillingSession={createAndOpenStripeBillingSession}
+//                     userId={userId.toString()}
+//                     userAccessToken={userAccessToken}
+//                     currencySymbol={ECurrencySymbol.EUR}
+//                   />
+//                 </div>
+//               )}
 //             </div>
 //           )}
 //         </div>

@@ -8,7 +8,7 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 // import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { useNavigate } from 'react-router-dom';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 // import TSettingsWindow_2_user from './TSettingsWindow_2_user';
 import { useDispatch } from 'react-redux';
 import { userResetPasswordWithEmailAction } from '../../../../store/actions/userActions';
@@ -16,7 +16,7 @@ import { userResetPasswordWithEmailAction } from '../../../../store/actions/user
 
 interface SettingsWindow_2_user_5_forgetPassword_input {
   // setPageCase: (paraPageCase: EUserPageCase) => void;
-  t: IGetT_output;
+  t: IGetT_frontend_output;
 }
 export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_user_5_forgetPassword_input) => {
   const { t } = props;

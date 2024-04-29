@@ -1,108 +1,91 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Select } from 'antd';
-
 import { IReduxRootState } from 'store/reducer';
-import { udpateSubscriptionDBAction_v2 } from '../../../../store/actions/subscriptionDBActions_v2';
 
-import { ERegionDB_code } from '../../../../gpt-ai-flow-common/enum-database/ERegionDB';
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
-import ISubscriptionDB_v2File, {
-  ISubscriptionDB_v2,
-} from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
-import {
-  IUseSubscriptionDB_v2Data_output,
-  useSubscription_v2Data,
-} from '../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
-import IRegionDBFile from '../../../../gpt-ai-flow-common/interface-database/IRegionDB';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-import { SettingsWindow_4_proMode_EUR } from './SettingsWindow_4_proMode_EUR';
-import { SettingsWindow_4_proMode_CNY } from './SettingsWindow_4_proMode_CNY';
+import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
+import { IProductItemDB_with_expiredAt } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
+import { getProductItem_by_userId_from_backend } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
+import TStripeConstantFile_v2File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v2';
+import { FreeVersionAnnounce } from './FreeVersionAnnounce';
+import { SettingsWindow_4_proMode_locale } from './SettingsWindow_4_proMode_locale';
 
 interface ISettingsWindow_4_proMode_login_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
+  localeForSettingsWindow: ELocale;
   userData: IUserData;
   dispatch: any;
 }
 const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_input) => {
-  const { t, userData, dispatch } = props;
+  const { t, localeForSettingsWindow: locale, userData, dispatch } = props;
 
-  const { id: userId, token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default } = userData;
+  const { token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default } = userData;
 
-  const subscriptionDataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
-    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
-  });
+  const [productItem, setProductItem] = useState<IProductItemDB_with_expiredAt>();
+  const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, string>>();
 
-  const useSubscription_v2DataOutput: IUseSubscriptionDB_v2Data_output = useSubscription_v2Data({
-    userId: userId as number,
-    accessToken: userAccessToken,
-    subscription_v2DataFromStorage: subscriptionDataFromStorage,
-    onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
-      dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
-    },
-    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-  });
+  const init = async (paraLocale: ELocale) => {
+    const itemFound: IProductItemDB_with_expiredAt = await getProductItem_by_userId_from_backend(
+      userAccessToken,
+      paraLocale,
+      CONSTANTS_GPT_AI_FLOW_COMMON
+    );
+    setProductItem(itemFound);
 
-  const { subscription_v2Data } = useSubscription_v2DataOutput;
-  const { Region } = subscription_v2Data ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
-  const { code: regionCodeFromStorage = ERegionDB_code.ZH } = Region ?? IRegionDBFile.IRegionDB_default;
-
-  const [regionCode, setRegionCode] = useState<ERegionDB_code>(regionCodeFromStorage);
-
-  const hanleRegionSelectChange = (value: string) => {
-    console.log(`selected ${value}`);
-    setRegionCode(value as ERegionDB_code);
+    const pricesFound = await TStripeConstantFile_v2File.getStripePrices(
+      CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV === 'Prod'
+    );
+    setStripePrices(pricesFound[paraLocale]);
   };
 
   useEffect(() => {
-    setRegionCode(regionCodeFromStorage);
-  }, [regionCodeFromStorage]);
+    init(locale);
+  }, []);
 
   return (
-    <div id="settingsWindowContainer" className="container">
-      <div className="row">
-        <Select
-          defaultValue={regionCode}
-          style={{ width: 120 }}
-          value={regionCode}
-          onChange={hanleRegionSelectChange}
-          options={[
-            { label: t.get('Domestic'), value: ERegionDB_code.ZH },
-            { label: t.get('Overseas'), value: ERegionDB_code.EN },
-          ]}
+    <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+      {productItem?.name === EProductItemDB_name.STARTAI_FREE && <FreeVersionAnnounce locale={t.currentLocale} />}
+
+      <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+
+      {productItem && stripePrices && (
+        <SettingsWindow_4_proMode_locale
+          t={t}
+          locale={locale}
+          userData={userData}
+          productItem={productItem}
+          stripePrices={stripePrices}
         />
-      </div>
-      {regionCode === ERegionDB_code.ZH && (
-        <div className="row">
-          <SettingsWindow_4_proMode_CNY
-            t={t}
-            userData={userData}
-            useSubscription_v2DataOutput={useSubscription_v2DataOutput}
-          />
-        </div>
-      )}
-      {regionCode === ERegionDB_code.EN && (
-        <div className="row">
-          <SettingsWindow_4_proMode_EUR
-            t={t}
-            userData={userData}
-            useSubscription_v2DataOutput={useSubscription_v2DataOutput}
-          />
-        </div>
       )}
     </div>
   );
 };
 
-export const SettingsWindow_4_proMode = (props: { t: IGetT_output }) => {
+const SettingsWindow_4_proMode_logout = (props: { t: IGetT_frontend_output }) => {
+  const { t } = props;
+  return (
+    <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+      {t.get('Please register a user and log in first')}
+    </div>
+  );
+};
+
+interface ISettingsWindow_4_proMode {
+  t: IGetT_frontend_output;
+  localeForSettingsWindow: ELocale;
+}
+export const SettingsWindow_4_proMode = (props: ISettingsWindow_4_proMode) => {
   const dispatch = useDispatch();
 
-  const { t } = props;
+  const { t, localeForSettingsWindow } = props;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -111,17 +94,22 @@ export const SettingsWindow_4_proMode = (props: { t: IGetT_output }) => {
   const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {},
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId, token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default } = userData;
+  const { id: userId } = userData;
 
-  if (!userId) {
-    return (
-      <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
-        {t.get('Please register a user and log in first')}
-      </div>
-    );
-  }
-
-  return <SettingsWindow_4_proMode_login t={t} userData={userData} dispatch={dispatch} />;
+  return (
+    <>
+      {userId && (
+        <SettingsWindow_4_proMode_login
+          t={t}
+          localeForSettingsWindow={localeForSettingsWindow}
+          userData={userData}
+          dispatch={dispatch}
+        />
+      )}
+      {!userId && <SettingsWindow_4_proMode_logout t={t} />}
+    </>
+  );
 };

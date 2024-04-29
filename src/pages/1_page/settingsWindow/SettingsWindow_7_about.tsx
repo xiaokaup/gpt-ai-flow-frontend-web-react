@@ -1,10 +1,10 @@
 import '../../../styles/global.css';
 
 import React from 'react';
-import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface SettingsWindow_7_about_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
 }
 export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
   const { t } = props;

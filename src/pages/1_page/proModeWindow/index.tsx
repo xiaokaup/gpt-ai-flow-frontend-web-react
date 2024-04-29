@@ -34,15 +34,15 @@ import { EOpenAiModelType } from '../../../gpt-ai-flow-common/enum-backend/EOpen
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import TModelsFile from '../../../gpt-ai-flow-common/tools/3_unit/TModels';
-import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { ModelStaticService } from '../../../gpt-ai-flow-common/tools/2_class/SModels';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ITabPanel } from './proModeWindowType';
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 interface IProModeWindow_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
 }
 const ProModeWindow = (props: IProModeWindow_input) => {
   const dispatch = useDispatch();
@@ -71,6 +71,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
     onUserDataChange: (newUserData_without_token: IUserData) => {
       dispatch(updateSpecificUserData(newUserData_without_token) as any);
     },
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
@@ -107,6 +108,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
     onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
       dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
     },
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const {
@@ -325,7 +327,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={TModelsFile.getModelTypeOptions(userData, subscription_v2Data)}
+              options={ModelStaticService.getModelTypeOptions(userData, subscription_v2Data)}
               style={{
                 width: 180,
               }}

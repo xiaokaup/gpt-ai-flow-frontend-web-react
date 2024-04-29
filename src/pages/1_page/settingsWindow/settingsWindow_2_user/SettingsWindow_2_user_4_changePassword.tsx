@@ -8,7 +8,7 @@ import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
   authLoginByEmailAndPasswordAction,
@@ -16,7 +16,7 @@ import {
 } from '../../../../store/actions/userActions';
 
 interface SettingsWindow_2_user_4_changePassword_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   userData: IUserData;
   isAuthenticated: boolean;
 }

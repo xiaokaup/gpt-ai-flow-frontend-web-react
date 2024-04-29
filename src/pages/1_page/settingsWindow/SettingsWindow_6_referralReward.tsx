@@ -10,10 +10,10 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/con
 import TBackendInviteLinkFile from '../../../gpt-ai-flow-common/tools/3_unit/TBackendInviteLink';
 import { IInviteLinkDB } from '../../../gpt-ai-flow-common/interface-database/IInviteLinkDB';
 import { ISequelize_whereCondition_searchResults } from '../../../gpt-ai-flow-common/interface-backend/ISequelize';
-import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface ISettingsWindow_6_referralReward_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   userId: string;
   accessToken: string;
 }
@@ -25,7 +25,12 @@ const SettingsWindow_6_referralReward_login = (props: ISettingsWindow_6_referral
 
   const init = async () => {
     const resutls: ISequelize_whereCondition_searchResults<IInviteLinkDB> =
-      await TBackendInviteLinkFile.getInviteLinksByUserId(userId, accessToken, CONSTANTS_GPT_AI_FLOW_COMMON);
+      await TBackendInviteLinkFile.getInviteLinksByUserId(
+        userId,
+        accessToken,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON
+      );
 
     setInviteLinks(resutls.rows);
   };
@@ -35,7 +40,12 @@ const SettingsWindow_6_referralReward_login = (props: ISettingsWindow_6_referral
   }, []);
 
   const generateReferralLink = async () => {
-    const results = await TBackendInviteLinkFile.generateInviteLink(userId, accessToken, CONSTANTS_GPT_AI_FLOW_COMMON);
+    const results = await TBackendInviteLinkFile.generateInviteLink(
+      userId,
+      accessToken,
+      t.currentLocale,
+      CONSTANTS_GPT_AI_FLOW_COMMON
+    );
 
     if (results.error) {
       message.warning(results.error?.message);

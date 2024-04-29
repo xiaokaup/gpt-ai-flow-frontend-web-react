@@ -18,7 +18,7 @@ import { IUserDB, IUserDB_default } from '../../../../gpt-ai-flow-common/interfa
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface IUserRegisterForm {
   email: string;
@@ -30,7 +30,7 @@ interface IUserRegisterForm {
 }
 
 interface ISettingsWindow_2_user_1_signup_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
 }
 export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_signup_input) => {
   const dispatch = useDispatch();
@@ -48,6 +48,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
   const { isAuthenticated } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {},
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
@@ -65,7 +66,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
       }
 
       const userFound: IUserDB = (await dispatch(
-        getUserProfileByEmailAction_v2(values.email, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        getUserProfileByEmailAction_v2(values.email, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON) as any
       )) as any;
 
       if (userFound?.id) {
@@ -81,6 +82,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
             firstName: values.first_name,
             lastName: values.last_name ?? '',
           },
+          t.currentLocale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           values.uniqueCode
         ) as any

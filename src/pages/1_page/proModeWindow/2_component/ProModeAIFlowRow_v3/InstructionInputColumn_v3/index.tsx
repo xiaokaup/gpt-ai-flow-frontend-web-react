@@ -13,7 +13,7 @@ import {
   IAICommandsResults_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
-import { IGetT_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { EAIFlowRole, EAIFlowType } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
@@ -23,7 +23,7 @@ import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InstructionIn
 import { InstructionInputColumn_v3_CustomizeTextArea } from './InstructionInputColumn_v3_CustomizeTextArea';
 
 interface InstructionInputColumn_v3_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   defaultInstructionAiCommands: IAIFlow[];
   defaultOutputIndicatorAiCommands: IAIFlow[];
   addRequestControllerItem: (uuid: string, value: AbortController) => void;

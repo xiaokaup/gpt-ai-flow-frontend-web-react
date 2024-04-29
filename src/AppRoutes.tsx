@@ -20,7 +20,7 @@ import ProModeWindow from './pages/1_page/proModeWindow';
 import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { getT } from './gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -39,6 +39,7 @@ export const AppRoutes = () => {
     onUserDataChange: (newUserData_without_token: IUserData) => {
       dispatch(updateSpecificUserData(newUserData_without_token) as any);
     },
+    locale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

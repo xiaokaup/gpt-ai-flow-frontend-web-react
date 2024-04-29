@@ -7,7 +7,8 @@ import {
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
-import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
+import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
+
 import { ISendConversationalRetrievalChainToBackendProxy_dataField_input } from '../../gpt-ai-flow-common/interface-backend/IBackendLangchain';
 
 const sendConversationalRetrievalChainToBackendProxy = async (
@@ -23,7 +24,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
 
   const options: any = {
     method: 'POST',
-    ...getApiKeyHeadersForNodeBackend(
+    ...AuthService.getApiKeyHeadersForNodeBackend(
       {
         accessToken,
       },
@@ -92,7 +93,7 @@ const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_
 ): Promise<IChatGPTStreamResponse_output> => {
   const options: any = {
     method: 'POST',
-    ...getApiKeyHeadersForNodeBackend(
+    ...AuthService.getApiKeyHeadersForNodeBackend(
       {
         accessToken,
       },

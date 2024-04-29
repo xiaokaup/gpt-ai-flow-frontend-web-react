@@ -9,7 +9,7 @@ import {
   // ISendChatGPTRequestForGetVectorToBackendProxy_output,
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
-import { getApiKeyHeadersForNodeBackend } from '../../gpt-ai-flow-common/tools/2_component/TAuth';
+import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 import { EProductDB_version } from '../../gpt-ai-flow-common/enum-database/EProductDB';
 
@@ -24,7 +24,7 @@ const sendChatGPTRequestAsStreamToBackendProxy = async (
 ): Promise<IChatGPTStreamResponse_output> => {
   const options: any = {
     method: 'POST',
-    ...getApiKeyHeadersForNodeBackend(
+    ...AuthService.getApiKeyHeadersForNodeBackend(
       {
         accessToken,
       },

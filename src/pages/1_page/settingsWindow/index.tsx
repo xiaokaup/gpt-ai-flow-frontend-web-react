@@ -1,7 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { IReduxRootState } from '../../../store/reducer';
 
 import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IStoreStorageLocalSettings } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 import { SettingsWindow_7_about } from './SettingsWindow_7_about';
 import { SettingsWindow_1_local } from './settingsWindow_1_local';
@@ -10,13 +14,18 @@ import { SettingsWindow_4_proMode } from './settingsWindow_4_proMode';
 import { SettingsWindow_6_referralReward } from './SettingsWindow_6_referralReward';
 
 interface ISettingsWindow_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   userData: IUserData;
   isAuthenticated: boolean;
 }
 export const SettingsWindow = (props: ISettingsWindow_input) => {
   const { t, userData, isAuthenticated } = props;
   const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = userData;
+
+  const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+    return state.local ?? {};
+  });
+  const { locale } = localFromStore;
 
   const containerStyle = {
     marginTop: 12,
@@ -40,7 +49,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
         <SettingsWindow_7_about t={t} />
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_4_proMode t={t} />
+        <SettingsWindow_4_proMode t={t} localeForSettingsWindow={locale} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_6_referralReward t={t} userId={userId.toString()} accessToken={accessToken} />
