@@ -91,6 +91,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
   updateResultFromRequestAsStreamFunc: (resultText: string) => void,
   AfterRequestAsStreamFunc: () => void,
   accessToken: string,
+  locale: ELocale,
   env: IConstantGptAiFlowHandler,
   signal?: AbortSignal
 ): Promise<IChatGPTStreamResponse_output> => {
@@ -113,7 +114,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
     options.signal = signal;
   }
 
-  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/${langchainRetrievalDocType}`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/${langchainRetrievalDocType}/?locale=${locale}`;
 
   const response = await fetch(url, options);
 
@@ -156,12 +157,13 @@ const sendConversationalRetrievalChainToBackendProxy = async (
   };
 };
 
-const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_FLOW_DOC = async (
+const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_FLOW_DOC_to_delete = async (
   data: ISendConversationalRetrievalChainToBackendProxy_dataField_input,
   beforeSendRequestAsStreamFunc: () => void,
   updateResultFromRequestAsStreamFunc: (resultText: string) => void,
   AfterRequestAsStreamFunc: () => void,
   accessToken: string,
+  locale: ELocale,
   env: IConstantGptAiFlowHandler,
   signal?: AbortSignal
 ): Promise<IChatGPTStreamResponse_output> => {
@@ -182,7 +184,7 @@ const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_
     options.signal = signal;
   }
 
-  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/langchainRetrievalDocType/gpt-ai-flow-doc`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/conversationalRetrievalChain/langchainRetrievalDocType/gpt-ai-flow-doc/?locale=${locale}`;
 
   const response = await fetch(url, options);
 
@@ -228,7 +230,8 @@ const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_
 const TBackendLangchainFile = {
   postChatChain,
   sendConversationalRetrievalChainToBackendProxy,
-  sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_FLOW_DOC,
+  sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_FLOW_DOC:
+    sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_FLOW_DOC_to_delete,
 };
 
 export default TBackendLangchainFile;

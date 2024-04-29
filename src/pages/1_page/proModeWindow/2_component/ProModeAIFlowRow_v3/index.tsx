@@ -425,6 +425,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           afterEndRequestFunc(index),
           userAccessToken,
+          locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           signal
         ).catch((error: Error) => {
