@@ -72,12 +72,12 @@ import {
   EProMode_v3_11_customerAssistant_contextType,
   EProMode_v3_11_customerAssistant_contextTypeStage,
 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_11_customerAssistant';
-import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ITabPanel } from './proModeWindowType';
 
 interface useProModeSetDataUI_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   userDataFromStorage: IUserData;
   serviceCategories: string[];
 }
@@ -104,6 +104,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       dispatch(updateProModeDataAction(newPromodeSetData) as any);
     },
     getDecryptObj: TCryptoJSFile.decrypt,
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

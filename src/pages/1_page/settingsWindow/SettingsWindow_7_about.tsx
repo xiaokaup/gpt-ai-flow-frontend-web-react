@@ -1,10 +1,10 @@
 import '../../../styles/global.css';
 
 import React from 'react';
-import { IGetT_output } from '../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface SettingsWindow_7_about_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
 }
 export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
   const { t } = props;
@@ -21,7 +21,7 @@ export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
         </div>
         <div className="row">
           {t.getHTML(
-            `If you have any feedback (bugs or suggestions), please send it to <a href="mailto:{email}">{email}</a> or let us know via the <a href="https://wj.qq.com/s2/13154598/1770/">{userQuestionnaire}</a>`,
+            `If you have any feedback (bugs or suggestions), please send it to <a href="mailto:{email}">{email}</a> or let us know via the <a target="_blank" href="{link}">{userQuestionnaire}</a>`,
             {
               email: 'hello@gptaiflow.com',
               userQuestionnaire: t.get('user questionnaire'),
@@ -31,7 +31,7 @@ export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
 
         <hr />
         <div className="row">
-          <span>{t.get('Release version')}: v0.1.44</span>
+          <span>{t.get('Release version')}: v0.1.49</span>
         </div>
       </div>
     </div>

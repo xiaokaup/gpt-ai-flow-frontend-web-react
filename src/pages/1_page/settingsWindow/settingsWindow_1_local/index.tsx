@@ -14,7 +14,7 @@ import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { useSubscription_v2Data } from '../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
 
@@ -24,7 +24,7 @@ enum ESettingsWindow_1_local_tabKey {
 }
 
 interface ISettingsWindow_1_local_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
 }
 export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => {
   const dispatch = useDispatch();
@@ -38,6 +38,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
   const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {},
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default } = userData;
@@ -60,6 +61,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
     onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
       dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
     },
+    locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

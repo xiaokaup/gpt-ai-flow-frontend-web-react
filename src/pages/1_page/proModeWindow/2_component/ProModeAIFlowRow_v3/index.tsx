@@ -20,7 +20,7 @@ import {
   IAICommands_v4,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { IAIFlow, IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { IAIFlow } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
@@ -40,16 +40,17 @@ import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
 import { ELangchainRetrievalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import TLangchainRetrievalFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TLangchainRetrieval';
 import { IBuildOpenAIPrompts_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
-import { IGetT_output } from '../../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { LangchainRetrivalService } from '../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
+import { IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IPrompt';
+import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 
-import TBackendOpenAIFile from '../../../../../tools/3_unit/TBackendOpenAI-web';
-import TBackendLangchainFile from '../../../../../tools/3_unit/TLangchain-web';
+import TBackendLangchainFile from '../../../../../tools/3_unit/TBackendLangchain-web';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -57,7 +58,7 @@ import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 const { TextArea } = Input;
 
 interface ProModeAIFlowRow_v3_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   clickSearchAllResultsButtonCount: number;
   clickStopSearchAllResultsButtonCount: number;
   contextHandled: string;
@@ -86,7 +87,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     defaultOutputIndicatorAiCommands,
     aiCommandsSettings,
   } = props;
-  const langchainRetrievalDocType = TLangchainRetrievalFile.getRetrievalTypeByContextValue(contextHandled);
+  const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(contextHandled);
 
   const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
@@ -98,7 +99,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       dispatch(saveLocalAction(newLocalSettings) as any);
     },
   });
-  const { openAIApiKey } = localSettings;
+  const { locale, openAIApiKey } = localSettings;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
@@ -107,6 +108,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {},
+    locale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
   const { id: userId, token: userToken } = userData;
@@ -122,6 +124,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
       dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
     },
+    locale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
@@ -223,6 +226,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
             source: 'proModeInterface-web',
           },
           userAccessToken,
+          locale,
           CONSTANTS_GPT_AI_FLOW_COMMON
         );
       }
@@ -385,7 +389,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
       const promptsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
       // console.log('promptsResults', promptsResults);
       const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
-      const langchainRetrievalDocType = TLangchainRetrievalFile.getRetrievalTypeByContextValue(systemPrompt.content);
+      const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(systemPrompt.content);
 
       const beforeSendRequestFunc = () => {
         console.log('beforeSendRequestAsStreamFunc');
@@ -421,6 +425,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           afterEndRequestFunc(index),
           userAccessToken,
+          locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           signal
         ).catch((error: Error) => {
@@ -432,23 +437,25 @@ ${t.get('Original content')}: """${exampleText}"""`,
           }
         });
       } else {
-        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendOpenAIFile.sendChatGPTRequestAsStreamToBackendProxy(
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postChatChain(
           {
-            userId: userId?.toString() ?? '',
-            openaiSecret: openAIApiKey,
-            prompt: [systemPrompt, ...chatHistory, inputPrompt],
-            openaiOptions: {
-              openaiModel: proModeModalValue, // @TODELETE: 临时使用
-              openaiModelType: proModeModalValue,
+            // userId: userId?.toString() ?? '',
+            productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
+            modelSecret: openAIApiKey,
+            modelOptions: {
+              openaiModelType: proModeModalValue, // @TODELETE: 临时使用
               temperature: creativityValue,
             },
-            subscriptionData: subscription_v2Data,
+            history: [systemPrompt, ...chatHistory],
+            input: inputPrompt.content,
+            locale,
           },
           beforeSendRequestFunc,
           updateResultsFunc(index),
           // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
           afterEndRequestFunc(index),
           userAccessToken,
+          locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           signal
         ).catch((error: Error) => {

@@ -13,11 +13,11 @@ import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserDat
 import { ISubscriptionDB_v2 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { EProductDB_version } from '../../../../gpt-ai-flow-common/enum-database/EProductDB';
 import { IStoreStorageLocalSettings } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import TModelsFile from '../../../../gpt-ai-flow-common/tools/3_unit/TModels';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { ModelStaticService } from '../../../../gpt-ai-flow-common/tools/2_class/SModels';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface ISettingsWindow_1_local_basic_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   userData: IUserData;
   subscription_v2Data: ISubscriptionDB_v2;
 }
@@ -133,7 +133,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={TModelsFile.getModelTypeOptions(userData, subscription_v2Data)}
+          options={ModelStaticService.getModelTypeOptions(userData, subscription_v2Data)}
           style={{
             width: 200,
           }}

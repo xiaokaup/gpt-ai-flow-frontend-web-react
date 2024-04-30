@@ -12,10 +12,10 @@ import { updateInputsCache } from '../../../../store/actions/inputsCacheActions'
 
 import IInputsCacheFile, { IInputsCache } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { useInputsCache } from '../../../../gpt-ai-flow-common/hooks/useInputsCache';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface DynamicFormForSelectValue_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   containerStyle: any;
   contextSelectValueWithPlaceholder: string;
   setHandledSelectValue: (value: string) => void;

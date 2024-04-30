@@ -8,7 +8,7 @@ import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IGetT_output } from '../../../../gpt-ai-flow-common/i18nProvider/messages/localesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
   authLoginByEmailAndPasswordAction,
@@ -16,7 +16,7 @@ import {
 } from '../../../../store/actions/userActions';
 
 interface SettingsWindow_2_user_4_changePassword_input {
-  t: IGetT_output;
+  t: IGetT_frontend_output;
   userData: IUserData;
   isAuthenticated: boolean;
 }
@@ -37,7 +37,12 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
 
     try {
       const userAndTokenData: IUserData = await dispatch(
-        authLoginByEmailAndPasswordAction(userData.email, values.password, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        authLoginByEmailAndPasswordAction(
+          userData.email,
+          values.password,
+          t.currentLocale,
+          CONSTANTS_GPT_AI_FLOW_COMMON
+        ) as any
       );
 
       if (!userAndTokenData || !userAndTokenData.id || !userAndTokenData.token) {
@@ -51,6 +56,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
           userAndTokenData.id,
           values.newPassword,
           userAndTokenData.token.accessToken,
+          t.currentLocale,
           CONSTANTS_GPT_AI_FLOW_COMMON
         ) as any
       );
