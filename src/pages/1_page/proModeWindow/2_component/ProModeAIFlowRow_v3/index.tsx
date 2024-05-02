@@ -36,7 +36,7 @@ import ISubscriptionDB_v2File, {
 } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
-import { EAIFlowRole, EAIFlowType } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { EAIFlowRole, EAIFlow_type } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
 import { ELangchainRetrievalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
@@ -214,7 +214,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     for (const oneAiCommand of aiCommands) {
       if (
         oneAiCommand.isTemporary &&
-        oneAiCommand.aiFlowInstance.type === EAIFlowType.CUSTOMIZE &&
+        oneAiCommand.aiFlowInstance.type === EAIFlow_type.CUSTOMIZE &&
         oneAiCommand.aiFlowInstance.value
       ) {
         TBackendUserInputFile.postUserInput(

@@ -8,7 +8,7 @@ import { Button, Checkbox, Select, message } from 'antd';
 import { IReduxRootState } from '../../../../store/reducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
-import { EOpenAiModelType } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { EOpenAiModel_type } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { ISubscriptionDB_v2 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { EProductDB_version } from '../../../../gpt-ai-flow-common/enum-database/EProductDB';
@@ -33,11 +33,11 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
 
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
 
-  const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModelType>(
-    localFromStore.chatMode?.model_type ?? EOpenAiModelType.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
+  const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModel_type>(
+    localFromStore.chatMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
   );
-  const [proModeModelType, setProModeModelType] = useState<EOpenAiModelType>(
-    localFromStore.proMode?.model_type ?? EOpenAiModelType.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
+  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(
+    localFromStore.proMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
   );
 
   const onSaveLocalSettings = () => {
@@ -127,7 +127,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           optionFilterProp="children"
           onChange={(value: string) => {
             console.log(`selected ${value}`);
-            setProModeModelType(value as EOpenAiModelType);
+            setProModeModelType(value as EOpenAiModel_type);
           }}
           onSearch={(value: string) => {
             console.log('search:', value);

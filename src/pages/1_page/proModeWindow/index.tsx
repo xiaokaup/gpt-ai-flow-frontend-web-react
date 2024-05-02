@@ -30,7 +30,7 @@ import {
 import { EProductDB_name } from '../../../gpt-ai-flow-common/enum-database/EProductDB';
 import { SubscriptionDB_v2ValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 
-import { EOpenAiModelType } from '../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { EOpenAiModel_type } from '../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
@@ -138,7 +138,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
   };
 
   // Model select
-  const [proModeModelType, setProModeModelType] = useState<EOpenAiModelType>(model_type);
+  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(model_type);
   const [subscription_v2Data] = useState<ISubscriptionDB_v2>(
     subscription_v2FromStorage ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default
   );
@@ -321,7 +321,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
               optionFilterProp="children"
               onChange={(value: string) => {
                 console.log(`selected ${value}`);
-                setProModeModelType(value as EOpenAiModelType);
+                setProModeModelType(value as EOpenAiModel_type);
               }}
               onSearch={(value: string) => {
                 console.log('search:', value);
