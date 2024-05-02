@@ -16,7 +16,7 @@ import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/set
 import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
-import ProModeWindow from './pages/1_page/proModeWindow';
+// import ProModeWindow from './pages/1_page/proModeWindow-to-delete';
 import ProModeWindow_v4 from './pages/1_page/ProModeWindow_v4';
 import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
