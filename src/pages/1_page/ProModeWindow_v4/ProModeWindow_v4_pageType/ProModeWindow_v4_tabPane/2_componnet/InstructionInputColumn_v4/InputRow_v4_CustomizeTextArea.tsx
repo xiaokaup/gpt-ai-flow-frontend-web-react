@@ -14,7 +14,7 @@ import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i
 
 const { TextArea } = Input;
 
-interface InstructionInputColumn_v4_CustomizeTextArea_input {
+interface IInputRow_v4_CustomizeTextArea_input {
   t: IGetT_frontend_output;
   index: number;
   aiCommands: IAICommands_v5_with_IAIFlow_v2[];
@@ -23,9 +23,7 @@ interface InstructionInputColumn_v4_CustomizeTextArea_input {
   setAiComandsResults: Dispatch<SetStateAction<IAICommands_v5_resultRow[]>>;
 }
 
-export const InstructionInputColumn_v4_CustomizeTextArea = (
-  props: InstructionInputColumn_v4_CustomizeTextArea_input
-) => {
+export const InputRow_v4_CustomizeTextArea = (props: IInputRow_v4_CustomizeTextArea_input) => {
   const { t, index, aiCommands, setAiCommands, removeRequestControllerItem, setAiComandsResults } = props;
 
   const thisAiCommand = aiCommands[index];

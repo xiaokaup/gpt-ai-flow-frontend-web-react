@@ -13,9 +13,9 @@ import { EAIFlow_type } from '../../../../../../../gpt-ai-flow-common/enum-app/E
 import TString from '../../../../../../../gpt-ai-flow-common/tools/TString';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { DynamicFormForSelectValue_v4 } from '../../3_unit/DynamicFormForSelectValue_v4';
-import { InstructionInputColumn_v4_InstructionSelect } from './InstructionInputColumn_v4_InstructionSelect';
-import { InstructionInputColumn_v4_OutputIndicatorSelect } from './InstructionInputColumn_v4_OutputIndicatorSelect';
-import { InstructionInputColumn_v4_CustomizeTextArea } from './InstructionInputColumn_v4_CustomizeTextArea';
+import { IInputRow_v4_InstructionSelect } from './InputRow_v4_InstructionSelect';
+import { InputRow_v4_OutputIndicatorSelect } from './InputRow_v4_OutputIndicatorSelect';
+import { InputRow_v4_CustomizeTextArea } from './InputRow_v4_CustomizeTextArea';
 import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IAIFlow_v2';
 import {
   IAICommands_v5_resultRow,
@@ -84,7 +84,7 @@ export const InstructionInputColumn_v4 = (props: InstructionInputColumn_v4_input
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <div className="row" key={`${index}-${item.uuid}`}>
-                  <InstructionInputColumn_v4_InstructionSelect
+                  <IInputRow_v4_InstructionSelect
                     t={t}
                     index={index}
                     aiFlows_type_instruction_selectOptions={aiFlows_type_instruction_selectOptions}
@@ -124,7 +124,7 @@ export const InstructionInputColumn_v4 = (props: InstructionInputColumn_v4_input
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <div className="row" key={`${index}-${item.uuid}`}>
-                  <InstructionInputColumn_v4_CustomizeTextArea
+                  <InputRow_v4_CustomizeTextArea
                     t={t}
                     index={index}
                     aiCommands={aiCommands}
@@ -140,7 +140,7 @@ export const InstructionInputColumn_v4 = (props: InstructionInputColumn_v4_input
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <div className="row" key={`${index}-${item.uuid}`}>
-                  <InstructionInputColumn_v4_OutputIndicatorSelect
+                  <InputRow_v4_OutputIndicatorSelect
                     t={t}
                     index={index}
                     ouputIndicatorCommandsSelectOptions={aiFlows_type_outputIndicator_selectOptions}

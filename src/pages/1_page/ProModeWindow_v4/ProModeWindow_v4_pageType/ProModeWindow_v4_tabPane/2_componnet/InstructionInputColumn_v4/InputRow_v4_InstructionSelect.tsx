@@ -16,7 +16,7 @@ import {
   IAICommands_v5_with_IAIFlow_v2,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
 
-interface InstructionInputColumn_v4_InstructionSelect_input {
+interface IInputRow_v4_InstructionSelect_input {
   t: IGetT_frontend_output;
   index: number;
   aiFlows_type_instruction_selectOptions: IAIFlow_v2[];
@@ -27,9 +27,7 @@ interface InstructionInputColumn_v4_InstructionSelect_input {
   toggleAiCommandsIsShowInputsForm: () => void;
 }
 
-export const InstructionInputColumn_v4_InstructionSelect = (
-  props: InstructionInputColumn_v4_InstructionSelect_input
-) => {
+export const IInputRow_v4_InstructionSelect = (props: IInputRow_v4_InstructionSelect_input) => {
   const {
     t,
     index,
