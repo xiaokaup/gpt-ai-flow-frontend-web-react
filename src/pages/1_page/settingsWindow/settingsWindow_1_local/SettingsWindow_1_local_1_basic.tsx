@@ -70,30 +70,6 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             />
           </label>
         </div>
-        {!subscriptionIsExpired &&
-          subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
-            <div>
-              <span>
-                {t.getHTML(
-                  'You have already chosen to use the official model solution, <b>there is no need to fill this out</b>',
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  { b: (chunks: any) => <b>{chunks}</b> }
-                )}
-              </span>
-            </div>
-          )}
-        {subscriptionIsExpired &&
-          subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
-            <div>
-              <span>
-                {t.getHTML(
-                  'The solution you have chosen to use, <b>has expired</b>, please go to the <b>ProMode</b> settings panel to restart the solution',
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  { b: (chunks: any) => <b>{chunks}</b> }
-                )}
-              </span>
-            </div>
-          )}
       </div>
 
       {/* <div className="row" style={{ marginTop: '.75rem' }}>
