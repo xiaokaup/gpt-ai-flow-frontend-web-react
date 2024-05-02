@@ -17,6 +17,7 @@ import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsW
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
 import ProModeWindow from './pages/1_page/proModeWindow';
+import ProModeWindow_v4 from './pages/1_page/ProModeWindow_v4';
 import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
@@ -104,7 +105,7 @@ export const AppRoutes = () => {
       path: '/proMode',
       element: (
         <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <ProModeWindow t={t} />
+          <ProModeWindow_v4 t={t} locale={locale} />
         </AppLayoutCenter>
       ),
     },
