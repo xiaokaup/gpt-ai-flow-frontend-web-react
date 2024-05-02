@@ -3,7 +3,7 @@ import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 import './index.scss';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -29,8 +29,15 @@ import IStoreStorageFile, {
 import { ModelStaticService } from '../../../gpt-ai-flow-common/tools/2_class/SModels';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-import { ELocale } from 'gpt-ai-flow-common/enum-app/ELocale';
-import { IProMode_v4_tabPane } from 'gpt-ai-flow-common/interface-app/solution_ProMode_v4/IPromode_v4_tabPane';
+import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
+import {
+  EProMode_v4_tabPane_type,
+  IProMode_v4,
+  IProMode_v4_tabPane,
+} from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IPromode_v4_tabPane';
+import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
+import { ProModeWindow_v4_tabPane_type_commandChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -56,12 +63,30 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   // === ProMode Data - end ===
 
   // === ProMode tabPane settings - start ===
-  const [activeTabPanelKey, setActiveTabPanelKey] = useState<EServiceCategoryDB_name>();
+  const [activeTabPanelKey, setActiveTabPanelKey] = useState<string>();
 
   // ModelOptions
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
   const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(model_type);
   // === ProMode tabPane settings - end ===
+
+  const init = useCallback(async () => {
+    const result: IProMode_v4 = await getProMode_v4_from_backend(
+      userAccessToken,
+      TCryptoJSFile.decrypt_for_web(
+        CONSTANTS_GPT_AI_FLOW_COMMON.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY as string
+      ),
+      locale,
+      CONSTANTS_GPT_AI_FLOW_COMMON
+    );
+    console.log('result', result);
+    setProMode_v4_tabPanes(result.tabPanes);
+    if (result.tabPanes.length > 0) setActiveTabPanelKey(result.tabPanes[0].name);
+  }, [locale, userAccessToken]);
+
+  useEffect(() => {
+    init();
+  }, [init]);
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
@@ -151,13 +176,15 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 // onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
-                {/* {tabPanels.map((pane) => {
+                {proMode_v4_tabPanes.map((tabPane: IProMode_v4_tabPane) => {
                   return (
-                    <Tabs.TabPane tab={pane.label} key={pane.key} disabled={pane.disabled}>
-                      {pane.children}
+                    <Tabs.TabPane tab={tabPane.name} key={tabPane.name} disabled={tabPane.isDisabled}>
+                      {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
+                        <ProModeWindow_v4_tabPane_type_commandChain t={t} tabPane={tabPane} />
+                      )}
                     </Tabs.TabPane>
                   );
-                })} */}
+                })}
               </Tabs>
             </CreativityValueProvider>
           </ProModeModelValueProvider>
