@@ -18,9 +18,9 @@ import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/
 
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
 
-import { InstructionInputColumn_v3_InstructionSelect } from './InstructionInputColumn_v3_InstructionSelect';
-import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InstructionInputColumn_v3_OutputIndicatorSelect';
-import { InstructionInputColumn_v3_CustomizeTextArea } from './InstructionInputColumn_v3_CustomizeTextArea';
+import { InstructionInputColumn_v3_InstructionSelect } from './InputColumn_v3_InstructionSelect';
+import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InputColumn_v3_OutputIndicatorSelect';
+import { InstructionInputColumn_v3_CustomizeTextArea } from './InputColumn_v3_CustomizeTextArea';
 
 interface InstructionInputColumn_v3_input {
   t: IGetT_frontend_output;
