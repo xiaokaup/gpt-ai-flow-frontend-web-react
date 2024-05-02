@@ -17,7 +17,6 @@ import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/Cr
 import { ProModeModelValueProvider } from '../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
-import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
@@ -180,7 +179,11 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.name} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
-                        <ProModeWindow_v4_tabPane_type_commandChain t={t} tabPane={tabPane} />
+                        <ProModeWindow_v4_tabPane_type_commandChain
+                          t={t}
+                          tabPane={tabPane}
+                          webCase={{ userData, localDataFromStorage }}
+                        />
                       )}
                     </Tabs.TabPane>
                   );
