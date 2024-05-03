@@ -67,7 +67,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
       // console.log('value', value);
 
       matcheKeys.push(key);
-      matcheValues.push(value);
+      if (value) matcheValues.push(value);
 
       setInputsCache((prevInputs) => {
         if (typeof inputsCache[key] !== 'string' && !inputsCache[key] && value) {
