@@ -51,9 +51,9 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
       <div style={containerStyle}>
         <SettingsWindow_4_proMode t={t} localeForSettingsWindow={locale} />
       </div>
-      <div style={containerStyle}>
+      {/* <div style={containerStyle}>
         <SettingsWindow_6_referralReward t={t} userId={userId.toString()} accessToken={accessToken} />
-      </div>
+      </div> */}
     </>
   );
 };
