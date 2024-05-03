@@ -1,7 +1,7 @@
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Form, message } from 'antd';
@@ -40,20 +40,26 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
   const {
     t,
     containerStyle,
-    contextSelectValueWithPlaceholder: contextPromptWithPlaceholder,
+    contextSelectValueWithPlaceholder,
     setAiCommandValue,
     setAICommandIsDirty,
     toggleAiCommandIsShowInputsForm,
   } = props;
 
-  const placeholderRegex = /\[([^\]]+)\]/g;
-  const matches: string[] = contextPromptWithPlaceholder.match(placeholderRegex) ?? [];
+  // console.log('contextSelectValueWithPlaceholder', contextSelectValueWithPlaceholder);
 
-  // console.log('matches', matches);
+  const [placeholders, setPlacehodlers] = useState<string[]>([]);
 
-  const initialPlaceholders: string[] = matches;
+  useEffect(() => {
+    const placeholderRegex = /\[([^\]]+)\]/g;
+    const matches: string[] = contextSelectValueWithPlaceholder.match(placeholderRegex) ?? [];
 
-  const [placeholders] = useState<string[]>(initialPlaceholders);
+    // console.log('matches', matches);
+
+    const initialPlaceholders: string[] = matches;
+
+    setPlacehodlers(initialPlaceholders);
+  }, [contextSelectValueWithPlaceholder]);
 
   const handleInputChange = (placeholder: string, value: string) => {
     setAICommandIsDirty(true);
@@ -64,7 +70,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
   };
 
   const generateCommandValueNoPlaceHolder = () => {
-    let result = contextPromptWithPlaceholder;
+    let result = contextSelectValueWithPlaceholder;
 
     placeholders.forEach((placeholder) => {
       const value = inputsCache[placeholder] || placeholder; // Set default value to placeholder if no value is typed by user
