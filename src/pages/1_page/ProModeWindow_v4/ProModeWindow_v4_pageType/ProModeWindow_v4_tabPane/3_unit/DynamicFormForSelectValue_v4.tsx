@@ -47,8 +47,10 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
 
   // console.log('contextSelectValueWithPlaceholder', contextSelectValueWithPlaceholder);
 
+  const [form] = Form.useForm();
   const [placeholderKeys, setPlacehodlerKeys] = useState<string[]>([]);
   const [placeholderValues, setPlaceholderValues] = useState<string[]>([]);
+  const [placeholderKeyValues, setPlaceholderKeyValues] = useState<{ [key: string]: string }>({});
 
   const init = useCallback(() => {
     const placeholderRegex = /\[([^:\]]+)(?::([^\]]+))?\]/g;
@@ -56,6 +58,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
 
     const matcheKeys: string[] = [];
     const matcheValues: string[] = [];
+    const matcheKeyValues: { [key: string]: string } = {};
 
     let match = placeholderRegex.exec(contextSelectValueWithPlaceholder);
     while (match !== null) {
@@ -68,23 +71,15 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
 
       matcheKeys.push(key);
       if (value) matcheValues.push(value);
-
-      setInputsCache((prevInputs) => {
-        if (typeof inputsCache[key] !== 'string' && !inputsCache[key] && value) {
-          return {
-            ...prevInputs,
-            [key]: value,
-          };
-        }
-        return prevInputs;
-      });
+      matcheKeyValues[key] = value;
 
       match = placeholderRegex.exec(contextSelectValueWithPlaceholder);
     }
 
     setPlacehodlerKeys(matcheKeys);
     setPlaceholderValues(matcheValues);
-  }, [contextSelectValueWithPlaceholder, inputsCache, setInputsCache]);
+    setPlaceholderKeyValues(matcheKeyValues);
+  }, [contextSelectValueWithPlaceholder]);
 
   useEffect(() => {
     init();
@@ -98,7 +93,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
     }));
   };
 
-  const generateCommandValueNoPlaceHolder = () => {
+  const generateCommandValueNoPlaceHolder = (isToggleIsShowPutsForm: boolean) => () => {
     let result = contextSelectValueWithPlaceholder;
 
     // console.log('before result', result);
@@ -111,7 +106,8 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
     // console.log('middle result', result);
 
     placeholderKeys.forEach((placeholder) => {
-      const value = inputsCache[placeholder] || placeholder; // Set default value to placeholder if no value is typed by user
+      const newInputsCache = form.getFieldsValue();
+      const value = newInputsCache[placeholder] || placeholder; // Set default value to placeholder if no value is typed by user
       if (value.trim()) {
         // console.log('before result', result);
         // console.log('placeholder', placeholder);
@@ -127,13 +123,26 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
     setAiCommandValue(result);
     setAICommandIsDirty(false);
     message.success(t.get('Fill in successfully'));
-    toggleAiCommandIsShowInputsForm();
+    if (isToggleIsShowPutsForm) toggleAiCommandIsShowInputsForm();
+  };
+
+  const resetPlaceholderValues_as_default = () => {
+    const newInputsCache = { ...inputsCache };
+
+    placeholderKeys.forEach((placeholder) => {
+      newInputsCache[placeholder] = placeholderKeyValues[placeholder];
+    });
+    setInputsCache(newInputsCache);
+    form.setFieldsValue(newInputsCache);
+
+    // Update the command value
+    generateCommandValueNoPlaceHolder(false)();
   };
 
   return (
     <div className="row" style={containerStyle}>
       <div className="row">
-        <Form initialValues={inputsCache}>
+        <Form form={form} initialValues={inputsCache}>
           {placeholderKeys.map((placeholder, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
@@ -159,9 +168,18 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
       </div>
 
       <div className="row">
-        <Button type="primary" size="small" onClick={generateCommandValueNoPlaceHolder}>
-          {t.get('Define command details')}
-        </Button>
+        <div className="row">
+          <Button type="primary" size="small" onClick={generateCommandValueNoPlaceHolder(true)}>
+            {t.get('Define command details')}
+          </Button>
+        </div>
+        {placeholderValues.length > 0 && (
+          <div className="row">
+            <Button size="small" onClick={resetPlaceholderValues_as_default}>
+              使用默认值
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
