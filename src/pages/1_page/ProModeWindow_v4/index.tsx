@@ -31,9 +31,9 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import {
   EProMode_v4_tabPane_type,
-  IProMode_v4,
   IProMode_v4_tabPane,
 } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IPromode_v4_tabPane';
+import { IProMode_v4 } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
 import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
 import { ProModeWindow_v4_tabPane_type_commandChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane';
@@ -86,6 +86,10 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   useEffect(() => {
     init();
   }, [init]);
+
+  const onTabsChange = (key: string) => {
+    setActiveTabPanelKey(key);
+  };
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
@@ -172,7 +176,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 activeKey={activeTabPanelKey}
                 type="card"
                 // type="editable-card"
-                // onChange={onTabsChange}
+                onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
                 {proMode_v4_tabPanes.map((tabPane: IProMode_v4_tabPane) => {
@@ -223,7 +227,7 @@ interface IProModeWindow_input {
   t: IGetT_frontend_output;
   locale: ELocale;
 }
-const ProModeWindow = (props: IProModeWindow_input) => {
+const ProModeWindow_v4 = (props: IProModeWindow_input) => {
   const dispatch = useDispatch();
 
   const { t, locale } = props;
@@ -258,4 +262,4 @@ const ProModeWindow = (props: IProModeWindow_input) => {
   );
 };
 
-export default ProModeWindow;
+export default ProModeWindow_v4;
