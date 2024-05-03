@@ -1,7 +1,7 @@
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Form, message } from 'antd';
@@ -36,7 +36,6 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
       dispatch(updateInputsCache(newItem) as any);
     },
   });
-
   const {
     t,
     containerStyle,
@@ -48,18 +47,48 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
 
   // console.log('contextSelectValueWithPlaceholder', contextSelectValueWithPlaceholder);
 
-  const [placeholders, setPlacehodlers] = useState<string[]>([]);
+  const [placeholderKeys, setPlacehodlerKeys] = useState<string[]>([]);
+  const [placeholderValues, setPlaceholderValues] = useState<string[]>([]);
+
+  const init = useCallback(() => {
+    const placeholderRegex = /\[([^:\]]+)(?::([^\]]+))?\]/g;
+    // const placeholderRegex = /\[ ([^:\]]+) (?: :([^:\]]+) )? \]/g // 分解后
+
+    const matcheKeys: string[] = [];
+    const matcheValues: string[] = [];
+
+    let match = placeholderRegex.exec(contextSelectValueWithPlaceholder);
+    while (match !== null) {
+      const key = match[1];
+      const value = match[2];
+
+      // console.log('match', match);
+      // console.log('key', key);
+      // console.log('value', value);
+
+      matcheKeys.push(key);
+      matcheValues.push(value);
+
+      setInputsCache((prevInputs) => {
+        if (typeof inputsCache[key] !== 'string' && !inputsCache[key] && value) {
+          return {
+            ...prevInputs,
+            [key]: value,
+          };
+        }
+        return prevInputs;
+      });
+
+      match = placeholderRegex.exec(contextSelectValueWithPlaceholder);
+    }
+
+    setPlacehodlerKeys(matcheKeys);
+    setPlaceholderValues(matcheValues);
+  }, [contextSelectValueWithPlaceholder, inputsCache, setInputsCache]);
 
   useEffect(() => {
-    const placeholderRegex = /\[([^\]]+)\]/g;
-    const matches: string[] = contextSelectValueWithPlaceholder.match(placeholderRegex) ?? [];
-
-    // console.log('matches', matches);
-
-    const initialPlaceholders: string[] = matches;
-
-    setPlacehodlers(initialPlaceholders);
-  }, [contextSelectValueWithPlaceholder]);
+    init();
+  }, [init]);
 
   const handleInputChange = (placeholder: string, value: string) => {
     setAICommandIsDirty(true);
@@ -72,18 +101,28 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
   const generateCommandValueNoPlaceHolder = () => {
     let result = contextSelectValueWithPlaceholder;
 
-    placeholders.forEach((placeholder) => {
+    // console.log('before result', result);
+
+    placeholderValues.forEach((value) => {
+      const regex = new RegExp(`:${value}`, 'g');
+      result = result.replace(regex, '');
+    });
+
+    // console.log('middle result', result);
+
+    placeholderKeys.forEach((placeholder) => {
       const value = inputsCache[placeholder] || placeholder; // Set default value to placeholder if no value is typed by user
       if (value.trim()) {
         // console.log('before result', result);
         // console.log('placeholder', placeholder);
-        // console.log('value', value);
-        const escapedPlaceholder = TStringFile.escapeRegExp(placeholder);
+        // console.log('second value', value);
+        const escapedPlaceholder = TStringFile.escapeRegExp(`[${placeholder}]`);
         const regex = new RegExp(escapedPlaceholder, 'g');
         result = result.replace(regex, value);
-        // console.log('after result', result);
       }
     });
+
+    // console.log('after result', result);
 
     setAiCommandValue(result);
     setAICommandIsDirty(false);
@@ -95,11 +134,11 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
     <div className="row" style={containerStyle}>
       <div className="row">
         <Form initialValues={inputsCache}>
-          {placeholders.map((placeholder, index) => (
+          {placeholderKeys.map((placeholder, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
               <Form.Item
-                label={placeholder}
+                label={`[${placeholder}]`}
                 name={placeholder}
                 rules={[]}
                 //   rules={[{ required: true }]}
