@@ -108,48 +108,19 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
+  console.log('proModeSetData', proModeSetData);
+
   const PROMODE_COMMUNICATION_DATA = proModeSetData[EServiceCategoryDB_name.COMMUNICATION_MANAGER];
   const PROMODE_COPY_WRITING_DATA = proModeSetData[EServiceCategoryDB_name.COPY_WRITING_MANAGER];
   const PROMODE_XIAO_HONG_SHU_DATA = proModeSetData[EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER];
   const PROMODE_AI = proModeSetData[EServiceCategoryDB_name.AI_ASSISTANT];
   const PROMODE_COMMENT_DATA = proModeSetData[EServiceCategoryDB_name.COMMENT_MANAGER];
-  const PROMODE_CAREER_DATA = proModeSetData[EServiceCategoryDB_name.CAREER_MANAGER];
+  // const PROMODE_CAREER_DATA = proModeSetData[EServiceCategoryDB_name.CAREER_MANAGER];
   const PROMODE_UP_ZHU_DATA = proModeSetData[EServiceCategoryDB_name.UP_ZHU];
   const PROMODE_PRODUCT_MANAGER = proModeSetData[EServiceCategoryDB_name.PRODUCT_MANAGER];
   const PROMODE_MARKETING_EXPERT = proModeSetData[EServiceCategoryDB_name.MARKETING_MANAGER];
   const PROMODE_SEO_DATA = proModeSetData[EServiceCategoryDB_name.SEO_MANAGER];
   const PROMODE_CUSTOMER_ASSISTANT_DATA = proModeSetData[EServiceCategoryDB_name.CUSTOMER_ASSISTANT];
-
-  if (
-    !PROMODE_COMMUNICATION_DATA ||
-    !PROMODE_COMMUNICATION_DATA.tabInfo ||
-    !PROMODE_COPY_WRITING_DATA ||
-    !PROMODE_COPY_WRITING_DATA.tabInfo ||
-    !PROMODE_XIAO_HONG_SHU_DATA ||
-    !PROMODE_XIAO_HONG_SHU_DATA.tabInfo ||
-    !PROMODE_AI ||
-    !PROMODE_AI.tabInfo ||
-    !PROMODE_COMMENT_DATA ||
-    !PROMODE_COMMENT_DATA.tabInfo ||
-    // !PROMODE_CAREER_DATA || // @TODELETE
-    // !PROMODE_CAREER_DATA.tabInfo || // @TODELETE
-    !PROMODE_UP_ZHU_DATA ||
-    !PROMODE_UP_ZHU_DATA.tabInfo ||
-    !PROMODE_PRODUCT_MANAGER ||
-    !PROMODE_PRODUCT_MANAGER.tabInfo ||
-    !PROMODE_MARKETING_EXPERT ||
-    !PROMODE_MARKETING_EXPERT.tabInfo ||
-    !PROMODE_SEO_DATA ||
-    !PROMODE_SEO_DATA.tabInfo ||
-    !PROMODE_CUSTOMER_ASSISTANT_DATA ||
-    !PROMODE_CUSTOMER_ASSISTANT_DATA.tabInfo
-  ) {
-    dispatch(userLogoutAction() as any);
-    setTimeout(() => {
-      navigate('/login');
-      window.location.reload();
-    }, 1000);
-  }
 
   const defaultTabPanels: ITabPanel[] = [];
 

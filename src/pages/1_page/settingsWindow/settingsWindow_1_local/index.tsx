@@ -51,20 +51,6 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
     );
   }
 
-  const subscription_v2DataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
-    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
-  });
-  const { subscription_v2Data } = useSubscription_v2Data({
-    userId,
-    accessToken: userAccessToken,
-    subscription_v2DataFromStorage: subscription_v2DataFromStorage,
-    onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
-      dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
-    },
-    locale: t.currentLocale,
-    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-  });
-
   const [selectedTabKey, setSelectedTabKey] = useState<ESettingsWindow_1_local_tabKey>(
     ESettingsWindow_1_local_tabKey.BASIC
   );
@@ -73,7 +59,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: t.get('Basic'),
-      children: <SettingsWindow_1_local_basic t={t} userData={userData} subscription_v2Data={subscription_v2Data} />,
+      children: <SettingsWindow_1_local_basic t={t} />,
     },
   ];
 

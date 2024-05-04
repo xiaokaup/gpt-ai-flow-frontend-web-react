@@ -22,7 +22,6 @@ const { TextArea } = Input;
 
 export interface IOuputIndicatorComponent_input {
   t: IGetT_frontend_output;
-  hasAvailableSubscription: boolean;
 
   stopInstructionAIFlowResults: (paraRequestControllersMap: Map<string, AbortController>) => void;
   checkAiCommandsThenUploadCustomizedAiCommand: () => void;
@@ -46,7 +45,6 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
 
   const {
     t,
-    hasAvailableSubscription,
 
     stopInstructionAIFlowResults,
     checkAiCommandsThenUploadCustomizedAiCommand,
@@ -61,6 +59,8 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
     aiComandsResults,
     setAiComandsResults,
   } = props;
+
+  const isShowWatermark = true;
 
   return (
     <>
@@ -189,11 +189,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                       padding: '.25rem',
                     }}
                   >
-                    <div
-                      className={
-                        hasAvailableSubscription ? 'output_block' : 'output_block output_block_with_watermarker'
-                      }
-                    >
+                    <div className={isShowWatermark ? 'output_block output_block_with_watermarker' : 'output_block'}>
                       <ReactMarkdown>{aiComandsResults[index].value}</ReactMarkdown>
                     </div>
                   </div>

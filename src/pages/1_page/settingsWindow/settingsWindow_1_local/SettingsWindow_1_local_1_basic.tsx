@@ -18,14 +18,11 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
-  userData: IUserData;
-  subscription_v2Data: ISubscriptionDB_v2;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { t, userData, subscription_v2Data } = props;
-  const subscriptionIsExpired = subscription_v2Data?.expiredAt && new Date(subscription_v2Data?.expiredAt) < new Date();
+  const { t } = props;
 
   const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -109,7 +106,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={ModelStaticService.getModelTypeOptions(userData, subscription_v2Data)}
+          options={ModelStaticService.getAllModelOptions()}
           style={{
             width: 200,
           }}

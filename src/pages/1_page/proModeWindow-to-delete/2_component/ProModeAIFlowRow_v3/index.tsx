@@ -24,16 +24,9 @@ import { IAIFlow } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
-import {
-  IUseSubscriptionDB_v2Data_output,
-  useSubscription_v2Data,
-} from '../../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import ISubscriptionDB_v2File, {
-  ISubscriptionDB_v2,
-} from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
 import { EAIFlowRole, EAIFlow_type } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
@@ -42,7 +35,6 @@ import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_uni
 import { ELangchainRetrievalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
 import { IBuildOpenAIPrompts_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
-import { useSubscriptionDB_v2ValueContext } from '../../../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -72,10 +64,6 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   const proModeModalValue = useProModeModelValueProviderContext();
   const creativityValue = useCreativityValueContext();
-  const useSubscriptionDB_v2DataOutput: IUseSubscriptionDB_v2Data_output = useSubscriptionDB_v2ValueContext();
-  const {
-    check: { hasAvailableSubscription_v2: hasAvailableSubscription },
-  } = useSubscriptionDB_v2DataOutput;
 
   const {
     t,
@@ -113,20 +101,6 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   });
   const { id: userId, token: userToken } = userData;
   const userAccessToken = userToken?.accessToken;
-
-  const subscription_v2DataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
-    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
-  });
-  const { subscription_v2Data } = useSubscription_v2Data({
-    userId: userId as number,
-    accessToken: userAccessToken as string,
-    subscription_v2DataFromStorage,
-    onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
-      dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
-    },
-    locale,
-    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-  });
 
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
@@ -621,7 +595,6 @@ ${t.get('Original content')}: """${exampleText}"""`,
       <div className="right_side_results_column column" style={{ flex: '1 1 70%' }}>
         <OutputResultColumn_v3
           t={t}
-          hasAvailableSubscription={hasAvailableSubscription}
           // Call requests
           stopInstructionAIFlowResults={stopInstructionAIFlowResults}
           checkAiCommandsThenUploadCustomizedAiCommand={checkAiCommandsThenUploadCustomizedAiCommand}
