@@ -113,7 +113,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const PROMODE_XIAO_HONG_SHU_DATA = proModeSetData[EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER];
   const PROMODE_AI = proModeSetData[EServiceCategoryDB_name.AI_ASSISTANT];
   const PROMODE_COMMENT_DATA = proModeSetData[EServiceCategoryDB_name.COMMENT_MANAGER];
-  const PROMODE_CAREER_DATA = proModeSetData[EServiceCategoryDB_name.CAREER_MANAGER];
+  // const PROMODE_CAREER_DATA = proModeSetData[EServiceCategoryDB_name.CAREER_MANAGER];
   const PROMODE_UP_ZHU_DATA = proModeSetData[EServiceCategoryDB_name.UP_ZHU];
   const PROMODE_PRODUCT_MANAGER = proModeSetData[EServiceCategoryDB_name.PRODUCT_MANAGER];
   const PROMODE_MARKETING_EXPERT = proModeSetData[EServiceCategoryDB_name.MARKETING_MANAGER];

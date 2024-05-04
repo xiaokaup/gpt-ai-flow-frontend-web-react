@@ -23,14 +23,8 @@ import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-databa
 import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
-import {
-  IUseSubscriptionDB_v2Data_output,
-  useSubscription_v2Data,
-} from '../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
-import { EProductDB_name } from '../../../gpt-ai-flow-common/enum-database/EProductDB';
-import { SubscriptionDB_v2ValueProvider } from '../../../gpt-ai-flow-common/contexts/SubscriptionDB_v2ProviderContext';
 
-import { EOpenAiModelType } from '../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { EOpenAiModel_type } from '../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
@@ -98,23 +92,6 @@ const ProModeWindow = (props: IProModeWindow_input) => {
     );
   }
 
-  const subscriptionDataFromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
-    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
-  });
-  const useSubscriptionDB_v2DataOutput: IUseSubscriptionDB_v2Data_output = useSubscription_v2Data({
-    userId,
-    accessToken: userAccessToken,
-    subscription_v2DataFromStorage: subscriptionDataFromStorage,
-    onSubscription_v2DataChange: (newItem: ISubscriptionDB_v2) => {
-      dispatch(udpateSubscriptionDBAction_v2(newItem) as any);
-    },
-    locale: t.currentLocale,
-    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-  });
-  const {
-    subscription_v2Data: subscriptionData,
-    check: { hasAvailableSubscription_v2 },
-  } = useSubscriptionDB_v2DataOutput;
   const isFreeVersion = true;
 
   // === ProMode Data - start ===
@@ -138,7 +115,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
   };
 
   // Model select
-  const [proModeModelType, setProModeModelType] = useState<EOpenAiModelType>(model_type);
+  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(model_type);
   const [subscription_v2Data] = useState<ISubscriptionDB_v2>(
     subscription_v2FromStorage ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default
   );
@@ -179,10 +156,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
         label: `${newActiveTabPanelKey}-${label}`,
         value,
         children,
-        disabled:
-          subscriptionData.Product_Limit?.Product?.name !== EProductDB_name.DEFAULT
-            ? !serviceCategories.includes(value)
-            : true,
+        disabled: false,
       },
     ]);
     setActiveTabPanelKey(newActiveTabPanelKey as EServiceCategoryDB_name);
@@ -321,7 +295,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
               optionFilterProp="children"
               onChange={(value: string) => {
                 console.log(`selected ${value}`);
-                setProModeModelType(value as EOpenAiModelType);
+                setProModeModelType(value as EOpenAiModel_type);
               }}
               onSearch={(value: string) => {
                 console.log('search:', value);
@@ -335,7 +309,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
           </div>
         </div>
 
-        {!isFreeVersion && !hasAvailableSubscription_v2 && !isBetaUser && (
+        {!isFreeVersion && !isBetaUser && (
           <div className="row">
             <Alert
               message={
@@ -357,24 +331,22 @@ const ProModeWindow = (props: IProModeWindow_input) => {
         <div className="row bottom_block_tabs">
           <ProModeModelValueProvider value={proModeModelType}>
             <CreativityValueProvider value={creativityValue}>
-              <SubscriptionDB_v2ValueProvider value={useSubscriptionDB_v2DataOutput}>
-                <Tabs
-                  size="small"
-                  hideAdd
-                  onChange={onTabsChange}
-                  activeKey={activeTabPanelKey}
-                  type="editable-card"
-                  onEdit={onEditTabPanel}
-                >
-                  {tabPanels.map((pane) => {
-                    return (
-                      <Tabs.TabPane tab={pane.label} key={pane.key} disabled={pane.disabled}>
-                        {pane.children}
-                      </Tabs.TabPane>
-                    );
-                  })}
-                </Tabs>
-              </SubscriptionDB_v2ValueProvider>
+              <Tabs
+                size="small"
+                hideAdd
+                onChange={onTabsChange}
+                activeKey={activeTabPanelKey}
+                type="editable-card"
+                onEdit={onEditTabPanel}
+              >
+                {tabPanels.map((pane) => {
+                  return (
+                    <Tabs.TabPane tab={pane.label} key={pane.key}>
+                      {pane.children}
+                    </Tabs.TabPane>
+                  );
+                })}
+              </Tabs>
             </CreativityValueProvider>
           </ProModeModelValueProvider>
         </div>

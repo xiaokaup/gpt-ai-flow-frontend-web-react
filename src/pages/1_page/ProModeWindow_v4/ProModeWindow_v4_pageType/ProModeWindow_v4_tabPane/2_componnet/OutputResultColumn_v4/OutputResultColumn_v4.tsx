@@ -1,6 +1,6 @@
-import '../../../../../styles/global.css';
-import '../../../../../styles/layout.scss';
-import './OutputResultColumn_v3.scss';
+import '../../../../../../../styles/global.css';
+import '../../../../../../../styles/layout.scss';
+import './OutputResultColumn_v4.scss';
 
 import React, { Dispatch, SetStateAction, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -8,27 +8,27 @@ import html2canvas from 'html2canvas';
 import copy from 'copy-to-clipboard';
 
 import { Button, Input, Empty, message } from 'antd';
-import { RedoOutlined, BorderOutlined, CopyOutlined, EditOutlined } from '@ant-design/icons';
+import { RedoOutlined, BorderOutlined, CopyOutlined, EditOutlined, MessageOutlined } from '@ant-design/icons';
 
-import iconShare from '../../../../../../assets/icons-customize/icon-share/icon-share-18x18.png';
+import iconShare from '../../../../../../../../assets/icons-customize/icon-share/icon-share-18x18.png';
 
+import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import {
-  IAICommandsResults_v4,
-  IAICommands_v4,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
-import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+  IAICommands_v5_resultRow,
+  IAICommands_v5_with_IAIFlow_v2,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
 
 const { TextArea } = Input;
 
-export interface IOuputIndicatorComponent_input {
+export interface IOutputResultColumn_v4_input {
   t: IGetT_frontend_output;
-  hasAvailableSubscription: boolean;
 
   stopInstructionAIFlowResults: (paraRequestControllersMap: Map<string, AbortController>) => void;
-  checkAiCommandsThenUploadCustomizedAiCommand: () => void;
+  checkAiCommandsThenUploadCustomizedAiCommand: (locale: ELocale) => void;
   getInstructionAIFlowResults: () => void;
   getOneInstructionAiFlowResult: (
-    oneInstructionAiFlowResult: IAICommands_v4,
+    oneAiCommand_v5: IAICommands_v5_with_IAIFlow_v2,
     index: number,
     requestController: AbortController
   ) => void;
@@ -37,16 +37,16 @@ export interface IOuputIndicatorComponent_input {
   addRequestControllerItem: (key: string, value: AbortController) => void;
   removeRequestControllerItem: (key: string) => void;
 
-  aiCommands: IAICommands_v4[];
-  aiComandsResults: IAICommandsResults_v4[];
-  setAiComandsResults: Dispatch<SetStateAction<IAICommandsResults_v4[]>>;
+  contextHandled: string;
+  aiCommands: IAICommands_v5_with_IAIFlow_v2[];
+  aiComandsResults: IAICommands_v5_resultRow[];
+  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v5_resultRow[]>>;
 }
-export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => {
+export const OutputResultColumn_v4 = (props: IOutputResultColumn_v4_input) => {
   const captureOuputResultsRef = useRef<HTMLDivElement>(null);
 
   const {
     t,
-    hasAvailableSubscription,
 
     stopInstructionAIFlowResults,
     checkAiCommandsThenUploadCustomizedAiCommand,
@@ -57,10 +57,13 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
     addRequestControllerItem,
     removeRequestControllerItem,
 
+    contextHandled,
     aiCommands,
     aiComandsResults,
     setAiComandsResults,
   } = props;
+
+  const isShow_GPTAIFLOW_watermarker = true;
 
   return (
     <>
@@ -76,7 +79,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
             onClick={() => {
               stopInstructionAIFlowResults(requestControllersMap);
             }}
-            style={{ marginLeft: 6 }}
+            style={{ marginLeft: '.4rem' }}
           >
             {t.get('Stop')}
           </Button>
@@ -84,79 +87,81 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
             type="primary"
             size="small"
             onClick={() => {
-              checkAiCommandsThenUploadCustomizedAiCommand();
+              checkAiCommandsThenUploadCustomizedAiCommand(t.currentLocale);
               getInstructionAIFlowResults();
             }}
-            style={{ marginLeft: 6 }}
+            style={{ marginLeft: '.4rem' }}
             disabled={false}
           >
             {t.get('Request')}
           </Button>
         </div>
 
-        <img
-          className="share_button"
-          style={{
-            border: '1px solid #d9d9d9',
-            borderRadius: '.25rem',
-            padding: 4,
-            cursor: 'pointer',
+        <div style={{ display: 'flex' }}>
+          <img
+            className="share_button"
+            style={{
+              border: '1px solid #d9d9d9',
+              borderRadius: '.25rem',
+              padding: 4,
+              cursor: 'pointer',
 
-            marginLeft: '.4rem',
+              marginLeft: '.4rem',
 
-            flex: '0 1 auto',
-          }}
-          src={iconShare}
-          alt="shareButton"
-          onClick={() => {
-            const resultsElement = captureOuputResultsRef.current;
-            if (!resultsElement) {
-              return;
-            }
+              flex: '0 1 auto',
+            }}
+            src={iconShare}
+            alt="shareButton"
+            onClick={() => {
+              const resultsElement = captureOuputResultsRef.current;
+              if (!resultsElement) {
+                return;
+              }
+              // eslint-disable-next-line promise/catch-or-return, promise/always-return
+              html2canvas(resultsElement).then(function (canvas) {
+                // Convert canvas to a Blob
+                canvas.toBlob(function (blob) {
+                  if (!blob) {
+                    return;
+                  }
 
-            html2canvas(resultsElement).then(function (canvas) {
-              // Convert canvas to a Blob
-              canvas.toBlob(function (blob) {
-                if (!blob) {
-                  return;
-                }
+                  // Create a blob URL
+                  const blobURL = URL.createObjectURL(blob);
+                  // Create a link element for downloading
+                  const downloadLink = document.createElement('a');
+                  downloadLink.href = blobURL;
 
-                // Create a blob URL
-                const blobURL = URL.createObjectURL(blob);
-                // Create a link element for downloading
-                const downloadLink = document.createElement('a');
-                downloadLink.href = blobURL;
+                  // Set the filename for the downloaded file (you can customize this)
+                  // Get the current date and time
+                  const now = new Date();
 
-                // Set the filename for the downloaded file (you can customize this)
-                // Get the current date and time
-                const now = new Date();
+                  // Extract date and time components
+                  const year = now.getFullYear();
+                  const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based, so add 1 and pad with '0'
+                  const day = now.getDate().toString().padStart(2, '0');
+                  const hours = now.getHours().toString().padStart(2, '0');
+                  const minutes = now.getMinutes().toString().padStart(2, '0');
+                  const seconds = now.getSeconds().toString().padStart(2, '0');
+                  const dateTimeString = `${year}${month}${day}-${hours}${minutes}${seconds}`;
+                  const capturedImageFileName = `${dateTimeString}_captured_image.png`;
 
-                // Extract date and time components
-                const year = now.getFullYear();
-                const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based, so add 1 and pad with '0'
-                const day = now.getDate().toString().padStart(2, '0');
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const seconds = now.getSeconds().toString().padStart(2, '0');
-                const dateTimeString = `${year}${month}${day}-${hours}${minutes}${seconds}`;
-                const capturedImageFileName = `${dateTimeString}_captured_image.png`;
+                  downloadLink.download = capturedImageFileName;
 
-                downloadLink.download = capturedImageFileName;
-
-                // Trigger the download by simulating a click on the link
-                downloadLink.click();
-                // Clean up the blob URL
-                URL.revokeObjectURL(blobURL);
-              }, 'image/png'); // Specify the desired file format (e.g., image/png)
-            });
-          }}
-        />
+                  // Trigger the download by simulating a click on the link
+                  downloadLink.click();
+                  // Clean up the blob URL
+                  URL.revokeObjectURL(blobURL);
+                }, 'image/png'); // Specify the desired file format (e.g., image/png)
+              });
+            }}
+          />
+        </div>
       </div>
 
       <div ref={captureOuputResultsRef} className="row row_results">
         {aiComandsResults.length <= 0 && <Empty description={t.get('No results yet')} style={{ marginTop: 30 }} />}
 
-        {aiCommands.map((item: IAICommands_v4, index: number) => {
+        {aiCommands.map((item: IAICommands_v5_with_IAIFlow_v2, index: number) => {
           const { uuid } = item;
 
           if (!aiComandsResults[index]) {
@@ -191,7 +196,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                   >
                     <div
                       className={
-                        hasAvailableSubscription ? 'output_block' : 'output_block output_block_with_watermarker'
+                        isShow_GPTAIFLOW_watermarker ? 'output_block output_block_with_watermarker' : 'output_block'
                       }
                     >
                       <ReactMarkdown>{aiComandsResults[index].value}</ReactMarkdown>
@@ -271,6 +276,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                       onClick={() => {
                         const oneInstructionAiFlowResult = aiCommands[index];
 
+                        // eslint-disable-next-line @typescript-eslint/no-shadow
                         const { uuid } = oneInstructionAiFlowResult;
                         console.log('暂停结果', uuid);
 
@@ -300,6 +306,7 @@ export const OutputResultColumn_v3 = (props: IOuputIndicatorComponent_input) => 
                         flex: '0 1 auto',
                       }}
                       onClick={() => {
+                        // eslint-disable-next-line no-console
                         console.log('重新获取结果');
 
                         const requestController = new AbortController();

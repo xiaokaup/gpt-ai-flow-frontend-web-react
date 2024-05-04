@@ -8,7 +8,7 @@ import { Button, Checkbox, Select, message } from 'antd';
 import { IReduxRootState } from '../../../../store/reducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
-import { EOpenAiModelType } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { EOpenAiModel_type } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { ISubscriptionDB_v2 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { EProductDB_version } from '../../../../gpt-ai-flow-common/enum-database/EProductDB';
@@ -18,14 +18,11 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
-  userData: IUserData;
-  subscription_v2Data: ISubscriptionDB_v2;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { t, userData, subscription_v2Data } = props;
-  const subscriptionIsExpired = subscription_v2Data?.expiredAt && new Date(subscription_v2Data?.expiredAt) < new Date();
+  const { t } = props;
 
   const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? {};
@@ -33,11 +30,11 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
 
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
 
-  const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModelType>(
-    localFromStore.chatMode?.model_type ?? EOpenAiModelType.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
+  const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModel_type>(
+    localFromStore.chatMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
   );
-  const [proModeModelType, setProModeModelType] = useState<EOpenAiModelType>(
-    localFromStore.proMode?.model_type ?? EOpenAiModelType.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
+  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(
+    localFromStore.proMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TUEBO_1106_AS_DEFAULT
   );
 
   const onSaveLocalSettings = () => {
@@ -70,30 +67,6 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             />
           </label>
         </div>
-        {!subscriptionIsExpired &&
-          subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
-            <div>
-              <span>
-                {t.getHTML(
-                  'You have already chosen to use the official model solution, <b>there is no need to fill this out</b>',
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  { b: (chunks: any) => <b>{chunks}</b> }
-                )}
-              </span>
-            </div>
-          )}
-        {subscriptionIsExpired &&
-          subscription_v2Data?.Product_Limit?.Product?.version === EProductDB_version.OFFICIAL_MODAL && (
-            <div>
-              <span>
-                {t.getHTML(
-                  'The solution you have chosen to use, <b>has expired</b>, please go to the <b>ProMode</b> settings panel to restart the solution',
-                  // eslint-disable-next-line react/no-unstable-nested-components
-                  { b: (chunks: any) => <b>{chunks}</b> }
-                )}
-              </span>
-            </div>
-          )}
       </div>
 
       {/* <div className="row" style={{ marginTop: '.75rem' }}>
@@ -127,13 +100,13 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           optionFilterProp="children"
           onChange={(value: string) => {
             console.log(`selected ${value}`);
-            setProModeModelType(value as EOpenAiModelType);
+            setProModeModelType(value as EOpenAiModel_type);
           }}
           onSearch={(value: string) => {
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={ModelStaticService.getModelTypeOptions(userData, subscription_v2Data)}
+          options={ModelStaticService.getAllModelOptions()}
           style={{
             width: 200,
           }}
