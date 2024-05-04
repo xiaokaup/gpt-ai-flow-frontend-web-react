@@ -1,4 +1,4 @@
-import TBackendProModeDataFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendProModeData';
+import TBackendProModeDataFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendProMode';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IReduxRootState } from '../reducer';
 import { IProMode_v3 } from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';

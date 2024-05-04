@@ -14,13 +14,13 @@ import {
 } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { EAIFlowRole, EAIFlowType } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
 
-import { InstructionInputColumn_v3_InstructionSelect } from './InstructionInputColumn_v3_InstructionSelect';
-import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InstructionInputColumn_v3_OutputIndicatorSelect';
-import { InstructionInputColumn_v3_CustomizeTextArea } from './InstructionInputColumn_v3_CustomizeTextArea';
+import { InstructionInputColumn_v3_InstructionSelect } from './InputColumn_v3_InstructionSelect';
+import { InstructionInputColumn_v3_OutputIndicatorSelect } from './InputColumn_v3_OutputIndicatorSelect';
+import { InstructionInputColumn_v3_CustomizeTextArea } from './InputColumn_v3_CustomizeTextArea';
 
 interface InstructionInputColumn_v3_input {
   t: IGetT_frontend_output;
@@ -77,7 +77,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
       <div className="row">
         <div className="row row_instructions_ouputIndicator_ai_flow_commands">
           {aiCommands.map((item: IAICommands_v4, index: number) => {
-            if (item.aiFlowInstance.type === EAIFlowType.INSTRUCTION) {
+            if (item.aiFlowInstance.type === EAIFlow_type.INSTRUCTION) {
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_InstructionSelect
@@ -116,7 +116,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
               );
             }
 
-            if (item.aiFlowInstance.type === EAIFlowType.CUSTOMIZE) {
+            if (item.aiFlowInstance.type === EAIFlow_type.CUSTOMIZE) {
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_CustomizeTextArea
@@ -131,7 +131,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
               );
             }
 
-            if (item.aiFlowInstance.type === EAIFlowType.OUTPUT_INDICATOR) {
+            if (item.aiFlowInstance.type === EAIFlow_type.OUTPUT_INDICATOR) {
               return (
                 <div className="row" key={`${index}-${item.aiFlowInstance.defaultValue}`}>
                   <InstructionInputColumn_v3_OutputIndicatorSelect
@@ -207,7 +207,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
                   aiFlowInstance: {
                     uuid,
                     role: EAIFlowRole.USER,
-                    type: EAIFlowType.CUSTOMIZE,
+                    type: EAIFlow_type.CUSTOMIZE,
                     isActive: true,
                     name: '',
                     summary: '',
