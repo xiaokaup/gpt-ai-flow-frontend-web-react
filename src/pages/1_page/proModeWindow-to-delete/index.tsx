@@ -341,7 +341,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
               >
                 {tabPanels.map((pane) => {
                   return (
-                    <Tabs.TabPane tab={pane.label} key={pane.key} disabled={pane.disabled}>
+                    <Tabs.TabPane tab={pane.label} key={pane.key}>
                       {pane.children}
                     </Tabs.TabPane>
                   );
