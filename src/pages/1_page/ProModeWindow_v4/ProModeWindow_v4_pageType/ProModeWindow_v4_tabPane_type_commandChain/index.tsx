@@ -9,25 +9,25 @@ import iconSuccessful from '../../../../../../assets/icons-customize/icon-status
 import iconWrong from '../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IPromode_v4_tabPane';
 import { DynamicFormForContextPrompt_v4 } from './3_unit/DynamicFormForContextPrompt_v4';
-import {
-  IProMode_v4_tabPane_example,
-  IPromode_v4_tabPane_context,
-  IPromode_v4_tabPane_context_default,
-  IPromode_v4_tabPane_context_stage,
-} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4_context';
 import TStringFile from '../../../../../gpt-ai-flow-common/tools/TString';
 import React from 'react';
 import { ProModeAiFlowRow_v4 } from './2_componnet/ProModeAiFlowRow_v4';
-import { IAIFlow_v2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IAIFlow_v2';
-import { convert_IAIFlow_v2_to_IAICommands_v5 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/TAIFlow_v2';
 import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { IStoreStorageLocalSettings } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IAIFlow_v2 } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
+import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
+import {
+  IProMode_v4_tabPane_example,
+  IPromode_v4_tabPane_context_default,
+  IPromode_v4_tabPane_context_stage,
+  IPromode_v4_tabPane_context_type_commandChain,
+} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
+import { convert_IAIFlow_v2_to_IAICommands_v4_new } from '../../../../../gpt-ai-flow-common/interface-app/2_component/TAIFlow_v2';
 
 interface IProModeWindow_v4_tabPane {
   t: IGetT_frontend_output;
-  tabPane: IProMode_v4_tabPane;
+  tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>;
   webCase: {
     userData: IUserData;
     localDataFromStorage: IStoreStorageLocalSettings;
@@ -59,9 +59,9 @@ export const ProModeWindow_v4_tabPane_type_commandChain = (props: IProModeWindow
   // === Search trigger for all children component - end ===
 
   // === tabPane ProModeData - start ===
-  const [tabPaneFromProps] = useState<IProMode_v4_tabPane>(tabPane);
+  const [tabPaneFromProps] = useState<IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>>(tabPane);
 
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context>(
+  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_type_commandChain>(
     IPromode_v4_tabPane_context_default
   );
   const [contextStageSelected, setContextStageSelected] = useState<IPromode_v4_tabPane_context_stage | null>();
@@ -69,7 +69,9 @@ export const ProModeWindow_v4_tabPane_type_commandChain = (props: IProModeWindow
 
   const init = useCallback(() => {
     // Context default
-    const contextDefault = tabPaneFromProps.context.find((item: IPromode_v4_tabPane_context) => item.isDefault);
+    const contextDefault = tabPaneFromProps.context.find(
+      (item: IPromode_v4_tabPane_context_type_commandChain) => item.isDefault
+    );
     // console.log('contextDefault', contextDefault);
     if (!contextDefault) return;
     setContextSelected(contextDefault);
@@ -192,7 +194,7 @@ export const ProModeWindow_v4_tabPane_type_commandChain = (props: IProModeWindow
                   console.log(`selected context: ${context_name}`);
                   const contextDefault = tabPaneFromProps.context.find((item) => item.name === context_name);
                   if (!contextDefault) return;
-                  setContextSelected(contextDefault as IPromode_v4_tabPane_context);
+                  setContextSelected(contextDefault as IPromode_v4_tabPane_context_type_commandChain);
                   const contextStageDefault = contextDefault?.stages.find((item) => item.isDefault);
                   // console.log('contextStageDefault', contextStageDefault);
                   if (!contextStageDefault) {
@@ -202,7 +204,7 @@ export const ProModeWindow_v4_tabPane_type_commandChain = (props: IProModeWindow
                   setContextStageSelected(contextStageDefault);
                 }}
                 options={tabPane.context
-                  .map((item: IPromode_v4_tabPane_context) => {
+                  .map((item: IPromode_v4_tabPane_context_type_commandChain) => {
                     return {
                       label: item.name,
                       value: item.name,
@@ -250,7 +252,7 @@ export const ProModeWindow_v4_tabPane_type_commandChain = (props: IProModeWindow
                 aiCommandsSettings={
                   contextStageSelected?.instructions
                     .filter((item: IAIFlow_v2) => item.isDefault)
-                    .map((item: IAIFlow_v2) => convert_IAIFlow_v2_to_IAICommands_v5(item)) ?? []
+                    .map((item: IAIFlow_v2) => convert_IAIFlow_v2_to_IAICommands_v4_new(item)) ?? []
                 }
                 webCase={webCase}
               />

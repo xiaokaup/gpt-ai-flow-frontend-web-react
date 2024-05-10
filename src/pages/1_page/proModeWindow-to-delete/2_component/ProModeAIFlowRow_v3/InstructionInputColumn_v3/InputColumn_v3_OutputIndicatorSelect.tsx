@@ -9,7 +9,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Select, message } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
 import {
   IAICommandsResults_v4,
   IAICommands_v4,

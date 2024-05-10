@@ -20,7 +20,8 @@ import {
   IAICommands_v4,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { IAIFlow } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+
+import { IAIFlow } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 

@@ -11,20 +11,20 @@ import iconWrong from '../../../../../../../../assets/icons-customize/icon-statu
 
 import TString from '../../../../../../../gpt-ai-flow-common/tools/TString';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IAIFlow_v2';
+import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import {
-  IAICommands_v5_resultRow,
-  IAICommands_v5_with_IAIFlow_v2,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
+  IAICommands_v4_new,
+  IAICommands_v4_new_resultRow,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
 
 interface IInputRow_v4_OutputIndicatorSelect_input {
   t: IGetT_frontend_output;
   index: number;
   ouputIndicatorCommandsSelectOptions: IAIFlow_v2[];
-  aiCommands: IAICommands_v5_with_IAIFlow_v2[];
-  setAiCommands: Dispatch<SetStateAction<IAICommands_v5_with_IAIFlow_v2[]>>;
+  aiCommands: IAICommands_v4_new[];
+  setAiCommands: Dispatch<SetStateAction<IAICommands_v4_new[]>>;
   removeRequestControllerItem: (uuid: string) => void;
-  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v5_resultRow[]>>;
+  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v4_new_resultRow[]>>;
   toggleAiCommandsIsShowInputsForm: () => void;
 }
 

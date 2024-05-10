@@ -29,13 +29,16 @@ import { ModelStaticService } from '../../../gpt-ai-flow-common/tools/2_class/SM
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
+
 import {
+  All_type_IProMode_v4_tabPane,
   EProMode_v4_tabPane_type,
+  IProMode_v4,
   IProMode_v4_tabPane,
-} from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IPromode_v4_tabPane';
-import { IProMode_v4 } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
+} from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
 import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
+import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
 import { ProModeWindow_v4_tabPane_type_commandChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
 
 interface IProModeWindow_v4_login {
@@ -58,7 +61,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   } = userData;
 
   // === ProMode Data - start ===
-  const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4_tabPane[]>([]);
+  const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>[]>(
+    []
+  );
   // === ProMode Data - end ===
 
   // === ProMode tabPane settings - start ===
@@ -179,13 +184,13 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
-                {proMode_v4_tabPanes.map((tabPane: IProMode_v4_tabPane) => {
+                {proMode_v4_tabPanes.map((tabPane: IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>) => {
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.name} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
                         <ProModeWindow_v4_tabPane_type_commandChain
                           t={t}
-                          tabPane={tabPane}
+                          tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
                           webCase={{ userData, localDataFromStorage }}
                         />
                       )}
