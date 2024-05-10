@@ -2,7 +2,7 @@
 import '../../../../../../../styles/global.css';
 import '../../../../../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,17 +16,13 @@ import { DynamicFormForSelectValue_v4 } from '../../3_unit/DynamicFormForSelectV
 import { IInputRow_v4_InstructionSelect } from './InputRow_v4_InstructionSelect';
 import { InputRow_v4_OutputIndicatorSelect } from './InputRow_v4_OutputIndicatorSelect';
 import { InputRow_v4_CustomizeTextArea } from './InputRow_v4_CustomizeTextArea';
-import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IAIFlow_v2';
-import {
-  IAICommands_v5_resultRow,
-  IAICommands_v5_with_IAIFlow_v2,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
-import IStoreStorageFile, {
-  IStoreStorageLocalSettings,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IStoreStorageLocalSettings } from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IUserData } from '../../../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { useSelector } from 'react-redux';
-import { IReduxRootState } from 'store/reducer';
+import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
+import {
+  IAICommands_v4_new,
+  IAICommands_v4_new_resultRow,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
 
 interface InstructionInputColumn_v4_input {
   t: IGetT_frontend_output;
@@ -34,9 +30,9 @@ interface InstructionInputColumn_v4_input {
   contextStageSelected_outputIndicator: IAIFlow_v2[];
   addRequestControllerItem: (uuid: string, value: AbortController) => void;
   removeRequestControllerItem: (uuid: string) => void;
-  aiCommands: IAICommands_v5_with_IAIFlow_v2[];
-  setAiCommands: React.Dispatch<React.SetStateAction<IAICommands_v5_with_IAIFlow_v2[]>>;
-  setAiComandsResults: React.Dispatch<React.SetStateAction<IAICommands_v5_resultRow[]>>;
+  aiCommands: IAICommands_v4_new[];
+  setAiCommands: React.Dispatch<React.SetStateAction<IAICommands_v4_new[]>>;
+  setAiComandsResults: React.Dispatch<React.SetStateAction<IAICommands_v4_new_resultRow[]>>;
   webCase: {
     userData: IUserData;
     localDataFromStorage: IStoreStorageLocalSettings;
@@ -79,7 +75,7 @@ export const InstructionInputColumn_v4 = (props: InstructionInputColumn_v4_input
       <div className="row">{t.get('Instruction set')}</div>
       <div className="row">
         <div className="row row_instructions_ouputIndicator_ai_flow_commands">
-          {aiCommands.map((item: IAICommands_v5_with_IAIFlow_v2, index: number) => {
+          {aiCommands.map((item: IAICommands_v4_new, index: number) => {
             if (item.aiFlowInstance.type === EAIFlow_type.INSTRUCTION) {
               return (
                 // eslint-disable-next-line react/no-array-index-key

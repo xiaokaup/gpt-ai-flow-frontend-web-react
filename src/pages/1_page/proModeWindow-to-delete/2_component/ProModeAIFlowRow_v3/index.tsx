@@ -12,7 +12,6 @@ import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { SwapOutlined } from '@ant-design/icons';
 
 import { IReduxRootState } from 'store/reducer';
-import { udpateSubscriptionDBAction_v2 } from '../../../../../store/actions/subscriptionDBActions_v2';
 import { saveLocalAction } from '../../../../../store/actions/localActions';
 
 import {
@@ -20,7 +19,8 @@ import {
   IAICommands_v4,
 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { IAIFlow } from '../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+
+import { IAIFlow } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
 import TString from '../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
@@ -41,8 +41,8 @@ import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nPro
 import { LangchainRetrivalService } from '../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
 import { IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IPrompt';
 import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
-
-import TBackendLangchainFile from '../../../../../tools/3_unit/TBackendLangchain-web';
+import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
+import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
@@ -401,6 +401,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
+          TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
           signal
         ).catch((error: Error) => {
           if (error.name === 'AbortError') {
@@ -431,6 +432,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
+          TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
           signal
         ).catch((error: Error) => {
           if (error.name === 'AbortError') {

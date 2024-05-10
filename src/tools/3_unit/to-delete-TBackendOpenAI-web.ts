@@ -2,7 +2,6 @@ import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
-  IBackendOpenAI_dataField_encrypted_input,
   ISendChatGPTRequestAsStreamToBackendProxy_dataField_input,
   IChatGPTStreamResponse_output,
   // ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
@@ -32,7 +31,7 @@ const sendChatGPTRequestAsStreamToBackendProxy_to_delete = async (
     ),
     body: JSON.stringify({
       data: TCryptoJSFile.encrypt(data, CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-    } as IBackendOpenAI_dataField_encrypted_input),
+    }),
   };
 
   if (signal) {

@@ -15,9 +15,9 @@ import iconShare from '../../../../../../../../assets/icons-customize/icon-share
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import {
-  IAICommands_v5_resultRow,
-  IAICommands_v5_with_IAIFlow_v2,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
+  IAICommands_v4_new,
+  IAICommands_v4_new_resultRow,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
 
 const { TextArea } = Input;
 
@@ -28,7 +28,7 @@ export interface IOutputResultColumn_v4_input {
   checkAiCommandsThenUploadCustomizedAiCommand: (locale: ELocale) => void;
   getInstructionAIFlowResults: () => void;
   getOneInstructionAiFlowResult: (
-    oneAiCommand_v5: IAICommands_v5_with_IAIFlow_v2,
+    oneAiCommand_v5: IAICommands_v4_new,
     index: number,
     requestController: AbortController
   ) => void;
@@ -38,9 +38,9 @@ export interface IOutputResultColumn_v4_input {
   removeRequestControllerItem: (key: string) => void;
 
   contextHandled: string;
-  aiCommands: IAICommands_v5_with_IAIFlow_v2[];
-  aiComandsResults: IAICommands_v5_resultRow[];
-  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v5_resultRow[]>>;
+  aiCommands: IAICommands_v4_new[];
+  aiComandsResults: IAICommands_v4_new_resultRow[];
+  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v4_new_resultRow[]>>;
 }
 export const OutputResultColumn_v4 = (props: IOutputResultColumn_v4_input) => {
   const captureOuputResultsRef = useRef<HTMLDivElement>(null);
@@ -161,7 +161,7 @@ export const OutputResultColumn_v4 = (props: IOutputResultColumn_v4_input) => {
       <div ref={captureOuputResultsRef} className="row row_results">
         {aiComandsResults.length <= 0 && <Empty description={t.get('No results yet')} style={{ marginTop: 30 }} />}
 
-        {aiCommands.map((item: IAICommands_v5_with_IAIFlow_v2, index: number) => {
+        {aiCommands.map((item: IAICommands_v4_new, index: number) => {
           const { uuid } = item;
 
           if (!aiComandsResults[index]) {

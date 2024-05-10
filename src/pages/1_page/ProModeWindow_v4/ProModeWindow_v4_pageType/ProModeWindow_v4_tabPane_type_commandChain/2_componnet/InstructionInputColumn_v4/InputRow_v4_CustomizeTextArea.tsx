@@ -7,9 +7,9 @@ import { Input } from 'antd';
 import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 import {
-  IAICommands_v5_resultRow,
-  IAICommands_v5_with_IAIFlow_v2,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
+  IAICommands_v4_new,
+  IAICommands_v4_new_resultRow,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 const { TextArea } = Input;
@@ -17,10 +17,10 @@ const { TextArea } = Input;
 interface IInputRow_v4_CustomizeTextArea_input {
   t: IGetT_frontend_output;
   index: number;
-  aiCommands: IAICommands_v5_with_IAIFlow_v2[];
-  setAiCommands: Dispatch<SetStateAction<IAICommands_v5_with_IAIFlow_v2[]>>;
+  aiCommands: IAICommands_v4_new[];
+  setAiCommands: Dispatch<SetStateAction<IAICommands_v4_new[]>>;
   removeRequestControllerItem: (uuid: string) => void;
-  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v5_resultRow[]>>;
+  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v4_new_resultRow[]>>;
 }
 
 export const InputRow_v4_CustomizeTextArea = (props: IInputRow_v4_CustomizeTextArea_input) => {

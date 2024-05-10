@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Select } from 'antd';
 import ProModeWindow_v4 from './ProModeWindow_v4';
 import ProModeWindow from './proModeWindow-to-delete';
-import { IGetT_frontend_output } from 'gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { ELocale } from 'gpt-ai-flow-common/enum-app/ELocale';
+import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 
 interface IProModeWindow_warpper {
   webCase: {
