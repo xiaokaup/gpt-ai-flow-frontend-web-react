@@ -10,7 +10,7 @@ import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { SwapOutlined } from '@ant-design/icons';
 
-import TBackendLangchainFile from '../../../../../../tools/3_unit/TBackendLangchain-web';
+import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import { IPrompt } from '../../../../../../gpt-ai-flow-common/interface-app/IPrompt';
 import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import EInputTypeDBFile, {
@@ -35,6 +35,7 @@ import {
   IAICommands_v4_new_resultRow,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
 import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
+import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
@@ -371,6 +372,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
+          TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
           signal
         ).catch((error) => {
           if (error.name === 'AbortError') {
@@ -402,6 +404,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
+          TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
           signal
         ).catch((error: any) => {
           if (error.name === 'AbortError') {
