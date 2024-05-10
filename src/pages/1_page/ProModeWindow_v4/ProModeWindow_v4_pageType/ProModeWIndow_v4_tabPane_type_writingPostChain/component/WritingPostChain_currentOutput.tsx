@@ -28,7 +28,6 @@ export const WritingPostChain_currentOutput = (props: {
   }, [currentOutput, form]);
 
   const onFinish = (values: IPost) => {
-    console.log('Received values of form: ', values);
     setCurrentOutput({
       ...currentOutput,
       ...values,

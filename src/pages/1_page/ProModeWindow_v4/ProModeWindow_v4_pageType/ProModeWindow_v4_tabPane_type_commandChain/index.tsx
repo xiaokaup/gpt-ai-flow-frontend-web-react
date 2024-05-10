@@ -196,7 +196,6 @@ export const ProModeWindow_v4_tabPane_type_commandChain = (props: IProModeWindow
                   if (!contextDefault) return;
                   setContextSelected(contextDefault as IPromode_v4_tabPane_context_type_commandChain);
                   const contextStageDefault = contextDefault?.stages.find((item) => item.isDefault);
-                  // console.log('contextStageDefault', contextStageDefault);
                   if (!contextStageDefault) {
                     setContextStageSelected(null);
                     return;

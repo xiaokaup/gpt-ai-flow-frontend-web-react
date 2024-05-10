@@ -20,7 +20,6 @@ export const Langchain_background = (props: {
   onResetAll: () => void;
 }) => {
   const { t, backgroundSelected, background, setBackground, onResetAll } = props;
-  console.log('Langchain_background backgroundSelected', backgroundSelected);
 
   const [form] = Form.useForm();
 

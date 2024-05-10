@@ -29,7 +29,6 @@ export const WritingPostChain_previousOutput = (props: {
   }, [previousOutput, form]);
 
   const onFinish = (values: IPost) => {
-    console.log('Received values of form: ', values);
     setPreviousOutput({
       ...previousOutput,
       ...values,

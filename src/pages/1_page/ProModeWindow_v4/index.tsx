@@ -90,7 +90,6 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
       locale,
       CONSTANTS_GPT_AI_FLOW_COMMON
     );
-    console.log('result', result);
     setProMode_v4_tabPanes(result.tabPanes);
     if (result.tabPanes.length > 0) setActiveTabPanelKey(result.tabPanes[0].name);
   }, [locale, userAccessToken]);

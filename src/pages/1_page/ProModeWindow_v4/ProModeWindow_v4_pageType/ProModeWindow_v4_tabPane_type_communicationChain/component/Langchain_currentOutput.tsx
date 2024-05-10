@@ -25,7 +25,6 @@ export const Langchain_currentOutput = (props: {
   }, [currentOutput, form]);
 
   const onFinish = (values: IMessage) => {
-    console.log('Received values of form: ', values);
     setCurrentOutput({
       ...currentOutput,
       ...values,

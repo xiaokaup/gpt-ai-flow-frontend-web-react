@@ -44,8 +44,6 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
   const { context } = tabPane;
   const creativityValue = useCreativityValueContext();
 
-  console.log('ProModeWindow_v4_tabPane_type_langchain tabPane', tabPane);
-
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
@@ -168,7 +166,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
           });
         },
         (resultText: string) => {
-          console.log('AfterRequestFunc', resultText);
+          // console.log('AfterRequestFunc', resultText);
 
           const newVersionNum_for_ai = (newVersionNum_for_human ?? 0) + 1;
           const newAIMessage = {

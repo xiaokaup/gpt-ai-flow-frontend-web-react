@@ -28,7 +28,6 @@ export const Langchain_previousOutput = (props: {
   }, [previousOutput, form]);
 
   const onFinish = (values: IMessage) => {
-    console.log('Received values of form: ', values);
     setPreviousOutput({
       ...previousOutput,
       ...values,

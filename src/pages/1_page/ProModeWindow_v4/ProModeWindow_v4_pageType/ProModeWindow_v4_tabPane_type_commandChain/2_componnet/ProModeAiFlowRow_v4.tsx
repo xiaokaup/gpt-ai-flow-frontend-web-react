@@ -92,13 +92,9 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const [exampleText, setExampleText] = useState<string>();
 
   const onInputContentTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log('Change:', e.target.value);
-
     setTextInputContent(e.target.value);
   };
   const onInputExampleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log('Change:', e.target.value);
-
     setExampleText(e.target.value);
   };
   // === 用户输入部分 - end ===
@@ -126,7 +122,6 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const [requestControllersMap, setRequestControllersMap] = useState(new Map<string, AbortController>());
 
   const addRequestControllerItem = (key: string, value: AbortController) => {
-    console.log('addRequestControllerItem key', key);
     const newMap = new Map(requestControllersMap);
     newMap.set(key, value);
     setRequestControllersMap(newMap);
@@ -135,7 +130,6 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const removeRequestControllerItem = (key: string) => {
     const newMap = new Map(requestControllersMap);
     const isDeleted = newMap.delete(key);
-    console.log('isDeleted: ', isDeleted);
     setRequestControllersMap(newMap);
   };
   // Request controllers - end
@@ -164,7 +158,6 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const [uuid, requestController] of paraRequestControllersMap.entries()) {
-      console.log(`uuid: ${uuid}, controller: ${requestController}`);
       requestController.abort();
     }
 
@@ -327,7 +320,6 @@ ${t.get('Original content')}: """${exampleText}"""`,
 
       // eslint-disable-next-line no-use-before-define
       const promptsResults = buildOpenAIPrompts_v5(index, aiCommands, aiComandsResults);
-      console.log('promptsResults', promptsResults);
       const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
       // eslint-disable-next-line @typescript-eslint/no-shadow
       const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(systemPrompt.content);

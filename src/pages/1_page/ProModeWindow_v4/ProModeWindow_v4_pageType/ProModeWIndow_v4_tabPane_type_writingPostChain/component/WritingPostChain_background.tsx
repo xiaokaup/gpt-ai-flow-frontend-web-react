@@ -83,8 +83,8 @@ export const WritingPostChain_background = (props: {
             <Form.Item name="when" label={t.get('Date')}>
               <DatePicker
                 onChange={(date, dates) => {
-                  console.log('date', date);
-                  console.log('dates', dates);
+                  // console.log('date', date);
+                  // console.log('dates', dates);
                   setBackground({
                     ...background,
                     when: dates.toLocaleString(),
