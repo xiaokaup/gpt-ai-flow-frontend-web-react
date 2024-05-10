@@ -10,7 +10,7 @@ import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { SwapOutlined } from '@ant-design/icons';
 
-import TBackendLangchainFile from '../../../../../../tools/3_unit/TBackendLangchain-web';
+import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import { IPrompt } from '../../../../../../gpt-ai-flow-common/interface-app/IPrompt';
 import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import EInputTypeDBFile, {
@@ -26,15 +26,16 @@ import { IBuildOpenAIPrompts_ouput } from '../../../../../../gpt-ai-flow-common/
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { EProductItemDB_type } from '../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import { ELangchainRetrievalDocType } from '../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4_context';
-import { IAIFlow_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IAIFlow_v2';
 import { IUserData } from '../../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { IStoreStorageLocalSettings } from '../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import {
-  IAICommands_v5_resultRow,
-  IAICommands_v5_with_IAIFlow_v2,
-} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IAIFlow_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
+import {
+  IAICommands_v4_new,
+  IAICommands_v4_new_resultRow,
+} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
+import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
+import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
@@ -49,7 +50,7 @@ interface ProModeAIFlowRow_v4_input {
   globalExamples: IProMode_v4_tabPane_example[];
   contextStageSelected_instructions: IAIFlow_v2[];
   contextStageSelected_outputIndicator: IAIFlow_v2[];
-  aiCommandsSettings: IAICommands_v5_with_IAIFlow_v2[];
+  aiCommandsSettings: IAICommands_v4_new[];
   webCase: {
     userData: IUserData;
     localDataFromStorage: IStoreStorageLocalSettings;
@@ -140,7 +141,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   // Request controllers - end
 
   // Instruction input commands - start
-  const [aiCommands, setAiCommands] = useState<IAICommands_v5_with_IAIFlow_v2[]>(aiCommandsSettings);
+  const [aiCommands, setAiCommands] = useState<IAICommands_v4_new[]>(aiCommandsSettings);
   // console.log('aiCommands', aiCommands);
 
   useEffect(() => {
@@ -227,8 +228,8 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
 
   const buildOpenAIPrompts_v5 = (
     index: number,
-    paraAICommandsList: IAICommands_v5_with_IAIFlow_v2[],
-    paraAICommandsReultsList: IAICommands_v5_resultRow[]
+    paraAICommandsList: IAICommands_v4_new[],
+    paraAICommandsReultsList: IAICommands_v4_new_resultRow[]
   ): IBuildOpenAIPrompts_ouput => {
     const systemPrompt: IPrompt = {
       role: EAIFlowRole.SYSTEM,
@@ -317,7 +318,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
     // === buildOpenAIPrompts - for the rest commands - end ===
   };
   const getOneInstructionAiFlowResult = async (
-    oneAiCommand_v5: IAICommands_v5_with_IAIFlow_v2,
+    oneAiCommand_v5: IAICommands_v4_new,
     index: number,
     requestController: AbortController
   ) => {
@@ -371,6 +372,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
+          TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
           signal
         ).catch((error) => {
           if (error.name === 'AbortError') {
@@ -402,6 +404,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
+          TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
           signal
         ).catch((error: any) => {
           if (error.name === 'AbortError') {
@@ -420,13 +423,13 @@ ${t.get('Original content')}: """${exampleText}"""`,
   // === 指令集部分 - end ===
 
   // === 指令集输出结果部分 - start ===
-  const [aiComandsResults, setAiComandsResults] = useState<IAICommands_v5_resultRow[]>([]);
+  const [aiComandsResults, setAiComandsResults] = useState<IAICommands_v4_new_resultRow[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [updateRequestResultsCount, setUpdateRequestResultsCount] = useState<number>(0); // Refresh the component
 
   const initAiCommandsResults_by_aiCommands = (
-    paraAiCommands: IAICommands_v5_with_IAIFlow_v2[],
-    paraAiCommandsReuslts: IAICommands_v5_resultRow[]
+    paraAiCommands: IAICommands_v4_new[],
+    paraAiCommandsReuslts: IAICommands_v4_new_resultRow[]
   ) => {
     if (paraAiCommandsReuslts.length >= paraAiCommands.length) {
       return;

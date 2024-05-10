@@ -3,36 +3,35 @@ import '../../../../../../../styles/layout.scss';
 
 import React, { Dispatch, SetStateAction } from 'react';
 import { Select, message } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import iconFormat from '../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
 import iconSuccessful from '../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
 import iconWrong from '../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import TString from '../../../../../../../gpt-ai-flow-common/tools/TString';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IAIFlow_v2';
+import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import {
-  IAICommands_v5_resultRow,
-  IAICommands_v5_with_IAIFlow_v2,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v5';
+  IAICommands_v4_new,
+  IAICommands_v4_new_resultRow,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
 
-interface IInputRow_v4_OutputIndicatorSelect_input {
+interface IInputRow_v4_InstructionSelect_input {
   t: IGetT_frontend_output;
   index: number;
-  ouputIndicatorCommandsSelectOptions: IAIFlow_v2[];
-  aiCommands: IAICommands_v5_with_IAIFlow_v2[];
-  setAiCommands: Dispatch<SetStateAction<IAICommands_v5_with_IAIFlow_v2[]>>;
+  aiFlows_type_instruction_selectOptions: IAIFlow_v2[];
+  aiCommands: IAICommands_v4_new[];
+  setAiCommands: Dispatch<SetStateAction<IAICommands_v4_new[]>>;
   removeRequestControllerItem: (uuid: string) => void;
-  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v5_resultRow[]>>;
+  setAiComandsResults: Dispatch<SetStateAction<IAICommands_v4_new_resultRow[]>>;
   toggleAiCommandsIsShowInputsForm: () => void;
 }
 
-export const InputRow_v4_OutputIndicatorSelect = (props: IInputRow_v4_OutputIndicatorSelect_input) => {
+export const IInputRow_v4_InstructionSelect = (props: IInputRow_v4_InstructionSelect_input) => {
   const {
     t,
     index,
-    ouputIndicatorCommandsSelectOptions,
+    aiFlows_type_instruction_selectOptions,
     aiCommands,
     setAiCommands,
     removeRequestControllerItem,
@@ -42,21 +41,23 @@ export const InputRow_v4_OutputIndicatorSelect = (props: IInputRow_v4_OutputIndi
 
   const thisAiCommand = aiCommands[index];
 
-  const onOutputIndicatorCommandsSelectChange = (paraIndex: number) => (value: string) => {
-    console.log(`selected ${value}`);
+  const onInstructionCommandsSelectChange = (paraIndex: number) => (value: string) => {
+    console.log(`onInstructionCommandsSelectChange selected ${value}`);
     const newAiCommands = [...aiCommands];
 
-    const oneOuputIndicator = ouputIndicatorCommandsSelectOptions.find((item) => item.uuid === value);
-    if (!oneOuputIndicator) {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const oneInstruction = aiFlows_type_instruction_selectOptions.find((item) => item.uuid === value);
+    if (!oneInstruction) {
       message.error(t.get('Command does not exist'));
       return;
     }
-    newAiCommands[paraIndex].aiFlowInstance = oneOuputIndicator;
 
-    // newAiCommands[paraIndex].uuid = oneOuputIndicator.uuid;
-    newAiCommands[paraIndex].value = oneOuputIndicator.value;
+    newAiCommands[paraIndex].aiFlowInstance = oneInstruction;
 
-    const hasPlaceholder = TString.hasPlaceholder_v2(oneOuputIndicator.value); // Update hasPlaceHolder for IAICommands_v4 after select a new aiFlow
+    // newAiCommands[paraIndex].uuid = oneInstruction.uuid;
+    newAiCommands[paraIndex].value = oneInstruction.value;
+
+    const hasPlaceholder = TString.hasPlaceholder_v2(oneInstruction.value); // Update hasPlaceHolder for IAICommands_v4 after select a new aiFlow
     newAiCommands[paraIndex].hasPlaceholder = hasPlaceholder;
     newAiCommands[paraIndex].isDirty = !!hasPlaceholder;
     newAiCommands[paraIndex].isShowInputsForm = hasPlaceholder;
@@ -74,21 +75,21 @@ export const InputRow_v4_OutputIndicatorSelect = (props: IInputRow_v4_OutputIndi
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <img id="iconFormat" src={iconFormat} alt="icon format" style={{ width: 16, marginRight: 4 }} />
+        <PlusCircleOutlined style={{ fontSize: 16, marginRight: 4 }} />
       </div>
       <Select
         disabled={thisAiCommand.aiFlowInstance.isDisabled}
         showSearch
-        placeholder={t.get('Select Output Prompts')}
+        placeholder={t.get('Select command prompts')}
         optionFilterProp="children"
         value={thisAiCommand.aiFlowInstance.uuid}
-        onChange={onOutputIndicatorCommandsSelectChange(index)}
+        onChange={onInstructionCommandsSelectChange(index)}
         onSearch={(value: string) => {
           console.log('search:', value);
         }}
         filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
         options={[
-          ...ouputIndicatorCommandsSelectOptions.map((item) => {
+          ...aiFlows_type_instruction_selectOptions.map((item: IAIFlow_v2) => {
             return {
               value: item.uuid,
               label: item.name,
@@ -107,32 +108,30 @@ export const InputRow_v4_OutputIndicatorSelect = (props: IInputRow_v4_OutputIndi
         <EditOutlined style={{ fontSize: 18, marginLeft: '.2rem' }} onClick={toggleAiCommandsIsShowInputsForm} />
       )}
 
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <DeleteOutlined
-          onClick={() => {
-            console.log('删除 输出提示');
+      <DeleteOutlined
+        onClick={() => {
+          console.log('删除 Instruction 指令');
 
-            removeRequestControllerItem(aiCommands[index].uuid);
+          removeRequestControllerItem(aiCommands[index].uuid);
 
-            setAiCommands((prevState) => {
-              const newState = [...prevState];
-              newState.splice(index, 1);
-              return newState;
-            });
+          setAiCommands((prevState) => {
+            const newState = [...prevState];
+            newState.splice(index, 1);
+            return newState;
+          });
 
-            setAiComandsResults((prevState) => {
-              const newState = [...prevState];
-              newState.splice(index, 1);
-              return newState;
-            });
-          }}
-          style={{
-            fontSize: 18,
-            marginLeft: 6,
-            cursor: 'pointer',
-          }}
-        />
-      </div>
+          setAiComandsResults((prevState) => {
+            const newState = [...prevState];
+            newState.splice(index, 1);
+            return newState;
+          });
+        }}
+        style={{
+          fontSize: 18,
+          marginLeft: 6,
+          cursor: 'pointer',
+        }}
+      />
     </div>
   );
 };

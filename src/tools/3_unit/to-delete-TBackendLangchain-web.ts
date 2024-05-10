@@ -1,10 +1,7 @@
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import {
-  IChatGPTStreamResponse_output,
-  IBackendOpenAI_dataField_encrypted_input,
-} from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+import { IChatGPTStreamResponse_output } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
@@ -35,7 +32,7 @@ const postChatChain = async (
     body: JSON.stringify({
       // data: window.electron.crypto.getEncryptobjForFrontend(data), // @TODO: this is for electron
       data: TCryptoJSFile.encrypt(data, CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-    } as IBackendOpenAI_dataField_encrypted_input),
+    }),
   };
 
   if (signal) {
@@ -107,7 +104,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
     ),
     body: JSON.stringify({
       data: TCryptoJSFile.encrypt(data, CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-    } as IBackendOpenAI_dataField_encrypted_input),
+    }),
   };
 
   if (signal) {
@@ -177,7 +174,7 @@ const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_
     ),
     body: JSON.stringify({
       data: TCryptoJSFile.encrypt(data, CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-    } as IBackendOpenAI_dataField_encrypted_input),
+    }),
   };
 
   if (signal) {

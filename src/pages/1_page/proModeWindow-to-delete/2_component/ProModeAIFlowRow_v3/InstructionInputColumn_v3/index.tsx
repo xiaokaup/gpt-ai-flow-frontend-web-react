@@ -7,7 +7,7 @@ import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
 import iconFormat from '../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
 
-import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/IAIFlow';
+import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
