@@ -36,7 +36,7 @@ import {
 import { IProMode_v4 } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
 import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
-import { ProModeWindow_v4_tabPane_type_commandChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane';
+import { ProModeWindow_v4_tabPane_type_commandChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
