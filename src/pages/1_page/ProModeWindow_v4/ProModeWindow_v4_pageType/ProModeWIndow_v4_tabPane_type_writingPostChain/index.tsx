@@ -226,7 +226,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
             {chatHistory.length > 0 && (
               <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                 <LeftOutlined
-                  style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20, padding: 10 }}
+                  style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                   onClick={() => {
                     if (currentVersionNum === 1) return;
                     if (isCalling) return;
@@ -243,7 +243,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
                 </div>
 
                 <RightOutlined
-                  style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20, padding: 10 }}
+                  style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                   onClick={() => {
                     if (currentVersionNum === chatHistory.length - 1) return;
                     if (isCalling) return;
