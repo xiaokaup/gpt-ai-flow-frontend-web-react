@@ -345,7 +345,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                         item: IPromode_v4_tabPane_context_for_type_langchain_formItems<IBackground_type_communicationChat>
                       ) => {
                         return {
-                          label: item.label,
+                          label: t.get(item.label),
                           value: item.type,
                         };
                       }
