@@ -40,6 +40,7 @@ import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
 import { ProModeWindow_v4_tabPane_type_commandChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
+import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/ProModeWIndow_v4_tabPane_type_writingPostChain';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -53,6 +54,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
   });
   const {
+    openAIApiKey: modelSecret,
     proMode: { model_type },
   } = localDataFromStorage;
 
@@ -192,6 +194,15 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           t={t}
                           tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
                           webCase={{ userData, localDataFromStorage }}
+                        />
+                      )}
+                      {tabPane.type === EProMode_v4_tabPane_type.WRITING_POST_CHAIN && (
+                        <ProModeWIndow_v4_tabPane_type_writingPostChain
+                          t={t}
+                          tabPane={tabPane as IProMode_v4_tabPane<{}>}
+                          userAccessToken={userAccessToken}
+                          modelSecret={modelSecret}
+                          proModeModelType={proModeModelType}
                         />
                       )}
                     </Tabs.TabPane>

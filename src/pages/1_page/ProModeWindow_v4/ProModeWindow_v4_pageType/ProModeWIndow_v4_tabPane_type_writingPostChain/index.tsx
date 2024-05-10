@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -25,8 +25,7 @@ import { EMessage_role } from '../../../../../gpt-ai-flow-common/interface-app/3
 import { ILangchain_type_WritingPostChainService_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/adapter/ILangchain_type_request';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
-import TCryptoJSFile from 'gpt-ai-flow-common/tools/TCrypto-js';
-import React from 'react';
+import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 
 interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
   t: IGetT_frontend_output;
