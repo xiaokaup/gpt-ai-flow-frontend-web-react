@@ -54,6 +54,18 @@ export const WritingPostChain_adjust = (props: {
               }}
             />
           </Form.Item>
+
+          <Form.Item name="example" label={t.get('Example')}>
+            <TextArea
+              autoSize={{ minRows: 2 }}
+              onChange={(event) => {
+                setAdjust({
+                  ...adjust,
+                  example: event.target.value,
+                });
+              }}
+            />
+          </Form.Item>
         </Form>
       </div>
     </div>
