@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
+import _ from 'lodash';
 import { Select, Slider, Tabs } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
@@ -91,7 +92,15 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
       CONSTANTS_GPT_AI_FLOW_COMMON
     );
     setProMode_v4_tabPanes(result.tabPanes);
-    if (result.tabPanes.length > 0) setActiveTabPanelKey(result.tabPanes[0].name);
+    if (result.tabPanes.length > 0) {
+      const defaultTabPanes = result.tabPanes.filter((tabPane) => tabPane.isDefault);
+      if (defaultTabPanes.length > 0) {
+        const defaultTabPane = _.sample(defaultTabPanes) as IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>;
+        setActiveTabPanelKey(defaultTabPane.name);
+      } else {
+        setActiveTabPanelKey(result.tabPanes[0].name);
+      }
+    }
   }, [locale, userAccessToken]);
 
   useEffect(() => {
@@ -273,10 +282,6 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
   // === Stripe subscription - start ===
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
-  });
-
-  const subscription_v2FromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
-    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
   });
 
   const { userData } = useUserData({
