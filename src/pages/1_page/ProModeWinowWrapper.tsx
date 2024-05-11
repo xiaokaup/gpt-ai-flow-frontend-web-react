@@ -13,7 +13,7 @@ interface IProModeWindow_warpper {
 }
 export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
   const { t, locale } = props.webCase;
-  const [version, setVersion] = useState<string>('v3');
+  const [version, setVersion] = useState<string>('v4');
 
   return (
     <div style={{ width: '100%' }}>
