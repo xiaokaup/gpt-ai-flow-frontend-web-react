@@ -14,18 +14,17 @@ import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-data
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 
 import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
-import {
-  IAjust_for_IPost,
-  IBackground_5W2H,
-  IPost,
-  IWritingPostChainMessageExchange,
-  IWritingPostChainMessageExchange_default,
-} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_writingPostChain';
 import { EMessage_role } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
-import { ILangchain_type_WritingPostChainService_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/adapter/ILangchain_type_request';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
+import { IAdjust_for_IMessage, IMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { ILangchain_type_WritingPostChainService_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
+import {
+  IWritingPostChainMessageExchange,
+  IWritingPostChainMessageExchange_default,
+  IBackground_for_5W2H,
+} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/02-writingPostChain/IProMode_v4_context_type_writingPostChain';
 
 interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
   t: IGetT_frontend_output;
@@ -221,7 +220,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
   return (
     <div className="container" style={{ maxWidth: 'unset' }}>
       <div className="row" style={{ display: 'flex' }}>
-        <div className="column" style={{ position: 'relative', flex: '1 1 60%', paddingRight: '1rem' }}>
+        <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
           <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
             {chatHistory.length > 0 && (
               <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -263,7 +262,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
             <WritingPostChain_currentOutput
               t={t}
               currentOutput={currentOutput}
-              setCurrentOutput={(newItem: IPost) => {
+              setCurrentOutput={(newItem: IMessage) => {
                 setWritingPostData({
                   ...writingPostData,
                   currentOutput: newItem,
@@ -276,7 +275,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
             <WritingPostChain_previousOutput
               t={t}
               previousOutput={previousOutput}
-              setPreviousOutput={(newItem: IPost) => {
+              setPreviousOutput={(newItem: IMessage) => {
                 setWritingPostData({
                   ...writingPostData,
                   previousOutput: newItem,
@@ -285,12 +284,12 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
             />
           </div>
         </div>
-        <div className="column m-0" style={{ flex: '1 1 40%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}>
+        <div className="column m-0" style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}>
           <div className="row adjust">
             <WritingPostChain_adjust
               t={t}
               adjust={adjust}
-              setAdjust={(newItem: IAjust_for_IPost) => {
+              setAdjust={(newItem: IAdjust_for_IMessage) => {
                 setWritingPostData({
                   ...writingPostData,
                   adjust: newItem,
@@ -303,7 +302,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
             <WritingPostChain_background
               t={t}
               background={background}
-              setBackground={(newItem: IBackground_5W2H) => {
+              setBackground={(newItem: IBackground_for_5W2H) => {
                 setWritingPostData({
                   ...writingPostData,
                   background: newItem,

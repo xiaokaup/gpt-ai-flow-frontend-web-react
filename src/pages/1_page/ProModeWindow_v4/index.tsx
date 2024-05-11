@@ -30,7 +30,11 @@ import { ModelStaticService } from '../../../gpt-ai-flow-common/tools/2_class/SM
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
-
+import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-commandChain/IProMode_v4_context_type_commandChain';
+import {
+  IBackground_for_type_langchain,
+  IPromode_v4_tabPane_context_for_type_langchain,
+} from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 import {
   All_type_IProMode_v4_tabPane,
   EProMode_v4_tabPane_type,
@@ -39,14 +43,11 @@ import {
 } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
 import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
-import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
 import { IAdjust_for_IMessage } from '../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
-import { IBackground_type_communicationChat } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_communicationChain';
-import { IPromode_v4_tabPane_context_for_type_langchain } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_langchain';
 
-import { ProModeWindow_v4_tabPane_type_commandChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
+import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
 import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/ProModeWIndow_v4_tabPane_type_writingPostChain';
-import { ProModeWindow_v4_tabPane_type_communicationChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_communicationChain';
+import { ProModeWindow_v4_tabPane_type_communicationChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_langchain';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -203,7 +204,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.name} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
-                        <ProModeWindow_v4_tabPane_type_commandChain
+                        <ProModeWindow_v4_tabPane_type_langchain
                           t={t}
                           tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
                           webCase={{ userData, localDataFromStorage }}
@@ -218,13 +219,13 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           proModeModelType={proModeModelType}
                         />
                       )}
-                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN && (
+                      {tabPane.type === EProMode_v4_tabPane_type.CUSTOME_LANGCHAIN && (
                         <ProModeWindow_v4_tabPane_type_communicationChain
                           t={t}
                           tabPane={
                             tabPane as IProMode_v4_tabPane<
                               IPromode_v4_tabPane_context_for_type_langchain<
-                                IBackground_type_communicationChat,
+                                IBackground_for_type_langchain,
                                 IAdjust_for_IMessage
                               >
                             >

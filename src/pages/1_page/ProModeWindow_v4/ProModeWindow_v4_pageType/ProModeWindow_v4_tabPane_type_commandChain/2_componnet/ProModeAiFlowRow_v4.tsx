@@ -30,12 +30,12 @@ import { IUserData } from '../../../../../../gpt-ai-flow-common/interface-app/IU
 import { IStoreStorageLocalSettings } from '../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IAIFlow_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
+import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
-import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
-import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
+} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v4_new';
+import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-commandChain/IProMode_v4_context_type_commandChain';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
