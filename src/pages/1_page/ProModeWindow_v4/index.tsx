@@ -277,8 +277,6 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
 
   const { t, locale } = props;
 
-  const [creativityValue, setCreativityValue] = useState<number>(0.8);
-
   // === Stripe subscription - start ===
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDataFile.IUserData_default;
