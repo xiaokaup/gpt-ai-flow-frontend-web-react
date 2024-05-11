@@ -62,7 +62,7 @@ export const ProModeWindow_v4_tabPane_type_langchain = (props: IProModeWindow_v4
   const [tabPaneFromProps] = useState<IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>>(tabPane);
 
   const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_type_commandChain>(
-    IPromode_v4_tabPane_context_default
+    IPromode_v4_tabPane_context_default,
   );
   const [contextStageSelected, setContextStageSelected] = useState<IPromode_v4_tabPane_context_stage | null>();
   // === tabPane ProModeData - end ===
@@ -70,7 +70,7 @@ export const ProModeWindow_v4_tabPane_type_langchain = (props: IProModeWindow_v4
   const init = useCallback(() => {
     // Context default
     const contextDefault = tabPaneFromProps.context.find(
-      (item: IPromode_v4_tabPane_context_type_commandChain) => item.isDefault
+      (item: IPromode_v4_tabPane_context_type_commandChain) => item.isDefault,
     );
     // console.log('contextDefault', contextDefault);
     if (!contextDefault) return;
@@ -79,7 +79,7 @@ export const ProModeWindow_v4_tabPane_type_langchain = (props: IProModeWindow_v4
 
     // Context stage default
     const contextStageDefault = contextDefault?.stages.find(
-      (item: IPromode_v4_tabPane_context_stage) => item.isDefault
+      (item: IPromode_v4_tabPane_context_stage) => item.isDefault,
     );
     // console.log('contextStageDefault', contextStageDefault);
     if (!contextStageDefault) {
@@ -108,9 +108,9 @@ export const ProModeWindow_v4_tabPane_type_langchain = (props: IProModeWindow_v4
     if (TStringFile.hasPlaceholder_v2(contextSelected.value)) {
       message.warning(
         t.get(
-          'Click the edit button 📝 on the left side of the Context to fill in more specific business information.'
+          'Click the edit button 📝 on the left side of the Context to fill in more specific business information.',
         ),
-        5
+        5,
       );
     }
   }, [contextSelected.value, t]);
@@ -150,7 +150,7 @@ export const ProModeWindow_v4_tabPane_type_langchain = (props: IProModeWindow_v4
                 onChange={(contextStage_name: string) => {
                   console.log(`selected context stage: ${contextStage_name}`);
                   const contextStageDefault = contextSelected.stages.find(
-                    (item: IPromode_v4_tabPane_context_stage) => item.name === contextStage_name
+                    (item: IPromode_v4_tabPane_context_stage) => item.name === contextStage_name,
                   );
                   setContextStageSelected(contextStageDefault);
                 }}

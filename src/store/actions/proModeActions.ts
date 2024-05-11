@@ -12,7 +12,7 @@ export const sync_proModeDataAction =
     accessToken: string,
     getDecryptObj: (ciphertext: string, key: string) => any,
     locale: ELocale,
-    env: IConstantGptAiFlowHandler
+    env: IConstantGptAiFlowHandler,
   ) =>
   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   async (dispatch: any, getState: () => IReduxRootState) => {

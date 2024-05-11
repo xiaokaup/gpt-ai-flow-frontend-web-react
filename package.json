@@ -7,7 +7,8 @@
     "build": "webpack --config webpack.prod.config.js",
     "start": "webpack serve --config webpack.dev.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-install": "./vercel-submodule-workaround.sh && yarn --ignore-scripts --production=false"
+    "vercel-install": "./vercel-submodule-workaround.sh && yarn --ignore-scripts --production=false",
+    "prettier": "prettier --write ."
   },
   "keywords": [],
   "author": "",

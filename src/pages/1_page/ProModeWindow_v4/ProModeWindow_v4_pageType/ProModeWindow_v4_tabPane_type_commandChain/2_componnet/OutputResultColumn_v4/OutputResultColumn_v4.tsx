@@ -30,7 +30,7 @@ export interface IOutputResultColumn_v4_input {
   getOneInstructionAiFlowResult: (
     oneAiCommand_v5: IAICommands_v4_new,
     index: number,
-    requestController: AbortController
+    requestController: AbortController,
   ) => void;
 
   requestControllersMap: Map<string, AbortController>;

@@ -71,7 +71,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   // === ProMode Data - start ===
   const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>[]>(
-    []
+    [],
   );
   // === ProMode Data - end ===
 
@@ -87,10 +87,10 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     const result: IProMode_v4 = await getProMode_v4_from_backend(
       userAccessToken,
       TCryptoJSFile.decrypt_for_web(
-        CONSTANTS_GPT_AI_FLOW_COMMON.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY as string
+        CONSTANTS_GPT_AI_FLOW_COMMON.BACKEND_AI_FLOW.AI_FLOW_COMMANDS_SYMMETRIC_ENCRYPTION_KEY as string,
       ),
       locale,
-      CONSTANTS_GPT_AI_FLOW_COMMON
+      CONSTANTS_GPT_AI_FLOW_COMMON,
     );
     setProMode_v4_tabPanes(result.tabPanes);
     if (result.tabPanes.length > 0) {
@@ -262,7 +262,7 @@ const ProModeWindow_v4_logout = (props: { t: IGetT_frontend_output }) => {
   return (
     <>
       {t.get(
-        'Please go to the setup interface to log in the user first, and make sure that the package is in normal status'
+        'Please go to the setup interface to log in the user first, and make sure that the package is in normal status',
       )}{' '}
       <Link to="/logout">{t.get('Logout')}</Link>
     </>

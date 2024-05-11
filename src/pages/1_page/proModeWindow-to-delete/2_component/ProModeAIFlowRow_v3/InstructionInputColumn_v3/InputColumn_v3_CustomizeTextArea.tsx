@@ -24,7 +24,7 @@ interface InstructionInputColumn_v3_CustomizeTextArea_input {
 }
 
 export const InstructionInputColumn_v3_CustomizeTextArea = (
-  props: InstructionInputColumn_v3_CustomizeTextArea_input
+  props: InstructionInputColumn_v3_CustomizeTextArea_input,
 ) => {
   const { t, index, aiCommands, setAiCommands, removeRequestControllerItem, setAiComandsResults } = props;
 

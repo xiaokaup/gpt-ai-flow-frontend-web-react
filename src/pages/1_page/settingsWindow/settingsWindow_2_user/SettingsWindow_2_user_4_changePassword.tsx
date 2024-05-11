@@ -41,8 +41,8 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
           userData.email,
           values.password,
           t.currentLocale,
-          CONSTANTS_GPT_AI_FLOW_COMMON
-        ) as any
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+        ) as any,
       );
 
       if (!userAndTokenData || !userAndTokenData.id || !userAndTokenData.token) {
@@ -57,8 +57,8 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
           values.newPassword,
           userAndTokenData.token.accessToken,
           t.currentLocale,
-          CONSTANTS_GPT_AI_FLOW_COMMON
-        ) as any
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+        ) as any,
       );
 
       message.success(t.get('Password successfully changed'));

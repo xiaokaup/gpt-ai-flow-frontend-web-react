@@ -44,7 +44,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
       userId,
       userAccessToken,
       locale,
-      CONSTANTS_GPT_AI_FLOW_COMMON
+      CONSTANTS_GPT_AI_FLOW_COMMON,
     );
 
     if (billingSessionResults?.status === 'error') {

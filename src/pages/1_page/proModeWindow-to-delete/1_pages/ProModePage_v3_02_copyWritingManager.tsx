@@ -67,11 +67,11 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
   const [contextTypeStage, setContextTypeStage] =
     useState<EProMode_v3_02_copyWritingManager_contextTypeStage>(defaultContextTypeStage);
   const [defautContext, setDefaultContext] = useState<string>(
-    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue
+    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue,
   );
   const defaultContextHavePlaceHolder = TString.hasPlaceholder(defautContext);
   const [contextHandled, setContextHandled] = useState<string>(
-    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue
+    ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue,
   );
   const [contextExamples, setContextExamples] = useState<IProMode_v3_onePromode_oneContext_oneStage_examples[]>([]);
 
@@ -82,14 +82,14 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
   // === Contexts and stages - start ===
   const defaultContextTypesForSelect = Object.keys(contexts);
   const [contextTypeStagesListForSelect, setContextTypeStagesListForSelect] = useState<IProMode_v3_contextTypeStages[]>(
-    Object.keys(contexts[contextType]?.stages ?? {}) as IProMode_v3_contextTypeStages[]
+    Object.keys(contexts[contextType]?.stages ?? {}) as IProMode_v3_contextTypeStages[],
   );
   // === Contexts and stages - end ===
 
   useEffect(() => {
     // Refresh contextTypeStagesList
     setContextTypeStagesListForSelect(
-      Object.keys(contexts[contextType]?.stages ?? {}) as IProMode_v3_contextTypeStages[]
+      Object.keys(contexts[contextType]?.stages ?? {}) as IProMode_v3_contextTypeStages[],
     );
 
     // Update contextDefaultValue and contextValue

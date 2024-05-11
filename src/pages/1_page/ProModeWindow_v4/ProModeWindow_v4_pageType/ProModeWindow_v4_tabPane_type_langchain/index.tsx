@@ -36,7 +36,7 @@ interface IProModeWindow_v4_tabPane_type_communicationChain_input {
   proModeModelType: EOpenAiModel_type;
 }
 export const ProModeWindow_v4_tabPane_type_communicationChain = (
-  props: IProModeWindow_v4_tabPane_type_communicationChain_input
+  props: IProModeWindow_v4_tabPane_type_communicationChain_input,
 ) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType } = props;
   const { urlSlug, context } = tabPane;
@@ -168,7 +168,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
         t.currentLocale,
         CONSTANTS_GPT_AI_FLOW_COMMON,
         TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-        signal
+        signal,
       ).catch((error: Error) => {
         if (error.name === 'AbortError') {
           console.log('Fetch request was aborted');
@@ -207,13 +207,13 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                 item: IPromode_v4_tabPane_context_for_type_langchain<
                   IBackground_for_type_langchain,
                   IAdjust_for_type_langchain
-                >
+                >,
               ) => {
                 return {
                   label: t.get(item.label),
                   value: item.type,
                 };
-              }
+              },
             )}
           />
         </div>
@@ -231,7 +231,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                         if (isCalling) return;
                         const previousVersion = currentVersionNum - 2;
                         setMessageExchangeData(
-                          chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData
+                          chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData,
                         );
                         setCurrentVersionNum(previousVersion);
                       }}
@@ -248,7 +248,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                         if (isCalling) return;
                         const nextVersion = currentVersionNum + 2;
                         setMessageExchangeData(
-                          chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData
+                          chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData,
                         );
                         setCurrentVersionNum(nextVersion);
                       }}

@@ -34,7 +34,7 @@ interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
   proModeModelType: EOpenAiModel_type;
 }
 export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
-  props: IProModeWIndow_v4_tabPane_type_writingPostChain_input
+  props: IProModeWIndow_v4_tabPane_type_writingPostChain_input,
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType } = props;
@@ -115,7 +115,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
   const onImproveMessage =
     (
       chatHistoryBeforeImprove: IWritingPostChainMessageExchange[],
-      paraWritingPostData: IWritingPostChainMessageExchange
+      paraWritingPostData: IWritingPostChainMessageExchange,
     ) =>
     async () => {
       // console.log('writingPostData', writingPostData);
@@ -173,7 +173,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
         t.currentLocale,
         CONSTANTS_GPT_AI_FLOW_COMMON,
         TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-        signal
+        signal,
       ).catch((error) => {
         if (error.name === 'AbortError') {
           console.log('Fetch request was aborted');
@@ -231,7 +231,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
                     if (isCalling) return;
                     const previousVersion = currentVersionNum - 2;
                     setWritingPostData(
-                      chatHistory.find((item) => item.versionNum === previousVersion) ?? writingPostData
+                      chatHistory.find((item) => item.versionNum === previousVersion) ?? writingPostData,
                     );
                     setCurrentVersionNum(previousVersion);
                   }}

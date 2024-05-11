@@ -66,7 +66,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
       }
 
       const userFound: IUserDB = (await dispatch(
-        getUserProfileByEmailAction_v2(values.email, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        getUserProfileByEmailAction_v2(values.email, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON) as any,
       )) as any;
 
       if (userFound?.id) {
@@ -84,8 +84,8 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
           },
           t.currentLocale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
-          values.uniqueCode
-        ) as any
+          values.uniqueCode,
+        ) as any,
       );
 
       if (!newUser?.id) {

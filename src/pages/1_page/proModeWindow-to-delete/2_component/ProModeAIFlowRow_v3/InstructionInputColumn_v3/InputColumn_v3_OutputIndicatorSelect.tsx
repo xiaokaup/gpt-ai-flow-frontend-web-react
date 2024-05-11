@@ -29,7 +29,7 @@ interface InstructionInputColumn_v3_OutputIndicatorSelect_input {
 }
 
 export const InstructionInputColumn_v3_OutputIndicatorSelect = (
-  props: InstructionInputColumn_v3_OutputIndicatorSelect_input
+  props: InstructionInputColumn_v3_OutputIndicatorSelect_input,
 ) => {
   const {
     t,

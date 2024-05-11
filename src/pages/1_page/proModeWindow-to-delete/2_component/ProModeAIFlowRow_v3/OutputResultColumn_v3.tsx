@@ -29,7 +29,7 @@ export interface IOuputIndicatorComponent_input {
   getOneInstructionAiFlowResult: (
     oneInstructionAiFlowResult: IAICommands_v4,
     index: number,
-    requestController: AbortController
+    requestController: AbortController,
   ) => void;
 
   requestControllersMap: Map<string, AbortController>;

@@ -20,7 +20,7 @@ export interface IProModeReducerState {
 
 const initialState = TCryptoJSFile.encrypt(
   IProMode_v3File.IProMode_v3_default,
-  CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+  CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
 );
 
 export const proModeReducer = (state: string = initialState, action: IAction) => {
@@ -29,12 +29,12 @@ export const proModeReducer = (state: string = initialState, action: IAction) =>
     case SYNC_PROMODE_DATA:
       return TCryptoJSFile.encrypt(
         payload,
-        CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+        CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
       );
     case UPDATE_PROMODE_DATA:
       return TCryptoJSFile.encrypt(
         payload,
-        CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+        CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
       );
     case USER_LOGOUT:
       return initialState;

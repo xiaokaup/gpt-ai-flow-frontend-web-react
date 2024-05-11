@@ -48,15 +48,15 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
           values.email,
           values.password,
           t.currentLocale,
-          CONSTANTS_GPT_AI_FLOW_COMMON
-        ) as any
+          CONSTANTS_GPT_AI_FLOW_COMMON,
+        ) as any,
       );
 
       if (!userAndTokenData) {
         throw new Error(
           t.get(
-            "The user's email is not registered or the password is incorrect. If the problem persists, please contact the administrator"
-          )
+            "The user's email is not registered or the password is incorrect. If the problem persists, please contact the administrator",
+          ),
         );
       }
 

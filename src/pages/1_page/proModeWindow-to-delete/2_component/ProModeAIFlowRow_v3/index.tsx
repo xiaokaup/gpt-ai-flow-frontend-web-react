@@ -166,7 +166,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           isTemporary: false,
           isShowInputsForm: hasPlaceholder,
         };
-      })
+      }),
     );
   }, [aiCommandsSettings]);
 
@@ -201,7 +201,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
           },
           userAccessToken,
           locale,
-          CONSTANTS_GPT_AI_FLOW_COMMON
+          CONSTANTS_GPT_AI_FLOW_COMMON,
         );
       }
     }
@@ -237,7 +237,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const buildOpenAIPrompts = (
     index: number,
     paraAICommandsList: IAICommands_v4[],
-    paraAICommandsReultsList: IAICommandsResults_v4[]
+    paraAICommandsReultsList: IAICommandsResults_v4[],
   ): IBuildOpenAIPrompts_ouput => {
     const systemPrompt: IPrompt = {
       role: EAIFlowRole.SYSTEM,
@@ -266,9 +266,9 @@ ${t.get('Original content')}: """${exampleText}"""`,
           {
             role: EAIFlowRole.ASSISTANT,
             content: t.get(
-              'Okay, have analyzed the style and writing style corresponding to the original text of this content, after that in the message I will help you to imitate a similar content.'
+              'Okay, have analyzed the style and writing style corresponding to the original text of this content, after that in the message I will help you to imitate a similar content.',
             ),
-          }
+          },
         );
       }
 
@@ -353,7 +353,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
   const getOneInstructionAiFlowResult = async (
     oneInstructionInputCommnad: IAICommands_v4,
     index: number,
-    requestController: AbortController
+    requestController: AbortController,
   ) => {
     try {
       console.log('getOneInstructionAiFlowResult');
@@ -402,7 +402,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-          signal
+          signal,
         ).catch((error: Error) => {
           if (error.name === 'AbortError') {
             console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
@@ -433,7 +433,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-          signal
+          signal,
         ).catch((error: Error) => {
           if (error.name === 'AbortError') {
             console.log('Fetch request was aborted', oneInstructionInputCommnad.uuid);
@@ -457,7 +457,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
 
   const syncAiCommandsResultsByAiCommands = (
     paraAiCommands: IAICommands_v4[],
-    paraAiCommandsReuslts: IAICommandsResults_v4[]
+    paraAiCommandsReuslts: IAICommandsResults_v4[],
   ) => {
     if (paraAiCommandsReuslts.length >= paraAiCommands.length) {
       return;

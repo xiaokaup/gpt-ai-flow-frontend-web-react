@@ -89,12 +89,12 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const { t, userDataFromStorage, serviceCategories } = props;
 
   const encryptedProModeSetFromStore = useSelector(
-    (state: IReduxRootState) => state.proModeSet ?? IProMode_v3File.IProMode_v3_default
+    (state: IReduxRootState) => state.proModeSet ?? IProMode_v3File.IProMode_v3_default,
   );
 
   const proModeSetFromStorage: IProMode_v3 = TCryptoJSFile.decrypt(
     encryptedProModeSetFromStore,
-    CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string
+    CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
   );
 
   const { proModeSetData } = useProModeSetData({
