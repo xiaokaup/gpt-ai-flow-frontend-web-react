@@ -55,6 +55,17 @@ export const WritingPostChain_adjust = (props: {
             />
           </Form.Item>
 
+          <Form.Item name="locale" label={t.get('Language')}>
+            <Input
+              onChange={(event) => {
+                setAdjust({
+                  ...adjust,
+                  locale: event.target.value,
+                });
+              }}
+            />
+          </Form.Item>
+
           <Form.Item name="example" label={t.get('Example')}>
             <TextArea
               autoSize={{ minRows: 2 }}
