@@ -31,10 +31,10 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
 
   const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModel_type>(
-    localFromStore.chatMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TURBO
+    localFromStore.chatMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TURBO,
   );
   const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(
-    localFromStore.proMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TURBO
+    localFromStore.proMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TURBO,
   );
 
   const onSaveLocalSettings = () => {
@@ -48,7 +48,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
         proMode: {
           model_type: proModeModelType,
         },
-      }) as any
+      }) as any,
     );
   };
 

@@ -4,9 +4,9 @@ import { DatePicker, Form, Input, Tooltip } from 'antd';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import {
-  IFormItem,
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
-} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_langchain';
+  IFormItem,
+} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 
 const { TextArea } = Input;
 

@@ -29,7 +29,7 @@ const SettingsWindow_6_referralReward_login = (props: ISettingsWindow_6_referral
         userId,
         accessToken,
         t.currentLocale,
-        CONSTANTS_GPT_AI_FLOW_COMMON
+        CONSTANTS_GPT_AI_FLOW_COMMON,
       );
 
     setInviteLinks(resutls.rows);
@@ -44,7 +44,7 @@ const SettingsWindow_6_referralReward_login = (props: ISettingsWindow_6_referral
       userId,
       accessToken,
       t.currentLocale,
-      CONSTANTS_GPT_AI_FLOW_COMMON
+      CONSTANTS_GPT_AI_FLOW_COMMON,
     );
 
     if (results.error) {

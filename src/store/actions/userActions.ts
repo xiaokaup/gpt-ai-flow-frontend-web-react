@@ -40,7 +40,7 @@ export const authLoginByEmailAndPasswordAction =
         email,
         password,
         locale,
-        env
+        env,
       );
       if (!userAndTokenData) {
         throw new Error('用户的邮箱未被注册在或密码错误，如果多次有问题，请联系管理员');
@@ -63,7 +63,7 @@ export const authRegisterByEmailAndPasswordAction_v0 =
         userDB,
         locale,
         env,
-        uniqueCode
+        uniqueCode,
       );
 
       if (!newUser?.id) {
@@ -116,7 +116,7 @@ export const userUpdateUserPasswordActionAction_v1 =
     newPassword: string,
     accessToken: string,
     locale: ELocale,
-    env: IConstantGptAiFlowHandler
+    env: IConstantGptAiFlowHandler,
   ) =>
   async (dispatch: any, getState: () => IReduxRootState) => {
     try {
@@ -126,7 +126,7 @@ export const userUpdateUserPasswordActionAction_v1 =
         newPassword,
         accessToken,
         locale,
-        env
+        env,
       );
 
       dispatch({ type: USER_UPDATE_USER_PASSWORD_V1, payload: userResults });

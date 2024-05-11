@@ -25,7 +25,7 @@ export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
             {
               email: 'hello@gptaiflow.com',
               userQuestionnaire: t.get('user questionnaire'),
-            }
+            },
           )}
         </div>
 

@@ -42,12 +42,12 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
     const itemFound: IProductItemDB_with_expiredAt | null = await getProductItem_by_userId_from_backend(
       userAccessToken,
       paraLocale,
-      CONSTANTS_GPT_AI_FLOW_COMMON
+      CONSTANTS_GPT_AI_FLOW_COMMON,
     );
     if (itemFound) setProductItem(itemFound);
 
     const pricesFound = await TStripeConstantFile_v2File.getStripePrices(
-      CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV === 'Prod'
+      CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV === 'Prod',
     );
     setStripePrices(pricesFound[paraLocale]);
   };
@@ -62,7 +62,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
 
   const createAndOpenStripeCheckoutSession = async (
     priceId: string,
-    paymentMode: EStripeCheckoutSessionPaymentMode
+    paymentMode: EStripeCheckoutSessionPaymentMode,
   ) => {
     try {
       const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession(
@@ -71,7 +71,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
         paymentMode,
         userAccessToken,
         locale,
-        CONSTANTS_GPT_AI_FLOW_COMMON
+        CONSTANTS_GPT_AI_FLOW_COMMON,
       );
 
       if ((checkoutSessionResults as IError)?.status === 'error') {
@@ -182,7 +182,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                   onClick={() => {
                     createAndOpenStripeCheckoutSession(
                       stripePrices[EProductItemDB_name.STARTAI_TOOLS],
-                      EStripeCheckoutSessionPaymentMode.SUBSCRIPTION
+                      EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                     );
                   }}
                 >
@@ -265,7 +265,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                   onClick={() => {
                     createAndOpenStripeCheckoutSession(
                       stripePrices[EProductItemDB_name.STARTAI_LIFETIME],
-                      EStripeCheckoutSessionPaymentMode.PAYMENT
+                      EStripeCheckoutSessionPaymentMode.PAYMENT,
                     );
                   }}
                 >
@@ -280,7 +280,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
               message={
                 <span>
                   {t.get(
-                    'If you are unable to access your subscription while changing subscription types, try logging into your user account again'
+                    'If you are unable to access your subscription while changing subscription types, try logging into your user account again',
                   )}
                 </span>
               }

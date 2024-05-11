@@ -19,7 +19,7 @@ const sendChatGPTRequestAsStreamToBackendProxy_to_delete = async (
   AfterRequestAsStreamFunc: () => void,
   accessToken: string,
   env: IConstantGptAiFlowHandler,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<IChatGPTStreamResponse_output> => {
   const options: any = {
     method: 'POST',
@@ -27,7 +27,7 @@ const sendChatGPTRequestAsStreamToBackendProxy_to_delete = async (
       {
         accessToken,
       },
-      env
+      env,
     ),
     body: JSON.stringify({
       data: TCryptoJSFile.encrypt(data, CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),

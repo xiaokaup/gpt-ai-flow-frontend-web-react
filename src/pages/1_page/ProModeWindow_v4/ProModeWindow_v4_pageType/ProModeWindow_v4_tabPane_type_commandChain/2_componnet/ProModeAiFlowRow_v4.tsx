@@ -30,12 +30,12 @@ import { IUserData } from '../../../../../../gpt-ai-flow-common/interface-app/IU
 import { IStoreStorageLocalSettings } from '../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IAIFlow_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
+import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
-import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProMode_v4_context_type_commandChain';
-import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
+} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v4_new';
+import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-commandChain/IProMode_v4_context_type_commandChain';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
@@ -149,7 +149,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
           isTemporary: false,
           isShowInputsForm: hasPlaceholder,
         };
-      })
+      }),
     );
   }, [aiCommandsSettings]);
 
@@ -185,7 +185,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
           },
           userAccessToken,
           locale,
-          CONSTANTS_GPT_AI_FLOW_COMMON
+          CONSTANTS_GPT_AI_FLOW_COMMON,
         );
       }
     }
@@ -222,7 +222,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const buildOpenAIPrompts_v5 = (
     index: number,
     paraAICommandsList: IAICommands_v4_new[],
-    paraAICommandsReultsList: IAICommands_v4_new_resultRow[]
+    paraAICommandsReultsList: IAICommands_v4_new_resultRow[],
   ): IBuildOpenAIPrompts_ouput => {
     const systemPrompt: IPrompt = {
       role: EAIFlowRole.SYSTEM,
@@ -251,9 +251,9 @@ ${t.get('Original content')}: """${exampleText}"""`,
           {
             role: EAIFlowRole.ASSISTANT,
             content: t.get(
-              'Okay, have analyzed the style and writing style corresponding to the original text of this content, after that in the message I will help you to imitate a similar content.'
+              'Okay, have analyzed the style and writing style corresponding to the original text of this content, after that in the message I will help you to imitate a similar content.',
             ),
-          }
+          },
         );
       }
 
@@ -313,7 +313,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
   const getOneInstructionAiFlowResult = async (
     oneAiCommand_v5: IAICommands_v4_new,
     index: number,
-    requestController: AbortController
+    requestController: AbortController,
   ) => {
     try {
       const { signal } = requestController;
@@ -365,7 +365,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-          signal
+          signal,
         ).catch((error) => {
           if (error.name === 'AbortError') {
             console.log('Fetch request was aborted', oneAiCommand_v5.uuid);
@@ -397,7 +397,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
           TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-          signal
+          signal,
         ).catch((error: any) => {
           if (error.name === 'AbortError') {
             console.log('Fetch request was aborted', oneAiCommand_v5.uuid);
@@ -421,7 +421,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
 
   const initAiCommandsResults_by_aiCommands = (
     paraAiCommands: IAICommands_v4_new[],
-    paraAiCommandsReuslts: IAICommands_v4_new_resultRow[]
+    paraAiCommandsReuslts: IAICommands_v4_new_resultRow[],
   ) => {
     if (paraAiCommandsReuslts.length >= paraAiCommands.length) {
       return;

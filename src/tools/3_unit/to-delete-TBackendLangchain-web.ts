@@ -19,7 +19,7 @@ const postChatChain = async (
   accessToken: string,
   locale: ELocale,
   env: IConstantGptAiFlowHandler,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<IChatGPTStreamResponse_output> => {
   const options: any = {
     method: 'POST',
@@ -27,7 +27,7 @@ const postChatChain = async (
       {
         accessToken,
       },
-      env
+      env,
     ),
     body: JSON.stringify({
       // data: window.electron.crypto.getEncryptobjForFrontend(data), // @TODO: this is for electron
@@ -90,7 +90,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
   accessToken: string,
   locale: ELocale,
   env: IConstantGptAiFlowHandler,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<IChatGPTStreamResponse_output> => {
   const { langchainRetrievalDocType } = data;
 
@@ -100,7 +100,7 @@ const sendConversationalRetrievalChainToBackendProxy = async (
       {
         accessToken,
       },
-      env
+      env,
     ),
     body: JSON.stringify({
       data: TCryptoJSFile.encrypt(data, CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
@@ -162,7 +162,7 @@ const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_
   accessToken: string,
   locale: ELocale,
   env: IConstantGptAiFlowHandler,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<IChatGPTStreamResponse_output> => {
   const options: any = {
     method: 'POST',
@@ -170,7 +170,7 @@ const sendConversationalRetrievalChainToBackendProxy_with_cagtegory_TYPE_GPT_AI_
       {
         accessToken,
       },
-      env
+      env,
     ),
     body: JSON.stringify({
       data: TCryptoJSFile.encrypt(data, CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),

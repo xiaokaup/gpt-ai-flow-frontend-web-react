@@ -4,19 +4,19 @@ import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined } from '@ant-design/ico
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IFormItem,
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
-} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_langchain';
-import { IBackground_type_communicationChat } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_communicationChain';
+  IFormItem,
+  IBackground_for_type_langchain,
+} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 export const Langchain_background = (props: {
   t: IGetT_frontend_output;
-  backgroundSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IBackground_type_communicationChat>;
-  background: IBackground_type_communicationChat;
-  setBackground: (newItem: IBackground_type_communicationChat) => void;
+  backgroundSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IBackground_for_type_langchain>;
+  background: IBackground_for_type_langchain;
+  setBackground: (newItem: IBackground_for_type_langchain) => void;
   onResetAll: () => void;
 }) => {
   const { t, backgroundSelected, background, setBackground, onResetAll } = props;
@@ -72,7 +72,7 @@ export const Langchain_background = (props: {
       {isShow && (
         <div className="row">
           <Form form={form} initialValues={background}>
-            {backgroundSelected.formItems.map((item: IFormItem<IBackground_type_communicationChat>) => {
+            {backgroundSelected.formItems.map((item: IFormItem<IBackground_for_type_langchain>) => {
               const { componentType, label, name, isAutoSize_minRows, tooltip } = item;
               if (componentType === 'Input') {
                 return (
