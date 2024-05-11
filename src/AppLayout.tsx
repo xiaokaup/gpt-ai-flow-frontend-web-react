@@ -103,8 +103,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            {t.get(locale)}
-            &nbsp;
+            {t.get(locale)}&nbsp;🌐&nbsp;
             <DownOutlined style={{ position: 'relative', top: 1 }} />
           </a>
         </Dropdown>
