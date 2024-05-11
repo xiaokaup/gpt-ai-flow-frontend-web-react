@@ -85,7 +85,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
     return (
       <>
         {t.get(
-          'Please go to the setup interface to log in the user first, and make sure that the package is in normal status'
+          'Please go to the setup interface to log in the user first, and make sure that the package is in normal status',
         )}{' '}
         <Link to="/logout">{t.get('Logout')}</Link>
       </>
@@ -117,7 +117,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
   // Model select
   const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(model_type);
   const [subscription_v2Data] = useState<ISubscriptionDB_v2>(
-    subscription_v2FromStorage ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default
+    subscription_v2FromStorage ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default,
   );
   // === proMode selector - end ===
 
@@ -315,7 +315,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
               message={
                 <span>
                   {t.get(
-                    'John is a busy working professional, but after subscribing to our products, he discovered a new secret to work-life balance.'
+                    'John is a busy working professional, but after subscribing to our products, he discovered a new secret to work-life balance.',
                   )}
                   <a href="https://www.app.gptaiflow.com/info" target="_blank">
                     <span style={{ color: '#1677FF' }}>{t.get('Click here')}</span>

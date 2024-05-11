@@ -52,7 +52,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
   }
 
   const [selectedTabKey, setSelectedTabKey] = useState<ESettingsWindow_1_local_tabKey>(
-    ESettingsWindow_1_local_tabKey.BASIC
+    ESettingsWindow_1_local_tabKey.BASIC,
   );
 
   const tabItems: TabsProps['items'] = [

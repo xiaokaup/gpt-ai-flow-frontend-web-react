@@ -27,7 +27,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
   const onFinish = async (values: any) => {
     try {
       const userResults = await dispatch(
-        userResetPasswordWithEmailAction(t, values.email, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON) as any
+        userResetPasswordWithEmailAction(t, values.email, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON) as any,
       );
 
       if (!userResults) {
@@ -78,7 +78,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
         >
           <div style={{ fontSize: 18, width: 500, padding: '20px 10px' }}>
             {t.get(
-              'Please enter the email address associated with your account, and we will send you a link to reset your password'
+              'Please enter the email address associated with your account, and we will send you a link to reset your password',
             )}
           </div>
 

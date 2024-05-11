@@ -1,18 +1,17 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { DatePicker, Form, Input, Tooltip } from 'antd';
 import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IBackground_5W2H } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_writingPostChain';
-import React from 'react';
+import { IBackground_for_5W2H } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/02-writingPostChain/IProMode_v4_context_type_writingPostChain';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 export const WritingPostChain_background = (props: {
   t: IGetT_frontend_output;
-  background: IBackground_5W2H;
-  setBackground: (newItem: IBackground_5W2H) => void;
+  background: IBackground_for_5W2H;
+  setBackground: (newItem: IBackground_for_5W2H) => void;
   onResetAll: () => void;
 }) => {
   const { t, background, setBackground, onResetAll } = props;

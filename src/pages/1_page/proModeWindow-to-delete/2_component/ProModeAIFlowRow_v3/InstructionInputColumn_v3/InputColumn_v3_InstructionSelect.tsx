@@ -28,7 +28,7 @@ interface InstructionInputColumn_v3_InstructionSelect_input {
 }
 
 export const InstructionInputColumn_v3_InstructionSelect = (
-  props: InstructionInputColumn_v3_InstructionSelect_input
+  props: InstructionInputColumn_v3_InstructionSelect_input,
 ) => {
   const {
     t,

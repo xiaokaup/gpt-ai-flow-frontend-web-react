@@ -1,15 +1,16 @@
+import React from 'react';
+
 import { Form, Input } from 'antd';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IAjust_for_IPost } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_writingPostChain';
-import React from 'react';
+import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 
 const { TextArea } = Input;
 
 export const WritingPostChain_adjust = (props: {
   t: IGetT_frontend_output;
-  adjust: IAjust_for_IPost;
-  setAdjust: (newItem: IAjust_for_IPost) => void;
+  adjust: IAdjust_for_IMessage;
+  setAdjust: (newItem: IAdjust_for_IMessage) => void;
 }) => {
   const { t, adjust, setAdjust } = props;
 

@@ -27,7 +27,7 @@ export const userReducer = (state: IUserReducerState = IUserDataFile.IUserData_d
       const newUniqueRoles = Array.from(new Set([...state.roles, ...payload.roles]));
       const newUniqueServices = Array.from(new Set([...state.services, ...payload.services]));
       const newUniqueServiceCategories = Array.from(
-        new Set([...state.serviceCategories, ...payload.serviceCategories])
+        new Set([...state.serviceCategories, ...payload.serviceCategories]),
       );
       const newUniquePermissions = Array.from(new Set([...state.permissions, ...payload.permissions]));
 

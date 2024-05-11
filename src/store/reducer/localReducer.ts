@@ -7,7 +7,7 @@ import { IAction } from '../store';
 
 export const localReducer = (
   state: IStoreStorageLocalSettings = IStoreStorageFile.IStoreStorageLocalSettings_default,
-  action: IAction
+  action: IAction,
 ) => {
   const { type, payload } = action;
   switch (type) {

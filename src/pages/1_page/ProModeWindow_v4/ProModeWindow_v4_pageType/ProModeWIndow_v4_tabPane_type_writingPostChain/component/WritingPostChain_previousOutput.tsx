@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
@@ -6,15 +6,14 @@ import { Button, Form, Input, message } from 'antd';
 import { EditOutlined, EyeOutlined, EyeInvisibleOutlined, CopyOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPost } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/langchain/IProMode_v4_context_type_writingPostChain';
-import React from 'react';
+import { IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 
 const { TextArea } = Input;
 
 export const WritingPostChain_previousOutput = (props: {
   t: IGetT_frontend_output;
-  previousOutput: IPost;
-  setPreviousOutput: (newItem: IPost) => void;
+  previousOutput: IMessage;
+  setPreviousOutput: (newItem: IMessage) => void;
 }) => {
   const { t, previousOutput: previousOutputFromProps, setPreviousOutput } = props;
 
@@ -28,7 +27,7 @@ export const WritingPostChain_previousOutput = (props: {
     form.setFieldsValue(previousOutput);
   }, [previousOutput, form]);
 
-  const onFinish = (values: IPost) => {
+  const onFinish = (values: IMessage) => {
     setPreviousOutput({
       ...previousOutput,
       ...values,

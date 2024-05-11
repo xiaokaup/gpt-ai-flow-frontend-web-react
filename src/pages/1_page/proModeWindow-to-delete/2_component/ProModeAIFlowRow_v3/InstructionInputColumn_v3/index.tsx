@@ -48,7 +48,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
   // === instructionOuputIndicatorAiFlowCommandList - start ===
   const [defaultInstructionAiFlowsFromStore] = useState<IAIFlow[]>(
     // window.electron.store.get(STORE_INSTRUCTION_AI_FLOWS_PATH) as IAIFlow[]
-    []
+    [],
   );
   const instructionCommandsSelectOptions = [...defaultInstructionAiCommands, ...defaultInstructionAiFlowsFromStore];
 
@@ -57,7 +57,7 @@ export const InstructionInputColumn_v3 = (props: InstructionInputColumn_v3_input
   // === OutputIndicator result - start ===
   const [defaultOutputIndicatorAiFlowListFromStore] = useState<IAIFlow[]>(
     // window.electron.store.get(STORE_OUTPUT_INDICATOR_AI_FLOWS_PATH) as IAIFlow[]
-    []
+    [],
   );
   const ouputIndicatorCommandsSelectOptions = [
     ...defaultOutputIndicatorAiCommands,

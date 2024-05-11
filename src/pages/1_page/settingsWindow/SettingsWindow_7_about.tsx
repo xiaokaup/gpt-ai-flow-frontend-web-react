@@ -25,13 +25,13 @@ export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
             {
               email: 'hello@gptaiflow.com',
               userQuestionnaire: t.get('user questionnaire'),
-            }
+            },
           )}
         </div>
 
         <hr />
         <div className="row">
-          <span>{t.get('Release version')}: v0.1.60</span>
+          <span>{t.get('Release version')}: v0.1.61</span>
         </div>
       </div>
     </div>

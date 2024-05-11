@@ -17,7 +17,7 @@ import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocal
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/commandChain/IProModeAICommands_v4_new';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v4_new';
 
 const { TextArea } = Input;
 
@@ -30,7 +30,7 @@ export interface IOutputResultColumn_v4_input {
   getOneInstructionAiFlowResult: (
     oneAiCommand_v5: IAICommands_v4_new,
     index: number,
-    requestController: AbortController
+    requestController: AbortController,
   ) => void;
 
   requestControllersMap: Map<string, AbortController>;
