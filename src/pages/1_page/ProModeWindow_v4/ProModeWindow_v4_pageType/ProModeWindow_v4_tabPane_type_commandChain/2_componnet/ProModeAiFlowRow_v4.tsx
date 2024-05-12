@@ -35,7 +35,7 @@ import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v4_new';
-import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-commandChain/IProMode_v4_context_type_commandChain';
+import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-chatChain/IProMode_v4_context_type_commandChain';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
