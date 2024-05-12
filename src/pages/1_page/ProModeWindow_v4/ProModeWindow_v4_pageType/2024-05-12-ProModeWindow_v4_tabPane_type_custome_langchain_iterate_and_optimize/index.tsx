@@ -28,7 +28,7 @@ import {
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
-interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
+interface ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<
     IPromode_v4_tabPane_context_for_type_custom_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
@@ -39,8 +39,8 @@ interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   inputsCache: IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
-export const ProModeWindow_v4_tabPane_type_custome_langchain = (
-  props: ProModeWindow_v4_tabPane_type_custome_langchain_input,
+export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize = (
+  props: ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input,
 ) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
   const { urlSlug, context } = tabPane;
