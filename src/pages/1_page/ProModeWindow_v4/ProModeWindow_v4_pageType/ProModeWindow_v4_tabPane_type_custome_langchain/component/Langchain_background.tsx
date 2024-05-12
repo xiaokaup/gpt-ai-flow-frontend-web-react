@@ -8,6 +8,7 @@ import {
   IFormItem,
   IBackground_for_type_langchain,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
+import { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -80,10 +81,11 @@ export const Langchain_background = (props: {
                     <Form.Item name={name} label={t.get(label)}>
                       <Input
                         onChange={(event) => {
-                          setBackground({
+                          const newItem = {
                             ...background,
                             [name]: event.target.value,
-                          });
+                          };
+                          setBackground(newItem);
                         }}
                       />
                     </Form.Item>
@@ -97,10 +99,11 @@ export const Langchain_background = (props: {
                       <TextArea
                         autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
                         onChange={(event) => {
-                          setBackground({
+                          const newItem = {
                             ...background,
                             [name]: event.target.value,
-                          });
+                          };
+                          setBackground(newItem);
                         }}
                       />
                     </Form.Item>
@@ -113,10 +116,11 @@ export const Langchain_background = (props: {
                     <Form.Item name={name} label={t.get(label)}>
                       <DatePicker
                         onChange={(date, dates) => {
-                          setBackground({
+                          const newItem = {
                             ...background,
                             [name]: dates.toLocaleString(),
-                          });
+                          };
+                          setBackground(newItem);
                         }}
                       />
                     </Form.Item>

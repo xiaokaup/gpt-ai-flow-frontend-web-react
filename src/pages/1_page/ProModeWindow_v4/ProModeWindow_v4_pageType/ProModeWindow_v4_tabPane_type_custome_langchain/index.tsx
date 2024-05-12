@@ -7,7 +7,7 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
-import { IMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IMessage, IMessage_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_previousOutput } from './component/Langchain_previousOutput';
 import { Langchain_currentOutput } from './component/Langchain_currentOutput';
 import { Langchain_adjust } from './component/Langchain_adjust';
@@ -18,83 +18,82 @@ import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_uni
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import {
+  ELangchain_contextType,
   IAdjust_for_type_langchain,
   IBackground_for_type_langchain,
   ILangchainMessageExchange,
   ILangchainMessageExchange_default,
-  IPromode_v4_tabPane_context_for_type_langchain,
+  IPromode_v4_tabPane_context_for_type_custom_langchain,
 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
-import { ILangchain_for_type_langchain_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
+import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
+import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
-interface IProModeWindow_v4_tabPane_type_communicationChain_input {
+interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<
-    IPromode_v4_tabPane_context_for_type_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
+    IPromode_v4_tabPane_context_for_type_custom_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
   >;
   userAccessToken: string;
   modelSecret: string;
   proModeModelType: EOpenAiModel_type;
+  inputsCache: IInputsCache;
+  setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
-export const ProModeWindow_v4_tabPane_type_communicationChain = (
-  props: IProModeWindow_v4_tabPane_type_communicationChain_input,
+export const ProModeWindow_v4_tabPane_type_custome_langchain = (
+  props: ProModeWindow_v4_tabPane_type_custome_langchain_input,
 ) => {
-  const { t, tabPane, userAccessToken, modelSecret, proModeModelType } = props;
+  const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
   const { urlSlug, context } = tabPane;
   const creativityValue = useCreativityValueContext();
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<string>(context.length > 0 ? context[0].type : '');
-  const [messageExchangeData, setMessageExchangeData] = useState<ILangchainMessageExchange>({
+  const [messageExchangeType, setMessageExchangeType] = useState<ELangchain_contextType>(
+    context.length > 0 ? context[0].type : ELangchain_contextType.GENERAL,
+  );
+  const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
+    background: {
+      ...ILangchainMessageExchange_default.background,
+      ...inputsCache,
+    },
+    adjust: {
+      ...ILangchainMessageExchange_default.adjust,
+      ...inputsCache,
+    },
     createdAt: new Date(),
     role: EMessage_role.HUMAN,
     versionNum: 0,
-  });
+  };
+  const [messageExchangeData, setMessageExchangeData] =
+    useState<ILangchainMessageExchange>(messageExchangeData_default);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(0);
   const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_langchain<
+  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_custom_langchain<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
 
-  const buildHumanMessage = (paraWritingPostData: ILangchainMessageExchange) => {
-    let newHumanRequest: ILangchain_for_type_langchain_request;
-
-    if (currentVersionNum === 0) {
-      newHumanRequest = {
-        productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
-        modelSecret,
-        modelOptions: {
-          openaiModelType: proModeModelType,
-          temperature: creativityValue,
-        },
-        type: messageExchangeType,
-        prevMessageExchange: null,
-        messageExchange: paraWritingPostData,
-      };
-      return newHumanRequest;
-    }
-
-    const newVersionNum = (paraWritingPostData.versionNum ?? 0) + 1;
-    const newHumanWritingPostMessage = {
-      ...paraWritingPostData,
-      previousOutput: paraWritingPostData.currentOutput,
-      currentOutput: {
-        title: '',
-        content: '',
-      },
+  const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
+    const newVersionNum =
+      paraMessageExchangeData.versionNum && paraMessageExchangeData.versionNum > 0
+        ? paraMessageExchangeData.versionNum + 1
+        : 0;
+    const newMessageExchangeData_for_human = {
+      ...paraMessageExchangeData,
+      previousOutput: paraMessageExchangeData.currentOutput,
+      currentOutput: IMessage_default,
       updatedAt: new Date(),
       versionNum: newVersionNum,
       role: EMessage_role.HUMAN,
     };
 
-    newHumanRequest = {
+    const newHumanRequest: ILangchain_for_type_langchain_request_V2 = {
       productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
       modelSecret,
       modelOptions: {
@@ -102,31 +101,33 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
         temperature: creativityValue,
       },
       type: messageExchangeType,
-      prevMessageExchange: chatHistory[chatHistory.length - 1],
-      messageExchange: newHumanWritingPostMessage,
+      prevMessageExchange: chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : paraMessageExchangeData,
+      currentMessageExchange: newMessageExchangeData_for_human,
     };
+
+    console.log('buildHumanMessage newHumanRequest', newHumanRequest);
 
     return newHumanRequest;
   };
 
   const onImproveMessage =
-    (chatHistoryBeforeImprove: ILangchainMessageExchange[], paraWritingPostData: ILangchainMessageExchange) =>
+    (chatHistoryBeforeImprove: ILangchainMessageExchange[], paraMessageExchangeData: ILangchainMessageExchange) =>
     async () => {
-      // console.log('writingPostData', writingPostData);
+      // console.log('paraMessageExchangeData', paraMessageExchangeData);
       const newRequestController = new AbortController();
       setRequestController(newRequestController);
       const { signal } = newRequestController;
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
-      const bodyData: ILangchain_for_type_langchain_request = buildHumanMessage(paraWritingPostData);
-      const newHumanMessageExchange = bodyData.messageExchange;
-      const newVersionNum_for_human = bodyData.messageExchange.versionNum;
-      const newChatHistory_for_human = [...chatHistoryBeforeImprove, newHumanMessageExchange];
-      setMessageExchangeData(newHumanMessageExchange);
+      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(paraMessageExchangeData);
+      const newMessageExchange_for_human = bodyData.currentMessageExchange;
+      const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
+      const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];
+      setMessageExchangeData(newMessageExchange_for_human);
       setChatHistory(newChatHistory_for_human);
       setCurrentVersionNum(newChatHistory_for_human.length - 1);
 
-      TBackendLangchainFile.postLangchain(
+      TBackendLangchainFile.postLangchain_type_custom_langchain(
         urlSlug,
         bodyData,
         () => {
@@ -136,7 +137,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
         (writingResultText: string) => {
           // console.log('updateResultFromRequestFunc', writingResultText);
           setMessageExchangeData({
-            ...newHumanMessageExchange,
+            ...newMessageExchange_for_human,
             currentOutput: {
               title: '',
               content: writingResultText,
@@ -146,19 +147,19 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
         (resultText: string) => {
           // console.log('AfterRequestFunc', resultText);
 
-          const newVersionNum_for_ai = (newVersionNum_for_human ?? 0) + 1;
-          const newAIMessage = {
-            ...newHumanMessageExchange,
+          const newMessageExchange_versionNum_for_ai = (newMessageExchange_versionNum_for_human ?? 0) + 1;
+          const newMessageExchange_for_ai = {
+            ...newMessageExchange_for_human,
             currentOutput: {
               title: '',
               content: resultText,
             },
             updatedAt: new Date(),
-            versionNum: newVersionNum_for_ai,
+            versionNum: newMessageExchange_versionNum_for_ai,
             role: EMessage_role.AI,
           };
-          const newChatHistory_for_ai = [...newChatHistory_for_human, newAIMessage];
-          setMessageExchangeData(newAIMessage);
+          const newChatHistory_for_ai = [...newChatHistory_for_human, newMessageExchange_for_ai];
+          setMessageExchangeData(newMessageExchange_for_ai);
           setChatHistory(newChatHistory_for_ai);
           setCurrentVersionNum(newChatHistory_for_ai.length - 1);
 
@@ -179,15 +180,32 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
       });
     };
 
+  const onRegenerateMessage = () => {
+    const writingPostDataBeforeRollback = { ...messageExchangeData };
+
+    if (currentVersionNum < 2) return;
+
+    const rollBackVersionNum = currentVersionNum - 2;
+    const newChatHistory = chatHistory.slice(0, rollBackVersionNum + 1);
+
+    const basedWritingPostData = newChatHistory[newChatHistory.length - 1];
+    const newWritingPostData = {
+      ...basedWritingPostData,
+      background: writingPostDataBeforeRollback.background,
+      adjust: writingPostDataBeforeRollback.adjust,
+    };
+
+    setChatHistory(newChatHistory);
+    setCurrentVersionNum(newChatHistory.length - 1);
+    setMessageExchangeData(newWritingPostData);
+
+    onImproveMessage(newChatHistory, newWritingPostData)();
+  };
+
   const onResetAll = () => {
     setChatHistory([]);
     setCurrentVersionNum(0);
-    setMessageExchangeData({
-      ...ILangchainMessageExchange_default,
-      createdAt: new Date(),
-      role: EMessage_role.HUMAN,
-      versionNum: 0,
-    });
+    setMessageExchangeData(messageExchangeData_default);
   };
 
   return (
@@ -200,11 +218,13 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
             onChange={(value: string) => {
               console.log(`selected ${value}`);
               setContextSelected(context.find((item) => item.type === value) ?? null);
-              setMessageExchangeType(context.find((item) => item.type === value)?.type ?? '');
+              setMessageExchangeType(
+                context.find((item) => item.type === value)?.type ?? ELangchain_contextType.GENERAL,
+              );
             }}
             options={context.map(
               (
-                item: IPromode_v4_tabPane_context_for_type_langchain<
+                item: IPromode_v4_tabPane_context_for_type_custom_langchain<
                   IBackground_for_type_langchain,
                   IAdjust_for_type_langchain
                 >,
@@ -273,20 +293,18 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                 />
               </div>
 
-              {!contextSelected.previousOutput.isHidden && (
-                <div className="row previousOutput">
-                  <Langchain_previousOutput
-                    t={t}
-                    previousOutput={previousOutput}
-                    setPreviousOutput={(newItem: IMessage) => {
-                      setMessageExchangeData({
-                        ...messageExchangeData,
-                        previousOutput: newItem,
-                      });
-                    }}
-                  />
-                </div>
-              )}
+              <div className="row previousOutput">
+                <Langchain_previousOutput
+                  t={t}
+                  previousOutput={previousOutput}
+                  setPreviousOutput={(newItem: IMessage) => {
+                    setMessageExchangeData({
+                      ...messageExchangeData,
+                      previousOutput: newItem,
+                    });
+                  }}
+                />
+              </div>
             </div>
 
             <div
@@ -303,6 +321,10 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                       ...messageExchangeData,
                       adjust: newItem,
                     });
+                    setInputsCache((prvState) => ({
+                      ...prvState,
+                      ...newItem,
+                    }));
                   }}
                 />
               </div>
@@ -311,12 +333,16 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                 <Langchain_background
                   t={t}
                   backgroundSelected={contextSelected.background}
-                  background={background as IBackground_for_type_langchain}
+                  background={background}
                   setBackground={(newItem: IBackground_for_type_langchain) => {
                     setMessageExchangeData({
                       ...messageExchangeData,
                       background: newItem,
                     });
+                    setInputsCache((prvState) => ({
+                      ...prvState,
+                      ...newItem,
+                    }));
                   }}
                   onResetAll={onResetAll}
                 />
@@ -326,15 +352,24 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                 <div className="row operation">
                   <Button
                     type="primary"
-                    onClick={onImproveMessage(chatHistory, messageExchangeData)}
-                    disabled={isCalling}
+                    onClick={() => {
+                      onImproveMessage(chatHistory, messageExchangeData)();
+                    }}
+                    disabled={
+                      isCalling ||
+                      (chatHistory.length > 0
+                        ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
+                        : false)
+                    }
                   >
                     {t.get('Generate')}
                   </Button>
 
                   <Button
                     type="primary"
-                    // onClick={onRegenerateMessage}
+                    onClick={() => {
+                      onRegenerateMessage();
+                    }}
                     style={{ marginLeft: '1rem' }}
                     disabled={isCalling || currentVersionNum < 2}
                   >
@@ -365,12 +400,32 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
                   <Button
                     type="primary"
                     onClick={() => {
+                      console.log('currentVersionNum', currentVersionNum);
+                    }}
+                    style={{ marginLeft: '1rem' }}
+                  >
+                    currentVersionNum
+                  </Button>
+
+                  <Button
+                    type="primary"
+                    onClick={() => {
                       console.log('messageExchangeType', messageExchangeType);
                       console.log('messageExchangeData', messageExchangeData);
                     }}
                     style={{ marginLeft: '1rem' }}
                   >
                     messageExchangeData
+                  </Button>
+
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      console.log('currentVersionNum', currentVersionNum);
+                    }}
+                    style={{ marginLeft: '1rem' }}
+                  >
+                    inputsCache
                   </Button>
                 </div> */}
               </div>
