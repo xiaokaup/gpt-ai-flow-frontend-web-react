@@ -92,6 +92,7 @@ export const WritingPostChain_currentOutput = (props: {
         <div
           className="row view"
           style={{
+            userSelect: 'text',
             border: '1px solid #d9d9d9',
             borderRadius: '.25rem',
             padding: '.4rem',

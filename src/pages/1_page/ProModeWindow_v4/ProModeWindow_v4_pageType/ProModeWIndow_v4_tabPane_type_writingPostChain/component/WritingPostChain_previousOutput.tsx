@@ -100,6 +100,7 @@ export const WritingPostChain_previousOutput = (props: {
         <div
           className="row view"
           style={{
+            userSelect: 'text',
             border: '1px solid #d9d9d9',
             borderRadius: '.25rem',
             padding: '.4rem',
