@@ -8,6 +8,7 @@ import {
   IFormItem,
   IBackground_for_type_langchain,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
+import { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -18,8 +19,9 @@ export const Langchain_background = (props: {
   background: IBackground_for_type_langchain;
   setBackground: (newItem: IBackground_for_type_langchain) => void;
   onResetAll: () => void;
+  inputsCache: IInputsCache;
 }) => {
-  const { t, backgroundSelected, background, setBackground, onResetAll } = props;
+  const { t, backgroundSelected, background, setBackground, onResetAll, inputsCache } = props;
 
   const [form] = Form.useForm();
 
@@ -71,7 +73,7 @@ export const Langchain_background = (props: {
       </div>
       {isShow && (
         <div className="row">
-          <Form form={form} initialValues={background}>
+          <Form form={form} initialValues={{ ...background, ...inputsCache }}>
             {backgroundSelected.formItems.map((item: IFormItem<IBackground_for_type_langchain>) => {
               const { componentType, label, name, isAutoSize_minRows, tooltip } = item;
               if (componentType === 'Input') {

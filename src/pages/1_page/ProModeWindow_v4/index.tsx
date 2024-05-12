@@ -42,6 +42,9 @@ import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
 import { IAdjust_for_IMessage } from '../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-chatChain/IProMode_v4_context_type_commandChain';
+import IInputsCacheFile, { IInputsCache } from '../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { useInputsCache } from '../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { updateInputsCache } from '../../../store/actions/inputsCacheActions';
 
 import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
 import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/ProModeWIndow_v4_tabPane_type_writingPostChain';
@@ -51,9 +54,11 @@ interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
   locale: ELocale;
   userData: IUserData;
+  inputsCache: IInputsCache;
+  setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
 const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
-  const { t, locale, userData } = props;
+  const { t, locale, userData, inputsCache, setInputsCache } = props;
 
   const localDataFromStorage: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
@@ -231,6 +236,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           userAccessToken={userAccessToken}
                           modelSecret={modelSecret}
                           proModeModelType={proModeModelType}
+                          inputsCache={inputsCache}
+                          setInputsCache={setInputsCache}
                         />
                       )}
                       {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_CUSTOME_ITERATE_AND_OPTIMIZE && (
@@ -247,6 +254,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           userAccessToken={userAccessToken}
                           modelSecret={modelSecret}
                           proModeModelType={proModeModelType}
+                          inputsCache={inputsCache}
+                          setInputsCache={setInputsCache}
                         />
                       )}
                     </Tabs.TabPane>
@@ -306,11 +315,29 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
+  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+  });
+  const { inputsCache, setInputsCache } = useInputsCache({
+    inputsCacheFromStorage,
+    onInputsCacheChange: (newItem: IInputsCache) => {
+      dispatch(updateInputsCache(newItem) as any);
+    },
+  });
+
   const { id: userId } = userData;
 
   return (
     <>
-      {userId && <ProModeWindow_v4_login t={t} locale={locale} userData={userData} />}
+      {userId && (
+        <ProModeWindow_v4_login
+          t={t}
+          locale={locale}
+          userData={userData}
+          inputsCache={inputsCache}
+          setInputsCache={setInputsCache}
+        />
+      )}
       {!userId && <ProModeWindow_v4_logout t={t} />}
     </>
   );

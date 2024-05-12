@@ -25,10 +25,8 @@ import {
   ILangchainMessageExchange_default,
   IPromode_v4_tabPane_context_for_type_custom_langchain,
 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
-import {
-  ILangchain_for_type_langchain_request,
-  ILangchain_for_type_langchain_request_V2,
-} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
+import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
+import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   t: IGetT_frontend_output;
@@ -38,11 +36,13 @@ interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   userAccessToken: string;
   modelSecret: string;
   proModeModelType: EOpenAiModel_type;
+  inputsCache: IInputsCache;
+  setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
 export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   props: ProModeWindow_v4_tabPane_type_custome_langchain_input,
 ) => {
-  const { t, tabPane, userAccessToken, modelSecret, proModeModelType } = props;
+  const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
   const { urlSlug, context } = tabPane;
   const creativityValue = useCreativityValueContext();
 
@@ -289,6 +289,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                       adjust: newItem,
                     });
                   }}
+                  inputsCache={inputsCache}
                 />
               </div>
 
@@ -304,6 +305,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                     });
                   }}
                   onResetAll={onResetAll}
+                  inputsCache={inputsCache}
                 />
               </div>
 
@@ -311,7 +313,21 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                 <div className="row operation">
                   <Button
                     type="primary"
-                    onClick={onImproveMessage(chatHistory, messageExchangeData)}
+                    onClick={() => {
+                      setInputsCache((prevState: IInputsCache) => {
+                        console.log('inputCache', {
+                          ...prevState,
+                          ...messageExchangeData.background,
+                          ...messageExchangeData.adjust,
+                        });
+                        return {
+                          ...prevState,
+                          ...messageExchangeData.background,
+                          ...messageExchangeData.adjust,
+                        };
+                      });
+                      onImproveMessage(chatHistory, messageExchangeData)();
+                    }}
                     disabled={isCalling}
                   >
                     {t.get('Generate')}

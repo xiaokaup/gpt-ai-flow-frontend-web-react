@@ -7,6 +7,7 @@ import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
+import { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 const { TextArea } = Input;
 
@@ -15,8 +16,9 @@ export const Langchain_adjust = (props: {
   adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_IMessage>;
   adjust: IAdjust_for_IMessage;
   setAdjust: (newItem: IAdjust_for_IMessage) => void;
+  inputsCache: IInputsCache;
 }) => {
-  const { t, adjustSelected, adjust, setAdjust } = props;
+  const { t, adjustSelected, adjust, setAdjust, inputsCache } = props;
 
   const [form] = Form.useForm();
 
@@ -24,7 +26,7 @@ export const Langchain_adjust = (props: {
     <div className="row subContainer">
       <h1 style={{ marginTop: 0 }}>{t.get('Content adjust')}</h1>
       <div className="row">
-        <Form form={form} initialValues={adjust}>
+        <Form form={form} initialValues={{ ...adjust, ...inputsCache }}>
           {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_IMessage>) => {
             const { componentType, label, name, isAutoSize_minRows, tooltip } = item;
             if (componentType === 'Input') {
