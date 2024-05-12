@@ -233,6 +233,22 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           proModeModelType={proModeModelType}
                         />
                       )}
+                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_CUSTOME_ITERATE_AND_OPTIMIZE && (
+                        <ProModeWindow_v4_tabPane_type_custome_langchain
+                          t={t}
+                          tabPane={
+                            tabPane as IProMode_v4_tabPane<
+                              IPromode_v4_tabPane_context_for_type_custom_langchain<
+                                IBackground_for_type_langchain,
+                                IAdjust_for_IMessage
+                              >
+                            >
+                          }
+                          userAccessToken={userAccessToken}
+                          modelSecret={modelSecret}
+                          proModeModelType={proModeModelType}
+                        />
+                      )}
                     </Tabs.TabPane>
                   );
                 })}
