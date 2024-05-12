@@ -46,9 +46,9 @@ import IInputsCacheFile, { IInputsCache } from '../../../gpt-ai-flow-common/inte
 import { useInputsCache } from '../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { updateInputsCache } from '../../../store/actions/inputsCacheActions';
 
-import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
-import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/ProModeWIndow_v4_tabPane_type_writingPostChain';
-import { ProModeWindow_v4_tabPane_type_custome_langchain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_custome_langchain';
+import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_type_commandChain';
+import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/2024-05-08-ProModeWIndow_v4_tabPane_type_writingPostChain';
+import { ProModeWindow_v4_tabPane_type_custome_langchain } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_type_custome_langchain';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
