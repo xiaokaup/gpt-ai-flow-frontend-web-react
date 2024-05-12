@@ -74,7 +74,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
           openaiModelType: proModeModelType,
           temperature: creativityValue,
         },
-        type: messageExchangeType,
+        contextType: messageExchangeType,
         prevMessageExchange: null,
         messageExchange: paraWritingPostData,
       };
@@ -101,7 +101,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
         openaiModelType: proModeModelType,
         temperature: creativityValue,
       },
-      type: messageExchangeType,
+      contextType: messageExchangeType,
       prevMessageExchange: chatHistory[chatHistory.length - 1],
       messageExchange: newHumanWritingPostMessage,
     };
