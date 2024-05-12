@@ -321,10 +321,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                       ...messageExchangeData,
                       adjust: newItem,
                     });
-                    // setInputsCache((prvState) => ({
-                    //   ...inputsCache,
-                    //   ...newItem,
-                    // }));
+                    setInputsCache((prvState) => ({
+                      ...prvState,
+                      ...newItem,
+                    }));
                   }}
                 />
               </div>
@@ -339,10 +339,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                       ...messageExchangeData,
                       background: newItem,
                     });
-                    // setInputsCache((prvState) => ({
-                    //   ...inputsCache,
-                    //   ...newItem,
-                    // }));
+                    setInputsCache((prvState) => ({
+                      ...prvState,
+                      ...newItem,
+                    }));
                   }}
                   onResetAll={onResetAll}
                 />
