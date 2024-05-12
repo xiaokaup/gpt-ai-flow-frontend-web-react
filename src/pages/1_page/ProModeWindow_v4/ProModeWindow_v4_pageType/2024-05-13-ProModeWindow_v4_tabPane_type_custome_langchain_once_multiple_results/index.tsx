@@ -27,8 +27,9 @@ import {
 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { EButton_operation } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4_buttons';
 
-interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
+interface ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<
     IPromode_v4_tabPane_context_for_type_custom_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
@@ -39,11 +40,11 @@ interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   inputsCache: IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
-export const ProModeWindow_v4_tabPane_type_custome_langchain = (
-  props: ProModeWindow_v4_tabPane_type_custome_langchain_input,
+export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results = (
+  props: ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input,
 ) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
-  const { urlSlug, context } = tabPane;
+  const { urlSlug, context, buttons } = tabPane;
   const creativityValue = useCreativityValueContext();
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -105,7 +106,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
       currentMessageExchange: newMessageExchangeData_for_human,
     };
 
-    console.log('buildHumanMessage newHumanRequest', newHumanRequest);
+    // console.log('buildHumanMessage newHumanRequest', newHumanRequest);
 
     return newHumanRequest;
   };
@@ -287,6 +288,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
               <div className="row currentOuput">
                 <Langchain_currentOutput
                   t={t}
+                  currentOutputSelected={contextSelected.currentOutput}
                   currentOutput={currentOutput}
                   setCurrentOutput={(newItem: IMessage) => {
                     setMessageExchangeData({
@@ -297,18 +299,20 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                 />
               </div>
 
-              <div className="row previousOutput">
-                <Langchain_previousOutput
-                  t={t}
-                  previousOutput={previousOutput}
-                  setPreviousOutput={(newItem: IMessage) => {
-                    setMessageExchangeData({
-                      ...messageExchangeData,
-                      previousOutput: newItem,
-                    });
-                  }}
-                />
-              </div>
+              {!contextSelected.previousOutput.isHidden && (
+                <div className="row previousOutput">
+                  <Langchain_previousOutput
+                    t={t}
+                    previousOutput={previousOutput}
+                    setPreviousOutput={(newItem: IMessage) => {
+                      setMessageExchangeData({
+                        ...messageExchangeData,
+                        previousOutput: newItem,
+                      });
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
             <div
@@ -369,16 +373,18 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                     {t.get('Generate')}
                   </Button>
 
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      onRegenerateMessage();
-                    }}
-                    style={{ marginLeft: '1rem' }}
-                    disabled={isCalling || currentVersionNum < 2}
-                  >
-                    {t.get('Regenerate')}
-                  </Button>
+                  {!buttons.find((item) => item.operation === EButton_operation.REGENERATE)?.isHidden && (
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        onRegenerateMessage();
+                      }}
+                      style={{ marginLeft: '1rem' }}
+                      disabled={isCalling || currentVersionNum < 2}
+                    >
+                      {t.get('Regenerate')}
+                    </Button>
+                  )}
 
                   <Button
                     onClick={() => {
