@@ -27,11 +27,20 @@ export const Langchain_adjust = (props: {
       <div className="row">
         <Form form={form} initialValues={adjust}>
           {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_IMessage>) => {
-            const { componentType, label, name, isAutoSize_minRows, tooltip, isTooltipNeedTranslate } = item;
+            const { componentType, label, name, isRequired, isAutoSize_minRows, tooltip, tooltip_isNeedTranslate } =
+              item;
             if (componentType === 'Input') {
               return (
-                <Tooltip title={tooltip && isTooltipNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item name={name} label={t.get(label)}>
+                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                  <Form.Item
+                    name={name}
+                    label={t.get(label)}
+                    rules={
+                      isRequired
+                        ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
+                        : []
+                    }
+                  >
                     <Input
                       onChange={(event) => {
                         const newItem = {
@@ -47,8 +56,16 @@ export const Langchain_adjust = (props: {
             }
             if (componentType === 'TextArea') {
               return (
-                <Tooltip title={tooltip && isTooltipNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item name={name} label={t.get(label)}>
+                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                  <Form.Item
+                    name={name}
+                    label={t.get(label)}
+                    rules={
+                      isRequired
+                        ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
+                        : []
+                    }
+                  >
                     <TextArea
                       autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
                       onChange={(event) => {
@@ -65,7 +82,7 @@ export const Langchain_adjust = (props: {
             }
             if (componentType === 'DatePicker') {
               return (
-                <Tooltip title={tooltip && isTooltipNeedTranslate ? t.get(tooltip) : tooltip}>
+                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                   <Form.Item name={name} label={t.get(label)}>
                     <DatePicker
                       onChange={(date, dates) => {
