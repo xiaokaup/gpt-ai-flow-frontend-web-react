@@ -30,7 +30,7 @@ import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 
 import {
   IBackground_for_type_langchain,
-  IPromode_v4_tabPane_context_for_type_langchain,
+  IPromode_v4_tabPane_context_for_type_custome_langchain,
 } from '../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 import {
   All_type_IProMode_v4_tabPane,
@@ -45,7 +45,7 @@ import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-f
 
 import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_commandChain';
 import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/ProModeWIndow_v4_tabPane_type_writingPostChain';
-import { ProModeWindow_v4_tabPane_type_communicationChain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_langchain';
+import { ProModeWindow_v4_tabPane_type_custome_langchain } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_custome_langchain';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -218,11 +218,11 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                         />
                       )}
                       {tabPane.type === EProMode_v4_tabPane_type.CUSTOME_LANGCHAIN && (
-                        <ProModeWindow_v4_tabPane_type_communicationChain
+                        <ProModeWindow_v4_tabPane_type_custome_langchain
                           t={t}
                           tabPane={
                             tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context_for_type_langchain<
+                              IPromode_v4_tabPane_context_for_type_custome_langchain<
                                 IBackground_for_type_langchain,
                                 IAdjust_for_IMessage
                               >

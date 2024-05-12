@@ -22,21 +22,21 @@ import {
   IBackground_for_type_langchain,
   ILangchainMessageExchange,
   ILangchainMessageExchange_default,
-  IPromode_v4_tabPane_context_for_type_langchain,
+  IPromode_v4_tabPane_context_for_type_custome_langchain,
 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 import { ILangchain_for_type_langchain_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 
-interface IProModeWindow_v4_tabPane_type_communicationChain_input {
+interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<
-    IPromode_v4_tabPane_context_for_type_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
+    IPromode_v4_tabPane_context_for_type_custome_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
   >;
   userAccessToken: string;
   modelSecret: string;
   proModeModelType: EOpenAiModel_type;
 }
-export const ProModeWindow_v4_tabPane_type_communicationChain = (
-  props: IProModeWindow_v4_tabPane_type_communicationChain_input,
+export const ProModeWindow_v4_tabPane_type_custome_langchain = (
+  props: ProModeWindow_v4_tabPane_type_custome_langchain_input,
 ) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType } = props;
   const { urlSlug, context } = tabPane;
@@ -58,7 +58,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_langchain<
+  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_custome_langchain<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
@@ -74,7 +74,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
           openaiModelType: proModeModelType,
           temperature: creativityValue,
         },
-        contextType: messageExchangeType,
+        type: messageExchangeType,
         prevMessageExchange: null,
         messageExchange: paraWritingPostData,
       };
@@ -101,7 +101,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
         openaiModelType: proModeModelType,
         temperature: creativityValue,
       },
-      contextType: messageExchangeType,
+      type: messageExchangeType,
       prevMessageExchange: chatHistory[chatHistory.length - 1],
       messageExchange: newHumanWritingPostMessage,
     };
@@ -204,7 +204,7 @@ export const ProModeWindow_v4_tabPane_type_communicationChain = (
             }}
             options={context.map(
               (
-                item: IPromode_v4_tabPane_context_for_type_langchain<
+                item: IPromode_v4_tabPane_context_for_type_custome_langchain<
                   IBackground_for_type_langchain,
                   IAdjust_for_type_langchain
                 >,
