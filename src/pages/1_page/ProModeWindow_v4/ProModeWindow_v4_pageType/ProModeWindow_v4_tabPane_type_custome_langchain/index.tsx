@@ -18,13 +18,17 @@ import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_uni
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import {
+  ELangchain_contextType,
   IAdjust_for_type_langchain,
   IBackground_for_type_langchain,
   ILangchainMessageExchange,
   ILangchainMessageExchange_default,
   IPromode_v4_tabPane_context_for_type_custom_langchain,
 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
-import { ILangchain_for_type_langchain_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
+import {
+  ILangchain_for_type_langchain_request,
+  ILangchain_for_type_langchain_request_V2,
+} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   t: IGetT_frontend_output;
@@ -45,7 +49,9 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<string>(context.length > 0 ? context[0].type : '');
+  const [messageExchangeType, setMessageExchangeType] = useState<ELangchain_contextType>(
+    context.length > 0 ? context[0].type : ELangchain_contextType.GENERAL,
+  );
   const [messageExchangeData, setMessageExchangeData] = useState<ILangchainMessageExchange>({
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
@@ -64,7 +70,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   > | null>(context.length > 0 ? context[0] : null);
 
   const buildHumanMessage = (paraWritingPostData: ILangchainMessageExchange) => {
-    let newHumanRequest: ILangchain_for_type_langchain_request;
+    let newHumanRequest: ILangchain_for_type_langchain_request_V2;
 
     if (currentVersionNum === 0) {
       newHumanRequest = {
@@ -75,8 +81,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
           temperature: creativityValue,
         },
         type: messageExchangeType,
-        prevMessageExchange: null,
-        messageExchange: paraWritingPostData,
+        prevMessageExchange: ILangchainMessageExchange_default,
+        currentMessageExchange: paraWritingPostData,
       };
       return newHumanRequest;
     }
@@ -103,7 +109,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
       },
       type: messageExchangeType,
       prevMessageExchange: chatHistory[chatHistory.length - 1],
-      messageExchange: newHumanWritingPostMessage,
+      currentMessageExchange: newHumanWritingPostMessage,
     };
 
     return newHumanRequest;
@@ -118,15 +124,15 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
       const { signal } = newRequestController;
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
-      const bodyData: ILangchain_for_type_langchain_request = buildHumanMessage(paraWritingPostData);
-      const newHumanMessageExchange = bodyData.messageExchange;
-      const newVersionNum_for_human = bodyData.messageExchange.versionNum;
+      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(paraWritingPostData);
+      const newHumanMessageExchange = bodyData.currentMessageExchange;
+      const newVersionNum_for_human = bodyData.currentMessageExchange.versionNum;
       const newChatHistory_for_human = [...chatHistoryBeforeImprove, newHumanMessageExchange];
       setMessageExchangeData(newHumanMessageExchange);
       setChatHistory(newChatHistory_for_human);
       setCurrentVersionNum(newChatHistory_for_human.length - 1);
 
-      TBackendLangchainFile.postLangchain(
+      TBackendLangchainFile.postLangchain_type_custom_langchain(
         urlSlug,
         bodyData,
         () => {
@@ -200,7 +206,9 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
             onChange={(value: string) => {
               console.log(`selected ${value}`);
               setContextSelected(context.find((item) => item.type === value) ?? null);
-              setMessageExchangeType(context.find((item) => item.type === value)?.type ?? '');
+              setMessageExchangeType(
+                context.find((item) => item.type === value)?.type ?? ELangchain_contextType.GENERAL,
+              );
             }}
             options={context.map(
               (
