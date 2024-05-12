@@ -113,6 +113,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   const onImproveMessage =
     (chatHistoryBeforeImprove: ILangchainMessageExchange[], paraMessageExchangeData: ILangchainMessageExchange) =>
     async () => {
+      setIsCalling(true);
+
       // console.log('paraMessageExchangeData', paraMessageExchangeData);
       const newRequestController = new AbortController();
       setRequestController(newRequestController);
@@ -181,6 +183,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
     };
 
   const onRegenerateMessage = () => {
+    setIsCalling(true);
+
     const writingPostDataBeforeRollback = { ...messageExchangeData };
 
     if (currentVersionNum < 2) return;
