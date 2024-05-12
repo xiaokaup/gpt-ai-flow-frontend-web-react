@@ -22,14 +22,14 @@ import {
   IBackground_for_type_langchain,
   ILangchainMessageExchange,
   ILangchainMessageExchange_default,
-  IPromode_v4_tabPane_context_for_type_custome_langchain,
+  IPromode_v4_tabPane_context_for_type_custom_langchain,
 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 import { ILangchain_for_type_langchain_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<
-    IPromode_v4_tabPane_context_for_type_custome_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
+    IPromode_v4_tabPane_context_for_type_custom_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
   >;
   userAccessToken: string;
   modelSecret: string;
@@ -58,7 +58,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_custome_langchain<
+  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_custom_langchain<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
@@ -204,7 +204,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
             }}
             options={context.map(
               (
-                item: IPromode_v4_tabPane_context_for_type_custome_langchain<
+                item: IPromode_v4_tabPane_context_for_type_custom_langchain<
                   IBackground_for_type_langchain,
                   IAdjust_for_type_langchain
                 >,
@@ -273,20 +273,18 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                 />
               </div>
 
-              {!contextSelected.previousOutput.isHidden && (
-                <div className="row previousOutput">
-                  <Langchain_previousOutput
-                    t={t}
-                    previousOutput={previousOutput}
-                    setPreviousOutput={(newItem: IMessage) => {
-                      setMessageExchangeData({
-                        ...messageExchangeData,
-                        previousOutput: newItem,
-                      });
-                    }}
-                  />
-                </div>
-              )}
+              <div className="row previousOutput">
+                <Langchain_previousOutput
+                  t={t}
+                  previousOutput={previousOutput}
+                  setPreviousOutput={(newItem: IMessage) => {
+                    setMessageExchangeData({
+                      ...messageExchangeData,
+                      previousOutput: newItem,
+                    });
+                  }}
+                />
+              </div>
             </div>
 
             <div
