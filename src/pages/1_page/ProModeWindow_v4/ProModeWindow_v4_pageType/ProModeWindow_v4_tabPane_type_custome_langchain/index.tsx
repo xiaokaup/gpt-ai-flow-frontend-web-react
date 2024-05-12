@@ -55,6 +55,14 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
+    background: {
+      ...ILangchainMessageExchange_default.background,
+      ...inputsCache,
+    },
+    adjust: {
+      ...ILangchainMessageExchange_default.adjust,
+      ...inputsCache,
+    },
     createdAt: new Date(),
     role: EMessage_role.HUMAN,
     versionNum: 0,
@@ -72,7 +80,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   > | null>(context.length > 0 ? context[0] : null);
 
   const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
-    const newVersionNum = (paraMessageExchangeData.versionNum ?? 0) + 1;
+    const newVersionNum =
+      paraMessageExchangeData.versionNum && paraMessageExchangeData.versionNum > 0
+        ? paraMessageExchangeData.versionNum + 1
+        : 0;
     const newMessageExchangeData_for_human = {
       ...paraMessageExchangeData,
       previousOutput: paraMessageExchangeData.currentOutput,
@@ -90,7 +101,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
         temperature: creativityValue,
       },
       type: messageExchangeType,
-      prevMessageExchange: paraMessageExchangeData,
+      prevMessageExchange: chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : paraMessageExchangeData,
       currentMessageExchange: newMessageExchangeData_for_human,
     };
 
@@ -168,6 +179,28 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
         }
       });
     };
+
+  const onRegenerateMessage = () => {
+    const writingPostDataBeforeRollback = { ...messageExchangeData };
+
+    if (currentVersionNum < 2) return;
+
+    const rollBackVersionNum = currentVersionNum - 2;
+    const newChatHistory = chatHistory.slice(0, rollBackVersionNum + 1);
+
+    const basedWritingPostData = newChatHistory[newChatHistory.length - 1];
+    const newWritingPostData = {
+      ...basedWritingPostData,
+      background: writingPostDataBeforeRollback.background,
+      adjust: writingPostDataBeforeRollback.adjust,
+    };
+
+    setChatHistory(newChatHistory);
+    setCurrentVersionNum(newChatHistory.length - 1);
+    setMessageExchangeData(newWritingPostData);
+
+    onImproveMessage(newChatHistory, newWritingPostData)();
+  };
 
   const onResetAll = () => {
     setChatHistory([]);
@@ -288,8 +321,11 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                       ...messageExchangeData,
                       adjust: newItem,
                     });
+                    // setInputsCache((prvState) => ({
+                    //   ...inputsCache,
+                    //   ...newItem,
+                    // }));
                   }}
-                  inputsCache={inputsCache}
                 />
               </div>
 
@@ -297,15 +333,18 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                 <Langchain_background
                   t={t}
                   backgroundSelected={contextSelected.background}
-                  background={background as IBackground_for_type_langchain}
+                  background={background}
                   setBackground={(newItem: IBackground_for_type_langchain) => {
                     setMessageExchangeData({
                       ...messageExchangeData,
                       background: newItem,
                     });
+                    // setInputsCache((prvState) => ({
+                    //   ...inputsCache,
+                    //   ...newItem,
+                    // }));
                   }}
                   onResetAll={onResetAll}
-                  inputsCache={inputsCache}
                 />
               </div>
 
@@ -314,28 +353,23 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                   <Button
                     type="primary"
                     onClick={() => {
-                      setInputsCache((prevState: IInputsCache) => {
-                        console.log('inputCache', {
-                          ...prevState,
-                          ...messageExchangeData.background,
-                          ...messageExchangeData.adjust,
-                        });
-                        return {
-                          ...prevState,
-                          ...messageExchangeData.background,
-                          ...messageExchangeData.adjust,
-                        };
-                      });
                       onImproveMessage(chatHistory, messageExchangeData)();
                     }}
-                    disabled={isCalling}
+                    disabled={
+                      isCalling ||
+                      (chatHistory.length > 0
+                        ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
+                        : false)
+                    }
                   >
                     {t.get('Generate')}
                   </Button>
 
                   <Button
                     type="primary"
-                    // onClick={onRegenerateMessage}
+                    onClick={() => {
+                      onRegenerateMessage();
+                    }}
                     style={{ marginLeft: '1rem' }}
                     disabled={isCalling || currentVersionNum < 2}
                   >
@@ -366,12 +400,32 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
                   <Button
                     type="primary"
                     onClick={() => {
+                      console.log('currentVersionNum', currentVersionNum);
+                    }}
+                    style={{ marginLeft: '1rem' }}
+                  >
+                    currentVersionNum
+                  </Button>
+
+                  <Button
+                    type="primary"
+                    onClick={() => {
                       console.log('messageExchangeType', messageExchangeType);
                       console.log('messageExchangeData', messageExchangeData);
                     }}
                     style={{ marginLeft: '1rem' }}
                   >
                     messageExchangeData
+                  </Button>
+
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      console.log('currentVersionNum', currentVersionNum);
+                    }}
+                    style={{ marginLeft: '1rem' }}
+                  >
+                    inputsCache
                   </Button>
                 </div> */}
               </div>

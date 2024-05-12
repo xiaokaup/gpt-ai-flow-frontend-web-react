@@ -19,9 +19,8 @@ export const Langchain_background = (props: {
   background: IBackground_for_type_langchain;
   setBackground: (newItem: IBackground_for_type_langchain) => void;
   onResetAll: () => void;
-  inputsCache: IInputsCache;
 }) => {
-  const { t, backgroundSelected, background, setBackground, onResetAll, inputsCache } = props;
+  const { t, backgroundSelected, background, setBackground, onResetAll } = props;
 
   const [form] = Form.useForm();
 
@@ -73,7 +72,7 @@ export const Langchain_background = (props: {
       </div>
       {isShow && (
         <div className="row">
-          <Form form={form} initialValues={{ ...background, ...inputsCache }}>
+          <Form form={form} initialValues={background}>
             {backgroundSelected.formItems.map((item: IFormItem<IBackground_for_type_langchain>) => {
               const { componentType, label, name, isAutoSize_minRows, tooltip } = item;
               if (componentType === 'Input') {
@@ -82,10 +81,11 @@ export const Langchain_background = (props: {
                     <Form.Item name={name} label={t.get(label)}>
                       <Input
                         onChange={(event) => {
-                          setBackground({
+                          const newItem = {
                             ...background,
                             [name]: event.target.value,
-                          });
+                          };
+                          setBackground(newItem);
                         }}
                       />
                     </Form.Item>
@@ -99,10 +99,11 @@ export const Langchain_background = (props: {
                       <TextArea
                         autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
                         onChange={(event) => {
-                          setBackground({
+                          const newItem = {
                             ...background,
                             [name]: event.target.value,
-                          });
+                          };
+                          setBackground(newItem);
                         }}
                       />
                     </Form.Item>
@@ -115,10 +116,11 @@ export const Langchain_background = (props: {
                     <Form.Item name={name} label={t.get(label)}>
                       <DatePicker
                         onChange={(date, dates) => {
-                          setBackground({
+                          const newItem = {
                             ...background,
                             [name]: dates.toLocaleString(),
-                          });
+                          };
+                          setBackground(newItem);
                         }}
                       />
                     </Form.Item>

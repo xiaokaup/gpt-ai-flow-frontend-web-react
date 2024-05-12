@@ -16,9 +16,8 @@ export const Langchain_adjust = (props: {
   adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_IMessage>;
   adjust: IAdjust_for_IMessage;
   setAdjust: (newItem: IAdjust_for_IMessage) => void;
-  inputsCache: IInputsCache;
 }) => {
-  const { t, adjustSelected, adjust, setAdjust, inputsCache } = props;
+  const { t, adjustSelected, adjust, setAdjust } = props;
 
   const [form] = Form.useForm();
 
@@ -26,7 +25,7 @@ export const Langchain_adjust = (props: {
     <div className="row subContainer">
       <h1 style={{ marginTop: 0 }}>{t.get('Content adjust')}</h1>
       <div className="row">
-        <Form form={form} initialValues={{ ...adjust, ...inputsCache }}>
+        <Form form={form} initialValues={adjust}>
           {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_IMessage>) => {
             const { componentType, label, name, isAutoSize_minRows, tooltip } = item;
             if (componentType === 'Input') {
@@ -35,10 +34,11 @@ export const Langchain_adjust = (props: {
                   <Form.Item name={name} label={t.get(label)}>
                     <Input
                       onChange={(event) => {
-                        setAdjust({
+                        const newItem = {
                           ...adjust,
                           [name]: event.target.value,
-                        });
+                        };
+                        setAdjust(newItem);
                       }}
                     />
                   </Form.Item>
@@ -52,10 +52,11 @@ export const Langchain_adjust = (props: {
                     <TextArea
                       autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
                       onChange={(event) => {
-                        setAdjust({
+                        const newItem = {
                           ...adjust,
                           [name]: event.target.value,
-                        });
+                        };
+                        setAdjust(newItem);
                       }}
                     />
                   </Form.Item>
@@ -68,10 +69,11 @@ export const Langchain_adjust = (props: {
                   <Form.Item name={name} label={t.get(label)}>
                     <DatePicker
                       onChange={(date, dates) => {
-                        setAdjust({
+                        const newItem = {
                           ...adjust,
                           [name]: dates.toLocaleString(),
-                        });
+                        };
+                        setAdjust(newItem);
                       }}
                     />
                   </Form.Item>
