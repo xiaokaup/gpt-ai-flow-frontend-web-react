@@ -7,7 +7,7 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
-import { IMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IMessage, IMessage_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_previousOutput } from './component/Langchain_previousOutput';
 import { Langchain_currentOutput } from './component/Langchain_currentOutput';
 import { Langchain_adjust } from './component/Langchain_adjust';
@@ -52,13 +52,15 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   const [messageExchangeType, setMessageExchangeType] = useState<ELangchain_contextType>(
     context.length > 0 ? context[0].type : ELangchain_contextType.GENERAL,
   );
-  const [messageExchangeData, setMessageExchangeData] = useState<ILangchainMessageExchange>({
+  const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
     createdAt: new Date(),
     role: EMessage_role.HUMAN,
     versionNum: 0,
-  });
+  };
+  const [messageExchangeData, setMessageExchangeData] =
+    useState<ILangchainMessageExchange>(messageExchangeData_default);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(0);
   const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>([]);
 
@@ -69,38 +71,18 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
 
-  const buildHumanMessage = (paraWritingPostData: ILangchainMessageExchange) => {
-    let newHumanRequest: ILangchain_for_type_langchain_request_V2;
-
-    if (currentVersionNum === 0) {
-      newHumanRequest = {
-        productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
-        modelSecret,
-        modelOptions: {
-          openaiModelType: proModeModelType,
-          temperature: creativityValue,
-        },
-        type: messageExchangeType,
-        prevMessageExchange: ILangchainMessageExchange_default,
-        currentMessageExchange: paraWritingPostData,
-      };
-      return newHumanRequest;
-    }
-
-    const newVersionNum = (paraWritingPostData.versionNum ?? 0) + 1;
-    const newHumanWritingPostMessage = {
-      ...paraWritingPostData,
-      previousOutput: paraWritingPostData.currentOutput,
-      currentOutput: {
-        title: '',
-        content: '',
-      },
+  const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
+    const newVersionNum = (paraMessageExchangeData.versionNum ?? 0) + 1;
+    const newMessageExchangeData_for_human = {
+      ...paraMessageExchangeData,
+      previousOutput: paraMessageExchangeData.currentOutput,
+      currentOutput: IMessage_default,
       updatedAt: new Date(),
       versionNum: newVersionNum,
       role: EMessage_role.HUMAN,
     };
 
-    newHumanRequest = {
+    const newHumanRequest: ILangchain_for_type_langchain_request_V2 = {
       productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
       modelSecret,
       modelOptions: {
@@ -108,27 +90,29 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
         temperature: creativityValue,
       },
       type: messageExchangeType,
-      prevMessageExchange: chatHistory[chatHistory.length - 1],
-      currentMessageExchange: newHumanWritingPostMessage,
+      prevMessageExchange: paraMessageExchangeData,
+      currentMessageExchange: newMessageExchangeData_for_human,
     };
+
+    console.log('buildHumanMessage newHumanRequest', newHumanRequest);
 
     return newHumanRequest;
   };
 
   const onImproveMessage =
-    (chatHistoryBeforeImprove: ILangchainMessageExchange[], paraWritingPostData: ILangchainMessageExchange) =>
+    (chatHistoryBeforeImprove: ILangchainMessageExchange[], paraMessageExchangeData: ILangchainMessageExchange) =>
     async () => {
-      // console.log('writingPostData', writingPostData);
+      // console.log('paraMessageExchangeData', paraMessageExchangeData);
       const newRequestController = new AbortController();
       setRequestController(newRequestController);
       const { signal } = newRequestController;
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
-      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(paraWritingPostData);
-      const newHumanMessageExchange = bodyData.currentMessageExchange;
-      const newVersionNum_for_human = bodyData.currentMessageExchange.versionNum;
-      const newChatHistory_for_human = [...chatHistoryBeforeImprove, newHumanMessageExchange];
-      setMessageExchangeData(newHumanMessageExchange);
+      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(paraMessageExchangeData);
+      const newMessageExchange_for_human = bodyData.currentMessageExchange;
+      const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
+      const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];
+      setMessageExchangeData(newMessageExchange_for_human);
       setChatHistory(newChatHistory_for_human);
       setCurrentVersionNum(newChatHistory_for_human.length - 1);
 
@@ -142,7 +126,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
         (writingResultText: string) => {
           // console.log('updateResultFromRequestFunc', writingResultText);
           setMessageExchangeData({
-            ...newHumanMessageExchange,
+            ...newMessageExchange_for_human,
             currentOutput: {
               title: '',
               content: writingResultText,
@@ -152,19 +136,19 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
         (resultText: string) => {
           // console.log('AfterRequestFunc', resultText);
 
-          const newVersionNum_for_ai = (newVersionNum_for_human ?? 0) + 1;
-          const newAIMessage = {
-            ...newHumanMessageExchange,
+          const newMessageExchange_versionNum_for_ai = (newMessageExchange_versionNum_for_human ?? 0) + 1;
+          const newMessageExchange_for_ai = {
+            ...newMessageExchange_for_human,
             currentOutput: {
               title: '',
               content: resultText,
             },
             updatedAt: new Date(),
-            versionNum: newVersionNum_for_ai,
+            versionNum: newMessageExchange_versionNum_for_ai,
             role: EMessage_role.AI,
           };
-          const newChatHistory_for_ai = [...newChatHistory_for_human, newAIMessage];
-          setMessageExchangeData(newAIMessage);
+          const newChatHistory_for_ai = [...newChatHistory_for_human, newMessageExchange_for_ai];
+          setMessageExchangeData(newMessageExchange_for_ai);
           setChatHistory(newChatHistory_for_ai);
           setCurrentVersionNum(newChatHistory_for_ai.length - 1);
 
@@ -188,12 +172,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain = (
   const onResetAll = () => {
     setChatHistory([]);
     setCurrentVersionNum(0);
-    setMessageExchangeData({
-      ...ILangchainMessageExchange_default,
-      createdAt: new Date(),
-      role: EMessage_role.HUMAN,
-      versionNum: 0,
-    });
+    setMessageExchangeData(messageExchangeData_default);
   };
 
   return (
