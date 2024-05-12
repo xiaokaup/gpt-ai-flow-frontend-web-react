@@ -287,6 +287,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
               <div className="row currentOuput">
                 <Langchain_currentOutput
                   t={t}
+                  currentOutputSelected={contextSelected.currentOutput}
                   currentOutput={currentOutput}
                   setCurrentOutput={(newItem: IMessage) => {
                     setMessageExchangeData({
