@@ -7,6 +7,7 @@ import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
+import { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 const { TextArea } = Input;
 
@@ -33,10 +34,11 @@ export const Langchain_adjust = (props: {
                   <Form.Item name={name} label={t.get(label)}>
                     <Input
                       onChange={(event) => {
-                        setAdjust({
+                        const newItem = {
                           ...adjust,
                           [name]: event.target.value,
-                        });
+                        };
+                        setAdjust(newItem);
                       }}
                     />
                   </Form.Item>
@@ -50,10 +52,11 @@ export const Langchain_adjust = (props: {
                     <TextArea
                       autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
                       onChange={(event) => {
-                        setAdjust({
+                        const newItem = {
                           ...adjust,
                           [name]: event.target.value,
-                        });
+                        };
+                        setAdjust(newItem);
                       }}
                     />
                   </Form.Item>
@@ -66,10 +69,11 @@ export const Langchain_adjust = (props: {
                   <Form.Item name={name} label={t.get(label)}>
                     <DatePicker
                       onChange={(date, dates) => {
-                        setAdjust({
+                        const newItem = {
                           ...adjust,
                           [name]: dates.toLocaleString(),
-                        });
+                        };
+                        setAdjust(newItem);
                       }}
                     />
                   </Form.Item>

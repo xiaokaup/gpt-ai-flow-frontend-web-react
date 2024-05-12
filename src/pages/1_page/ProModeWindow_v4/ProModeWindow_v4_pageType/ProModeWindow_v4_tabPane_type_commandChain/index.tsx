@@ -19,11 +19,11 @@ import { IAIFlow_v2 } from '../../../../../gpt-ai-flow-common/interface-app/2_co
 import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
 import { convert_IAIFlow_v2_to_IAICommands_v4_new } from '../../../../../gpt-ai-flow-common/interface-app/2_component/TAIFlow_v2';
 import {
-  IPromode_v4_tabPane_context_type_commandChain,
   IProMode_v4_tabPane_example,
   IPromode_v4_tabPane_context_default,
   IPromode_v4_tabPane_context_stage,
-} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-commandChain/IProMode_v4_context_type_commandChain';
+  IPromode_v4_tabPane_context_type_commandChain,
+} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/01-chatChain/IProMode_v4_context_type_commandChain';
 
 interface IProModeWindow_v4_tabPane_type_langchain_input {
   t: IGetT_frontend_output;
