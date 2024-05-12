@@ -49,6 +49,7 @@ import { updateInputsCache } from '../../../store/actions/inputsCacheActions';
 import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_type_commandChain';
 import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/2024-05-08-ProModeWIndow_v4_tabPane_type_writingPostChain';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize';
+import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -242,6 +243,24 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                       )}
                       {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_CUSTOME_ITERATE_AND_OPTIMIZE && (
                         <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize
+                          t={t}
+                          tabPane={
+                            tabPane as IProMode_v4_tabPane<
+                              IPromode_v4_tabPane_context_for_type_custom_langchain<
+                                IBackground_for_type_langchain,
+                                IAdjust_for_IMessage
+                              >
+                            >
+                          }
+                          userAccessToken={userAccessToken}
+                          modelSecret={modelSecret}
+                          proModeModelType={proModeModelType}
+                          inputsCache={inputsCache}
+                          setInputsCache={setInputsCache}
+                        />
+                      )}
+                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
+                        <ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
                           t={t}
                           tabPane={
                             tabPane as IProMode_v4_tabPane<
