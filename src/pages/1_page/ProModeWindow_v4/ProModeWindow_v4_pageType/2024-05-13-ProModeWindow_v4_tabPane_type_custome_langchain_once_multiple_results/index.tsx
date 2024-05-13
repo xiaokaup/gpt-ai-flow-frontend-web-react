@@ -28,6 +28,7 @@ import {
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { EButton_operation } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4_buttons';
+import { IAdjust_for_type_morePostsChain } from 'gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_type_langchain_for_morePostsChain';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
@@ -72,6 +73,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
     useState<ILangchainMessageExchange>(messageExchangeData_default);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(0);
   const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>([]);
+
+  // Manage multiple outputs results
+  const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(2);
+  const [messages_outputs, setMessages_outputs] = useState<string[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
@@ -130,7 +135,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
       setChatHistory(newChatHistory_for_human);
       setCurrentVersionNum(newChatHistory_for_human.length - 1);
 
-      TBackendLangchainFile.postLangchain_type_custom_langchain(
+      const results: string[] = [];
+      console.log('results', results);
+
+      const promise_1 = TBackendLangchainFile.postLangchain_type_custom_langchain(
         urlSlug,
         bodyData,
         () => {
@@ -139,6 +147,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
         },
         (writingResultText: string) => {
           // console.log('updateResultFromRequestFunc', writingResultText);
+          results[0] = writingResultText;
           setMessageExchangeData({
             ...newMessageExchange_for_human,
             currentOutput: {
@@ -180,6 +189,62 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
           console.error('Fetch request failed:', error);
           message.error(error.message);
         }
+      });
+      const promise_2 = TBackendLangchainFile.postLangchain_type_custom_langchain(
+        urlSlug,
+        bodyData,
+        () => {
+          setIsCalling(true);
+          console.log('beforeSendRequestFunc');
+        },
+        (writingResultText: string) => {
+          // console.log('updateResultFromRequestFunc', writingResultText);
+          results[1] = writingResultText;
+          setMessageExchangeData({
+            ...newMessageExchange_for_human,
+            currentOutput: {
+              title: '',
+              content: writingResultText,
+            },
+          });
+        },
+        (resultText: string) => {
+          // console.log('AfterRequestFunc', resultText);
+
+          const newMessageExchange_versionNum_for_ai = (newMessageExchange_versionNum_for_human ?? 0) + 1;
+          const newMessageExchange_for_ai = {
+            ...newMessageExchange_for_human,
+            currentOutput: {
+              title: '',
+              content: resultText,
+            },
+            updatedAt: new Date(),
+            versionNum: newMessageExchange_versionNum_for_ai,
+            role: EMessage_role.AI,
+          };
+          const newChatHistory_for_ai = [...newChatHistory_for_human, newMessageExchange_for_ai];
+          setMessageExchangeData(newMessageExchange_for_ai);
+          setChatHistory(newChatHistory_for_ai);
+          setCurrentVersionNum(newChatHistory_for_ai.length - 1);
+
+          setIsCalling(false);
+        },
+        userAccessToken,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+        signal,
+      ).catch((error: Error) => {
+        if (error.name === 'AbortError') {
+          console.log('Fetch request was aborted');
+        } else {
+          console.error('Fetch request failed:', error);
+          message.error(error.message);
+        }
+      });
+
+      Promise.all([promise_1, promise_2]).then(() => {
+        console.log('all done!', results);
       });
     };
 
@@ -285,19 +350,21 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
             </div> */}
               </div>
 
-              <div className="row currentOuput">
-                <Langchain_currentOutput
-                  t={t}
-                  currentOutputSelected={contextSelected.currentOutput}
-                  currentOutput={currentOutput}
-                  setCurrentOutput={(newItem: IMessage) => {
-                    setMessageExchangeData({
-                      ...messageExchangeData,
-                      currentOutput: newItem,
-                    });
-                  }}
-                />
-              </div>
+              {!contextSelected.currentOutput.isHidden && (
+                <div className="row currentOuput">
+                  <Langchain_currentOutput
+                    t={t}
+                    currentOutputSelected={contextSelected.currentOutput}
+                    currentOutput={currentOutput}
+                    setCurrentOutput={(newItem: IMessage) => {
+                      setMessageExchangeData({
+                        ...messageExchangeData,
+                        currentOutput: newItem,
+                      });
+                    }}
+                  />
+                </div>
+              )}
 
               {!contextSelected.previousOutput.isHidden && (
                 <div className="row previousOutput">
@@ -323,13 +390,14 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                 <Langchain_adjust
                   t={t}
                   adjustSelected={contextSelected.adjust}
-                  adjust={adjust}
-                  setAdjust={(newItem: IAdjust_for_type_langchain) => {
+                  adjust={adjust as IAdjust_for_type_morePostsChain}
+                  setAdjust={(newItem: IAdjust_for_type_morePostsChain) => {
+                    setMessages_outputs_num(newItem.currentOuputNums);
                     setMessageExchangeData({
                       ...messageExchangeData,
                       adjust: newItem,
                     });
-                    setInputsCache((prvState) => ({
+                    setInputsCache((prvState: IInputsCache) => ({
                       ...prvState,
                       ...newItem,
                     }));
@@ -397,7 +465,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                   </Button>
                 </div>
 
-                {/* <div className="row @DEV">
+                <div className="row @DEV">
                   <Button
                     type="primary"
                     onClick={() => {
@@ -431,13 +499,13 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                   <Button
                     type="primary"
                     onClick={() => {
-                      console.log('currentVersionNum', currentVersionNum);
+                      console.log('messages_for_outputs_num', messages_for_outputs_num);
                     }}
                     style={{ marginLeft: '1rem' }}
                   >
-                    inputsCache
+                    messages_for_outputs_num
                   </Button>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

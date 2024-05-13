@@ -1,21 +1,20 @@
 import React from 'react';
-import { DatePicker, Form, Input, Tooltip } from 'antd';
+import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
-import { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IAdjust_for_type_morePostsChain } from 'gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_type_langchain_for_morePostsChain';
 
 const { TextArea } = Input;
 
 export const Langchain_adjust = (props: {
   t: IGetT_frontend_output;
-  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_IMessage>;
-  adjust: IAdjust_for_IMessage;
-  setAdjust: (newItem: IAdjust_for_IMessage) => void;
+  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_morePostsChain>;
+  adjust: IAdjust_for_type_morePostsChain;
+  setAdjust: (newItem: IAdjust_for_type_morePostsChain) => void;
 }) => {
   const { t, adjustSelected, adjust, setAdjust } = props;
 
@@ -26,9 +25,30 @@ export const Langchain_adjust = (props: {
       <h1 style={{ marginTop: 0 }}>{t.get('Content adjust')}</h1>
       <div className="row">
         <Form form={form} initialValues={adjust}>
-          {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_IMessage>) => {
+          {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_morePostsChain>) => {
             const { componentType, label, name, isRequired, isAutoSize_minRows, tooltip, tooltip_isNeedTranslate } =
               item;
+
+            if (componentType === 'InputNumber') {
+              return (
+                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                  <Form.Item name={name} label={t.get(label)}>
+                    <InputNumber
+                      min={1}
+                      max={4}
+                      onChange={(value) => {
+                        const newItem = {
+                          ...adjust,
+                          [name]: value,
+                        };
+                        setAdjust(newItem);
+                      }}
+                    />
+                  </Form.Item>
+                </Tooltip>
+              );
+            }
+
             if (componentType === 'Input') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
