@@ -407,6 +407,7 @@ ${item.content}`;
                     setInputsCache((prvState: IInputsCache) => ({
                       ...prvState,
                       ...newItem,
+                      currentOuputNums: newItem.currentOuputNums.toString(), // Convert currentOuputNums to string
                     }));
                   }}
                 />
