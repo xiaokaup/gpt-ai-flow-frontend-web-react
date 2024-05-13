@@ -122,6 +122,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const onImproveMessage =
     (chatHistoryBeforeImprove: ILangchainMessageExchange[], paraMessageExchangeData: ILangchainMessageExchange) =>
     async () => {
+      setMessages_outputs([]);
       setIsCalling(true);
 
       // console.log('paraMessageExchangeData', paraMessageExchangeData);
@@ -139,6 +140,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
       setCurrentVersionNum(newChatHistory_for_human.length - 1);
 
       const promiseList = [];
+      const promiseResults: IMessage[] = [];
 
       for (let index_num = 0; index_num < messages_for_outputs_num; index_num++) {
         const promiseInstance = TBackendLangchainFile.postLangchain_type_custom_langchain(
@@ -150,10 +152,11 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
           },
           (writingResultText: string) => {
             // console.log('updateResultFromRequestFunc', writingResultText);
+            promiseResults[index_num] = { title: '', content: writingResultText }; // For Promise.all
             setMessages_outputs((prevState) => {
               prevState[index_num] = { title: '', content: writingResultText };
               return prevState;
-            });
+            }); // For UI display
 
             setMessageExchangeData({
               ...newMessageExchange_for_human,
@@ -166,10 +169,11 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
           (resultText: string) => {
             // console.log('AfterRequestFunc', resultText);
 
+            promiseResults[index_num] = { title: '', content: resultText }; // For Promise.all
             setMessages_outputs((prevState) => {
               prevState[index_num] = { title: '', content: resultText };
               return prevState;
-            });
+            }); // For UI display
 
             // const newMessageExchange_versionNum_for_ai = (newMessageExchange_versionNum_for_human ?? 0) + 1;
             // const newMessageExchange_for_ai = {
@@ -212,11 +216,12 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
           ...newMessageExchange_for_human,
           currentOutput: {
             title: '',
-            content: messages_outputs
+            content: promiseResults
               .map((item: IMessage, index: number) => {
-                return `
-Result ${index + 1}:
-${item.content}`;
+                let content: string = '';
+                content += `## ${t.get('Rewrite')}${t.get('Post')} ${index + 1}:\n`;
+                content += item.content;
+                return content;
               })
               .join('\n\n'),
           },
@@ -337,7 +342,7 @@ ${item.content}`;
             </div> */}
               </div>
 
-              {!contextSelected.currentOutput.isHidden && (
+              {!isCalling && (
                 <div className="row currentOuput">
                   <Langchain_currentOutput
                     t={t}
@@ -353,23 +358,24 @@ ${item.content}`;
                 </div>
               )}
 
-              {messages_outputs.map((item: IMessage, index: number) => {
-                return (
-                  <div className="row currentOuput" key={index}>
-                    <Langchain_currentOutput
-                      t={t}
-                      title={`${contextSelected.currentOutput.title} ${index + 1}` ?? t.get('Post')}
-                      currentOutput={item}
-                      setCurrentOutput={(newItem: IMessage) => {
-                        setMessageExchangeData({
-                          ...messageExchangeData,
-                          currentOutput: newItem,
-                        });
-                      }}
-                    />
-                  </div>
-                );
-              })}
+              {isCalling &&
+                messages_outputs.map((item: IMessage, index: number) => {
+                  return (
+                    <div className="row currentOuput" key={index}>
+                      <Langchain_currentOutput
+                        t={t}
+                        title={`${contextSelected.currentOutput.title} ${index + 1}` ?? t.get('Post')}
+                        currentOutput={item}
+                        setCurrentOutput={(newItem: IMessage) => {
+                          setMessageExchangeData({
+                            ...messageExchangeData,
+                            currentOutput: newItem,
+                          });
+                        }}
+                      />
+                    </div>
+                  );
+                })}
 
               {!contextSelected.previousOutput.isHidden && (
                 <div className="row previousOutput">
