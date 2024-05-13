@@ -472,7 +472,7 @@ ${item.content}`;
                   </Button>
                 </div>
 
-                <div className="row @DEV">
+                {/* <div className="row @DEV">
                   <Button
                     type="primary"
                     onClick={() => {
@@ -521,7 +521,7 @@ ${item.content}`;
                   >
                     messages_outputs
                   </Button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
