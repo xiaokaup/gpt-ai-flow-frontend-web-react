@@ -13,11 +13,11 @@ const { TextArea } = Input;
 
 export const Langchain_currentOutput = (props: {
   t: IGetT_frontend_output;
-  currentOutputSelected: IProMode_v4_tabPane_context_for_type_langchain_output;
+  title: string;
   currentOutput: IMessage;
   setCurrentOutput: (newItem: IMessage) => void;
 }) => {
-  const { t, currentOutputSelected, currentOutput, setCurrentOutput } = props;
+  const { t, title, currentOutput, setCurrentOutput } = props;
 
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
@@ -37,7 +37,7 @@ export const Langchain_currentOutput = (props: {
   return (
     <div className="row subContainer">
       <div className="block_title" style={{ display: 'flex', paddingLeft: '1rem', paddingRight: '1rem' }}>
-        <h1>{currentOutputSelected.title ?? t.get('Post')}</h1>
+        <h1>{title}</h1>
         <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsEditing(!isEditing)} />
 
         <CopyToClipboard
