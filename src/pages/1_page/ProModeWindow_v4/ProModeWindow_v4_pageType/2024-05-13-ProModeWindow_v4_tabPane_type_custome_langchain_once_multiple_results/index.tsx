@@ -207,9 +207,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
       }
 
       Promise.all(promiseList).then(() => {
-        console.log('newChatHistory_for_human', newChatHistory_for_human);
-        console.log('messages_outputs', messages_outputs);
-
         const newMessageExchange_versionNum_for_ai = (newMessageExchange_versionNum_for_human ?? 0) + 1;
         const newMessageExchange_for_ai = {
           ...newMessageExchange_for_human,
