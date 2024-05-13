@@ -45,17 +45,6 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
 
   const items: MenuProps['items'] = [
     {
-      key: 'zh',
-      label: (
-        <div onClick={() => handleSwithLanguage(ELocale.ZH)}>
-          <span role="img" aria-label="Chinese">
-            🇨🇳
-          </span>
-          &nbsp;{t.get(ELocale.ZH)}
-        </div>
-      ),
-    },
-    {
       key: 'en',
       label: (
         <div onClick={() => handleSwithLanguage(ELocale.EN)}>
@@ -63,6 +52,17 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
             🇺🇸
           </span>
           &nbsp;{t.get(ELocale.EN)}
+        </div>
+      ),
+    },
+    {
+      key: 'zh',
+      label: (
+        <div onClick={() => handleSwithLanguage(ELocale.ZH)}>
+          <span role="img" aria-label="Chinese">
+            🇨🇳
+          </span>
+          &nbsp;{t.get(ELocale.ZH)}
         </div>
       ),
     },
