@@ -30,6 +30,7 @@ import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { EButton_operation } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4_buttons';
 import { IAdjust_for_type_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_type_langchain_for_morePostsChain';
+import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
@@ -219,7 +220,12 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
             content: promiseResults
               .map((item: IMessage, index: number) => {
                 let content: string = '';
-                content += `## ${t.get('Rewrite')}${t.get('Post')} ${index + 1}:\n`;
+                if (t.currentLocale === ELocale.EN) {
+                  content += `## ${t.get('Rewrite')} ${t.get('Post')} ${index + 1}:\n`;
+                }
+                if (t.currentLocale === ELocale.ZH) {
+                  content += `## ${t.get('Rewrite')}${t.get('Post')} ${index + 1}:\n`;
+                }
                 content += item.content;
                 return content;
               })
