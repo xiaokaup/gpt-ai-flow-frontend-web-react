@@ -75,7 +75,9 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>([]);
 
   // Manage multiple outputs results
-  const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(2);
+  const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(
+    parseInt(String(inputsCache['currentOuputNums'])) ?? 2, // IAdjust_for_type_morePostsChain
+  );
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
@@ -261,6 +263,8 @@ ${item.content}`;
     setChatHistory([]);
     setCurrentVersionNum(0);
     setMessageExchangeData(messageExchangeData_default);
+
+    setMessages_outputs([]);
   };
 
   return (
