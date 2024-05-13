@@ -7,7 +7,11 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
-import { IMessage, IMessage_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import {
+  IAdjust_for_IMessage,
+  IMessage,
+  IMessage_default,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_previousOutput } from './component/Langchain_previousOutput';
 import { Langchain_currentOutput } from './component/Langchain_currentOutput';
 import { Langchain_adjust } from './component/Langchain_adjust';
@@ -320,7 +324,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                   t={t}
                   adjustSelected={contextSelected.adjust}
                   adjust={adjust}
-                  setAdjust={(newItem: IAdjust_for_type_langchain) => {
+                  setAdjust={(newItem: IAdjust_for_IMessage) => {
                     setMessageExchangeData({
                       ...messageExchangeData,
                       adjust: newItem,
