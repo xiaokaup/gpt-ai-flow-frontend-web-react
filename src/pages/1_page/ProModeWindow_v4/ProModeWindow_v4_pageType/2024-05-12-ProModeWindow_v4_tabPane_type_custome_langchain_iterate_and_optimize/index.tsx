@@ -364,13 +364,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                       ...messageExchangeData,
                       background: newItem,
                     });
-                    setInputsCache(
-                      (prvState: IInputsCache) =>
-                        ({
-                          ...prvState,
-                          ...newItem,
-                        }) as any,
-                    );
+                    setInputsCache((prvState: IInputsCache) => ({
+                      ...prvState,
+                      ...newItem,
+                    }));
                   }}
                   onResetAll={onResetAll}
                 />

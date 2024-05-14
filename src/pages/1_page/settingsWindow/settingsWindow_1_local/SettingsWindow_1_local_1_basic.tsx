@@ -38,7 +38,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   );
 
   const onSaveLocalSettings = () => {
-    dispatch(
+    dispatch<IStoreStorageLocalSettings | any>(
       saveLocalAction({
         ...localFromStore,
         openAIApiKey: openAIApiKey.trim(),
@@ -48,7 +48,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
         proMode: {
           model_type: proModeModelType,
         },
-      }) as any,
+      }),
     );
   };
 
