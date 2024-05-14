@@ -8,7 +8,6 @@ import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
 } from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
-import { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 const { TextArea } = Input;
 

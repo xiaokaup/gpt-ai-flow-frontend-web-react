@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import _ from 'lodash';
 import { Button, Select, message } from 'antd';
@@ -32,6 +33,7 @@ import {
 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { Langchain_context_description } from './component/Langchain_context_description';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
   t: IGetT_frontend_output;
@@ -315,6 +317,12 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                   }}
                 />
               </div>
+
+              {contextSelected.description && (
+                <div className="row description">
+                  <Langchain_context_description t={t} description={contextSelected.description} />
+                </div>
+              )}
             </div>
 
             <div
