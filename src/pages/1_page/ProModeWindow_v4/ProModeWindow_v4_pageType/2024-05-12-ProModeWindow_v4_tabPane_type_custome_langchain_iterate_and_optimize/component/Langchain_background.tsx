@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { DatePicker, Form, Input, Tooltip } from 'antd';
-import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined } from '@ant-design/icons';
+import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -74,11 +74,65 @@ export const Langchain_background = (props: {
         <div className="row">
           <Form form={form} initialValues={background}>
             {backgroundSelected.formItems.map((item: IFormItem<IBackground_for_type_langchain>) => {
-              const { componentType, label, name, isAutoSize_minRows, tooltip } = item;
+              const {
+                componentType,
+                label,
+                name,
+                isAutoSize_minRows,
+                tooltip,
+                tooltip_isNeedTranslate,
+                minNum = 1,
+                maxNum = 4,
+              } = item;
+
+              if (componentType === 'InputNumber') {
+                return (
+                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                    <Form.Item
+                      name={name}
+                      label={
+                        tooltip && tooltip_isNeedTranslate ? (
+                          <>
+                            {t.get(label)}&nbsp;
+                            <InfoCircleOutlined />
+                          </>
+                        ) : (
+                          t.get(label)
+                        )
+                      }
+                    >
+                      <InputNumber
+                        min={minNum}
+                        max={maxNum}
+                        onChange={(value) => {
+                          const newItem = {
+                            ...background,
+                            [name]: String(value),
+                          };
+                          setBackground(newItem);
+                        }}
+                      />
+                    </Form.Item>
+                  </Tooltip>
+                );
+              }
+
               if (componentType === 'Input') {
                 return (
-                  <Tooltip title={tooltip}>
-                    <Form.Item name={name} label={t.get(label)}>
+                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                    <Form.Item
+                      name={name}
+                      label={
+                        tooltip && tooltip_isNeedTranslate ? (
+                          <>
+                            {t.get(label)}&nbsp;
+                            <InfoCircleOutlined />
+                          </>
+                        ) : (
+                          t.get(label)
+                        )
+                      }
+                    >
                       <Input
                         onChange={(event) => {
                           const newItem = {
@@ -94,8 +148,20 @@ export const Langchain_background = (props: {
               }
               if (componentType === 'TextArea') {
                 return (
-                  <Tooltip title={tooltip}>
-                    <Form.Item name={name} label={t.get(label)}>
+                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                    <Form.Item
+                      name={name}
+                      label={
+                        tooltip && tooltip_isNeedTranslate ? (
+                          <>
+                            {t.get(label)}&nbsp;
+                            <InfoCircleOutlined />
+                          </>
+                        ) : (
+                          t.get(label)
+                        )
+                      }
+                    >
                       <TextArea
                         autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
                         onChange={(event) => {
@@ -112,8 +178,20 @@ export const Langchain_background = (props: {
               }
               if (componentType === 'DatePicker') {
                 return (
-                  <Tooltip title={tooltip}>
-                    <Form.Item name={name} label={t.get(label)}>
+                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                    <Form.Item
+                      name={name}
+                      label={
+                        tooltip && tooltip_isNeedTranslate ? (
+                          <>
+                            {t.get(label)}&nbsp;
+                            <InfoCircleOutlined />
+                          </>
+                        ) : (
+                          t.get(label)
+                        )
+                      }
+                    >
                       <DatePicker
                         onChange={(date, dates) => {
                           const newItem = {

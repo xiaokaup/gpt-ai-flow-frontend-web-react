@@ -1,5 +1,6 @@
 import React from 'react';
 import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -26,20 +27,41 @@ export const Langchain_adjust = (props: {
       <div className="row">
         <Form form={form} initialValues={adjust}>
           {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_morePostsChain>) => {
-            const { componentType, label, name, isRequired, isAutoSize_minRows, tooltip, tooltip_isNeedTranslate } =
-              item;
+            const {
+              componentType,
+              label,
+              name,
+              isRequired,
+              isAutoSize_minRows,
+              tooltip,
+              tooltip_isNeedTranslate,
+              minNum = 1,
+              maxNum = 4,
+            } = item;
 
             if (componentType === 'InputNumber') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item name={name} label={t.get(label)}>
+                  <Form.Item
+                    name={name}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
+                  >
                     <InputNumber
-                      min={1}
-                      max={4}
+                      min={minNum}
+                      max={maxNum}
                       onChange={(value) => {
                         const newItem = {
                           ...adjust,
-                          [name]: value,
+                          [name]: String(value),
                         };
                         setAdjust(newItem);
                       }}
@@ -103,7 +125,19 @@ export const Langchain_adjust = (props: {
             if (componentType === 'DatePicker') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item name={name} label={t.get(label)}>
+                  <Form.Item
+                    name={name}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
+                  >
                     <DatePicker
                       onChange={(date, dates) => {
                         const newItem = {
