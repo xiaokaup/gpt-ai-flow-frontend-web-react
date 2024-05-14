@@ -85,21 +85,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   > | null>(context.length > 0 ? context[0] : null);
 
   const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
-    // // Fitler out the background and adjust items that are not in the current context
-    // paraMessageExchangeData = {
-    //   ...paraMessageExchangeData,
-    //   background: {
-    //     ...ILangchainMessageExchange_default.background,
-    //     ...paraMessageExchangeData.background,
-    //     ..._.pick(messageExchangeData.background, contextSelected?.background.formItems.map((item) => item.name) ?? []),
-    //   },
-    //   adjust: {
-    //     ...ILangchainMessageExchange_default.adjust,
-    //     ...paraMessageExchangeData.adjust,
-    //     ..._.pick(messageExchangeData.adjust, contextSelected?.adjust.formItems.map((item) => item.name) ?? []),
-    //   },
-    // };
-
     const newVersionNum =
       paraMessageExchangeData.versionNum && paraMessageExchangeData.versionNum > 0
         ? paraMessageExchangeData.versionNum + 1
