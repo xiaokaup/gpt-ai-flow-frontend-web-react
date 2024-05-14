@@ -1,5 +1,6 @@
+import '../../index.scss';
+
 import React, { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 
 import _ from 'lodash';
 import { Button, Select, message } from 'antd';
@@ -251,7 +252,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
         </div>
 
         {contextSelected && (
-          <div className="row" style={{ display: 'flex' }}>
+          <div className="row row_contextSelected">
             <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
               <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
                 {chatHistory.length > 0 && (

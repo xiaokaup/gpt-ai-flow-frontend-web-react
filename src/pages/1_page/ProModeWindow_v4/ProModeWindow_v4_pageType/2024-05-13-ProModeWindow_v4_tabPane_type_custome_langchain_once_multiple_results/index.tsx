@@ -1,3 +1,5 @@
+import '../../index.scss';
+
 import React, { useState } from 'react';
 
 import _ from 'lodash';
@@ -309,7 +311,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
         </div>
 
         {contextSelected && (
-          <div className="row" style={{ display: 'flex' }}>
+          <div className="row row_contextSelected">
             <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
               <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
                 {chatHistory.length > 0 && (
