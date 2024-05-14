@@ -1,5 +1,6 @@
 import React from 'react';
 import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -41,7 +42,19 @@ export const Langchain_adjust = (props: {
             if (componentType === 'InputNumber') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item name={name} label={t.get(label)}>
+                  <Form.Item
+                    name={name}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
+                  >
                     <InputNumber
                       min={minNum}
                       max={maxNum}
@@ -112,7 +125,19 @@ export const Langchain_adjust = (props: {
             if (componentType === 'DatePicker') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item name={name} label={t.get(label)}>
+                  <Form.Item
+                    name={name}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
+                  >
                     <DatePicker
                       onChange={(date, dates) => {
                         const newItem = {
