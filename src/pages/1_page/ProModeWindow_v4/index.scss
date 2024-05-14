@@ -7,4 +7,13 @@
   &::-webkit-scrollbar {
     display: none;
   }
+
+  .row.row_contextSelected {
+    display: flex;
+    
+    @media screen and (max-width: 594px) {
+        flex-wrap: wrap;
+    }
+  }
+
 }
