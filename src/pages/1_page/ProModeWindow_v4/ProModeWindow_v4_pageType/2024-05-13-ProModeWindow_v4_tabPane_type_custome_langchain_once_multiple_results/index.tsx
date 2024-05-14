@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
+import _ from 'lodash';
 import { Button, Select, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
@@ -18,7 +19,7 @@ import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_uni
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import {
-  ELangchain_contextType,
+  EProMode_v4_tabPane_type_langchain_contextType,
   IAdjust_for_type_langchain,
   IAdjust_type_langchain_default,
   IBackground_for_type_langchain,
@@ -53,8 +54,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<ELangchain_contextType>(
-    context.length > 0 ? context[0].type : ELangchain_contextType.GENERAL,
+  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_type_langchain_contextType>(
+    context.length > 0 ? context[0].type : EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
   );
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
@@ -287,7 +288,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
               console.log(`selected ${value}`);
               setContextSelected(context.find((item) => item.type === value) ?? null);
               setMessageExchangeType(
-                context.find((item) => item.type === value)?.type ?? ELangchain_contextType.GENERAL,
+                context.find((item) => item.type === value)?.type ??
+                  EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
               );
             }}
             options={context.map(
@@ -433,10 +435,13 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                       ...messageExchangeData,
                       background: newItem,
                     });
-                    setInputsCache((prvState) => ({
-                      ...prvState,
-                      ...newItem,
-                    }));
+                    setInputsCache(
+                      (prvState: IInputsCache) =>
+                        ({
+                          ...prvState,
+                          ...newItem,
+                        }) as any,
+                    );
                   }}
                   onResetAll={onResetAll}
                 />

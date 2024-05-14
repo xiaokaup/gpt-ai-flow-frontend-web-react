@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
+import _ from 'lodash';
 import { Button, Select, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
@@ -22,7 +23,7 @@ import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_uni
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import {
-  ELangchain_contextType,
+  EProMode_v4_tabPane_type_langchain_contextType,
   IAdjust_for_type_langchain,
   IBackground_for_type_langchain,
   ILangchainMessageExchange,
@@ -53,8 +54,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<ELangchain_contextType>(
-    context.length > 0 ? context[0].type : ELangchain_contextType.GENERAL,
+  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_type_langchain_contextType>(
+    context.length > 0 ? context[0].type : EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
   );
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
@@ -84,6 +85,21 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   > | null>(context.length > 0 ? context[0] : null);
 
   const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
+    // // Fitler out the background and adjust items that are not in the current context
+    // paraMessageExchangeData = {
+    //   ...paraMessageExchangeData,
+    //   background: {
+    //     ...ILangchainMessageExchange_default.background,
+    //     ...paraMessageExchangeData.background,
+    //     ..._.pick(messageExchangeData.background, contextSelected?.background.formItems.map((item) => item.name) ?? []),
+    //   },
+    //   adjust: {
+    //     ...ILangchainMessageExchange_default.adjust,
+    //     ...paraMessageExchangeData.adjust,
+    //     ..._.pick(messageExchangeData.adjust, contextSelected?.adjust.formItems.map((item) => item.name) ?? []),
+    //   },
+    // };
+
     const newVersionNum =
       paraMessageExchangeData.versionNum && paraMessageExchangeData.versionNum > 0
         ? paraMessageExchangeData.versionNum + 1
@@ -227,7 +243,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
               console.log(`selected ${value}`);
               setContextSelected(context.find((item) => item.type === value) ?? null);
               setMessageExchangeType(
-                context.find((item) => item.type === value)?.type ?? ELangchain_contextType.GENERAL,
+                context.find((item) => item.type === value)?.type ??
+                  EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
               );
             }}
             options={context.map(
@@ -347,10 +364,13 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                       ...messageExchangeData,
                       background: newItem,
                     });
-                    setInputsCache((prvState) => ({
-                      ...prvState,
-                      ...newItem,
-                    }));
+                    setInputsCache(
+                      (prvState: IInputsCache) =>
+                        ({
+                          ...prvState,
+                          ...newItem,
+                        }) as any,
+                    );
                   }}
                   onResetAll={onResetAll}
                 />
