@@ -79,7 +79,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
 
   // Manage multiple outputs results
   const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(
-    inputsCache['currentOuputNums'] ? parseInt(String(inputsCache['currentOuputNums'])) : 2, // IAdjust_for_type_morePostsChain
+    inputsCache['currentOuputNums'] ? parseInt(inputsCache['currentOuputNums']) : 2, // IAdjust_for_type_morePostsChain
   );
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 

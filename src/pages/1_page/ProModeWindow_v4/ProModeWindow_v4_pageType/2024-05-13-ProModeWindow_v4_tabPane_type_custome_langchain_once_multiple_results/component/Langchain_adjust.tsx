@@ -26,20 +26,29 @@ export const Langchain_adjust = (props: {
       <div className="row">
         <Form form={form} initialValues={adjust}>
           {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_morePostsChain>) => {
-            const { componentType, label, name, isRequired, isAutoSize_minRows, tooltip, tooltip_isNeedTranslate } =
-              item;
+            const {
+              componentType,
+              label,
+              name,
+              isRequired,
+              isAutoSize_minRows,
+              tooltip,
+              tooltip_isNeedTranslate,
+              minNum = 1,
+              maxNum = 4,
+            } = item;
 
             if (componentType === 'InputNumber') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                   <Form.Item name={name} label={t.get(label)}>
                     <InputNumber
-                      min={1}
-                      max={4}
+                      min={minNum}
+                      max={maxNum}
                       onChange={(value) => {
                         const newItem = {
                           ...adjust,
-                          [name]: value,
+                          [name]: String(value),
                         };
                         setAdjust(newItem);
                       }}

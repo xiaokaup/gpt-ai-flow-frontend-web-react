@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Form, Input, Tooltip } from 'antd';
+import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
@@ -27,7 +27,37 @@ export const Langchain_adjust = (props: {
       <div className="row">
         <Form form={form} initialValues={adjust}>
           {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_IMessage>) => {
-            const { componentType, label, name, isAutoSize_minRows, tooltip } = item;
+            const {
+              componentType,
+              label,
+              name,
+              isAutoSize_minRows,
+              tooltip,
+              tooltip_isNeedTranslate,
+              minNum = 1,
+              maxNum = 4,
+            } = item;
+
+            if (componentType === 'InputNumber') {
+              return (
+                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                  <Form.Item name={name} label={t.get(label)}>
+                    <InputNumber
+                      min={minNum}
+                      max={maxNum}
+                      onChange={(value) => {
+                        const newItem = {
+                          ...adjust,
+                          [name]: String(value),
+                        };
+                        setAdjust(newItem);
+                      }}
+                    />
+                  </Form.Item>
+                </Tooltip>
+              );
+            }
+
             if (componentType === 'Input') {
               return (
                 <Tooltip title={tooltip}>
