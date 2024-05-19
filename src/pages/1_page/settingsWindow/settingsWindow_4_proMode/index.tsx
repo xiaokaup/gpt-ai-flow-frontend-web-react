@@ -61,32 +61,32 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
     return <>{t.get('Please register a user and log in first')}</>;
   }
 
-  const createAndOpenStripeCheckoutSession = async (
-    priceId: string,
-    paymentMode: EStripeCheckoutSessionPaymentMode,
-  ) => {
-    try {
-      const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession(
-        userId,
-        priceId,
-        paymentMode,
-        userAccessToken,
-        locale,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-      );
+  // const createAndOpenStripeCheckoutSession = async (
+  //   priceId: string,
+  //   paymentMode: EStripeCheckoutSessionPaymentMode,
+  // ) => {
+  //   try {
+  //     const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession(
+  //       userId,
+  //       priceId,
+  //       paymentMode,
+  //       userAccessToken,
+  //       locale,
+  //       CONSTANTS_GPT_AI_FLOW_COMMON,
+  //     );
 
-      if ((checkoutSessionResults as IError)?.status === 'error') {
-        throw new Error((checkoutSessionResults as IError)?.message);
-      }
+  //     if ((checkoutSessionResults as IError)?.status === 'error') {
+  //       throw new Error((checkoutSessionResults as IError)?.message);
+  //     }
 
-      // console.log('checkoutSessionResults', checkoutSessionResults);
+  //     // console.log('checkoutSessionResults', checkoutSessionResults);
 
-      window.open((checkoutSessionResults as { url: string }).url, '_blank', 'noreferrer');
-    } catch (error: any) {
-      console.error('createAndOpenStripeCheckoutSession', error);
-      message.error(error.message);
-    }
-  };
+  //     window.open((checkoutSessionResults as { url: string }).url, '_blank', 'noreferrer');
+  //   } catch (error: any) {
+  //     console.error('createAndOpenStripeCheckoutSession', error);
+  //     message.error(error.message);
+  //   }
+  // };
 
   const createAndOpenStripeCheckoutSession_v2 = async (
     priceItems: IStripePriceItem[],
