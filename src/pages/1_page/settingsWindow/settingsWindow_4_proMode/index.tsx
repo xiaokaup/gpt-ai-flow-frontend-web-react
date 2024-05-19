@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxRootState } from 'store/reducer';
 
-import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { Alert, message } from 'antd';
 
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
@@ -12,14 +13,14 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import { IProductItemDB_with_expiredAt } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
 import { getProductItem_by_userId_from_backend } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
-import TStripeConstantFile_v2File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v2';
 import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { IError } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IError';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
+import TStripeConstantFile_v3File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v3';
+import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/IStripe_v2';
 
-import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 import { SettingsWindow_4_proMode_locale } from './SettingsWindow_4_proMode_locale';
-import { Alert, message } from 'antd';
+import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 
 interface ISettingsWindow_4_proMode_login_input {
   t: IGetT_frontend_output;
@@ -36,7 +37,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
   } = userData;
 
   const [productItem, setProductItem] = useState<IProductItemDB_with_expiredAt | null>(null);
-  const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, string>>();
+  const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, IStripePriceItem[]>>();
 
   const init = async (paraLocale: ELocale) => {
     const itemFound: IProductItemDB_with_expiredAt | null = await getProductItem_by_userId_from_backend(
@@ -46,7 +47,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
     );
     if (itemFound) setProductItem(itemFound);
 
-    const pricesFound = await TStripeConstantFile_v2File.getStripePrices(
+    const pricesFound = await TStripeConstantFile_v3File.getStripePrices(
       CONSTANTS_GPT_AI_FLOW_COMMON.APP_ENV === 'Prod',
     );
     setStripePrices(pricesFound[paraLocale]);
@@ -69,6 +70,35 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
         userId,
         priceId,
         paymentMode,
+        userAccessToken,
+        locale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+      );
+
+      if ((checkoutSessionResults as IError)?.status === 'error') {
+        throw new Error((checkoutSessionResults as IError)?.message);
+      }
+
+      // console.log('checkoutSessionResults', checkoutSessionResults);
+
+      window.open((checkoutSessionResults as { url: string }).url, '_blank', 'noreferrer');
+    } catch (error: any) {
+      console.error('createAndOpenStripeCheckoutSession', error);
+      message.error(error.message);
+    }
+  };
+
+  const createAndOpenStripeCheckoutSession_v2 = async (
+    priceItems: IStripePriceItem[],
+    paymentMode: EStripeCheckoutSessionPaymentMode,
+  ) => {
+    try {
+      const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession_v2(
+        {
+          userId,
+          priceItems,
+          paymentMode,
+        },
         userAccessToken,
         locale,
         CONSTANTS_GPT_AI_FLOW_COMMON,
@@ -180,7 +210,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                   type="button"
                   className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
-                    createAndOpenStripeCheckoutSession(
+                    createAndOpenStripeCheckoutSession_v2(
                       stripePrices[EProductItemDB_name.STARTAI_TOOLS],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                     );
@@ -263,7 +293,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                   type="button"
                   className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
-                    createAndOpenStripeCheckoutSession(
+                    createAndOpenStripeCheckoutSession_v2(
                       stripePrices[EProductItemDB_name.STARTAI_LIFETIME],
                       EStripeCheckoutSessionPaymentMode.PAYMENT,
                     );
