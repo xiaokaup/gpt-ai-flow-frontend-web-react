@@ -39,6 +39,8 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
   const [productItem, setProductItem] = useState<IProductItemDB_with_expiredAt | null>(null);
   const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, IStripePriceItem[]>>();
 
+  const [tabSelected, setTabSelected] = useState<string>('Model');
+
   const init = async (paraLocale: ELocale) => {
     const itemFound: IProductItemDB_with_expiredAt | null = await getProductItem_by_userId_from_backend(
       userAccessToken,
@@ -138,170 +140,373 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                 {t.get('Get started on our free plan and upgrade when you are ready.')}
               </p>
             </div>
-            <div className="mt-24 container space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8">
-              <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold ">{t.get('Tools')}</h3>
-                  <p className="mt-4 flex items-baseline ">
-                    <span className="text-5xl font-extrabold tracking-tight">
-                      {locale === ELocale.EN ? '$4.95' : '￥34.95'}
-                    </span>
-                    <span className="ml-1 text-xl font-semibold">/{t.get('year')}</span>
-                  </p>
-                  <p className="mt-6 ">{t.get('You want to learn and have a personal assistant')}</p>
-                  <ul role="list" className="mt-6 space-y-6">
-                    <li className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3 ">{t.get('Advanced AI dialogue capabilities')}</span>
-                    </li>
-                    <li className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3 ">{t.get('Unlimited usage')}</span>
-                    </li>
-                    <li className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3 ">{t.get('Comprehensive support for professional modes')}</span>
-                    </li>
-                  </ul>
-                </div>
-                <button
-                  type="button"
-                  className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
-                  onClick={() => {
-                    createAndOpenStripeCheckoutSession_v2(
-                      stripePrices[EProductItemDB_name.STARTAI_TOOLS],
-                      EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
-                    );
-                  }}
+
+            {/* <!--Switch--> */}
+            <div className="tabs mt-12">
+              <div className="flex justify-center items-center bg-gray-100 rounded-full p-1.5 max-w-lg mx-auto">
+                <a
+                  href="javascript:void(0)"
+                  className={
+                    tabSelected === 'Model'
+                      ? 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-white bg-emerald-500 rounded-full text-white tablink whitespace-nowrap'
+                      : 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-emerald-500 tab-active:bg-emerald-500 tab-active:rounded-full tab-active:text-white tablink whitespace-nowrap'
+                  }
+                  onClick={() => setTabSelected('Model')}
                 >
-                  {t.get('Get started')}
-                </button>
-              </div>
-              <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold ">{t.get('Lifetime')}</h3>
-                  <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide  transform -translate-y-1/2">
-                    Most popular
-                  </p>
-                  <p className="mt-4 flex items-baseline ">
-                    <span className="text-5xl font-extrabold tracking-tight">
-                      {locale === ELocale.EN ? '$14.95' : '￥99.95'}
-                    </span>
-                    <span className="ml-1 text-xl font-semibold">/{t.get('lifetime')}</span>
-                  </p>
-                  <p className="mt-6 ">{t.get('You want a comprehensive solution and ongoing updates')}</p>
-                  <ul role="list" className="mt-6 space-y-6">
-                    <li className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3 ">{t.get('One-time purchase, lifetime enjoyment')}</span>
-                    </li>
-                    <li className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3 ">{t.get('Continuous feature updates')}</span>
-                    </li>
-                    <li className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3 ">{t.get('Exclusive customer support')}</span>
-                    </li>
-                  </ul>
-                </div>
-                <button
-                  type="button"
-                  className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
-                  onClick={() => {
-                    createAndOpenStripeCheckoutSession_v2(
-                      stripePrices[EProductItemDB_name.STARTAI_LIFETIME],
-                      EStripeCheckoutSessionPaymentMode.PAYMENT,
-                    );
-                  }}
+                  Model
+                </a>
+
+                <a
+                  href="javascript:void(0)"
+                  className={
+                    tabSelected === 'Tool'
+                      ? 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-white bg-emerald-500 rounded-full text-white tablink whitespace-nowrap'
+                      : 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-emerald-500 tab-active:bg-emerald-500 tab-active:rounded-full tab-active:text-white tablink whitespace-nowrap'
+                  }
+                  onClick={() => setTabSelected('Tool')}
                 >
-                  {t.get('Get started')}
-                </button>
+                  Tool (需自备 OpenAI Key)
+                </a>
               </div>
+            </div>
+
+            {/* <!--Pricing table--> */}
+            <div className="pricing-table-container">
+              {tabSelected === 'Model' && (
+                <div className="pricing-table paricing-table-model !mt-12 container space-y-12 md:space-y-0 md:grid md:grid-cols-1 md:gap-x-8">
+                  <div className="hidden relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold ">{t.get('Model_version')}</h3>
+                      <p className="mt-4 flex items-baseline ">
+                        <span className="text-5xl font-extrabold tracking-tight">
+                          {locale === ELocale.EN ? '$4.95' : '￥34.95'}
+                        </span>
+                        <span className="ml-1 text-xl font-semibold">/{t.get('year')}</span>
+                      </p>
+                      <p className="mt-6 ">{t.get('You want to learn and have a personal assistant')}</p>
+                      <ul role="list" className="mt-6 space-y-6">
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Advanced AI dialogue capabilities')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Unlimited usage')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Comprehensive support for professional modes')}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
+                      onClick={() => {
+                        createAndOpenStripeCheckoutSession_v2(
+                          stripePrices[EProductItemDB_name.STARTAI_TOOLS],
+                          EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                        );
+                      }}
+                    >
+                      {t.get('Get started')}
+                    </button>
+                  </div>
+                  <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col w-1/2 m-auto">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold ">{t.get('Model_version')}</h3>
+                      <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide  transform -translate-y-1/2">
+                        Most popular
+                      </p>
+                      <p className="mt-4 flex items-baseline ">
+                        <span className="text-5xl font-extrabold tracking-tight">
+                          {locale === ELocale.EN ? '$0.99' : '￥6.99'}
+                        </span>
+                        <span className="ml-1 text-xl font-semibold">/{t.get('month')}</span>
+                        <span className="text-2xl"> + 超出部分按量费用</span>
+                      </p>
+                      <p className="mt-6 ">{t.get('You want a comprehensive solution and ongoing updates')}</p>
+                      <ul role="list" className="mt-6 space-y-6">
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('One-time purchase, lifetime enjoyment')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Continuous feature updates')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Exclusive customer support')}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
+                      onClick={() => {
+                        createAndOpenStripeCheckoutSession_v2(
+                          stripePrices[EProductItemDB_name.STARTAI_MODEL],
+                          EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                        );
+                      }}
+                    >
+                      {t.get('Get started')}
+                    </button>
+                  </div>
+                </div>
+              )}
+              {tabSelected === 'Tool' && (
+                <div className="pricing-table paricing-table-tool !mt-12 container space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8">
+                  <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold ">{t.get('Tools')}</h3>
+                      <p className="mt-4 flex items-baseline ">
+                        <span className="text-5xl font-extrabold tracking-tight">
+                          {locale === ELocale.EN ? '$4.95' : '￥34.95'}
+                        </span>
+                        <span className="ml-1 text-xl font-semibold">/{t.get('year')}</span>
+                      </p>
+                      <p className="mt-6 ">{t.get('You want to learn and have a personal assistant')}</p>
+                      <ul role="list" className="mt-6 space-y-6">
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Advanced AI dialogue capabilities')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Unlimited usage')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Comprehensive support for professional modes')}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
+                      onClick={() => {
+                        createAndOpenStripeCheckoutSession_v2(
+                          stripePrices[EProductItemDB_name.STARTAI_TOOLS],
+                          EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                        );
+                      }}
+                    >
+                      {t.get('Get started')}
+                    </button>
+                  </div>
+                  <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold ">{t.get('Lifetime')}</h3>
+                      <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide  transform -translate-y-1/2">
+                        Most popular
+                      </p>
+                      <p className="mt-4 flex items-baseline ">
+                        <span className="text-5xl font-extrabold tracking-tight">
+                          {locale === ELocale.EN ? '$14.95' : '￥99.95'}
+                        </span>
+                        <span className="ml-1 text-xl font-semibold">/{t.get('lifetime')}</span>
+                      </p>
+                      <p className="mt-6 ">{t.get('You want a comprehensive solution and ongoing updates')}</p>
+                      <ul role="list" className="mt-6 space-y-6">
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('One-time purchase, lifetime enjoyment')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Continuous feature updates')}</span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">{t.get('Exclusive customer support')}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
+                      onClick={() => {
+                        createAndOpenStripeCheckoutSession_v2(
+                          stripePrices[EProductItemDB_name.STARTAI_LIFETIME],
+                          EStripeCheckoutSessionPaymentMode.PAYMENT,
+                        );
+                      }}
+                    >
+                      {t.get('Get started')}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <div className="row">
