@@ -165,7 +165,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                   }
                   onClick={() => setTabSelected('Tool')}
                 >
-                  Tool (需自备 OpenAI Key)
+                  {t.get('Tool_version')} ({t.get('Requires your own OpenAI key')})
                 </a>
               </div>
             </div>
