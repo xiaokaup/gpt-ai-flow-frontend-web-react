@@ -153,7 +153,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                   }
                   onClick={() => setTabSelected('Model')}
                 >
-                  Model
+                  {t.get('Model_version')}
                 </a>
 
                 <a
@@ -174,100 +174,24 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
             <div className="pricing-table-container">
               {tabSelected === 'Model' && (
                 <div className="pricing-table paricing-table-model !mt-12 container space-y-12 md:space-y-0 md:grid md:grid-cols-1 md:gap-x-8">
-                  <div className="hidden relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold ">{t.get('Model_version')}</h3>
-                      <p className="mt-4 flex items-baseline ">
-                        <span className="text-5xl font-extrabold tracking-tight">
-                          {locale === ELocale.EN ? '$4.95' : '￥34.95'}
-                        </span>
-                        <span className="ml-1 text-xl font-semibold">/{t.get('year')}</span>
-                      </p>
-                      <p className="mt-6 ">{t.get('You want to learn and have a personal assistant')}</p>
-                      <ul role="list" className="mt-6 space-y-6">
-                        <li className="flex">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                            aria-hidden="true"
-                          >
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                          <span className="ml-3 ">{t.get('Advanced AI dialogue capabilities')}</span>
-                        </li>
-                        <li className="flex">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                            aria-hidden="true"
-                          >
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                          <span className="ml-3 ">{t.get('Unlimited usage')}</span>
-                        </li>
-                        <li className="flex">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                            aria-hidden="true"
-                          >
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                          <span className="ml-3 ">{t.get('Comprehensive support for professional modes')}</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <button
-                      type="button"
-                      className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
-                      onClick={() => {
-                        createAndOpenStripeCheckoutSession_v2(
-                          stripePrices[EProductItemDB_name.STARTAI_TOOLS],
-                          EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
-                        );
-                      }}
-                    >
-                      {t.get('Get started')}
-                    </button>
-                  </div>
+                  {/* 享受工具版所有权益，使用多少付多少，官方大模型支持 */}
                   <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col w-1/2 m-auto">
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold ">{t.get('Model_version')}</h3>
                       <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide  transform -translate-y-1/2">
-                        Most popular
+                        {t.get('Most popular')}
                       </p>
                       <p className="mt-4 flex items-baseline ">
                         <span className="text-5xl font-extrabold tracking-tight">
                           {locale === ELocale.EN ? '$0.99' : '￥6.99'}
                         </span>
                         <span className="ml-1 text-xl font-semibold">/{t.get('month')}</span>
-                        <span className="text-2xl"> + 超出部分按量费用</span>
+                        &nbsp;
+                        <span className="text-2xl"> + {t.get('Excess usage fees')}</span>
                       </p>
-                      <p className="mt-6 ">{t.get('You want a comprehensive solution and ongoing updates')}</p>
+                      <p className="mt-6 ">
+                        {t.get('You want to use official large model support and enjoy a flexible pay-as-you-go plan')}
+                      </p>
                       <ul role="list" className="mt-6 space-y-6">
                         <li className="flex">
                           <svg
@@ -285,7 +209,11 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                           >
                             <polyline points="20 6 9 17 4 12" />
                           </svg>
-                          <span className="ml-3 ">{t.get('One-time purchase, lifetime enjoyment')}</span>
+                          <span className="ml-3 ">
+                            {t.getHTML(
+                              'Pay for What You Use: Fixed monthly fee plus additional charges for excess usage',
+                            )}
+                          </span>
                         </li>
                         <li className="flex">
                           <svg
@@ -303,7 +231,11 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                           >
                             <polyline points="20 6 9 17 4 12" />
                           </svg>
-                          <span className="ml-3 ">{t.get('Continuous feature updates')}</span>
+                          <span className="ml-3 ">
+                            {t.getHTML(
+                              'Includes All Benefits of the Tool Edition: Unlimited usage and comprehensive professional support',
+                            )}
+                          </span>
                         </li>
                         <li className="flex">
                           <svg
@@ -321,7 +253,31 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                           >
                             <polyline points="20 6 9 17 4 12" />
                           </svg>
-                          <span className="ml-3 ">{t.get('Exclusive customer support')}</span>
+                          <span className="ml-3 ">
+                            {t.getHTML('Official Large Model Support: Access to the latest AI large models')}
+                          </span>
+                        </li>
+                        <li className="flex">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span className="ml-3 ">
+                            {t.getHTML(
+                              'Continuous Updates Guaranteed: Ensures ongoing product and technology upgrades',
+                            )}
+                          </span>
                         </li>
                       </ul>
                     </div>
@@ -344,7 +300,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                 <div className="pricing-table paricing-table-tool !mt-12 container space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8">
                   <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold ">{t.get('Tools')}</h3>
+                      <h3 className="text-xl font-semibold ">{t.get('Tool_version')}</h3>
                       <p className="mt-4 flex items-baseline ">
                         <span className="text-5xl font-extrabold tracking-tight">
                           {locale === ELocale.EN ? '$4.95' : '￥34.95'}
@@ -424,9 +380,9 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                   </div>
                   <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold ">{t.get('Lifetime')}</h3>
+                      <h3 className="text-xl font-semibold ">{t.get('Lifetime_version')}</h3>
                       <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide  transform -translate-y-1/2">
-                        Most popular
+                        {t.get('Most popular')}
                       </p>
                       <p className="mt-4 flex items-baseline ">
                         <span className="text-5xl font-extrabold tracking-tight">
