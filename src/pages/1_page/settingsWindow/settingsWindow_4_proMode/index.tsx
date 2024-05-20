@@ -178,7 +178,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                       </p>
                       <p className="mt-4 flex items-baseline ">
                         <span className="text-5xl font-extrabold tracking-tight">
-                          {locale_for_currency === ELocale.EN ? '$0.99' : '￥6.99'}
+                          {locale_for_currency === ELocale.EN ? '$0.95' : '￥6.95'}
                         </span>
                         <span className="ml-1 text-xl font-semibold">/{t.get('month')}</span>
                         &nbsp;
