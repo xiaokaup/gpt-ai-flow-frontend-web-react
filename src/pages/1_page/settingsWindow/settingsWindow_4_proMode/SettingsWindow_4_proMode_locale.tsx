@@ -8,7 +8,7 @@ import { Alert, Button, Tag, message } from 'antd';
 
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IProductItemDB_with_expiredAt } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
+import { IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
@@ -23,7 +23,7 @@ interface SettingsWindow_4_proMode_locale_input {
   t: IGetT_frontend_output;
   locale: ELocale;
   userData: IUserData;
-  productItem: IProductItemDB_with_expiredAt | null;
+  productItem: IProductItemDB_with_expiredAt_and_blance | null;
 }
 export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
   const { t, locale, userData, productItem } = props;
@@ -91,7 +91,8 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
         {productItem?.name && (
           <>
             <div className="row">
-              {productItem.name === EProductItemDB_name.STARTAI_TOOLS && (
+              {(productItem.name === EProductItemDB_name.STARTAI_TOOLS ||
+                productItem.name === EProductItemDB_name.STARTAI_MODEL) && (
                 <>
                   {t.get('Subscription Expiry Date')}:{' '}
                   <span>

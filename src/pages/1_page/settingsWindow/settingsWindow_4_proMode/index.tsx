@@ -11,7 +11,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
-import { IProductItemDB_with_expiredAt } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
+import { IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
 import { getProductItem_by_userId_from_backend } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { IError } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IError';
@@ -36,17 +36,18 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
     token: { accessToken: userAccessToken },
   } = userData;
 
-  const [productItem, setProductItem] = useState<IProductItemDB_with_expiredAt | null>(null);
+  const [productItem, setProductItem] = useState<IProductItemDB_with_expiredAt_and_blance | null>(null);
   const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, IStripePriceItem[]>>();
 
   const [tabSelected, setTabSelected] = useState<string>('Model');
 
   const init = async (paraLocale: ELocale) => {
-    const itemFound: IProductItemDB_with_expiredAt | null = await getProductItem_by_userId_from_backend(
+    const itemFound: IProductItemDB_with_expiredAt_and_blance | null = await getProductItem_by_userId_from_backend(
       userAccessToken,
       paraLocale,
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
+    // console.log('itemFound', itemFound);
     if (itemFound) setProductItem(itemFound);
 
     const pricesFound = await TStripeConstantFile_v3File.getStripePrices(
@@ -62,33 +63,6 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
   if (!userId) {
     return <>{t.get('Please register a user and log in first')}</>;
   }
-
-  // const createAndOpenStripeCheckoutSession = async (
-  //   priceId: string,
-  //   paymentMode: EStripeCheckoutSessionPaymentMode,
-  // ) => {
-  //   try {
-  //     const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession(
-  //       userId,
-  //       priceId,
-  //       paymentMode,
-  //       userAccessToken,
-  //       locale,
-  //       CONSTANTS_GPT_AI_FLOW_COMMON,
-  //     );
-
-  //     if ((checkoutSessionResults as IError)?.status === 'error') {
-  //       throw new Error((checkoutSessionResults as IError)?.message);
-  //     }
-
-  //     // console.log('checkoutSessionResults', checkoutSessionResults);
-
-  //     window.open((checkoutSessionResults as { url: string }).url, '_blank', 'noreferrer');
-  //   } catch (error: any) {
-  //     console.error('createAndOpenStripeCheckoutSession', error);
-  //     message.error(error.message);
-  //   }
-  // };
 
   const createAndOpenStripeCheckoutSession_v2 = async (
     priceItems: IStripePriceItem[],
@@ -131,6 +105,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
         <SettingsWindow_4_proMode_locale t={t} locale={locale} userData={userData} productItem={productItem} />
       )}
 
+      {/* <!--Pricing--> */}
       {(!productItem || productItem?.name === EProductItemDB_name.STARTAI_FREE) && stripePrices && (
         <>
           <div className="row pricing">
