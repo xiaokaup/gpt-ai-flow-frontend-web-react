@@ -13,16 +13,28 @@ import { useForm } from 'antd/es/form/Form';
 interface ISettingWIndow_4_proMode_recharge_form_input {
   t: IGetT_frontend_output;
   userAccessToken: string;
+  currency: string;
 }
 export const SettingWIndow_4_proMode_recharge_form = (props: ISettingWIndow_4_proMode_recharge_form_input) => {
-  const { t, userAccessToken } = props;
+  const { t, userAccessToken, currency: currencyForStripeUser } = props;
 
   const [form] = useForm();
 
-  const [minAmount, setMinAmount] = useState(1); // Doller
+  const getDefaultMinAmount = (currency: string): number => {
+    if (currency === EStripe_currency.USD) {
+      return 1;
+    }
+    if (currency === EStripe_currency.CNY) {
+      return 10;
+    }
+
+    return 0;
+  };
+
+  const [minAmount, setMinAmount] = useState(getDefaultMinAmount(currencyForStripeUser)); // Doller
 
   const onFinish = async (values: any) => {
-    console.log('onFinish', values);
+    // console.log('onFinish', values);
 
     const { amount, currency } = values;
 
@@ -52,8 +64,8 @@ export const SettingWIndow_4_proMode_recharge_form = (props: ISettingWIndow_4_pr
         form={form}
         onFinish={onFinish}
         initialValues={{
-          amount: 1,
-          currency: EStripe_currency.USD,
+          amount: getDefaultMinAmount(currencyForStripeUser),
+          currency: currencyForStripeUser,
         }}
       >
         <Form.Item label={t.get('Amount')} name="amount">
@@ -62,15 +74,16 @@ export const SettingWIndow_4_proMode_recharge_form = (props: ISettingWIndow_4_pr
 
         <Form.Item label={t.get('Currency')} name="currency">
           <Select
+            disabled
             onChange={(value) => {
               console.log('value', value);
               if (value === EStripe_currency.USD) {
                 setMinAmount(1);
-                form.setFieldsValue({ amount: 1, currency: EStripe_currency.USD });
+                form.setFieldsValue({ amount: getDefaultMinAmount(value), currency: EStripe_currency.USD });
               }
               if (value === EStripe_currency.CNY) {
                 setMinAmount(10);
-                form.setFieldsValue({ amount: 10, currency: EStripe_currency.CNY });
+                form.setFieldsValue({ amount: getDefaultMinAmount(value), currency: EStripe_currency.CNY });
               }
             }}
           >

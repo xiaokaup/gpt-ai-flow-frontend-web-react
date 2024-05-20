@@ -110,8 +110,8 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
           )}
         </div>
 
-        {isShow_blanceTransactionForm && (
-          <SettingWIndow_4_proMode_recharge_form t={t} userAccessToken={userAccessToken} />
+        {isShow_blanceTransactionForm && currency && (
+          <SettingWIndow_4_proMode_recharge_form t={t} userAccessToken={userAccessToken} currency={currency} />
         )}
 
         <div className="row">
