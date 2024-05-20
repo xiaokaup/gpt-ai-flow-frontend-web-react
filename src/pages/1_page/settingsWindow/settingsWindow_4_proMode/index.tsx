@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxRootState } from 'store/reducer';
 
-import { Alert, Modal, message } from 'antd';
+import { Alert, Select, message } from 'antd';
 
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
@@ -21,7 +21,6 @@ import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/I
 
 import { SettingsWindow_4_proMode_locale } from './SettingsWindow_4_proMode_locale';
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
-import { SettingWIndow_4_proMode_recharge_form } from './SettingWIndow_4_proMode_recharge_form';
 
 interface ISettingsWindow_4_proMode_login_input {
   t: IGetT_frontend_output;
@@ -30,12 +29,14 @@ interface ISettingsWindow_4_proMode_login_input {
   dispatch: any;
 }
 const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_input) => {
-  const { t, localeForSettingsWindow: locale, userData } = props;
+  const { t, localeForSettingsWindow, userData } = props;
 
   const {
     id: userId,
     token: { accessToken: userAccessToken },
   } = userData;
+
+  const [locale_for_currency, setLocale_for_currency] = useState<ELocale>(localeForSettingsWindow);
 
   const [productItem, setProductItem] = useState<IProductItemDB_with_expiredAt_and_blance | null>(null);
   const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, IStripePriceItem[]>>();
@@ -58,7 +59,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
   };
 
   useEffect(() => {
-    init(locale);
+    init(locale_for_currency);
   }, []);
 
   if (!userId) {
@@ -77,7 +78,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
           paymentMode,
         },
         userAccessToken,
-        locale,
+        locale_for_currency,
         CONSTANTS_GPT_AI_FLOW_COMMON,
       );
 
@@ -103,12 +104,30 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
       <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
       {productItem && stripePrices && (
-        <SettingsWindow_4_proMode_locale t={t} locale={locale} userData={userData} productItem={productItem} />
+        <SettingsWindow_4_proMode_locale
+          t={t}
+          locale={locale_for_currency}
+          userData={userData}
+          productItem={productItem}
+        />
       )}
 
       {/* <!--Pricing--> */}
       {(!productItem || productItem?.name === EProductItemDB_name.STARTAI_FREE) && stripePrices && (
         <>
+          <div className="row currency">
+            {t.get('Currency')}:&nbsp;
+            <Select
+              value={locale_for_currency}
+              onChange={(value) => {
+                setLocale_for_currency(value);
+              }}
+              style={{ width: 100 }}
+            >
+              <Select.Option value={ELocale.EN}>{t.get('USD')}</Select.Option>
+              <Select.Option value={ELocale.ZH}>{t.get('CNY')}</Select.Option>
+            </Select>
+          </div>
           <div className="row pricing">
             <div>
               <h2 className="text-3xl font-bold tracki text-center mt-12 sm:text-5xl ">{t.get('Pricing')}</h2>
@@ -159,7 +178,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                       </p>
                       <p className="mt-4 flex items-baseline ">
                         <span className="text-5xl font-extrabold tracking-tight">
-                          {locale === ELocale.EN ? '$0.99' : '￥6.99'}
+                          {locale_for_currency === ELocale.EN ? '$0.99' : '￥6.99'}
                         </span>
                         <span className="ml-1 text-xl font-semibold">/{t.get('month')}</span>
                         &nbsp;
@@ -279,7 +298,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                       <h3 className="text-xl font-semibold ">{t.get('Tool_version')}</h3>
                       <p className="mt-4 flex items-baseline ">
                         <span className="text-5xl font-extrabold tracking-tight">
-                          {locale === ELocale.EN ? '$4.95' : '￥34.95'}
+                          {locale_for_currency === ELocale.EN ? '$4.95' : '￥34.95'}
                         </span>
                         <span className="ml-1 text-xl font-semibold">/{t.get('year')}</span>
                       </p>
@@ -362,7 +381,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
                       </p>
                       <p className="mt-4 flex items-baseline ">
                         <span className="text-5xl font-extrabold tracking-tight">
-                          {locale === ELocale.EN ? '$14.95' : '￥99.95'}
+                          {locale_for_currency === ELocale.EN ? '$14.95' : '￥99.95'}
                         </span>
                         <span className="ml-1 text-xl font-semibold">/{t.get('lifetime')}</span>
                       </p>
