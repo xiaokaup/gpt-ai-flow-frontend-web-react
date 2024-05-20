@@ -25,9 +25,10 @@ interface SettingsWindow_4_proMode_locale_input {
   locale: ELocale;
   userData: IUserData;
   productItem: IProductItemDB_with_expiredAt_and_blance;
+  setIsShow_balanceTransactionModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
-  const { t, locale, userData, productItem } = props;
+  const { t, locale, userData, productItem, setIsShow_balanceTransactionModal } = props;
   const {
     id: userId,
     email: userEmail,
@@ -98,6 +99,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
             <Button
               onClick={() => {
                 console.log('充值');
+                setIsShow_balanceTransactionModal((prevState: boolean) => !prevState);
               }}
               style={{ marginLeft: 10 }}
             >
