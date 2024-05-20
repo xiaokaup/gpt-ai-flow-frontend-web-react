@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Button, Form, Input, Select, Tooltip, message } from 'antd';
+import { Alert, Button, Form, InputNumber, Select, message } from 'antd';
 import { EStripe_currency } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import TBackendStripeFile, {
@@ -57,7 +57,7 @@ export const SettingWIndow_4_proMode_balance_modal = (props: ISettingWIndow_4_pr
         }}
       >
         <Form.Item label={t.get('Amount')} name="amount">
-          <Input type="number" min={minAmount} />
+          <InputNumber size={'middle'} min={minAmount} precision={2} />
         </Form.Item>
 
         <Form.Item label={t.get('Currency')} name="currency">
