@@ -1,6 +1,7 @@
 import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
+import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CopyOutlined } from '@ant-design/icons';
 
@@ -16,14 +17,14 @@ import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBac
 import { LifetimeVersionAnnounce } from './LifetimeVersionAnnounce';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { EStripe_currency } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
-import React from 'react';
 
 interface SettingsWindow_4_proMode_locale_input {
   t: IGetT_frontend_output;
   locale: ELocale;
   userData: IUserData;
-  productItem: IProductItemDB_with_expiredAt_and_blance | null;
+  productItem: IProductItemDB_with_expiredAt_and_blance;
 }
 export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
   const { t, locale, userData, productItem } = props;
@@ -37,7 +38,9 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
     return <>{t.get('Please register a user and log in first')}</>;
   }
 
-  const isExpired = productItem?.expiredAt ? new Date(productItem.expiredAt) < new Date() : false;
+  const { name, expiredAt, balance, currency } = productItem;
+
+  const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
 
   const createAndOpenStripeBillingSession = async () => {
     const billingSessionResults = await TBackendStripeFile.createStripeBillingPortal(
@@ -73,6 +76,14 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
           </CopyToClipboard>
         </div>
 
+        {(balance === 0 || balance) && (
+          <div className="row">
+            {t.get('Balance')}:<span>&nbsp;{-balance / 100}</span>
+            <span>{currency === EStripe_currency.USD && <>$</>}</span>
+            <span>{currency === EStripe_currency.CNY && <>¥</>}</span>
+          </div>
+        )}
+
         <div className="row">
           <Button
             type="primary"
@@ -82,23 +93,31 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
           >
             {t.get('My Subscription')}
           </Button>
-        </div>
 
+          {name === EProductItemDB_name.STARTAI_MODEL && (
+            <Button
+              onClick={() => {
+                console.log('充值');
+              }}
+              style={{ marginLeft: 10 }}
+            >
+              Add to credit balance
+            </Button>
+          )}
+        </div>
         <div className="row">
-          {t.get('Subscription Name')}: {productItem?.name ?? EProductItemDB_name.STARTAI_FREE}
+          {t.get('Subscription Name')}: {name ?? EProductItemDB_name.STARTAI_FREE}
         </div>
 
-        {productItem?.name && (
+        {name && (
           <>
             <div className="row">
-              {(productItem.name === EProductItemDB_name.STARTAI_TOOLS ||
-                productItem.name === EProductItemDB_name.STARTAI_MODEL) && (
+              {(name === EProductItemDB_name.STARTAI_TOOLS || name === EProductItemDB_name.STARTAI_MODEL) && (
                 <>
                   {t.get('Subscription Expiry Date')}:{' '}
                   <span>
-                    <span className="column">
-                      {productItem.expiredAt && new Date(productItem.expiredAt)?.toISOString().split('T')[0]}
-                    </span>
+                    <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+
                     <span className="column">
                       {isExpired ? (
                         <Tag color="#f50">{t.get('Expired')}</Tag>
@@ -111,8 +130,8 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
               )}
             </div>
 
-            {productItem.name === EProductItemDB_name.STARTAI_TOOLS && <ToolsVersionAnnounce locale={locale} />}
-            {productItem.name === EProductItemDB_name.STARTAI_LIFETIME && <LifetimeVersionAnnounce locale={locale} />}
+            {name === EProductItemDB_name.STARTAI_TOOLS && <ToolsVersionAnnounce locale={locale} />}
+            {name === EProductItemDB_name.STARTAI_LIFETIME && <LifetimeVersionAnnounce locale={locale} />}
           </>
         )}
       </div>

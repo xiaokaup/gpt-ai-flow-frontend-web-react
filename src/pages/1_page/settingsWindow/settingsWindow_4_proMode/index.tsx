@@ -101,7 +101,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
 
       <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
-      {stripePrices && (
+      {productItem && stripePrices && (
         <SettingsWindow_4_proMode_locale t={t} locale={locale} userData={userData} productItem={productItem} />
       )}
 
