@@ -10,11 +10,11 @@ import { IError } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IErr
 import messages from '../../../../gpt-ai-flow-common/i18nProvider/messages';
 import { useForm } from 'antd/es/form/Form';
 
-interface ISettingWIndow_4_proMode_balance_modal_input {
+interface ISettingWIndow_4_proMode_recharge_form_input {
   t: IGetT_frontend_output;
   userAccessToken: string;
 }
-export const SettingWIndow_4_proMode_balance_modal = (props: ISettingWIndow_4_proMode_balance_modal_input) => {
+export const SettingWIndow_4_proMode_recharge_form = (props: ISettingWIndow_4_proMode_recharge_form_input) => {
   const { t, userAccessToken } = props;
 
   const [form] = useForm();

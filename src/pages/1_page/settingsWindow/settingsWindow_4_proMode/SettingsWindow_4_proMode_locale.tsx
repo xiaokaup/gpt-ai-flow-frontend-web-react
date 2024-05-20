@@ -19,7 +19,7 @@ import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { EStripe_currency } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
-import { SettingWIndow_4_proMode_balance_modal } from './SettingWIndow_4_proMode_balance_modal';
+import { SettingWIndow_4_proMode_recharge_form } from './SettingWIndow_4_proMode_recharge_form';
 
 interface SettingsWindow_4_proMode_locale_input {
   t: IGetT_frontend_output;
@@ -111,7 +111,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
         </div>
 
         {isShow_blanceTransactionForm && (
-          <SettingWIndow_4_proMode_balance_modal t={t} userAccessToken={userAccessToken} />
+          <SettingWIndow_4_proMode_recharge_form t={t} userAccessToken={userAccessToken} />
         )}
 
         <div className="row">

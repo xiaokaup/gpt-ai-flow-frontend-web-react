@@ -21,7 +21,7 @@ import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/I
 
 import { SettingsWindow_4_proMode_locale } from './SettingsWindow_4_proMode_locale';
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
-import { SettingWIndow_4_proMode_balance_modal } from './SettingWIndow_4_proMode_balance_modal';
+import { SettingWIndow_4_proMode_recharge_form } from './SettingWIndow_4_proMode_recharge_form';
 
 interface ISettingsWindow_4_proMode_login_input {
   t: IGetT_frontend_output;
