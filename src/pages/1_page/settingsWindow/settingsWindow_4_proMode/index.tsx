@@ -30,7 +30,7 @@ interface ISettingsWindow_4_proMode_login_input {
   dispatch: any;
 }
 const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_input) => {
-  const { t, localeForSettingsWindow: locale, userData, dispatch } = props;
+  const { t, localeForSettingsWindow: locale, userData } = props;
 
   const {
     id: userId,
@@ -41,9 +41,6 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
   const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, IStripePriceItem[]>>();
 
   const [tabSelected, setTabSelected] = useState<string>('Model');
-  const [isShow_balanceTransactionModal, setIsShow_balanceTransactionModal] = useState(false);
-
-  console.timeLog('isShow_balanceTransactionModal', isShow_balanceTransactionModal);
 
   const init = async (paraLocale: ELocale) => {
     const itemFound: IProductItemDB_with_expiredAt_and_blance | null = await getProductItem_by_userId_from_backend(
@@ -106,13 +103,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
       <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
       {productItem && stripePrices && (
-        <SettingsWindow_4_proMode_locale
-          t={t}
-          locale={locale}
-          userData={userData}
-          productItem={productItem}
-          setIsShow_balanceTransactionModal={setIsShow_balanceTransactionModal}
-        />
+        <SettingsWindow_4_proMode_locale t={t} locale={locale} userData={userData} productItem={productItem} />
       )}
 
       {/* <!--Pricing--> */}
@@ -463,13 +454,6 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
             />
           </div>
         </>
-      )}
-
-      {isShow_balanceTransactionModal && (
-        <SettingWIndow_4_proMode_balance_modal
-          isModalOpen={isShow_balanceTransactionModal}
-          setIsModelOpen={setIsShow_balanceTransactionModal}
-        />
       )}
     </div>
   );

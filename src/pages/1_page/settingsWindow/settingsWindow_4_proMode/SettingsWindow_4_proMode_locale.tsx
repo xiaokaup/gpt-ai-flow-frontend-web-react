@@ -1,7 +1,7 @@
 import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CopyOutlined } from '@ant-design/icons';
 
@@ -19,16 +19,16 @@ import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { EStripe_currency } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
+import { SettingWIndow_4_proMode_balance_modal } from './SettingWIndow_4_proMode_balance_modal';
 
 interface SettingsWindow_4_proMode_locale_input {
   t: IGetT_frontend_output;
   locale: ELocale;
   userData: IUserData;
   productItem: IProductItemDB_with_expiredAt_and_blance;
-  setIsShow_balanceTransactionModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
-  const { t, locale, userData, productItem, setIsShow_balanceTransactionModal } = props;
+  const { t, locale, userData, productItem } = props;
   const {
     id: userId,
     email: userEmail,
@@ -38,6 +38,8 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
   if (!userId) {
     return <>{t.get('Please register a user and log in first')}</>;
   }
+
+  const [isShow_blanceTransactionForm, setIsShow_blanceTransactionForm] = useState(false);
 
   const { name, expiredAt, balance, currency } = productItem;
 
@@ -98,15 +100,20 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
           {name === EProductItemDB_name.STARTAI_MODEL && (
             <Button
               onClick={() => {
-                console.log('充值');
-                setIsShow_balanceTransactionModal((prevState: boolean) => !prevState);
+                setIsShow_blanceTransactionForm((prevState: boolean) => !prevState);
               }}
               style={{ marginLeft: 10 }}
             >
-              Add to credit balance
+              {isShow_blanceTransactionForm && <>{t.get('Hide {text} form', { text: t.get('Recharge') })}</>}
+              {!isShow_blanceTransactionForm && <>{t.get('Show {text} form', { text: t.get('Recharge') })}</>}
             </Button>
           )}
         </div>
+
+        {isShow_blanceTransactionForm && (
+          <SettingWIndow_4_proMode_balance_modal t={t} userAccessToken={userAccessToken} />
+        )}
+
         <div className="row">
           {t.get('Subscription Name')}: {name ?? EProductItemDB_name.STARTAI_FREE}
         </div>

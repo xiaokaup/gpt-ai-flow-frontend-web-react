@@ -1,29 +1,95 @@
-import React from 'react';
-import { Modal } from 'antd';
+import React, { useState } from 'react';
+import { Alert, Button, Form, Input, Select, Tooltip, message } from 'antd';
+import { EStripe_currency } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import TBackendStripeFile, {
+  ICreateStripeBalanceTransaction_results,
+} from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IError } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IError';
+import messages from '../../../../gpt-ai-flow-common/i18nProvider/messages';
+import { useForm } from 'antd/es/form/Form';
 
 interface ISettingWIndow_4_proMode_balance_modal_input {
-  isModalOpen: boolean;
-  setIsModelOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  t: IGetT_frontend_output;
+  userAccessToken: string;
 }
 export const SettingWIndow_4_proMode_balance_modal = (props: ISettingWIndow_4_proMode_balance_modal_input) => {
-  const { isModalOpen, setIsModelOpen } = props;
+  const { t, userAccessToken } = props;
 
-  // const handleOk = () => {
-  //   setIsModalOpen(false);
-  // };
+  const [form] = useForm();
 
+  const [minAmount, setMinAmount] = useState(1); // Doller
+
+  const onFinish = async (values: any) => {
+    console.log('onFinish', values);
+
+    const { amount, currency } = values;
+
+    if (amount < 0) {
+      message.error(t.get("The amount value can't be zero or negative"));
+      return;
+    }
+
+    const results: ICreateStripeBalanceTransaction_results | IError =
+      await TBackendStripeFile.createStripeBalanceTransaction(
+        {
+          amount: -amount * 100, // Credit value
+          currency,
+        },
+        userAccessToken,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+      );
+
+    // console.log('results', results);
+
+    message.success(messages[t.currentLocale]['Save successfully']);
+  };
   return (
-    <Modal
-      title="Balance Modal"
-      open={isModalOpen}
-      // onOk={handleOk}
-      onCancel={() => {
-        setIsModelOpen(false);
-      }}
-    >
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-    </Modal>
+    <div className="balance_form container" style={{ marginTop: '1rem', padding: 20 }}>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        initialValues={{
+          amount: 1,
+          currency: EStripe_currency.USD,
+        }}
+      >
+        <Form.Item label={t.get('Amount')} name="amount">
+          <Input type="number" min={minAmount} />
+        </Form.Item>
+
+        <Form.Item label={t.get('Currency')} name="currency">
+          <Select
+            onChange={(value) => {
+              console.log('value', value);
+              if (value === EStripe_currency.USD) {
+                setMinAmount(1);
+                form.setFieldsValue({ amount: 1, currency: EStripe_currency.USD });
+              }
+              if (value === EStripe_currency.CNY) {
+                setMinAmount(10);
+                form.setFieldsValue({ amount: 10, currency: EStripe_currency.CNY });
+              }
+            }}
+          >
+            {Object.entries(EStripe_currency).map(([key, item]) => {
+              return <Select.Option value={item}>{key}</Select.Option>;
+            })}
+          </Select>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            {t.get('Submit')}
+          </Button>
+        </Form.Item>
+      </Form>
+
+      <Alert
+        message={<span>{t.get("Please make sure you have the default payment method in 'My Subscription'")}</span>}
+        type="info"
+      />
+    </div>
   );
 };
