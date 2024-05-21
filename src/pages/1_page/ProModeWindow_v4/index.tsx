@@ -280,7 +280,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                         />
                       )}
                       {tabPane.type === EProMode_v4_tabPane_type.TOOL_IMAGE_CROP && (
-                        <ProModeWindow_v4_tabPane_type_image_crop_v1 />
+                        <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
                       )}
                     </Tabs.TabPane>
                   );

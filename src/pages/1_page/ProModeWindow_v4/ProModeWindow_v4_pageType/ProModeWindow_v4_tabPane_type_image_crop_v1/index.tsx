@@ -8,6 +8,7 @@ import { Button, TreeSelect } from 'antd';
 import { canvasPreview } from './component/canvasPreview';
 import { useDebounceEffect } from './component/useDebounceEffect';
 import { transformData_for_treeSelect, socialMediaPictureSpecifications } from './component/TPictureSpecifications';
+import { IGetT_frontend_output } from 'gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
@@ -25,7 +26,12 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
   );
 }
 
-export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
+interface IProModeWindow_v4_tabPane_type_image_crop_v1 {
+  t: IGetT_frontend_output;
+}
+export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindow_v4_tabPane_type_image_crop_v1) => {
+  const { t } = props;
+
   const [treeSelectedValue, setTreeSelectedValue] = useState<string>('');
   const [imgSrc, setImgSrc] = useState(
     // 'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
@@ -161,7 +167,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
             setOutputMaxWidth(newValue_json.width);
             setAspect(newValue_json.aspect);
           }}
-          treeData={transformData_for_treeSelect(socialMediaPictureSpecifications)}
+          treeData={transformData_for_treeSelect(t, socialMediaPictureSpecifications)}
           onPopupScroll={(e: SyntheticEvent) => {
             console.log('onPopupScroll', e);
           }}

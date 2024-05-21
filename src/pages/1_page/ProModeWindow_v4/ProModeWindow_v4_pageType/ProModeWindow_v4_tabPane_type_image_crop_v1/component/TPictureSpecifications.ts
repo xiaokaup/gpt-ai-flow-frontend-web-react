@@ -1,3 +1,5 @@
+import { IGetT_frontend_output } from 'gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+
 type SocialMediaPictureSpecifications = {
   name: string;
   pictureSpecifications: {
@@ -64,10 +66,13 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
   },
 ];
 
-export const transformData_for_treeSelect = (data: SocialMediaPictureSpecifications): TreeNode[] => {
+export const transformData_for_treeSelect = (
+  t: IGetT_frontend_output,
+  data: SocialMediaPictureSpecifications,
+): TreeNode[] => {
   return data.map((platform) => ({
     value: platform.name,
-    title: platform.name,
+    title: t.get(platform.name),
     children: platform.pictureSpecifications.map((item) => ({
       value: JSON.stringify({
         name: item.name,
@@ -76,7 +81,7 @@ export const transformData_for_treeSelect = (data: SocialMediaPictureSpecificati
         aspect: item.aspect,
       }),
       // title: `${item.name} - ${item.width}x${item.height}, Aspect: ${item.aspect.toFixed(2)}`,
-      title: `${item.name} - ${item.width}x${item.height}`,
+      title: `${t.get(item.name)} - ${item.width}x${item.height}`,
     })),
   }));
 };
