@@ -11,6 +11,7 @@ import ReactCrop, {
 } from 'react-image-crop';
 import { canvasPreview } from './component/canvasPreview';
 import { Button, message } from 'antd';
+import { useDebounceEffect } from './component/useDebounceEffect';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
@@ -43,6 +44,8 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
   const [scale, setScale] = useState(1); // 放大缩小
   const [rotate, setRotate] = useState(0); // 旋转图片
   const [aspect, setAspect] = useState<number | undefined>(16 / 9); // 截图部分是否按照比例
+  const [outputMaxWidth, setOutputMaxWidth] = useState(800); // Set your max width
+  const [outputMaxHeight, setOutputMaxHeight] = useState(400); // Set your max height
 
   // Buttons
   const blobUrlRef = useRef(''); // Blob URL for the crop
@@ -61,11 +64,17 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (completedCrop?.width && completedCrop?.height && imgRef.current && previewCanvasRef.current) {
-      canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop, scale, rotate);
-    }
-  }, [completedCrop]);
+  useDebounceEffect(
+    async () => {
+      if (completedCrop?.width && completedCrop?.height && imgRef.current && previewCanvasRef.current) {
+        // We use canvasPreview as it's much faster than imgPreview.
+        // Update previewCanvas
+        canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop, scale, rotate);
+      }
+    },
+    100,
+    [completedCrop, scale, rotate],
+  );
 
   const onDownloadCropClick = async () => {
     const image = imgRef.current;
@@ -83,12 +92,31 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
 
-    const offscreen = new OffscreenCanvas(completedCrop.width * scaleX, completedCrop.height * scaleY);
+    // === Resize image - start ===
+    // Calculate the target width and height
+    let targetWidth = completedCrop.width * scaleX;
+    let targetHeight = completedCrop.height * scaleY;
+
+    // Calculate the ratio
+    const widthRatio = targetWidth / outputMaxWidth;
+    const heightRatio = targetHeight / outputMaxHeight;
+    const maxRatio = Math.max(widthRatio, heightRatio);
+
+    // If the image is larger than max dimensions, scale it down
+    if (maxRatio > 1) {
+      targetWidth /= maxRatio;
+      targetHeight /= maxRatio;
+    }
+    // === Resize image - end ===
+
+    // const offscreen = new OffscreenCanvas(completedCrop.width * scaleX, completedCrop.height * scaleY);
+    const offscreen = new OffscreenCanvas(targetWidth, targetHeight);
     const ctx = offscreen.getContext('2d');
     if (!ctx) {
       throw new Error('No 2d context');
     }
 
+    // Draw the image resized
     ctx.drawImage(
       previewCanvas,
       0,
@@ -146,6 +174,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
           <img
             ref={imgRef}
             src={imgSrc}
+            style={{ maxWidth: 800 }}
             onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
               // 当图片加载完成后，如果 aspect 为 true 的话，按照比例显示截图，并将截图截图部分设置为中心位置
               if (aspect) {
@@ -189,7 +218,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
             Hidden download
           </a>
         </div>
-        <div className="row buttons_for_test">
+        {/* <div className="row buttons_for_test hidden">
           <Button
             type="primary"
             onClick={() => {
@@ -201,7 +230,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
           >
             test
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
