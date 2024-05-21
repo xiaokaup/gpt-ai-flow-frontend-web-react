@@ -7,7 +7,7 @@ import { Button, TreeSelect } from 'antd';
 
 import { canvasPreview } from './component/canvasPreview';
 import { useDebounceEffect } from './component/useDebounceEffect';
-import { transformData_for_treeSelect, socialMediaPictureSpecifications } from './component/pictureSpecifications';
+import { transformData_for_treeSelect, socialMediaPictureSpecifications } from './component/TPictureSpecifications';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
