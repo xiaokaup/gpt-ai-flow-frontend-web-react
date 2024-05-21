@@ -6,27 +6,6 @@ import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop, convertToPixelC
 import { canvasPreview } from './component/canvasPreview';
 import { useDebounceEffect } from './component/useDebounceEffect';
 
-// export const ProModeWindow_v4_tabPane_type_image_crop_v0 = () => {
-//   const [crop, setCrop] = useState<Crop>();
-
-//   const [imgSrc, setImgSrc] = useState(
-//     'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
-//   );
-
-//   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-//   const imgRef = useRef<HTMLImageElement>(null);
-
-//   return (
-//     <div className="page_container" style={{ maxWidth: 'unset' }}>
-//       <div className="row">
-//         <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
-//           <img src={imgSrc} />
-//         </ReactCrop>
-//       </div>
-//     </div>
-//   );
-// };
-
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
@@ -45,7 +24,7 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
   );
 }
 
-export function ProModeWindow_v4_tabPane_type_image_crop() {
+export function ProModeWindow_v4_tabPane_type_image_crop_v0() {
   const [imgSrc, setImgSrc] = useState(
     // 'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
     '',
@@ -157,8 +136,8 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
   }
 
   return (
-    <div className="App">
-      <div className="Crop-Controls">
+    <div className="page_container" style={{ maxWidth: 'unset' }}>
+      <div className="row Crop-Controls">
         <input type="file" accept="image/*" onChange={onSelectFile} />
         <div>
           <label htmlFor="scale-input">Scale: </label>
@@ -186,28 +165,30 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
         </div>
       </div>
       {!!imgSrc && (
-        <ReactCrop
-          crop={crop}
-          onChange={(_, percentCrop) => setCrop(percentCrop)}
-          onComplete={(c) => setCompletedCrop(c)}
-          aspect={aspect}
-          // minWidth={400}
-          minHeight={100}
-          // circularCrop
-          style={{ maxWidth: 600 }} // Show selected image smaller
-        >
-          <img
-            ref={imgRef}
-            alt="Crop me"
-            src={imgSrc}
-            style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-            onLoad={onImageLoad}
-          />
-        </ReactCrop>
+        <div className="row original_image">
+          <ReactCrop
+            crop={crop}
+            onChange={(_, percentCrop) => setCrop(percentCrop)}
+            onComplete={(c) => setCompletedCrop(c)}
+            aspect={aspect}
+            // minWidth={400}
+            minHeight={100}
+            // circularCrop
+            style={{ maxWidth: 600 }} // Show selected image smaller
+          >
+            <img
+              ref={imgRef}
+              alt="Crop me"
+              src={imgSrc}
+              style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+              onLoad={onImageLoad}
+            />
+          </ReactCrop>
+        </div>
       )}
       {!!completedCrop && (
-        <>
-          <div>
+        <div className="row preview_capture_image">
+          <div className="canvas_capture_image">
             <canvas
               ref={previewCanvasRef}
               style={{
@@ -218,7 +199,7 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
               }}
             />
           </div>
-          <div>
+          <div className="button_download">
             <button onClick={onDownloadCropClick}>Download Crop</button>
             <div style={{ fontSize: 12, color: '#666' }}>
               If you get a security error when downloading try opening the Preview in a new tab (icon near top right).
@@ -236,7 +217,7 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
               Hidden download
             </a>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
