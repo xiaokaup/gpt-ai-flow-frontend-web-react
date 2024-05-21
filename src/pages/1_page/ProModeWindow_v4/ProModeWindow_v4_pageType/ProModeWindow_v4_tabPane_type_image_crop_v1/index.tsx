@@ -1,17 +1,13 @@
 import 'react-image-crop/dist/ReactCrop.css';
 
-import React, { useEffect, useRef, useState } from 'react';
-import ReactCrop, {
-  centerCrop,
-  makeAspectCrop,
-  Crop,
-  PixelCrop,
-  convertToPixelCrop,
-  PercentCrop,
-} from 'react-image-crop';
+import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop, convertToPixelCrop } from 'react-image-crop';
+
+import { Button, TreeSelect } from 'antd';
+
 import { canvasPreview } from './component/canvasPreview';
-import { Button, message } from 'antd';
 import { useDebounceEffect } from './component/useDebounceEffect';
+import { transformData_for_treeSelect, socialMediaPictureSpecifications } from './component/pictureSpecifications';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
@@ -29,59 +25,8 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
   );
 }
 
-const socialMediaPictureSpecifications: {
-  name: string;
-  pictureSpecifications: {
-    [pictureType: string]: {
-      width: number;
-      height: number;
-      aspect: number;
-    };
-  };
-}[] = [
-  {
-    name: 'xiaohongshu',
-    pictureSpecifications: {
-      profile: {
-        width: 400,
-        height: 400,
-        aspect: 1,
-      },
-      cover_portrait: {
-        width: 1242,
-        height: 1660,
-        aspect: 1242 / 1660,
-      },
-      cover_landscape: {
-        width: 800,
-        height: 600,
-        aspect: 800 / 600,
-      },
-      background: {
-        width: 1000,
-        height: 800,
-        aspect: 1000 / 800,
-      },
-      image_portrait: {
-        width: 900,
-        height: 1200,
-        aspect: 900 / 1200,
-      },
-      image_square: {
-        width: 1080,
-        height: 1080,
-        aspect: 1,
-      },
-      image_landscape: {
-        width: 1200,
-        height: 900,
-        aspect: 1200 / 900,
-      },
-    },
-  },
-];
-
 export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
+  const [treeSelectedValue, setTreeSelectedValue] = useState<string>('');
   const [imgSrc, setImgSrc] = useState(
     // 'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
     '',
@@ -102,6 +47,16 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
   // Buttons
   const blobUrlRef = useRef(''); // Blob URL for the crop
   const hiddenAnchorRef = useRef<HTMLAnchorElement>(null); // Hidden download anchor saving new blob URL to download
+
+  useEffect(() => {
+    if (imgRef.current && aspect) {
+      const { width, height } = imgRef.current;
+      const newCrop = centerAspectCrop(width, height, aspect);
+      setCrop(newCrop);
+      // Updates the preview
+      setCompletedCrop(convertToPixelCrop(newCrop, width, height));
+    }
+  }, [treeSelectedValue]);
 
   useDebounceEffect(
     async () => {
@@ -187,8 +142,36 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
 
   return (
     <div className="page_container" style={{ maxWidth: 'unset' }}>
-      <div className="row crop-controls">
+      <div className="socialMediaPictureSpecifications">
+        <TreeSelect
+          showSearch
+          style={{ width: '100%' }}
+          value={treeSelectedValue}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          placeholder="Please select"
+          allowClear
+          treeDefaultExpandAll
+          onChange={(newValue: string) => {
+            setTreeSelectedValue(newValue);
+
+            const newValue_json: { type: string; height: number; width: number; aspect: number } = JSON.parse(newValue);
+            console.log('newValue_json', newValue_json);
+
+            setOutputMaxHeight(newValue_json.height);
+            setOutputMaxWidth(newValue_json.width);
+            setAspect(newValue_json.aspect);
+          }}
+          treeData={transformData_for_treeSelect(socialMediaPictureSpecifications)}
+          onPopupScroll={(e: SyntheticEvent) => {
+            console.log('onPopupScroll', e);
+          }}
+        />
+      </div>
+      <div className="row crop-controls m-4">
         <input
+          id="formFile"
+          // className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white file:dark:text-white"
+          className="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-slate-300 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-slate-500 focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white file:dark:text-white"
           type="file"
           accept="image/*"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -209,6 +192,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
           onComplete={(c) => {
             setCompletedCrop(c);
           }}
+          aspect={aspect}
         >
           <img
             ref={imgRef}
@@ -225,7 +209,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
         </ReactCrop>
       </div>
 
-      {!!completedCrop && (
+      {!!completedCrop && (completedCrop.width !== 0 || completedCrop.height !== 0) && (
         <div className="row preview_image">
           <canvas
             ref={previewCanvasRef}
