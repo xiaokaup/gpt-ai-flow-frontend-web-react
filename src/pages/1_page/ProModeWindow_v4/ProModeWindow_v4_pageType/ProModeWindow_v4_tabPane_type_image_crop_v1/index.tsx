@@ -29,6 +29,58 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
   );
 }
 
+const socialMediaPictureSpecifications: {
+  name: string;
+  pictureSpecifications: {
+    [pictureType: string]: {
+      width: number;
+      height: number;
+      aspect: number;
+    };
+  };
+}[] = [
+  {
+    name: 'xiaohongshu',
+    pictureSpecifications: {
+      profile: {
+        width: 400,
+        height: 400,
+        aspect: 1,
+      },
+      cover_portrait: {
+        width: 1242,
+        height: 1660,
+        aspect: 1242 / 1660,
+      },
+      cover_landscape: {
+        width: 800,
+        height: 600,
+        aspect: 800 / 600,
+      },
+      background: {
+        width: 1000,
+        height: 800,
+        aspect: 1000 / 800,
+      },
+      image_portrait: {
+        width: 900,
+        height: 1200,
+        aspect: 900 / 1200,
+      },
+      image_square: {
+        width: 1080,
+        height: 1080,
+        aspect: 1,
+      },
+      image_landscape: {
+        width: 1200,
+        height: 900,
+        aspect: 1200 / 900,
+      },
+    },
+  },
+];
+
 export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
   const [imgSrc, setImgSrc] = useState(
     // 'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
@@ -50,19 +102,6 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = () => {
   // Buttons
   const blobUrlRef = useRef(''); // Blob URL for the crop
   const hiddenAnchorRef = useRef<HTMLAnchorElement>(null); // Hidden download anchor saving new blob URL to download
-
-  useEffect(() => {
-    if (imgRef.current) {
-      const { width: mediaWidth, height: mediaHeight } = imgRef.current;
-      if (!aspect) {
-        message.error('aspect is required');
-        return;
-      }
-      const newCrop: PercentCrop = centerAspectCrop(mediaWidth, mediaHeight, aspect);
-      setCrop(newCrop);
-      // setCompletedCrop(convertToPixelCrop(newCrop, width, height));
-    }
-  }, []);
 
   useDebounceEffect(
     async () => {
