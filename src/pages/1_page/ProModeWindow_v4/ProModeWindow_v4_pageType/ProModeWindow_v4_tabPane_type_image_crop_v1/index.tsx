@@ -7,7 +7,11 @@ import { Button, TreeSelect } from 'antd';
 
 import { canvasPreview } from './component/canvasPreview';
 import { useDebounceEffect } from './component/useDebounceEffect';
-import { transformData_for_treeSelect, socialMediaPictureSpecifications } from './component/TPictureSpecifications';
+import {
+  transformData_for_treeSelect,
+  socialMediaPictureSpecifications,
+  treeSelectDefaultValue,
+} from './component/TPictureSpecifications';
 import { IGetT_frontend_output } from 'gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
@@ -32,7 +36,7 @@ interface IProModeWindow_v4_tabPane_type_image_crop_v1 {
 export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindow_v4_tabPane_type_image_crop_v1) => {
   const { t } = props;
 
-  const [treeSelectedValue, setTreeSelectedValue] = useState<string>('');
+  const [treeSelectedValue, setTreeSelectedValue] = useState<string>(treeSelectDefaultValue);
   const [imgSrc, setImgSrc] = useState(
     // 'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
     '',
@@ -79,9 +83,9 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
   const onDownloadCropClick = async () => {
     const image = imgRef.current;
     const previewCanvas = previewCanvasRef.current;
-    console.log('onDownloadCropClick image', image);
-    console.log('onDownloadCropClick previewCanvas', previewCanvas);
-    console.log('onDownloadCropClick completedCrop', completedCrop);
+    // console.log('onDownloadCropClick image', image);
+    // console.log('onDownloadCropClick previewCanvas', previewCanvas);
+    // console.log('onDownloadCropClick completedCrop', completedCrop);
     if (!image || !previewCanvas || !completedCrop) {
       throw new Error('Crop canvas does not exist');
     }
@@ -161,7 +165,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
             setTreeSelectedValue(newValue);
 
             const newValue_json: { type: string; height: number; width: number; aspect: number } = JSON.parse(newValue);
-            console.log('newValue_json', newValue_json);
+            // console.log('newValue_json', newValue_json);
 
             setOutputMaxHeight(newValue_json.height);
             setOutputMaxWidth(newValue_json.width);

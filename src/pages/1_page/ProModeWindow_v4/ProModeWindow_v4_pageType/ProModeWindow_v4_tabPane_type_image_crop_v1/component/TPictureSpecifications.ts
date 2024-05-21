@@ -66,6 +66,13 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
   },
 ];
 
+export const treeSelectDefaultValue = JSON.stringify({
+  name: 'image_landscape',
+  width: 1200,
+  height: 900,
+  aspect: 1200 / 900,
+});
+
 export const transformData_for_treeSelect = (
   t: IGetT_frontend_output,
   data: SocialMediaPictureSpecifications,
@@ -80,8 +87,8 @@ export const transformData_for_treeSelect = (
         height: item.height,
         aspect: item.aspect,
       }),
-      // title: `${item.name} - ${item.width}x${item.height}, Aspect: ${item.aspect.toFixed(2)}`,
-      title: `${t.get(item.name)} - ${item.width}x${item.height}`,
+      title: `${t.get(item.name)} - ${item.width}x${item.height}, Aspect: ${item.aspect.toFixed(2)}`,
+      // title: `${t.get(item.name)} - ${item.width}x${item.height}`,
     })),
   }));
 };
