@@ -87,8 +87,8 @@ export const transformData_for_treeSelect = (
         height: item.height,
         aspect: item.aspect,
       }),
-      title: `${t.get(item.name)} - ${item.width}x${item.height}, Aspect: ${item.aspect.toFixed(2)}`,
-      // title: `${t.get(item.name)} - ${item.width}x${item.height}`,
+      // title: `${t.get(item.name)} - ${item.width}x${item.height}, Aspect: ${item.aspect.toFixed(2)}`,
+      title: `${t.get(item.name)} - ${item.width}x${item.height}`,
     })),
   }));
 };

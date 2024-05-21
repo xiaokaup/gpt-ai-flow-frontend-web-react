@@ -102,14 +102,14 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
     let targetHeight = completedCrop.height * scaleY;
 
     // Calculate the ratio
-    const widthRatio = targetWidth / outputMaxWidth;
-    const heightRatio = targetHeight / outputMaxHeight;
-    const maxRatio = Math.max(widthRatio, heightRatio);
+    const widthScale = outputMaxWidth / targetWidth;
+    const heightScale = outputMaxHeight / targetHeight;
+    const minScale = Math.min(widthScale, heightScale);
 
-    // If the image is larger than max dimensions, scale it down
-    if (maxRatio > 1) {
-      targetWidth /= maxRatio;
-      targetHeight /= maxRatio;
+    if (minScale < 1) {
+      // If the image is smaller than max dimensions, scale it up
+      targetWidth *= minScale;
+      targetHeight *= minScale;
     }
     // === Resize image - end ===
 
