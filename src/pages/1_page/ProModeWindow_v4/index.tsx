@@ -50,6 +50,8 @@ import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_page
 import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/2024-05-08-ProModeWIndow_v4_tabPane_type_writingPostChain';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results';
+import { ProModeWindow_v4_tabPane_type_image_crop_v0 } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_image_crop_v1/no-used-origin-demo';
+import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_image_crop_v1';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -101,9 +103,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
       const defaultTabPanes = result.tabPanes.filter((tabPane) => tabPane.isDefault);
       if (defaultTabPanes.length > 0) {
         const defaultTabPane = _.sample(defaultTabPanes) as IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>;
-        setActiveTabPanelKey(defaultTabPane.name);
+        setActiveTabPanelKey(defaultTabPane.uuid);
       } else {
-        setActiveTabPanelKey(result.tabPanes[0].name);
+        setActiveTabPanelKey(result.tabPanes[0].uuid);
       }
     }
   }, [locale, userAccessToken]);
@@ -204,9 +206,17 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
+                <Tabs.TabPane
+                  tab={locale === ELocale.EN ? 'Image Creation (Web Version)' : '图片制作(网页版)'}
+                  key={'image-crop-tool-v1'}
+                  disabled={false}
+                >
+                  <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
+                </Tabs.TabPane>
+
                 {proMode_v4_tabPanes.map((tabPane: IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>) => {
                   return (
-                    <Tabs.TabPane tab={tabPane.name} key={tabPane.name} disabled={tabPane.isDisabled}>
+                    <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
                         <ProModeWindow_v4_tabPane_type_langchain
                           t={t}
@@ -276,6 +286,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           inputsCache={inputsCache}
                           setInputsCache={setInputsCache}
                         />
+                      )}
+                      {tabPane.type === EProMode_v4_tabPane_type.TOOL_IMAGE_CROP && (
+                        <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
                       )}
                     </Tabs.TabPane>
                   );
