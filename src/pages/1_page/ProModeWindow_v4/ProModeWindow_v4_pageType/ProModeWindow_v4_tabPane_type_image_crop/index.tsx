@@ -194,6 +194,7 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
           // minWidth={400}
           minHeight={100}
           // circularCrop
+          style={{ maxWidth: 600 }} // Show selected image smaller
         >
           <img
             ref={imgRef}
