@@ -6,26 +6,26 @@ import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop, convertToPixelC
 import { canvasPreview } from './component/canvasPreview';
 import { useDebounceEffect } from './component/useDebounceEffect';
 
-export const ProModeWindow_v4_tabPane_type_image_crop_v0 = () => {
-  const [crop, setCrop] = useState<Crop>();
+// export const ProModeWindow_v4_tabPane_type_image_crop_v0 = () => {
+//   const [crop, setCrop] = useState<Crop>();
 
-  const [imgSrc, setImgSrc] = useState(
-    'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
-  );
+//   const [imgSrc, setImgSrc] = useState(
+//     'https://www.xiaokaup.com/assets/images/2023-10-19-img-1-cloudequivalentservices-vmscrub-30c1150f98a18ce3dd8a80369a9f3ba2.jpeg',
+//   );
 
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
+//   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+//   const imgRef = useRef<HTMLImageElement>(null);
 
-  return (
-    <div className="page_container" style={{ maxWidth: 'unset' }}>
-      <div className="row">
-        <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
-          <img src={imgSrc} />
-        </ReactCrop>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="page_container" style={{ maxWidth: 'unset' }}>
+//       <div className="row">
+//         <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
+//           <img src={imgSrc} />
+//         </ReactCrop>
+//       </div>
+//     </div>
+//   );
+// };
 
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -47,15 +47,16 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
 
 export function ProModeWindow_v4_tabPane_type_image_crop() {
   const [imgSrc, setImgSrc] = useState('');
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const hiddenAnchorRef = useRef<HTMLAnchorElement>(null);
-  const blobUrlRef = useRef('');
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const blobUrlRef = useRef(''); // Blob URL for the crop
+  const hiddenAnchorRef = useRef<HTMLAnchorElement>(null); // Hidden download anchor saving new blob URL to download
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-  const [scale, setScale] = useState(1);
-  const [rotate, setRotate] = useState(0);
-  const [aspect, setAspect] = useState<number | undefined>(16 / 9);
+
+  const [scale, setScale] = useState(1); // 放大缩小
+  const [rotate, setRotate] = useState(0); // 旋转图片
+  const [aspect, setAspect] = useState<number | undefined>(16 / 9); // 截图部分是否按照比例
 
   function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files.length > 0) {
@@ -67,6 +68,7 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
   }
 
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+    // 当图片加载完成后，如果 aspect 为 true 的话，按照比例显示截图，并将截图截图部分设置为中心位置
     if (aspect) {
       const { width, height } = e.currentTarget;
       setCrop(centerAspectCrop(width, height, aspect));
@@ -112,8 +114,9 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
     if (blobUrlRef.current) {
       URL.revokeObjectURL(blobUrlRef.current);
     }
-    blobUrlRef.current = URL.createObjectURL(blob);
+    blobUrlRef.current = URL.createObjectURL(blob); // Generate a URL for the blob
 
+    // Download image by blobUrlRef.current
     if (hiddenAnchorRef.current) {
       hiddenAnchorRef.current.href = blobUrlRef.current;
       hiddenAnchorRef.current.click();
@@ -124,6 +127,7 @@ export function ProModeWindow_v4_tabPane_type_image_crop() {
     async () => {
       if (completedCrop?.width && completedCrop?.height && imgRef.current && previewCanvasRef.current) {
         // We use canvasPreview as it's much faster than imgPreview.
+        // Update previewCanvas
         canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop, scale, rotate);
       }
     },
