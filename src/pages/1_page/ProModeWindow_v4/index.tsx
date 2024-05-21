@@ -103,9 +103,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
       const defaultTabPanes = result.tabPanes.filter((tabPane) => tabPane.isDefault);
       if (defaultTabPanes.length > 0) {
         const defaultTabPane = _.sample(defaultTabPanes) as IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>;
-        setActiveTabPanelKey(defaultTabPane.name);
+        setActiveTabPanelKey(defaultTabPane.uuid);
       } else {
-        setActiveTabPanelKey(result.tabPanes[0].name);
+        setActiveTabPanelKey(result.tabPanes[0].uuid);
       }
     }
   }, [locale, userAccessToken]);
@@ -206,9 +206,17 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
+                <Tabs.TabPane
+                  tab={locale === ELocale.EN ? 'Image Creation (Web Version)' : '图片制作(网页版)'}
+                  key={'image-crop-tool-v1'}
+                  disabled={false}
+                >
+                  <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
+                </Tabs.TabPane>
+
                 {proMode_v4_tabPanes.map((tabPane: IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>) => {
                   return (
-                    <Tabs.TabPane tab={tabPane.name} key={tabPane.name} disabled={tabPane.isDisabled}>
+                    <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
                         <ProModeWindow_v4_tabPane_type_langchain
                           t={t}
