@@ -5,6 +5,8 @@ import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop, convertToPixelC
 
 import { Button, TreeSelect } from 'antd';
 
+import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+
 import { canvasPreview } from './component/canvasPreview';
 import { useDebounceEffect } from './component/useDebounceEffect';
 import {
@@ -12,7 +14,6 @@ import {
   socialMediaPictureSpecifications,
   treeSelectDefaultValue,
 } from './component/TPictureSpecifications';
-import { IGetT_frontend_output } from 'gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
   return centerCrop(
@@ -205,6 +206,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
           aspect={aspect}
         >
           <img
+            alt="Crop preview"
             ref={imgRef}
             src={imgSrc}
             style={{ maxWidth: 800 }}

@@ -50,8 +50,8 @@ import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_page
 import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/2024-05-08-ProModeWIndow_v4_tabPane_type_writingPostChain';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results';
-import { ProModeWindow_v4_tabPane_type_image_crop_v0 } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_image_crop_v1/no-used-origin-demo';
-import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/ProModeWindow_v4_tabPane_type_image_crop_v1';
+import { ProModeWindow_v4_tabPane_type_image_crop_v0 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_type_image_crop_v1/no-used-origin-demo';
+import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_type_image_crop_v1';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
