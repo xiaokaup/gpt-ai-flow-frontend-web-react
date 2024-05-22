@@ -231,6 +231,12 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           userAccessToken={userAccessToken}
                           modelSecret={modelSecret}
                           proModeModelType={proModeModelType}
+                          envObj={{
+                            env: CONSTANTS_GPT_AI_FLOW_COMMON,
+                            getEncryptobjForFrontend: TCryptoJSFile.encrypt_v2(
+                              CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
+                            ),
+                          }}
                         />
                       )}
                       {tabPane.type === EProMode_v4_tabPane_type.CUSTOME_LANGCHAIN && (
