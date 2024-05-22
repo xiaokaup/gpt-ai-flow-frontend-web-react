@@ -2,7 +2,6 @@ import '../../index.scss';
 
 import React, { useState } from 'react';
 
-import _ from 'lodash';
 import { Button, Select, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
@@ -81,7 +80,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
 
   // Manage multiple outputs results
   const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(
-    inputsCache['currentOuputNums'] ? parseInt(inputsCache['currentOuputNums']) : 2, // IAdjust_for_type_morePostsChain
+    inputsCache.currentOuputNums ? parseInt(inputsCache.currentOuputNums, 10) : 2, // IAdjust_for_type_morePostsChain
   );
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
@@ -311,7 +310,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
         </div>
 
         {contextSelected && (
-          <div className="row row_contextSelected">
+          <div className="row row_contextSelected" style={{ display: 'flex' }}>
             <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
               <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
                 {chatHistory.length > 0 && (
