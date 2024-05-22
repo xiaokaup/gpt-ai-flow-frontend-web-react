@@ -67,7 +67,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
       // Updates the preview
       setCompletedCrop(convertToPixelCrop(newCrop, width, height));
     }
-  }, [treeSelectedValue]);
+  }, [aspect, treeSelectedValue]);
 
   useDebounceEffect(
     async () => {
@@ -196,32 +196,34 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
           }}
         />
       </div>
-      <div className="row original_image">
-        <ReactCrop
-          crop={crop}
-          onChange={(c) => setCrop(c)}
-          onComplete={(c) => {
-            setCompletedCrop(c);
-          }}
-          aspect={aspect}
-        >
-          <img
-            alt="Crop preview"
-            ref={imgRef}
-            src={imgSrc}
-            style={{ maxWidth: 800 }}
-            onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
-              // 当图片加载完成后，如果 aspect 为 true 的话，按照比例显示截图，并将截图截图部分设置为中心位置
-              if (aspect) {
-                const { width, height } = e.currentTarget;
-                setCrop(centerAspectCrop(width, height, aspect));
-              }
+      {imgSrc && (
+        <div className="row original_image">
+          <ReactCrop
+            crop={crop}
+            onChange={(c) => setCrop(c)}
+            onComplete={(c) => {
+              setCompletedCrop(c);
             }}
-          />
-        </ReactCrop>
-      </div>
+            aspect={aspect}
+          >
+            <img
+              alt="Crop preview"
+              ref={imgRef}
+              src={imgSrc}
+              style={{ maxWidth: 800 }}
+              onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                // 当图片加载完成后，如果 aspect 为 true 的话，按照比例显示截图，并将截图截图部分设置为中心位置
+                if (aspect) {
+                  const { width, height } = e.currentTarget;
+                  setCrop(centerAspectCrop(width, height, aspect));
+                }
+              }}
+            />
+          </ReactCrop>
+        </div>
+      )}
 
-      {!!completedCrop && (completedCrop.width !== 0 || completedCrop.height !== 0) && (
+      {imgSrc && !!completedCrop && (completedCrop.width !== 0 || completedCrop.height !== 0) && (
         <div className="row preview_image">
           <canvas
             ref={previewCanvasRef}
@@ -253,7 +255,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
             Hidden download
           </a>
         </div>
-        {/* <div className="row buttons_for_test hidden">
+        {/* <div className="row buttons_for_test">
           <Button
             type="primary"
             onClick={() => {
