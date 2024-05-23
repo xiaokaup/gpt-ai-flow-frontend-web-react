@@ -36,7 +36,7 @@ import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { Langchain_context_description } from './component/Langchain_context_description';
 
-interface ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
+interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<
     IPromode_v4_tabPane_context_for_type_custom_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
@@ -48,7 +48,7 @@ interface ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_i
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
 export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize = (
-  props: ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input,
+  props: IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input,
 ) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
   const { urlSlug, context } = tabPane;
@@ -252,7 +252,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
         </div>
 
         {contextSelected && (
-          <div className="row row_contextSelected">
+          <div className="row row_contextSelected" style={{ display: 'flex' }}>
             <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
               <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
                 {chatHistory.length > 0 && (
