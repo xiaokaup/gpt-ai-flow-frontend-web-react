@@ -123,6 +123,70 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
       },
     ],
   },
+  {
+    name: 'tiktok',
+    pictureSpecifications: [
+      {
+        name: 'profile',
+        width: 400,
+        height: 400,
+        aspect: 1,
+      },
+      {
+        name: 'personal_homepage_background_image',
+        width: 1125,
+        height: 633,
+        aspect: 1125 / 633,
+      },
+      {
+        name: 'tiktok_cover_portrait_3_4',
+        width: 1242,
+        height: 1660,
+        aspect: 1242 / 1660,
+      },
+      {
+        name: 'tiktok_cover_portrait_9_16',
+        width: 1080,
+        height: 1920,
+        aspect: 1080 / 1920,
+      },
+      {
+        name: 'titok_cover_landscape_16_9',
+        width: 1080,
+        height: 608,
+        aspect: 1080 / 608,
+      },
+    ],
+  },
+  {
+    name: 'weibo',
+    pictureSpecifications: [
+      {
+        name: 'weibo_homepage_cover',
+        width: 980,
+        height: 300,
+        aspect: 980 / 300,
+      },
+      {
+        name: 'weibo_haedline_cover',
+        width: 980,
+        height: 560,
+        aspect: 980 / 560,
+      },
+      {
+        name: 'weibo_spotlight_image',
+        width: 540,
+        height: 260,
+        aspect: 540 / 260,
+      },
+      {
+        name: 'weibo_long_image',
+        width: 800,
+        height: 2000,
+        aspect: 800 / 2000,
+      },
+    ],
+  },
 ];
 
 export const treeSelectDefaultValue = JSON.stringify({
