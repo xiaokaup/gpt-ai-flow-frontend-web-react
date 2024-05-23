@@ -1,4 +1,4 @@
-import { IGetT_frontend_output } from 'gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 type SocialMediaPictureSpecifications = {
   name: string;
@@ -217,6 +217,35 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
         width: 1280,
         height: 800,
         aspect: 1280 / 800,
+      },
+    ],
+  },
+  {
+    name: 'regular_size',
+    pictureSpecifications: [
+      {
+        name: 'regular_size_square',
+        width: 400,
+        height: 400,
+        aspect: 1,
+      },
+      {
+        name: 'regular_size_3_4',
+        width: 1080,
+        height: 1440,
+        aspect: 1080 / 1440,
+      },
+      {
+        name: 'regular_size_4_3',
+        width: 1440,
+        height: 1080,
+        aspect: 1440 / 1080,
+      },
+      {
+        name: 'regular_size_16_9',
+        width: 1080,
+        height: 1920,
+        aspect: 1080 / 1920,
       },
     ],
   },
