@@ -15,9 +15,8 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 
 import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { EMessage_role } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IConstantGptAiFlowHandler } from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
-import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import { IAdjust_for_IMessage, IMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { ILangchain_type_WritingPostChainService_request } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 import {
@@ -32,12 +31,23 @@ interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
   userAccessToken: string;
   modelSecret: string;
   proModeModelType: EOpenAiModel_type;
+  envObj: {
+    env: IConstantGptAiFlowHandler;
+    getEncryptobjForFrontend: (obj: any) => string;
+  };
 }
 export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
   props: IProModeWIndow_v4_tabPane_type_writingPostChain_input,
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { t, tabPane, userAccessToken, modelSecret, proModeModelType } = props;
+  const {
+    t,
+    tabPane,
+    userAccessToken,
+    modelSecret,
+    proModeModelType,
+    envObj: { env, getEncryptobjForFrontend },
+  } = props;
   const creativityValue = useCreativityValueContext();
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -171,8 +181,8 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
         },
         userAccessToken,
         t.currentLocale,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+        env,
+        getEncryptobjForFrontend,
         signal,
       ).catch((error) => {
         if (error.name === 'AbortError') {
