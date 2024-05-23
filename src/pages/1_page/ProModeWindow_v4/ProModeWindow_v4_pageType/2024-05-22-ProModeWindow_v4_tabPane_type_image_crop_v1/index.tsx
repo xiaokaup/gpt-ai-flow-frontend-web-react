@@ -240,7 +240,7 @@ export const ProModeWindow_v4_tabPane_type_image_crop_v1 = (props: IProModeWindo
       <div className="buttons">
         <div className="row button_download">
           <Button type="primary" onClick={onDownloadCropClick}>
-            Download
+            {t.get('Download')}
           </Button>
           <a
             href="#hidden"
