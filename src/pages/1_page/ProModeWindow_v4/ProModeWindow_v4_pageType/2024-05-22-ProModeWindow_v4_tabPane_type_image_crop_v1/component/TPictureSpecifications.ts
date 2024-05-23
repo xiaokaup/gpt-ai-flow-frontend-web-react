@@ -64,6 +64,65 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
       },
     ],
   },
+  {
+    name: 'wechat',
+    pictureSpecifications: [
+      {
+        name: 'profile',
+        width: 240,
+        height: 240,
+        aspect: 1,
+      },
+      {
+        name: 'public_account_cover',
+        width: 900,
+        height: 383,
+        aspect: 900 / 383,
+      },
+      {
+        name: 'public_account_small_image',
+        width: 200,
+        height: 200,
+        aspect: 1,
+      },
+      {
+        name: 'public_account_QR_code_business_card',
+        width: 600,
+        height: 600,
+        aspect: 1,
+      },
+      {
+        name: 'public_account_content_guide_image',
+        width: 1080,
+        height: 300,
+        aspect: 1080 / 300,
+      },
+      {
+        name: 'video_account_cover_portrait',
+        width: 1080,
+        height: 1260,
+        aspect: 1080 / 1260,
+      },
+      {
+        name: 'video_account_cover_landscape',
+        width: 1080,
+        height: 608,
+        aspect: 1080 / 608,
+      },
+      {
+        name: 'mini_program_cover',
+        width: 520,
+        height: 416,
+        aspect: 520 / 416,
+      },
+      {
+        name: 'wechat_moment_cover',
+        width: 1280,
+        height: 1184,
+        aspect: 1280 / 1184,
+      },
+    ],
+  },
 ];
 
 export const treeSelectDefaultValue = JSON.stringify({
