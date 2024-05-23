@@ -187,6 +187,39 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
       },
     ],
   },
+  {
+    name: 'bilibili',
+    pictureSpecifications: [
+      {
+        name: 'bilibili_video_cover',
+        width: 1280,
+        height: 800,
+        aspect: 1280 / 800,
+      },
+    ],
+  },
+  {
+    name: 'kuaishou',
+    pictureSpecifications: [
+      {
+        name: 'kuaishou_video_cover',
+        width: 1280,
+        height: 800,
+        aspect: 1280 / 800,
+      },
+    ],
+  },
+  {
+    name: 'zhihu',
+    pictureSpecifications: [
+      {
+        name: 'zhihu_article_cover',
+        width: 1280,
+        height: 800,
+        aspect: 1280 / 800,
+      },
+    ],
+  },
 ];
 
 export const treeSelectDefaultValue = JSON.stringify({
@@ -211,7 +244,7 @@ export const transformData_for_treeSelect = (
         aspect: item.aspect,
       }),
       // title: `${t.get(item.name)} - ${item.width}x${item.height}, Aspect: ${item.aspect.toFixed(2)}`,
-      title: `${t.get(item.name)} - ${item.width}x${item.height}`,
+      title: `${t.get(platform.name)}: ${t.get(item.name)} - ${item.width}x${item.height}`,
     })),
   }));
 };
