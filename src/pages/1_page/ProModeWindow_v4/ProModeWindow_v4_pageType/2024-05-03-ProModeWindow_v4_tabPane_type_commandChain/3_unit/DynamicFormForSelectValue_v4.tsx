@@ -51,6 +51,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
   const [placeholderKeys, setPlacehodlerKeys] = useState<string[]>([]);
   const [placeholderValues, setPlaceholderValues] = useState<string[]>([]);
   const [placeholderKeyValues, setPlaceholderKeyValues] = useState<{ [key: string]: string }>({});
+  const [newInputsCache_for_component, setNewInputsCache_for_component] = useState<IInputsCache>(inputsCache);
 
   const init = useCallback(() => {
     const placeholderRegex = /\[([^:\]]+)(?::([^\]]+))?\]/g;
@@ -87,7 +88,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
 
   const handleInputChange = (placeholder: string, value: string) => {
     setAICommandIsDirty(true);
-    setInputsCache((prevInputs) => ({
+    setNewInputsCache_for_component((prevInputs) => ({
       ...prevInputs,
       [placeholder]: value,
     }));
@@ -120,6 +121,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
 
     // console.log('after result', result);
 
+    setInputsCache(newInputsCache_for_component); // Set global inputs cache finally
     setAiCommandValue(result);
     setAICommandIsDirty(false);
     message.success(t.get('Fill in successfully'));
@@ -132,7 +134,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
     placeholderKeys.forEach((placeholder) => {
       newInputsCache[placeholder] = placeholderKeyValues[placeholder];
     });
-    setInputsCache(newInputsCache);
+    setNewInputsCache_for_component(newInputsCache);
     form.setFieldsValue(newInputsCache);
 
     // Update the command value
