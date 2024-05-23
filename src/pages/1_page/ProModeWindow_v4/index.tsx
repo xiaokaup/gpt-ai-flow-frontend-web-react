@@ -206,7 +206,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 // onEdit={onEditTabPanel}
               >
                 <Tabs.TabPane
-                  tab={locale === ELocale.EN ? 'Image Creation (Web Version)' : '图片制作(网页版)'}
+                  tab={locale === ELocale.EN ? 'Image Adjustments' : '图片尺寸调整'}
                   key="image-crop-tool-v1"
                   disabled={false}
                 >
