@@ -21,7 +21,7 @@ export const ToutiaoSearchCard = (props: IToutiaoSearchCard) => {
           const { url, word } = item;
 
           return (
-            <List.Item>
+            <List.Item style={{ userSelect: 'text' }}>
               <a href={url} target="_blank" className="text-black">
                 {word}
               </a>
