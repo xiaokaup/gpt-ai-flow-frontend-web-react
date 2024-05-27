@@ -45,7 +45,7 @@ export const NewsPage = (props: INewsPageProps) => {
     <div className="drag-region" style={{ width: '100%' }}>
       <div className="container newsPage my-4">
         <div className="row top_block">
-          <h1>{t.get('News')}</h1>
+          <h1>{t.get('Top News')}</h1>
           {news === undefined && <p>Loading...</p>}
 
           {news && (

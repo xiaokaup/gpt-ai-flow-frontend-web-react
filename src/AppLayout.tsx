@@ -102,7 +102,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       </Menu.Item>
 
       <Menu.Item key="news">
-        <Link to="/news">{t.get('News')}</Link>
+        <Link to="/news">{t.get('Top News')}</Link>
       </Menu.Item>
 
       <Menu.Item key="switch-language">
