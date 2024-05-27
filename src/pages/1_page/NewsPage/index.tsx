@@ -13,6 +13,7 @@ import { ZhihuSearch } from './component/NewsCard/ZhihuSearch';
 import { ZhihuVideo } from './component/NewsCard/ZhihuVideo';
 import { RedditHotCard } from './component/NewsCard/RedditHotCard';
 import { V2exCreateCard } from './component/NewsCard/V2exCreateCard';
+import { GithubTrendingCard } from './component/NewsCard/GithubTrendingCard';
 
 interface INewsPageProps {
   webCase: {
@@ -72,6 +73,11 @@ export const NewsPage = (props: INewsPageProps) => {
                 {news['v2ex-create'] && (
                   <div className="oneNews">
                     <V2exCreateCard news={news['v2ex-create']} />
+                  </div>
+                )}
+                {news['github-trending'] && (
+                  <div className="oneNews">
+                    <GithubTrendingCard news={news['github-trending']} />
                   </div>
                 )}
               </div>
