@@ -71,11 +71,6 @@ export const NewsPage = (props: INewsPageProps) => {
                     <RedditHotCard news={news['reddit-hot']} />
                   </div>
                 )}
-                {news['v2ex-create'] && (
-                  <div className="oneNews">
-                    <V2exCreateCard news={news['v2ex-create']} />
-                  </div>
-                )}
                 {news['github-trending'] && (
                   <div className="oneNews">
                     <GithubTrendingCard news={news['github-trending']} />
@@ -94,6 +89,11 @@ export const NewsPage = (props: INewsPageProps) => {
             <h2>{t.get('News')} 🇨🇳</h2>
             {news && (
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {news['v2ex-create'] && (
+                  <div className="oneNews">
+                    <V2exCreateCard news={news['v2ex-create']} />
+                  </div>
+                )}
                 {news['toutiao-search'] && (
                   <div className="oneNews">
                     <ToutiaoSearchCard news={news['toutiao-search']} />
