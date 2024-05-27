@@ -48,13 +48,13 @@ export const NewsPage = (props: INewsPageProps) => {
 
           {news && (
             <ul className="hidden">
-              <li>toutiao-search: {news['toutiao-search'].length}</li>
-              <li>weibo-search: {news['weibo-search'].length}</li>
-              <li>zhihu-questions: {news['zhihu-questions'].length}</li>
-              <li>zhihu-search: {news['zhihu-search'].length}</li>
-              <li>zhihu-video: {news['zhihu-video'].length}</li>
-              <li>reddit-hot: {news['reddit-hot'].length}</li>
-              <li>v2ex-create: {news['v2ex-create'].length}</li>
+              <li>toutiao-search: {news['toutiao-search']?.length}</li>
+              <li>weibo-search: {news['weibo-search']?.length}</li>
+              <li>zhihu-questions: {news['zhihu-questions']?.length}</li>
+              <li>zhihu-search: {news['zhihu-search']?.length}</li>
+              <li>zhihu-video: {news['zhihu-video']?.length}</li>
+              <li>reddit-hot: {news['reddit-hot']?.length}</li>
+              <li>v2ex-create: {news['v2ex-create']?.length}</li>
             </ul>
           )}
         </div>
@@ -64,12 +64,12 @@ export const NewsPage = (props: INewsPageProps) => {
             <h2>{t.get('News')} 🇺🇸</h2>
             {news && (
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {news['reddit-hot'] && news['reddit-hot'].length > 0 && (
+                {news['reddit-hot'] && (
                   <div className="oneNews">
                     <RedditHotCard news={news['reddit-hot']} />
                   </div>
                 )}
-                {news['v2ex-create'] && news['v2ex-create'].length > 0 && (
+                {news['v2ex-create'] && (
                   <div className="oneNews">
                     <V2exCreateCard news={news['v2ex-create']} />
                   </div>
