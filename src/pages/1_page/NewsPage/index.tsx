@@ -1,3 +1,5 @@
+import './index.scss';
+
 import React, { useEffect, useState } from 'react';
 
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
@@ -55,31 +57,31 @@ export const NewsPage = (props: INewsPageProps) => {
         {news && (
           <div className="news_block mb-10" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {news['toutiao-search'] && (
-              <div style={{ flex: '0 1 32%', marginLeft: '1rem' }}>
+              <div className="oneNews">
                 <ToutiaoSearchCard news={news['toutiao-search']} />
               </div>
             )}
 
             {news['weibo-search'] && (
-              <div style={{ flex: '0 1 32%', marginLeft: '1rem' }}>
+              <div className="oneNews">
                 <WeiboSearchCard news={news['weibo-search']} />
               </div>
             )}
 
             {news['zhihu-questions'] && (
-              <div style={{ flex: '0 1 32%', marginLeft: '1rem' }}>
+              <div className="oneNews">
                 <ZhihuQuestions news={news['zhihu-questions']} />
               </div>
             )}
 
             {news['zhihu-search'] && (
-              <div style={{ flex: '0 1 32%', marginLeft: '1rem' }}>
+              <div className="oneNews">
                 <ZhihuSearch news={news['zhihu-search']} />
               </div>
             )}
 
             {news['zhihu-video'] && (
-              <div style={{ flex: '0 1 32%', marginLeft: '1rem' }}>
+              <div className="oneNews">
                 <ZhihuVideo news={news['zhihu-video']} />
               </div>
             )}
