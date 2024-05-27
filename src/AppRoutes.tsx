@@ -11,6 +11,8 @@ import { IReduxRootState } from './store/reducer';
 import { updateSpecificUserData } from './store/actions/userActions';
 // import { CounterComponent } from './CounterComponent';
 
+import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
+
 import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
 import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_2_login';
 import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
@@ -20,7 +22,7 @@ import { ProModeWindow_warpper } from './pages/1_page/ProModeWinowWrapper';
 import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
+import { NewsPage } from './pages/1_page/NewsPage';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -108,6 +110,20 @@ export const AppRoutes = () => {
             webCase={{
               t,
               locale,
+            }}
+          />
+        </AppLayoutCenter>
+      ),
+    },
+    {
+      path: '/news',
+      element: (
+        <AppLayoutCenter isAuthenticated={isAuthenticated}>
+          <NewsPage
+            webCase={{
+              t,
+              locale,
+              env: CONSTANTS_GPT_AI_FLOW_COMMON,
             }}
           />
         </AppLayoutCenter>
