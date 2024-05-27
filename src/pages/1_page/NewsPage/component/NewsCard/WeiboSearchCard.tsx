@@ -22,7 +22,7 @@ export const WeiboSearchCard = (props: IWeiboSearchCard) => {
 
           return (
             <List.Item style={{ userSelect: 'text' }}>
-              <a href={realurl} target="_blank" className="text-black">
+              <a href={realurl} className="text-black">
                 {title}
               </a>
               {/* <Typography.Text mark>[ITEM]</Typography.Text> {item} */}
