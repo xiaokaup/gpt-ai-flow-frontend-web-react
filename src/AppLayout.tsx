@@ -100,6 +100,11 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="proMode-doc">
         <Link to="https://www.gptaiflow.com/docs/application-scenarios/introduction">{t.get('Doc')}</Link>
       </Menu.Item>
+
+      <Menu.Item key="news">
+        <Link to="/news">{t.get('News')}</Link>
+      </Menu.Item>
+
       <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
