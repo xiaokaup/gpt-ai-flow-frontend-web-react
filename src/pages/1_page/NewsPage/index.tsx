@@ -64,12 +64,12 @@ export const NewsPage = (props: INewsPageProps) => {
             <h2>{t.get('News')} 🇺🇸</h2>
             {news && (
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {news['reddit-hot'] && (
+                {news['reddit-hot'] && news['reddit-hot'].length > 0 && (
                   <div className="oneNews">
                     <RedditHotCard news={news['reddit-hot']} />
                   </div>
                 )}
-                {news['v2ex-create'] && (
+                {news['v2ex-create'] && news['v2ex-create'].length > 0 && (
                   <div className="oneNews">
                     <V2exCreateCard news={news['v2ex-create']} />
                   </div>
