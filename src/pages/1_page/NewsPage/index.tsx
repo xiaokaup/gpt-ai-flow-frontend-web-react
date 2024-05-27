@@ -14,6 +14,7 @@ import { ZhihuVideo } from './component/NewsCard/ZhihuVideo';
 import { RedditHotCard } from './component/NewsCard/RedditHotCard';
 import { V2exCreateCard } from './component/NewsCard/V2exCreateCard';
 import { GithubTrendingCard } from './component/NewsCard/GithubTrendingCard';
+import { ProductHuntRankingCard } from './component/NewsCard/ProductHuntRankingCard';
 
 interface INewsPageProps {
   webCase: {
@@ -78,6 +79,11 @@ export const NewsPage = (props: INewsPageProps) => {
                 {news['github-trending'] && (
                   <div className="oneNews">
                     <GithubTrendingCard news={news['github-trending']} />
+                  </div>
+                )}
+                {news['product-hunt-ranking'] && (
+                  <div className="oneNews">
+                    <ProductHuntRankingCard news={news['product-hunt-ranking']} />
                   </div>
                 )}
               </div>
