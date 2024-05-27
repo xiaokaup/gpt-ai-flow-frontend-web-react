@@ -11,7 +11,7 @@ export const WeiboSearchCard = (props: IWeiboSearchCard) => {
 
   return (
     <>
-      <Divider orientation="left">头条</Divider>
+      <Divider orientation="left">微博</Divider>
       <List
         // header={<div>Header</div>}
         // footer={<div>Footer</div>}
