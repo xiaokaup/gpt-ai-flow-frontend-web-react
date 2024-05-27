@@ -11,7 +11,8 @@ import { WeiboSearchCard } from './component/NewsCard/WeiboSearchCard';
 import { ZhihuQuestions } from './component/NewsCard/ZhihuQuestions';
 import { ZhihuSearch } from './component/NewsCard/ZhihuSearch';
 import { ZhihuVideo } from './component/NewsCard/ZhihuVideo';
-import { RedditHotCard } from './component/NewsCard/RedditCard';
+import { RedditHotCard } from './component/NewsCard/RedditHotCard';
+import { V2exCreateCard } from './component/NewsCard/V2exCreateCard';
 
 interface INewsPageProps {
   webCase: {
@@ -45,15 +46,17 @@ export const NewsPage = (props: INewsPageProps) => {
           <h1>{t.get('News')}</h1>
           {news === undefined && <p>Loading...</p>}
 
-          {/* {news && (
-            <ul>
-              <li>toutiao-search: {(news['toutiao-search'] as any[]).length}</li>
-              <li>weibo-search: {(news['weibo-search'] as any[]).length}</li>
-              <li>zhihu-questions: {(news['zhihu-questions'] as any[]).length}</li>
-              <li>zhihu-search: {(news['zhihu-search'] as any[]).length}</li>
-              <li>zhihu-video: {(news['zhihu-video'] as any[]).length}</li>
+          {news && (
+            <ul className="hidden">
+              <li>toutiao-search: {news['toutiao-search'].length}</li>
+              <li>weibo-search: {news['weibo-search'].length}</li>
+              <li>zhihu-questions: {news['zhihu-questions'].length}</li>
+              <li>zhihu-search: {news['zhihu-search'].length}</li>
+              <li>zhihu-video: {news['zhihu-video'].length}</li>
+              <li>reddit-hot: {news['reddit-hot'].length}</li>
+              <li>v2ex-create: {news['v2ex-create'].length}</li>
             </ul>
-          )} */}
+          )}
         </div>
 
         <div className="row news mb-10">
@@ -64,6 +67,11 @@ export const NewsPage = (props: INewsPageProps) => {
                 {news['reddit-hot'] && (
                   <div className="oneNews">
                     <RedditHotCard news={news['reddit-hot']} />
+                  </div>
+                )}
+                {news['v2ex-create'] && (
+                  <div className="oneNews">
+                    <V2exCreateCard news={news['v2ex-create']} />
                   </div>
                 )}
               </div>
