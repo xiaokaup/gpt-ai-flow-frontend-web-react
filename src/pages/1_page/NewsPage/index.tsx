@@ -11,6 +11,7 @@ import { WeiboSearchCard } from './component/NewsCard/WeiboSearchCard';
 import { ZhihuQuestions } from './component/NewsCard/ZhihuQuestions';
 import { ZhihuSearch } from './component/NewsCard/ZhihuSearch';
 import { ZhihuVideo } from './component/NewsCard/ZhihuVideo';
+import { RedditHotCard } from './component/NewsCard/RedditCard';
 
 interface INewsPageProps {
   webCase: {
@@ -41,8 +42,9 @@ export const NewsPage = (props: INewsPageProps) => {
     <div className="drag-region" style={{ width: '100%' }}>
       <div className="container newsPage my-4">
         <div className="row top_block">
-          <h1>{t.get('News')} 🇨🇳</h1>
+          <h1>{t.get('News')}</h1>
           {news === undefined && <p>Loading...</p>}
+
           {/* {news && (
             <ul>
               <li>toutiao-search: {(news['toutiao-search'] as any[]).length}</li>
@@ -54,39 +56,57 @@ export const NewsPage = (props: INewsPageProps) => {
           )} */}
         </div>
 
-        {news && (
-          <div className="news_block mb-10" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {news['toutiao-search'] && (
-              <div className="oneNews">
-                <ToutiaoSearchCard news={news['toutiao-search']} />
-              </div>
-            )}
-
-            {news['weibo-search'] && (
-              <div className="oneNews">
-                <WeiboSearchCard news={news['weibo-search']} />
-              </div>
-            )}
-
-            {news['zhihu-questions'] && (
-              <div className="oneNews">
-                <ZhihuQuestions news={news['zhihu-questions']} />
-              </div>
-            )}
-
-            {news['zhihu-search'] && (
-              <div className="oneNews">
-                <ZhihuSearch news={news['zhihu-search']} />
-              </div>
-            )}
-
-            {news['zhihu-video'] && (
-              <div className="oneNews">
-                <ZhihuVideo news={news['zhihu-video']} />
+        <div className="row news mb-10">
+          <div className="row">
+            <h2>{t.get('News')} 🇺🇸</h2>
+            {news && (
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {news['reddit-hot'] && (
+                  <div className="oneNews">
+                    <RedditHotCard news={news['reddit-hot']} />
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+
+          <div className="row ">
+            <h2>{t.get('News')} 🇨🇳</h2>
+            {news && (
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {news['toutiao-search'] && (
+                  <div className="oneNews">
+                    <ToutiaoSearchCard news={news['toutiao-search']} />
+                  </div>
+                )}
+
+                {news['weibo-search'] && (
+                  <div className="oneNews">
+                    <WeiboSearchCard news={news['weibo-search']} />
+                  </div>
+                )}
+
+                {news['zhihu-questions'] && (
+                  <div className="oneNews">
+                    <ZhihuQuestions news={news['zhihu-questions']} />
+                  </div>
+                )}
+
+                {news['zhihu-search'] && (
+                  <div className="oneNews">
+                    <ZhihuSearch news={news['zhihu-search']} />
+                  </div>
+                )}
+
+                {news['zhihu-video'] && (
+                  <div className="oneNews">
+                    <ZhihuVideo news={news['zhihu-video']} />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       {/* <pre>{JSON.stringify(news, null, 2)}</pre> */}
     </div>
