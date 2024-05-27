@@ -11,7 +11,8 @@ import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
-import { useBaseUrl } from 'hooks/useBaseUrl';
+
+import { useBaseUrl } from './hooks/useBaseUrl';
 
 const { Header, Content, Footer } = Layout;
 
