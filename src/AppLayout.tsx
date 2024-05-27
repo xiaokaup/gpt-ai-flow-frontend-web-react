@@ -11,6 +11,7 @@ import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
+import { useBaseUrl } from 'hooks/useBaseUrl';
 
 const { Header, Content, Footer } = Layout;
 
@@ -36,6 +37,8 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
   });
   const { locale } = localSettings;
   const t = getT(locale);
+
+  const [baseUrl] = useBaseUrl({ locale });
 
   const handleSwithLanguage = (nextLocal: ELocale) => {
     const newLocalSettings = { ...localSettings, locale: nextLocal };
@@ -75,7 +78,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       // defaultSelectedKeys={['1']}
     >
       <Menu.Item key="official-website">
-        <Link to="https://www.gptaiflow.com/">{t.get('Official website')}</Link>
+        <Link to={'https://www.gptaiflow.com' + baseUrl}>{t.get('Official website')}</Link>
       </Menu.Item>
       {!isAuthenticated && (
         <>
@@ -98,7 +101,9 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
         </>
       )}
       <Menu.Item key="proMode-doc">
-        <Link to="https://www.gptaiflow.com/docs/application-scenarios/introduction">{t.get('Doc')}</Link>
+        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/introduction`}>
+          {t.get('Doc')}
+        </Link>
       </Menu.Item>
 
       <Menu.Item key="news">
