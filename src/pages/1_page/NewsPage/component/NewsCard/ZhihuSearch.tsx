@@ -21,7 +21,7 @@ export const ZhihuSearch = (props: IZhihuSearch) => {
           const { url, query, display_query } = item;
 
           return (
-            <List.Item>
+            <List.Item style={{ userSelect: 'text' }}>
               <a href={url} target="_blank" className="text-black">
                 {display_query}
               </a>

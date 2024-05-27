@@ -21,7 +21,7 @@ export const WeiboSearchCard = (props: IWeiboSearchCard) => {
           const { url, title, realurl } = item;
 
           return (
-            <List.Item>
+            <List.Item style={{ userSelect: 'text' }}>
               <a href={realurl} target="_blank" className="text-black">
                 {title}
               </a>

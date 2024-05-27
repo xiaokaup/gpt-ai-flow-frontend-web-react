@@ -21,7 +21,7 @@ export const ZhihuVideo = (props: IZhihuVideo) => {
           const { url, title } = item;
 
           return (
-            <List.Item>
+            <List.Item style={{ userSelect: 'text' }}>
               <a href={url} target="_blank" className="text-black">
                 {title}
               </a>

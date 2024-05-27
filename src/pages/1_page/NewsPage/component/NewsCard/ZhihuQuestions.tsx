@@ -21,7 +21,7 @@ export const ZhihuQuestions = (props: IZhihuQuestions) => {
           const { url, title } = item;
 
           return (
-            <List.Item>
+            <List.Item style={{ userSelect: 'text' }}>
               <a href={url} target="_blank" className="text-black">
                 {title}
               </a>
