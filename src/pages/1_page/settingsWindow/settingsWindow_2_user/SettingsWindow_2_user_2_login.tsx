@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
+import { GoogleLogin } from '@react-oauth/google';
+
 import { authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
 import { IReduxRootState } from 'store/reducer';
 
@@ -156,6 +158,17 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             </div>
           </Form.Item>
         </Form>
+      </div>
+      <div className="row google_login">
+        <GoogleLogin
+          useOneTap
+          onSuccess={(credentialResponse) => {
+            console.log('credentialResponse', credentialResponse);
+          }}
+          onError={() => {
+            console.log('Login Failed');
+          }}
+        />
       </div>
     </div>
   );
