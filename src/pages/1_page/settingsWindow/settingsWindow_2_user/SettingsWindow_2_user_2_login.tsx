@@ -9,13 +9,14 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { GoogleLogin } from '@react-oauth/google';
 
-import { authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
+import { USER_LOGIN, authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
 import { IReduxRootState } from 'store/reducer';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import TBackendAuthFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendAuth';
 
 interface ISettingsWindow_2_user_2_login_input {
   t: IGetT_frontend_output;
@@ -162,8 +163,24 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       <div className="row google_login flex justify-center">
         <GoogleLogin
           useOneTap
-          onSuccess={(credentialResponse) => {
+          onSuccess={async (credentialResponse) => {
             console.log('credentialResponse', credentialResponse);
+
+            const { credential: idToken } = credentialResponse;
+            if (!idToken) {
+              message.error(t.get('Google Login Failed'));
+              return;
+            }
+            const results = await TBackendAuthFile.authLoginVerifyByGoogle(
+              idToken,
+              t.currentLocale,
+              CONSTANTS_GPT_AI_FLOW_COMMON,
+            );
+
+            // console.log('onSuccess googleLogin results', results);
+            dispatch({ type: USER_LOGIN, payload: results });
+            navigate('/proMode');
+            window.location.reload();
           }}
           onError={() => {
             console.log('Login Failed');
