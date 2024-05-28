@@ -94,6 +94,34 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       <div className="row">
         <h2>{t.get('Login')}</h2>
       </div>
+      <div className="row google_login flex justify-center">
+        <GoogleLogin
+          useOneTap
+          onSuccess={async (credentialResponse) => {
+            // console.log('credentialResponse', credentialResponse);
+
+            const { credential: idToken } = credentialResponse;
+            if (!idToken) {
+              message.error(t.get('Google Login Failed'));
+              return;
+            }
+            const results = await TBackendAuthFile.authLoginVerifyByGoogle(
+              idToken,
+              t.currentLocale,
+              CONSTANTS_GPT_AI_FLOW_COMMON,
+            );
+
+            // console.log('onSuccess googleLogin results', results);
+            dispatch({ type: USER_LOGIN, payload: results });
+            navigate('/proMode');
+            window.location.reload();
+          }}
+          onError={() => {
+            console.log('Login Failed');
+          }}
+        />
+      </div>
+      <hr className="my-8" />
       <div className="row block_email_and_password">
         <Form
           name="normal_login"
@@ -159,33 +187,6 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             </div>
           </Form.Item>
         </Form>
-      </div>
-      <div className="row google_login flex justify-center">
-        <GoogleLogin
-          useOneTap
-          onSuccess={async (credentialResponse) => {
-            // console.log('credentialResponse', credentialResponse);
-
-            const { credential: idToken } = credentialResponse;
-            if (!idToken) {
-              message.error(t.get('Google Login Failed'));
-              return;
-            }
-            const results = await TBackendAuthFile.authLoginVerifyByGoogle(
-              idToken,
-              t.currentLocale,
-              CONSTANTS_GPT_AI_FLOW_COMMON,
-            );
-
-            // console.log('onSuccess googleLogin results', results);
-            dispatch({ type: USER_LOGIN, payload: results });
-            navigate('/proMode');
-            window.location.reload();
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />
       </div>
     </div>
   );
