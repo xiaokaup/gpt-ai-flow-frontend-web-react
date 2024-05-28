@@ -24,12 +24,12 @@ export const userReducer = (state: IUserReducerState = IUserDataFile.IUserData_d
       if (state.permissions?.length === payload.permissions?.length) return state;
       if (state.isBetaUser === payload.isBetaUser) return state;
 
-      const newUniqueRoles = Array.from(new Set([...state.roles, ...payload.roles]));
-      const newUniqueServices = Array.from(new Set([...state.services, ...payload.services]));
+      const newUniqueRoles = Array.from(new Set([...(state.roles ?? []), ...(payload.roles ?? [])]));
+      const newUniqueServices = Array.from(new Set([...(state.services ?? []), ...(payload.services ?? [])]));
       const newUniqueServiceCategories = Array.from(
-        new Set([...state.serviceCategories, ...payload.serviceCategories]),
+        new Set([...(state.serviceCategories ?? []), ...(payload.serviceCategories ?? [])]),
       );
-      const newUniquePermissions = Array.from(new Set([...state.permissions, ...payload.permissions]));
+      const newUniquePermissions = Array.from(new Set([...(state.permissions ?? []), ...(payload.permissions ?? [])]));
 
       return {
         ...state,
