@@ -81,6 +81,13 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       <Menu.Item key="official-website">
         <Link to={'https://www.gptaiflow.com' + baseUrl}>{t.get('Official website')}</Link>
       </Menu.Item>
+
+      <Menu.Item key="proMode-doc">
+        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/introduction`}>
+          {t.get('Doc')}
+        </Link>
+      </Menu.Item>
+
       {!isAuthenticated && (
         <>
           <Menu.Item key="1">
@@ -101,11 +108,6 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
           </Menu.Item>
         </>
       )}
-      <Menu.Item key="proMode-doc">
-        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/introduction`}>
-          {t.get('Doc')}
-        </Link>
-      </Menu.Item>
 
       <Menu.Item key="news">
         <Link to="/news">{t.get('Top News')}</Link>
