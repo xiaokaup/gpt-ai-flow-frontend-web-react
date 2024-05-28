@@ -41,7 +41,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
     locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId, token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default } = userData;
+  const { id: userId } = userData;
 
   if (!userId) {
     return (

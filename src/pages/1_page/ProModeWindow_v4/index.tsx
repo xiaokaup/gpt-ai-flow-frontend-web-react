@@ -70,9 +70,16 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     proMode: { model_type },
   } = localDataFromStorage;
 
-  const {
-    token: { accessToken: userAccessToken },
-  } = userData;
+  const { Token: { accessToken: userAccessToken } = {} } = userData;
+
+  if (!userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/logout">{t.get('Logout')}</Link>
+      </div>
+    );
+  }
 
   // === ProMode Data - start ===
   const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>[]>(

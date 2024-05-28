@@ -3,9 +3,10 @@ import '../../../../styles/layout.scss';
 
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { CopyOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
-import { Alert, Button, Tag, message } from 'antd';
+import { Button, Tag, message } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
 
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
@@ -32,11 +33,16 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
   const {
     id: userId,
     email: userEmail,
-    token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
+    Token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
   } = userData;
 
-  if (!userId) {
-    return <>{t.get('Please register a user and log in first')}</>;
+  if (!userId || !userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/logout">{t.get('Logout')}</Link>
+      </div>
+    );
   }
 
   const [isShow_blanceTransactionForm, setIsShow_blanceTransactionForm] = useState(false);
