@@ -9,10 +9,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
-import { udpateSubscriptionDBAction_v2 } from '../../../store/actions/subscriptionDBActions_v2';
 import { updateSpecificUserData, userLogoutAction } from '../../../store/actions/userActions';
 
-import ITokenDB from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useProModeSetDataUI } from './useProModeSetDataUI';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
@@ -69,12 +67,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const {
-    id: userId,
-    token: { accessToken: userAccessToken } = ITokenDB.ITokenDB_default,
-    serviceCategories = [],
-    isBetaUser,
-  } = userData;
+  const { id: userId, serviceCategories = [], isBetaUser } = userData;
 
   if (!userId) {
     dispatch(userLogoutAction() as any);

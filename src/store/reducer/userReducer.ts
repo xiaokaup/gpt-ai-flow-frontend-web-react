@@ -18,18 +18,18 @@ export const userReducer = (state: IUserReducerState = IUserDataFile.IUserData_d
     case USER_LOGIN:
       return payload;
     case UPDATTE_SPECIFIC_USER_DATA:
-      if (state.roles.length === payload.roles?.length) return state;
-      if (state.services.length === payload.services?.length) return state;
-      if (state.serviceCategories.length === payload.serviceCategories?.length) return state;
-      if (state.permissions.length === payload.permissions?.length) return state;
+      if (state.roles?.length === payload.roles?.length) return state;
+      if (state.services?.length === payload.services?.length) return state;
+      if (state.serviceCategories?.length === payload.serviceCategories?.length) return state;
+      if (state.permissions?.length === payload.permissions?.length) return state;
       if (state.isBetaUser === payload.isBetaUser) return state;
 
-      const newUniqueRoles = Array.from(new Set([...state.roles, ...payload.roles]));
-      const newUniqueServices = Array.from(new Set([...state.services, ...payload.services]));
+      const newUniqueRoles = Array.from(new Set([...(state.roles ?? []), ...(payload.roles ?? [])]));
+      const newUniqueServices = Array.from(new Set([...(state.services ?? []), ...(payload.services ?? [])]));
       const newUniqueServiceCategories = Array.from(
-        new Set([...state.serviceCategories, ...payload.serviceCategories]),
+        new Set([...(state.serviceCategories ?? []), ...(payload.serviceCategories ?? [])]),
       );
-      const newUniquePermissions = Array.from(new Set([...state.permissions, ...payload.permissions]));
+      const newUniquePermissions = Array.from(new Set([...(state.permissions ?? []), ...(payload.permissions ?? [])]));
 
       return {
         ...state,

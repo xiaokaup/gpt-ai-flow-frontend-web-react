@@ -5,6 +5,7 @@ import '../../../../../../styles/layout.scss';
 import _ from 'lodash';
 
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
@@ -72,15 +73,21 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
     webCase,
   } = props;
   const { userData, localDataFromStorage } = webCase;
-  const {
-    id: userId,
-    token: { accessToken: userAccessToken },
-  } = userData;
+  const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
   const {
     locale,
     openAIApiKey: modelSecret,
     proMode: { model_type },
   } = localDataFromStorage;
+
+  if (!userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/logout">{t.get('Logout')}</Link>
+      </div>
+    );
+  }
 
   const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(globalContext);
 
