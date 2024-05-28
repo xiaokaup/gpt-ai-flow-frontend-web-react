@@ -32,11 +32,7 @@ const AppInStoreProvider = () => {
   });
   const { locale } = localSettings;
 
-  return (
-    <div className="App">
-      <AppRoutes />
-    </div>
-  );
+  return <AppRoutes />;
 };
 
 function App() {

@@ -45,7 +45,7 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const router = createBrowserRouter([
+  const routers_unauthenticated = [
     // {
     //   path: '/counter',
     //   element: (
@@ -57,84 +57,109 @@ export const AppRoutes = () => {
     {
       path: '/',
       element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_2_login t={t} />
-        </AppLayoutCenter>
+        <div className="App h-full">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <SettingsWindow_2_user_2_login t={t} />
+          </AppLayoutCenter>
+        </div>
       ),
     },
     {
       path: '/signUp',
       element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_1_signup t={t} />
-        </AppLayoutCenter>
+        <div className="App h-full">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <SettingsWindow_2_user_1_signup t={t} />
+          </AppLayoutCenter>
+        </div>
       ),
     },
     {
       path: '/login',
       element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_2_login t={t} />
-        </AppLayoutCenter>
-      ),
-    },
-    {
-      path: '/info',
-      element: (
-        <AppLayout isAuthenticated={isAuthenticated}>
-          <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
-        </AppLayout>
+        <div className="App h-full">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <SettingsWindow_2_user_2_login t={t} />
+          </AppLayoutCenter>
+        </div>
       ),
     },
     {
       path: '/changePassword',
       element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
-        </AppLayoutCenter>
+        <div className="App h-full">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
+          </AppLayoutCenter>
+        </div>
       ),
     },
     {
       path: '/forgetPassword',
       element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <SettingsWindow_2_user_5_forgetPassword t={t} />
-        </AppLayoutCenter>
-      ),
-    },
-    {
-      path: '/proMode',
-      element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <ProModeWindow_warpper
-            webCase={{
-              t,
-              locale,
-            }}
-          />
-        </AppLayoutCenter>
-      ),
-    },
-    {
-      path: '/news',
-      element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <NewsPage
-            webCase={{
-              t,
-              locale,
-              env: CONSTANTS_GPT_AI_FLOW_COMMON,
-            }}
-          />
-        </AppLayoutCenter>
+        <div className="App h-full">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <SettingsWindow_2_user_5_forgetPassword t={t} />
+          </AppLayoutCenter>
+        </div>
       ),
     },
     {
       path: '/logout',
       element: (
-        <AppLayoutCenter isAuthenticated={isAuthenticated}>
-          <LogoutPage t={t} />
-        </AppLayoutCenter>
+        <div className="App">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <LogoutPage t={t} />
+          </AppLayoutCenter>
+        </div>
+      ),
+    },
+
+    // News infos
+    {
+      path: '/news',
+      element: (
+        <div className="App">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <NewsPage
+              webCase={{
+                t,
+                locale,
+                env: CONSTANTS_GPT_AI_FLOW_COMMON,
+              }}
+            />
+          </AppLayoutCenter>
+        </div>
+      ),
+    },
+  ];
+
+  const router = createBrowserRouter([
+    ...routers_unauthenticated,
+    // Authenticated
+    {
+      path: '/info',
+      element: (
+        <div className="App">
+          <AppLayout isAuthenticated={isAuthenticated}>
+            <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
+          </AppLayout>
+        </div>
+      ),
+    },
+    {
+      path: '/proMode',
+      element: (
+        <div className="App">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <ProModeWindow_warpper
+              webCase={{
+                t,
+                locale,
+              }}
+            />
+          </AppLayoutCenter>
+        </div>
       ),
     },
   ]);

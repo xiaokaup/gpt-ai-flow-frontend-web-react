@@ -155,7 +155,7 @@ export const AppLayoutCenter = (props: Layout_input) => {
   const { isAuthenticated, children } = props;
 
   return (
-    <Layout className="layout_container" style={{ background: '#fff' }}>
+    <Layout className="layout_container h-full" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
@@ -165,7 +165,7 @@ export const AppLayoutCenter = (props: Layout_input) => {
       {/* Body/Content */}
       <Content>
         <div
-          className="site-layout-content"
+          className="site-layout-content h-full"
           style={{
             display: 'flex',
             flexDirection: 'column',
