@@ -164,7 +164,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
         <GoogleLogin
           useOneTap
           onSuccess={async (credentialResponse) => {
-            console.log('credentialResponse', credentialResponse);
+            // console.log('credentialResponse', credentialResponse);
 
             const { credential: idToken } = credentialResponse;
             if (!idToken) {
