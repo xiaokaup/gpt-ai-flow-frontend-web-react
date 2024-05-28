@@ -120,8 +120,8 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             console.log('Login Failed');
           }}
         />
-      </div> */}
-      <hr className="my-8" />
+      </div> 
+      <hr className="my-8" /> */}
       <div className="row block_email_and_password">
         <Form
           name="normal_login"
