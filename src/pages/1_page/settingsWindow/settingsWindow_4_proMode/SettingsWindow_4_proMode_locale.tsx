@@ -36,16 +36,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
     Token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
   } = userData;
 
-  if (!userId) {
-    return (
-      <div>
-        <div>{t.get('Please register a user and log in first')}</div>
-        <Link to="/logout">{t.get('Logout')}</Link>
-      </div>
-    );
-  }
-
-  if (!userAccessToken) {
+  if (!userId || !userAccessToken) {
     return (
       <div>
         <div>{t.get('Please register a user and log in first')}</div>
