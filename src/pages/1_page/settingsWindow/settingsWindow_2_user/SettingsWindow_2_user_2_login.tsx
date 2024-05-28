@@ -94,7 +94,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       <div className="row">
         <h2>{t.get('Login')}</h2>
       </div>
-      {/* <div className="row google_login flex justify-center">
+      <div className="row google_login flex justify-center">
         <GoogleLogin
           useOneTap
           onSuccess={async (credentialResponse) => {
@@ -120,8 +120,8 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             console.log('Login Failed');
           }}
         />
-      </div> 
-      <hr className="my-8" /> */}
+      </div>
+      <hr className="my-8" />
       <div className="row block_email_and_password">
         <Form
           name="normal_login"
