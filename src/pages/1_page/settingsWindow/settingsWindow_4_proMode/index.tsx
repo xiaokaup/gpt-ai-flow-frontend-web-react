@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { IReduxRootState } from 'store/reducer';
 
@@ -31,10 +32,16 @@ interface ISettingsWindow_4_proMode_login_input {
 const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_input) => {
   const { t, localeForSettingsWindow, userData } = props;
 
-  const {
-    id: userId,
-    token: { accessToken: userAccessToken },
-  } = userData;
+  const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
+
+  if (!userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/logout">{t.get('Logout')}</Link>
+      </div>
+    );
+  }
 
   const [locale_for_currency, setLocale_for_currency] = useState<ELocale>(localeForSettingsWindow);
 
