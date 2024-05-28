@@ -159,7 +159,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
           </Form.Item>
         </Form>
       </div>
-      <div className="row google_login">
+      <div className="row google_login flex justify-center">
         <GoogleLogin
           useOneTap
           onSuccess={(credentialResponse) => {
