@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
@@ -99,8 +100,17 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     locale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId, token: userToken } = userData;
+  const { id: userId, Token: userToken } = userData;
   const userAccessToken = userToken?.accessToken;
+
+  if (!userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/logout">{t.get('Logout')}</Link>
+      </div>
+    );
+  }
 
   // === 用户输入部分 - start ===
   const [textInputContent, setTextInputContent] = useState<string>();
