@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { IReduxRootState } from 'store/reducer';
+import { IReduxRootState } from '../../../../store/reducer';
 
 import { Alert, Select, message } from 'antd';
 
