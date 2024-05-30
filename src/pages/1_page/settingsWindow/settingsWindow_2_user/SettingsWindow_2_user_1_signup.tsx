@@ -4,11 +4,10 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { IReduxRootState } from 'store/reducer';
-
 import { Button, Form, Input, Tooltip, message } from 'antd';
 import { MailOutlined, LockOutlined, UserOutlined, TeamOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
+import { IReduxRootState } from '../../../../store/reducer';
 import {
   authRegisterByEmailAndPasswordAction_v0,
   getUserProfileByEmailAction_v2,

@@ -9,8 +9,8 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { GoogleLogin } from '@react-oauth/google';
 
+import { IReduxRootState } from '../../../../store/reducer';
 import { USER_LOGIN, authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
-import { IReduxRootState } from 'store/reducer';
 
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import TBackendAuthFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendAuth';

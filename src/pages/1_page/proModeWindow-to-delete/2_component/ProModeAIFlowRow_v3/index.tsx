@@ -12,7 +12,7 @@ import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { SwapOutlined } from '@ant-design/icons';
 
-import { IReduxRootState } from 'store/reducer';
+import { IReduxRootState } from '../../../../../store/reducer';
 import { saveLocalAction } from '../../../../../store/actions/localActions';
 
 import {
