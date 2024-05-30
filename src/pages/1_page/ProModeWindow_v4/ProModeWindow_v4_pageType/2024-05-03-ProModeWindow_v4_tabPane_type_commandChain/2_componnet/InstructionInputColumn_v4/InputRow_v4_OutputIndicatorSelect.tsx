@@ -15,7 +15,7 @@ import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-ap
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v4_new';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProModeAICommands_v4_new';
 
 interface IInputRow_v4_OutputIndicatorSelect_input {
   t: IGetT_frontend_output;

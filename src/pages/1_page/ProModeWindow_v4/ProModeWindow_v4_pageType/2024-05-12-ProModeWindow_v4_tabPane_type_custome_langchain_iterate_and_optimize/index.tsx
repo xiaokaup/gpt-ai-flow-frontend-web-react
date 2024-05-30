@@ -9,7 +9,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProMode_v4';
+import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProMode_v4';
 import {
   IAdjust_for_IMessage,
   IMessage,
@@ -24,17 +24,17 @@ import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-data
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
-import {
-  EProMode_v4_tabPane_type_langchain_contextType,
-  IAdjust_for_type_langchain,
-  IBackground_for_type_langchain,
-  ILangchainMessageExchange,
-  ILangchainMessageExchange_default,
-  IPromode_v4_tabPane_context_for_type_custom_langchain,
-} from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
-import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/ILangchain_type_request';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { Langchain_context_description } from './component/Langchain_context_description';
+import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-call/ILangchain_type_request';
+import {
+  IPromode_v4_tabPane_context_for_type_custom_langchain,
+  IBackground_for_type_langchain,
+  IAdjust_for_type_langchain,
+  EProMode_v4_tabPane_type_langchain_contextType,
+  ILangchainMessageExchange_default,
+  ILangchainMessageExchange,
+} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
   t: IGetT_frontend_output;

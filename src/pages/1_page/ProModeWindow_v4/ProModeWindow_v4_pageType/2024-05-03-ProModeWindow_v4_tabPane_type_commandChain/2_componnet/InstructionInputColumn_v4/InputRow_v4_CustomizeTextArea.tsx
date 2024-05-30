@@ -9,7 +9,7 @@ import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/IProModeAICommands_v4_new';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProModeAICommands_v4_new';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 const { TextArea } = Input;

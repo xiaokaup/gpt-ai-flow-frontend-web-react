@@ -5,9 +5,9 @@ import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined, InfoCircleOutlined } f
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
-  IFormItem,
   IBackground_for_type_langchain,
-} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
+  IFormItem,
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
