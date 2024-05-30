@@ -3,11 +3,11 @@ import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IAdjust_for_type_morePostsChain } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/02-once-multiple-results/IProMode_v4_type_langchain_for_morePostsChain';
 import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
-} from '../../../../../../gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_context_type_langchain';
-import { IAdjust_for_type_morePostsChain } from 'gpt-ai-flow-common/interface-app/solution_ProMode_v4/type/03-custome-langchain/IProMode_v4_type_langchain_for_morePostsChain';
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
 
 const { TextArea } = Input;
 

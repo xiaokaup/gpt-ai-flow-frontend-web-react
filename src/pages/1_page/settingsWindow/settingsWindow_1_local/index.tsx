@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Tabs, TabsProps } from 'antd';
 
-import { IReduxRootState } from 'store/reducer';
+import { IReduxRootState } from '../../../../store/reducer';
 import { udpateSubscriptionDBAction_v2 } from '../../../../store/actions/subscriptionDBActions_v2';
 
 import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
