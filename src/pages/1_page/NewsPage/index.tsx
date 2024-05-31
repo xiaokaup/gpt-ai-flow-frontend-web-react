@@ -62,29 +62,6 @@ export const NewsPage = (props: INewsPageProps) => {
         </div>
 
         <div className="row news mb-10">
-          <div className="row">
-            <h2>{t.get('News')} 🇺🇸</h2>
-            {news && (
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {news['reddit-hot'] && (
-                  <div className="oneNews">
-                    <RedditHotCard news={news['reddit-hot']} />
-                  </div>
-                )}
-                {news['github-trending'] && (
-                  <div className="oneNews">
-                    <GithubTrendingCard news={news['github-trending']} />
-                  </div>
-                )}
-                {news['product-hunt-ranking'] && (
-                  <div className="oneNews">
-                    <ProductHuntRankingCard news={news['product-hunt-ranking']} />
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
           <div className="row ">
             <h2>{t.get('News')} 🇨🇳</h2>
             {news && (
@@ -121,6 +98,29 @@ export const NewsPage = (props: INewsPageProps) => {
                 {news['zhihu-video'] && (
                   <div className="oneNews">
                     <ZhihuVideo news={news['zhihu-video']} />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="row">
+            <h2>{t.get('News')} 🇺🇸</h2>
+            {news && (
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {news['reddit-hot'] && (
+                  <div className="oneNews">
+                    <RedditHotCard news={news['reddit-hot']} />
+                  </div>
+                )}
+                {news['github-trending'] && (
+                  <div className="oneNews">
+                    <GithubTrendingCard news={news['github-trending']} />
+                  </div>
+                )}
+                {news['product-hunt-ranking'] && (
+                  <div className="oneNews">
+                    <ProductHuntRankingCard news={news['product-hunt-ranking']} />
                   </div>
                 )}
               </div>
