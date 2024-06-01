@@ -162,7 +162,7 @@ export const Langchain_background = (props: {
                       }
                     >
                       <TextArea
-                        autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
+                        autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                         onChange={(event) => {
                           const newItem = {
                             ...background,

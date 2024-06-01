@@ -116,7 +116,7 @@ export const Langchain_adjust = (props: {
                     }
                   >
                     <TextArea
-                      autoSize={{ minRows: isAutoSize_minRows ?? 2 }}
+                      autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                       onChange={(event) => {
                         const newItem = {
                           ...adjust,
