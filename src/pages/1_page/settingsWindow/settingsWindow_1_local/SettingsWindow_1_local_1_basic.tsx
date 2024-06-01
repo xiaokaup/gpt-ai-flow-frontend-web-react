@@ -3,7 +3,8 @@ import '../../../../styles/layout.scss';
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Checkbox, Select, message } from 'antd';
+import { Button, Checkbox, Select, Tooltip, message } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IReduxRootState } from '../../../../store/reducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
@@ -56,8 +57,23 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     <div id="SettingsWindow_1_local_1_basic" className="row">
       <div className="row">
         <div>
-          <label htmlFor="openAIApiKeyInput">
-            OpenAI API key
+          <Tooltip
+            title={
+              <>
+                如何注册 OpenAI 账户并获得 OpenAI API key 密匙？:{' '}
+                <a
+                  href="https://www.gptaiflow.com/zh/blog/how-to-register-for-OpenAI-account-and-get-OpenAI-api-key"
+                  target="_blank"
+                >
+                  点击这里
+                </a>
+              </>
+            }
+          >
+            <label htmlFor="openAIApiKeyInput">
+              OpenAI API key
+              <InfoCircleOutlined className="px-1" />
+            </label>
             <input
               type="text"
               id="openAIApiKeyInput"
@@ -65,7 +81,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
               value={openAIApiKey ?? ''}
               onChange={(e) => setOpenAIApiKey(e.target.value)}
             />
-          </label>
+          </Tooltip>
         </div>
       </div>
 
