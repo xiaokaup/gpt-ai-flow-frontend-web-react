@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+
+import _ from 'lodash';
+import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
+
 import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -24,6 +28,29 @@ export const Langchain_background = (props: {
   const [form] = Form.useForm();
 
   const [isShow, setIsShow] = useState(true);
+
+  const debouncedSetBackground = useCallback(
+    _.debounce(async ({ url, name, convertedName }) => {
+      const loader = new CheerioWebBaseLoader(url);
+      const docs = await loader.load();
+      const formattedDocs = docs.map(
+        (doc) => `<Document name="${doc.metadata?.title}">\n${doc.pageContent}\n</Document>`,
+      );
+      const urlResults = formattedDocs.join('\n\n');
+      const urlContent = urlResults;
+
+      // console.log('name: ', name);
+      // console.log('urlContent: ', urlContent);
+
+      const newItem = {
+        ...background,
+        name: url,
+        [convertedName]: urlContent,
+      };
+      setBackground(newItem);
+    }, 500),
+    [],
+  ); // 500 毫秒的防抖时间
 
   return (
     <div className="row subContainer">
@@ -82,6 +109,7 @@ export const Langchain_background = (props: {
                 tooltip_isNeedTranslate,
                 minNum = 1,
                 maxNum = 4,
+                isHidden,
               } = item;
 
               if (componentType === 'InputNumber') {
@@ -149,6 +177,7 @@ export const Langchain_background = (props: {
                 return (
                   <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                     <Form.Item
+                      className={isHidden ? 'hidden' : ''}
                       name={name}
                       label={
                         tooltip && tooltip_isNeedTranslate ? (
@@ -169,6 +198,49 @@ export const Langchain_background = (props: {
                             [name]: event.target.value,
                           };
                           setBackground(newItem);
+                        }}
+                      />
+                    </Form.Item>
+                  </Tooltip>
+                );
+              }
+              if (componentType === 'URLCrawler') {
+                return (
+                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                    <Form.Item
+                      name={name}
+                      label={
+                        tooltip && tooltip_isNeedTranslate ? (
+                          <>
+                            {t.get(label)}&nbsp;
+                            <InfoCircleOutlined />
+                          </>
+                        ) : (
+                          t.get(label)
+                        )
+                      }
+                    >
+                      <TextArea
+                        autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                        onChange={(event) => {
+                          // const newItem = {
+                          //   ...background,
+                          //   [name]: event.target.value,
+                          // };
+                          if (event.target.value === '') {
+                            const newItem = {
+                              ...background,
+                              [name]: '',
+                              urlContent: '',
+                            };
+                            setBackground(newItem);
+                            return;
+                          }
+                          debouncedSetBackground({
+                            url: event.target.value,
+                            name,
+                            convertedName: 'urlContent',
+                          });
                         }}
                       />
                     </Form.Item>
