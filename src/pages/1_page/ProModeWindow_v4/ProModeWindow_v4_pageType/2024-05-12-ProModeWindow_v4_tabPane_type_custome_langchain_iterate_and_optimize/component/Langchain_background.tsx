@@ -3,6 +3,7 @@ import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
 
 import _ from 'lodash';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
+import { convert } from 'html-to-text';
 
 import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
@@ -36,10 +37,11 @@ export const Langchain_background = (props: {
       const formattedDocs = docs.map(
         (doc) => `<Document name="${doc.metadata?.title}">\n${doc.pageContent}\n</Document>`,
       );
-      const urlResults = formattedDocs.join('\n\n');
-      const urlContent = urlResults;
+      const urlHtmlContent = formattedDocs.join('\n\n');
+      const urlContent = convert(urlHtmlContent);
 
       // console.log('name: ', name);
+      // console.log('urlHtmlContent: ', urlHtmlContent);
       // console.log('urlContent: ', urlContent);
 
       const newItem = {
@@ -48,9 +50,9 @@ export const Langchain_background = (props: {
         [convertedName]: urlContent,
       };
       setBackground(newItem);
-    }, 500),
+    }, 800),
     [],
-  ); // 500 毫秒的防抖时间
+  ); // 800 毫秒的防抖时间
 
   return (
     <div className="row subContainer">
