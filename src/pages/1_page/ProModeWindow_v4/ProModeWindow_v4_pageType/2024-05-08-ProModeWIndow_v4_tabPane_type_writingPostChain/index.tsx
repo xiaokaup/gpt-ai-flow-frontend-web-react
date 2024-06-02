@@ -23,7 +23,7 @@ import {
   IWritingPostChainMessageExchange,
   IWritingPostChainMessageExchange_default,
   IBackground_for_5W2H,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/02-wirtingPostChain/IProMode_v4_context_type_writingPostChain';
+} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/02-wirtingPostChain/2024-05-12-IProMode_v4_context_type_writingPostChain';
 
 interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
   t: IGetT_frontend_output;
