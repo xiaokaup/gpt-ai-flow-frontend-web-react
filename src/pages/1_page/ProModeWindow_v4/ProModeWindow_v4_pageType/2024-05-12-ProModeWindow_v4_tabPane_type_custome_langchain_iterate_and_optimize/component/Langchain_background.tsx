@@ -34,9 +34,11 @@ export const Langchain_background = (props: {
     _.debounce(async ({ name, urlValue, convertedName }) => {
       const loader = new CheerioWebBaseLoader(urlValue);
       const docs = await loader.load();
-      const formattedDocs = docs.map(
-        (doc) => `<Document name="${doc.metadata?.title}">\n${doc.pageContent}\n</Document>`,
-      );
+
+      const formattedDocs = docs.map((doc) => {
+        console.log('doc.metadata: ', doc.metadata);
+        return `<Document name="${doc.metadata?.title}">\n${doc.pageContent}\n</Document>`;
+      });
       const urlHtmlContent = formattedDocs.join('\n\n');
       const urlContent = convert(urlHtmlContent);
 
