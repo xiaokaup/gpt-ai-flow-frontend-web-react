@@ -31,8 +31,8 @@ export const Langchain_background = (props: {
   const [isShow, setIsShow] = useState(true);
 
   const debouncedSetBackground = useCallback(
-    _.debounce(async ({ url, name, convertedName }) => {
-      const loader = new CheerioWebBaseLoader(url);
+    _.debounce(async ({ name, urlValue, convertedName }) => {
+      const loader = new CheerioWebBaseLoader(urlValue);
       const docs = await loader.load();
       const formattedDocs = docs.map(
         (doc) => `<Document name="${doc.metadata?.title}">\n${doc.pageContent}\n</Document>`,
@@ -40,13 +40,15 @@ export const Langchain_background = (props: {
       const urlHtmlContent = formattedDocs.join('\n\n');
       const urlContent = convert(urlHtmlContent);
 
-      // console.log('name: ', name);
+      console.log('name: ', name);
+      console.log('urlValue: ', urlValue);
+      console.log('convertedName: ', convertedName);
       // console.log('urlHtmlContent: ', urlHtmlContent);
-      // console.log('urlContent: ', urlContent);
+      console.log('urlContent: ', urlContent);
 
       const newItem = {
         ...background,
-        name: url,
+        [name]: urlValue,
         [convertedName]: urlContent,
       };
       setBackground(newItem);
@@ -229,6 +231,7 @@ export const Langchain_background = (props: {
                           //   ...background,
                           //   [name]: event.target.value,
                           // };
+                          const urlValue = event.target.value;
                           if (event.target.value === '') {
                             const newItem = {
                               ...background,
@@ -239,8 +242,8 @@ export const Langchain_background = (props: {
                             return;
                           }
                           debouncedSetBackground({
-                            url: event.target.value,
                             name,
+                            urlValue,
                             convertedName: 'urlContent',
                           });
                         }}
