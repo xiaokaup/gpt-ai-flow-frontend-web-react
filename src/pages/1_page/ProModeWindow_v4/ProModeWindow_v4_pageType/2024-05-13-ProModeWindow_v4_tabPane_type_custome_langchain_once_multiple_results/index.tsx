@@ -23,7 +23,7 @@ import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_
 import { EButton_operation } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProMode_v4_buttons';
 import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-call/ILangchain_type_request';
-import { IAdjust_for_type_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/02-once-multiple-results/IProMode_v4_type_langchain_for_morePostsChain';
+import { IAdjust_for_type_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-05-13-IProMode_v4_type_langchain_for_morePostsChain';
 import {
   IPromode_v4_tabPane_context_for_type_custom_langchain,
   IBackground_for_type_langchain,
