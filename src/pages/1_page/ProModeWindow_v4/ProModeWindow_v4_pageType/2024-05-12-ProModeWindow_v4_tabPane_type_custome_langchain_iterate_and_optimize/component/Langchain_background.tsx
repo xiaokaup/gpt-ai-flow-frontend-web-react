@@ -52,9 +52,9 @@ export const Langchain_background = (props: {
         [convertedName]: urlContent,
       };
       setBackground(newItem);
-    }, 800),
+    }, 600),
     [],
-  ); // 800 毫秒的防抖时间
+  ); // 600 毫秒的防抖时间
 
   return (
     <div className="row subContainer">
