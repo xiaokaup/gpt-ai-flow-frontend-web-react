@@ -34,7 +34,7 @@ import {
   EProMode_v4_tabPane_type_langchain_contextType,
   ILangchainMessageExchange_default,
   ILangchainMessageExchange,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
+} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
   t: IGetT_frontend_output;
