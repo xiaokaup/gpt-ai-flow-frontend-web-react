@@ -23,7 +23,7 @@ import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_
 import { EButton_operation } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProMode_v4_buttons';
 import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-call/ILangchain_type_request';
-import { IAdjust_for_type_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-05-13-IProMode_v4_type_langchain_for_morePostsChain';
+import { IAdjust_for_type_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-05-13-IProMode_v4_morePostsChain';
 import {
   IPromode_v4_tabPane_context_for_type_custom_langchain,
   IBackground_for_type_langchain,
@@ -32,7 +32,7 @@ import {
   ILangchainMessageExchange_default,
   IAdjust_type_langchain_default,
   ILangchainMessageExchange,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
+} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
@@ -223,10 +223,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
               .map((item: IMessage, index: number) => {
                 let content: string = '';
                 if (t.currentLocale === ELocale.EN) {
-                  content += `## ${t.get('Rewrite')} ${t.get('Post')} ${index + 1}:\n`;
+                  content += `## ${t.get('Rewrite')} ${t.get('Result')} ${index + 1}:\n`;
                 }
                 if (t.currentLocale === ELocale.ZH) {
-                  content += `## ${t.get('Rewrite')}${t.get('Post')} ${index + 1}:\n`;
+                  content += `## ${t.get('Rewrite')}${t.get('Result')} ${index + 1}:\n`;
                 }
                 content += item.content;
                 return content;

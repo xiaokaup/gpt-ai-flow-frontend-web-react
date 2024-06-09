@@ -40,7 +40,7 @@ import IInputsCacheFile, { IInputsCache } from '../../../gpt-ai-flow-common/inte
 import {
   IPromode_v4_tabPane_context_for_type_custom_langchain,
   IBackground_for_type_langchain,
-} from '../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
+} from '../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 
 import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_type_commandChain';

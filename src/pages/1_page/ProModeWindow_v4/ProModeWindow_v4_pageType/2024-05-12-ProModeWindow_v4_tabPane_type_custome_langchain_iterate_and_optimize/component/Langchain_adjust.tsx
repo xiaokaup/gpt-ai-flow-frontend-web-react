@@ -7,7 +7,7 @@ import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/inter
 import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain';
 
 const { TextArea } = Input;
 

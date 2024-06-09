@@ -8,7 +8,7 @@ import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IBackground_for_type_langchain,
   IFormItem,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain/IProMode_v4_context_type_langchain';
+} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
