@@ -3,15 +3,15 @@ import { DatePicker, Form, Input, Tooltip } from 'antd';
 import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IBackground_for_5W2H } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
+import { IBackground_5W2H } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 export const WritingPostChain_background = (props: {
   t: IGetT_frontend_output;
-  background: IBackground_for_5W2H;
-  setBackground: (newItem: IBackground_for_5W2H) => void;
+  background: IBackground_5W2H;
+  setBackground: (newItem: IBackground_5W2H) => void;
   onResetAll: () => void;
 }) => {
   const { t, background, setBackground, onResetAll } = props;

@@ -7,15 +7,15 @@ import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
 } from '../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { IAdjust_for_type_morePostsChain } from '../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-05-13-IProMode_v4_morePostsChain';
+import { IAdjust_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 
 const { TextArea } = Input;
 
 export const Langchain_adjust = (props: {
   t: IGetT_frontend_output;
-  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_morePostsChain>;
-  adjust: IAdjust_for_type_morePostsChain;
-  setAdjust: (newItem: IAdjust_for_type_morePostsChain) => void;
+  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_IMessage>;
+  adjust: IAdjust_IMessage;
+  setAdjust: (newItem: IAdjust_IMessage) => void;
 }) => {
   const { t, adjustSelected, adjust, setAdjust } = props;
 
@@ -26,7 +26,7 @@ export const Langchain_adjust = (props: {
       <h1 style={{ marginTop: 0 }}>{t.get('Content adjust')}</h1>
       <div className="row">
         <Form form={form} initialValues={adjust}>
-          {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_morePostsChain>) => {
+          {adjustSelected.formItems.map((item: IFormItem<IAdjust_IMessage>) => {
             const {
               componentType,
               label,
@@ -76,7 +76,16 @@ export const Langchain_adjust = (props: {
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                   <Form.Item
                     name={name}
-                    label={t.get(label)}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
                     rules={
                       isRequired
                         ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
@@ -101,7 +110,16 @@ export const Langchain_adjust = (props: {
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                   <Form.Item
                     name={name}
-                    label={t.get(label)}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
                     rules={
                       isRequired
                         ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]

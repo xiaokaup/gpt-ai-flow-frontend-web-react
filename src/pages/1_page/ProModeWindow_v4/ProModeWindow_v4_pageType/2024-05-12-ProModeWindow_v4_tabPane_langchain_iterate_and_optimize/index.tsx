@@ -24,20 +24,18 @@ import { Langchain_context_description } from './component/Langchain_context_des
 import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
 import {
-  IPromode_v4_tabPane_context_for_type_custom_langchain,
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
   EProMode_v4_tabPane_type_langchain_contextType,
   ILangchainMessageExchange_default,
   ILangchainMessageExchange,
+  IPromode_v4_tabPane_context,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { IAdjust_for_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IAdjust_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
   t: IGetT_frontend_output;
-  tabPane: IProMode_v4_tabPane<
-    IPromode_v4_tabPane_context_for_type_custom_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
-  >;
+  tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
   userAccessToken: string;
   modelSecret: string;
   proModeModelType: EOpenAiModel_type;
@@ -79,7 +77,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_custom_langchain<
+  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
@@ -233,12 +231,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
               );
             }}
             options={context.map(
-              (
-                item: IPromode_v4_tabPane_context_for_type_custom_langchain<
-                  IBackground_for_type_langchain,
-                  IAdjust_for_type_langchain
-                >,
-              ) => {
+              (item: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
                 return {
                   label: t.get(item.label),
                   value: item.type,
@@ -332,7 +325,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                   t={t}
                   adjustSelected={contextSelected.adjust}
                   adjust={adjust}
-                  setAdjust={(newItem: IAdjust_for_IMessage) => {
+                  setAdjust={(newItem: IAdjust_IMessage) => {
                     setMessageExchangeData({
                       ...messageExchangeData,
                       adjust: newItem,
