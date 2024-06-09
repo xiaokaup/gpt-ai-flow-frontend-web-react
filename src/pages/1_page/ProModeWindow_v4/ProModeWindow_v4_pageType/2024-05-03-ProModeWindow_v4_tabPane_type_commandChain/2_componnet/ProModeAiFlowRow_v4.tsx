@@ -12,7 +12,6 @@ import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { SwapOutlined } from '@ant-design/icons';
 
 import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
-import { IPrompt } from '../../../../../../gpt-ai-flow-common/interface-app/IPrompt';
 import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import EInputTypeDBFile, {
   EInputTypeDB_typeName,
@@ -27,19 +26,20 @@ import { IBuildOpenAIPrompts_ouput } from '../../../../../../gpt-ai-flow-common/
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { EProductItemDB_type } from '../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import { ELangchainRetrievalDocType } from '../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import { IUserData } from '../../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { IStoreStorageLocalSettings } from '../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IAIFlow_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
-import {
-  IAICommands_v4_new,
-  IAICommands_v4_new_resultRow,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProModeAICommands_v4_new';
-import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
+import { IProMode_v4_tabPane_example } from '../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
+import {
+  IAICommands_v4_new,
+  IAICommands_v4_new_resultRow,
+} from '../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
+import { IUserData } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { IPrompt } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 
 const { TextArea } = Input;
 

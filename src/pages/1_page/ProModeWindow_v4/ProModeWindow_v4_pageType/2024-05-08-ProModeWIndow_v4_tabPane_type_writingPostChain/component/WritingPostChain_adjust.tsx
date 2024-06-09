@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Input } from 'antd';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 
 const { TextArea } = Input;
 

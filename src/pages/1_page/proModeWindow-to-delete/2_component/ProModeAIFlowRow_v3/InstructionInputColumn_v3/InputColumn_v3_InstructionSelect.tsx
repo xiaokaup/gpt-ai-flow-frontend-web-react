@@ -9,12 +9,12 @@ import { Select, message } from 'antd';
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
-import {
-  IAICommandsResults_v4,
-  IAICommands_v4,
-} from '../../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import {
+  IAICommands_v4,
+  IAICommandsResults_v4,
+} from '../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
 
 interface InstructionInputColumn_v3_InstructionSelect_input {
   t: IGetT_frontend_output;

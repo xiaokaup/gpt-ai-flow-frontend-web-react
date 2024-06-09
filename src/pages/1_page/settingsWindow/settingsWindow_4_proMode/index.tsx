@@ -7,7 +7,6 @@ import { IReduxRootState } from '../../../../store/reducer';
 import { Alert, Select, message } from 'antd';
 
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
-import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -18,10 +17,11 @@ import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-commo
 import { IError } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IError';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import TStripeConstantFile_v3File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v3';
-import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/IStripe_v2';
 
 import { SettingsWindow_4_proMode_locale } from './SettingsWindow_4_proMode_locale';
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
+import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
 
 interface ISettingsWindow_4_proMode_login_input {
   t: IGetT_frontend_output;
@@ -504,7 +504,7 @@ export const SettingsWindow_4_proMode = (props: ISettingsWindow_4_proMode) => {
   const { t, localeForSettingsWindow } = props;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
+    return state.user ?? IUserData_default;
   });
 
   const { userData } = useUserData({

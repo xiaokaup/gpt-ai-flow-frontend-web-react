@@ -12,11 +12,11 @@ import { RedoOutlined, BorderOutlined, CopyOutlined, EditOutlined } from '@ant-d
 
 import iconShare from '../../../../../../assets/icons-customize/icon-share/icon-share-18x18.png';
 
-import {
-  IAICommandsResults_v4,
-  IAICommands_v4,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import {
+  IAICommands_v4,
+  IAICommandsResults_v4,
+} from '../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
 
 const { TextArea } = Input;
 

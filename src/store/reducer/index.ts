@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { IUserData } from '../../gpt-ai-flow-common/interface-app/IUserData';
 import { ISubscriptionDB_v2 } from '../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 import { IInputsCache } from '../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { IStoreStorageLocalSettings } from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { IProMode_v3 } from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';
+import { IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 
 import { ICounterReducerState, counterReducer } from './CounterReducer';
 import { userReducer } from './userReducer';
