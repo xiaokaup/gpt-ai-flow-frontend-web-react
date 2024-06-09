@@ -38,7 +38,7 @@ export const Langchain_adjust = (props: {
               tooltip_isNeedTranslate,
               minNum = 1,
               maxNum = 4,
-              ishiddenWhenAdjustCall,
+              isDisabledWhenAdjustCall,
             } = item;
 
             if (componentType === 'InputNumber') {
@@ -99,7 +99,6 @@ export const Langchain_adjust = (props: {
               );
             }
             if (componentType === 'TextArea') {
-              if (isAdjustCall && ishiddenWhenAdjustCall) return <></>;
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                   <Form.Item
@@ -112,6 +111,7 @@ export const Langchain_adjust = (props: {
                     }
                   >
                     <TextArea
+                      disabled={isDisabledWhenAdjustCall && isAdjustCall}
                       autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                       onChange={(event) => {
                         const newItem = {
