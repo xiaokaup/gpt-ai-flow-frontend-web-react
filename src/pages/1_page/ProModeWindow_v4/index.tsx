@@ -32,7 +32,6 @@ import IInputsCacheFile, { IInputsCache } from '../../../gpt-ai-flow-common/inte
 
 import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_type_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_type_image_crop_v1';
-import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/2024-05-08-ProModeWIndow_v4_tabPane_type_writingPostChain';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results';
 import {
@@ -44,10 +43,11 @@ import {
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 import {
   IBackground_for_type_langchain,
-  IPromode_v4_tabPane_context_for_type_custom_langchain,
+  IPromode_v4_tabPane_context,
 } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { IAdjust_for_IMessage } from '../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IAdjust_IMessage } from '../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { IUserData, IUserData_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { IProMode_v4_tabPane_tool } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/04-tool/interface';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -79,9 +79,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   }
 
   // === ProMode Data - start ===
-  const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>[]>(
-    [],
-  );
+  const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4['tabPanes']>([]);
   // === ProMode Data - end ===
 
   // === ProMode tabPane settings - start ===
@@ -209,15 +207,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
-                <Tabs.TabPane
-                  tab={locale === ELocale.EN ? 'Image Adjustments' : '图片尺寸调整'}
-                  key="image-crop-tool-v1"
-                  disabled={false}
-                >
-                  <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
-                </Tabs.TabPane>
-
-                {proMode_v4_tabPanes.map((tabPane: IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>) => {
+                {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
+                  console.log('tabPane', tabPane);
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
@@ -227,30 +218,12 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           webCase={{ userData, localDataFromStorage }}
                         />
                       )}
-                      {tabPane.type === EProMode_v4_tabPane_type.WRITING_POST_CHAIN && (
-                        <ProModeWIndow_v4_tabPane_type_writingPostChain
-                          t={t}
-                          tabPane={tabPane as IProMode_v4_tabPane<{}>}
-                          userAccessToken={userAccessToken}
-                          modelSecret={modelSecret}
-                          proModeModelType={proModeModelType}
-                          envObj={{
-                            env: CONSTANTS_GPT_AI_FLOW_COMMON,
-                            getEncryptobjForFrontend: TCryptoJSFile.encrypt_v2(
-                              CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
-                            ),
-                          }}
-                        />
-                      )}
-                      {tabPane.type === EProMode_v4_tabPane_type.CUSTOME_LANGCHAIN && (
+                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
                         <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize
                           t={t}
                           tabPane={
                             tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context_for_type_custom_langchain<
-                                IBackground_for_type_langchain,
-                                IAdjust_for_IMessage
-                              >
+                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
                             >
                           }
                           userAccessToken={userAccessToken}
@@ -260,33 +233,12 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           setInputsCache={setInputsCache}
                         />
                       )}
-                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_CUSTOME_ITERATE_AND_OPTIMIZE && (
-                        <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize
-                          t={t}
-                          tabPane={
-                            tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context_for_type_custom_langchain<
-                                IBackground_for_type_langchain,
-                                IAdjust_for_IMessage
-                              >
-                            >
-                          }
-                          userAccessToken={userAccessToken}
-                          modelSecret={modelSecret}
-                          proModeModelType={proModeModelType}
-                          inputsCache={inputsCache}
-                          setInputsCache={setInputsCache}
-                        />
-                      )}
-                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
+                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
                         <ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
                           t={t}
                           tabPane={
                             tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context_for_type_custom_langchain<
-                                IBackground_for_type_langchain,
-                                IAdjust_for_IMessage
-                              >
+                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
                             >
                           }
                           userAccessToken={userAccessToken}
@@ -295,6 +247,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           inputsCache={inputsCache}
                           setInputsCache={setInputsCache}
                         />
+                      )}
+                      {tabPane.type === EProMode_v4_tabPane_type.TOOL_IMAGE_CROP && (
+                        <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
                       )}
                     </Tabs.TabPane>
                   );

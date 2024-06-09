@@ -3,14 +3,14 @@ import React from 'react';
 import { Form, Input } from 'antd';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IAdjust_for_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IAdjust_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 
 const { TextArea } = Input;
 
 export const WritingPostChain_adjust = (props: {
   t: IGetT_frontend_output;
-  adjust: IAdjust_for_IMessage;
-  setAdjust: (newItem: IAdjust_for_IMessage) => void;
+  adjust: IAdjust_IMessage;
+  setAdjust: (newItem: IAdjust_IMessage) => void;
 }) => {
   const { t, adjust, setAdjust } = props;
 
