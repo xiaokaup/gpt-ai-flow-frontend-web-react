@@ -402,6 +402,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
               <div className="row adjust">
                 <Langchain_adjust
                   t={t}
+                  isAdjustCall={currentVersionNum > 0}
                   adjustSelected={contextSelected.adjust}
                   adjust={adjust as IAdjust_morePostsChain}
                   setAdjust={(newItem: IAdjust_morePostsChain) => {

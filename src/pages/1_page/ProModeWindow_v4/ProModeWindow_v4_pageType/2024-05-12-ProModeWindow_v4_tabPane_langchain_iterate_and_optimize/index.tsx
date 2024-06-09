@@ -323,6 +323,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
               <div className="row adjust">
                 <Langchain_adjust
                   t={t}
+                  isAdjustCall={currentVersionNum > 0}
                   adjustSelected={contextSelected.adjust}
                   adjust={adjust}
                   setAdjust={(newItem: IAdjust_IMessage) => {
