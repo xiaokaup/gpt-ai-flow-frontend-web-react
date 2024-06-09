@@ -146,7 +146,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
       const promiseResults: IMessage[] = [];
 
       for (let index_num = 0; index_num < messages_for_outputs_num; index_num++) {
-        const promiseInstance = TBackendLangchainFile.postLangchain_type_custom_langchain(
+        const promiseInstance = TBackendLangchainFile.postProMode_v4_langchain_tabPane_chains(
           urlSlug,
           bodyData,
           () => {
