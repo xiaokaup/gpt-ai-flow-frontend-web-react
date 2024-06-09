@@ -23,9 +23,9 @@ import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
 import { EButton_operation } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
-import { IAdjust_for_type_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-05-13-IProMode_v4_morePostsChain';
+import { IAdjust_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-05-13-IProMode_v4_morePostsChain';
 import {
-  IPromode_v4_tabPane_context_for_type_custom_langchain,
+  IPromode_v4_tabPane_context,
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
   EProMode_v4_tabPane_type_langchain_contextType,
@@ -36,9 +36,7 @@ import {
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
-  tabPane: IProMode_v4_tabPane<
-    IPromode_v4_tabPane_context_for_type_custom_langchain<IBackground_for_type_langchain, IAdjust_for_type_langchain>
-  >;
+  tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
   userAccessToken: string;
   modelSecret: string;
   proModeModelType: EOpenAiModel_type;
@@ -80,13 +78,13 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
 
   // Manage multiple outputs results
   const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(
-    inputsCache.currentOuputNums ? parseInt(inputsCache.currentOuputNums, 10) : 2, // IAdjust_for_type_morePostsChain
+    inputsCache.currentOuputNums ? parseInt(inputsCache.currentOuputNums, 10) : 2, // IAdjust_morePostsChain
   );
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_for_type_custom_langchain<
+  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
@@ -294,12 +292,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
               );
             }}
             options={context.map(
-              (
-                item: IPromode_v4_tabPane_context_for_type_custom_langchain<
-                  IBackground_for_type_langchain,
-                  IAdjust_for_type_langchain
-                >,
-              ) => {
+              (item: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
                 return {
                   label: t.get(item.label),
                   value: item.type,
@@ -410,8 +403,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                 <Langchain_adjust
                   t={t}
                   adjustSelected={contextSelected.adjust}
-                  adjust={adjust as IAdjust_for_type_morePostsChain}
-                  setAdjust={(newItem: IAdjust_for_type_morePostsChain) => {
+                  adjust={adjust as IAdjust_morePostsChain}
+                  setAdjust={(newItem: IAdjust_morePostsChain) => {
                     setMessages_outputs_num(newItem.currentOuputNums);
                     setMessageExchangeData({
                       ...messageExchangeData,

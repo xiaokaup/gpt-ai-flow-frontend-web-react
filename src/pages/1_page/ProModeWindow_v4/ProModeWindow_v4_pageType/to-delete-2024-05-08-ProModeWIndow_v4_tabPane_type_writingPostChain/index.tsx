@@ -21,10 +21,11 @@ import { ILangchain_type_WritingPostChainService_request } from '../../../../../
 import {
   IWritingPostChainMessageExchange,
   IWritingPostChainMessageExchange_default,
-} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/02-wirtingPostChain/2024-05-12-IProMode_v4_context_type_writingPostChain';
-import { IAdjust_for_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
-import { IBackground_for_5W2H } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
+} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/to-delete-02-wirtingPostChain/2024-05-12-IProMode_v4_context_type_writingPostChain';
+
 import { IMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IAdjust_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IBackground_5W2H } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
 
 interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
   t: IGetT_frontend_output;
@@ -300,7 +301,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
             <WritingPostChain_adjust
               t={t}
               adjust={adjust}
-              setAdjust={(newItem: IAdjust_for_IMessage) => {
+              setAdjust={(newItem: IAdjust_IMessage) => {
                 setWritingPostData({
                   ...writingPostData,
                   adjust: newItem,
@@ -313,7 +314,7 @@ export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
             <WritingPostChain_background
               t={t}
               background={background}
-              setBackground={(newItem: IBackground_for_5W2H) => {
+              setBackground={(newItem: IBackground_5W2H) => {
                 setWritingPostData({
                   ...writingPostData,
                   background: newItem,
