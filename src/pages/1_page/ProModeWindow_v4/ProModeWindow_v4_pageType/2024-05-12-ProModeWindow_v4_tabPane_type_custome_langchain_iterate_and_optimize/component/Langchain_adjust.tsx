@@ -31,6 +31,7 @@ export const Langchain_adjust = (props: {
               componentType,
               label,
               name,
+              isRequired,
               isAutoSize_minRows,
               tooltip,
               tooltip_isNeedTranslate,
@@ -85,6 +86,11 @@ export const Langchain_adjust = (props: {
                         t.get(label)
                       )
                     }
+                    rules={
+                      isRequired
+                        ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
+                        : []
+                    }
                   >
                     <Input
                       onChange={(event) => {
@@ -113,6 +119,11 @@ export const Langchain_adjust = (props: {
                       ) : (
                         t.get(label)
                       )
+                    }
+                    rules={
+                      isRequired
+                        ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
+                        : []
                     }
                   >
                     <TextArea
