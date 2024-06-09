@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
-import IUserDataFile, { IUserData } from './gpt-ai-flow-common/interface-app/IUserData';
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { IReduxRootState } from './store/reducer';
@@ -23,12 +22,13 @@ import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { NewsPage } from './pages/1_page/NewsPage';
+import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
+    return state.user ?? IUserData_default;
   });
   const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;

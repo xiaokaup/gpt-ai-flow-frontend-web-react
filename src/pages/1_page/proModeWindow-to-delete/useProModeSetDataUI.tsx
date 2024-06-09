@@ -8,7 +8,7 @@ import IProMode_v3File, {
   IProMode_v3,
   IProMode_v3_oneProMode,
 } from '../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
-import { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { useProModeSetData } from '../../../gpt-ai-flow-common/hooks/useProModeSetData';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
 

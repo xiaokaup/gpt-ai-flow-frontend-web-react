@@ -4,7 +4,6 @@ import { Button, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProMode_v4';
 
 import { WritingPostChain_background } from './component/WritingPostChain_background';
 import { WritingPostChain_previousOutput } from './component/WritingPostChain_previousOutput';
@@ -17,13 +16,15 @@ import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backen
 import { EMessage_role } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
 import { IConstantGptAiFlowHandler } from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
-import { IAdjust_for_IMessage, IMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
-import { ILangchain_type_WritingPostChainService_request } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-call/ILangchain_type_request';
+import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
+import { ILangchain_type_WritingPostChainService_request } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
 import {
   IWritingPostChainMessageExchange,
   IWritingPostChainMessageExchange_default,
-  IBackground_for_5W2H,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/02-wirtingPostChain/2024-05-12-IProMode_v4_context_type_writingPostChain';
+} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/02-wirtingPostChain/2024-05-12-IProMode_v4_context_type_writingPostChain';
+import { IAdjust_for_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IBackground_for_5W2H } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
+import { IMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 
 interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
   t: IGetT_frontend_output;

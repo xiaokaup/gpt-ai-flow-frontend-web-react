@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
-import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
+import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {

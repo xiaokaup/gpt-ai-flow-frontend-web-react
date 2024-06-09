@@ -15,10 +15,6 @@ import { SwapOutlined } from '@ant-design/icons';
 import { IReduxRootState } from '../../../../../store/reducer';
 import { saveLocalAction } from '../../../../../store/actions/localActions';
 
-import {
-  IAICommandsResults_v4,
-  IAICommands_v4,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode/IProModeAICommands';
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 
 import { IAIFlow } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
@@ -31,7 +27,6 @@ import IStoreStorageFile, {
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useLocalSettings } from '../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
 import { EAIFlowRole, EAIFlow_type } from '../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import IUserDataFile, { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
 import TBackendUserInputFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
 import { ELangchainRetrievalDocType } from '../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
 import { IBuildOpenAIPrompts_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
@@ -40,13 +35,18 @@ import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { LangchainRetrivalService } from '../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
-import { IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/IPrompt';
 import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
+import {
+  IAICommandsResults_v4,
+  IAICommands_v4,
+} from '../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 
 const { TextArea } = Input;
 
@@ -91,7 +91,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   const { locale, openAIApiKey } = localSettings;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
+    return state.user ?? IUserData_default;
   });
 
   const { userData } = useUserData({

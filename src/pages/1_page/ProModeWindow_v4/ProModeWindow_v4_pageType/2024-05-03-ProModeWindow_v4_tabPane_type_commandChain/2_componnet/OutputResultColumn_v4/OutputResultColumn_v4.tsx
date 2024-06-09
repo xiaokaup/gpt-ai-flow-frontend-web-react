@@ -17,7 +17,7 @@ import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocal
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProModeAICommands_v4_new';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
 
 const { TextArea } = Input;
 

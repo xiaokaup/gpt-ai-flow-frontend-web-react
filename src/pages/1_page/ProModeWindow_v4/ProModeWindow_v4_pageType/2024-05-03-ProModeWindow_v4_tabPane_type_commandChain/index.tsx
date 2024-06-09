@@ -13,17 +13,17 @@ import { DynamicFormForContextPrompt_v4 } from './3_unit/DynamicFormForContextPr
 import TStringFile from '../../../../../gpt-ai-flow-common/tools/TString';
 import React from 'react';
 import { ProModeAiFlowRow_v4 } from './2_componnet/ProModeAiFlowRow_v4';
-import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
-import { IStoreStorageLocalSettings } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { IAIFlow_v2 } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
-import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProMode_v4';
-import { convert_IAIFlow_v2_to_IAICommands_v4_new } from '../../../../../gpt-ai-flow-common/interface-app/2_component/TAIFlow_v2';
+import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
 import {
   IPromode_v4_tabPane_context_type_commandChain,
   IProMode_v4_tabPane_example,
   IPromode_v4_tabPane_context_default,
   IPromode_v4_tabPane_context_stage,
-} from '../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
+} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
+import { IAIFlow_v2 } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
+import { convert_IAIFlow_v2_to_IAICommands_v4_new } from '../../../../../gpt-ai-flow-common/interface-app/2_component/TAIFlow_v2';
+import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { IStoreStorageLocalSettings } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 interface IProModeWindow_v4_tabPane_type_langchain_input {
   t: IGetT_frontend_output;

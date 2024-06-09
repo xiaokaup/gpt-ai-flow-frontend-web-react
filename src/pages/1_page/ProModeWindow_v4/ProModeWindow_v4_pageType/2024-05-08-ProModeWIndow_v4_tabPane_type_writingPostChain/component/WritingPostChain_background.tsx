@@ -3,7 +3,7 @@ import { DatePicker, Form, Input, Tooltip } from 'antd';
 import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IBackground_for_5W2H } from '../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/02-wirtingPostChain/2024-05-12-IProMode_v4_context_type_writingPostChain';
+import { IBackground_for_5W2H } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;

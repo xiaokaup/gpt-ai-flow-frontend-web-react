@@ -6,11 +6,11 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Input } from 'antd';
 import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
+import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProModeAICommands_v4_new';
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
 
 const { TextArea } = Input;
 

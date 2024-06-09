@@ -4,19 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, TabsProps } from 'antd';
 
 import { IReduxRootState } from '../../../../store/reducer';
-import { udpateSubscriptionDBAction_v2 } from '../../../../store/actions/subscriptionDBActions_v2';
 
-import ITokenDB from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import IUserDataFile, { IUserData } from '../../../../gpt-ai-flow-common/interface-app/IUserData';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
-import ISubscriptionDB_v2File, {
-  ISubscriptionDB_v2,
-} from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
-import { useSubscription_v2Data } from '../../../../gpt-ai-flow-common/hooks/useSubscription_v2Data';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
+import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
@@ -32,7 +26,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
   const { t } = props;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
+    return state.user ?? IUserData_default;
   });
 
   const { userData } = useUserData({

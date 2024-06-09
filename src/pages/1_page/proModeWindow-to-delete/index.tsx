@@ -16,8 +16,8 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/con
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { ProModeModelValueProvider } from '../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
-import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import { EServiceCategoryDB_name } from '../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
+import { IUserData, IUserData_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
@@ -46,7 +46,7 @@ const ProModeWindow = (props: IProModeWindow_input) => {
 
   // === Stripe subscription - start ===
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
+    return state.user ?? IUserData_default;
   });
   const localDataFromStorage: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;

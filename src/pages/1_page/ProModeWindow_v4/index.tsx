@@ -19,35 +19,35 @@ import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
-import {
-  All_type_IProMode_v4_tabPane,
-  EProMode_v4_tabPane_type,
-  IProMode_v4,
-  IProMode_v4_tabPane,
-} from '../../../gpt-ai-flow-common/interface-app/ProMode_v4/IProMode_v4';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import { useInputsCache } from '../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { ModelStaticService } from '../../../gpt-ai-flow-common/tools/2_class/SModels';
 import { EOpenAiModel_type } from '../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
-import IUserDataFile, { IUserData } from '../../../gpt-ai-flow-common/interface-app/IUserData';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { IAdjust_for_IMessage } from '../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { getProMode_v4_from_backend } from '../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
 import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { ProModeModelValueProvider } from '../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import IInputsCacheFile, { IInputsCache } from '../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import {
-  IPromode_v4_tabPane_context_for_type_custom_langchain,
-  IBackground_for_type_langchain,
-} from '../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/03-langchain';
-import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/ProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 
 import { ProModeWindow_v4_tabPane_type_langchain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_type_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_type_image_crop_v1';
 import { ProModeWIndow_v4_tabPane_type_writingPostChain } from './ProModeWindow_v4_pageType/2024-05-08-ProModeWIndow_v4_tabPane_type_writingPostChain';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results';
+import {
+  All_type_IProMode_v4_tabPane,
+  EProMode_v4_tabPane_type,
+  IProMode_v4,
+  IProMode_v4_tabPane,
+} from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
+import { IPromode_v4_tabPane_context_type_commandChain } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
+import {
+  IBackground_for_type_langchain,
+  IPromode_v4_tabPane_context_for_type_custom_langchain,
+} from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
+import { IAdjust_for_IMessage } from '../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IUserData, IUserData_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -341,7 +341,7 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
 
   // === Stripe subscription - start ===
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserDataFile.IUserData_default;
+    return state.user ?? IUserData_default;
   });
 
   const { userData } = useUserData({
