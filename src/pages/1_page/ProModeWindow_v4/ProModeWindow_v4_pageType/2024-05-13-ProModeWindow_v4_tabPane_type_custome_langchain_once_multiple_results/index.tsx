@@ -223,10 +223,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
               .map((item: IMessage, index: number) => {
                 let content: string = '';
                 if (t.currentLocale === ELocale.EN) {
-                  content += `## ${t.get('Rewrite')} ${t.get('Post')} ${index + 1}:\n`;
+                  content += `## ${t.get('Rewrite')} ${t.get('Result')} ${index + 1}:\n`;
                 }
                 if (t.currentLocale === ELocale.ZH) {
-                  content += `## ${t.get('Rewrite')}${t.get('Post')} ${index + 1}:\n`;
+                  content += `## ${t.get('Rewrite')}${t.get('Result')} ${index + 1}:\n`;
                 }
                 content += item.content;
                 return content;
