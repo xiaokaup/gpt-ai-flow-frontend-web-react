@@ -13,11 +13,12 @@ const { TextArea } = Input;
 
 export const Langchain_adjust = (props: {
   t: IGetT_frontend_output;
+  isAdjustCall: boolean;
   adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_IMessage>;
   adjust: IAdjust_IMessage;
   setAdjust: (newItem: IAdjust_IMessage) => void;
 }) => {
-  const { t, adjustSelected, adjust, setAdjust } = props;
+  const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;
 
   const [form] = Form.useForm();
 
@@ -37,6 +38,7 @@ export const Langchain_adjust = (props: {
               tooltip_isNeedTranslate,
               minNum = 1,
               maxNum = 4,
+              isDisabledWhenAdjustCall,
             } = item;
 
             if (componentType === 'InputNumber') {
@@ -127,6 +129,7 @@ export const Langchain_adjust = (props: {
                     }
                   >
                     <TextArea
+                      disabled={isDisabledWhenAdjustCall && isAdjustCall}
                       autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                       onChange={(event) => {
                         const newItem = {
