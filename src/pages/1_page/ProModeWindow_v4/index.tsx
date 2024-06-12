@@ -208,7 +208,6 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 // onEdit={onEditTabPanel}
               >
                 {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
-                  console.log('tabPane', tabPane);
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
