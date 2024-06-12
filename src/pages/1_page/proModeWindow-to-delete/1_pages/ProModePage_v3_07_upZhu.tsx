@@ -10,15 +10,13 @@ import iconWrong from '../../../../../assets/icons-customize/icon-status-wrong/i
 
 import TString from '../../../../gpt-ai-flow-common/tools/TString';
 import {
-  IProMode_v3_oneProMode,
-  IProMode_v3_onePromode_oneContext_oneStage_examples,
-} from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
-import {
   EProMode_v3_07_upZhu_contextType,
   EProMode_v3_07_upZhu_contextTypeStage,
 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_07_upZhu';
 import { IProMode_v3_contextTypeStages } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IProMode_v3_oneProMode } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
