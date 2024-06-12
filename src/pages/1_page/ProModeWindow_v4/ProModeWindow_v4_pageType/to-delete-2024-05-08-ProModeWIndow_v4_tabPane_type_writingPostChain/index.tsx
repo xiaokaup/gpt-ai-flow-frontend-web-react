@@ -38,7 +38,7 @@ interface IProModeWIndow_v4_tabPane_type_writingPostChain_input {
     getEncryptobjForFrontend: (obj: any) => string;
   };
 }
-export const ProModeWIndow_v4_tabPane_type_writingPostChain = (
+export const To_delete_ProModeWIndow_v4_tabPane_type_writingPostChain = (
   props: IProModeWIndow_v4_tabPane_type_writingPostChain_input,
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
