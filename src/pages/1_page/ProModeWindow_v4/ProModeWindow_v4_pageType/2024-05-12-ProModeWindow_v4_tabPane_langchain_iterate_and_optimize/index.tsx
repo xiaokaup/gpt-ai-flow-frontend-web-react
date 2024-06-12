@@ -26,11 +26,11 @@ import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-
 import {
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
-  EProMode_v4_tabPane_type_langchain_contextType,
   ILangchainMessageExchange_default,
   ILangchainMessageExchange,
   IPromode_v4_tabPane_context,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
+import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 import { IAdjust_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_input {
@@ -52,8 +52,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_type_langchain_contextType>(
-    context.length > 0 ? context[0].type : EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
+  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_context_type>(
+    context.length > 0 ? context[0].type : EProMode_v4_tabPane_context_type.GENERAL,
   );
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
@@ -226,8 +226,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
               console.log(`selected ${value}`);
               setContextSelected(context.find((item) => item.type === value) ?? null);
               setMessageExchangeType(
-                context.find((item) => item.type === value)?.type ??
-                  EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
+                context.find((item) => item.type === value)?.type ?? EProMode_v4_tabPane_context_type.GENERAL,
               );
             }}
             options={context.map(
