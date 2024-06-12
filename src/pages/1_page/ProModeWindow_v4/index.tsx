@@ -36,7 +36,6 @@ import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize } 
 import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_langchain_once_multiple_results';
 import {
   All_type_IProMode_v4_tabPane,
-  EProMode_v4_tabPane_type,
   IProMode_v4,
   IProMode_v4_tabPane,
 } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
@@ -48,6 +47,7 @@ import {
 import { IAdjust_IMessage } from '../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { IUserData, IUserData_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IProMode_v4_tabPane_tool } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/04-tool/interface';
+import { EProMode_v4_tabPane_type } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;

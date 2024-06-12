@@ -28,11 +28,11 @@ import {
   IPromode_v4_tabPane_context,
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
-  EProMode_v4_tabPane_type_langchain_contextType,
   ILangchainMessageExchange_default,
   IAdjust_type_langchain_default,
   ILangchainMessageExchange,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
+import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 
 interface ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
@@ -53,8 +53,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_type_langchain_contextType>(
-    context.length > 0 ? context[0].type : EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
+  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_context_type>(
+    context.length > 0 ? context[0].type : EProMode_v4_tabPane_context_type.GENERAL,
   );
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
@@ -287,8 +287,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
               console.log(`selected ${value}`);
               setContextSelected(context.find((item) => item.type === value) ?? null);
               setMessageExchangeType(
-                context.find((item) => item.type === value)?.type ??
-                  EProMode_v4_tabPane_type_langchain_contextType.GENERAL,
+                context.find((item) => item.type === value)?.type ?? EProMode_v4_tabPane_context_type.GENERAL,
               );
             }}
             options={context.map(
