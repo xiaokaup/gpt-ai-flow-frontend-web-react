@@ -32,7 +32,6 @@ import { ELangchainRetrievalDocType } from '../../../../../gpt-ai-flow-common/en
 import { IBuildOpenAIPrompts_ouput } from '../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import EInputTypeDBFile, { EInputTypeDB_typeName } from '../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 import { useProModeModelValueProviderContext } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { LangchainRetrivalService } from '../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
 import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
@@ -47,6 +46,7 @@ import {
 } from '../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
 import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IPrompt } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 
 const { TextArea } = Input;
 
