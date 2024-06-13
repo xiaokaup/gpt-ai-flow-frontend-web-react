@@ -2,7 +2,7 @@ import '../../../../styles/global.css';
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
@@ -26,6 +26,11 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   const navigate = useNavigate();
 
   const { t } = props;
+
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const caller = query.get('app');
+  const isCallerElectron = caller === 'electron';
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserData_default;
@@ -105,14 +110,22 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               message.error(t.get('Google Login Failed'));
               return;
             }
-            const results = await TBackendAuthFile.authLoginVerifyByGoogle(
+            const userDB = await TBackendAuthFile.authLoginVerifyByGoogle(
               idToken,
               t.currentLocale,
               CONSTANTS_GPT_AI_FLOW_COMMON,
             );
 
-            // console.log('onSuccess googleLogin results', results);
-            dispatch({ type: USER_LOGIN, payload: results });
+            if (isCallerElectron) {
+              console.log('trigger for electron');
+              const link = document.createElement('a');
+              link.href = `gpt-ai-flow-app://id=${userDB.id}&accessToken=${userDB.Token?.accessToken}`;
+              document.body.appendChild(link);
+              link.click();
+            }
+
+            // console.log('onSuccess googleLogin results', userDB);
+            dispatch({ type: USER_LOGIN, payload: userDB });
             navigate('/proMode');
             window.location.reload();
           }}
@@ -121,73 +134,77 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
           }}
         />
       </div>
-      <hr className="my-8" />
-      <div className="row block_email_and_password">
-        <Form
-          name="normal_login"
-          className="login-form"
-          layout="horizontal"
-          initialValues={{ remember: true }}
-          onFinish={onEmailAndPasswordSignInFinish}
-          onFinishFailed={onEmailAndPasswordSignInFaild}
-          style={{ width: 300 }}
-        >
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: t.getHTML('Please enter your {text}', { text: t.get('Email') }),
-              },
-              {
-                type: 'email',
-                message: t.getHTML('Please enter in the correct format'),
-              },
-            ]}
-          >
-            <Input prefix={<MailOutlined />} placeholder={t.get('Email')} />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: t.getHTML('Please enter your {text}', { text: t.get('Password') }),
-              },
-            ]}
-          >
-            <Input.Password prefix={<LockOutlined />} placeholder={t.get('Password')} />
-          </Form.Item>
-
-          <Form.Item>
-            <div>
-              <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
-                {t.get('Login')}
-              </Button>
-              <span style={{ marginLeft: 20 }}>
-                <Button
-                  type="default"
-                  onClick={() => {
-                    navigate('/signUp');
-                  }}
-                >
-                  {t.get('Sign Up')}
-                </Button>
-              </span>
-              <br />
-              <span
-                style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
-                onClick={() => {
-                  navigate('/forgetPassword');
-                }}
+      {(!caller || (caller && !isCallerElectron)) && (
+        <>
+          <hr className="my-8" />
+          <div className="row block_email_and_password">
+            <Form
+              name="normal_login"
+              className="login-form"
+              layout="horizontal"
+              initialValues={{ remember: true }}
+              onFinish={onEmailAndPasswordSignInFinish}
+              onFinishFailed={onEmailAndPasswordSignInFaild}
+              style={{ width: 300 }}
+            >
+              <Form.Item
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: t.getHTML('Please enter your {text}', { text: t.get('Email') }),
+                  },
+                  {
+                    type: 'email',
+                    message: t.getHTML('Please enter in the correct format'),
+                  },
+                ]}
               >
-                {t.get('Forget password')}
-              </span>
-            </div>
-          </Form.Item>
-        </Form>
-      </div>
+                <Input prefix={<MailOutlined />} placeholder={t.get('Email')} />
+              </Form.Item>
+
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: t.getHTML('Please enter your {text}', { text: t.get('Password') }),
+                  },
+                ]}
+              >
+                <Input.Password prefix={<LockOutlined />} placeholder={t.get('Password')} />
+              </Form.Item>
+
+              <Form.Item>
+                <div>
+                  <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
+                    {t.get('Login')}
+                  </Button>
+                  <span style={{ marginLeft: 20 }}>
+                    <Button
+                      type="default"
+                      onClick={() => {
+                        navigate('/signUp');
+                      }}
+                    >
+                      {t.get('Sign Up')}
+                    </Button>
+                  </span>
+                  <br />
+                  <span
+                    style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
+                    onClick={() => {
+                      navigate('/forgetPassword');
+                    }}
+                  >
+                    {t.get('Forget password')}
+                  </span>
+                </div>
+              </Form.Item>
+            </Form>
+          </div>
+        </>
+      )}
     </div>
   );
 };
