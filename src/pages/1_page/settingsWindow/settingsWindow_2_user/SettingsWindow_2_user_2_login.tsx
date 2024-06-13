@@ -116,11 +116,6 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               CONSTANTS_GPT_AI_FLOW_COMMON,
             );
 
-            // console.log('onSuccess googleLogin results', userDB);
-            dispatch({ type: USER_LOGIN, payload: userDB });
-            navigate('/proMode');
-            window.location.reload();
-
             if (isCallerElectron) {
               console.log('trigger for electron');
               const link = document.createElement('a');
@@ -128,6 +123,11 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               document.body.appendChild(link);
               link.click();
             }
+
+            // console.log('onSuccess googleLogin results', userDB);
+            dispatch({ type: USER_LOGIN, payload: userDB });
+            navigate('/proMode');
+            window.location.reload();
           }}
           onError={() => {
             console.log('Login Failed');
