@@ -254,6 +254,9 @@ export const Langchain_background = (props: {
                             setBackground(newItem);
                             return;
                           }
+                          if (!urlValue) {
+                            return;
+                          }
                           debouncedSetBackground({
                             name,
                             urlValue,
