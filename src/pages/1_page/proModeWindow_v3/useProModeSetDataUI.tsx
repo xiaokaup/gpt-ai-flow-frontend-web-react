@@ -167,7 +167,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.COMMUNICATION_MANAGER),
+      disabled: false,
     });
   }
 
@@ -187,7 +187,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.COPY_WRITING_MANAGER),
+      disabled: false,
     });
   }
 
@@ -207,7 +207,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.XIAO_HONG_SHU_MANAGER),
+      disabled: false,
     });
   }
 
@@ -227,7 +227,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.AI_ASSISTANT),
+      disabled: false,
     });
   }
 
@@ -247,7 +247,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.CUSTOMER_ASSISTANT),
+      disabled: false,
     });
   }
 
@@ -267,7 +267,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.COMMENT_MANAGER),
+      disabled: false,
     });
   }
 
@@ -287,7 +287,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   //         }
   //       />
   //     ),
-  //     disabled: !serviceCategories.includes(EServiceCategoryDB_name.CAREER_MANAGER),
+  //     disabled: false,
   //   });
   // }
 
@@ -307,7 +307,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.UP_ZHU),
+      disabled: false,
     });
   }
 
@@ -327,7 +327,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.PRODUCT_MANAGER),
+      disabled: false,
     });
   }
 
@@ -347,7 +347,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.MARKETING_MANAGER),
+      disabled: false,
     });
   }
 
@@ -367,7 +367,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
           }
         />
       ),
-      disabled: !serviceCategories.includes(EServiceCategoryDB_name.SEO_MANAGER),
+      disabled: false,
     });
   }
 
