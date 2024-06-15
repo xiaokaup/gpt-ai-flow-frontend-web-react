@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Select } from 'antd';
 import ProModeWindow_v4 from './ProModeWindow_v4';
-import ProModeWindow from './proModeWindow-to-delete';
+import ProModeWindow_v3 from './proModeWindow_v3';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 
@@ -36,7 +36,7 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
       </div>
 
       {version === 'v4' && <ProModeWindow_v4 t={t} locale={locale} />}
-      {version === 'v3' && <ProModeWindow t={t} />}
+      {version === 'v3' && <ProModeWindow_v3 t={t} />}
     </div>
   );
 };

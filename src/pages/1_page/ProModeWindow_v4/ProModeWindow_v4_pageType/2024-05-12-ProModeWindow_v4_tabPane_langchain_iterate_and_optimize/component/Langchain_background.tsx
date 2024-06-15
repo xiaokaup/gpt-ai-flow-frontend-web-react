@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
 import { convert } from 'html-to-text';
 
-import { EyeOutlined, EyeInvisibleOutlined, RedoOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { EyeOutlined, EyeInvisibleOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -22,9 +22,8 @@ export const Langchain_background = (props: {
   backgroundSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IBackground_for_type_langchain>;
   background: IBackground_for_type_langchain;
   setBackground: (newItem: IBackground_for_type_langchain) => void;
-  onResetAll: () => void;
 }) => {
-  const { t, backgroundSelected, background, setBackground, onResetAll } = props;
+  const { t, backgroundSelected, background, setBackground } = props;
 
   const [form] = Form.useForm();
 
@@ -80,27 +79,7 @@ export const Langchain_background = (props: {
             </>
           )}
         </div>
-        <div className="right">
-          <Tooltip title={t.get('Reset all')}>
-            <RedoOutlined
-              style={{
-                fontSize: 18,
-                border: '1px solid #d9d9d9',
-                borderRadius: '.25rem',
-                padding: 4,
-                cursor: 'pointer',
-
-                marginLeft: 6,
-
-                flex: '0 1 auto',
-              }}
-              onClick={() => {
-                onResetAll();
-                form.resetFields();
-              }}
-            />
-          </Tooltip>
-        </div>
+        <div className="right">{/* void */}</div>
       </div>
       {isShow && (
         <div className="row">

@@ -33,10 +33,10 @@ import { ITabPanel } from './proModeWindowType';
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
-interface IProModeWindow_input {
+interface ProModeWindow_v3_input {
   t: IGetT_frontend_output;
 }
-const ProModeWindow = (props: IProModeWindow_input) => {
+const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -348,4 +348,4 @@ const ProModeWindow = (props: IProModeWindow_input) => {
   );
 };
 
-export default ProModeWindow;
+export default ProModeWindow_v3;
