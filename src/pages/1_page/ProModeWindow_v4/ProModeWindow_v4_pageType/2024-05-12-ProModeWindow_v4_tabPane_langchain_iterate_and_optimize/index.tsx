@@ -292,6 +292,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                       currentOutput: newItem,
                     });
                   }}
+                  onResetAll={onResetAll}
                 />
               </div>
 
@@ -353,7 +354,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                       ...newItem,
                     }));
                   }}
-                  onResetAll={onResetAll}
                 />
               </div>
 
