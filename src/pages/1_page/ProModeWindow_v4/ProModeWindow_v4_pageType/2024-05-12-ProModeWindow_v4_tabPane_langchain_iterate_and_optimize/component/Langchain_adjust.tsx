@@ -43,7 +43,7 @@ export const Langchain_adjust = (props: {
               className="button ml-2 mt-2 resetMessagesHistoryButton"
               style={{
                 fontSize: 18,
-                width: 40,
+                width: 36,
                 border: '1px solid #d9d9d9',
                 borderRadius: '.25rem',
                 padding: 4,
@@ -65,7 +65,7 @@ export const Langchain_adjust = (props: {
               className="button ml-2 mt-2 resetMessagesHistoryButton"
               style={{
                 fontSize: 18,
-                width: 40,
+                width: 36,
                 border: '1px solid #d9d9d9',
                 borderRadius: '.25rem',
                 padding: 4,
