@@ -285,6 +285,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
               <div className="row currentOuput">
                 <Langchain_currentOutput
                   t={t}
+                  title={contextSelected.currentOutput.title ?? t.get('Post')}
                   currentOutput={currentOutput}
                   setCurrentOutput={(newItem: IMessage) => {
                     setMessageExchangeData({

@@ -49,7 +49,7 @@ export const Langchain_currentOutput = (props: {
         }}
       >
         <div className="column_1" style={{ display: 'flex' }}>
-          <h1>{t.get('Post')}</h1>
+          <h1>{title}</h1>
           <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsEditing(!isEditing)} />
 
           <CopyToClipboard

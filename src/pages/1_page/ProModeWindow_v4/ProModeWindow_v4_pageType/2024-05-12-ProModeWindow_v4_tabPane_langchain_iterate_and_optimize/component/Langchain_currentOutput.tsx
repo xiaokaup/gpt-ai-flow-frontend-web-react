@@ -14,11 +14,12 @@ const { TextArea } = Input;
 
 export const Langchain_currentOutput = (props: {
   t: IGetT_frontend_output;
+  title: string;
   currentOutput: IMessage;
   setCurrentOutput: (newItem: IMessage) => void;
   onResetAll: () => void;
 }) => {
-  const { t, currentOutput, setCurrentOutput, onResetAll } = props;
+  const { t, title, currentOutput, setCurrentOutput, onResetAll } = props;
 
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
@@ -48,7 +49,7 @@ export const Langchain_currentOutput = (props: {
         }}
       >
         <div className="column_1" style={{ display: 'flex' }}>
-          <h1>{t.get('Post')}</h1>
+          <h1>{title}</h1>
           <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsEditing(!isEditing)} />
 
           <CopyToClipboard
