@@ -13,6 +13,7 @@ import { EOpenAiModel_type } from '../../../../gpt-ai-flow-common/enum-backend/E
 import { IStoreStorageLocalSettings } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { ModelStaticService } from '../../../../gpt-ai-flow-common/tools/2_class/SModels';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
@@ -50,6 +51,14 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     );
   };
 
+  const getHowToGetOpenAIKeyUrl = (local: ELocale) => {
+    if (local === ELocale.ZH) {
+      return 'https://www.gptaiflow.com/zh/blog/how-to-register-for-OpenAI-account-and-get-OpenAI-api-key';
+    }
+
+    return 'https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key';
+  };
+
   return (
     <div id="SettingsWindow_1_local_1_basic" className="row">
       <div className="row">
@@ -57,12 +66,9 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           <Tooltip
             title={
               <>
-                如何注册 OpenAI 账户并获得 OpenAI API key 密匙？:{' '}
-                <a
-                  href="https://www.gptaiflow.com/zh/blog/how-to-register-for-OpenAI-account-and-get-OpenAI-api-key"
-                  target="_blank"
-                >
-                  点击这里
+                {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
+                <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
+                  {t.get('Click here')}
                 </a>
               </>
             }

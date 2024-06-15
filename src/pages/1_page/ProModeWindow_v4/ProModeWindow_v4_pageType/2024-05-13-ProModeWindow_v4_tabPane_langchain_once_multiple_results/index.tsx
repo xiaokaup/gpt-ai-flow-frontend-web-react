@@ -355,6 +355,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                         currentOutput: newItem,
                       });
                     }}
+                    onResetAll={onResetAll}
                   />
                 </div>
               )}
@@ -373,6 +374,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                             currentOutput: newItem,
                           });
                         }}
+                        onResetAll={onResetAll}
                       />
                     </div>
                   );
@@ -434,7 +436,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                       ...newItem,
                     }));
                   }}
-                  onResetAll={onResetAll}
                 />
               </div>
 
