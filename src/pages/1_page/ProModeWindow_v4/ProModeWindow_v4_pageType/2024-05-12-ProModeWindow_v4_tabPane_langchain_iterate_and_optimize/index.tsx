@@ -77,6 +77,9 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
+  const [selectedContextType, setSelectedContextType] = useState<EProMode_v4_tabPane_context_type>(
+    context.length > 0 ? context[0].type : EProMode_v4_tabPane_context_type.GENERAL,
+  );
   const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
@@ -215,19 +218,25 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
     setMessageExchangeData(messageExchangeData_default);
   };
 
+  const swtichContextSelected_by_type = (newType: EProMode_v4_tabPane_context_type) => {
+    setSelectedContextType(newType);
+    setContextSelected(context.find((item) => item.type === newType) ?? null);
+    setMessageExchangeType(
+      context.find((item) => item.type === newType)?.type ?? EProMode_v4_tabPane_context_type.GENERAL,
+    );
+  };
+
   return (
     <div className="page_container" style={{ maxWidth: 'unset' }}>
       <div className="context_container">
         <div className="row" style={{ paddingLeft: '1rem' }}>
           <Select
-            defaultValue={contextSelected?.type ?? null}
+            defaultValue={contextSelected?.type}
+            value={selectedContextType}
             style={{ width: 120 }}
             onChange={(value: string) => {
               console.log(`selected ${value}`);
-              setContextSelected(context.find((item) => item.type === value) ?? null);
-              setMessageExchangeType(
-                context.find((item) => item.type === value)?.type ?? EProMode_v4_tabPane_context_type.GENERAL,
-              );
+              swtichContextSelected_by_type(value as EProMode_v4_tabPane_context_type);
             }}
             options={context.map(
               (item: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
@@ -337,6 +346,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                       ...newItem,
                     }));
                   }}
+                  contextSelected_type={contextSelected.type}
+                  swtichContextSelected_by_type={swtichContextSelected_by_type}
                 />
               </div>
 
