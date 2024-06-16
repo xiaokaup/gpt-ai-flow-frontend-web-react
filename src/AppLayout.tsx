@@ -83,8 +83,8 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       </Menu.Item>
 
       <Menu.Item key="proMode-doc">
-        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/introduction`}>
-          {t.get('Doc')}
+        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/overview`}>
+          {t.get('Documentation')}
         </Link>
       </Menu.Item>
 
