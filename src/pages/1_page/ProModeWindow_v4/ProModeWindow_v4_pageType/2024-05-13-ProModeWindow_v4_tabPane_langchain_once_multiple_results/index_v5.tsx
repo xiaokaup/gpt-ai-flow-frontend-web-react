@@ -33,7 +33,7 @@ import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-com
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
-  extends IProModeWindow_v4_wrapper_input {
+  extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
   creativityValue: number;
   contextSelected: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
   // swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_type) => void;
@@ -42,14 +42,14 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   props: IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input,
 ) => {
   const { creativityValue, contextSelected } = props;
-  const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
-  const { urlSlug, context, buttons } = tabPane;
+  const { urlSlug, contextType, buttons } = contextSelected;
+  const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
   const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_context_type>(
-    context.length > 0 ? context[0].type : EProMode_v4_tabPane_context_type.GENERAL,
+    contextType ?? EProMode_v4_tabPane_context_type.GENERAL,
   );
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
