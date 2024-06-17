@@ -1,6 +1,5 @@
 import TBackendProModeDataFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendProMode';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { IReduxRootState } from '../reducer';
 import { IProMode_v3 } from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { EServiceCategoryDB_name } from '../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
@@ -14,8 +13,7 @@ export const sync_proModeDataAction =
     locale: ELocale,
     env: IConstantGptAiFlowHandler,
   ) =>
-  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-  async (dispatch: any, getState: () => IReduxRootState) => {
+  async (dispatch: any) => {
     try {
       const results = await TBackendProModeDataFile.sync_proModeData(userId, accessToken, getDecryptObj, locale, env);
 

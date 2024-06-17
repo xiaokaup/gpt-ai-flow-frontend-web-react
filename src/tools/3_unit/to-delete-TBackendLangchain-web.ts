@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';

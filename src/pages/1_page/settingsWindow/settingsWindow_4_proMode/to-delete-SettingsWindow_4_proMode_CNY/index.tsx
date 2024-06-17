@@ -1,7 +1,7 @@
 // import '../../../../../styles/global.css';
 // import '../../../../../styles/layout.scss';
 
-// import React, { useEffect, useState } from 'react';
+// import  { useEffect, useState } from 'react';
 // import { CopyToClipboard } from 'react-copy-to-clipboard';
 // import { CopyOutlined } from '@ant-design/icons';
 

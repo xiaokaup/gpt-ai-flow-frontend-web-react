@@ -1,6 +1,6 @@
 import '../../index.scss';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { Button, Select, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';

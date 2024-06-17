@@ -7,7 +7,7 @@ import { IAction } from '../store';
 const initialState: ISubscirptionMix = ISubscriptionMixFile.ISubscriptionMix_default;
 
 export const subscriptionReducer = (state: ISubscirptionMix = initialState, action: IAction) => {
-  const { type, payload } = action;
+  const { type } = action;
 
   switch (type) {
     case USER_LOGOUT:

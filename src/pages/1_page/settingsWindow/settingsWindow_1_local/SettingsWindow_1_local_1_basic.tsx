@@ -1,7 +1,7 @@
 import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Select, Tooltip, message } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';

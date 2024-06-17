@@ -1,7 +1,7 @@
 import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { Button, Descriptions } from 'antd';
 import { useNavigate } from 'react-router-dom';
