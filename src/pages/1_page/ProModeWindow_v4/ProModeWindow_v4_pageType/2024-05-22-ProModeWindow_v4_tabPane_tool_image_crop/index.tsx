@@ -1,6 +1,6 @@
 import 'react-image-crop/dist/ReactCrop.css';
 
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop, convertToPixelCrop } from 'react-image-crop';
 
 import { Button, TreeSelect } from 'antd';

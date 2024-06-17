@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
@@ -112,7 +111,6 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
       // eslint-disable-next-line no-use-before-define
       getInstructionAIFlowResults();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickSearchAllResultsButtonCount]);
 
   useEffect(() => {
@@ -120,7 +118,6 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
       // eslint-disable-next-line no-use-before-define
       stopInstructionAIFlowResults(requestControllersMap);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickStopSearchAllResultsButtonCount]);
   // === 获取全部结果 与 停止全部结果 - end ===
 
@@ -138,6 +135,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
     const newMap = new Map(requestControllersMap);
     const isDeleted = newMap.delete(key);
     setRequestControllersMap(newMap);
+    console.log('isDeleted', isDeleted);
   };
   // Request controllers - end
 
@@ -163,8 +161,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const stopInstructionAIFlowResults = (paraRequestControllersMap: Map<string, AbortController>) => {
     console.log('stopInstructionAIFlowResults - start');
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [uuid, requestController] of paraRequestControllersMap.entries()) {
+    for (const [, requestController] of paraRequestControllersMap.entries()) {
       requestController.abort();
     }
 

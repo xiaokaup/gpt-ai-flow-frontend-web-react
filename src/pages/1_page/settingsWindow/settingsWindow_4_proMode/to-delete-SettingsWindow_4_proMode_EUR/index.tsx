@@ -3,7 +3,7 @@
 
 // // import paymentPageDemo from '../../../../../../assets/presentation/2023-11-08-img-2-Add-default-payment-method.png';
 
-// import React, { useEffect, useState } from 'react';
+// import  { useEffect, useState } from 'react';
 // import CopyToClipboard from 'react-copy-to-clipboard';
 
 // import { Alert, Button, Tag, message } from 'antd';

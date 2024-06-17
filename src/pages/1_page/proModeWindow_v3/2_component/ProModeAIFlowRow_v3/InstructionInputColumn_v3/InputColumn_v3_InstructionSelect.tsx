@@ -4,7 +4,7 @@ import '../../../../../../styles/layout.scss';
 import iconSuccessful from '../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
 import iconWrong from '../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Select, message } from 'antd';
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 

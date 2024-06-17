@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import CopyToClipboard from 'react-copy-to-clipboard';
 

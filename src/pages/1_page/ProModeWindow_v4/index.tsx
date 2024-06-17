@@ -3,7 +3,7 @@ import '../../../styles/drag.css';
 import '../../../styles/layout.scss';
 import './index.scss';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 

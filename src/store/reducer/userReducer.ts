@@ -24,12 +24,18 @@ export const userReducer = (state: IUserReducerState = IUserData_default, action
       if (state.permissions?.length === payload.permissions?.length) return state;
       if (state.isBetaUser === payload.isBetaUser) return state;
 
+      // === @TODELETE - start ===
+      // eslint-disable-next-line no-case-declarations
       const newUniqueRoles = Array.from(new Set([...(state.roles ?? []), ...(payload.roles ?? [])]));
+      // eslint-disable-next-line no-case-declarations
       const newUniqueServices = Array.from(new Set([...(state.services ?? []), ...(payload.services ?? [])]));
+      // eslint-disable-next-line no-case-declarations
       const newUniqueServiceCategories = Array.from(
         new Set([...(state.serviceCategories ?? []), ...(payload.serviceCategories ?? [])]),
       );
+      // eslint-disable-next-line no-case-declarations
       const newUniquePermissions = Array.from(new Set([...(state.permissions ?? []), ...(payload.permissions ?? [])]));
+      // === @TODELETE - end ===
 
       return {
         ...state,

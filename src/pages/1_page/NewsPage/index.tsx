@@ -1,6 +1,6 @@
 import './index.scss';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';

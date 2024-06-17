@@ -1,6 +1,6 @@
 import '../../index.scss';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import _ from 'lodash';
 import { Button, message } from 'antd';
