@@ -55,7 +55,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   return (
     <div className="tabPane_wrapper_context_container">
-      <div>ProModeWindow_v4_wrapper</div>
+      <div className="float-right">v5</div>
       <div className="row" style={{ paddingLeft: '1rem' }}>
         <Select
           defaultValue={contextSelected?.type}
