@@ -15,8 +15,10 @@ import { IInputsCache } from '../../../gpt-ai-flow-common/interface-app/3_unit/I
 import { EProMode_v4_tabPane_type } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_langchain_iterate_and_optimize';
 import { IAdjust_IMessage } from '../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { useCreativityValueContext } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
+import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_langchain_iterate_and_optimize/index_v5';
 
-interface ProModeWindow_v4_wrapper_input {
+export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
   userAccessToken: string;
@@ -25,10 +27,12 @@ interface ProModeWindow_v4_wrapper_input {
   inputsCache: IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
-export const ProModeWindow_v4_wrapper = (props: ProModeWindow_v4_wrapper_input) => {
+export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
   const { urlSlug, context } = tabPane;
-  console.log('context', context);
+  //   console.log('context', context);
+
+  const creativityValue = useCreativityValueContext();
 
   const [selectedContextType, setSelectedContextType] = useState<EProMode_v4_tabPane_context_type>(
     context.length > 0 ? context[0].type : EProMode_v4_tabPane_context_type.GENERAL,
@@ -37,7 +41,7 @@ export const ProModeWindow_v4_wrapper = (props: ProModeWindow_v4_wrapper_input) 
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
-  console.log('contextSelected', contextSelected);
+  //   console.log('contextSelected', contextSelected);
   if (!contextSelected) {
     message.error('contextSelected is null');
     return null;
@@ -73,7 +77,11 @@ export const ProModeWindow_v4_wrapper = (props: ProModeWindow_v4_wrapper_input) 
       </div>
       <div className="row tabPane_context_container">
         {mode && mode === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
-          <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize
+          <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5
+            creativityValue={creativityValue}
+            contextSelected={contextSelected}
+            swtichContextSelected_by_type={swtichContextSelected_by_type}
+            // IProModeWindow_v4_wrapper_input
             t={t}
             tabPane={
               tabPane as IProMode_v4_tabPane<
