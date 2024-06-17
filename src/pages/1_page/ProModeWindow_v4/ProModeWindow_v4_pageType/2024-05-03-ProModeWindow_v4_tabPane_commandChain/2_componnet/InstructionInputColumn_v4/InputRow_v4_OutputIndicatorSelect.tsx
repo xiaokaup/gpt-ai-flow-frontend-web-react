@@ -1,7 +1,7 @@
 import '../../../../../../../styles/global.css';
 import '../../../../../../../styles/layout.scss';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Select, message } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 

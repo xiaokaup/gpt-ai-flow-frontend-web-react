@@ -12,5 +12,9 @@ module.exports = {
 
     '@typescript-eslint/no-explicit-any': 'warn',
   },
-  plugins: ['@typescript-eslint', 'unused-imports', 'plugin:react-hooks/recommended'],
+  plugins: [
+    '@typescript-eslint',
+    'unused-imports',
+    // 'plugin:react-hooks/recommended'
+  ],
 };

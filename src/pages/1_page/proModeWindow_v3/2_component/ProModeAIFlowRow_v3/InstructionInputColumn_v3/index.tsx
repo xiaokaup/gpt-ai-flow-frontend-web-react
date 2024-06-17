@@ -1,7 +1,7 @@
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 

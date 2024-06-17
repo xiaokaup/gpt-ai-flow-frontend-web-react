@@ -1,7 +1,7 @@
 import '../../../../../../styles/global.css';
 import '../../../../../../styles/layout.scss';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Form, message } from 'antd';

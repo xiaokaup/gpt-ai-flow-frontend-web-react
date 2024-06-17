@@ -1,7 +1,7 @@
 import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Select, message } from 'antd';
 import { PlusCircleOutlined, MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 

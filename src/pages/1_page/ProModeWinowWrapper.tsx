@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Select } from 'antd';
 import ProModeWindow_v4 from './ProModeWindow_v4';
 import ProModeWindow_v3 from './proModeWindow_v3';

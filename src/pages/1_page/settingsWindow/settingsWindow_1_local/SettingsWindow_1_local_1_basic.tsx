@@ -1,7 +1,7 @@
 import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Select, Tooltip, message } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -10,7 +10,10 @@ import { IReduxRootState } from '../../../../store/reducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
 import { EOpenAiModel_type } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
-import { IStoreStorageLocalSettings } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import {
+  IStoreStorageLocalSettings,
+  IStoreStorageLocalSettings_default,
+} from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { ModelStaticService } from '../../../../gpt-ai-flow-common/tools/2_class/SModels';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
@@ -24,12 +27,12 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const { t } = props;
 
   const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? {};
+    return state.local ?? IStoreStorageLocalSettings_default;
   });
 
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
 
-  const [chatModeModelType, setChatModeModelType] = useState<EOpenAiModel_type>(
+  const [chatModeModelType] = useState<EOpenAiModel_type>(
     localFromStore.chatMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TURBO,
   );
   const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(

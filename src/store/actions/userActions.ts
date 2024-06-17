@@ -5,7 +5,6 @@ import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import TBackendAuthFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendAuth';
 
-import { IReduxRootState } from '../reducer';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 
 // type MyAction = {
@@ -15,8 +14,7 @@ import { IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/IUserDa
 
 export const USER_GET_USER_PROFILE_BY_EMAIL_v2 = 'USER_GET_USER_PROFILE_BY_EMAIL';
 export const getUserProfileByEmailAction_v2 =
-  (email: string, locale: ELocale, env: IConstantGptAiFlowHandler) =>
-  async (dispatch: any, getState: () => IReduxRootState) => {
+  (email: string, locale: ELocale, env: IConstantGptAiFlowHandler) => async (dispatch: any) => {
     try {
       const userFound: IUserDB = await TBackendUserFile.getUserProfileByEmail_v2(email, locale, env);
 
@@ -33,8 +31,7 @@ export const getUserProfileByEmailAction_v2 =
 
 export const USER_LOGIN = 'USER_LOGIN';
 export const authLoginByEmailAndPasswordAction =
-  (email: string, password: string, locale: ELocale, env: IConstantGptAiFlowHandler) =>
-  async (dispatch: any, getState: () => IReduxRootState) => {
+  (email: string, password: string, locale: ELocale, env: IConstantGptAiFlowHandler) => async (dispatch: any) => {
     try {
       const userAndTokenData: IUserDB = await TBackendAuthFile.authLoginByEmailAndPassword(
         email,
@@ -57,7 +54,7 @@ export const authLoginByEmailAndPasswordAction =
 export const USER_SIGN_UP = 'USER_SIGN_UP';
 export const authRegisterByEmailAndPasswordAction_v0 =
   (userDB: IUserDB, locale: ELocale, env: IConstantGptAiFlowHandler, uniqueCode: string | undefined) =>
-  async (dispatch: any, getState: () => IReduxRootState) => {
+  async (dispatch: any) => {
     try {
       const newUser: IUserDB = await TBackendUserFile.authRegisterByEmailAndPassword_v0(
         userDB,
@@ -79,20 +76,19 @@ export const authRegisterByEmailAndPasswordAction_v0 =
   };
 
 export const UPDATTE_SPECIFIC_USER_DATA = 'UPDATTE_SPECIFIC_USER_DATA';
-export const updateSpecificUserData =
-  (newUser: IUserData) => async (dispatch: any, getState: () => IReduxRootState) => {
-    dispatch({ type: UPDATTE_SPECIFIC_USER_DATA, payload: newUser });
-  };
+export const updateSpecificUserData = (newUser: IUserData) => async (dispatch: any) => {
+  dispatch({ type: UPDATTE_SPECIFIC_USER_DATA, payload: newUser });
+};
 
 export const USER_LOGOUT = 'USER_LOGOUT';
-export const userLogoutAction = () => async (dispatch: any, getState: () => IReduxRootState) => {
+export const userLogoutAction = () => async (dispatch: any) => {
   dispatch({ type: USER_LOGOUT });
 };
 
 export const USER_RESET_PASSWORD_WITH_EMAIL = 'USER_RESET_PASSWORD_WITH_EMAIL';
 export const userResetPasswordWithEmailAction =
   (t: IGetT_frontend_output, email: string, locale: ELocale, env: IConstantGptAiFlowHandler) =>
-  async (dispatch: any, getState: () => IReduxRootState) => {
+  async (dispatch: any) => {
     try {
       const userResults = await TBackendAuthFile.resetPasswordWithEmail(email, locale, env);
 
@@ -118,7 +114,7 @@ export const userUpdateUserPasswordActionAction_v1 =
     locale: ELocale,
     env: IConstantGptAiFlowHandler,
   ) =>
-  async (dispatch: any, getState: () => IReduxRootState) => {
+  async (dispatch: any) => {
     try {
       const userResults = await TBackendAuthFile.updateUserPassword_v1(
         t,

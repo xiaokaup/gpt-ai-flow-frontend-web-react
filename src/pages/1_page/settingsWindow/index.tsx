@@ -5,13 +5,16 @@ import { IReduxRootState } from '../../../store/reducer';
 
 import { IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IStoreStorageLocalSettings } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import {
+  IStoreStorageLocalSettings,
+  IStoreStorageLocalSettings_default,
+} from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 import { SettingsWindow_7_about } from './SettingsWindow_7_about';
 import { SettingsWindow_1_local } from './settingsWindow_1_local';
 import { SettingsWindow_2_user_3_info } from './settingsWindow_2_user/SettingsWindow_2_user_3_info';
 import { SettingsWindow_4_proMode } from './settingsWindow_4_proMode';
-import { SettingsWindow_6_referralReward } from './SettingsWindow_6_referralReward';
+// import { SettingsWindow_6_referralReward } from './SettingsWindow_6_referralReward';
 
 interface ISettingsWindow_input {
   t: IGetT_frontend_output;
@@ -20,10 +23,10 @@ interface ISettingsWindow_input {
 }
 export const SettingsWindow = (props: ISettingsWindow_input) => {
   const { t, userData, isAuthenticated } = props;
-  const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = userData;
+  // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = userData;
 
   const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? {};
+    return state.local ?? IStoreStorageLocalSettings_default;
   });
   const { locale } = localFromStore;
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';

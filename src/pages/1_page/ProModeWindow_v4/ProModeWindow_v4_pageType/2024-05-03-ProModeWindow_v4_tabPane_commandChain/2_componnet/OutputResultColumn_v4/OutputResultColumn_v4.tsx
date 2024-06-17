@@ -2,7 +2,7 @@ import '../../../../../../../styles/global.css';
 import '../../../../../../../styles/layout.scss';
 import './OutputResultColumn_v4.scss';
 
-import React, { Dispatch, SetStateAction, useRef } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import html2canvas from 'html2canvas';
 import copy from 'copy-to-clipboard';
