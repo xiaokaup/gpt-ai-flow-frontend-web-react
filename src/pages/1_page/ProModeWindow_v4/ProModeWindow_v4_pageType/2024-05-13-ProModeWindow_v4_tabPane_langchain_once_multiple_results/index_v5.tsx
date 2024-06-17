@@ -6,8 +6,6 @@ import { Button, Select, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
-import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IMessage, IMessage_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_previousOutput } from './component/Langchain_previousOutput';
 import { Langchain_currentOutput } from './component/Langchain_currentOutput';
@@ -20,7 +18,6 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/conf
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
 import { EButton_operation } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
 import { IAdjust_morePostsChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-05-13-IProMode_v4_morePostsChain';
@@ -33,22 +30,20 @@ import {
   ILangchainMessageExchange,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
+import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 
-interface ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input {
-  t: IGetT_frontend_output;
-  tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
-  userAccessToken: string;
-  modelSecret: string;
-  proModeModelType: EOpenAiModel_type;
-  inputsCache: IInputsCache;
-  setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
+interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
+  extends IProModeWindow_v4_wrapper_input {
+  creativityValue: number;
+  contextSelected: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
+  // swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_type) => void;
 }
-export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results = (
-  props: ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_input,
+export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5 = (
+  props: IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input,
 ) => {
+  const { creativityValue, contextSelected } = props;
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
   const { urlSlug, context, buttons } = tabPane;
-  const creativityValue = useCreativityValueContext();
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
@@ -83,11 +78,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
-
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context<
-    IBackground_for_type_langchain,
-    IAdjust_for_type_langchain
-  > | null>(context.length > 0 ? context[0] : null);
 
   const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
     const newVersionNum =
@@ -148,7 +138,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
           message.error('urlSlug is empty');
           continue;
         }
-
         const promiseInstance = TBackendLangchainFile.postProMode_v4_langchain_tabPane_chains(
           urlSlug,
           bodyData,
@@ -282,264 +271,189 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   };
 
   return (
-    <div className="page_container" style={{ maxWidth: 'unset' }}>
-      <div className="context_container">
-        <div className="row" style={{ paddingLeft: '1rem' }}>
-          <Select
-            defaultValue={contextSelected?.type ?? null}
-            style={{ width: 120 }}
-            onChange={(value: string) => {
-              console.log(`selected ${value}`);
-              setContextSelected(context.find((item) => item.type === value) ?? null);
-              setMessageExchangeType(
-                context.find((item) => item.type === value)?.type ?? EProMode_v4_tabPane_context_type.GENERAL,
-              );
-            }}
-            options={context.map(
-              (item: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
-                return {
-                  label: t.get(item.label),
-                  value: item.type,
-                };
-              },
-            )}
-          />
-        </div>
+    <>
+      {contextSelected && (
+        <div className="row row_contextSelected" style={{ display: 'flex' }}>
+          <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
+            <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
+              {chatHistory.length > 0 && (
+                <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                  <LeftOutlined
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (currentVersionNum === 1) return;
+                      if (isCalling) return;
+                      const previousVersion = currentVersionNum - 2;
+                      setMessageExchangeData(
+                        chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData,
+                      );
+                      setCurrentVersionNum(previousVersion);
+                    }}
+                  />
 
-        {contextSelected && (
-          <div className="row row_contextSelected" style={{ display: 'flex' }}>
-            <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
-              <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
-                {chatHistory.length > 0 && (
-                  <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <LeftOutlined
-                      style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                      onClick={() => {
-                        if (currentVersionNum === 1) return;
-                        if (isCalling) return;
-                        const previousVersion = currentVersionNum - 2;
-                        setMessageExchangeData(
-                          chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData,
-                        );
-                        setCurrentVersionNum(previousVersion);
-                      }}
-                    />
-
-                    <div className="row">
-                      {t.get('Version')}: {Math.floor(currentVersionNum / 2) + 1}
-                    </div>
-
-                    <RightOutlined
-                      style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                      onClick={() => {
-                        if (currentVersionNum === chatHistory.length - 1) return;
-                        if (isCalling) return;
-                        const nextVersion = currentVersionNum + 2;
-                        setMessageExchangeData(
-                          chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData,
-                        );
-                        setCurrentVersionNum(nextVersion);
-                      }}
-                    />
+                  <div className="row">
+                    {t.get('Version')}: {Math.floor(currentVersionNum / 2) + 1}
                   </div>
-                )}
-                {/* <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+
+                  <RightOutlined
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (currentVersionNum === chatHistory.length - 1) return;
+                      if (isCalling) return;
+                      const nextVersion = currentVersionNum + 2;
+                      setMessageExchangeData(
+                        chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData,
+                      );
+                      setCurrentVersionNum(nextVersion);
+                    }}
+                  />
+                </div>
+              )}
+              {/* <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
               {currentVersionNum === 0 && chatHistory.length === 0 && <div className="row">{t.get('No version')}</div>}
             </div> */}
-              </div>
-
-              {!contextSelected.currentOutput.isHidden && !isCalling && (
-                <div className="row currentOuput">
-                  <Langchain_currentOutput
-                    t={t}
-                    title={contextSelected.currentOutput.title ?? t.get('Post')}
-                    currentOutput={currentOutput}
-                    setCurrentOutput={(newItem: IMessage) => {
-                      setMessageExchangeData({
-                        ...messageExchangeData,
-                        currentOutput: newItem,
-                      });
-                    }}
-                    onResetAll={onResetAll}
-                  />
-                </div>
-              )}
-
-              {isCalling &&
-                messages_outputs.map((item: IMessage, index: number) => {
-                  return (
-                    <div className="row currentOuput" key={index}>
-                      <Langchain_currentOutput
-                        t={t}
-                        title={`${contextSelected.currentOutput.title} ${index + 1}` ?? t.get('Post')}
-                        currentOutput={item}
-                        setCurrentOutput={(newItem: IMessage) => {
-                          setMessageExchangeData({
-                            ...messageExchangeData,
-                            currentOutput: newItem,
-                          });
-                        }}
-                        onResetAll={onResetAll}
-                      />
-                    </div>
-                  );
-                })}
-
-              {!contextSelected.previousOutput.isHidden && (
-                <div className="row previousOutput">
-                  <Langchain_previousOutput
-                    t={t}
-                    previousOutput={previousOutput}
-                    setPreviousOutput={(newItem: IMessage) => {
-                      setMessageExchangeData({
-                        ...messageExchangeData,
-                        previousOutput: newItem,
-                      });
-                    }}
-                  />
-                </div>
-              )}
             </div>
 
-            <div
-              className="column m-0"
-              style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
-            >
-              <div className="row adjust">
-                <Langchain_adjust
+            {!contextSelected.currentOutput.isHidden && !isCalling && (
+              <div className="row currentOuput">
+                <Langchain_currentOutput
                   t={t}
-                  isAdjustCall={currentVersionNum > 0}
-                  adjustSelected={contextSelected.adjust}
-                  adjust={adjust as IAdjust_morePostsChain}
-                  setAdjust={(newItem: IAdjust_morePostsChain) => {
-                    setMessages_outputs_num(newItem.currentOuputNums);
+                  title={contextSelected.currentOutput.title ?? t.get('Post')}
+                  currentOutput={currentOutput}
+                  setCurrentOutput={(newItem: IMessage) => {
                     setMessageExchangeData({
                       ...messageExchangeData,
-                      adjust: newItem,
+                      currentOutput: newItem,
                     });
-                    setInputsCache((prvState: IInputsCache) => ({
-                      ...prvState,
-                      ...newItem,
-                      currentOuputNums: newItem?.currentOuputNums?.toString(), // Convert currentOuputNums to string
-                    }));
                   }}
+                  onResetAll={onResetAll}
                 />
               </div>
+            )}
 
-              <div className="row background">
-                <Langchain_background
-                  t={t}
-                  backgroundSelected={contextSelected.background}
-                  background={background}
-                  setBackground={(newItem: IBackground_for_type_langchain) => {
-                    setMessageExchangeData({
-                      ...messageExchangeData,
-                      background: newItem,
-                    });
-                    setInputsCache((prvState: IInputsCache) => ({
-                      ...prvState,
-                      ...newItem,
-                    }));
-                  }}
-                />
-              </div>
-
-              <div className="row buttons">
-                <div className="row operation">
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      onImproveMessage(chatHistory, messageExchangeData)();
-                    }}
-                    disabled={
-                      isCalling ||
-                      (chatHistory.length > 0
-                        ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
-                        : false)
-                    }
-                  >
-                    {t.get('Generate')}
-                  </Button>
-
-                  {buttons && !buttons.find((item) => item.operation === EButton_operation.REGENERATE)?.isHidden && (
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        onRegenerateMessage();
+            {isCalling &&
+              messages_outputs.map((item: IMessage, index: number) => {
+                return (
+                  <div className="row currentOuput" key={index}>
+                    <Langchain_currentOutput
+                      t={t}
+                      title={`${contextSelected.currentOutput.title} ${index + 1}` ?? t.get('Post')}
+                      currentOutput={item}
+                      setCurrentOutput={(newItem: IMessage) => {
+                        setMessageExchangeData({
+                          ...messageExchangeData,
+                          currentOutput: newItem,
+                        });
                       }}
-                      style={{ marginLeft: '1rem' }}
-                      disabled={isCalling || currentVersionNum < 2}
-                    >
-                      {t.get('Regenerate')}
-                    </Button>
-                  )}
+                      onResetAll={onResetAll}
+                    />
+                  </div>
+                );
+              })}
 
-                  <Button
-                    onClick={() => {
-                      requestController.abort();
-                      setIsCalling(false);
-                    }}
-                    style={{ marginLeft: '1rem' }}
-                  >
-                    {t.get('Stop')}
-                  </Button>
-                </div>
+            {!contextSelected.previousOutput.isHidden && (
+              <div className="row previousOutput">
+                <Langchain_previousOutput
+                  t={t}
+                  previousOutput={previousOutput}
+                  setPreviousOutput={(newItem: IMessage) => {
+                    setMessageExchangeData({
+                      ...messageExchangeData,
+                      previousOutput: newItem,
+                    });
+                  }}
+                />
+              </div>
+            )}
+          </div>
 
-                {/* <div className="row @DEV">
+          <div
+            className="column m-0"
+            style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
+          >
+            <div className="row adjust">
+              <Langchain_adjust
+                t={t}
+                isAdjustCall={currentVersionNum > 0}
+                adjustSelected={contextSelected.adjust}
+                adjust={adjust as IAdjust_morePostsChain}
+                setAdjust={(newItem: IAdjust_morePostsChain) => {
+                  setMessages_outputs_num(newItem.currentOuputNums);
+                  setMessageExchangeData({
+                    ...messageExchangeData,
+                    adjust: newItem,
+                  });
+                  setInputsCache((prvState: IInputsCache) => ({
+                    ...prvState,
+                    ...newItem,
+                    currentOuputNums: newItem?.currentOuputNums?.toString(), // Convert currentOuputNums to string
+                  }));
+                }}
+              />
+            </div>
+
+            <div className="row background">
+              <Langchain_background
+                t={t}
+                backgroundSelected={contextSelected.background}
+                background={background}
+                setBackground={(newItem: IBackground_for_type_langchain) => {
+                  setMessageExchangeData({
+                    ...messageExchangeData,
+                    background: newItem,
+                  });
+                  setInputsCache((prvState: IInputsCache) => ({
+                    ...prvState,
+                    ...newItem,
+                  }));
+                }}
+              />
+            </div>
+
+            <div className="row buttons">
+              <div className="row operation">
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    onImproveMessage(chatHistory, messageExchangeData)();
+                  }}
+                  disabled={
+                    isCalling ||
+                    (chatHistory.length > 0
+                      ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
+                      : false)
+                  }
+                >
+                  {t.get('Generate')}
+                </Button>
+
+                {buttons && !buttons.find((item) => item.operation === EButton_operation.REGENERATE)?.isHidden && (
                   <Button
                     type="primary"
                     onClick={() => {
-                      console.log('chatHistory', chatHistory);
+                      onRegenerateMessage();
                     }}
+                    style={{ marginLeft: '1rem' }}
+                    disabled={isCalling || currentVersionNum < 2}
                   >
-                    chatHistory
+                    {t.get('Regenerate')}
                   </Button>
+                )}
 
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      console.log('currentVersionNum', currentVersionNum);
-                    }}
-                    style={{ marginLeft: '1rem' }}
-                  >
-                    currentVersionNum
-                  </Button>
-
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      console.log('messageExchangeType', messageExchangeType);
-                      console.log('messageExchangeData', messageExchangeData);
-                    }}
-                    style={{ marginLeft: '1rem' }}
-                  >
-                    messageExchangeData
-                  </Button>
-
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      console.log('messages_for_outputs_num', messages_for_outputs_num);
-                    }}
-                    style={{ marginLeft: '1rem' }}
-                  >
-                    messages_for_outputs_num
-                  </Button>
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      console.log('messages_outputs', messages_outputs);
-                    }}
-                    style={{ marginLeft: '1rem' }}
-                  >
-                    messages_outputs
-                  </Button>
-                </div> */}
+                <Button
+                  onClick={() => {
+                    requestController.abort();
+                    setIsCalling(false);
+                  }}
+                  style={{ marginLeft: '1rem' }}
+                >
+                  {t.get('Stop')}
+                </Button>
               </div>
             </div>
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };

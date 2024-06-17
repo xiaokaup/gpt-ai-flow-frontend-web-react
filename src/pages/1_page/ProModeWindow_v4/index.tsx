@@ -252,21 +252,22 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                             setInputsCache={setInputsCache}
                           />
                         )}
-                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
-                        <ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
-                          t={t}
-                          tabPane={
-                            tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
-                            >
-                          }
-                          userAccessToken={userAccessToken}
-                          modelSecret={modelSecret}
-                          proModeModelType={proModeModelType}
-                          inputsCache={inputsCache}
-                          setInputsCache={setInputsCache}
-                        />
-                      )}
+                      {versionDate !== '2024-06-17-v5' &&
+                        tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
+                          <ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
+                            t={t}
+                            tabPane={
+                              tabPane as IProMode_v4_tabPane<
+                                IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
+                              >
+                            }
+                            userAccessToken={userAccessToken}
+                            modelSecret={modelSecret}
+                            proModeModelType={proModeModelType}
+                            inputsCache={inputsCache}
+                            setInputsCache={setInputsCache}
+                          />
+                        )}
                       {tabPane.type === EProMode_v4_tabPane_type.TOOL_IMAGE_CROP && (
                         <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
                       )}
