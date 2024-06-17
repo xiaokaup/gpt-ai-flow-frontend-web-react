@@ -52,9 +52,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_context_type>(
-    context.length > 0 ? context[0].type : EProMode_v4_tabPane_context_type.GENERAL,
-  );
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
@@ -106,7 +103,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
         openaiModelType: proModeModelType,
         temperature: creativityValue,
       },
-      type: messageExchangeType,
+      type: selectedContextType,
       prevMessageExchange: chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : paraMessageExchangeData,
       currentMessageExchange: newMessageExchangeData_for_human,
     };
@@ -134,6 +131,11 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
       setMessageExchangeData(newMessageExchange_for_human);
       setChatHistory(newChatHistory_for_human);
       setCurrentVersionNum(newChatHistory_for_human.length - 1);
+
+      if (!urlSlug) {
+        message.error('urlSlug is empty');
+        return;
+      }
 
       TBackendLangchainFile.postProMode_v4_langchain_tabPane_chains(
         urlSlug,
@@ -221,9 +223,6 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   const swtichContextSelected_by_type = (newType: EProMode_v4_tabPane_context_type) => {
     setSelectedContextType(newType);
     setContextSelected(context.find((item) => item.type === newType) ?? null);
-    setMessageExchangeType(
-      context.find((item) => item.type === newType)?.type ?? EProMode_v4_tabPane_context_type.GENERAL,
-    );
   };
 
   return (
