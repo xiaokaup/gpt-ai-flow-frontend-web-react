@@ -48,6 +48,7 @@ import { IAdjust_IMessage } from '../../../gpt-ai-flow-common/interface-app/2_co
 import { IUserData, IUserData_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IProMode_v4_tabPane_tool } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/04-tool/interface';
 import { EProMode_v4_tabPane_type } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
+import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -80,6 +81,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   // === ProMode Data - start ===
   const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4['tabPanes']>([]);
+  console.log('proMode_v4_tabPanes', proMode_v4_tabPanes);
   // === ProMode Data - end ===
 
   // === ProMode tabPane settings - start ===
@@ -208,8 +210,25 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 // onEdit={onEditTabPanel}
               >
                 {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
+                  const { versionDate, versionNum } = tabPane;
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
+                      {(versionDate === '2024-06-17-v5' || (versionNum && (versionNum as number) >= 5)) && (
+                        <ProModeWindow_v4_wrapper
+                          t={t}
+                          tabPane={
+                            tabPane as IProMode_v4_tabPane<
+                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
+                            >
+                          }
+                          userAccessToken={userAccessToken}
+                          modelSecret={modelSecret}
+                          proModeModelType={proModeModelType}
+                          inputsCache={inputsCache}
+                          setInputsCache={setInputsCache}
+                        />
+                      )}
+
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN && (
                         <ProModeWindow_v4_tabPane_type_langchain
                           t={t}
@@ -217,36 +236,38 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           webCase={{ userData, localDataFromStorage }}
                         />
                       )}
-                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
-                        <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize
-                          t={t}
-                          tabPane={
-                            tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
-                            >
-                          }
-                          userAccessToken={userAccessToken}
-                          modelSecret={modelSecret}
-                          proModeModelType={proModeModelType}
-                          inputsCache={inputsCache}
-                          setInputsCache={setInputsCache}
-                        />
-                      )}
-                      {tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
-                        <ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
-                          t={t}
-                          tabPane={
-                            tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
-                            >
-                          }
-                          userAccessToken={userAccessToken}
-                          modelSecret={modelSecret}
-                          proModeModelType={proModeModelType}
-                          inputsCache={inputsCache}
-                          setInputsCache={setInputsCache}
-                        />
-                      )}
+                      {versionDate !== '2024-06-17-v5' &&
+                        tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
+                          <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize
+                            t={t}
+                            tabPane={
+                              tabPane as IProMode_v4_tabPane<
+                                IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
+                              >
+                            }
+                            userAccessToken={userAccessToken}
+                            modelSecret={modelSecret}
+                            proModeModelType={proModeModelType}
+                            inputsCache={inputsCache}
+                            setInputsCache={setInputsCache}
+                          />
+                        )}
+                      {versionDate !== '2024-06-17-v5' &&
+                        tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
+                          <ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
+                            t={t}
+                            tabPane={
+                              tabPane as IProMode_v4_tabPane<
+                                IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
+                              >
+                            }
+                            userAccessToken={userAccessToken}
+                            modelSecret={modelSecret}
+                            proModeModelType={proModeModelType}
+                            inputsCache={inputsCache}
+                            setInputsCache={setInputsCache}
+                          />
+                        )}
                       {tabPane.type === EProMode_v4_tabPane_type.TOOL_IMAGE_CROP && (
                         <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
                       )}
