@@ -11,7 +11,6 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import { IProMode_v4_tabPane } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
 import { IInputsCache } from '../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { EProMode_v4_tabPane_type } from '../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
-import { IAdjust_IMessage } from '../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { useCreativityValueContext } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_langchain_iterate_and_optimize/index_v5';
 import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_langchain_once_multiple_results/index_v5';
@@ -27,7 +26,10 @@ export interface IProModeWindow_v4_wrapper_input {
 }
 export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
-  const { urlSlug, context } = tabPane;
+  const {
+    // urlSlug,
+    context,
+  } = tabPane;
   //   console.log('context', context);
 
   const creativityValue = useCreativityValueContext();
