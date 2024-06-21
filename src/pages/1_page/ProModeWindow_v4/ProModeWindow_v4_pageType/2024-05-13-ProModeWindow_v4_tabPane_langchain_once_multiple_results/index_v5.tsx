@@ -2,10 +2,9 @@ import '../../index.scss';
 
 import { useState } from 'react';
 
-import { Button, Select, message } from 'antd';
+import { Button, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IMessage, IMessage_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_previousOutput } from './component/Langchain_previousOutput';
 import { Langchain_currentOutput } from './component/Langchain_currentOutput';
@@ -28,6 +27,7 @@ import {
   ILangchainMessageExchange_default,
   IAdjust_type_langchain_default,
   ILangchainMessageExchange,
+  IFormItem,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
@@ -48,7 +48,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [messageExchangeType, setMessageExchangeType] = useState<EProMode_v4_tabPane_context_type>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [messageExchangeType, _] = useState<EProMode_v4_tabPane_context_type>(
     contextType ?? EProMode_v4_tabPane_context_type.GENERAL,
   );
   const messageExchangeData_default = {
@@ -78,6 +79,36 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
+
+  const filterBackendAndAjdust_before_buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
+    const filtedAdjust = contextSelected.adjust.formItems.reduce(
+      (acc, currentFormItem: IFormItem<IAdjust_for_type_langchain>) => {
+        if (paraMessageExchangeData.adjust[currentFormItem.name]) {
+          acc[currentFormItem.name] = paraMessageExchangeData.adjust[currentFormItem.name];
+        }
+        return acc;
+      },
+      {} as IAdjust_for_type_langchain,
+    );
+
+    const filtedBackground = contextSelected.background.formItems.reduce(
+      (acc, currentFormItem: IFormItem<IBackground_for_type_langchain>) => {
+        if (paraMessageExchangeData.background[currentFormItem.name]) {
+          acc[currentFormItem.name] = paraMessageExchangeData.background[currentFormItem.name];
+        }
+        return acc;
+      },
+      {} as IBackground_for_type_langchain,
+    );
+
+    const filteredParaMessageExchangeData = {
+      ...paraMessageExchangeData,
+      adjust: filtedAdjust,
+      background: filtedBackground,
+    };
+    // console.log('filteredParaMessageExchangeData', filteredParaMessageExchangeData);
+    return filteredParaMessageExchangeData;
+  };
 
   const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
     const newVersionNum =
@@ -122,7 +153,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
       const { signal } = newRequestController;
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
-      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(paraMessageExchangeData);
+      const filteredParaMessageExchangeData = filterBackendAndAjdust_before_buildHumanMessage(paraMessageExchangeData);
+      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(filteredParaMessageExchangeData);
       const newMessageExchange_for_human = bodyData.currentMessageExchange;
       const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
       const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];
