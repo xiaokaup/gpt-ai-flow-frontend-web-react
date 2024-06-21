@@ -2,7 +2,6 @@ import '../../index.scss';
 
 import { useState } from 'react';
 
-import _ from 'lodash';
 import { Button, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
@@ -25,6 +24,7 @@ import {
   ILangchainMessageExchange_default,
   ILangchainMessageExchange,
   IPromode_v4_tabPane_context,
+  IFormItem,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 import { IAdjust_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
@@ -43,7 +43,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   props: IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input,
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
-  const { urlSlug, contextType, buttons } = contextSelected;
+  const { urlSlug, contextType } = contextSelected;
   const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -70,6 +70,36 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
+
+  const filterBackendAndAjdust_before_buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
+    const filtedAdjust = contextSelected.adjust.formItems.reduce(
+      (acc, currentFormItem: IFormItem<IAdjust_for_type_langchain>) => {
+        if (paraMessageExchangeData.adjust[currentFormItem.name]) {
+          acc[currentFormItem.name] = paraMessageExchangeData.adjust[currentFormItem.name];
+        }
+        return acc;
+      },
+      {} as IAdjust_for_type_langchain,
+    );
+
+    const filtedBackground = contextSelected.background.formItems.reduce(
+      (acc, currentFormItem: IFormItem<IBackground_for_type_langchain>) => {
+        if (paraMessageExchangeData.background[currentFormItem.name]) {
+          acc[currentFormItem.name] = paraMessageExchangeData.background[currentFormItem.name];
+        }
+        return acc;
+      },
+      {} as IBackground_for_type_langchain,
+    );
+
+    const filteredParaMessageExchangeData = {
+      ...paraMessageExchangeData,
+      adjust: filtedAdjust,
+      background: filtedBackground,
+    };
+    // console.log('filteredParaMessageExchangeData', filteredParaMessageExchangeData);
+    return filteredParaMessageExchangeData;
+  };
 
   const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
     const newVersionNum =
@@ -113,7 +143,8 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
       const { signal } = newRequestController;
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
-      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(paraMessageExchangeData);
+      const filteredParaMessageExchangeData = filterBackendAndAjdust_before_buildHumanMessage(paraMessageExchangeData);
+      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(filteredParaMessageExchangeData);
       const newMessageExchange_for_human = bodyData.currentMessageExchange;
       const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
       const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];
@@ -303,10 +334,15 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                     ...messageExchangeData,
                     adjust: newItem,
                   });
-                  setInputsCache((prvState) => ({
-                    ...prvState,
-                    ...newItem,
-                  }));
+                  setInputsCache((prevState) => {
+                    // console.log('setInputsCache for adjust');
+                    // console.log('prevState for adjust', prevState);
+                    // console.log('newItem for adjust', newItem);
+                    return {
+                      ...prevState,
+                      ...newItem,
+                    };
+                  });
                 }}
                 contextSelected_type={contextSelected.type}
                 swtichContextSelected_by_type={swtichContextSelected_by_type}
@@ -323,10 +359,15 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                     ...messageExchangeData,
                     background: newItem,
                   });
-                  setInputsCache((prvState: IInputsCache) => ({
-                    ...prvState,
-                    ...newItem,
-                  }));
+                  setInputsCache((prevState: IInputsCache) => {
+                    // console.log('setInputsCache for background');
+                    // console.log('prevState for background', prevState);
+                    // console.log('newItem for background', newItem);
+                    return {
+                      ...prevState,
+                      ...newItem,
+                    };
+                  });
                 }}
               />
             </div>
@@ -373,6 +414,52 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
           </div>
         </div>
       )}
+      {/* <div className="row @DEV">
+        <Button
+          type="primary"
+          onClick={() => {
+            console.log('chatHistory', chatHistory);
+          }}
+        >
+          chatHistory
+        </Button>
+
+        <Button
+          type="primary"
+          onClick={() => {
+            console.log('currentVersionNum', currentVersionNum);
+          }}
+          style={{ marginLeft: '1rem' }}
+        >
+          currentVersionNum
+        </Button>
+
+        <Button
+          type="primary"
+          onClick={() => {
+            console.log('contextType', contextType);
+            console.log('messageExchangeData', messageExchangeData);
+          }}
+          style={{ marginLeft: '1rem' }}
+        >
+          messageExchangeData
+        </Button>
+
+        <Button
+          type="primary"
+          onClick={() => {
+            console.log('currentVersionNum', currentVersionNum);
+          }}
+          style={{ marginLeft: '1rem' }}
+        >
+          inputsCache
+        </Button>
+      </div>
+      <div>
+        <pre>
+          <code>{JSON.stringify(messageExchangeData, null, 2)}</code>
+        </pre>
+      </div> */}
     </>
   );
 };

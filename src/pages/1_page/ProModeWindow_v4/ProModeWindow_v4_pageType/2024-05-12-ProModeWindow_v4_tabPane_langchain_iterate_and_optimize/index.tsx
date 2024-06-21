@@ -2,7 +2,6 @@ import '../../index.scss';
 
 import { useState } from 'react';
 
-import _ from 'lodash';
 import { Button, Select, message } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
