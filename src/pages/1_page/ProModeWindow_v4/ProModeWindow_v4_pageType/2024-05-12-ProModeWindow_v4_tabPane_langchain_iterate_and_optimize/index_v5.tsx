@@ -253,10 +253,19 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                     onClick={() => {
                       if (currentVersionNum === 1) return;
                       if (isCalling) return;
+                      const writingPostDataBeforeRollback = { ...messageExchangeData };
+                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
+                        writingPostDataBeforeRollback;
+
                       const previousVersion = currentVersionNum - 2;
-                      setMessageExchangeData(
-                        chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData,
-                      );
+                      const messageExchangeDataRollBack =
+                        chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData;
+
+                      setMessageExchangeData({
+                        ...messageExchangeDataRollBack,
+                        adjust: adjustBeforeRollBack,
+                        background: backgroundBeforeRollBack,
+                      });
                       setCurrentVersionNum(previousVersion);
                     }}
                   />
@@ -270,10 +279,19 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                     onClick={() => {
                       if (currentVersionNum === chatHistory.length - 1) return;
                       if (isCalling) return;
+                      const writingPostDataBeforeRollback = { ...messageExchangeData };
+                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
+                        writingPostDataBeforeRollback;
+
                       const nextVersion = currentVersionNum + 2;
-                      setMessageExchangeData(
-                        chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData,
-                      );
+                      const messageExchangeDataRollBack =
+                        chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData;
+
+                      setMessageExchangeData({
+                        ...messageExchangeDataRollBack,
+                        adjust: adjustBeforeRollBack,
+                        background: backgroundBeforeRollBack,
+                      });
                       setCurrentVersionNum(nextVersion);
                     }}
                   />
