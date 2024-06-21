@@ -334,15 +334,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                     ...messageExchangeData,
                     adjust: newItem,
                   });
-                  setInputsCache((prevState) => {
-                    // console.log('setInputsCache for adjust');
-                    // console.log('prevState for adjust', prevState);
-                    // console.log('newItem for adjust', newItem);
-                    return {
-                      ...prevState,
-                      ...newItem,
-                    };
-                  });
+                  setInputsCache((prvState: IInputsCache) => ({
+                    ...prvState,
+                    ...newItem,
+                  }));
                 }}
                 contextSelected_type={contextSelected.type}
                 swtichContextSelected_by_type={swtichContextSelected_by_type}
@@ -359,15 +354,10 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                     ...messageExchangeData,
                     background: newItem,
                   });
-                  setInputsCache((prevState: IInputsCache) => {
-                    // console.log('setInputsCache for background');
-                    // console.log('prevState for background', prevState);
-                    // console.log('newItem for background', newItem);
-                    return {
-                      ...prevState,
-                      ...newItem,
-                    };
-                  });
+                  setInputsCache((prvState: IInputsCache) => ({
+                    ...prvState,
+                    ...newItem,
+                  }));
                 }}
               />
             </div>
