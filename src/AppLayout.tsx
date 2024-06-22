@@ -44,7 +44,9 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
   const handleSwithLanguage = (nextLocal: ELocale) => {
     const newLocalSettings = { ...localSettings, locale: nextLocal };
     dispatch(saveLocalAction(newLocalSettings) as any);
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 200);
   };
 
   const items: MenuProps['items'] = [

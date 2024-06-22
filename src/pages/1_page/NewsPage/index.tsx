@@ -26,6 +26,7 @@ interface INewsPageProps {
 export const NewsPage = (props: INewsPageProps) => {
   const { webCase } = props;
   const { t, locale, env } = webCase;
+  console.log('locale', locale);
 
   const [news, setNews] = useState<IGetNewsDaily_output>();
 
@@ -62,13 +63,13 @@ export const NewsPage = (props: INewsPageProps) => {
         </div>
 
         <div className="row news mb-10">
-          {t.currentLocale === ELocale.EN && (
+          {locale === ELocale.EN && (
             <>
               <News_en t={t} news={news} />
               <News_zh t={t} news={news} />
             </>
           )}
-          {t.currentLocale === ELocale.ZH && (
+          {locale === ELocale.ZH && (
             <>
               <News_zh t={t} news={news} />
               <News_en t={t} news={news} />
