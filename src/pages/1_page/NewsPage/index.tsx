@@ -62,73 +62,95 @@ export const NewsPage = (props: INewsPageProps) => {
         </div>
 
         <div className="row news mb-10">
-          <div className="row ">
-            <h2>{t.get('News')} 🇨🇳</h2>
-            {news && (
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {news['v2ex-create'] && (
-                  <div className="oneNews">
-                    <V2exCreateCard news={news['v2ex-create']} />
-                  </div>
-                )}
-                {news['toutiao-search'] && (
-                  <div className="oneNews">
-                    <ToutiaoSearchCard news={news['toutiao-search']} />
-                  </div>
-                )}
-
-                {news['weibo-search'] && (
-                  <div className="oneNews">
-                    <WeiboSearchCard news={news['weibo-search']} />
-                  </div>
-                )}
-
-                {news['zhihu-questions'] && (
-                  <div className="oneNews">
-                    <ZhihuQuestions news={news['zhihu-questions']} />
-                  </div>
-                )}
-
-                {news['zhihu-search'] && (
-                  <div className="oneNews">
-                    <ZhihuSearch news={news['zhihu-search']} />
-                  </div>
-                )}
-
-                {news['zhihu-video'] && (
-                  <div className="oneNews">
-                    <ZhihuVideo news={news['zhihu-video']} />
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className="row">
-            <h2>{t.get('News')} 🇺🇸</h2>
-            {news && (
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {news['reddit-hot'] && (
-                  <div className="oneNews">
-                    <RedditHotCard news={news['reddit-hot']} />
-                  </div>
-                )}
-                {news['github-trending'] && (
-                  <div className="oneNews">
-                    <GithubTrendingCard news={news['github-trending']} />
-                  </div>
-                )}
-                {news['product-hunt-ranking'] && (
-                  <div className="oneNews">
-                    <ProductHuntRankingCard news={news['product-hunt-ranking']} />
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          {t.currentLocale === ELocale.EN && (
+            <>
+              <News_en t={t} news={news} />
+              <News_zh t={t} news={news} />
+            </>
+          )}
+          {t.currentLocale === ELocale.ZH && (
+            <>
+              <News_zh t={t} news={news} />
+              <News_en t={t} news={news} />
+            </>
+          )}
         </div>
       </div>
       {/* <pre>{JSON.stringify(news, null, 2)}</pre> */}
     </div>
   );
 };
+function News_en(props: { t: IGetT_frontend_output; news: IGetNewsDaily_output }) {
+  const { t, news } = props;
+  return (
+    <div className="row">
+      <h2>{t.get('News')} 🇺🇸</h2>
+      {news && (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {news['reddit-hot'] && (
+            <div className="oneNews">
+              <RedditHotCard news={news['reddit-hot']} />
+            </div>
+          )}
+          {news['github-trending'] && (
+            <div className="oneNews">
+              <GithubTrendingCard news={news['github-trending']} />
+            </div>
+          )}
+          {news['product-hunt-ranking'] && (
+            <div className="oneNews">
+              <ProductHuntRankingCard news={news['product-hunt-ranking']} />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function News_zh(props: { t: IGetT_frontend_output; news: IGetNewsDaily_output }) {
+  const { t, news } = props;
+  return (
+    <div className="row">
+      <h2>{t.get('News')} 🇨🇳</h2>
+      {news && (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {news['v2ex-create'] && (
+            <div className="oneNews">
+              <V2exCreateCard news={news['v2ex-create']} />
+            </div>
+          )}
+          {news['toutiao-search'] && (
+            <div className="oneNews">
+              <ToutiaoSearchCard news={news['toutiao-search']} />
+            </div>
+          )}
+
+          {news['weibo-search'] && (
+            <div className="oneNews">
+              <WeiboSearchCard news={news['weibo-search']} />
+            </div>
+          )}
+
+          {news['zhihu-questions'] && (
+            <div className="oneNews">
+              <ZhihuQuestions news={news['zhihu-questions']} />
+            </div>
+          )}
+
+          {news['zhihu-search'] && (
+            <div className="oneNews">
+              <ZhihuSearch news={news['zhihu-search']} />
+            </div>
+          )}
+
+          {news['zhihu-video'] && (
+            <div className="oneNews">
+              <ZhihuVideo news={news['zhihu-video']} />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
