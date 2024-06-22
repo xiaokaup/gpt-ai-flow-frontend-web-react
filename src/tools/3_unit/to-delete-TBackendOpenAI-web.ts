@@ -7,7 +7,7 @@ import {
   // ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
   // ISendChatGPTRequestForGetVectorToBackendProxy_output,
 } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
-import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
+import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-web';
 import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 import { EProductDB_version } from '../../gpt-ai-flow-common/enum-database/EProductDB';

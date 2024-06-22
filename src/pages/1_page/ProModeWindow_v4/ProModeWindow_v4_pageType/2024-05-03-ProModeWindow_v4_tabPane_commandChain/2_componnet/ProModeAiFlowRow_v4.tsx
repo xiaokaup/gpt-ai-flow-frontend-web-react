@@ -28,7 +28,7 @@ import { ELangchainRetrievalDocType } from '../../../../../../gpt-ai-flow-common
 import { IStoreStorageLocalSettings } from '../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IAIFlow_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
-import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-js';
+import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';

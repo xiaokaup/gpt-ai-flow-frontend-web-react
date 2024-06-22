@@ -18,7 +18,7 @@ import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-js';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import { useInputsCache } from '../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { ModelStaticService } from '../../../gpt-ai-flow-common/tools/2_class/SModels';

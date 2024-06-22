@@ -36,7 +36,7 @@ import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nPro
 import { LangchainRetrivalService } from '../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
 import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
-import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
+import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';

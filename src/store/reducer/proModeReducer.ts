@@ -2,7 +2,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/consta
 import { EOpenAiModel_type } from '../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import IProMode_v3File from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 
-import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
+import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-web';
 import { SYNC_PROMODE_DATA, UPDATE_PROMODE_DATA } from '../actions/proModeActions';
 import { USER_LOGOUT } from '../actions/userActions';
 

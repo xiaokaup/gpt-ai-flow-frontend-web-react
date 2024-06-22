@@ -14,7 +14,7 @@ import { EMessage_role } from '../../../../../gpt-ai-flow-common/interface-app/3
 import { EProductItemDB_type } from '../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendLangchainFile from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-js';
+import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { Langchain_context_description } from './component/Langchain_context_description';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
