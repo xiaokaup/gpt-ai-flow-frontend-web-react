@@ -1,4 +1,3 @@
-import React from 'react';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 
 interface ILifetimeVersionAnnounce {

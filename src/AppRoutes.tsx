@@ -17,7 +17,7 @@ import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/set
 import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
-import { ProModeWindow_warpper } from './pages/1_page/ProModeWinowWrapper';
+import { ProModeWindow_warpper } from './pages/1_page/ProModeWindow/ProModeWinowWrapper';
 import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
