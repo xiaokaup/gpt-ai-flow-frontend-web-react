@@ -46,6 +46,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
 
   const { isAuthenticated } = useUserData({
     userDataFromStorage,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onUserDataChange: (newUserData_without_token: IUserData) => {},
     locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,

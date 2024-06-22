@@ -18,10 +18,13 @@ import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsW
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
 import { ProModeWindow_warpper } from './pages/1_page/ProModeWindow/ProModeWinowWrapper';
+
 import { LogoutPage } from './pages/1_page/LogoutPage';
 import { SettingsWindow } from './pages/1_page/settingsWindow';
-import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { NewsPage } from './pages/1_page/NewsPage';
+import { AuthPage } from './pages/1_page/AuthPages';
+
+import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
 
 export const AppRoutes = () => {
@@ -100,6 +103,17 @@ export const AppRoutes = () => {
         <div className="App h-full">
           <AppLayoutCenter isAuthenticated={isAuthenticated}>
             <SettingsWindow_2_user_5_forgetPassword t={t} />
+          </AppLayoutCenter>
+        </div>
+      ),
+    },
+
+    {
+      path: '/auth',
+      element: (
+        <div className="App">
+          <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <AuthPage t={t} />
           </AppLayoutCenter>
         </div>
       ),
