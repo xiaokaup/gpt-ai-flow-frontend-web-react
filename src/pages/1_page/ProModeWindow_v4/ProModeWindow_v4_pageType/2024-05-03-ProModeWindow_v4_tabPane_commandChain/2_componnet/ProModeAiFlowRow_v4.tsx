@@ -134,8 +134,8 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const removeRequestControllerItem = (key: string) => {
     const newMap = new Map(requestControllersMap);
     const isDeleted = newMap.delete(key);
-    setRequestControllersMap(newMap);
     console.log('isDeleted', isDeleted);
+    setRequestControllersMap(newMap);
   };
   // Request controllers - end
 
