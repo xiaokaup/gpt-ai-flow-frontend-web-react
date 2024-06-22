@@ -3,7 +3,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IChatGPTStreamResponse_output } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
-import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-js';
+import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-web';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
