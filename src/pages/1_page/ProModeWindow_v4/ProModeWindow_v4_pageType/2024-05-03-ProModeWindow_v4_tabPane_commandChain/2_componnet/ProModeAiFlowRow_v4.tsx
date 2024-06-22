@@ -161,7 +161,8 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const stopInstructionAIFlowResults = (paraRequestControllersMap: Map<string, AbortController>) => {
     console.log('stopInstructionAIFlowResults - start');
 
-    for (const [, requestController] of paraRequestControllersMap.entries()) {
+    for (const [uuid, requestController] of paraRequestControllersMap.entries()) {
+      console.log(`uuid: ${uuid}, controller: ${requestController}`);
       requestController.abort();
     }
 
