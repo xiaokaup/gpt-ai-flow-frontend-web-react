@@ -1,6 +1,8 @@
 // import logo from "./logo.svg";
 
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
 import {
   Provider,
   // useDispatch, useSelector
@@ -23,22 +25,22 @@ const { store, persistor } = configureStore();
 
 // persistor.purge();
 
-const AppInStoreProvider = () => {
-  // const dispatch = useDispatch();
-  // const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-  //   return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
-  // });
-  // const { localSettings } = useLocalSettings({
-  //   localSettingsFromStorage: localSettingsFromStore,
-  //   onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
-  //     const newLocalSettings = { ...localSettings, ...newItem };
-  //     dispatch(saveLocalAction(newLocalSettings) as any);
-  //   },
-  // });
-  // const { locale } = localSettings;
+// const AppInStoreProvider = () => {
+//   const dispatch = useDispatch();
+//   const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+//     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+//   });
+//   const { localSettings } = useLocalSettings({
+//     localSettingsFromStorage: localSettingsFromStore,
+//     onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
+//       const newLocalSettings = { ...localSettings, ...newItem };
+//       dispatch(saveLocalAction(newLocalSettings) as any);
+//     },
+//   });
+//   const { locale } = localSettings;
 
-  return <AppRoutes />;
-};
+//   return <AppRoutes />;
+// };
 
 function App() {
   return (
@@ -46,7 +48,9 @@ function App() {
       {/* @ts-ignore */}
       <PersistGate loading={null} persistor={persistor}>
         <GoogleOAuthProvider clientId={CONSTANTS_GPT_AI_FLOW_COMMON.GOOGLE_OAUTH_CLIENT_ID as string}>
-          <AppInStoreProvider />
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
         </GoogleOAuthProvider>
       </PersistGate>
     </Provider>
