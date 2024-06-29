@@ -4,7 +4,7 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 
 import ProModeWindow_v4 from './ProModeWindow_v4';
-import ProModeWindow_v3 from '../proModeWindow_v3';
+import ProModeWindow_v3 from './ProModeWindow_v3';
 
 interface IProModeWindow_warpper {
   webCase: {

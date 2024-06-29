@@ -1,34 +1,35 @@
-import '../../../../../styles/global.css';
-import '../../../../../styles/layout.scss';
+import '../../../../../../styles/global.css';
+import '../../../../../../styles/layout.scss';
 
-import iconSuccessful from '../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
-import iconWrong from '../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
+import iconSuccessful from '../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
+import iconWrong from '../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import { useEffect, useState } from 'react';
 import { Button, Select, message } from 'antd';
 import { PlusCircleOutlined, MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
-import TString from '../../../../../gpt-ai-flow-common/tools/TString';
+import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 import {
-  EProMode_v3_02_copyWritingManager_contextType,
-  EProMode_v3_02_copyWritingManager_contextTypeStage,
-} from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_02_copyWritingManager';
-import { IProMode_v3_contextTypeStages } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
-import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IProMode_v3_oneProMode } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
-import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
+  EProMode_v3_03_xiaoHongShuManager_contextType,
+  EProMode_v3_03_xiaoHongShuManager_contextTypeStage,
+} from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_03_xiaoHongShuManager';
+import { IProMode_v3_contextTypeStages } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IProMode_v3_oneProMode } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
-interface IProModePage_copyWriting_input {
+
+interface IProModePage_xiaoHongShu_input {
   t: IGetT_frontend_output;
   PROMODE_DATA: IProMode_v3_oneProMode<
-    EProMode_v3_02_copyWritingManager_contextType,
-    EProMode_v3_02_copyWritingManager_contextTypeStage
+    EProMode_v3_03_xiaoHongShuManager_contextType,
+    EProMode_v3_03_xiaoHongShuManager_contextTypeStage
   >;
 }
 
-export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWriting_input) => {
+export const ProModePage_v3_03_xiaoHongShuManager = (props: IProModePage_xiaoHongShu_input) => {
   const { t, PROMODE_DATA } = props;
 
   const DEFAULT_CONTEXT_TYPE = PROMODE_DATA.default.defaultContextType;
@@ -38,10 +39,10 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
   const defaultContextType = DEFAULT_CONTEXT_TYPE;
   const defaultContextTypeStage = DEFAULT_CONTEXT_TYPE_STAGE;
   const contexts = proModeData.context;
-  const contextDefault = contexts[EProMode_v3_02_copyWritingManager_contextType.DEFAULT];
+  const contextDefault = contexts[EProMode_v3_03_xiaoHongShuManager_contextType.DEFAULT];
   const contextDefaultStageDefault =
-    contexts[EProMode_v3_02_copyWritingManager_contextType.DEFAULT].stages[
-      EProMode_v3_02_copyWritingManager_contextTypeStage.DEFAULT
+    contexts[EProMode_v3_03_xiaoHongShuManager_contextType.DEFAULT].stages[
+      EProMode_v3_03_xiaoHongShuManager_contextTypeStage.DEFAULT
     ];
 
   // console.log('props', props);
@@ -61,13 +62,13 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
   // === Search trigger for all children component - end ===
 
   // === Context input - start ===
-  const [contextType, setContextType] = useState<EProMode_v3_02_copyWritingManager_contextType>(defaultContextType);
+  const [contextType, setContextType] = useState<EProMode_v3_03_xiaoHongShuManager_contextType>(defaultContextType);
   const [contextTypeStage, setContextTypeStage] =
-    useState<EProMode_v3_02_copyWritingManager_contextTypeStage>(defaultContextTypeStage);
-  const [defautContext, setDefaultContext] = useState<string>(
+    useState<EProMode_v3_03_xiaoHongShuManager_contextTypeStage>(defaultContextTypeStage);
+  const [defaultContext, setDefaultContext] = useState<string>(
     ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue,
   );
-  const defaultContextHavePlaceHolder = TString.hasPlaceholder(defautContext);
+  const defaultContextHavePlaceHolder = TString.hasPlaceholder(defaultContext);
   const [contextHandled, setContextHandled] = useState<string>(
     ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue,
   );
@@ -96,7 +97,7 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
     if (!selectedDefaultValue || !selectedValue) {
-      setContextTypeStage(EProMode_v3_02_copyWritingManager_contextTypeStage.DEFAULT);
+      setContextTypeStage(EProMode_v3_03_xiaoHongShuManager_contextTypeStage.DEFAULT);
       return;
     }
 
@@ -144,7 +145,7 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
               defaultValue={contextTypeStage}
               value={contextTypeStage}
               style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={(paraContextTypeStage: EProMode_v3_02_copyWritingManager_contextTypeStage) => {
+              onChange={(paraContextTypeStage: EProMode_v3_03_xiaoHongShuManager_contextTypeStage) => {
                 console.log(`selected context stage: ${paraContextTypeStage}`);
                 setContextTypeStage(paraContextTypeStage);
               }}
@@ -152,10 +153,10 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
                 .map((item) => {
                   return {
                     label:
-                      contexts[contextType]?.stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage]?.name,
+                      contexts[contextType]?.stages[item as EProMode_v3_03_xiaoHongShuManager_contextTypeStage]?.name,
                     value: item,
                     disabled:
-                      contexts[contextType]?.stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage]
+                      contexts[contextType]?.stages[item as EProMode_v3_03_xiaoHongShuManager_contextTypeStage]
                         ?.disable,
                   };
                 })
@@ -179,16 +180,16 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
               defaultValue={contextType}
               value={contextType}
               style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={(paraContextType: EProMode_v3_02_copyWritingManager_contextType) => {
+              onChange={(paraContextType: EProMode_v3_03_xiaoHongShuManager_contextType) => {
                 console.log(`selected context: ${paraContextType}`);
                 setContextType(paraContextType);
               }}
               options={defaultContextTypesForSelect
                 .map((item) => {
                   return {
-                    label: contexts[item as EProMode_v3_02_copyWritingManager_contextType]?.name,
+                    label: contexts[item as EProMode_v3_03_xiaoHongShuManager_contextType]?.name,
                     value: item,
-                    disabled: contexts[item as EProMode_v3_02_copyWritingManager_contextType]?.disable,
+                    disabled: contexts[item as EProMode_v3_03_xiaoHongShuManager_contextType]?.disable,
                   };
                 })
                 .filter((item) => !item.disabled || item.label)}
@@ -207,7 +208,7 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
         <DynamicFormForContextPrompt
           t={t}
           containerStyle={showContextInputs ? {} : { display: 'none' }}
-          contextPromptWithPlaceholder={defautContext}
+          contextPromptWithPlaceholder={defaultContext}
           setContextHandled={setContextHandled}
           setShowContextInputs={setShowContextInputs}
           setIsContextInputsDirty={setIsContextInputsDirty}

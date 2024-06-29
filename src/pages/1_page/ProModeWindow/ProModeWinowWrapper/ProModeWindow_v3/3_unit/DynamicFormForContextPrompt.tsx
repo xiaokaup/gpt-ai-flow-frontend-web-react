@@ -1,5 +1,5 @@
-import '../../../../../styles/global.css';
-import '../../../../../styles/layout.scss';
+import '../../../../../../styles/global.css';
+import '../../../../../../styles/layout.scss';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
-import { IReduxRootState } from '../../../../../store/reducer';
-import { updateInputsCache } from '../../../../../store/actions/inputsCacheActions';
+import { IReduxRootState } from '../../../../../../store/reducer';
+import { updateInputsCache } from '../../../../../../store/actions/inputsCacheActions';
 
-import { useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
-import IInputsCacheFile, { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { useInputsCache } from '../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import IInputsCacheFile, { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface DynamicFormForContextPrompt_input {
   t: IGetT_frontend_output;

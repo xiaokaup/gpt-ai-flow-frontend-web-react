@@ -1,21 +1,21 @@
-import '../../../../../../../styles/global.css';
-import '../../../../../../../styles/layout.scss';
+import '../../../../../../../../styles/global.css';
+import '../../../../../../../../styles/layout.scss';
 
-import iconFormat from '../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
-import iconSuccessful from '../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
-import iconWrong from '../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
+import iconFormat from '../../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
+import iconSuccessful from '../../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
+import iconWrong from '../../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import { Dispatch, SetStateAction } from 'react';
 import { Select, message } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import { IAIFlow } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
-import TString from '../../../../../../../gpt-ai-flow-common/tools/TString';
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IAIFlow } from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
+import TString from '../../../../../../../../gpt-ai-flow-common/tools/TString';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+} from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
 
 interface InstructionInputColumn_v3_OutputIndicatorSelect_input {
   t: IGetT_frontend_output;

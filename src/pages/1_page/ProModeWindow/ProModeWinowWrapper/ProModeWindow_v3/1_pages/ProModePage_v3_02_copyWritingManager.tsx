@@ -1,35 +1,34 @@
-import '../../../../../styles/global.css';
-import '../../../../../styles/layout.scss';
+import '../../../../../../styles/global.css';
+import '../../../../../../styles/layout.scss';
 
-import iconSuccessful from '../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
-import iconWrong from '../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
+import iconSuccessful from '../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
+import iconWrong from '../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import { useEffect, useState } from 'react';
 import { Button, Select, message } from 'antd';
 import { PlusCircleOutlined, MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
-import TString from '../../../../../gpt-ai-flow-common/tools/TString';
+import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
 import {
-  EProMode_v3_05_commentManager_contextType,
-  EProMode_v3_05_commentManager_contextTypeStage,
-} from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_05_commentManager';
-import { IProMode_v3_contextTypeStages } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
-import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IProMode_v3_oneProMode } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
-import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
+  EProMode_v3_02_copyWritingManager_contextType,
+  EProMode_v3_02_copyWritingManager_contextTypeStage,
+} from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_02_copyWritingManager';
+import { IProMode_v3_contextTypeStages } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/index_types';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IProMode_v3_oneProMode } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 
 import { DynamicFormForContextPrompt } from '../3_unit/DynamicFormForContextPrompt';
 import { ProModeAIFlowRow_v3 } from '../2_component/ProModeAIFlowRow_v3';
-
-interface IProModePage_comment_input {
+interface IProModePage_copyWriting_input {
   t: IGetT_frontend_output;
   PROMODE_DATA: IProMode_v3_oneProMode<
-    EProMode_v3_05_commentManager_contextType,
-    EProMode_v3_05_commentManager_contextTypeStage
+    EProMode_v3_02_copyWritingManager_contextType,
+    EProMode_v3_02_copyWritingManager_contextTypeStage
   >;
 }
 
-export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_input) => {
+export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWriting_input) => {
   const { t, PROMODE_DATA } = props;
 
   const DEFAULT_CONTEXT_TYPE = PROMODE_DATA.default.defaultContextType;
@@ -39,10 +38,10 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
   const defaultContextType = DEFAULT_CONTEXT_TYPE;
   const defaultContextTypeStage = DEFAULT_CONTEXT_TYPE_STAGE;
   const contexts = proModeData.context;
-  const contextDefault = contexts[EProMode_v3_05_commentManager_contextType.DEFAULT];
+  const contextDefault = contexts[EProMode_v3_02_copyWritingManager_contextType.DEFAULT];
   const contextDefaultStageDefault =
-    contexts[EProMode_v3_05_commentManager_contextType.DEFAULT].stages[
-      EProMode_v3_05_commentManager_contextTypeStage.DEFAULT
+    contexts[EProMode_v3_02_copyWritingManager_contextType.DEFAULT].stages[
+      EProMode_v3_02_copyWritingManager_contextTypeStage.DEFAULT
     ];
 
   // console.log('props', props);
@@ -62,9 +61,9 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
   // === Search trigger for all children component - end ===
 
   // === Context input - start ===
-  const [contextType, setContextType] = useState<EProMode_v3_05_commentManager_contextType>(defaultContextType);
+  const [contextType, setContextType] = useState<EProMode_v3_02_copyWritingManager_contextType>(defaultContextType);
   const [contextTypeStage, setContextTypeStage] =
-    useState<EProMode_v3_05_commentManager_contextTypeStage>(defaultContextTypeStage);
+    useState<EProMode_v3_02_copyWritingManager_contextTypeStage>(defaultContextTypeStage);
   const [defautContext, setDefaultContext] = useState<string>(
     ((contexts[contextType] ?? contextDefault).stages[contextTypeStage] ?? contextDefaultStageDefault).defaultValue,
   );
@@ -97,7 +96,7 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
     if (!selectedDefaultValue || !selectedValue) {
-      setContextTypeStage(EProMode_v3_05_commentManager_contextTypeStage.DEFAULT);
+      setContextTypeStage(EProMode_v3_02_copyWritingManager_contextTypeStage.DEFAULT);
       return;
     }
 
@@ -145,17 +144,19 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
               defaultValue={contextTypeStage}
               value={contextTypeStage}
               style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={(paraContextTypeStage: EProMode_v3_05_commentManager_contextTypeStage) => {
+              onChange={(paraContextTypeStage: EProMode_v3_02_copyWritingManager_contextTypeStage) => {
                 console.log(`selected context stage: ${paraContextTypeStage}`);
                 setContextTypeStage(paraContextTypeStage);
               }}
               options={contextTypeStagesListForSelect
                 .map((item) => {
                   return {
-                    label: contexts[contextType]?.stages[item as EProMode_v3_05_commentManager_contextTypeStage]?.name,
+                    label:
+                      contexts[contextType]?.stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage]?.name,
                     value: item,
                     disabled:
-                      contexts[contextType]?.stages[item as EProMode_v3_05_commentManager_contextTypeStage]?.disable,
+                      contexts[contextType]?.stages[item as EProMode_v3_02_copyWritingManager_contextTypeStage]
+                        ?.disable,
                   };
                 })
                 .filter((item) => !item.disabled || item.label)}
@@ -178,16 +179,16 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
               defaultValue={contextType}
               value={contextType}
               style={{ width: 150, marginLeft: '.4rem' }}
-              onChange={(paraContextType: EProMode_v3_05_commentManager_contextType) => {
+              onChange={(paraContextType: EProMode_v3_02_copyWritingManager_contextType) => {
                 console.log(`selected context: ${paraContextType}`);
                 setContextType(paraContextType);
               }}
               options={defaultContextTypesForSelect
                 .map((item) => {
                   return {
-                    label: contexts[item as EProMode_v3_05_commentManager_contextType]?.name,
+                    label: contexts[item as EProMode_v3_02_copyWritingManager_contextType]?.name,
                     value: item,
-                    disabled: contexts[item as EProMode_v3_05_commentManager_contextType]?.disable,
+                    disabled: contexts[item as EProMode_v3_02_copyWritingManager_contextType]?.disable,
                   };
                 })
                 .filter((item) => !item.disabled || item.label)}

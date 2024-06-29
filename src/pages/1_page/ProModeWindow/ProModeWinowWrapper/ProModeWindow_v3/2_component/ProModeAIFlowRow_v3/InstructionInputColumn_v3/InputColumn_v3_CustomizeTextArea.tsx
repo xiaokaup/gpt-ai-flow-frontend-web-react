@@ -1,16 +1,16 @@
-import '../../../../../../../styles/global.css';
-import '../../../../../../../styles/layout.scss';
+import '../../../../../../../../styles/global.css';
+import '../../../../../../../../styles/layout.scss';
 
 import { Dispatch, SetStateAction, useState } from 'react';
 
 import { Input } from 'antd';
 import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+} from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
 
 const { TextArea } = Input;
 

@@ -1,20 +1,20 @@
-import '../../../../../../../styles/global.css';
-import '../../../../../../../styles/layout.scss';
+import '../../../../../../../../styles/global.css';
+import '../../../../../../../../styles/layout.scss';
 
-import iconFormat from '../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
+import iconFormat from '../../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
 
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 
-import { IAIFlow } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
-import TString from '../../../../../../../gpt-ai-flow-common/tools/TString';
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { EAIFlowRole, EAIFlow_type } from '../../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { IAIFlow } from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
+import TString from '../../../../../../../../gpt-ai-flow-common/tools/TString';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { EAIFlowRole, EAIFlow_type } from '../../../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+} from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
 
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
 

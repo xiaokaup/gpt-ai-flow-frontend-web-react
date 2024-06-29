@@ -1,5 +1,5 @@
-import '../../../../../../styles/global.css';
-import '../../../../../../styles/layout.scss';
+import '../../../../../../../styles/global.css';
+import '../../../../../../../styles/layout.scss';
 import './index.scss';
 
 import _ from 'lodash';
@@ -12,43 +12,43 @@ import { Input, message } from 'antd';
 import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { SwapOutlined } from '@ant-design/icons';
 
-import { IReduxRootState } from '../../../../../../store/reducer';
-import { saveLocalAction } from '../../../../../../store/actions/localActions';
+import { IReduxRootState } from '../../../../../../../store/reducer';
+import { saveLocalAction } from '../../../../../../../store/actions/localActions';
 
-import { useCreativityValueContext } from '../../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
+import { useCreativityValueContext } from '../../../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 
-import { IAIFlow } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
-import TString from '../../../../../../gpt-ai-flow-common/tools/TString';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IAIFlow } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow';
+import TString from '../../../../../../../gpt-ai-flow-common/tools/TString';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
-} from '../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { useUserData } from '../../../../../../gpt-ai-flow-common/hooks/useUserData';
-import { useLocalSettings } from '../../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
-import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import TBackendUserInputFile from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
-import { ELangchainRetrievalDocType } from '../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import { IBuildOpenAIPrompts_ouput } from '../../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { useUserData } from '../../../../../../../gpt-ai-flow-common/hooks/useUserData';
+import { useLocalSettings } from '../../../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
+import { EAIFlowRole, EAIFlow_type } from '../../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import TBackendUserInputFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
+import { ELangchainRetrievalDocType } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
+import { IBuildOpenAIPrompts_ouput } from '../../../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
 import EInputTypeDBFile, {
   EInputTypeDB_typeName,
-} from '../../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
-import { useProModeModelValueProviderContext } from '../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { LangchainRetrivalService } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
-import { EProductItemDB_type } from '../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
-import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
-import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
+} from '../../../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
+import { useProModeModelValueProviderContext } from '../../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
+import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { LangchainRetrivalService } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
+import { EProductItemDB_type } from '../../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
+import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
+import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';
 import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 import {
   IAICommandsResults_v4,
   IAICommands_v4,
-} from '../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
-import { IUserData, IUserData_default } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
-import { IPrompt } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
-import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+import { IUserData, IUserData_default } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { IPrompt } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 
 const { TextArea } = Input;
 
