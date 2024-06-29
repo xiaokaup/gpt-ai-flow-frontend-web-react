@@ -112,7 +112,13 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     }
 
     if (tabPaneDefault_uuid_from_query) {
-      setActiveTabPanelKey(tabPaneDefault_uuid_from_query);
+      const isTabPaneExist = resultTabPanes.some((tabPane) => tabPane.uuid === tabPaneDefault_uuid_from_query);
+      if (isTabPaneExist) {
+        setActiveTabPanelKey(tabPaneDefault_uuid_from_query);
+      }
+      if (!isTabPaneExist) {
+        setActiveTabPanelKey(_.sample(resultTabPanes).uuid);
+      }
     }
 
     if (!tabPaneDefault_uuid_from_query) {

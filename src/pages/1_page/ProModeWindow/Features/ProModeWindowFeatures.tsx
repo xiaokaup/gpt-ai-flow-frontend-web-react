@@ -101,7 +101,7 @@ interface CardsForFeatures_input {
 export const CardsForFeatures = (props: CardsForFeatures_input) => {
   const { locale, location } = props;
 
-  const baseUrl = '';
+  const baseUrl = 'https://www.gptaiflow.com';
 
   const isHomePage = location === 'home';
 
