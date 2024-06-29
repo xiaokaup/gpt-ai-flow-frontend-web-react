@@ -80,7 +80,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
         {t.get(
           'Please go to the setup interface to log in the user first, and make sure that the package is in normal status',
         )}{' '}
-        <Link to="/logout">{t.get('Logout')}</Link>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
       </>
     );
   }

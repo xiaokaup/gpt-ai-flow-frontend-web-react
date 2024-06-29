@@ -83,7 +83,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
     return (
       <div>
         <div>{t.get('Please register a user and log in first')}</div>
-        <Link to="/logout">{t.get('Logout')}</Link>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
       </div>
     );
   }

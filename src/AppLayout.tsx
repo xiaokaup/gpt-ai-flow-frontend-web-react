@@ -93,26 +93,26 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
       {!isAuthenticated && (
         <>
           <Menu.Item key="1">
-            <Link to="/login">{t.get('Login')}</Link>
+            <Link to="/app/login">{t.get('Login')}</Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/signUp">{t.get('Sign Up')}</Link>
+            <Link to="/app/signUp">{t.get('Sign Up')}</Link>
           </Menu.Item>
         </>
       )}
       {isAuthenticated && (
         <>
           <Menu.Item key="3">
-            <Link to="/info">{t.get('User')}</Link>
+            <Link to="/app/info">{t.get('User')}</Link>
           </Menu.Item>
           <Menu.Item key="4">
-            <Link to="/proMode">{t.get('ProMode')}</Link>
+            <Link to="/app/proMode">{t.get('ProMode')}</Link>
           </Menu.Item>
         </>
       )}
 
       <Menu.Item key="news">
-        <Link to="/news">{t.get('Top News')}</Link>
+        <Link to="/app/news">{t.get('Top News')}</Link>
       </Menu.Item>
 
       <Menu.Item key="switch-language">

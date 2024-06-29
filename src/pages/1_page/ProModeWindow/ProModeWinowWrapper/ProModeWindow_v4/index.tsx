@@ -75,7 +75,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     return (
       <div>
         <div>{t.get('Please register a user and log in first')}</div>
-        <Link to="/logout">{t.get('Logout')}</Link>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
       </div>
     );
   }
@@ -282,7 +282,7 @@ const ProModeWindow_v4_logout = (props: { t: IGetT_frontend_output }) => {
       {t.get(
         'Please go to the setup interface to log in the user first, and make sure that the package is in normal status',
       )}{' '}
-      <Link to="/logout">{t.get('Logout')}</Link>
+      <Link to="/app/logout">{t.get('Logout')}</Link>
     </>
   );
 };

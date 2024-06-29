@@ -40,7 +40,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
     return (
       <div>
         <div>{t.get('Please register a user and log in first')}</div>
-        <Link to="/logout">{t.get('Logout')}</Link>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
       </div>
     );
   }
