@@ -25,7 +25,7 @@ import { AuthPage } from './pages/1_page/AuthPages';
 
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
-import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/ProModeWindowFeatures';
+import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/Features/ProModeWindowFeatures';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
