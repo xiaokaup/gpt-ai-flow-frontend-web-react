@@ -275,31 +275,33 @@ export const AppRoutes = () => {
             </div>
           }
         />
-        <Route
-          path="proMode/features"
-          element={
-            <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
-                <ProModeWindowFeatures locale={locale} />
-              </AppLayoutCenter>
-            </div>
-          }
-        />
-        <Route
-          path="proMode"
-          element={
-            <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
-                <ProModeWindow_warpper
-                  webCase={{
-                    t,
-                    locale,
-                  }}
-                />
-              </AppLayoutCenter>
-            </div>
-          }
-        />
+        <Route path="proMode">
+          <Route
+            index
+            element={
+              <div className="App">
+                <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                  <ProModeWindow_warpper
+                    webCase={{
+                      t,
+                      locale,
+                    }}
+                  />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+          <Route
+            path="features"
+            element={
+              <div className="App">
+                <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                  <ProModeWindowFeatures locale={locale} />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+        </Route>
         <Route
           path="logout"
           element={
