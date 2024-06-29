@@ -258,6 +258,18 @@ export const AppRoutes = () => {
             </div>
           }
         />
+        <Route path="proMode">
+          <Route
+            path="features"
+            element={
+              <div className="App">
+                <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                  <ProModeWindowFeatures locale={locale} />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+        </Route>
       </>
     );
   };
@@ -287,16 +299,6 @@ export const AppRoutes = () => {
                       locale,
                     }}
                   />
-                </AppLayoutCenter>
-              </div>
-            }
-          />
-          <Route
-            path="features"
-            element={
-              <div className="App">
-                <AppLayoutCenter isAuthenticated={isAuthenticated}>
-                  <ProModeWindowFeatures locale={locale} />
                 </AppLayoutCenter>
               </div>
             }

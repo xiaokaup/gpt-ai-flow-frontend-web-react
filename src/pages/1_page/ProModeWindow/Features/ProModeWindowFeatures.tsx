@@ -1,3 +1,5 @@
+import { isProd } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+
 interface IOneFeature {
   icon: string;
   proModeModuleName: string;
@@ -10,12 +12,14 @@ interface IOneFeature {
 interface ICard_with_click {
   locale: string;
   baseUrl: string;
+  imgBaseUrl: string;
   item: IOneFeature;
 }
 const Card_with_click = (props: ICard_with_click) => {
   const {
     locale,
     baseUrl,
+    imgBaseUrl,
     item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3, openLink },
   } = props;
 
@@ -24,7 +28,7 @@ const Card_with_click = (props: ICard_with_click) => {
       <a className="!no-underline" href={openLink.startsWith('/') ? baseUrl + openLink : openLink}>
         <div className="relative space-y-8 py-12 p-8">
           <img
-            src={baseUrl + icon}
+            src={imgBaseUrl + icon}
             className="w-12"
             // width="512"
             // height="512"
@@ -40,7 +44,7 @@ const Card_with_click = (props: ICard_with_click) => {
             <p className="text-gray-600 dark:text-gray-300">{featureText_3}</p>
           </div>
           {openLink && openLink !== '#' && (
-            <div className="flex items-center justify-between group-hover:text-secondary">
+            <div className="hidden flex items-center justify-between group-hover:text-secondary">
               <span className="text-sm">
                 {locale === 'en' && <>Learn More</>}
                 {locale === 'zh' && <>了解更多</>}
@@ -64,9 +68,9 @@ const Card_with_click = (props: ICard_with_click) => {
     </div>
   );
 };
-const Card_without_click = (props: { item: IOneFeature; baseUrl: string }) => {
+const Card_without_click = (props: { item: IOneFeature; imgBaseUrl: string }) => {
   const {
-    baseUrl,
+    imgBaseUrl,
     item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3 },
   } = props;
 
@@ -74,7 +78,7 @@ const Card_without_click = (props: { item: IOneFeature; baseUrl: string }) => {
     <div className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
       <div className="relative space-y-8 py-12 p-8">
         <img
-          src={baseUrl + icon}
+          src={imgBaseUrl + icon}
           className="w-12"
           // width="512"
           // height="512"
@@ -96,14 +100,17 @@ const Card_without_click = (props: { item: IOneFeature; baseUrl: string }) => {
 
 interface CardsForFeatures_input {
   locale: string;
-  location: string;
+  location?: string;
 }
 export const CardsForFeatures = (props: CardsForFeatures_input) => {
-  const { locale, location } = props;
+  const {
+    locale,
+    // location
+  } = props;
 
-  const baseUrl = '';
-
-  const isHomePage = location === 'home';
+  const baseUrl = isProd ? 'https://www.app.gptaiflow.com' : 'http://localhost:3000';
+  const imgBaseUrl = 'https://www.gptaiflow.com';
+  const isHomePage = false;
 
   const homePageFeatures_zh: IOneFeature[] = [
     {
@@ -124,7 +131,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           🔄 <b>数据驱动的产品优化</b>，持续提升用户体验和产品性能
         </>
       ),
-      openLink: isHomePage ? '/docs/application-scenarios/overview' : 'https://www.app.gptaiflow.com/', // @TODO
+      openLink: '/app/proMode?tabPane_uuid=product_manager',
     },
     {
       icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
@@ -144,7 +151,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           🎨 应用<b>创意故事讲述和差异化策略</b>，增强品牌形象并突出竞争优势
         </>
       ),
-      openLink: isHomePage ? '/docs/application-scenarios/overview' : 'https://www.app.gptaiflow.com/', // @TODO
+      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
     },
     {
       icon: '/img/icons/2024-05-24-img-18-content-writing.png',
@@ -164,9 +171,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           🕒 <b>保存每一步的版本变化</b>，轻松回到任何草稿版本
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/social-media-post-creator',
+      openLink: '/app/proMode?tabPane_uuid=writingPostChain_v2',
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
@@ -186,7 +191,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           📌 详细填写背景信息，<b>精细定制帖子的主题和内容质量</b>
         </>
       ),
-      openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/post-rewriting-tool',
+      openLink: '/app/proMode?tabPane_uuid=morePostsChain',
     },
     {
       icon: '/img/icons/2024-05-24-img-20-recommend.png',
@@ -206,9 +211,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           🚀 为所推荐的自媒体类型提供<b>实用的运营策略和内容创作指导</b>
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/self-media-type-recommendation',
+      openLink: '/app/proMode?tabPane_uuid=selfMediaRecommandChain',
     },
     {
       icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
@@ -228,9 +231,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           📊 明确每个话题的准备流程、调研方法及<b>实用工具和资源</b>
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/topic-expansion-for-content-creators',
+      openLink: '/app/proMode?tabPane_uuid=topicFindingToolChain',
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
@@ -250,155 +251,8 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           ⚡ <b>一键调整</b>，操作简便，实现精准的图片定制
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/tool-for-image-resizing-social-media',
+      openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
     },
-
-    // {
-    //   icon: '/img/icons/2023-09-18-img-7-icon-praise.png',
-    //   proModeModuleName: '夸夸小助手',
-    //   featureText_1: (
-    //     <>
-    //       🌟 一键生成<b>让人心情愉悦</b>的夸赞语句
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       💬 快速生成<b>各种场合</b>下的夸奖话语
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       🎁 适用于亲友、同事等，让他们感受到您的<b>认可和鼓励</b>
-    //     </>
-    //   ),
-    //   openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/praiseAssistant',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-8-icon-leadership.png',
-    //   proModeModuleName: '回复领导',
-    //   featureText_1: (
-    //     <>
-    //       📝 为工作邮件、报告提供<b>专业、得体的回复模板</b>
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       💡 提供实时的沟通策略与建议，<b>确保回复得当</b>
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       🤝 帮助你与上司<b>建立更和谐的工作关系</b>
-    //     </>
-    //   ),
-    //   openLink: isHomePage
-    //     ? '/docs/application-scenarios/overview'
-    //     : '/docs/application-scenarios/responseToLeander',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-9-icon-logo-wechat.png',
-    //   proModeModuleName: '朋友圈文案',
-    //   featureText_1: (
-    //     <>
-    //       🖋 一键生成<b>吸引眼球的朋友圈</b>文案和状态
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       📸 为您的照片提供<b>贴切的描述和引语</b>
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       🎈 提供各种主题和风格的文案，<b>满足您的每一次分享</b>
-    //     </>
-    //   ),
-    //   openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/pengYouQuan',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-10-icon-mail.png',
-    //   proModeModuleName: '邮件助手',
-    //   featureText_1: (
-    //     <>
-    //       📮 为各种场合<b>提供专业的电子邮件模板</b>
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       💡 助您<b>快速回复工作邮件</b>，提高沟通效率
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       ✒️ 提供邮件写作建议，<b>确保您的邮件内容既专业又得体</b>
-    //     </>
-    //   ),
-    //   openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/emailAssistant',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
-    //   proModeModuleName: '社交媒体经理',
-    //   featureText_1: (
-    //     <>
-    //       📕 专为<b>小红书</b>优化的生成文案
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       🌟 快速产生<b>引人注目的帖子和动态标题</b>
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       🎨 多场景文案创意工具，轻松应对<b>品牌活动、日常分享或特殊节日</b>的内容需求
-    //     </>
-    //   ),
-    //   openLink: isHomePage
-    //     ? '/docs/application-scenarios/overview'
-    //     : '/docs/application-scenarios/user-testimonial',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-12-icon-social-sumary.png',
-    //   proModeModuleName: '总结小助手',
-    //   featureText_1: (
-    //     <>
-    //       📖 快速将复杂内容整理成<b>简洁明了</b>的总结文本
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       🖊 根据您提供的信息，<b>自动提取关键点</b>并生成总结
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       ✍️ 为会议、项目、活动等提供<b>专业的文字总结模板</b>，助您提高工作效率
-    //     </>
-    //   ),
-    //   openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/summaryAssitant',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-22-img-5-loudspeaker.png',
-    //   proModeModuleName: '群发通知',
-    //   featureText_1: (
-    //     <>
-    //       📢 一键生成<b>得体且清晰</b>的群发通知内容
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       🔔 快速传达<b>重要信息</b>给大群体
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       🌐 适用于学校、公司或任何需要<b>大规模通知</b>的场合，确保信息<b>准确无误地传达</b>给每一个接收者
-    //     </>
-    //   ),
-    //   openLink: '/docs/application-scenarios/groupNotice',
-    // },
   ];
 
   const homePageFeatures_en: IOneFeature[] = [
@@ -420,7 +274,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           🔄 <b>Data-driven product optimization</b>, continuously enhancing user experience and product performance
         </>
       ),
-      openLink: isHomePage ? '/docs/application-scenarios/overview' : 'https://www.app.gptaiflow.com/', // @TODO
+      openLink: '/app/proMode?tabPane_uuid=product_manager',
     },
     {
       icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
@@ -442,7 +296,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           competitive advantages
         </>
       ),
-      openLink: isHomePage ? '/docs/application-scenarios/overview' : 'https://www.app.gptaiflow.com/', // @TODO
+      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
     },
     {
       icon: '/img/icons/2024-05-24-img-18-content-writing.png',
@@ -462,9 +316,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           🕒 <b>Save each step of version changes</b>, easily revert to any draft version
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/social-media-post-creator',
+      openLink: '/app/proMode?tabPane_uuid=writingPostChain_v2',
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
@@ -484,7 +336,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           📌 Fill in detailed background information, <b>finely customize the theme and content quality of the post</b>
         </>
       ),
-      openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/post-rewriting-tool',
+      openLink: '/app/proMode?tabPane_uuid=morePostsChain',
     },
     {
       icon: '/img/icons/2024-05-24-img-20-recommend.png',
@@ -506,9 +358,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           self-media types
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/self-media-type-recommendation',
+      openLink: '/app/proMode?tabPane_uuid=selfMediaRecommandChain',
     },
     {
       icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
@@ -528,9 +378,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           📊 Clearly define each topic's preparation process, research methods, and <b>practical tools and resources</b>
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/topic-expansion-for-content-creators',
+      openLink: '/app/proMode?tabPane_uuid=topicFindingToolChain',
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
@@ -552,88 +400,8 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           ⚡ <b>One-click adjustment</b>, easy to operate, achieving precise image customization
         </>
       ),
-      openLink: isHomePage
-        ? '/docs/application-scenarios/overview'
-        : '/docs/application-scenarios/tool-for-image-resizing-social-media',
+      openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
     },
-
-    // {
-    //   icon: '/img/icons/2023-09-18-img-7-icon-praise.png',
-    //   proModeModuleName: 'Praise Assistant',
-    //   featureText_1: <>🌟 Generate phrases that make people feel good with one click</>,
-    //   featureText_2: <>💬 Quickly generate compliments for various occasions</>,
-    //   featureText_3: <>🎁 Suitable for family, friends, colleagues, etc., making them feel recognized and encouraged</>,
-    //   openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/praiseAssistant',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-8-icon-leadership.png',
-    //   proModeModuleName: 'Reply to Leader',
-    //   featureText_1: <>📝 Provide professional and appropriate reply templates for work emails and reports</>,
-    //   featureText_2: <>💡 Offer real-time communication strategies and advice to ensure proper responses</>,
-    //   featureText_3: <>🤝 Help you build a more harmonious working relationship with your boss</>,
-    //   openLink: isHomePage
-    //     ? '/docs/application-scenarios/overview'
-    //     : '/docs/application-scenarios/responseToLeader',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-9-icon-logo-wechat.png',
-    //   proModeModuleName: 'Moments Copywriting',
-    //   featureText_1: <>🖋 Generate eye-catching WeChat Moments copy and statuses with one click</>,
-    //   featureText_2: <>📸 Provide fitting descriptions and quotes for your photos</>,
-    //   featureText_3: <>🎈 Offer copy for various themes and styles, meeting your sharing needs each time</>,
-    //   openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/pengYouQuan',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-10-icon-mail.png',
-    //   proModeModuleName: 'Email Assistant',
-    //   featureText_1: <>📮 Provide professional email templates for various occasions</>,
-    //   featureText_2: <>💡 Help you quickly respond to work emails, improving communication efficiency</>,
-    //   featureText_3: <>✒️ Offer email writing advice to ensure your emails are both professional and appropriate</>,
-    //   openLink: isHomePage ? '/docs/application-scenarios/overview' : '/docs/application-scenarios/emailAssistant',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
-    //   proModeModuleName: 'Social Media Manager',
-    //   featureText_1: <>📕 Specifically optimized copywriting for XiaoHongShu</>,
-    //   featureText_2: <>🌟 Quickly produce attention-grabbing posts and dynamic titles</>,
-    //   featureText_3: (
-    //     <>
-    //       🎨 Multi-scenario copywriting tool for easily handling content needs for brand events, everyday sharing, or
-    //       special holidays
-    //     </>
-    //   ),
-    //   openLink: isHomePage
-    //     ? '/docs/application-scenarios/overview'
-    //     : '/docs/application-scenarios/user-testimonial',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-18-img-12-icon-social-sumary.png',
-    //   proModeModuleName: 'Summary Assistant',
-    //   featureText_1: <>📖 Quickly organize complex content into concise and clear summary texts</>,
-    //   featureText_2: <>🖊 Based on your information, automatically extract key points and generate summaries</>,
-    //   featureText_3: (
-    //     <>
-    //       ✍️ Provide professional summary templates for meetings, projects, events, etc., helping you improve work
-    //       efficiency
-    //     </>
-    //   ),
-    //   openLink: isHomePage
-    //     ? '/docs/application-scenarios/overview'
-    //     : '/docs/application-scenarios/summaryAssistant',
-    // },
-    // {
-    //   icon: '/img/icons/2023-09-22-img-5-loudspeaker.png',
-    //   proModeModuleName: 'Mass Notification',
-    //   featureText_1: <>📢 Generate appropriate and clear mass notification content with one click</>,
-    //   featureText_2: <>🔔 Quickly convey important information to a large group</>,
-    //   featureText_3: (
-    //     <>
-    //       🌐 Suitable for schools, companies, or any occasion that requires large-scale notifications, ensuring
-    //       information is accurately conveyed to each recipient
-    //     </>
-    //   ),
-    //   openLink: '/docs/application-scenarios/groupNotice',
-    // },
   ];
   const proModePageFeatures_zh: IOneFeature[] = [
     // {
@@ -882,20 +650,20 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
     <div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
       {locale === 'en' &&
         homePageFeatures_en.map((item) => {
-          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl as string} />;
+          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl} imgBaseUrl={imgBaseUrl} />;
         })}
       {locale === 'zh' &&
         homePageFeatures_zh.map((item) => {
-          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl as string} />;
+          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl} imgBaseUrl={imgBaseUrl} />;
         })}
 
       {/* More cards for homePage */}
       {isHomePage && (
         <div className="group relative bg-gray-50 dark:bg-gray-900 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
-          <a className="!no-underline" href={baseUrl + '/docs/application-scenarios/overview'}>
+          <a className="!no-underline" href={'/app'}>
             <div className="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-800">
               <img
-                src={baseUrl + '/img/icons/2023-09-18-img-14-icon-more-features-easy-use.png'}
+                src={imgBaseUrl + '/img/icons/2023-09-18-img-14-icon-more-features-easy-use.png'}
                 className="w-12"
                 // width="512"
                 // height="512"
@@ -966,26 +734,19 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           const { openLink } = item;
 
           if (!openLink || (openLink && openLink === '#'))
-            return <Card_without_click item={item} baseUrl={baseUrl as string} />;
+            return <Card_without_click item={item} imgBaseUrl={imgBaseUrl} />;
 
-          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl as string} />;
+          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl} imgBaseUrl={imgBaseUrl} />;
         })}
 
       {/* More cards for application-senarios */}
       {!isHomePage && (
         <>
           <div className="group relative bg-gray-50 dark:bg-gray-900 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
-            <a
-              className="!no-underline"
-              href={
-                isHomePage
-                  ? baseUrl + '/docs/application-scenarios/overview'
-                  : baseUrl + '/docs/intro/ai-flow-professional-mode-content-creation'
-              }
-            >
+            <a className="!no-underline" href={'/app'}>
               <div className="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-800 h-full">
                 <img
-                  src={baseUrl + '/img/icons/2023-09-22-img-16-treasure.png'}
+                  src={imgBaseUrl + '/img/icons/2023-09-22-img-16-treasure.png'}
                   className="w-12"
                   // width="512"
                   // height="512"
@@ -1026,7 +787,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
                     </>
                   )}
                 </div>
-                <div className="flex items-center justify-between group-hover:text-secondary">
+                <div className="hidden flex items-center justify-between group-hover:text-secondary">
                   <span className="text-sm">
                     {locale === 'en' && <>Learn More</>}
                     {locale === 'zh' && <>了解更多</>}
@@ -1059,7 +820,13 @@ interface IProModeWindowFeatures {
 export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
   const { locale } = props;
   return (
-    <div id="features">
+    <div
+      id="features"
+      style={{
+        padding: '1rem',
+        margin: '1rem auto',
+      }}
+    >
       <div className="md:w-2/3 lg:w-1/2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -1096,7 +863,10 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
           </>
         )}
       </div>
-      <CardsForFeatures locale={locale} location="home" />
+      <CardsForFeatures
+        locale={locale}
+        // location="webApp"
+      />
     </div>
   );
 };
