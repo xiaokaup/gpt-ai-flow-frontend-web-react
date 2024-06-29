@@ -106,7 +106,7 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
             <Link to="/app/info">{t.get('User')}</Link>
           </Menu.Item>
           <Menu.Item key="4">
-            <Link to="/app/proMode">{t.get('ProMode')}</Link>
+            <Link to="/app/proMode/features">{t.get('ProMode')}</Link>
           </Menu.Item>
         </>
       )}
