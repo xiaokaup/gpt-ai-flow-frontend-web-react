@@ -5,10 +5,10 @@ import './index.scss';
 
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import _ from 'lodash';
-import { Select, Slider, Tabs } from 'antd';
+import { Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../../store/reducer';
 import { updateInputsCache } from '../../../../store/actions/inputsCacheActions';
@@ -58,6 +58,9 @@ interface IProModeWindow_v4_login {
 const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   const { t, locale, userData, inputsCache, setInputsCache } = props;
 
+  const query = new URLSearchParams(useLocation().search);
+  const tabPaneDefault_uuid_from_query = query.get('tabPane_uuid');
+
   const localDataFromStorage: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
   });
@@ -99,15 +102,26 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
       locale,
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
-    setProMode_v4_tabPanes(result.tabPanes);
-    if (result.tabPanes.length > 0) {
-      const defaultTabPanes = result.tabPanes.filter((tabPane) => tabPane.isDefault);
-      if (defaultTabPanes.length > 0) {
-        const defaultTabPane = _.sample(defaultTabPanes) as IProMode_v4_tabPane<All_type_IProMode_v4_tabPane>;
-        setActiveTabPanelKey(defaultTabPane.uuid);
-      } else {
-        setActiveTabPanelKey(result.tabPanes[0].uuid);
-      }
+    const resultTabPanes = result.tabPanes;
+    setProMode_v4_tabPanes(resultTabPanes);
+
+    if (resultTabPanes.length === 0) {
+      message.error(`${t.get('Error')}: ${t.get('Professional mode information not found')}`);
+      message.error(t.get('Please try again later'));
+      return;
+    }
+
+    if (tabPaneDefault_uuid_from_query) {
+      setActiveTabPanelKey(tabPaneDefault_uuid_from_query);
+    }
+
+    if (!tabPaneDefault_uuid_from_query) {
+      const defaultTabPanes_from_backend = resultTabPanes.filter((tabPane) => tabPane.isDefault);
+      const selectedTabPane_uuid =
+        defaultTabPanes_from_backend.length === 0
+          ? _.sample(resultTabPanes).uuid
+          : _.sample(defaultTabPanes_from_backend).uuid;
+      setActiveTabPanelKey(selectedTabPane_uuid);
     }
   }, [locale, userAccessToken]);
 
