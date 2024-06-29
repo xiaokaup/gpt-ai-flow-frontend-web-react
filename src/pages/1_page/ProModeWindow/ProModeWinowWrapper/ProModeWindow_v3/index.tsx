@@ -72,7 +72,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   if (!userId) {
     dispatch(userLogoutAction() as any);
     setTimeout(() => {
-      navigate('/login');
+      navigate('/app/login');
       window.location.reload();
     }, 1000);
     return (

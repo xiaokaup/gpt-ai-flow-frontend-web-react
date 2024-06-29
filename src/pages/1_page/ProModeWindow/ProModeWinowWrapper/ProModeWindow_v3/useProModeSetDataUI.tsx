@@ -147,7 +147,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   ) {
     dispatch(userLogoutAction() as any);
     setTimeout(() => {
-      navigate('/login');
+      navigate('/app/login');
       window.location.reload();
     }, 1000);
   }

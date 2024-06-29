@@ -28,7 +28,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate('/app/login');
     }
   }, [isAuthenticated, navigate]);
 
@@ -62,7 +62,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
       );
 
       message.success(t.get('Password successfully changed'));
-      navigate('/info');
+      navigate('/app/info');
       window.location.reload();
     } catch (error: Error | any) {
       message.error({
@@ -143,7 +143,7 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
                   <Button
                     type="default"
                     onClick={() => {
-                      navigate('/info');
+                      navigate('/app/info');
                     }}
                   >
                     {t.get('Return')}

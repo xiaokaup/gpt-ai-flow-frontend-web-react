@@ -273,7 +273,7 @@ const ProModeWindow_v4_logout = (props: { t: IGetT_frontend_output }) => {
 
   dispatch(userLogoutAction() as any);
   setTimeout(() => {
-    navigate('/login');
+    navigate('/app/login');
     window.location.reload();
   }, 1000);
 
