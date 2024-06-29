@@ -46,7 +46,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/proMode');
+      navigate('/app/proMode');
     }
   }, [isAuthenticated, navigate]);
 
@@ -69,7 +69,9 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
         );
       }
 
-      navigate('/proMode');
+      await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
+
+      navigate('/app/proMode');
       window.location.reload();
     } catch (error: any) {
       message.error({
@@ -117,6 +119,12 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               CONSTANTS_GPT_AI_FLOW_COMMON,
             );
 
+            // console.log('onSuccess googleLogin results', userDB);
+            if (!userDB || !userDB.id || !userDB.Token?.accessToken) {
+              message.error(t.get('Google Login Failed'));
+              return;
+            }
+
             if (isCallerElectron) {
               console.log('trigger for electron');
               const link = document.createElement('a');
@@ -125,9 +133,11 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               link.click();
             }
 
-            // console.log('onSuccess googleLogin results', userDB);
             dispatch({ type: USER_LOGIN, payload: userDB });
-            navigate('/proMode');
+
+            await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
+
+            navigate('/app/proMode');
             window.location.reload();
           }}
           onError={() => {
@@ -185,7 +195,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                     <Button
                       type="default"
                       onClick={() => {
-                        navigate('/signUp');
+                        navigate('/app/signUp');
                       }}
                     >
                       {t.get('Sign Up')}
@@ -195,7 +205,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                   <span
                     style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
                     onClick={() => {
-                      navigate('/forgetPassword');
+                      navigate('/app/forgetPassword');
                     }}
                   >
                     {t.get('Forget password')}

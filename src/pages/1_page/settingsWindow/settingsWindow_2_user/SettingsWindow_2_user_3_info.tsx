@@ -24,7 +24,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate('/app/login');
     }
   }, [isAuthenticated, navigate]);
 
@@ -65,7 +65,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
       <div className="row">
         <Button
           onClick={() => {
-            navigate('/changePassword');
+            navigate('/app/changePassword');
           }}
         >
           {t.get('Change password')}
@@ -84,7 +84,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
 
             dispatch(userLogoutAction() as any);
             setTimeout(() => {
-              navigate('/login');
+              navigate('/app/login');
               window.location.reload();
             }, 1000);
           }}

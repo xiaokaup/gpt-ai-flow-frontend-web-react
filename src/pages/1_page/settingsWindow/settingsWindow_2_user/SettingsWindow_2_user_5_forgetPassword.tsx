@@ -1,9 +1,7 @@
 import '../../../../styles/global.css';
 
-import React from 'react';
-
 import { Button, Form, Input, message } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { MailOutlined } from '@ant-design/icons';
 // import { EUserPageCase } from ".";
 // import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { useNavigate } from 'react-router-dom';
@@ -40,7 +38,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
         duration: 3,
       });
 
-      navigate('/login');
+      navigate('/app/login');
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -111,7 +109,7 @@ export const SettingsWindow_2_user_5_forgetPassword = (props: SettingsWindow_2_u
                   type="default"
                   onClick={() => {
                     // setPageCase(EUserPageCase.LOGIN);
-                    navigate('/login');
+                    navigate('/app/login');
                   }}
                 >
                   {t.get('Return')}

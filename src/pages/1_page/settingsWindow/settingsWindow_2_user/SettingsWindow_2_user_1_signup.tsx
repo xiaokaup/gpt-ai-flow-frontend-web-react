@@ -54,7 +54,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/info');
+      navigate('/app/info');
     }
   }, [isAuthenticated, navigate]);
 
@@ -93,7 +93,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
       }
 
       message.success(t.get('User created successfully'));
-      navigate('/login');
+      navigate('/app/login');
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -206,7 +206,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
                 <Button
                   type="default"
                   onClick={() => {
-                    navigate('/login');
+                    navigate('/app/login');
                   }}
                 >
                   {t.get('Return')}
