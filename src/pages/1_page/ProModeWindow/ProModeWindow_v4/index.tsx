@@ -208,7 +208,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 // onEdit={onEditTabPanel}
               >
                 {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
-                  const { versionDate, versionNum } = tabPane;
+                  // const { versionDate, versionNum } = tabPane;
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
                       {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN_v3 && (
@@ -219,7 +219,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                         />
                       )}
 
-                      {(versionDate === '2024-06-17-v5' || (versionNum && versionNum >= 5)) && (
+                      {(tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE ||
+                        tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS) && (
                         <ProModeWindow_v4_wrapper
                           t={t}
                           tabPane={
