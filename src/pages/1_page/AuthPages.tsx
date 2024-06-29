@@ -56,7 +56,7 @@ export const AuthPage = (props: IAuthPage_input) => {
       }),
     );
     setTimeout(() => {
-      navigate('/proMode');
+      navigate('/app/proMode');
       window.location.reload();
     }, 200);
   };
@@ -66,7 +66,7 @@ export const AuthPage = (props: IAuthPage_input) => {
     if (userId && accessToken) {
       init();
     } else {
-      navigate('/login');
+      navigate('/app/login');
     }
   }, [userId, accessToken]);
 

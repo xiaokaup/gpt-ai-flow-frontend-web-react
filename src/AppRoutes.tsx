@@ -25,6 +25,7 @@ import { AuthPage } from './pages/1_page/AuthPages';
 
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/ProModeWindowFeatures';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -47,10 +48,10 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  return (
-    <Routes>
-      {/* === Routes_unauthenticated - start === */}
-      <Route path="/" element={<Layout />}>
+  const Routes_v1 = () => {
+    return (
+      <Route path="/" element={<Layout_v1 />}>
+        {/* === Routes_unauthenticated - start === */}
         <Route
           index
           element={
@@ -167,20 +168,178 @@ export const AppRoutes = () => {
           }
         />
         {/* === Routes_authenticated - end === */}
+
+        <Route path="*" element={<NoMatch />} />
+      </Route>
+    );
+  };
+
+  const Routes_v2_public = () => {
+    return (
+      <Route
+        path="news"
+        element={
+          <div className="App">
+            <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <NewsPage
+                webCase={{
+                  t,
+                  locale,
+                  env: CONSTANTS_GPT_AI_FLOW_COMMON,
+                }}
+              />
+            </AppLayoutCenter>
+          </div>
+        }
+      />
+    );
+  };
+
+  const Routes_v2_unauth = () => {
+    return (
+      <>
+        <Route
+          index
+          element={
+            <div className="App h-full">
+              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <SettingsWindow_2_user_2_login t={t} />
+              </AppLayoutCenter>
+            </div>
+          }
+        />
+        <Route
+          path="signUp"
+          element={
+            <div className="App h-full">
+              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <SettingsWindow_2_user_1_signup t={t} />
+              </AppLayoutCenter>
+            </div>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <div className="App h-full">
+              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <SettingsWindow_2_user_2_login t={t} />
+              </AppLayoutCenter>
+            </div>
+          }
+        />
+        <Route
+          path="changePassword"
+          element={
+            <div className="App h-full">
+              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
+              </AppLayoutCenter>
+            </div>
+          }
+        />
+        <Route
+          path="forgetPassword"
+          element={
+            <div className="App h-full">
+              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <SettingsWindow_2_user_5_forgetPassword t={t} />
+              </AppLayoutCenter>
+            </div>
+          }
+        />
+        <Route
+          path="auth"
+          element={
+            <div className="App">
+              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <AuthPage t={t} />
+              </AppLayoutCenter>
+            </div>
+          }
+        />
+      </>
+    );
+  };
+
+  const Routes_v2_auth = () => {
+    return (
+      <>
+        <Route
+          path="info"
+          element={
+            <div className="App">
+              <AppLayout isAuthenticated={isAuthenticated}>
+                <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
+              </AppLayout>
+            </div>
+          }
+        />
+        <Route path="proMode">
+          <Route
+            index
+            element={
+              <div className="App">
+                <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                  <ProModeWindow_warpper
+                    webCase={{
+                      t,
+                      locale,
+                    }}
+                  />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+          <Route
+            path="features"
+            element={
+              <div className="App">
+                <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                  <ProModeWindowFeatures locale={locale} />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+        </Route>
+        <Route
+          path="logout"
+          element={
+            <div className="App">
+              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <LogoutPage t={t} />
+              </AppLayoutCenter>
+            </div>
+          }
+        />
+      </>
+    );
+  };
+
+  return (
+    <Routes>
+      {Routes_v1()}
+
+      <Route path="app">
+        {Routes_v2_public()}
+        {Routes_v2_unauth()}
+        {Routes_v2_auth()}
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>
   );
 };
 
-function Layout() {
+function Layout_v1() {
   return <Outlet />;
 }
 
 function NoMatch() {
   return (
-    <div>
-      <h2>Nothing to see here!</h2>
+    <div className="App">
+      <AppLayoutCenter isAuthenticated={false}>
+        <h2>Nothing to see here!</h2>
+      </AppLayoutCenter>
     </div>
   );
 }

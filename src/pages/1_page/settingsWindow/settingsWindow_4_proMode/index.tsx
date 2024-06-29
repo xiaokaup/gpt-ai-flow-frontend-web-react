@@ -38,7 +38,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
     return (
       <div>
         <div>{t.get('Please register a user and log in first')}</div>
-        <Link to="/logout">{t.get('Logout')}</Link>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
       </div>
     );
   }

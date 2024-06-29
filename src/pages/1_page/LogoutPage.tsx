@@ -18,7 +18,7 @@ export const LogoutPage = (props: ILogoutPage_input) => {
   useEffect(() => {
     dispatch(userLogoutAction() as any);
     setTimeout(() => {
-      navigate('/login');
+      navigate('/app/login');
       window.location.reload();
     }, 1000);
   });
