@@ -69,6 +69,8 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
         );
       }
 
+      await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
+
       navigate('/app/proMode');
       window.location.reload();
     } catch (error: any) {
@@ -117,6 +119,12 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               CONSTANTS_GPT_AI_FLOW_COMMON,
             );
 
+            // console.log('onSuccess googleLogin results', userDB);
+            if (!userDB || !userDB.id || !userDB.Token?.accessToken) {
+              message.error(t.get('Google Login Failed'));
+              return;
+            }
+
             if (isCallerElectron) {
               console.log('trigger for electron');
               const link = document.createElement('a');
@@ -125,8 +133,10 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               link.click();
             }
 
-            // console.log('onSuccess googleLogin results', userDB);
             dispatch({ type: USER_LOGIN, payload: userDB });
+
+            await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
+
             navigate('/app/proMode');
             window.location.reload();
           }}
