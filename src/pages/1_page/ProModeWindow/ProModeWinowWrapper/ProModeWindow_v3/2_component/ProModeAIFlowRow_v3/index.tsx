@@ -98,7 +98,8 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   const { userData } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onUserDataChange: (_newUserData_without_token: IUserData) => {},
     locale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
@@ -389,7 +390,8 @@ ${t.get('Original content')}: """${exampleText}"""`,
         setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
       };
 
-      const afterEndRequestFunc = (index: number) => () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const afterEndRequestFunc = (_index: number) => () => {
         console.log('AfterRequestAsStreamFunc');
       };
 
