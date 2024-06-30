@@ -55,10 +55,11 @@ export const AuthPage = (props: IAuthPage_input) => {
         openAIApiKey: openAIApiKey.trim(),
       }),
     );
-    setTimeout(() => {
-      navigate('/app/proMode');
-      window.location.reload();
-    }, 200);
+
+    await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
+
+    navigate('/app/proMode/features');
+    window.location.reload();
   };
 
   useEffect(() => {

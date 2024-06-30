@@ -46,7 +46,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/app/proMode');
+      navigate('/app/proMode/features');
     }
   }, [isAuthenticated, navigate]);
 
@@ -71,7 +71,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
       await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-      navigate('/app/proMode');
+      navigate('/app/proMode/features');
       window.location.reload();
     } catch (error: any) {
       message.error({
@@ -137,7 +137,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
             await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-            navigate('/app/proMode');
+            navigate('/app/proMode/features');
             window.location.reload();
           }}
           onError={() => {
