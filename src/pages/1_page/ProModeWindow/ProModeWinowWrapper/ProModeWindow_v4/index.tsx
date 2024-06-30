@@ -82,7 +82,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   // === ProMode Data - start ===
   const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4['tabPanes']>([]);
-  // console.log('proMode_v4_tabPanes', proMode_v4_tabPanes);
+  console.log('proMode_v4_tabPanes', proMode_v4_tabPanes);
   // === ProMode Data - end ===
 
   // === ProMode tabPane settings - start ===
@@ -228,10 +228,14 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 // onEdit={onEditTabPanel}
               >
                 {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
-                  // const { versionDate, versionNum } = tabPane;
+                  const {
+                    // versionDate,
+                    versionNum,
+                    type,
+                  } = tabPane;
                   return (
                     <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
-                      {tabPane.type === EProMode_v4_tabPane_type.COMMAND_CHAIN_v3 && (
+                      {type === EProMode_v4_tabPane_type.COMMAND_CHAIN_v3 && (
                         <ProModeWindow_v4_tabPane_type_langchain
                           t={t}
                           tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
@@ -239,8 +243,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                         />
                       )}
 
-                      {(tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE ||
-                        tabPane.type === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS) && (
+                      {}
+
+                      {versionNum == 2 && (
                         <ProModeWindow_v4_wrapper
                           t={t}
                           tabPane={
@@ -256,7 +261,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                         />
                       )}
 
-                      {tabPane.type === EProMode_v4_tabPane_type.TOOL_IMAGE_CROP && (
+                      {type === EProMode_v4_tabPane_type.TOOL_IMAGE_CROP && (
                         <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
                       )}
                     </Tabs.TabPane>
