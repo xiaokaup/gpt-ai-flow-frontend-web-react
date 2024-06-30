@@ -232,6 +232,9 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
             console.error('Fetch request failed:', error);
             message.error(error.message);
           }
+          // Recover the chat history if the request fails or is aborted
+          setChatHistory(chatHistoryBeforeImprove);
+          setCurrentVersionNum(chatHistoryBeforeImprove.length - 1);
         });
 
         promiseList.push(promiseInstance);
