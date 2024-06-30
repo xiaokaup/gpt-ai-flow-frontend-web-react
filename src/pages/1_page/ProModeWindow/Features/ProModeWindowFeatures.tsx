@@ -1,6 +1,13 @@
 import { isProd } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { Card_with_click } from './Card_with_click';
+import { Card_without_click } from './Card_without_click';
 
-interface IOneFeature {
+const webAppUrl = isProd ? 'https://www.app.gptaiflow.com' : 'http://localhost:3000';
+// const docBaseUrl = isProd ? 'https://www.gptaiflow.com' : 'http://localhost:3002';
+const docBaseUrl = 'https://www.gptaiflow.com';
+const isHomePage = false;
+
+export interface IOneFeature {
   icon: string;
   proModeModuleName: string;
   featureText_1: JSX.Element;
@@ -9,109 +16,7 @@ interface IOneFeature {
   openLink: string;
 }
 
-interface ICard_with_click {
-  locale: string;
-  baseUrl: string;
-  imgBaseUrl: string;
-  item: IOneFeature;
-}
-const Card_with_click = (props: ICard_with_click) => {
-  const {
-    locale,
-    baseUrl,
-    imgBaseUrl,
-    item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3, openLink },
-  } = props;
-
-  return (
-    <div className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
-      <a className="!no-underline" href={openLink.startsWith('/') ? baseUrl + openLink : openLink}>
-        <div className="relative space-y-8 py-12 p-8">
-          <img
-            src={imgBaseUrl + icon}
-            className="w-12"
-            // width="512"
-            // height="512"
-            alt="icon-image"
-          />
-
-          <div className="space-y-2">
-            <h5 className="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
-              {proModeModuleName}
-            </h5>
-            <p className="text-gray-600 dark:text-gray-300">{featureText_1}</p>
-            <p className="text-gray-600 dark:text-gray-300">{featureText_2}</p>
-            <p className="text-gray-600 dark:text-gray-300">{featureText_3}</p>
-          </div>
-          {openLink && openLink !== '#' && (
-            <div className="hidden flex items-center justify-between group-hover:text-secondary">
-              <span className="text-sm">
-                {locale === 'en' && <>Learn More</>}
-                {locale === 'zh' && <>了解更多</>}
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-5 h-5 -translate-x-4 text-2xl opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          )}
-        </div>
-      </a>
-    </div>
-  );
-};
-const Card_without_click = (props: { item: IOneFeature; imgBaseUrl: string }) => {
-  const {
-    imgBaseUrl,
-    item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3 },
-  } = props;
-
-  return (
-    <div className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
-      <div className="relative space-y-8 py-12 p-8">
-        <img
-          src={imgBaseUrl + icon}
-          className="w-12"
-          // width="512"
-          // height="512"
-          alt="icon-image"
-        />
-
-        <div className="space-y-2">
-          <h5 className="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
-            {proModeModuleName}
-          </h5>
-          <p className="text-gray-600 dark:text-gray-300">{featureText_1}</p>
-          <p className="text-gray-600 dark:text-gray-300">{featureText_2}</p>
-          <p className="text-gray-600 dark:text-gray-300">{featureText_3}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-interface CardsForFeatures_input {
-  locale: string;
-  location?: string;
-}
-export const CardsForFeatures = (props: CardsForFeatures_input) => {
-  const {
-    locale,
-    // location
-  } = props;
-
-  const baseUrl = isProd ? 'https://www.app.gptaiflow.com' : 'http://localhost:3000';
-  const imgBaseUrl = 'https://www.gptaiflow.com';
-  const isHomePage = false;
-
+const getFeatures = (isHomePage: boolean, locale: string) => {
   const homePageFeatures_zh: IOneFeature[] = [
     {
       icon: '/img/icons/2024-05-24-img-17-product-management.png',
@@ -254,7 +159,6 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
       openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
     },
   ];
-
   const homePageFeatures_en: IOneFeature[] = [
     {
       icon: '/img/icons/2024-05-24-img-17-product-management.png',
@@ -403,18 +307,210 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
       openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
     },
   ];
-  const proModePageFeatures_zh: IOneFeature[] = [];
+  const proModePageFeatures_en: IOneFeature[] = [
+    {
+      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
+      proModeModuleName: 'Dialogue Optimization',
+      featureText_1: (
+        <>
+          🤖 Enter existing conversations and intelligently <b>suggest alternative expressions and responses</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          👥 Set target audience and <b>customize the dialogue style and content</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          📌 Provide feedback to continuously <b>improve the expression and response methods in dialogues</b>
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-24-comment.png',
+      proModeModuleName: 'Comment Writing Wizard',
+      featureText_1: (
+        <>
+          📖 Provide original text analysis and{' '}
+          <b>automatically generate initial drafts of comments closely related to the topic</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          📌 Customize comment content <b>based on specific backgrounds and target audiences</b> to meet the needs of
+          different contexts
+        </>
+      ),
+      featureText_3: (
+        <>
+          ♻️ Refine each comment through <b>continuous version iterations</b>
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+    },
+    {
+      icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
+      proModeModuleName: 'Article Refinement and Optimization',
+      featureText_1: (
+        <>
+          📝 Select <b>varied writing styles and structures</b> to enrich the presentation of the article
+        </>
+      ),
+      featureText_2: (
+        <>
+          ✨ Adjust and optimize the article based on user feedback to <b>enhance the reading experience</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>Switch between different draft versions with one click</b> for easy comparison of editing effects
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-25-seo.png',
+      proModeModuleName: 'SEO Optimization Tool',
+      featureText_1: (
+        <>
+          🔍 <b>Directly extract page content</b> as the starting point for optimization
+        </>
+      ),
+      featureText_2: (
+        <>
+          💡 <b>Provide immediate optimization results</b>, see effects instantly
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔁 <b>Iterate based on feedback</b>, continuously optimize SEO content
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+    },
+  ];
+  const proModePageFeatures_zh: IOneFeature[] = [
+    {
+      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
+      proModeModuleName: '对话优化',
+      featureText_1: (
+        <>
+          🤖 输入现有对话，智能<b>提出替代表达和回答</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          👥 设定目标听众，<b>定向调整对话风格和内容</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          📌 提供反馈，不断<b>优化对话表达与回答方式</b>
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-24-comment.png',
+      proModeModuleName: '写评论神器',
+      featureText_1: (
+        <>
+          📖 提供原文分析，<b>自动引出与主题紧密相关的评论初稿</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          📌 根据特定背景和目标读者群体，<b>定制评论内容</b>以满足不同语境需求
+        </>
+      ),
+      featureText_3: (
+        <>
+          ♻️ 通过<b>持续版本迭代</b>，对每一个评论进行精细的语句打磨
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+    },
+    {
+      icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
+      proModeModuleName: '文章细化与优化',
+      featureText_1: (
+        <>
+          📝 挑选多样的文风与结构，<b>丰富文章表现力</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          ✨ 基于反馈调整和优化文章，<b>提升阅读体验</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>一键切换草稿版本</b>，方便比较编辑效果
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-25-seo.png',
+      proModeModuleName: 'SEO 优化工具',
+      featureText_1: (
+        <>
+          🔍 <b>直接抓取页面内容</b>, 作为优化的起点
+        </>
+      ),
+      featureText_2: (
+        <>
+          💡 <b>直接提供优化结果</b>, 查看效果立竿见影
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔁 <b>根据反馈迭代</b>, 不断优化SEO内容
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+    },
+  ];
+
+  if (!isHomePage) {
+    if (locale === 'zh') {
+      return [...homePageFeatures_zh, ...proModePageFeatures_zh];
+    }
+
+    return [...homePageFeatures_en, ...proModePageFeatures_en];
+  }
+
+  if (locale === 'zh') {
+    return homePageFeatures_zh;
+  }
+
+  return homePageFeatures_en;
+};
+
+interface CardsForFeatures_input {
+  locale: string;
+  location?: string;
+}
+export const CardsForFeatures = (props: CardsForFeatures_input) => {
+  const {
+    locale,
+    // location
+  } = props;
+
+  const features = getFeatures(isHomePage, locale);
 
   return (
     <div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
-      {locale === 'en' &&
-        homePageFeatures_en.map((item) => {
-          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl} imgBaseUrl={imgBaseUrl} />;
-        })}
-      {locale === 'zh' &&
-        homePageFeatures_zh.map((item) => {
-          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl} imgBaseUrl={imgBaseUrl} />;
-        })}
+      {features.map((item) => {
+        const { openLink } = item;
+
+        if (!openLink || (openLink && openLink === '#'))
+          return <Card_without_click item={item} imgBaseUrl={docBaseUrl} />;
+
+        return <Card_with_click item={item} locale={locale} baseUrl={webAppUrl} imgBaseUrl={docBaseUrl} />;
+      })}
 
       {/* More cards for homePage */}
       {isHomePage && (
@@ -422,7 +518,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
           <a className="!no-underline" href={'/app'}>
             <div className="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-800">
               <img
-                src={imgBaseUrl + '/img/icons/2023-09-18-img-14-icon-more-features-easy-use.png'}
+                src={docBaseUrl + '/img/icons/2023-09-18-img-14-icon-more-features-easy-use.png'}
                 className="w-12"
                 // width="512"
                 // height="512"
@@ -488,16 +584,6 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
         </div>
       )}
 
-      {!isHomePage &&
-        proModePageFeatures_zh.map((item) => {
-          const { openLink } = item;
-
-          if (!openLink || (openLink && openLink === '#'))
-            return <Card_without_click item={item} imgBaseUrl={imgBaseUrl} />;
-
-          return <Card_with_click item={item} locale={locale} baseUrl={baseUrl} imgBaseUrl={imgBaseUrl} />;
-        })}
-
       {/* More cards for application-senarios */}
       {!isHomePage && (
         <>
@@ -505,7 +591,7 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
             <a className="!no-underline" href={'/app'}>
               <div className="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-800 h-full">
                 <img
-                  src={imgBaseUrl + '/img/icons/2023-09-22-img-16-treasure.png'}
+                  src={docBaseUrl + '/img/icons/2023-09-22-img-16-treasure.png'}
                   className="w-12"
                   // width="512"
                   // height="512"
