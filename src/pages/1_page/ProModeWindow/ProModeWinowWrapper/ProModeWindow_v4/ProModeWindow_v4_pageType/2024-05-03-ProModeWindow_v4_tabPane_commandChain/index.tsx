@@ -24,6 +24,7 @@ import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-ap
 import { convert_IAIFlow_v2_to_IAICommands_v4_new } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/TAIFlow_v2';
 import { IUserData } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IStoreStorageLocalSettings } from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IAICommands_v4_new } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
 
 interface IProModeWindow_v4_tabPane_commandChain_input {
   t: IGetT_frontend_output;
@@ -60,11 +61,15 @@ export const ProModeWindow_v4_tabPane_commandChain = (props: IProModeWindow_v4_t
 
   // === tabPane ProModeData - start ===
   const [tabPaneFromProps] = useState<IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>>(tabPane);
+  // console.log('tabPaneFromProps', tabPaneFromProps);
 
   const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context_type_commandChain>(
     IPromode_v4_tabPane_context_default,
   );
+  // console.log('contextSelected', contextSelected);
   const [contextStageSelected, setContextStageSelected] = useState<IPromode_v4_tabPane_context_stage | null>();
+  // console.log('contextStageSelected', contextStageSelected);
+  const [aiCommandsSettings, setAiCommandsSettings] = useState<IAICommands_v4_new[]>([]);
   // === tabPane ProModeData - end ===
 
   const init = useCallback(() => {
@@ -88,6 +93,13 @@ export const ProModeWindow_v4_tabPane_commandChain = (props: IProModeWindow_v4_t
     }
     setContextStageSelected(contextStageDefault);
     if (contextStageDefault.newContextValue) setGlobalContext(contextStageDefault.newContextValue);
+
+    // AI commands settings default
+    setAiCommandsSettings(
+      contextStageDefault.instructions
+        .filter((item: IAIFlow_v2) => item.isDefault)
+        .map((item: IAIFlow_v2) => convert_IAIFlow_v2_to_IAICommands_v4_new(item)),
+    );
 
     // === Set examples - start ===
     let mainExamples: IProMode_v4_tabPane_example[] = contextDefault.examples;
@@ -113,7 +125,16 @@ export const ProModeWindow_v4_tabPane_commandChain = (props: IProModeWindow_v4_t
         5,
       );
     }
-  }, [contextSelected.value, t]);
+
+    // Update AI commands settings if contextSelected.value or contextStageSelected?.name is changed
+    if (contextStageSelected) {
+      setAiCommandsSettings(
+        contextStageSelected.instructions
+          .filter((item: IAIFlow_v2) => item.isDefault)
+          .map((item: IAIFlow_v2) => convert_IAIFlow_v2_to_IAICommands_v4_new(item)),
+      );
+    }
+  }, [contextSelected.value, contextStageSelected?.name, t]);
 
   return (
     <div className="panel_container">
@@ -247,11 +268,7 @@ export const ProModeWindow_v4_tabPane_commandChain = (props: IProModeWindow_v4_t
                 globalExamples={globalExamples}
                 contextStageSelected_instructions={contextStageSelected?.instructions ?? []}
                 contextStageSelected_outputIndicator={contextStageSelected?.outputIndicator ?? []}
-                aiCommandsSettings={
-                  contextStageSelected?.instructions
-                    .filter((item: IAIFlow_v2) => item.isDefault)
-                    .map((item: IAIFlow_v2) => convert_IAIFlow_v2_to_IAICommands_v4_new(item)) ?? []
-                }
+                aiCommandsSettings={aiCommandsSettings}
                 webCase={webCase}
               />
               <hr style={{ margin: 10 }} />
