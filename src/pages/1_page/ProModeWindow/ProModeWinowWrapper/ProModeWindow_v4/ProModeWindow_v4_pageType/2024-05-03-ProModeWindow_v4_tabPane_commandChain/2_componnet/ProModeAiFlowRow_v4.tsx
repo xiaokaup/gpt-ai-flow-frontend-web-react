@@ -490,7 +490,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
                   style={{ marginBottom: -1 }}
                   value={exampleText}
                   onChange={onInputExampleTextChange}
-                  placeholder={t.get('Use this content as a imitation content')}
+                  placeholder={t.get('Imitation content')}
                 />
               </div>
             )}
@@ -500,7 +500,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
                 autoSize={{ minRows: 4 }}
                 value={textInputContent}
                 onChange={onInputContentTextAreaChange}
-                placeholder={t.get('Run commands based on the this content')}
+                placeholder={t.get('User input')}
               />
             </div>
             <div>
