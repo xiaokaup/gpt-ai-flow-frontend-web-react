@@ -5,7 +5,7 @@
 .output_block_with_watermarker::before {
   content: 'Powered by GPT AI Flow';
   position: absolute;
-  bottom: -20px; /* Position the watermark at the bottom of the parent element */
+  bottom: -6px; /* Position the watermark at the bottom of the parent element */
   left: 50%;
   transform: translateX(-50%); /* Center the watermark horizontally */
   font-size: 12px; /* Adjust the font size */
