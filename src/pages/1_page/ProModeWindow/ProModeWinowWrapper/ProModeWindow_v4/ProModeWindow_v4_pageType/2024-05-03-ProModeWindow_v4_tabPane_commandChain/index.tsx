@@ -25,7 +25,7 @@ import { convert_IAIFlow_v2_to_IAICommands_v4_new } from '../../../../../../../g
 import { IUserData } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IStoreStorageLocalSettings } from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
-interface IProModeWindow_v4_tabPane_type_langchain_input {
+interface IProModeWindow_v4_tabPane_commandChain_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>;
   webCase: {
@@ -33,7 +33,7 @@ interface IProModeWindow_v4_tabPane_type_langchain_input {
     localDataFromStorage: IStoreStorageLocalSettings;
   };
 }
-export const ProModeWindow_v4_tabPane_type_langchain = (props: IProModeWindow_v4_tabPane_type_langchain_input) => {
+export const ProModeWindow_v4_tabPane_commandChain = (props: IProModeWindow_v4_tabPane_commandChain_input) => {
   const { t, tabPane, webCase } = props;
 
   // === tabPane UI settings - start ===
@@ -238,7 +238,6 @@ export const ProModeWindow_v4_tabPane_type_langchain = (props: IProModeWindow_v4
       <div className="row panel_body">
         {[...Array(rowCount)].map((_, rowIndex) => {
           return (
-            // eslint-disable-next-line react/no-array-index-key
             <div className="row" key={rowIndex}>
               <ProModeAiFlowRow_v4
                 t={t}
