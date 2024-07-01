@@ -509,7 +509,8 @@ export const SettingsWindow_4_proMode = (props: ISettingsWindow_4_proMode) => {
 
   const { userData } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onUserDataChange: (_newUserData_without_token: IUserData) => {},
     locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });

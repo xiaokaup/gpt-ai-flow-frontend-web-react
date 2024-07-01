@@ -10,13 +10,14 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { GoogleLogin } from '@react-oauth/google';
 
 import { IReduxRootState } from '../../../../store/reducer';
-import { USER_LOGIN, authLoginByEmailAndPasswordAction } from '../../../../store/actions/userActions';
+import { USER_LOGIN } from '../../../../store/actions/userActions';
 
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import TBackendAuthFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendAuth';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
 
 interface ISettingsWindow_2_user_2_login_input {
   t: IGetT_frontend_output;
@@ -52,22 +53,22 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   const onEmailAndPasswordSignInFinish = async (values: { email: string; password: string }) => {
     try {
-      const userAndTokenData = await dispatch(
-        authLoginByEmailAndPasswordAction(
-          values.email,
-          values.password,
-          t.currentLocale,
-          CONSTANTS_GPT_AI_FLOW_COMMON,
-        ) as any,
+      const authUserDB: IUserDB = await TBackendAuthFile.authLoginByEmailAndPassword(
+        values.email,
+        values.password,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
       );
 
-      if (!userAndTokenData) {
+      if (!authUserDB) {
         throw new Error(
           t.get(
             "The user's email is not registered or the password is incorrect. If the problem persists, please contact the administrator",
           ),
         );
       }
+
+      dispatch({ type: USER_LOGIN, payload: authUserDB });
 
       await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
