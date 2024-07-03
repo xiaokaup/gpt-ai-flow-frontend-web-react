@@ -360,7 +360,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
                     ...newItem,
                   }));
                 }}
-                contextSelected_type={contextSelected.type}
+                contextSelected_type={contextSelected.contextType}
                 swtichContextSelected_by_type={swtichContextSelected_by_type}
               />
             </div>
