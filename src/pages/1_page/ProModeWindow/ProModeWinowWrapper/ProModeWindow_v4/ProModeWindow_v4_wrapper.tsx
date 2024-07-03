@@ -70,7 +70,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           options={context.map(
             (item: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
               return {
-                label: item.label,
+                label: t.get(item.label),
                 value: item.contextType,
               };
             },
