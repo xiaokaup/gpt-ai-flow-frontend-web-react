@@ -32,18 +32,18 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
     // urlSlug,
     context,
   } = tabPane;
-  //   console.log('context', context);
+  // console.log('context', context);
 
   const creativityValue = useCreativityValueContext();
 
   const [selectedContextType, setSelectedContextType] = useState<EProMode_v4_tabPane_context_type>(
-    context.length > 0 ? context[0].type : EProMode_v4_tabPane_context_type.GENERAL,
+    context.length > 0 ? context[0].contextType : EProMode_v4_tabPane_context_type.GENERAL,
   );
   const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
-  //   console.log('contextSelected', contextSelected);
+  // console.log('contextSelected', contextSelected);
   if (!contextSelected) {
     message.error('contextSelected is null');
     return null;
@@ -52,7 +52,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   const swtichContextSelected_by_type = (newType: EProMode_v4_tabPane_context_type) => {
     setSelectedContextType(newType);
-    setContextSelected(context.find((item) => item.type === newType) ?? null);
+    setContextSelected(context.find((item) => item.contextType === newType) ?? null);
   };
 
   return (
@@ -60,7 +60,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
       <div className="float-right">v5</div>
       <div className="row" style={{ paddingLeft: '1rem' }}>
         <Select
-          defaultValue={contextSelected?.type}
+          defaultValue={contextSelected?.contextType}
           value={selectedContextType}
           style={{ width: 120 }}
           onChange={(value: string) => {
@@ -71,7 +71,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             (item: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
               return {
                 label: t.get(item.label),
-                value: item.type,
+                value: item.contextType,
               };
             },
           )}
