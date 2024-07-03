@@ -50,9 +50,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [messageExchangeType, _] = useState<EProMode_v4_tabPane_context_type>(
-    contextType ?? EProMode_v4_tabPane_context_type.GENERAL,
-  );
+  const [messageExchangeType, _] = useState<EProMode_v4_tabPane_context_type>(contextType);
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
