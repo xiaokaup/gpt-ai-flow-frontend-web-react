@@ -124,9 +124,33 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
         </Dropdown>
       </Menu.Item>
 
-      <Menu.Item key="subscriptionInfo" className="bg-yellow-200 hover:bg-yellow-200">
+      <Menu.Item key="subscriptionInfo">
         <a href="/app/info#subscription">
-          <div className="flex items-center">
+          <div className="flex items-center bg-gray-100 px-2">
+            <img
+              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+              alt="image"
+              className="w-[48px] h-[48px]"
+            />
+            <span className="font-bold text-gray-500">免费版</span>
+          </div>
+          <div className="flex items-center bg-blue-200 px-2">
+            <img
+              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+              alt="image"
+              className="w-[48px] h-[48px]"
+            />
+            <span className="font-bold text-blue-500">工具版</span>
+          </div>
+          <div className="flex items-center bg-green-100 px-2">
+            <img
+              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+              alt="image"
+              className="w-[48px] h-[48px]"
+            />
+            <span className="font-bold text-green-600">模型版</span>
+          </div>
+          <div className="flex items-center bg-yellow-200 px-2">
             <img
               src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
               alt="image"
