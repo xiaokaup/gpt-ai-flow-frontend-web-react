@@ -15,11 +15,9 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
-import { LifetimeVersionAnnounce } from './LifetimeVersionAnnounce';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { EStripe_currency } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
-import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
 import { SettingWIndow_4_proMode_recharge_form } from './SettingWIndow_4_proMode_recharge_form';
 
 interface SettingsWindow_4_proMode_locale_input {
@@ -125,29 +123,24 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
         </div>
 
         {name && (
-          <>
-            <div className="row">
-              {(name === EProductItemDB_name.STARTAI_TOOLS || name === EProductItemDB_name.STARTAI_MODEL) && (
-                <>
-                  {t.get('Subscription Expiry Date')}:{' '}
-                  <span>
-                    <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+          <div className="row">
+            {(name === EProductItemDB_name.STARTAI_TOOLS || name === EProductItemDB_name.STARTAI_MODEL) && (
+              <>
+                {t.get('Subscription Expiry Date')}:{' '}
+                <span>
+                  <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
 
-                    <span className="column">
-                      {isExpired ? (
-                        <Tag color="#f50">{t.get('Expired')}</Tag>
-                      ) : (
-                        <Tag color="#2db7f5">{t.get('Valid')}</Tag>
-                      )}
-                    </span>
+                  <span className="column">
+                    {isExpired ? (
+                      <Tag color="#f50">{t.get('Expired')}</Tag>
+                    ) : (
+                      <Tag color="#2db7f5">{t.get('Valid')}</Tag>
+                    )}
                   </span>
-                </>
-              )}
-            </div>
-
-            {name === EProductItemDB_name.STARTAI_TOOLS && <ToolsVersionAnnounce locale={locale} />}
-            {name === EProductItemDB_name.STARTAI_LIFETIME && <LifetimeVersionAnnounce locale={locale} />}
-          </>
+                </span>
+              </>
+            )}
+          </div>
         )}
       </div>
     </div>

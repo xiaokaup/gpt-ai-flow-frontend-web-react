@@ -39,7 +39,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
 
   if (!userId) {
     return (
-      <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+      <div id="settingsWindowContainer-1-local" className="container" style={{ padding: '.4rem' }}>
         {t.get('Please register a user and log in first')}
       </div>
     );

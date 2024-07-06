@@ -13,16 +13,20 @@ import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-com
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 
 import { useBaseUrl } from './hooks/useBaseUrl';
+import { IProductItemDB } from './gpt-ai-flow-common/interface-database/IProductItemDB';
+import { EProductItemDB_name } from './gpt-ai-flow-common/enum-database/EProductItemDB';
 
 const { Header, Content, Footer } = Layout;
 
 interface Layout_input {
   isAuthenticated: boolean;
+  productItem: IProductItemDB;
   children: React.ReactNode;
 }
 
-const AppMenu = (props: { isAuthenticated: boolean }) => {
-  const { isAuthenticated } = props;
+const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB }) => {
+  const { isAuthenticated, productItem } = props;
+  const { name: productItem_name } = productItem;
 
   const dispatch = useDispatch();
 
@@ -123,12 +127,58 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
           </a>
         </Dropdown>
       </Menu.Item>
+      {isAuthenticated && (
+        <Menu.Item key="subscriptionInfo">
+          <a href="/app/info#subscription">
+            {productItem_name === EProductItemDB_name.STARTAI_FREE && (
+              <div className="flex items-center bg-gray-100 px-3">
+                <img
+                  src="/static/icons/2024-07-06-img-1-free/free-512x512.png"
+                  alt="image"
+                  className="w-[36px] h-[36px] mr-2"
+                />
+                <span className="font-bold text-gray-500">{t.get('Free_version')}</span>
+              </div>
+            )}
+            {productItem_name === EProductItemDB_name.STARTAI_TOOLS && (
+              <div className="flex items-center bg-blue-200 px-3">
+                <img
+                  src="/static/icons/2024-07-06-img-2-tool/tool-512x512.png"
+                  alt="image"
+                  className="w-[36px] h-[36px] mr-2"
+                />
+                <span className="font-bold text-blue-500">{t.get('Tools_version')}</span>
+              </div>
+            )}
+            {productItem_name === EProductItemDB_name.STARTAI_MODEL && (
+              <div className="flex items-center bg-green-100 px-3">
+                <img
+                  src="/static/icons/2024-07-06-img-3-model/cube-512x512.png"
+                  alt="image"
+                  className="w-[36px] h-[36px] mr-2"
+                />
+                <span className="font-bold text-green-600">{t.get('Model_version')}</span>
+              </div>
+            )}
+            {productItem_name === EProductItemDB_name.STARTAI_LIFETIME && (
+              <div className="flex items-center bg-yellow-100 px-3">
+                <img
+                  src="/static/icons/2024-07-06-img-4-lifetime/lifetime-512x512.png"
+                  alt="image"
+                  className="w-[36px] h-[36px] mr-2"
+                />
+                <span className="font-bold text-yellow-500">{t.get('Lifetime_version')}</span>
+              </div>
+            )}
+          </a>
+        </Menu.Item>
+      )}
     </Menu>
   );
 };
 
 export const AppLayout = (props: Layout_input) => {
-  const { isAuthenticated, children } = props;
+  const { isAuthenticated, productItem, children } = props;
 
   return (
     <Layout className="layout_container" style={{ background: '#fff' }}>
@@ -136,7 +186,7 @@ export const AppLayout = (props: Layout_input) => {
       <Header>
         <div className="logo" />
 
-        <AppMenu isAuthenticated={isAuthenticated} />
+        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
       </Header>
 
       {/* Body/Content */}
@@ -156,14 +206,14 @@ export const AppLayout = (props: Layout_input) => {
 };
 
 export const AppLayoutCenter = (props: Layout_input) => {
-  const { isAuthenticated, children } = props;
+  const { isAuthenticated, productItem, children } = props;
 
   return (
     <Layout className="layout_container h-full" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
-        <AppMenu isAuthenticated={isAuthenticated} />
+        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
       </Header>
 
       {/* Body/Content */}

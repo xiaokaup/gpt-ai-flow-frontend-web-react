@@ -63,7 +63,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   };
 
   return (
-    <div id="SettingsWindow_1_local_1_basic" className="row">
+    <div id="settingsWindowContainer-1-local_1_basic" className="row">
       <div className="row">
         <div>
           <Tooltip

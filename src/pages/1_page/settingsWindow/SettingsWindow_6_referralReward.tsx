@@ -55,7 +55,7 @@ const SettingsWindow_6_referralReward_login = (props: ISettingsWindow_6_referral
   };
 
   return (
-    <div id="settingsWindowContainer-menu-6-referralReward" className="container" style={{ padding: '8px 10px' }}>
+    <div id="settingsWindowContainer-6-referralReward" className="container" style={{ padding: '8px 10px' }}>
       <div className="row" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div className="row" style={{ textAlign: 'center' }}>
           <span style={{ fontSize: '1.2rem' }}>
