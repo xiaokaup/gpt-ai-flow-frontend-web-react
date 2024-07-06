@@ -13,16 +13,20 @@ import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-com
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 
 import { useBaseUrl } from './hooks/useBaseUrl';
+import { IProductItemDB } from './gpt-ai-flow-common/interface-database/IProductItemDB';
+import { EProductItemDB_name } from './gpt-ai-flow-common/enum-database/EProductItemDB';
 
 const { Header, Content, Footer } = Layout;
 
 interface Layout_input {
   isAuthenticated: boolean;
+  productItem: IProductItemDB;
   children: React.ReactNode;
 }
 
-const AppMenu = (props: { isAuthenticated: boolean }) => {
-  const { isAuthenticated } = props;
+const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB }) => {
+  const { isAuthenticated, productItem } = props;
+  const { name: productItem_name } = productItem;
 
   const dispatch = useDispatch();
 
@@ -123,49 +127,58 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
           </a>
         </Dropdown>
       </Menu.Item>
-
-      <Menu.Item key="subscriptionInfo">
-        <a href="/app/info#subscription">
-          <div className="flex items-center bg-gray-100 px-2">
-            <img
-              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
-              alt="image"
-              className="w-[48px] h-[48px]"
-            />
-            <span className="font-bold text-gray-500">免费版</span>
-          </div>
-          <div className="flex items-center bg-blue-200 px-2">
-            <img
-              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
-              alt="image"
-              className="w-[48px] h-[48px]"
-            />
-            <span className="font-bold text-blue-500">工具版</span>
-          </div>
-          <div className="flex items-center bg-green-100 px-2">
-            <img
-              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
-              alt="image"
-              className="w-[48px] h-[48px]"
-            />
-            <span className="font-bold text-green-600">模型版</span>
-          </div>
-          <div className="flex items-center bg-yellow-200 px-2">
-            <img
-              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
-              alt="image"
-              className="w-[48px] h-[48px]"
-            />
-            <span className="font-bold text-yellow-500">终身版</span>
-          </div>
-        </a>
-      </Menu.Item>
+      {isAuthenticated && (
+        <Menu.Item key="subscriptionInfo">
+          <a href="/app/info#subscription">
+            {productItem_name === EProductItemDB_name.STARTAI_FREE && (
+              <div className="flex items-center bg-gray-100 px-2">
+                <img
+                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  alt="image"
+                  className="w-[48px] h-[48px]"
+                />
+                <span className="font-bold text-gray-500">免费版</span>
+              </div>
+            )}
+            {productItem_name === EProductItemDB_name.STARTAI_TOOLS && (
+              <div className="flex items-center bg-blue-200 px-2">
+                <img
+                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  alt="image"
+                  className="w-[48px] h-[48px]"
+                />
+                <span className="font-bold text-blue-500">工具版</span>
+              </div>
+            )}
+            {productItem_name === EProductItemDB_name.STARTAI_MODEL && (
+              <div className="flex items-center bg-green-100 px-2">
+                <img
+                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  alt="image"
+                  className="w-[48px] h-[48px]"
+                />
+                <span className="font-bold text-green-600">模型版</span>
+              </div>
+            )}
+            {productItem_name === EProductItemDB_name.STARTAI_LIFETIME && (
+              <div className="flex items-center bg-yellow-200 px-2">
+                <img
+                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  alt="image"
+                  className="w-[48px] h-[48px]"
+                />
+                <span className="font-bold text-yellow-500">终身版</span>
+              </div>
+            )}
+          </a>
+        </Menu.Item>
+      )}
     </Menu>
   );
 };
 
 export const AppLayout = (props: Layout_input) => {
-  const { isAuthenticated, children } = props;
+  const { isAuthenticated, productItem, children } = props;
 
   return (
     <Layout className="layout_container" style={{ background: '#fff' }}>
@@ -173,7 +186,7 @@ export const AppLayout = (props: Layout_input) => {
       <Header>
         <div className="logo" />
 
-        <AppMenu isAuthenticated={isAuthenticated} />
+        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
 
         {/* <div className="fixed top-5 right-5 flex items-center bg-yellow-100 p-2 rounded-md">
           <img src="path/to/crown-icon.png" alt="Lifetime Subscription Icon" className="w-5 h-5 mr-2" />
@@ -198,14 +211,14 @@ export const AppLayout = (props: Layout_input) => {
 };
 
 export const AppLayoutCenter = (props: Layout_input) => {
-  const { isAuthenticated, children } = props;
+  const { isAuthenticated, productItem, children } = props;
 
   return (
     <Layout className="layout_container h-full" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
-        <AppMenu isAuthenticated={isAuthenticated} />
+        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
       </Header>
 
       {/* Body/Content */}

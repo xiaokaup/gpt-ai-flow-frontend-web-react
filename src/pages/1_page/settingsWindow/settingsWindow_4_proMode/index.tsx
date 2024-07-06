@@ -22,6 +22,8 @@ import { SettingsWindow_4_proMode_locale } from './SettingsWindow_4_proMode_loca
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
+import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
+import { LifetimeVersionAnnounce } from './LifetimeVersionAnnounce';
 
 interface ISettingsWindow_4_proMode_login_input {
   t: IGetT_frontend_output;
@@ -104,11 +106,12 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
 
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
-      {(!productItem || productItem?.name === EProductItemDB_name.STARTAI_FREE) && (
-        <FreeVersionAnnounce locale={t.currentLocale} />
+      {productItem?.name === EProductItemDB_name.STARTAI_FREE && <FreeVersionAnnounce locale={t.currentLocale} />}
+      {productItem?.name === EProductItemDB_name.STARTAI_TOOLS && <ToolsVersionAnnounce locale={t.currentLocale} />}
+      {productItem?.name === EProductItemDB_name.STARTAI_LIFETIME && (
+        <LifetimeVersionAnnounce locale={t.currentLocale} />
       )}
-
-      <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+      {productItem && <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />}
 
       {productItem && stripePrices && (
         <SettingsWindow_4_proMode_locale
