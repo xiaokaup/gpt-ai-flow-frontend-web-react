@@ -123,6 +123,19 @@ const AppMenu = (props: { isAuthenticated: boolean }) => {
           </a>
         </Dropdown>
       </Menu.Item>
+
+      <Menu.Item key="subscriptionInfo" className="bg-yellow-200 hover:bg-yellow-200">
+        <a href="/app/info#subscription">
+          <div className="flex items-center">
+            <img
+              src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+              alt="image"
+              className="w-[48px] h-[48px]"
+            />
+            <span className="font-bold text-yellow-500">终身版</span>
+          </div>
+        </a>
+      </Menu.Item>
     </Menu>
   );
 };
@@ -137,6 +150,11 @@ export const AppLayout = (props: Layout_input) => {
         <div className="logo" />
 
         <AppMenu isAuthenticated={isAuthenticated} />
+
+        {/* <div className="fixed top-5 right-5 flex items-center bg-yellow-100 p-2 rounded-md">
+          <img src="path/to/crown-icon.png" alt="Lifetime Subscription Icon" className="w-5 h-5 mr-2" />
+          <span className="font-bold text-yellow-500">终身版</span>
+        </div> */}
       </Header>
 
       {/* Body/Content */}

@@ -103,7 +103,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
   };
 
   return (
-    <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+    <div id="subscription" className="container" style={{ padding: '.4rem' }}>
       {(!productItem || productItem?.name === EProductItemDB_name.STARTAI_FREE) && (
         <FreeVersionAnnounce locale={t.currentLocale} />
       )}
@@ -488,7 +488,7 @@ const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_i
 const SettingsWindow_4_proMode_logout = (props: { t: IGetT_frontend_output }) => {
   const { t } = props;
   return (
-    <div id="settingsWindowContainer" className="container" style={{ padding: '.4rem' }}>
+    <div id="settingsWindowContainer-subscription-logout" className="container" style={{ padding: '.4rem' }}>
       {t.get('Please register a user and log in first')}
     </div>
   );
