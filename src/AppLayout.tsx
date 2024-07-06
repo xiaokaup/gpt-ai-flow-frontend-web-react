@@ -137,7 +137,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                   alt="image"
                   className="w-[36px] h-[36px] mr-2"
                 />
-                <span className="font-bold text-gray-500">免费版</span>
+                <span className="font-bold text-gray-500">{t.get('Free_version')}</span>
               </div>
             )}
             {productItem_name === EProductItemDB_name.STARTAI_TOOLS && (
@@ -147,7 +147,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                   alt="image"
                   className="w-[36px] h-[36px] mr-2"
                 />
-                <span className="font-bold text-blue-500">工具版</span>
+                <span className="font-bold text-blue-500">{t.get('Tools_version')}</span>
               </div>
             )}
             {productItem_name === EProductItemDB_name.STARTAI_MODEL && (
@@ -157,17 +157,17 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                   alt="image"
                   className="w-[36px] h-[36px] mr-2"
                 />
-                <span className="font-bold text-green-600">模型版</span>
+                <span className="font-bold text-green-600">{t.get('Model_version')}</span>
               </div>
             )}
             {productItem_name === EProductItemDB_name.STARTAI_LIFETIME && (
-              <div className="flex items-center bg-yellow-200 px-2">
+              <div className="flex items-center bg-yellow-100 px-2">
                 <img
                   src="/static/icons/2024-07-06-img-4-lifetime/lifetime-512x512.png"
                   alt="image"
                   className="w-[36px] h-[36px] mr-2"
                 />
-                <span className="font-bold text-yellow-500">终身版</span>
+                <span className="font-bold text-yellow-500">{t.get('Lifetime_version')}</span>
               </div>
             )}
           </a>
@@ -187,11 +187,6 @@ export const AppLayout = (props: Layout_input) => {
         <div className="logo" />
 
         <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
-
-        {/* <div className="fixed top-5 right-5 flex items-center bg-yellow-100 p-2 rounded-md">
-          <img src="path/to/crown-icon.png" alt="Lifetime Subscription Icon" className="w-5 h-5 mr-2" />
-          <span className="font-bold text-yellow-500">终身版</span>
-        </div> */}
       </Header>
 
       {/* Body/Content */}
