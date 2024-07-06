@@ -133,9 +133,9 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
             {productItem_name === EProductItemDB_name.STARTAI_FREE && (
               <div className="flex items-center bg-gray-100 px-2">
                 <img
-                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  src="/static/icons/2024-07-06-img-1-free/free-512x512.png"
                   alt="image"
-                  className="w-[48px] h-[48px]"
+                  className="w-[36px] h-[36px] mr-2"
                 />
                 <span className="font-bold text-gray-500">免费版</span>
               </div>
@@ -143,9 +143,9 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
             {productItem_name === EProductItemDB_name.STARTAI_TOOLS && (
               <div className="flex items-center bg-blue-200 px-2">
                 <img
-                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  src="/static/icons/2024-07-06-img-2-tool/tool-512x512.png"
                   alt="image"
-                  className="w-[48px] h-[48px]"
+                  className="w-[36px] h-[36px] mr-2"
                 />
                 <span className="font-bold text-blue-500">工具版</span>
               </div>
@@ -153,9 +153,9 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
             {productItem_name === EProductItemDB_name.STARTAI_MODEL && (
               <div className="flex items-center bg-green-100 px-2">
                 <img
-                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  src="/static/icons/2024-07-06-img-3-model/cube-512x512.png"
                   alt="image"
-                  className="w-[48px] h-[48px]"
+                  className="w-[36px] h-[36px] mr-2"
                 />
                 <span className="font-bold text-green-600">模型版</span>
               </div>
@@ -163,9 +163,9 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
             {productItem_name === EProductItemDB_name.STARTAI_LIFETIME && (
               <div className="flex items-center bg-yellow-200 px-2">
                 <img
-                  src="/static/icons/2024-07-06-lifetime/lifetime-512x512.png"
+                  src="/static/icons/2024-07-06-img-4-lifetime/lifetime-512x512.png"
                   alt="image"
-                  className="w-[48px] h-[48px]"
+                  className="w-[36px] h-[36px] mr-2"
                 />
                 <span className="font-bold text-yellow-500">终身版</span>
               </div>
