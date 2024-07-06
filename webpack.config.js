@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const CopyPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   entry: './src/index.tsx',
   output: { path: path.join(__dirname, 'build'), filename: 'index.bundle.js' },
@@ -43,6 +45,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html'),
+    }),
+    new CopyPlugin({
+      patterns: [{ from: path.join(__dirname, 'public', 'static'), to: 'static' }],
     }),
   ],
 };
