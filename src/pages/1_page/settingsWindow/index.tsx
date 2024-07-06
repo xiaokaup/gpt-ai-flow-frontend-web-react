@@ -49,10 +49,10 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
         <SettingsWindow_1_local t={t} />
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_7_about t={t} />
+        <SettingsWindow_4_proMode t={t} localeForSettingsWindow={locale} />
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_4_proMode t={t} localeForSettingsWindow={locale} />
+        <SettingsWindow_7_about t={t} />
       </div>
       {/* <div style={containerStyle}>
         <SettingsWindow_6_referralReward t={t} userId={userId.toString()} accessToken={accessToken} />

@@ -26,6 +26,12 @@ import { AuthPage } from './pages/1_page/AuthPages';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/Features/ProModeWindowFeatures';
+import { useEffect, useState } from 'react';
+import {
+  IProductItemDB_default,
+  IProductItemDB_with_expiredAt_and_blance,
+} from './gpt-ai-flow-common/interface-database/IProductItemDB';
+import { getProductItem_by_userId_from_backend } from './gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -48,6 +54,26 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
+  const [productItem, setProductItem] = useState<IProductItemDB_with_expiredAt_and_blance>(IProductItemDB_default);
+  // console.log('productItem:', productItem);
+
+  const init = async () => {
+    const {
+      Token: { accessToken },
+    } = userData;
+
+    const itemFound: IProductItemDB_with_expiredAt_and_blance | null = await getProductItem_by_userId_from_backend(
+      accessToken,
+      locale,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+    );
+    if (itemFound) setProductItem(itemFound);
+  };
+
+  useEffect(() => {
+    isAuthenticated && init();
+  }, []);
+
   const Routes_v1 = () => {
     return (
       <Route path="/" element={<Layout_v1 />}>
@@ -56,7 +82,7 @@ export const AppRoutes = () => {
           index
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
             </div>
@@ -66,7 +92,7 @@ export const AppRoutes = () => {
           path="/signUp"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_1_signup t={t} />
               </AppLayoutCenter>
             </div>
@@ -76,7 +102,7 @@ export const AppRoutes = () => {
           path="/login"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
             </div>
@@ -86,7 +112,7 @@ export const AppRoutes = () => {
           path="/changePassword"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayoutCenter>
             </div>
@@ -96,7 +122,7 @@ export const AppRoutes = () => {
           path="/forgetPassword"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_5_forgetPassword t={t} />
               </AppLayoutCenter>
             </div>
@@ -106,7 +132,7 @@ export const AppRoutes = () => {
           path="/auth"
           element={
             <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <AuthPage t={t} />
               </AppLayoutCenter>
             </div>
@@ -116,7 +142,7 @@ export const AppRoutes = () => {
           path="/logout"
           element={
             <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <LogoutPage t={t} />
               </AppLayoutCenter>
             </div>
@@ -127,7 +153,7 @@ export const AppRoutes = () => {
           path="/news"
           element={
             <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <NewsPage
                   webCase={{
                     t,
@@ -146,7 +172,7 @@ export const AppRoutes = () => {
           path="/info"
           element={
             <div className="App">
-              <AppLayout isAuthenticated={isAuthenticated}>
+              <AppLayout isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayout>
             </div>
@@ -156,7 +182,7 @@ export const AppRoutes = () => {
           path="/proMode"
           element={
             <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <ProModeWindow_warpper
                   webCase={{
                     t,
@@ -180,7 +206,7 @@ export const AppRoutes = () => {
         path="news"
         element={
           <div className="App">
-            <AppLayoutCenter isAuthenticated={isAuthenticated}>
+            <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
               <NewsPage
                 webCase={{
                   t,
@@ -202,7 +228,7 @@ export const AppRoutes = () => {
           index
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
             </div>
@@ -212,7 +238,7 @@ export const AppRoutes = () => {
           path="signUp"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_1_signup t={t} />
               </AppLayoutCenter>
             </div>
@@ -222,7 +248,7 @@ export const AppRoutes = () => {
           path="login"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
             </div>
@@ -232,7 +258,7 @@ export const AppRoutes = () => {
           path="changePassword"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayoutCenter>
             </div>
@@ -242,7 +268,7 @@ export const AppRoutes = () => {
           path="forgetPassword"
           element={
             <div className="App h-full">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow_2_user_5_forgetPassword t={t} />
               </AppLayoutCenter>
             </div>
@@ -252,7 +278,7 @@ export const AppRoutes = () => {
           path="auth"
           element={
             <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <AuthPage t={t} />
               </AppLayoutCenter>
             </div>
@@ -263,7 +289,7 @@ export const AppRoutes = () => {
             path="features"
             element={
               <div className="App">
-                <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                   <ProModeWindowFeatures locale={locale} />
                 </AppLayoutCenter>
               </div>
@@ -281,7 +307,7 @@ export const AppRoutes = () => {
           path="info"
           element={
             <div className="App">
-              <AppLayout isAuthenticated={isAuthenticated}>
+              <AppLayout isAuthenticated={isAuthenticated} productItem={productItem}>
                 <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayout>
             </div>
@@ -292,7 +318,7 @@ export const AppRoutes = () => {
             index
             element={
               <div className="App">
-                <AppLayoutCenter isAuthenticated={isAuthenticated}>
+                <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                   <ProModeWindow_warpper
                     webCase={{
                       t,
@@ -308,7 +334,7 @@ export const AppRoutes = () => {
           path="logout"
           element={
             <div className="App">
-              <AppLayoutCenter isAuthenticated={isAuthenticated}>
+              <AppLayoutCenter isAuthenticated={isAuthenticated} productItem={productItem}>
                 <LogoutPage t={t} />
               </AppLayoutCenter>
             </div>
@@ -339,7 +365,7 @@ function Layout_v1() {
 function NoMatch() {
   return (
     <div className="App">
-      <AppLayoutCenter isAuthenticated={false}>
+      <AppLayoutCenter isAuthenticated={false} productItem={IProductItemDB_default}>
         <h2>Nothing to see here!</h2>
       </AppLayoutCenter>
     </div>
