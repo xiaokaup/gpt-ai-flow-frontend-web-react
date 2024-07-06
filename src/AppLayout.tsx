@@ -131,7 +131,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
         <Menu.Item key="subscriptionInfo">
           <a href="/app/info#subscription">
             {productItem_name === EProductItemDB_name.STARTAI_FREE && (
-              <div className="flex items-center bg-gray-100 px-2">
+              <div className="flex items-center bg-gray-100 px-3">
                 <img
                   src="/static/icons/2024-07-06-img-1-free/free-512x512.png"
                   alt="image"
@@ -141,7 +141,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
               </div>
             )}
             {productItem_name === EProductItemDB_name.STARTAI_TOOLS && (
-              <div className="flex items-center bg-blue-200 px-2">
+              <div className="flex items-center bg-blue-200 px-3">
                 <img
                   src="/static/icons/2024-07-06-img-2-tool/tool-512x512.png"
                   alt="image"
@@ -151,7 +151,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
               </div>
             )}
             {productItem_name === EProductItemDB_name.STARTAI_MODEL && (
-              <div className="flex items-center bg-green-100 px-2">
+              <div className="flex items-center bg-green-100 px-3">
                 <img
                   src="/static/icons/2024-07-06-img-3-model/cube-512x512.png"
                   alt="image"
@@ -161,7 +161,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
               </div>
             )}
             {productItem_name === EProductItemDB_name.STARTAI_LIFETIME && (
-              <div className="flex items-center bg-yellow-100 px-2">
+              <div className="flex items-center bg-yellow-100 px-3">
                 <img
                   src="/static/icons/2024-07-06-img-4-lifetime/lifetime-512x512.png"
                   alt="image"
