@@ -42,7 +42,7 @@ import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/con
 import { IAdjust_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { EProMode_v4_tabPane_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
-import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/04-tool/interface';
+import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/05-tool/interface';
 
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_tool_image_crop';
