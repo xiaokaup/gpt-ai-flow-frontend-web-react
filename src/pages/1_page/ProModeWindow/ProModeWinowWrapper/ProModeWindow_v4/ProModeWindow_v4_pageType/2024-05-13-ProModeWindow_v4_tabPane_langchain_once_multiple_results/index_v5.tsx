@@ -17,7 +17,10 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-commo
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { IInputsCache } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { EButton_operation } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
+import {
+  EButton_operation,
+  IPromode_v4_tabPane_context_button,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
 import { ILangchain_for_type_langchain_request_V2 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
 
 import {
@@ -44,6 +47,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
 ) => {
   const { creativityValue, contextSelected } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
+  console.log('contextSelected', contextSelected);
   const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -448,33 +452,41 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
 
             <div className="row buttons">
               <div className="row operation">
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    onImproveMessage(chatHistory, messageExchangeData)();
-                  }}
-                  disabled={
-                    isCalling ||
-                    (chatHistory.length > 0
-                      ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
-                      : false)
+                {buttons.map((item: IPromode_v4_tabPane_context_button) => {
+                  const { operation, isHidden } = item;
+                  if (!isHidden && operation === EButton_operation.GENERATE) {
+                    return (
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          onImproveMessage(chatHistory, messageExchangeData)();
+                        }}
+                        disabled={
+                          isCalling ||
+                          (chatHistory.length > 0
+                            ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
+                            : false)
+                        }
+                      >
+                        {t.get('Generate')}
+                      </Button>
+                    );
                   }
-                >
-                  {t.get('Generate')}
-                </Button>
-
-                {buttons && !buttons.find((item) => item.operation === EButton_operation.REGENERATE)?.isHidden && (
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      onRegenerateMessage();
-                    }}
-                    style={{ marginLeft: '1rem' }}
-                    disabled={isCalling || currentVersionNum < 2}
-                  >
-                    {t.get('Regenerate')}
-                  </Button>
-                )}
+                  if (!isHidden && item.operation === EButton_operation.REGENERATE) {
+                    return (
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          onRegenerateMessage();
+                        }}
+                        style={{ marginLeft: '1rem' }}
+                        disabled={isCalling || currentVersionNum < 2}
+                      >
+                        {t.get('Regenerate')}
+                      </Button>
+                    );
+                  }
+                })}
 
                 <Button
                   onClick={() => {

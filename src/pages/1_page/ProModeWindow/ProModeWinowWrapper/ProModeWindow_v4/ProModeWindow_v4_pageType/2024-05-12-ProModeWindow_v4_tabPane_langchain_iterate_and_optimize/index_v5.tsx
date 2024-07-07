@@ -29,6 +29,10 @@ import {
 import { EProMode_v4_tabPane_context_type } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 import { IAdjust_IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
+import {
+  IPromode_v4_tabPane_context_button,
+  EButton_operation,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -43,7 +47,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
   props: IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input,
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
-  const { urlSlug, contextType } = contextSelected;
+  const { urlSlug, contextType, buttons } = contextSelected;
   const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -385,31 +389,41 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
 
             <div className="row buttons">
               <div className="row operation">
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    onImproveMessage(chatHistory, messageExchangeData)();
-                  }}
-                  disabled={
-                    isCalling ||
-                    (chatHistory.length > 0
-                      ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
-                      : false)
+                {buttons.map((item: IPromode_v4_tabPane_context_button) => {
+                  const { operation, isHidden } = item;
+                  if (!isHidden && operation === EButton_operation.GENERATE) {
+                    return (
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          onImproveMessage(chatHistory, messageExchangeData)();
+                        }}
+                        disabled={
+                          isCalling ||
+                          (chatHistory.length > 0
+                            ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
+                            : false)
+                        }
+                      >
+                        {t.get('Generate')}
+                      </Button>
+                    );
                   }
-                >
-                  {t.get('Generate')}
-                </Button>
-
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    onRegenerateMessage();
-                  }}
-                  style={{ marginLeft: '1rem' }}
-                  disabled={isCalling || currentVersionNum < 2}
-                >
-                  {t.get('Regenerate')}
-                </Button>
+                  if (!isHidden && item.operation === EButton_operation.REGENERATE) {
+                    return (
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          onRegenerateMessage();
+                        }}
+                        style={{ marginLeft: '1rem' }}
+                        disabled={isCalling || currentVersionNum < 2}
+                      >
+                        {t.get('Regenerate')}
+                      </Button>
+                    );
+                  }
+                })}
 
                 <Button
                   onClick={() => {
