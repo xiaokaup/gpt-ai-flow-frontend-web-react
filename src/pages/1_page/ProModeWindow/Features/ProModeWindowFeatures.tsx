@@ -76,7 +76,7 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
           🕒 <b>保存每一步的版本变化</b>，轻松回到任何草稿版本
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=writingPostChain_v2',
+      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
@@ -220,7 +220,7 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
           🕒 <b>Save each step of version changes</b>, easily revert to any draft version
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=writingPostChain_v2',
+      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
