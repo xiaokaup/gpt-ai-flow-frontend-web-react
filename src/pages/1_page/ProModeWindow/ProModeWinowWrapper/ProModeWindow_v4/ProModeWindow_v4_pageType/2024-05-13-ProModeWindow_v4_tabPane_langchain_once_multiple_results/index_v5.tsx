@@ -79,7 +79,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
 
   // Manage multiple outputs results
   const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(
-    inputsCache.currentOuputNums ? parseInt(inputsCache.currentOuputNums, 10) : 2, // IAdjust_morePostsChain
+    inputsCache.currentOutputNums ? parseInt(inputsCache.currentOutputNums, 10) : 2, // IAdjust_morePostsChain
   );
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
@@ -418,7 +418,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                 adjustSelected={contextSelected.adjust}
                 adjust={adjust as IAdjust_morePostsChain}
                 setAdjust={(newItem: IAdjust_morePostsChain) => {
-                  setMessages_outputs_num(newItem.currentOuputNums);
+                  setMessages_outputs_num(newItem.currentOutputNums);
                   setMessageExchangeData({
                     ...messageExchangeData,
                     adjust: newItem,
@@ -426,7 +426,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
                   setInputsCache((prvState: IInputsCache) => ({
                     ...prvState,
                     ...newItem,
-                    currentOuputNums: newItem?.currentOuputNums?.toString(), // Convert currentOuputNums to string
+                    currentOutputNums: newItem?.currentOutputNums?.toString(), // Convert currentOutputNums to string
                   }));
                 }}
               />
