@@ -193,6 +193,30 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
             versionNum: newMessageExchange_versionNum_for_ai,
             role: EMessage_role.AI,
           };
+          if (contextType.includes('agent') || contextType.includes('beta') || contextType.includes('BETA')) {
+            console.log("I'm in beta mode, so I'm not going to update the chat history.");
+            const response = JSON.parse(resultText);
+            const { results } = response;
+            const { messages } = results;
+            // console.log('results', results);
+            // console.log('messages', messages);
+            newMessageExchange_for_ai.currentOutput.content = '';
+            messages.forEach((item, index: number) => {
+              if (index % 2 === 0) {
+                if (index !== 0) {
+                  newMessageExchange_for_ai.currentOutput.content += '\n\n---\n\n';
+                }
+                newMessageExchange_for_ai.currentOutput.content += `## ${t.get('Writing post')}\n`;
+                newMessageExchange_for_ai.currentOutput.content += item.kwargs.content;
+              }
+              if (index % 2 === 1) {
+                newMessageExchange_for_ai.currentOutput.content += '\n\n---\n\n';
+                newMessageExchange_for_ai.currentOutput.content += `## ${t.get('Review post')}\n`;
+                const newContent = item.kwargs.content.replace('FINAL ANSWER', '');
+                newMessageExchange_for_ai.currentOutput.content += newContent;
+              }
+            });
+          }
           const newChatHistory_for_ai = [...newChatHistory_for_human, newMessageExchange_for_ai];
           setMessageExchangeData(newMessageExchange_for_ai);
           setChatHistory(newChatHistory_for_ai);

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Select, message } from 'antd';
+import { Select, Tag, message } from 'antd';
 
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
@@ -62,7 +62,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
         <Select
           defaultValue={contextSelected?.contextType}
           value={selectedContextType}
-          style={{ width: 120 }}
+          style={{ width: 210 }}
           onChange={(value: string) => {
             console.log(`selected ${value}`);
             swtichContextSelected_by_type(value as EProMode_v4_tabPane_context_type);
@@ -76,6 +76,13 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             },
           )}
         />
+        {(selectedContextType.includes('agent') ||
+          selectedContextType.includes('beta') ||
+          selectedContextType.includes('BETA')) && (
+          <Tag color="#108ee9" className="ml-2">
+            Beta
+          </Tag>
+        )}
       </div>
       <div className="row tabPane_context_container">
         {mode === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
