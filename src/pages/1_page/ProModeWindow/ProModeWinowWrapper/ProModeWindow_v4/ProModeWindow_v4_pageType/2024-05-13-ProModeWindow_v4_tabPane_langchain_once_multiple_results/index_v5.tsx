@@ -49,6 +49,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
   const { urlSlug, contextType, buttons } = contextSelected;
   // console.log('contextSelected', contextSelected);
   const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
+  inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
