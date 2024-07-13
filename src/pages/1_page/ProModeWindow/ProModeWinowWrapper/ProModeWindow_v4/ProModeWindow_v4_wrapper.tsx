@@ -28,11 +28,7 @@ export interface IProModeWindow_v4_wrapper_input {
 }
 export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input) => {
   const { t, tabPane, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
-  const {
-    // urlSlug,
-    context,
-  } = tabPane;
-  // console.log('context', context);
+  const { uuid, context } = tabPane;
 
   const creativityValue = useCreativityValueContext();
 
@@ -76,29 +72,33 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             },
           )}
         />
-        {!(
-          selectedContextType.includes('agent') ||
-          selectedContextType.includes('beta') ||
-          selectedContextType.includes('BETA')
-        ) && (
-          <Button
-            type="primary"
-            className="ml-2"
-            onClick={() => {
-              swtichContextSelected_by_type(
-                EProMode_v4_tabPane_context_type.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT,
-              );
-            }}
-          >
-            {t.get('Writing and Review Workflow')}
-          </Button>
-        )}
-        {(selectedContextType.includes('agent') ||
-          selectedContextType.includes('beta') ||
-          selectedContextType.includes('BETA')) && (
-          <Tag color="#108ee9" className="ml-2">
-            Beta
-          </Tag>
+        {uuid === 'writingPostAgent' && (
+          <>
+            {!(
+              selectedContextType.includes('agent') ||
+              selectedContextType.includes('beta') ||
+              selectedContextType.includes('BETA')
+            ) && (
+              <Button
+                type="primary"
+                className="ml-2"
+                onClick={() => {
+                  swtichContextSelected_by_type(
+                    EProMode_v4_tabPane_context_type.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT,
+                  );
+                }}
+              >
+                {t.get('Writing and Review Workflow')}
+              </Button>
+            )}
+            {(selectedContextType.includes('agent') ||
+              selectedContextType.includes('beta') ||
+              selectedContextType.includes('BETA')) && (
+              <Tag color="#108ee9" className="ml-2">
+                Beta
+              </Tag>
+            )}
+          </>
         )}
       </div>
       <div className="row tabPane_context_container">
