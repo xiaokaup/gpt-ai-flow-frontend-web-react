@@ -85,7 +85,9 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             type="primary"
             className="ml-2"
             onClick={() => {
-              setSelectedContextType(EProMode_v4_tabPane_context_type.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT);
+              swtichContextSelected_by_type(
+                EProMode_v4_tabPane_context_type.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT,
+              );
             }}
           >
             {t.get('Writing and Review Workflow')}
