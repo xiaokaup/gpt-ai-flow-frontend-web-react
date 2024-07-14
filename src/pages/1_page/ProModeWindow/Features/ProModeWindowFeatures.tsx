@@ -79,6 +79,26 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
       openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
     },
     {
+      icon: '/img/icons/2024-07-14-img-1-workflow.png',
+      proModeModuleName: '写作/审核帖子智能体',
+      featureText_1: (
+        <>
+          📝 <b>智能内容生成</b>，快速产出高质量的文本内容，匹配用户和市场需求
+        </>
+      ),
+      featureText_2: (
+        <>
+          ✅ <b>实时内容审核</b>，确保内容合规性，提升内容安全标准
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>持续学习与优化</b>，利用最新数据反馈不断改进内容质量与相关性
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
+    },
+    {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
       proModeModuleName: '帖子重写',
       featureText_1: (
@@ -218,6 +238,28 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
       featureText_3: (
         <>
           🕒 <b>Save each step of version changes</b>, easily revert to any draft version
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
+    },
+    {
+      icon: '/img/icons/2024-07-14-img-1-workflow.png',
+      proModeModuleName: 'Writing/Review Post Agent',
+      featureText_1: (
+        <>
+          📝 <b>Intelligent Content Generation</b>, quickly produce high-quality text content that matches user and
+          market demands
+        </>
+      ),
+      featureText_2: (
+        <>
+          ✅ <b>Real-time Content Review</b>, ensure content compliance and elevate content safety standards
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>Continuous Learning and Optimization</b>, use the latest data feedback to constantly improve content
+          quality and relevance
         </>
       ),
       openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
