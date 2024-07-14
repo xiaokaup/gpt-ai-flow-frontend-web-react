@@ -80,7 +80,7 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
     },
     {
       icon: '/img/icons/2024-07-14-img-1-workflow.png',
-      proModeModuleName: '写作/审核帖子智能体',
+      proModeModuleName: '写作/审核帖子智能体 (beta)',
       featureText_1: (
         <>
           📝 <b>智能内容生成</b>，快速产出高质量的文本内容，匹配用户和市场需求
@@ -244,7 +244,7 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
     },
     {
       icon: '/img/icons/2024-07-14-img-1-workflow.png',
-      proModeModuleName: 'Writing/Review Post Agent',
+      proModeModuleName: 'Writing/Review Post Agent (beta)',
       featureText_1: (
         <>
           📝 <b>Intelligent Content Generation</b>, quickly produce high-quality text content that matches user and
