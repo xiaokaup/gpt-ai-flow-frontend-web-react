@@ -19,46 +19,6 @@ export interface IOneFeature {
 const getFeatures = (isHomePage: boolean, locale: string) => {
   const homePageFeatures_zh: IOneFeature[] = [
     {
-      icon: '/img/icons/2024-05-24-img-17-product-management.png',
-      proModeModuleName: '产品经理',
-      featureText_1: (
-        <>
-          📊 <b>从需求到产品特性的转化</b>，精准把握市场和用户需求
-        </>
-      ),
-      featureText_2: (
-        <>
-          🛠️ <b>项目管理与执行力</b>，确保项目按里程碑高效推进
-        </>
-      ),
-      featureText_3: (
-        <>
-          🔄 <b>数据驱动的产品优化</b>，持续提升用户体验和产品性能
-        </>
-      ),
-      openLink: '/app/proMode?tabPane_uuid=product_manager',
-    },
-    {
-      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
-      proModeModuleName: '小红书达人',
-      featureText_1: (
-        <>
-          🖋 制定与执行<b>针对性的内容计划</b>，满足受众需求并增强用户互动
-        </>
-      ),
-      featureText_2: (
-        <>
-          📈 利用<b>市场趋势和数据分析</b>，优化内容策略并提高内容分发效率
-        </>
-      ),
-      featureText_3: (
-        <>
-          🎨 应用<b>创意故事讲述和差异化策略</b>，增强品牌形象并突出竞争优势
-        </>
-      ),
-      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
-    },
-    {
       icon: '/img/icons/2024-05-24-img-18-content-writing.png',
       proModeModuleName: '写帖子神器',
       featureText_1: (
@@ -178,50 +138,48 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
       ),
       openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
     },
+    {
+      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
+      proModeModuleName: '对话优化',
+      featureText_1: (
+        <>
+          🤖 输入现有对话，智能<b>提出替代表达和回答</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          👥 设定目标听众，<b>定向调整对话风格和内容</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          📌 提供反馈，不断<b>优化对话表达与回答方式</b>
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-24-comment.png',
+      proModeModuleName: '写评论神器',
+      featureText_1: (
+        <>
+          📖 提供原文分析，<b>自动引出与主题紧密相关的评论初稿</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          📌 根据特定背景和目标读者群体，<b>定制评论内容</b>以满足不同语境需求
+        </>
+      ),
+      featureText_3: (
+        <>
+          ♻️ 通过<b>持续版本迭代</b>，对每一个评论进行精细的语句打磨
+        </>
+      ),
+      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+    },
   ];
   const homePageFeatures_en: IOneFeature[] = [
-    {
-      icon: '/img/icons/2024-05-24-img-17-product-management.png',
-      proModeModuleName: 'Product Manager',
-      featureText_1: (
-        <>
-          📊 <b>From requirements to product features</b>, accurately grasp market and user needs
-        </>
-      ),
-      featureText_2: (
-        <>
-          🛠️ <b>Project management and execution</b>, ensuring projects progress efficiently by milestones
-        </>
-      ),
-      featureText_3: (
-        <>
-          🔄 <b>Data-driven product optimization</b>, continuously enhancing user experience and product performance
-        </>
-      ),
-      openLink: '/app/proMode?tabPane_uuid=product_manager',
-    },
-    {
-      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
-      proModeModuleName: 'Xiaohongshu Expert',
-      featureText_1: (
-        <>
-          🖋 Create and execute <b>targeted content plans</b>, meet audience needs and enhance user interaction
-        </>
-      ),
-      featureText_2: (
-        <>
-          📈 Utilize <b>market trends and data analysis</b>, optimize content strategy and improve content distribution
-          efficiency
-        </>
-      ),
-      featureText_3: (
-        <>
-          🎨 Apply <b>creative storytelling and differentiated strategies</b>, enhance brand image and highlight
-          competitive advantages
-        </>
-      ),
-      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
-    },
     {
       icon: '/img/icons/2024-05-24-img-18-content-writing.png',
       proModeModuleName: 'Post Writing Wizard',
@@ -348,8 +306,6 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
       ),
       openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
     },
-  ];
-  const proModePageFeatures_en: IOneFeature[] = [
     {
       icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
       proModeModuleName: 'Dialogue Optimization',
@@ -392,6 +348,8 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
       ),
       openLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
     },
+  ];
+  const proModePageFeatures_en: IOneFeature[] = [
     {
       icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
       proModeModuleName: 'Article Refinement and Optimization',
@@ -432,48 +390,50 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
       ),
       openLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
     },
+    {
+      icon: '/img/icons/2024-05-24-img-17-product-management.png',
+      proModeModuleName: 'Product Manager',
+      featureText_1: (
+        <>
+          📊 <b>From requirements to product features</b>, accurately grasp market and user needs
+        </>
+      ),
+      featureText_2: (
+        <>
+          🛠️ <b>Project management and execution</b>, ensuring projects progress efficiently by milestones
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>Data-driven product optimization</b>, continuously enhancing user experience and product performance
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=product_manager',
+    },
+    {
+      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
+      proModeModuleName: 'Xiaohongshu Expert',
+      featureText_1: (
+        <>
+          🖋 Create and execute <b>targeted content plans</b>, meet audience needs and enhance user interaction
+        </>
+      ),
+      featureText_2: (
+        <>
+          📈 Utilize <b>market trends and data analysis</b>, optimize content strategy and improve content distribution
+          efficiency
+        </>
+      ),
+      featureText_3: (
+        <>
+          🎨 Apply <b>creative storytelling and differentiated strategies</b>, enhance brand image and highlight
+          competitive advantages
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
+    },
   ];
   const proModePageFeatures_zh: IOneFeature[] = [
-    {
-      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
-      proModeModuleName: '对话优化',
-      featureText_1: (
-        <>
-          🤖 输入现有对话，智能<b>提出替代表达和回答</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          👥 设定目标听众，<b>定向调整对话风格和内容</b>
-        </>
-      ),
-      featureText_3: (
-        <>
-          📌 提供反馈，不断<b>优化对话表达与回答方式</b>
-        </>
-      ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
-    },
-    {
-      icon: '/img/icons/2024-06-30-img-24-comment.png',
-      proModeModuleName: '写评论神器',
-      featureText_1: (
-        <>
-          📖 提供原文分析，<b>自动引出与主题紧密相关的评论初稿</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          📌 根据特定背景和目标读者群体，<b>定制评论内容</b>以满足不同语境需求
-        </>
-      ),
-      featureText_3: (
-        <>
-          ♻️ 通过<b>持续版本迭代</b>，对每一个评论进行精细的语句打磨
-        </>
-      ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
-    },
     {
       icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
       proModeModuleName: '文章细化与优化',
@@ -513,6 +473,46 @@ const getFeatures = (isHomePage: boolean, locale: string) => {
         </>
       ),
       openLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+    },
+    {
+      icon: '/img/icons/2024-05-24-img-17-product-management.png',
+      proModeModuleName: '产品经理',
+      featureText_1: (
+        <>
+          📊 <b>从需求到产品特性的转化</b>，精准把握市场和用户需求
+        </>
+      ),
+      featureText_2: (
+        <>
+          🛠️ <b>项目管理与执行力</b>，确保项目按里程碑高效推进
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>数据驱动的产品优化</b>，持续提升用户体验和产品性能
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=product_manager',
+    },
+    {
+      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
+      proModeModuleName: '小红书达人',
+      featureText_1: (
+        <>
+          🖋 制定与执行<b>针对性的内容计划</b>，满足受众需求并增强用户互动
+        </>
+      ),
+      featureText_2: (
+        <>
+          📈 利用<b>市场趋势和数据分析</b>，优化内容策略并提高内容分发效率
+        </>
+      ),
+      featureText_3: (
+        <>
+          🎨 应用<b>创意故事讲述和差异化策略</b>，增强品牌形象并突出竞争优势
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
     },
   ];
 
