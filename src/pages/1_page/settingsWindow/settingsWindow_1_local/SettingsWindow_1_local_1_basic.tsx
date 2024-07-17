@@ -14,9 +14,10 @@ import {
   IStoreStorageLocalSettings,
   IStoreStorageLocalSettings_default,
 } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { ModelStaticService } from '../../../../gpt-ai-flow-common/tools/2_class/SModels';
+
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { SLLM } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM';
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
@@ -128,7 +129,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={ModelStaticService.getAllModelOptions()}
+          options={SLLM.getAllLLM_selectOptions()}
           style={{
             width: 200,
           }}
