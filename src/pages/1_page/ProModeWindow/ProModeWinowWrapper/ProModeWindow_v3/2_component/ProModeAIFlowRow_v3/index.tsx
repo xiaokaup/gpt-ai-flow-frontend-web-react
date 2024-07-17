@@ -49,6 +49,7 @@ import {
 import { IUserData, IUserData_default } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IPrompt } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
+import { ELLM_name } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 const { TextArea } = Input;
 
@@ -396,14 +397,14 @@ ${t.get('Original content')}: """${exampleText}"""`,
       };
 
       if (isUseOfficialDatabase && langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC) {
-        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.sendConversationalRetrievalChainToBackendProxy(
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.to_deprecate_sendConversationalRetrievalChainToBackendProxy(
           {
             langchainRetrievalDocType,
             chatHistory: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
             openaiOptions: {
-              openaiModel: proModeModalValue, // @TODELETE: 临时使用
-              openaiModelType: proModeModalValue,
+              openaiModel: proModeModalValue as ELLM_name as any, // @TODELETE: 临时使用
+              openaiModelType: proModeModalValue as ELLM_name as any,
               temperature: creativityValue,
             },
           },
@@ -432,7 +433,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
             productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
             modelSecret: openAIApiKey,
             modelOptions: {
-              openaiModelType: proModeModalValue, // @TODELETE: 临时使用
+              openaiModelType: proModeModalValue as ELLM_name as any, // @TODELETE: 临时使用
               temperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],
