@@ -427,18 +427,16 @@ ${t.get('Original content')}: """${exampleText}"""`,
           }
         });
       } else {
-        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postChatChain(
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postLangchainChatChain(
           {
-            // userId: userId?.toString() ?? '',
             productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
-            modelSecret: openAIApiKey,
-            modelOptions: {
-              openaiModelType: proModeModalValue as ELLM_name as any, // @TODELETE: 临时使用
-              temperature: creativityValue,
+            llmOptions: {
+              llmName: proModeModalValue,
+              llmSecret: openAIApiKey,
+              llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
-            locale,
           },
           beforeSendRequestFunc,
           updateResultsFunc(index),

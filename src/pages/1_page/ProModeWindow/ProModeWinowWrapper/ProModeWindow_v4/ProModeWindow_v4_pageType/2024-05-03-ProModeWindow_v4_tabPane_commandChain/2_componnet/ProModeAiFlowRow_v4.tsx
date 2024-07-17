@@ -381,18 +381,16 @@ ${t.get('Original content')}: """${exampleText}"""`,
           }
         });
       } else {
-        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postChatChain(
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postLangchainChatChain(
           {
-            // userId: window.electron.store.get(STORE_USER_ID),
             productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
-            modelSecret,
-            modelOptions: {
-              openaiModelType: proModeModalValue as ELLM_name as any,
-              temperature: creativityValue,
+            llmOptions: {
+              llmName: proModeModalValue,
+              llmSecret: modelSecret,
+              llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
-            locale,
           },
           beforeSendRequestFunc,
           // eslint-disable-next-line @typescript-eslint/no-shadow

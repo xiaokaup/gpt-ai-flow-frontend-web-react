@@ -8,12 +8,12 @@ import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 import {
-  IChatStream_langchain_input,
+  to_deprecate_IChatStream_langchain_input,
   ISendConversationalRetrievalChainToBackendProxy_dataField_input,
 } from '../../gpt-ai-flow-common/interface-backend/IBackendLangchain';
 
 const postChatChain = async (
-  data: IChatStream_langchain_input,
+  data: to_deprecate_IChatStream_langchain_input,
   beforeSendRequestAsStreamFunc: () => void,
   updateResultFromRequestAsStreamFunc: (resultText: string) => void,
   AfterRequestAsStreamFunc: () => void,
