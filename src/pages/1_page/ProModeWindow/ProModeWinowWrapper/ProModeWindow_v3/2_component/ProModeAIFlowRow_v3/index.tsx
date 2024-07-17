@@ -397,6 +397,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
       };
 
       if (isUseOfficialDatabase && langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC) {
+        // @TOFIX: 修复这部分使用 RAG 技术的代码
         /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.to_deprecate_sendConversationalRetrievalChainToBackendProxy(
           {
             langchainRetrievalDocType,
