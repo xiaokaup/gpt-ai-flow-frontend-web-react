@@ -40,7 +40,7 @@ const postChatChain = async (
     options.signal = signal;
   }
 
-  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/chatChain/?locale=${locale}`;
+  const url = `${env.BACKEND_NODE.ENDPOINT_BACKEND_NODE_HTTPS}/v1.0/post/langchain/chains/chatChain_v2/?locale=${locale}`;
 
   const response = await fetch(url, options);
 
