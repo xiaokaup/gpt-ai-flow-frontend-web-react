@@ -26,8 +26,8 @@ import IStoreStorageFile, {
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
-import { ModelStaticService } from '../../../../../gpt-ai-flow-common/tools/2_class/SModels';
-import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { SLLM } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM';
+
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -47,6 +47,7 @@ import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/inte
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
+import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -90,7 +91,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   // ModelOptions
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
-  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(model_type);
+  const [proModeModelType, setProModeModelType] = useState<ELLM_name>(model_type);
   // === ProMode tabPane settings - end ===
 
   const init = useCallback(async () => {
@@ -201,13 +202,13 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               optionFilterProp="children"
               onChange={(value: string) => {
                 console.log(`selected ${value}`);
-                setProModeModelType(value as EOpenAiModel_type);
+                setProModeModelType(value as ELLM_name);
               }}
               onSearch={(value: string) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={ModelStaticService.getAllModelOptions()}
+              options={SLLM.getAllLLM_selectOptions()}
               style={{
                 width: 180,
               }}

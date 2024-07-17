@@ -1,5 +1,6 @@
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { EOpenAiModel_type } from '../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { ELLM_name } from '../../gpt-ai-flow-common/enum-backend/ELLM';
+
 import IProMode_v3File from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-web';
@@ -11,10 +12,10 @@ import { IAction } from '../store';
 export interface IProModeReducerState {
   openAIApiKey: string;
   chatMode: {
-    model_type: EOpenAiModel_type;
+    model_type: ELLM_name;
   };
   proMode: {
-    model_type: EOpenAiModel_type;
+    model_type: ELLM_name;
   };
 }
 

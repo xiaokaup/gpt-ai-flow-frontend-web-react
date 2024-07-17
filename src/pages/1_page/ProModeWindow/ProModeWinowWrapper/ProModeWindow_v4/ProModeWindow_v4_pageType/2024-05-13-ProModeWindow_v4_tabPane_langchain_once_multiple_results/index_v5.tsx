@@ -21,7 +21,6 @@ import {
   EButton_operation,
   IPromode_v4_tabPane_context_button,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
-import { ILangchain_for_type_langchain_request_V2 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
 
 import {
   IPromode_v4_tabPane_context,
@@ -35,6 +34,7 @@ import {
 import { EProMode_v4_tabPane_context_type } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 import { IAdjust_morePostsChain } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
+import { ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v3';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -130,12 +130,12 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
       role: EMessage_role.HUMAN,
     };
 
-    const newHumanRequest: ILangchain_for_type_langchain_request_V2 = {
+    const newHumanRequest: ILangchain_for_type_langchain_request_v3 = {
       productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
-      modelSecret,
-      modelOptions: {
-        openaiModelType: proModeModelType,
-        temperature: creativityValue,
+      llmOptions: {
+        llmName: proModeModelType,
+        llmSecret: modelSecret,
+        llmTemperature: creativityValue,
       },
       type: messageExchangeType,
       prevMessageExchange: chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : paraMessageExchangeData,
@@ -160,7 +160,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_resul
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
       const filteredParaMessageExchangeData = filterBackendAndAjdust_before_buildHumanMessage(paraMessageExchangeData);
-      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(filteredParaMessageExchangeData);
+      const bodyData: ILangchain_for_type_langchain_request_v3 = buildHumanMessage(filteredParaMessageExchangeData);
       const newMessageExchange_for_human = bodyData.currentMessageExchange;
       const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
       const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];

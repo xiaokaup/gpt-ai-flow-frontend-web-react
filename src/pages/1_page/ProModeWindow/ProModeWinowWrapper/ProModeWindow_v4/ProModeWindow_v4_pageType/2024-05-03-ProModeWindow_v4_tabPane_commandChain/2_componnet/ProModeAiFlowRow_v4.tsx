@@ -39,6 +39,7 @@ import {
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
 import { IUserData } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IPrompt } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { ELLM_name } from '../../../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 const { TextArea } = Input;
 
@@ -350,14 +351,14 @@ ${t.get('Original content')}: """${exampleText}"""`,
       };
 
       if (isUseOfficialDatabase && langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC) {
-        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.sendConversationalRetrievalChainToBackendProxy(
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.to_deprecate_sendConversationalRetrievalChainToBackendProxy(
           {
             langchainRetrievalDocType,
             chatHistory: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
             openaiOptions: {
-              openaiModel: model_type, // @TODELETE: 临时使用
-              openaiModelType: model_type,
+              openaiModel: model_type as ELLM_name as any, // @TODELETE: 临时使用
+              openaiModelType: model_type as ELLM_name as any,
               temperature: 0.8,
             },
           },
@@ -380,18 +381,16 @@ ${t.get('Original content')}: """${exampleText}"""`,
           }
         });
       } else {
-        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postChatChain(
+        /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postLangchainChatChain(
           {
-            // userId: window.electron.store.get(STORE_USER_ID),
             productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
-            modelSecret,
-            modelOptions: {
-              openaiModelType: proModeModalValue,
-              temperature: creativityValue,
+            llmOptions: {
+              llmName: proModeModalValue,
+              llmSecret: modelSecret,
+              llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
-            locale,
           },
           beforeSendRequestFunc,
           // eslint-disable-next-line @typescript-eslint/no-shadow

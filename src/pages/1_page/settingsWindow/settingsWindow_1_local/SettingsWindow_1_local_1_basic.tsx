@@ -9,14 +9,15 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import { IReduxRootState } from '../../../../store/reducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
-import { EOpenAiModel_type } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import {
   IStoreStorageLocalSettings,
   IStoreStorageLocalSettings_default,
 } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { ModelStaticService } from '../../../../gpt-ai-flow-common/tools/2_class/SModels';
+
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { SLLM } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM';
+import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
@@ -32,11 +33,11 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
 
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
 
-  const [chatModeModelType] = useState<EOpenAiModel_type>(
-    localFromStore.chatMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TURBO,
+  const [chatModeModelType] = useState<ELLM_name>(
+    localFromStore.chatMode?.model_type ?? ELLM_name.OPENAI_GPT_3_5_TURBO,
   );
-  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(
-    localFromStore.proMode?.model_type ?? EOpenAiModel_type.GPT_3_point_5_TURBO,
+  const [proModeModelType, setProModeModelType] = useState<ELLM_name>(
+    localFromStore.proMode?.model_type ?? ELLM_name.OPENAI_GPT_3_5_TURBO,
   );
 
   const onSaveLocalSettings = () => {
@@ -122,13 +123,13 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           optionFilterProp="children"
           onChange={(value: string) => {
             console.log(`selected ${value}`);
-            setProModeModelType(value as EOpenAiModel_type);
+            setProModeModelType(value as ELLM_name);
           }}
           onSearch={(value: string) => {
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={ModelStaticService.getAllModelOptions()}
+          options={SLLM.getAllLLM_selectOptions()}
           style={{
             width: 200,
           }}

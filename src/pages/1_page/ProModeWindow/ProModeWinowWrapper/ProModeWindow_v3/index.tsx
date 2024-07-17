@@ -18,18 +18,16 @@ import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/con
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { EServiceCategoryDB_name } from '../../../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
 import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
-import ISubscriptionDB_v2File, {
-  ISubscriptionDB_v2,
-} from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 
-import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { ModelStaticService } from '../../../../../gpt-ai-flow-common/tools/2_class/SModels';
+
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ITabPanel } from './proModeWindowType';
+import { SLLM } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM';
+import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -54,9 +52,6 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   const {
     proMode: { model_type },
   } = localDataFromStorage;
-  const subscription_v2FromStorage: ISubscriptionDB_v2 = useSelector((state: IReduxRootState) => {
-    return state.subscription_v2 ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default;
-  });
 
   const { userData } = useUserData({
     userDataFromStorage,
@@ -108,10 +103,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   };
 
   // Model select
-  const [proModeModelType, setProModeModelType] = useState<EOpenAiModel_type>(model_type);
-  const [subscription_v2Data] = useState<ISubscriptionDB_v2>(
-    subscription_v2FromStorage ?? ISubscriptionDB_v2File.ISubscriptionDB_v2_default,
-  );
+  const [proModeModelType, setProModeModelType] = useState<ELLM_name>(model_type);
   // === proMode selector - end ===
 
   // === tab panels - start ===
@@ -288,13 +280,13 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
               optionFilterProp="children"
               onChange={(value: string) => {
                 console.log(`selected ${value}`);
-                setProModeModelType(value as EOpenAiModel_type);
+                setProModeModelType(value as ELLM_name);
               }}
               onSearch={(value: string) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={ModelStaticService.getModelTypeOptions(userData, subscription_v2Data)}
+              options={SLLM.getAllLLM_selectOptions()}
               style={{
                 width: 180,
               }}
