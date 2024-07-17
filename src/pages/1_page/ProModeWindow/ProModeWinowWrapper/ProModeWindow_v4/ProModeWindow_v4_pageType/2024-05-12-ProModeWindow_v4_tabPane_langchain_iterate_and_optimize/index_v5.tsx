@@ -17,7 +17,6 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-commo
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { IInputsCache } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { Langchain_context_description } from './component/Langchain_context_description';
-import { ILangchain_for_type_langchain_request_V2 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request';
 import {
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
@@ -33,6 +32,7 @@ import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
+import { ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v3';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -120,12 +120,12 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
       role: EMessage_role.HUMAN,
     };
 
-    const newHumanRequest: ILangchain_for_type_langchain_request_V2 = {
+    const newHumanRequest: ILangchain_for_type_langchain_request_v3 = {
       productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
-      modelSecret,
-      modelOptions: {
-        openaiModelType: proModeModelType,
-        temperature: creativityValue,
+      llmOptions: {
+        llmName: proModeModelType,
+        llmSecret: modelSecret,
+        llmTemperature: creativityValue,
       },
       type: contextType,
       prevMessageExchange: chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : paraMessageExchangeData,
@@ -149,7 +149,7 @@ export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimiz
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
       const filteredParaMessageExchangeData = filterBackendAndAjdust_before_buildHumanMessage(paraMessageExchangeData);
-      const bodyData: ILangchain_for_type_langchain_request_V2 = buildHumanMessage(filteredParaMessageExchangeData);
+      const bodyData: ILangchain_for_type_langchain_request_v3 = buildHumanMessage(filteredParaMessageExchangeData);
       const newMessageExchange_for_human = bodyData.currentMessageExchange;
       const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
       const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Select, Tag, message } from 'antd';
 
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPromode_v4_tabPane_context,
@@ -22,7 +22,7 @@ export interface IProModeWindow_v4_wrapper_input {
   tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
   userAccessToken: string;
   modelSecret: string;
-  proModeModelType: EOpenAiModel_type;
+  proModeModelType: ELLM_name;
   inputsCache: IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
