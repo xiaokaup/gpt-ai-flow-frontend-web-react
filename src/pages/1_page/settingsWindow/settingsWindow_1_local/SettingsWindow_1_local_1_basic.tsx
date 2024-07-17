@@ -9,7 +9,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import { IReduxRootState } from '../../../../store/reducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
-import { EOpenAiModel_type } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { to_deprecate_EOpenAiModel_type as EOpenAiModel_type } from '../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import {
   IStoreStorageLocalSettings,
   IStoreStorageLocalSettings_default,

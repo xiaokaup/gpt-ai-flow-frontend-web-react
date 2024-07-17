@@ -27,7 +27,7 @@ import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { ModelStaticService } from '../../../../../gpt-ai-flow-common/tools/2_class/SModels';
-import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { to_deprecate_EOpenAiModel_type as EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {

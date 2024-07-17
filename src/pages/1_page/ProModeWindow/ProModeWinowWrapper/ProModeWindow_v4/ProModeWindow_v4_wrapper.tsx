@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Select, Tag, message } from 'antd';
 
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { to_deprecate_EOpenAiModel_type as EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPromode_v4_tabPane_context,

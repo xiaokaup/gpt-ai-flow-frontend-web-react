@@ -1,5 +1,5 @@
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { EOpenAiModel_type } from '../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { to_deprecate_EOpenAiModel_type as EOpenAiModel_type } from '../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import IProMode_v3File from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-web';

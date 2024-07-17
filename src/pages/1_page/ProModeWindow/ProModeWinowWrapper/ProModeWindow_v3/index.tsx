@@ -22,7 +22,7 @@ import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 
-import { EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
+import { to_deprecate_EOpenAiModel_type as EOpenAiModel_type } from '../../../../../gpt-ai-flow-common/enum-backend/EOpenAIModelType';
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
