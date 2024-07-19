@@ -43,7 +43,7 @@ interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_
   // >;
   swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_type) => void;
 }
-export const ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5 = (
+export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input,
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;

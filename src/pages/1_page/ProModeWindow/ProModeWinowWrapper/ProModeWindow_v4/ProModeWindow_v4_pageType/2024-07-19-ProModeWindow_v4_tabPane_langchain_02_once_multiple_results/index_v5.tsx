@@ -42,7 +42,7 @@ interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
   contextSelected: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
   // swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_type) => void;
 }
-export const ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5 = (
+export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input,
 ) => {
   const { creativityValue, contextSelected } = props;
