@@ -29,6 +29,7 @@ export const Langchain_background = (props: {
 
   const [isShow, setIsShow] = useState(true);
 
+  const [autoCompleteOptions_for_input, setAutoCompleteOptions_for_input] = useState<AutoCompleteProps['options']>([]);
   const [autoCompleteOptions_for_textArea, setAutoCompleteOptions_for_textArea] = useState<
     AutoCompleteProps['options']
   >([]);
@@ -156,15 +157,49 @@ export const Langchain_background = (props: {
                           : []
                       }
                     >
-                      <Input
-                        onChange={(event) => {
-                          const newItem = {
-                            ...background,
-                            [name]: event.target.value,
-                          };
-                          setBackground(newItem);
-                        }}
-                      />
+                      {autoCompleteOptions && autoCompleteOptions.length > 0 && (
+                        <AutoComplete
+                          options={autoCompleteOptions_for_input}
+                          onSelect={(value: string) => {
+                            const newItem = {
+                              ...background,
+                              [name]: value,
+                            };
+                            setBackground(newItem);
+                          }}
+                          onFocus={() => {
+                            console.log('onFocus');
+                            setAutoCompleteOptions_for_input(autoCompleteOptions);
+                          }}
+                          onSearch={(searchValue: string) => {
+                            console.log('onSearch', searchValue);
+                            setAutoCompleteOptions_for_input(
+                              autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
+                            );
+                          }}
+                        >
+                          <Input
+                            onChange={(event) => {
+                              const newItem = {
+                                ...background,
+                                [name]: event.target.value,
+                              };
+                              setBackground(newItem);
+                            }}
+                          />
+                        </AutoComplete>
+                      )}
+                      {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
+                        <Input
+                          onChange={(event) => {
+                            const newItem = {
+                              ...background,
+                              [name]: event.target.value,
+                            };
+                            setBackground(newItem);
+                          }}
+                        />
+                      )}
                     </Form.Item>
                   </Tooltip>
                 );
