@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import { AutoComplete, AutoCompleteProps, DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
 
 import _ from 'lodash';
 import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
@@ -28,6 +28,10 @@ export const Langchain_background = (props: {
   const [form] = Form.useForm();
 
   const [isShow, setIsShow] = useState(true);
+
+  const [autoCompleteOptions_for_textArea, setAutoCompleteOptions_for_textArea] = useState<
+    AutoCompleteProps['options']
+  >([]);
 
   const debouncedSetBackground = useCallback(
     _.debounce(async ({ name, urlValue, convertedName }) => {
@@ -96,6 +100,7 @@ export const Langchain_background = (props: {
                 minNum = 1,
                 maxNum = 4,
                 isHidden,
+                autoCompleteOptions,
               } = item;
 
               if (componentType === 'InputNumber') {
@@ -182,20 +187,60 @@ export const Langchain_background = (props: {
                       }
                       rules={
                         isRequired
-                          ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
+                          ? [
+                              {
+                                required: true,
+                                message: t.getHTML('Please input your {text}', { text: t.get(label) }),
+                              },
+                            ]
                           : []
                       }
                     >
-                      <TextArea
-                        autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
-                        onChange={(event) => {
-                          const newItem = {
-                            ...background,
-                            [name]: event.target.value,
-                          };
-                          setBackground(newItem);
-                        }}
-                      />
+                      {autoCompleteOptions && autoCompleteOptions.length > 0 && (
+                        <AutoComplete
+                          options={autoCompleteOptions_for_textArea}
+                          onSelect={(value: string) => {
+                            const newItem = {
+                              ...background,
+                              [name]: value,
+                            };
+                            setBackground(newItem);
+                          }}
+                          onFocus={() => {
+                            console.log('onFocus');
+                            setAutoCompleteOptions_for_textArea(autoCompleteOptions);
+                          }}
+                          onSearch={(searchValue: string) => {
+                            console.log('onSearch', searchValue);
+                            setAutoCompleteOptions_for_textArea(
+                              autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
+                            );
+                          }}
+                        >
+                          <TextArea
+                            autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                            onChange={(event) => {
+                              const newItem = {
+                                ...background,
+                                [name]: event.target.value,
+                              };
+                              setBackground(newItem);
+                            }}
+                          />
+                        </AutoComplete>
+                      )}
+                      {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
+                        <TextArea
+                          autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                          onChange={(event) => {
+                            const newItem = {
+                              ...background,
+                              [name]: event.target.value,
+                            };
+                            setBackground(newItem);
+                          }}
+                        />
+                      )}
                     </Form.Item>
                   </Tooltip>
                 );
