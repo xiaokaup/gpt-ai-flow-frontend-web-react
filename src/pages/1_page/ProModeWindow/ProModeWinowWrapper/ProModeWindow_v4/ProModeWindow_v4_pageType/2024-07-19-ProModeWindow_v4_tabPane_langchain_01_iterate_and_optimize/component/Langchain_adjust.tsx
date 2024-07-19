@@ -1,7 +1,9 @@
 import expressionIcon from '../../../../../../../../../assets/icons-customize/2024-06-15-icon-communication-expression/megaphone.png';
 import responseIcon from '../../../../../../../../../assets/icons-customize/2024-06-15-communication-response/text-notification.png';
 
-import { DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import { useState } from 'react';
+
+import { AutoComplete, AutoCompleteProps, DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -27,6 +29,10 @@ export const Langchain_adjust = (props: {
     props;
 
   const [form] = Form.useForm();
+
+  const [autoCompleteOptions_for_textArea, setAutoCompleteOptions_for_textArea] = useState<
+    AutoCompleteProps['options']
+  >([]);
 
   return (
     <div className="row subContainer">
@@ -94,6 +100,7 @@ export const Langchain_adjust = (props: {
               minNum = 1,
               maxNum = 4,
               isDisabledWhenAdjustCall,
+              autoCompleteOptions,
             } = item;
 
             if (componentType === 'InputNumber') {
@@ -183,17 +190,53 @@ export const Langchain_adjust = (props: {
                         : []
                     }
                   >
-                    <TextArea
-                      disabled={isDisabledWhenAdjustCall && isAdjustCall}
-                      autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
-                      onChange={(event) => {
-                        const newItem = {
-                          ...adjust,
-                          [name]: event.target.value,
-                        };
-                        setAdjust(newItem);
-                      }}
-                    />
+                    {autoCompleteOptions && autoCompleteOptions.length > 0 && (
+                      <AutoComplete
+                        options={autoCompleteOptions_for_textArea}
+                        onSelect={(value: string) => {
+                          const newItem = {
+                            ...adjust,
+                            [name]: value,
+                          };
+                          setAdjust(newItem);
+                        }}
+                        onFocus={() => {
+                          console.log('onFocus');
+                          setAutoCompleteOptions_for_textArea(autoCompleteOptions);
+                        }}
+                        onSearch={(searchValue: string) => {
+                          console.log('onSearch', searchValue);
+                          setAutoCompleteOptions_for_textArea(
+                            autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
+                          );
+                        }}
+                      >
+                        <TextArea
+                          disabled={isDisabledWhenAdjustCall && isAdjustCall}
+                          autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                          onChange={(event) => {
+                            const newItem = {
+                              ...adjust,
+                              [name]: event.target.value,
+                            };
+                            setAdjust(newItem);
+                          }}
+                        />
+                      </AutoComplete>
+                    )}
+                    {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
+                      <TextArea
+                        disabled={isDisabledWhenAdjustCall && isAdjustCall}
+                        autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                        onChange={(event) => {
+                          const newItem = {
+                            ...adjust,
+                            [name]: event.target.value,
+                          };
+                          setAdjust(newItem);
+                        }}
+                      />
+                    )}
                   </Form.Item>
                 </Tooltip>
               );

@@ -14,8 +14,8 @@ import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/con
 import { EProMode_v4_tabPane_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
 import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 
-import { ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-05-12-ProModeWindow_v4_tabPane_langchain_iterate_and_optimize/index_v5';
-import { ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/2024-05-13-ProModeWindow_v4_tabPane_langchain_once_multiple_results/index_v5';
+import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize/index_v5';
+import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_langchain_02_once_multiple_results/index_v5';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
@@ -103,7 +103,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
       </div>
       <div className="row tabPane_context_container">
         {mode === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
-          <ProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5
+          <ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5
             creativityValue={creativityValue}
             contextSelected={contextSelected}
             swtichContextSelected_by_type={swtichContextSelected_by_type}
@@ -118,7 +118,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
         )}
 
         {mode === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
-          <ProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5
+          <ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5
             creativityValue={creativityValue}
             contextSelected={contextSelected}
             // swtichContextSelected_by_type={swtichContextSelected_by_type}
