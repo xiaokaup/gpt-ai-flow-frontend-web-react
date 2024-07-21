@@ -1,6 +1,3 @@
-import expressionIcon from '../../../../../../../../../assets/icons-customize/2024-06-15-icon-communication-expression/megaphone.png';
-import responseIcon from '../../../../../../../../../assets/icons-customize/2024-06-15-communication-response/text-notification.png';
-
 import { useState } from 'react';
 
 import { AutoComplete, AutoCompleteProps, Form, Input, Tooltip } from 'antd';
@@ -25,8 +22,7 @@ export const Langchain_adjust = (props: {
   contextSelected_type: EProMode_v4_tabPane_context_type;
   swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_type) => void;
 }) => {
-  const { t, isAdjustCall, adjustSelected, adjust, setAdjust, contextSelected_type, swtichContextSelected_by_type } =
-    props;
+  const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;
 
   const [form] = Form.useForm();
 
@@ -36,56 +32,6 @@ export const Langchain_adjust = (props: {
 
   return (
     <div className="row subContainer">
-      <div className="row flex items-center">
-        <h1>{t.get('Content adjust')}</h1>
-
-        <div className="row icons_button">
-          {contextSelected_type === EProMode_v4_tabPane_context_type.EXPRESS && (
-            <img
-              id="reset-messages-history-button"
-              src={expressionIcon}
-              alt="reset messages history"
-              className="button ml-2 mt-2 resetMessagesHistoryButton"
-              style={{
-                fontSize: 18,
-                width: 36,
-                border: '1px solid #d9d9d9',
-                borderRadius: '.25rem',
-                padding: 4,
-                cursor: 'pointer',
-
-                flex: '0 1 auto',
-              }}
-              onClick={() => {
-                console.log('click expression icon');
-                swtichContextSelected_by_type(EProMode_v4_tabPane_context_type.RESPONSE);
-              }}
-            />
-          )}
-          {contextSelected_type === EProMode_v4_tabPane_context_type.RESPONSE && (
-            <img
-              id="reset-messages-history-button"
-              src={responseIcon}
-              alt="reset messages history"
-              className="button ml-2 mt-2 resetMessagesHistoryButton"
-              style={{
-                fontSize: 18,
-                width: 36,
-                border: '1px solid #d9d9d9',
-                borderRadius: '.25rem',
-                padding: 4,
-                cursor: 'pointer',
-
-                flex: '0 1 auto',
-              }}
-              onClick={() => {
-                console.log('click response icon');
-                swtichContextSelected_by_type(EProMode_v4_tabPane_context_type.EXPRESS);
-              }}
-            />
-          )}
-        </div>
-      </div>
       <div className="row">
         <Form form={form} initialValues={adjust}>
           {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_langchain>) => {

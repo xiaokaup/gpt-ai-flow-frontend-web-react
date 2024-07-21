@@ -373,6 +373,28 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             className="column m-0"
             style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
           >
+            <div className="row title">
+              <h1>内容创作</h1>
+            </div>
+
+            <div className="row background">
+              <Langchain_background
+                t={t}
+                backgroundSelected={contextSelected.background}
+                background={background}
+                setBackground={(newItem: IBackground_for_type_langchain) => {
+                  setMessageExchangeData({
+                    ...messageExchangeData,
+                    background: newItem,
+                  });
+                  setInputsCache((prvState: IInputsCache) => ({
+                    ...prvState,
+                    ...newItem,
+                  }));
+                }}
+              />
+            </div>
+
             <div className="row adjust">
               <Langchain_adjust
                 t={t}
@@ -391,24 +413,6 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 }}
                 contextSelected_type={contextSelected.contextType}
                 swtichContextSelected_by_type={swtichContextSelected_by_type}
-              />
-            </div>
-
-            <div className="row background">
-              <Langchain_background
-                t={t}
-                backgroundSelected={contextSelected.background}
-                background={background}
-                setBackground={(newItem: IBackground_for_type_langchain) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
-                    background: newItem,
-                  });
-                  setInputsCache((prvState: IInputsCache) => ({
-                    ...prvState,
-                    ...newItem,
-                  }));
-                }}
               />
             </div>
 
