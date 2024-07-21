@@ -26,6 +26,7 @@ export const Langchain_adjust = (props: {
 
   const [form] = Form.useForm();
 
+  const [autoCompleteOptions_for_input, setAutoCompleteOptions_for_input] = useState<AutoCompleteProps['options']>([]);
   const [autoCompleteOptions_for_textArea, setAutoCompleteOptions_for_textArea] = useState<
     AutoCompleteProps['options']
   >([]);
@@ -68,15 +69,49 @@ export const Langchain_adjust = (props: {
                         : []
                     }
                   >
-                    <Input
-                      onChange={(event) => {
-                        const newItem = {
-                          ...adjust,
-                          [name]: event.target.value,
-                        };
-                        setAdjust(newItem);
-                      }}
-                    />
+                    {autoCompleteOptions && autoCompleteOptions.length > 0 && (
+                      <AutoComplete
+                        options={autoCompleteOptions_for_input}
+                        onSelect={(value: string) => {
+                          const newItem = {
+                            ...adjust,
+                            [name]: value,
+                          };
+                          setAdjust(newItem);
+                        }}
+                        onFocus={() => {
+                          console.log('onFocus');
+                          setAutoCompleteOptions_for_input(autoCompleteOptions);
+                        }}
+                        onSearch={(searchValue: string) => {
+                          console.log('onSearch', searchValue);
+                          setAutoCompleteOptions_for_input(
+                            autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
+                          );
+                        }}
+                      >
+                        <Input
+                          onChange={(event) => {
+                            const newItem = {
+                              ...adjust,
+                              [name]: event.target.value,
+                            };
+                            setAdjust(newItem);
+                          }}
+                        />
+                      </AutoComplete>
+                    )}
+                    {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
+                      <Input
+                        onChange={(event) => {
+                          const newItem = {
+                            ...adjust,
+                            [name]: event.target.value,
+                          };
+                          setAdjust(newItem);
+                        }}
+                      />
+                    )}
                   </Form.Item>
                 </Tooltip>
               );
