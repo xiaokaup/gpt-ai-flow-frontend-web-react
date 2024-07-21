@@ -37,7 +37,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
     localSettingsFromStorage: localSettingsFromStore,
     onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
       const newLocalSettings = { ...localSettings, ...newItem };
-      dispatch(saveLocalAction(newLocalSettings) as any);
+      dispatch<any>(saveLocalAction(newLocalSettings));
     },
   });
   const { locale } = localSettings;
@@ -47,7 +47,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
 
   const handleSwithLanguage = (nextLocal: ELocale) => {
     const newLocalSettings = { ...localSettings, locale: nextLocal };
-    dispatch(saveLocalAction(newLocalSettings) as any);
+    dispatch<any>(saveLocalAction(newLocalSettings));
     setTimeout(() => {
       window.location.reload();
     }, 200);

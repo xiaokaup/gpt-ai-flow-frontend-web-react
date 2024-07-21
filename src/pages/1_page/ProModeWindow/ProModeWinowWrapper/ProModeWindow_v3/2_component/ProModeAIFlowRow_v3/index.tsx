@@ -29,7 +29,7 @@ import { useLocalSettings } from '../../../../../../../gpt-ai-flow-common/hooks/
 import { EAIFlowRole, EAIFlow_type } from '../../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import TBackendUserInputFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
 import { ELangchainRetrievalDocType } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import { IBuildOpenAIPrompts_ouput } from '../../../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+import { IBuildOpenAIPrompts_ouput } from '../../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import EInputTypeDBFile, {
   EInputTypeDB_typeName,
 } from '../../../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';

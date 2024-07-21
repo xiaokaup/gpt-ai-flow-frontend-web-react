@@ -6,7 +6,7 @@ import {
   IChatGPTStreamResponse_output,
   // ISendChatGPTRequestForGetVectorToBackendProxy_dataField_input,
   // ISendChatGPTRequestForGetVectorToBackendProxy_output,
-} from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+} from '../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-web';
 import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
