@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
-import { AutoComplete, AutoCompleteProps, DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import { AutoComplete, AutoCompleteProps, Form, Input, Tooltip } from 'antd';
 
 import _ from 'lodash';
 import { CheerioWebBaseLoader } from '@langchain/community/document_loaders/web/cheerio';
 import { convert } from 'html-to-text';
 
-import { EyeOutlined, EyeInvisibleOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -27,9 +27,6 @@ export const Langchain_background = (props: {
 
   const [form] = Form.useForm();
 
-  const [isShow, setIsShow] = useState(true);
-
-  const [autoCompleteOptions_for_input, setAutoCompleteOptions_for_input] = useState<AutoCompleteProps['options']>([]);
   const [autoCompleteOptions_for_textArea, setAutoCompleteOptions_for_textArea] = useState<
     AutoCompleteProps['options']
   >([]);
@@ -64,207 +61,119 @@ export const Langchain_background = (props: {
 
   return (
     <div className="row subContainer">
-      <div className="block_title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="left" style={{ display: 'flex' }}>
-          {isShow && (
-            <>
-              <h1>{t.get('Background')}</h1>
-              <Tooltip title={t.get('Hide {text}', { text: t.get('Background') })}>
-                <EyeOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsShow(false)} />
-              </Tooltip>
-            </>
-          )}
+      <div className="row">
+        <Form form={form} initialValues={background}>
+          {backgroundSelected.formItems.map((item: IFormItem<IBackground_for_type_langchain>) => {
+            const {
+              componentType,
+              label,
+              name,
+              isRequired,
+              isAutoSize_minRows,
+              tooltip,
+              tooltip_isNeedTranslate,
+              // minNum = 1,
+              // maxNum = 4,
+              isHidden,
+              autoCompleteOptions,
+            } = item;
 
-          {!isShow && (
-            <>
-              <h1 style={{ margin: 0 }}>{t.get('Background')}</h1>
-              <Tooltip title={t.get('Show {text}', { text: t.get('Background') })}>
-                <EyeInvisibleOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsShow(true)} />
-              </Tooltip>
-            </>
-          )}
-        </div>
-        <div className="right">{/* void */}</div>
-      </div>
-      {isShow && (
-        <div className="row">
-          <Form form={form} initialValues={background}>
-            {backgroundSelected.formItems.map((item: IFormItem<IBackground_for_type_langchain>) => {
-              const {
-                componentType,
-                label,
-                name,
-                isRequired,
-                isAutoSize_minRows,
-                tooltip,
-                tooltip_isNeedTranslate,
-                minNum = 1,
-                maxNum = 4,
-                isHidden,
-                autoCompleteOptions,
-              } = item;
-
-              if (componentType === 'InputNumber') {
-                return (
-                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                    <Form.Item
-                      name={name}
-                      label={
-                        tooltip && tooltip_isNeedTranslate ? (
-                          <>
-                            {t.get(label)}&nbsp;
-                            <InfoCircleOutlined />
-                          </>
-                        ) : (
-                          t.get(label)
-                        )
-                      }
-                    >
-                      <InputNumber
-                        min={minNum}
-                        max={maxNum}
-                        onChange={(value) => {
+            if (componentType === 'URLCrawler') {
+              return (
+                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                  <Form.Item
+                    name={name}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
+                  >
+                    <TextArea
+                      autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                      onChange={(event) => {
+                        // const newItem = {
+                        //   ...background,
+                        //   [name]: event.target.value,
+                        // };
+                        const urlValue = event.target.value;
+                        if (event.target.value === '') {
                           const newItem = {
                             ...background,
-                            [name]: String(value),
+                            [name]: '',
+                            urlContent: '',
+                          };
+                          setBackground(newItem);
+                          return;
+                        }
+                        if (!urlValue) {
+                          return;
+                        }
+                        debouncedSetBackground({
+                          name,
+                          urlValue,
+                          convertedName: 'urlContent',
+                        });
+                      }}
+                    />
+                  </Form.Item>
+                </Tooltip>
+              );
+            }
+
+            if (componentType === 'TextArea') {
+              return (
+                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
+                  <Form.Item
+                    className={isHidden ? 'hidden' : ''}
+                    name={name}
+                    label={
+                      tooltip && tooltip_isNeedTranslate ? (
+                        <>
+                          {t.get(label)}&nbsp;
+                          <InfoCircleOutlined />
+                        </>
+                      ) : (
+                        t.get(label)
+                      )
+                    }
+                    rules={
+                      isRequired
+                        ? [
+                            {
+                              required: true,
+                              message: t.getHTML('Please input your {text}', { text: t.get(label) }),
+                            },
+                          ]
+                        : []
+                    }
+                  >
+                    {autoCompleteOptions && autoCompleteOptions.length > 0 && (
+                      <AutoComplete
+                        options={autoCompleteOptions_for_textArea}
+                        onSelect={(value: string) => {
+                          const newItem = {
+                            ...background,
+                            [name]: value,
                           };
                           setBackground(newItem);
                         }}
-                      />
-                    </Form.Item>
-                  </Tooltip>
-                );
-              }
-
-              if (componentType === 'Input') {
-                return (
-                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                    <Form.Item
-                      name={name}
-                      label={
-                        tooltip && tooltip_isNeedTranslate ? (
-                          <>
-                            {t.get(label)}&nbsp;
-                            <InfoCircleOutlined />
-                          </>
-                        ) : (
-                          t.get(label)
-                        )
-                      }
-                      rules={
-                        isRequired
-                          ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
-                          : []
-                      }
-                    >
-                      {autoCompleteOptions && autoCompleteOptions.length > 0 && (
-                        <AutoComplete
-                          options={autoCompleteOptions_for_input}
-                          onSelect={(value: string) => {
-                            const newItem = {
-                              ...background,
-                              [name]: value,
-                            };
-                            setBackground(newItem);
-                          }}
-                          onFocus={() => {
-                            console.log('onFocus');
-                            setAutoCompleteOptions_for_input(autoCompleteOptions);
-                          }}
-                          onSearch={(searchValue: string) => {
-                            console.log('onSearch', searchValue);
-                            setAutoCompleteOptions_for_input(
-                              autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
-                            );
-                          }}
-                        >
-                          <Input
-                            onChange={(event) => {
-                              const newItem = {
-                                ...background,
-                                [name]: event.target.value,
-                              };
-                              setBackground(newItem);
-                            }}
-                          />
-                        </AutoComplete>
-                      )}
-                      {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
-                        <Input
-                          onChange={(event) => {
-                            const newItem = {
-                              ...background,
-                              [name]: event.target.value,
-                            };
-                            setBackground(newItem);
-                          }}
-                        />
-                      )}
-                    </Form.Item>
-                  </Tooltip>
-                );
-              }
-              if (componentType === 'TextArea') {
-                return (
-                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                    <Form.Item
-                      className={isHidden ? 'hidden' : ''}
-                      name={name}
-                      label={
-                        tooltip && tooltip_isNeedTranslate ? (
-                          <>
-                            {t.get(label)}&nbsp;
-                            <InfoCircleOutlined />
-                          </>
-                        ) : (
-                          t.get(label)
-                        )
-                      }
-                      rules={
-                        isRequired
-                          ? [
-                              {
-                                required: true,
-                                message: t.getHTML('Please input your {text}', { text: t.get(label) }),
-                              },
-                            ]
-                          : []
-                      }
-                    >
-                      {autoCompleteOptions && autoCompleteOptions.length > 0 && (
-                        <AutoComplete
-                          options={autoCompleteOptions_for_textArea}
-                          onSelect={(value: string) => {
-                            const newItem = {
-                              ...background,
-                              [name]: value,
-                            };
-                            setBackground(newItem);
-                          }}
-                          onFocus={() => {
-                            console.log('onFocus');
-                            setAutoCompleteOptions_for_textArea(autoCompleteOptions);
-                          }}
-                          onSearch={(searchValue: string) => {
-                            console.log('onSearch', searchValue);
-                            setAutoCompleteOptions_for_textArea(
-                              autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
-                            );
-                          }}
-                        >
-                          <TextArea
-                            autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
-                            onChange={(event) => {
-                              const newItem = {
-                                ...background,
-                                [name]: event.target.value,
-                              };
-                              setBackground(newItem);
-                            }}
-                          />
-                        </AutoComplete>
-                      )}
-                      {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
+                        onFocus={() => {
+                          console.log('onFocus');
+                          setAutoCompleteOptions_for_textArea(autoCompleteOptions);
+                        }}
+                        onSearch={(searchValue: string) => {
+                          console.log('onSearch', searchValue);
+                          setAutoCompleteOptions_for_textArea(
+                            autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
+                          );
+                        }}
+                      >
                         <TextArea
                           autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                           onChange={(event) => {
@@ -275,93 +184,29 @@ export const Langchain_background = (props: {
                             setBackground(newItem);
                           }}
                         />
-                      )}
-                    </Form.Item>
-                  </Tooltip>
-                );
-              }
-              if (componentType === 'URLCrawler') {
-                return (
-                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                    <Form.Item
-                      name={name}
-                      label={
-                        tooltip && tooltip_isNeedTranslate ? (
-                          <>
-                            {t.get(label)}&nbsp;
-                            <InfoCircleOutlined />
-                          </>
-                        ) : (
-                          t.get(label)
-                        )
-                      }
-                    >
+                      </AutoComplete>
+                    )}
+                    {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
                       <TextArea
                         autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                         onChange={(event) => {
-                          // const newItem = {
-                          //   ...background,
-                          //   [name]: event.target.value,
-                          // };
-                          const urlValue = event.target.value;
-                          if (event.target.value === '') {
-                            const newItem = {
-                              ...background,
-                              [name]: '',
-                              urlContent: '',
-                            };
-                            setBackground(newItem);
-                            return;
-                          }
-                          if (!urlValue) {
-                            return;
-                          }
-                          debouncedSetBackground({
-                            name,
-                            urlValue,
-                            convertedName: 'urlContent',
-                          });
-                        }}
-                      />
-                    </Form.Item>
-                  </Tooltip>
-                );
-              }
-              if (componentType === 'DatePicker') {
-                return (
-                  <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                    <Form.Item
-                      name={name}
-                      label={
-                        tooltip && tooltip_isNeedTranslate ? (
-                          <>
-                            {t.get(label)}&nbsp;
-                            <InfoCircleOutlined />
-                          </>
-                        ) : (
-                          t.get(label)
-                        )
-                      }
-                    >
-                      <DatePicker
-                        onChange={(date, dates) => {
                           const newItem = {
                             ...background,
-                            [name]: dates.toLocaleString(),
+                            [name]: event.target.value,
                           };
                           setBackground(newItem);
                         }}
                       />
-                    </Form.Item>
-                  </Tooltip>
-                );
-              }
+                    )}
+                  </Form.Item>
+                </Tooltip>
+              );
+            }
 
-              return <>None for componentType: {componentType}</>;
-            })}
-          </Form>
-        </div>
-      )}
+            return <>None for componentType for background: {componentType}</>;
+          })}
+        </Form>
+      </div>
     </div>
   );
 };

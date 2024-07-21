@@ -3,7 +3,7 @@ import responseIcon from '../../../../../../../../../assets/icons-customize/2024
 
 import { useState } from 'react';
 
-import { AutoComplete, AutoCompleteProps, DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import { AutoComplete, AutoCompleteProps, Form, Input, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -97,43 +97,9 @@ export const Langchain_adjust = (props: {
               isAutoSize_minRows,
               tooltip,
               tooltip_isNeedTranslate,
-              minNum = 1,
-              maxNum = 4,
               isDisabledWhenAdjustCall,
               autoCompleteOptions,
             } = item;
-
-            if (componentType === 'InputNumber') {
-              return (
-                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item
-                    name={name}
-                    label={
-                      tooltip && tooltip_isNeedTranslate ? (
-                        <>
-                          {t.get(label)}&nbsp;
-                          <InfoCircleOutlined />
-                        </>
-                      ) : (
-                        t.get(label)
-                      )
-                    }
-                  >
-                    <InputNumber
-                      min={minNum}
-                      max={maxNum}
-                      onChange={(value) => {
-                        const newItem = {
-                          ...adjust,
-                          [name]: String(value),
-                        };
-                        setAdjust(newItem);
-                      }}
-                    />
-                  </Form.Item>
-                </Tooltip>
-              );
-            }
 
             if (componentType === 'Input') {
               return (
@@ -241,73 +207,9 @@ export const Langchain_adjust = (props: {
                 </Tooltip>
               );
             }
-            if (componentType === 'DatePicker') {
-              return (
-                <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
-                  <Form.Item
-                    name={name}
-                    label={
-                      tooltip && tooltip_isNeedTranslate ? (
-                        <>
-                          {t.get(label)}&nbsp;
-                          <InfoCircleOutlined />
-                        </>
-                      ) : (
-                        t.get(label)
-                      )
-                    }
-                  >
-                    <DatePicker
-                      onChange={(date, dates) => {
-                        const newItem = {
-                          ...adjust,
-                          [name]: dates.toLocaleString(),
-                        };
-                        setAdjust(newItem);
-                      }}
-                    />
-                  </Form.Item>
-                </Tooltip>
-              );
-            }
 
-            return <>None for componentType: {componentType}</>;
+            return <>None for componentType for adjust: {componentType}</>;
           })}
-
-          {/* <Form.Item name="title" label={t.get('Title')}>
-            <Input
-              onChange={(event) => {
-                setAdjust({
-                  ...adjust,
-                  title: event.target.value,
-                });
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item name="content" label={t.get('Content')}>
-            <TextArea
-              autoSize
-              onChange={(event) => {
-                setAdjust({
-                  ...adjust,
-                  content: event.target.value,
-                });
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item name="feedback" label={t.get('Input')}>
-            <TextArea
-              autoSize={{ minRows: 4 }}
-              onChange={(event) => {
-                setAdjust({
-                  ...adjust,
-                  feedback: event.target.value,
-                });
-              }}
-            />
-          </Form.Item> */}
         </Form>
       </div>
     </div>
