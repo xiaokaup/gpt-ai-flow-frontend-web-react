@@ -16,6 +16,7 @@ import { getUser } from '../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
 import { IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 
 interface IAuthPage_input {
   t: IGetT_frontend_output;
@@ -26,7 +27,7 @@ export const AuthPage = (props: IAuthPage_input) => {
 
   const { t } = props;
 
-  const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
+  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageLocalSettings_default;
   });
 
@@ -34,6 +35,7 @@ export const AuthPage = (props: IAuthPage_input) => {
   const userId = query.get('id');
   const accessToken = query.get('accessToken');
   const openAIApiKey = query.get('openAIApiKey');
+  const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
 
   const init = async () => {
     const userDataFound: IUserData = await getUser(userId, accessToken, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
@@ -51,8 +53,9 @@ export const AuthPage = (props: IAuthPage_input) => {
     dispatch({ type: USER_LOGIN, payload: userDataFound });
     dispatch<IStoreStorageLocalSettings | any>(
       saveLocalAction({
-        ...localFromStore,
+        ...localSettingsFromStore,
         openAIApiKey: openAIApiKey.trim(),
+        locale,
       }),
     );
 

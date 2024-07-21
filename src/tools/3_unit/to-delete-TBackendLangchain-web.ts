@@ -2,7 +2,7 @@
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { IChatGPTStreamResponse_output } from '../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+import { IChatGPTStreamResponse_output } from '../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import TCryptoJSFile from '../../gpt-ai-flow-common/tools/TCrypto-web';
 import TAppLimitFile from '../../gpt-ai-flow-common/tools/4_base/TAppLimit';
 import { AuthService } from '../../gpt-ai-flow-common/tools/2_class/SAuth';
@@ -10,7 +10,7 @@ import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 import {
   to_deprecate_IChatStream_langchain_input,
   ISendConversationalRetrievalChainToBackendProxy_dataField_input,
-} from '../../gpt-ai-flow-common/interface-backend/IBackendLangchain';
+} from '../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendLangchain';
 
 const postChatChain = async (
   data: to_deprecate_IChatStream_langchain_input,
