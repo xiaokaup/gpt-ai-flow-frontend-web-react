@@ -16,6 +16,7 @@ import { EProMode_v4_tabPane_context_type } from '../../../../../gpt-ai-flow-com
 
 import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize/index_v5';
 import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results/index_v5';
+import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
@@ -53,7 +54,10 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   return (
     <div className="tabPane_wrapper_context_container">
-      <div className="float-right">v5</div>
+      {(mode === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE ||
+        mode === EProMode_v4_tabPane_type.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS) && (
+        <div className="float-right">v5</div>
+      )}
       <div className="row" style={{ paddingLeft: '1rem' }}>
         <Select
           defaultValue={contextSelected?.contextType}
@@ -122,6 +126,21 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             creativityValue={creativityValue}
             contextSelected={contextSelected}
             // swtichContextSelected_by_type={swtichContextSelected_by_type}
+            // IProModeWindow_v4_wrapper_input
+            t={t}
+            userAccessToken={userAccessToken}
+            modelSecret={modelSecret}
+            proModeModelType={proModeModelType}
+            inputsCache={inputsCache}
+            setInputsCache={setInputsCache}
+          />
+        )}
+
+        {mode === EProMode_v4_tabPane_type.LANGCHAIN_03_SIMPLE_INTERFACE && (
+          <ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface
+            creativityValue={creativityValue}
+            contextSelected={contextSelected}
+            swtichContextSelected_by_type={swtichContextSelected_by_type}
             // IProModeWindow_v4_wrapper_input
             t={t}
             userAccessToken={userAccessToken}

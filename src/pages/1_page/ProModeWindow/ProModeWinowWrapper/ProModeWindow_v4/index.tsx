@@ -31,6 +31,7 @@ import { SLLM } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
+  IAdjust_for_type_langchain,
   IBackground_for_type_langchain,
   IPromode_v4_tabPane_context,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
@@ -39,13 +40,12 @@ import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import IInputsCacheFile, { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import { IAdjust_IMessage } from '../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { EProMode_v4_tabPane_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/05-tool/interface';
 
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_00_commandChain';
-import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_03_tool_image_crop';
+import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
@@ -251,7 +251,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           t={t}
                           tabPane={
                             tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_IMessage>
+                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>
                             >
                           }
                           userAccessToken={userAccessToken}
