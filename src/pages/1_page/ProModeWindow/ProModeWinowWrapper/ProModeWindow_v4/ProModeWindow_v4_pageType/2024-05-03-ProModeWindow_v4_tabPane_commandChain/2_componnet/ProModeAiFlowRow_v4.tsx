@@ -21,7 +21,7 @@ import { useCreativityValueContext } from '../../../../../../../../gpt-ai-flow-c
 import { useProModeModelValueProviderContext } from '../../../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import TBackendUserInputFile from '../../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
 import { LangchainRetrivalService } from '../../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
-import { IBuildOpenAIPrompts_ouput } from '../../../../../../../../gpt-ai-flow-common/interface-backend/IBackendOpenAI';
+import { IBuildOpenAIPrompts_ouput } from '../../../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { EProductItemDB_type } from '../../../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import { ELangchainRetrievalDocType } from '../../../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
