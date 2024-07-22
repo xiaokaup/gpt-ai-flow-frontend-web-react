@@ -31,7 +31,10 @@ import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
-import { ILangchain_for_type_langchain_request_v4_simpleInterface } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
+import {
+  ILangchain_for_type_langchain_request_v4_simpleInterface,
+  IMessage_for_simpleInterface_default,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
 import { IMessage_for_simpleInterface } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
 import {
   IBackground_v2,
@@ -235,7 +238,9 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
               <Langchain_currentOutput
                 t={t}
                 title={contextSelected.currentOutput.title ?? t.get('Post')}
-                currentOutput={chatHistory[chatHistory.length - 1]}
+                currentOutput={
+                  chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : IMessage_for_simpleInterface_default
+                }
                 setCurrentOutput={(newItem: IMessage_for_simpleInterface) => {
                   const newChatHistory = chatHistory.slice(0, chatHistory.length - 1);
                   newChatHistory.push(newItem);
@@ -248,7 +253,9 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             <div className="row previousOutput">
               <Langchain_previousOutput
                 t={t}
-                previousOutput={chatHistory[chatHistory.length - 2]}
+                previousOutput={
+                  chatHistory.length > 1 ? chatHistory[chatHistory.length - 2] : IMessage_for_simpleInterface_default
+                }
                 setPreviousOutput={(newItem: IMessage) => {
                   const newChatHistory = chatHistory.slice(0, chatHistory.length - 2);
                   const lastChatHistory = chatHistory[chatHistory.length - 1];
