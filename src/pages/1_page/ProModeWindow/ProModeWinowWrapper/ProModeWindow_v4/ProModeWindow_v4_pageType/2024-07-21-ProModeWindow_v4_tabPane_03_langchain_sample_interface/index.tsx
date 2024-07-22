@@ -40,6 +40,7 @@ import {
   IBackground_v2,
   IBackground_v2_default,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
+import { removeAllEmptyValues } from '../../../../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
 
 interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -75,8 +76,8 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
       },
       contextType,
       chatHistory: paraChatHistory.slice(-2),
-      background,
-      adjust,
+      background: removeAllEmptyValues(background),
+      adjust: removeAllEmptyValues(adjust),
     };
 
     // console.log('buildRequestBody newRequestBody', newRequestBody);
