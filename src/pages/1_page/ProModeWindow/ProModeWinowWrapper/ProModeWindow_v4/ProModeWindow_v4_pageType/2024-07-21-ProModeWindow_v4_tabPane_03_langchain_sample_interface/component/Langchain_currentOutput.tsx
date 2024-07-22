@@ -8,15 +8,15 @@ import { Button, Form, Input, Tooltip, message } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IMessage } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IMessage_for_simpleInterface } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
 
 const { TextArea } = Input;
 
 export const Langchain_currentOutput = (props: {
   t: IGetT_frontend_output;
   title: string;
-  currentOutput: IMessage;
-  setCurrentOutput: (newItem: IMessage) => void;
+  currentOutput: IMessage_for_simpleInterface;
+  setCurrentOutput: (newItem: IMessage_for_simpleInterface) => void;
   onResetAll: () => void;
 }) => {
   const { t, title, currentOutput, setCurrentOutput, onResetAll } = props;
@@ -28,7 +28,7 @@ export const Langchain_currentOutput = (props: {
     form.setFieldsValue(currentOutput);
   }, [currentOutput, form]);
 
-  const onFinish = (values: IMessage) => {
+  const onFinish = (values: IMessage_for_simpleInterface) => {
     setCurrentOutput({
       ...currentOutput,
       ...values,
