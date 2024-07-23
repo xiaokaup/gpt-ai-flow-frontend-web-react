@@ -62,11 +62,15 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(0);
-  const [chatHistory, setChatHistory] = useState<IMessage_for_simpleInterface[]>([]);
+  const [chatHistory, setChatHistory] = useState<IMessage_for_simpleInterface[]>([
+    // { content: '测试1' },
+    // { content: '测试2' },
+    // { content: '测试3' },
+  ]);
   const [background, setBackground] = useState<IBackground_v2>({ ...IBackground_v2_default, ...inputsCache });
   const [adjust, setAdjust] = useState<IAdjust_IMessage_v2>({ ...IAdjust_IMessage_v2_default, ...inputsCache });
 
-  const buildRequestBody = (paraChatHistory: IMessage_for_simpleInterface[]) => {
+  const buildRequestBody = (lastMessage_in_chatHistory: IMessage_for_simpleInterface[]) => {
     const newRequestBody: ILangchain_for_type_langchain_request_v4_simpleInterface = {
       productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
@@ -75,7 +79,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         llmTemperature: creativityValue,
       },
       contextType,
-      chatHistory: paraChatHistory.slice(-2),
+      chatHistory: lastMessage_in_chatHistory,
       background: removeAllEmptyValues(background),
       adjust: removeAllEmptyValues(adjust),
     };
@@ -85,17 +89,15 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     return newRequestBody;
   };
 
-  const onImproveMessage = (paraChatHistory: IMessage_for_simpleInterface[]) => async () => {
+  const onImproveMessage = (lastMessage_in_chatHistory: IMessage_for_simpleInterface[]) => async () => {
     setIsCalling(true);
 
-    // console.log('paraMessageExchangeData', paraMessageExchangeData);
     const newRequestController = new AbortController();
     setRequestController(newRequestController);
     const { signal } = newRequestController;
 
-    // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
-
-    const bodyData: ILangchain_for_type_langchain_request_v4_simpleInterface = buildRequestBody(paraChatHistory);
+    const bodyData: ILangchain_for_type_langchain_request_v4_simpleInterface =
+      buildRequestBody(lastMessage_in_chatHistory);
 
     if (!urlSlug) {
       message.error('urlSlug is empty');
@@ -111,14 +113,14 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
       },
       (writingResultText: string) => {
         // console.log('updateResultFromRequestFunc', writingResultText);
-        const newChatHistory = [...paraChatHistory];
+        const newChatHistory = [...lastMessage_in_chatHistory];
         newChatHistory.push({ content: writingResultText });
         setChatHistory(newChatHistory);
       },
       (resultText: string) => {
         // console.log('AfterRequestFunc', resultText);
 
-        const newChatHistory = [...paraChatHistory];
+        const newChatHistory = [...lastMessage_in_chatHistory];
         newChatHistory.push({ content: resultText });
 
         setChatHistory(newChatHistory);
@@ -140,8 +142,8 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         message.error(error.message);
       }
       // Recover the chat history if the request fails or is aborted
-      setChatHistory(paraChatHistory);
-      setCurrentVersionNum(paraChatHistory.length - 1);
+      setChatHistory(lastMessage_in_chatHistory);
+      setCurrentVersionNum(lastMessage_in_chatHistory.length - 1);
     });
   };
 
@@ -150,7 +152,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
 
     if (currentVersionNum < 1) return;
 
-    const newChatHistory = chatHistory.slice(0, chatHistory.length - 1);
+    const newChatHistory = chatHistory.slice(currentVersionNum - 1, currentVersionNum);
 
     onImproveMessage(newChatHistory)();
   };
@@ -207,6 +209,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             <div className="row currentOuput">
               <Langchain_currentOutput
                 t={t}
+                isCalling={isCalling}
                 title={contextSelected.currentOutput.title ?? t.get('Post')}
                 currentOutput={
                   chatHistory.length > 0 && currentVersionNum >= 0
@@ -297,7 +300,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                       <Button
                         type="primary"
                         onClick={() => {
-                          onImproveMessage(chatHistory)();
+                          onImproveMessage(chatHistory.slice(-1))();
                         }}
                         disabled={
                           isCalling || (chatHistory.length > 0 ? currentVersionNum !== chatHistory.length - 1 : false)
