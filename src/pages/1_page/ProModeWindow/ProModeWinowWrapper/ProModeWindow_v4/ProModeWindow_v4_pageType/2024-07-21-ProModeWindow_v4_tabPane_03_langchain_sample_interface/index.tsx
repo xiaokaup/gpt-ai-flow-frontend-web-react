@@ -122,8 +122,9 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         newChatHistory.push({ content: resultText });
 
         setChatHistory(newChatHistory);
-        setCurrentVersionNum(newChatHistory.length);
+        setCurrentVersionNum(newChatHistory.length - 1);
 
+        console.log('setIsCalling(false)');
         setIsCalling(false);
       },
       userAccessToken,
@@ -140,14 +141,14 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
       }
       // Recover the chat history if the request fails or is aborted
       setChatHistory(paraChatHistory);
-      setCurrentVersionNum(paraChatHistory.length);
+      setCurrentVersionNum(paraChatHistory.length - 1);
     });
   };
 
   const onRegenerateMessage = () => {
     setIsCalling(true);
 
-    if (currentVersionNum < 2) return;
+    if (currentVersionNum < 1) return;
 
     const newChatHistory = chatHistory.slice(0, chatHistory.length - 1);
 
@@ -172,25 +173,16 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                     onClick={() => {
                       if (chatHistory.length === 0) return;
                       if (isCalling) return;
-                      // const writingPostDataBeforeRollback = { ...messageExchangeData };
-                      // const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
-                      //   writingPostDataBeforeRollback;
 
-                      // const previousVersion = currentVersionNum - 2;
-                      // const messageExchangeDataRollBack =
-                      //   chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData;
-
-                      // setMessageExchangeData({
-                      //   ...messageExchangeDataRollBack,
-                      //   adjust: adjustBeforeRollBack,
-                      //   background: backgroundBeforeRollBack,
-                      // });
-                      // setCurrentVersionNum(previousVersion);
+                      setCurrentVersionNum((prvState) => {
+                        if (prvState === 0) return prvState;
+                        return prvState - 1;
+                      });
                     }}
                   />
 
                   <div className="row">
-                    {t.get('Version')}: {chatHistory.length}
+                    {t.get('Version')}: {currentVersionNum + 1}
                   </div>
 
                   <RightOutlined
@@ -198,20 +190,11 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                     onClick={() => {
                       if (currentVersionNum === chatHistory.length) return;
                       if (isCalling) return;
-                      // const writingPostDataBeforeRollback = { ...messageExchangeData };
-                      // const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
-                      //   writingPostDataBeforeRollback;
 
-                      // const nextVersion = currentVersionNum + 2;
-                      // const messageExchangeDataRollBack =
-                      //   chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData;
-
-                      // setMessageExchangeData({
-                      //   ...messageExchangeDataRollBack,
-                      //   adjust: adjustBeforeRollBack,
-                      //   background: backgroundBeforeRollBack,
-                      // });
-                      // setCurrentVersionNum(nextVersion);
+                      setCurrentVersionNum((prvState) => {
+                        if (prvState === chatHistory.length - 1) return prvState;
+                        return prvState + 1;
+                      });
                     }}
                   />
                 </div>
@@ -226,7 +209,9 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 t={t}
                 title={contextSelected.currentOutput.title ?? t.get('Post')}
                 currentOutput={
-                  chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : IMessage_for_simpleInterface_default
+                  chatHistory.length > 0 && currentVersionNum >= 0
+                    ? chatHistory[currentVersionNum]
+                    : IMessage_for_simpleInterface_default
                 }
                 setCurrentOutput={(newItem: IMessage_for_simpleInterface) => {
                   const newChatHistory = chatHistory.slice(0, chatHistory.length - 1);
@@ -241,7 +226,9 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
               <Langchain_previousOutput
                 t={t}
                 previousOutput={
-                  chatHistory.length > 1 ? chatHistory[chatHistory.length - 2] : IMessage_for_simpleInterface_default
+                  chatHistory.length > 1 && currentVersionNum >= 1
+                    ? chatHistory[currentVersionNum - 1]
+                    : IMessage_for_simpleInterface_default
                 }
                 setPreviousOutput={(newItem: IMessage) => {
                   const newChatHistory = chatHistory.slice(0, chatHistory.length - 2);
@@ -313,7 +300,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                           onImproveMessage(chatHistory)();
                         }}
                         disabled={
-                          isCalling || (chatHistory.length > 0 ? currentVersionNum !== chatHistory.length : false)
+                          isCalling || (chatHistory.length > 0 ? currentVersionNum !== chatHistory.length - 1 : false)
                         }
                       >
                         {t.get('Generate')}
@@ -328,7 +315,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                           onRegenerateMessage();
                         }}
                         style={{ marginLeft: '1rem' }}
-                        disabled={isCalling || currentVersionNum < 2}
+                        disabled={isCalling || currentVersionNum < 1}
                       >
                         {t.get('Regenerate')}
                       </Button>
@@ -350,7 +337,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
           </div>
         </div>
       )}
-      {/* <div className="row @DEV">
+      <div className="row @DEV">
         <Button
           type="primary"
           onClick={() => {
@@ -373,29 +360,13 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         <Button
           type="primary"
           onClick={() => {
-            console.log('contextType', contextType);
-            console.log('messageExchangeData', messageExchangeData);
-          }}
-          style={{ marginLeft: '1rem' }}
-        >
-          messageExchangeData
-        </Button>
-
-        <Button
-          type="primary"
-          onClick={() => {
-            console.log('currentVersionNum', currentVersionNum);
+            console.log('inputsCache', inputsCache);
           }}
           style={{ marginLeft: '1rem' }}
         >
           inputsCache
         </Button>
       </div>
-      <div>
-        <pre>
-          <code>{JSON.stringify(messageExchangeData, null, 2)}</code>
-        </pre>
-      </div> */}
     </>
   );
 };
