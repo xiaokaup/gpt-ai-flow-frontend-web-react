@@ -144,29 +144,15 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     });
   };
 
-  // const onRegenerateMessage = () => {
-  //   setIsCalling(true);
+  const onRegenerateMessage = () => {
+    setIsCalling(true);
 
-  //   const writingPostDataBeforeRollback = { ...messageExchangeData };
+    if (currentVersionNum < 2) return;
 
-  //   if (currentVersionNum < 2) return;
+    const newChatHistory = chatHistory.slice(0, chatHistory.length - 1);
 
-  //   const rollBackVersionNum = currentVersionNum - 2;
-  //   const newChatHistory = chatHistory.slice(0, rollBackVersionNum + 1);
-
-  //   const basedWritingPostData = newChatHistory[newChatHistory.length - 1];
-  //   const newWritingPostData = {
-  //     ...basedWritingPostData,
-  //     background: writingPostDataBeforeRollback.background,
-  //     adjust: writingPostDataBeforeRollback.adjust,
-  //   };
-
-  //   setChatHistory(newChatHistory);
-  //   setCurrentVersionNum(newChatHistory.length - 1);
-  //   setMessageExchangeData(newWritingPostData);
-
-  //   onImproveMessage(newChatHistory, newWritingPostData)();
-  // };
+    onImproveMessage(newChatHistory)();
+  };
 
   const onResetAll = () => {
     setChatHistory([]);
@@ -339,8 +325,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                       <Button
                         type="primary"
                         onClick={() => {
-                          console.log('hit onRegenerateMessage');
-                          // onRegenerateMessage();
+                          onRegenerateMessage();
                         }}
                         style={{ marginLeft: '1rem' }}
                         disabled={isCalling || currentVersionNum < 2}
