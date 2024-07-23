@@ -84,8 +84,6 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
       adjust: removeAllEmptyValues(adjust),
     };
 
-    // console.log('buildRequestBody newRequestBody', newRequestBody);
-
     return newRequestBody;
   };
 
@@ -126,7 +124,6 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         setChatHistory(newChatHistory);
         setCurrentVersionNum(newChatHistory.length - 1);
 
-        console.log('setIsCalling(false)');
         setIsCalling(false);
       },
       userAccessToken,
@@ -340,7 +337,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
           </div>
         </div>
       )}
-      <div className="row @DEV">
+      {/* <div className="row @DEV">
         <Button
           type="primary"
           onClick={() => {
@@ -369,7 +366,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         >
           inputsCache
         </Button>
-      </div>
+      </div> */}
     </>
   );
 };
