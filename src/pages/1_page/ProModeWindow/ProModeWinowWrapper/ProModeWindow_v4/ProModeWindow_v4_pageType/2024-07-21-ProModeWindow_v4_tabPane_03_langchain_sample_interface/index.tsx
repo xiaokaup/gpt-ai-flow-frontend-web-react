@@ -86,6 +86,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
       chatHistory: lastMessage_in_chatHistory,
       background: removeAllEmptyValues(background),
       adjust: removeAllEmptyValues(adjust),
+      base64ImagesList: uploadFileList.map((file) => file.thumbUrl),
     };
 
     return newRequestBody;
@@ -166,7 +167,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
   // === Upload images - start ===
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([
+  const [uploadFileList, setUploadFileList] = useState<UploadFile[]>([
     // {
     //   uid: '-1',
     //   name: 'image.png',
@@ -214,7 +215,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     setPreviewOpen(true);
   };
 
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => setFileList(newFileList);
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => setUploadFileList(newFileList);
 
   const uploadButton = (
     <button style={{ border: 0, background: 'none' }} type="button">
@@ -396,6 +397,12 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                     return Upload.LIST_IGNORE;
                   }
 
+                  const isLt3M = file.size / 1024 / 1024 < 3;
+                  if (!isLt3M) {
+                    message.error('Image must smaller than 3MB!');
+                    return Upload.LIST_IGNORE;
+                  }
+
                   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
                   return new Promise((resolve, reject) => {
                     resizeImage(file, 512, 512, 0.8, (resizedFile) => {
@@ -411,11 +418,11 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                   }, 0);
                 }}
                 listType="picture-card"
-                fileList={fileList}
+                fileList={uploadFileList}
                 onPreview={handlePreview}
                 onChange={handleChange}
               >
-                {fileList.length >= 3 ? null : uploadButton}
+                {uploadFileList.length >= 3 ? null : uploadButton}
               </Upload>
               {previewImage && (
                 <AntdImage
@@ -545,7 +552,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         <Button
           type="primary"
           onClick={() => {
-            console.log('fileList', fileList);
+            console.log('uploadFileList', uploadFileList);
           }}
           style={{ marginLeft: '1rem' }}
         >
