@@ -10,8 +10,8 @@ import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-commo
 import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
+  IAdjust_for_type_langchain,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { IAdjust_IMessage } from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { EProMode_v4_tabPane_context_type } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 
 const { TextArea } = Input;
@@ -19,9 +19,9 @@ const { TextArea } = Input;
 export const Langchain_adjust = (props: {
   t: IGetT_frontend_output;
   isAdjustCall: boolean;
-  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_IMessage>;
-  adjust: IAdjust_IMessage;
-  setAdjust: (newItem: IAdjust_IMessage) => void;
+  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
+  adjust: IAdjust_for_type_langchain;
+  setAdjust: (newItem: IAdjust_for_type_langchain) => void;
   contextSelected_type: EProMode_v4_tabPane_context_type;
   swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_type) => void;
 }) => {
@@ -88,7 +88,7 @@ export const Langchain_adjust = (props: {
       </div>
       <div className="row">
         <Form form={form} initialValues={adjust}>
-          {adjustSelected.formItems.map((item: IFormItem<IAdjust_IMessage>) => {
+          {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_langchain>) => {
             const {
               componentType,
               label,
