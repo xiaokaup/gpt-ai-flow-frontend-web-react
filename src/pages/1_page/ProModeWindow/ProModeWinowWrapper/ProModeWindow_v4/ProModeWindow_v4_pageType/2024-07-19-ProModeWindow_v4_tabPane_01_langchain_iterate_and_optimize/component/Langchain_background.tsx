@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { AutoComplete, AutoCompleteProps, DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
 
 import _ from 'lodash';
-import { CheerioWebBaseLoader } from 'langchain/document_loaders/web/cheerio';
+import { CheerioWebBaseLoader } from '@langchain/community/document_loaders/web/cheerio';
 import { convert } from 'html-to-text';
 
 import { EyeOutlined, EyeInvisibleOutlined, InfoCircleOutlined } from '@ant-design/icons';
@@ -40,17 +40,17 @@ export const Langchain_background = (props: {
       const docs = await loader.load();
 
       const formattedDocs = docs.map((doc) => {
-        console.log('doc.metadata: ', doc.metadata);
+        // console.log('doc.metadata: ', doc.metadata);
         return `<Document name="${doc.metadata?.title}">\n${doc.pageContent}\n</Document>`;
       });
       const urlHtmlContent = formattedDocs.join('\n\n');
       const urlContent = convert(urlHtmlContent);
 
-      console.log('name: ', name);
-      console.log('urlValue: ', urlValue);
-      console.log('convertedName: ', convertedName);
+      // console.log('name: ', name);
+      // console.log('urlValue: ', urlValue);
+      // console.log('convertedName: ', convertedName);
       // console.log('urlHtmlContent: ', urlHtmlContent);
-      console.log('urlContent: ', urlContent);
+      // console.log('urlContent: ', urlContent);
 
       const newItem = {
         ...background,
