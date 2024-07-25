@@ -406,7 +406,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
                   return new Promise((resolve, reject) => {
                     resizeImage(file, 512, 512, 0.8, (resizedFile) => {
-                      console.log('resizedFile', resizedFile);
+                      // console.log('resizedFile', resizedFile);
                       resolve(resizedFile);
                     });
                   });
