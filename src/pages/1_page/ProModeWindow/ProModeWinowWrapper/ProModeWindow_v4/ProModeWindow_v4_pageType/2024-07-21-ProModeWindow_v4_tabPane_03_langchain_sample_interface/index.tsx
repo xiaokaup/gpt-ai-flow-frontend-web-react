@@ -86,7 +86,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
       chatHistory: lastMessage_in_chatHistory,
       background: removeAllEmptyValues(background),
       adjust: removeAllEmptyValues(adjust),
-      base64ImagesList: uploadFileList.map((file) => file.thumbUrl),
+      imagesList_base64: uploadFileList.map((file) => file.thumbUrl),
     };
 
     return newRequestBody;
