@@ -6,7 +6,7 @@ import { Button, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Image as AntdImage, Upload } from 'antd';
 import type { UploadFile, UploadProps } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import { IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_previousOutput } from './component/Langchain_previousOutput';
@@ -92,15 +92,16 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     return newRequestBody;
   };
 
-  const onImproveMessage = (lastMessage_in_chatHistory: IMessage_for_simpleInterface[]) => async () => {
+  const onImproveMessage = (paraChatHistory: IMessage_for_simpleInterface[]) => async () => {
     setIsCalling(true);
 
     const newRequestController = new AbortController();
     setRequestController(newRequestController);
     const { signal } = newRequestController;
 
-    const bodyData: ILangchain_for_type_langchain_request_v4_simpleInterface =
-      buildRequestBody(lastMessage_in_chatHistory);
+    const bodyData: ILangchain_for_type_langchain_request_v4_simpleInterface = buildRequestBody(
+      paraChatHistory.slice(-1), // lastMessage_in_chatHistory
+    );
 
     if (!urlSlug) {
       message.error('urlSlug is empty');
@@ -116,14 +117,14 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
       },
       (writingResultText: string) => {
         // console.log('updateResultFromRequestFunc', writingResultText);
-        const newChatHistory = [...lastMessage_in_chatHistory];
+        const newChatHistory = [...paraChatHistory];
         newChatHistory.push({ content: writingResultText });
         setChatHistory(newChatHistory);
       },
       (resultText: string) => {
         // console.log('AfterRequestFunc', resultText);
 
-        const newChatHistory = [...lastMessage_in_chatHistory];
+        const newChatHistory = [...paraChatHistory];
         newChatHistory.push({ content: resultText });
 
         setChatHistory(newChatHistory);
@@ -144,8 +145,9 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         message.error(error.message);
       }
       // Recover the chat history if the request fails or is aborted
-      setChatHistory(lastMessage_in_chatHistory);
-      setCurrentVersionNum(lastMessage_in_chatHistory.length - 1);
+      setChatHistory(paraChatHistory);
+      setCurrentVersionNum(paraChatHistory.length - 1);
+      setIsCalling(false);
     });
   };
 
@@ -154,9 +156,9 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
 
     if (currentVersionNum < 1) return;
 
-    const newChatHistory = chatHistory.slice(currentVersionNum - 1, currentVersionNum);
+    const paraChatHistory = chatHistory.slice(0, -1);
 
-    onImproveMessage(newChatHistory)();
+    onImproveMessage(paraChatHistory)();
   };
 
   const onResetAll = () => {
@@ -338,7 +340,6 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             <div className="row currentOuput">
               <Langchain_currentOutput
                 t={t}
-                isCalling={isCalling}
                 title={contextSelected.currentOutput.title ?? t.get('Post')}
                 currentOutput={
                   chatHistory.length > 0 && currentVersionNum >= 0
@@ -479,7 +480,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                       <Button
                         type="primary"
                         onClick={() => {
-                          onImproveMessage(chatHistory.slice(-1))();
+                          onImproveMessage(chatHistory)();
                         }}
                         disabled={
                           isCalling || (chatHistory.length > 0 ? currentVersionNum !== chatHistory.length - 1 : false)
@@ -514,12 +515,14 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 >
                   {t.get('Stop')}
                 </Button>
+
+                {isCalling && <LoadingOutlined style={{ fontSize: 18, marginLeft: '0.4rem' }} />}
               </div>
             </div>
           </div>
         </div>
       )}
-      {/* <div className="row @DEV">
+      <div className="row @DEV">
         <Button
           type="primary"
           onClick={() => {
@@ -558,7 +561,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         >
           fileList
         </Button>
-      </div> */}
+      </div>
     </>
   );
 };
