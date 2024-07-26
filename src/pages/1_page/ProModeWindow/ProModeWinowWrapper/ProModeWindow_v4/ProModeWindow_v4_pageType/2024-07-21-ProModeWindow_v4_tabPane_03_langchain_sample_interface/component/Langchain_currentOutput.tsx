@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import { Button, Form, Input, Tooltip, message } from 'antd';
-import { EditOutlined, CopyOutlined, LoadingOutlined } from '@ant-design/icons';
+import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IMessage_for_simpleInterface } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
@@ -14,13 +14,12 @@ const { TextArea } = Input;
 
 export const Langchain_currentOutput = (props: {
   t: IGetT_frontend_output;
-  isCalling: boolean;
   title: string;
   currentOutput: IMessage_for_simpleInterface;
   setCurrentOutput: (newItem: IMessage_for_simpleInterface) => void;
   onResetAll: () => void;
 }) => {
-  const { t, isCalling, title, currentOutput, setCurrentOutput, onResetAll } = props;
+  const { t, title, currentOutput, setCurrentOutput, onResetAll } = props;
 
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
@@ -66,8 +65,6 @@ export const Langchain_currentOutput = (props: {
           >
             <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
           </CopyToClipboard>
-
-          {isCalling && <LoadingOutlined style={{ fontSize: 18, marginLeft: '0.4rem' }} />}
         </div>
 
         <div className="column_2">
