@@ -522,7 +522,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
           </div>
         </div>
       )}
-      <div className="row @DEV">
+      {/* <div className="row @DEV">
         <Button
           type="primary"
           onClick={() => {
@@ -561,7 +561,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         >
           fileList
         </Button>
-      </div>
+      </div> */}
     </>
   );
 };
