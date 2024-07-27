@@ -36,6 +36,7 @@ export const AuthPage = (props: IAuthPage_input) => {
   const accessToken = query.get('accessToken');
   const openAIApiKey = query.get('openAIApiKey');
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
+  const redirect = query.get('redirect');
 
   const init = async () => {
     const userDataFound: IUserData = await getUser(userId, accessToken, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
@@ -61,7 +62,12 @@ export const AuthPage = (props: IAuthPage_input) => {
 
     await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-    navigate('/app/proMode/features');
+    if (redirect && redirect === 'subscription') {
+      navigate('/app/info#subscription');
+    } else {
+      navigate('/app/proMode/features');
+    }
+
     window.location.reload();
   };
 
