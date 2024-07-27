@@ -49,7 +49,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
           <Descriptions.Item label={t.get('Last Name')}>{userData.lastName}</Descriptions.Item>
           <Descriptions.Item label={t.get('Display Name')}>{userData.displayName}</Descriptions.Item>
           <Descriptions.Item label={t.get('Email')}>{userData.email}</Descriptions.Item>
-          {(userData.roles ?? []).length > 0 && (
+          {/* {(userData.roles ?? []).length > 0 && (
             <Descriptions.Item label={t.get('Role')} span={3}>
               {(userData.roles ?? []).join(', ')}
             </Descriptions.Item>
@@ -58,7 +58,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
             <Descriptions.Item label={t.get('Service Type')} span={3}>
               {(userData.serviceCategories ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
             </Descriptions.Item>
-          )}
+          )} */}
         </Descriptions>
       </div>
 

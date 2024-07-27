@@ -13,7 +13,7 @@ import {
 import { SettingsWindow_7_about } from './SettingsWindow_7_about';
 import { SettingsWindow_1_local } from './settingsWindow_1_local';
 import { SettingsWindow_2_user_3_info } from './settingsWindow_2_user/SettingsWindow_2_user_3_info';
-import { SettingsWindow_4_proMode } from './settingsWindow_4_proMode';
+import { SettingsWindow_4_payment } from './settingsWindow_4_payment';
 // import { SettingsWindow_6_referralReward } from './SettingsWindow_6_referralReward';
 
 interface ISettingsWindow_input {
@@ -49,7 +49,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
         <SettingsWindow_1_local t={t} />
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_4_proMode t={t} localeForSettingsWindow={locale} />
+        <SettingsWindow_4_payment t={t} localeForSettingsWindow={locale} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_7_about t={t} />
