@@ -17,6 +17,7 @@ import { IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/IUserDa
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
+import { ELLM_name } from '../../gpt-ai-flow-common/enum-backend/ELLM';
 
 interface IAuthPage_input {
   t: IGetT_frontend_output;
@@ -35,7 +36,9 @@ export const AuthPage = (props: IAuthPage_input) => {
   const userId = query.get('id');
   const accessToken = query.get('accessToken');
   const openAIApiKey = query.get('openAIApiKey');
+  const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.OPENAI_GPT_3_5_TURBO;
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
+  const redirect = query.get('redirect');
 
   const init = async () => {
     const userDataFound: IUserData = await getUser(userId, accessToken, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
@@ -50,18 +53,28 @@ export const AuthPage = (props: IAuthPage_input) => {
       return;
     }
 
+    const newLocalSettingsFromStore = { ...localSettingsFromStore };
+    if (openAIApiKey) {
+      newLocalSettingsFromStore.openAIApiKey = openAIApiKey.trim();
+    }
+    if (proMode_llm_name) {
+      newLocalSettingsFromStore.proMode.model_type = proMode_llm_name;
+    }
+    if (locale) {
+      newLocalSettingsFromStore.locale = locale;
+    }
+
     dispatch({ type: USER_LOGIN, payload: userDataFound });
-    dispatch<IStoreStorageLocalSettings | any>(
-      saveLocalAction({
-        ...localSettingsFromStore,
-        openAIApiKey: openAIApiKey.trim(),
-        locale,
-      }),
-    );
+    dispatch<IStoreStorageLocalSettings | any>(saveLocalAction(newLocalSettingsFromStore));
 
     await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-    navigate('/app/proMode/features');
+    if (redirect && redirect === 'subscription') {
+      navigate('/app/info#subscription');
+    } else {
+      navigate('/app/proMode/features');
+    }
+
     window.location.reload();
   };
 
