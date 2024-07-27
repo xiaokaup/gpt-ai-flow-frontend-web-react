@@ -74,6 +74,9 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
                 <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
                   {t.get('Click here')}
                 </a>
+                <br />
+                <br />
+                {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
               </>
             }
           >
