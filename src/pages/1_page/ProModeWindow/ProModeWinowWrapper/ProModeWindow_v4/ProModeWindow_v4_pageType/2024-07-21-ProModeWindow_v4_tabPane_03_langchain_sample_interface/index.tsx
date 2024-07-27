@@ -385,7 +385,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
           >
             <div className="row title">
-              <h1>内容创作</h1>
+              <h1>{t.get('Content Creation')}</h1>
             </div>
 
             <div className="row uploader">
