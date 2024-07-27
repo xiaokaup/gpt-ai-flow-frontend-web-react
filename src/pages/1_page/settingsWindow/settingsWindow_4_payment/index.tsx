@@ -25,13 +25,13 @@ import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/3
 import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
 import { LifetimeVersionAnnounce } from './LifetimeVersionAnnounce';
 
-interface ISettingsWindow_4_proMode_login_input {
+interface ISettingsWindow_4_payment_login_input {
   t: IGetT_frontend_output;
   localeForSettingsWindow: ELocale;
   userData: IUserData;
   dispatch: any;
 }
-const SettingsWindow_4_proMode_login = (props: ISettingsWindow_4_proMode_login_input) => {
+const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_input) => {
   const { t, localeForSettingsWindow, userData } = props;
 
   const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
@@ -501,7 +501,7 @@ interface ISettingsWindow_4_proMode {
   t: IGetT_frontend_output;
   localeForSettingsWindow: ELocale;
 }
-export const SettingsWindow_4_proMode = (props: ISettingsWindow_4_proMode) => {
+export const SettingsWindow_4_payment = (props: ISettingsWindow_4_proMode) => {
   const dispatch = useDispatch();
 
   const { t, localeForSettingsWindow } = props;
@@ -522,7 +522,7 @@ export const SettingsWindow_4_proMode = (props: ISettingsWindow_4_proMode) => {
   return (
     <>
       {userId && (
-        <SettingsWindow_4_proMode_login
+        <SettingsWindow_4_payment_login
           t={t}
           localeForSettingsWindow={localeForSettingsWindow}
           userData={userData}
