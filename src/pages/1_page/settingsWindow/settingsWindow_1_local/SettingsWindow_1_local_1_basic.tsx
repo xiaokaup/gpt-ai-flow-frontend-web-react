@@ -79,14 +79,15 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           >
             <label htmlFor="openAIApiKeyInput">
               OpenAI API key
-              <InfoCircleOutlined className="px-1" />
+              <InfoCircleOutlined className="px-1" />:{' '}
               <input
-                type="text"
+                type="password"
                 id="openAIApiKeyInput"
                 name="openAIApiKeyInput"
                 value={openAIApiKey ?? ''}
                 onChange={(e) => setOpenAIApiKey(e.target.value)}
-              />
+              />{' '}
+              {openAIApiKey && <>({openAIApiKey.slice(-6).toLowerCase()})</>}
             </label>
           </Tooltip>
         </div>
