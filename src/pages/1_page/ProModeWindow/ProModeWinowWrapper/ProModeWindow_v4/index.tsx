@@ -48,6 +48,7 @@ import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageTy
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
+import { HorizontalScrollingBanner } from './components/HorizontalScrollingBanner';
 
 const getCreationModeOptions = (t: IGetT_frontend_output) => {
   return [
@@ -213,8 +214,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
             }}
           /> */}
           </div>
-
-          <div className="gptModelSwitch">
+          <div className="modelSwitch">
             <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
 
             <Select
@@ -236,6 +236,10 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               }}
             />
           </div>
+        </div>
+
+        <div className="row">
+          <HorizontalScrollingBanner />
         </div>
 
         <div className="row bottom_block_tabs">
