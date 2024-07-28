@@ -30,7 +30,7 @@ export const HorizontalScrollingBanner = (props: IHorizontalScrollingBanner_inpu
   const init = async () => {
     // fetch news
     const results: IGetNewsDaily_output = await getNewsDaily(locale, env);
-    console.log('results', results);
+    // console.log('results', results);
     // setNews(results);
     setRandomWeiboSearchNews(_.sampleSize(results['weibo-search'], 20));
     setRandomProductHuntNews(_.sampleSize(results['product-hunt-ranking'], 20));

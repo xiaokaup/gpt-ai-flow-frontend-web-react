@@ -32,7 +32,7 @@ export const NewsPage = (props: INewsPageProps) => {
   const init = async () => {
     // fetch news
     const results: IGetNewsDaily_output = await getNewsDaily(locale, env);
-    console.log('results', results);
+    // console.log('results', results);
     setNews(results);
   };
 
