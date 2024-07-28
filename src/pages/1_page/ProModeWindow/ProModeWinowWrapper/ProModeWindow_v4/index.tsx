@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import _ from 'lodash';
-import { Select, Slider, Tabs, message } from 'antd';
+import { Radio, RadioChangeEvent, Select, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../store/actions/inputsCacheActions';
@@ -48,6 +48,14 @@ import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageTy
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
+
+const getCreationModeOptions = (t: IGetT_frontend_output) => {
+  return [
+    { label: t.get('Precise'), value: 0.6 },
+    { label: t.get('Balanced'), value: 0.8 },
+    { label: t.get('Creative'), value: 1 },
+  ];
+};
 
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
@@ -166,13 +174,24 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
             zIndex: 10,
             borderBottom: '1px solid #E8E8E8',
             marginBottom: '.4rem',
+            paddingBottom: '.8rem',
           }}
         >
-          <span style={{ color: '#5D6370', marginLeft: '1rem' }}>
-            {t.get('Creative value')}: {creativityValue}
-          </span>
+          <div>
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
 
-          <Slider
+            <Radio.Group
+              options={getCreationModeOptions(t)}
+              onChange={({ target: { value } }: RadioChangeEvent) => {
+                console.log('radio checked', value);
+                setCreativityValue(value);
+              }}
+              value={creativityValue}
+              optionType="button"
+              buttonStyle="solid"
+            />
+
+            {/* <Slider
             min={0}
             max={1.6}
             step={0.1}
@@ -192,9 +211,12 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               marginLeft: '2rem',
               marginRight: '2rem',
             }}
-          />
+          /> */}
+          </div>
 
           <div className="gptModelSwitch">
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
+
             <Select
               value={proModeModelType}
               showSearch
@@ -208,7 +230,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM.getAllLLM_selectOptions()}
+              options={SLLM.getAllLLM_selectOptions(t)}
               style={{
                 width: 180,
               }}
