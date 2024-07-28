@@ -8,13 +8,13 @@
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 8px;
+  padding-top: 6px;
   padding-bottom: 8px;
   overflow: hidden;
 
   @media screen and (max-width: 479px) {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 4px;
+    padding-bottom: 6px;
   }
 
   .marquee__inner {
@@ -26,16 +26,16 @@
     }
 
     .marquee__element {
-      width: 100%;
+      width: 150%;
       justify-content: space-around;
       align-items: center;
       margin-right: 0%;
       display: flex;
 
-      animation: slide 60s linear infinite;
+      animation: slide 80s linear infinite;
 
       @media (max-width: 991px) {
-        width: 150%;
+        width: 200%;
       }
 
       .marquee__logo {

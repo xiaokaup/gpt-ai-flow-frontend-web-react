@@ -174,7 +174,6 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
             backgroundColor: '#fff',
             zIndex: 10,
             borderBottom: '1px solid #E8E8E8',
-            marginBottom: '.4rem',
             paddingBottom: '.8rem',
           }}
         >
