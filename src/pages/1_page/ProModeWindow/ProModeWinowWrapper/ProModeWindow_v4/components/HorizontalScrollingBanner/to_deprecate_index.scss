@@ -1,0 +1,7 @@
+@import "./to_deprecate_fadeIn.scss";
+@import "./slide.scss";
+
+@include keyframes-fadeIn(fadeInFromLeft-50-px, -50px, 0);
+@include keyframes-fadeIn(fadeInFromRight-50-px, 50px, 0);
+@include keyframes-fadeIn(fadeInFromBottom-50-px, 0, 50px);
+@include keyframes-fadeIn(fadeInFromTop-50-px, 0, -50px);
