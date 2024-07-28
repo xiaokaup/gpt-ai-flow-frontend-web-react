@@ -26,14 +26,13 @@ interface INewsPageProps {
 export const NewsPage = (props: INewsPageProps) => {
   const { webCase } = props;
   const { t, locale, env } = webCase;
-  console.log('locale', locale);
 
   const [news, setNews] = useState<IGetNewsDaily_output>();
 
   const init = async () => {
     // fetch news
     const results: IGetNewsDaily_output = await getNewsDaily(locale, env);
-    console.log('results', results);
+    // console.log('results', results);
     setNews(results);
   };
 

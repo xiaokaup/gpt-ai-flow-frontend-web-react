@@ -1,0 +1,55 @@
+@import "./slide.scss";
+
+.horizontalScrollingBanner {
+  max-width: none;
+  background-color: #fff;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 6px;
+  padding-bottom: 8px;
+  overflow: hidden;
+
+  @media screen and (max-width: 479px) {
+    padding-top: 4px;
+    padding-bottom: 6px;
+  }
+
+  .marquee__inner {
+    width: 200%;
+    display: flex;
+
+    @media screen and (max-width: 991px) {
+      width: 300%;
+    }
+
+    .marquee__element {
+      width: 150%;
+      justify-content: space-around;
+      align-items: center;
+      margin-right: 0%;
+      display: flex;
+
+      animation: slide 80s linear infinite;
+
+      @media (max-width: 991px) {
+        width: 200%;
+      }
+
+      .marquee__logo {
+        height: auto;
+        max-width: none;
+        margin: 0 2vw;
+        display: inline-block;
+
+        image {
+          max-width: 100%;
+          vertical-align: middle;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
