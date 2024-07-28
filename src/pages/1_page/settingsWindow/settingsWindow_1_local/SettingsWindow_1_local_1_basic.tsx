@@ -133,7 +133,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={SLLM.getAllLLM_selectOptions()}
+          options={SLLM.getAllLLM_selectOptions(t)}
           style={{
             width: 200,
           }}

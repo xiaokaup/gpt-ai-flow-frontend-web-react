@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Select } from 'antd';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 
@@ -14,11 +13,13 @@ interface IProModeWindow_warpper {
 }
 export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
   const { t, locale } = props.webCase;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [version, setVersion] = useState<string>('v4');
 
   return (
     <div style={{ width: '100%' }}>
-      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', top: '.5rem' }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', top: '.5rem' }}>
         <Select
           defaultValue={version}
           onChange={(value) => setVersion(value)}
@@ -34,7 +35,7 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
             },
           ]}
         />
-      </div>
+      </div> */}
 
       {version === 'v4' && <ProModeWindow_v4 t={t} locale={locale} />}
       {version === 'v3' && <ProModeWindow_v3 t={t} />}
