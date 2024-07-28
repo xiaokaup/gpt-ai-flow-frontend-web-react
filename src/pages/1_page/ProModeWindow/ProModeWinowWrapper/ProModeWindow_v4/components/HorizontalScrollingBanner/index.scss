@@ -1,15 +1,15 @@
 @import "./slide.scss";
 
-.horizontalScrollingBannerBlock {
+.horizontalScrollingBanner {
   max-width: none;
-  background-color: #000;
+  background-color: #fff;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   overflow: hidden;
 
   @media screen and (max-width: 479px) {
@@ -32,7 +32,7 @@
       margin-right: 0%;
       display: flex;
 
-      animation: slide 16s linear infinite;
+      animation: slide 60s linear infinite;
 
       @media (max-width: 991px) {
         width: 150%;
@@ -43,10 +43,6 @@
         max-width: none;
         margin: 0 2vw;
         display: inline-block;
-
-        &.domatron {
-          max-width: 8%;
-        }
 
         image {
           max-width: 100%;

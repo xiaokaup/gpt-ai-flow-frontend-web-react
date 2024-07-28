@@ -26,7 +26,6 @@ interface INewsPageProps {
 export const NewsPage = (props: INewsPageProps) => {
   const { webCase } = props;
   const { t, locale, env } = webCase;
-  console.log('locale', locale);
 
   const [news, setNews] = useState<IGetNewsDaily_output>();
 

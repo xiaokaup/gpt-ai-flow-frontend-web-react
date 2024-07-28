@@ -238,8 +238,14 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
           </div>
         </div>
 
-        <div className="row">
-          <HorizontalScrollingBanner />
+        <div className="horizontalScrollingBanner">
+          <HorizontalScrollingBanner
+            webCase={{
+              t,
+              locale,
+              env: CONSTANTS_GPT_AI_FLOW_COMMON,
+            }}
+          />
         </div>
 
         <div className="row bottom_block_tabs">
