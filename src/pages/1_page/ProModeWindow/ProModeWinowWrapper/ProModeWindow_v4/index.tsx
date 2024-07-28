@@ -215,6 +215,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
           </div>
 
           <div className="gptModelSwitch">
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
+
             <Select
               value={proModeModelType}
               showSearch
@@ -228,7 +230,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM.getAllLLM_selectOptions()}
+              options={SLLM.getAllLLM_selectOptions(t)}
               style={{
                 width: 180,
               }}

@@ -286,7 +286,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM.getAllLLM_selectOptions()}
+              options={SLLM.getAllLLM_selectOptions(t)}
               style={{
                 width: 180,
               }}
