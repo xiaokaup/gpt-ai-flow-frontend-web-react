@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Image as AntdImage, UploadFile, UploadProps, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { getBase64, FileType } from '../TImage';
+import { getBase64, FileType } from '../tools/TImage';
 
 // const uploadFileList_for_test = [
 //   {
