@@ -57,10 +57,10 @@ export const HorizontalScrollingBanner = (props: IHorizontalScrollingBanner_inpu
               // style="transform: translate3d(-39.083%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; will-change: transform;"
             >
               {randomWeiboSearchNews &&
-                randomWeiboSearchNews.map((item: IWEIBO_SEARCH) => {
+                randomWeiboSearchNews.map((item: IWEIBO_SEARCH, index: number) => {
                   const { title, realurl } = item;
                   return (
-                    <a href={realurl} target="_blank">
+                    <a key={`${title}-${index}`} href={realurl} target="_blank">
                       <div className="marquee__logo">
                         <span style={{ color: 'rgba(0, 0, 0, 0.88)', whiteSpace: 'nowrap' }}>{title}</span>
                       </div>
@@ -73,11 +73,14 @@ export const HorizontalScrollingBanner = (props: IHorizontalScrollingBanner_inpu
               // style="transform: translate3d(-39.083%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; will-change: transform;"
             >
               {randomWeiboSearchNews &&
-                randomWeiboSearchNews.map((item) => {
+                randomWeiboSearchNews.map((item: IWEIBO_SEARCH, index: number) => {
+                  const { title, realurl } = item;
                   return (
-                    <div className="marquee__logo">
-                      <span style={{ color: 'rgba(0, 0, 0, 0.88)', whiteSpace: 'nowrap' }}>{item.title}</span>
-                    </div>
+                    <a key={`${title}-${index}-copy`} href={realurl} target="_blank">
+                      <div className="marquee__logo">
+                        <span style={{ color: 'rgba(0, 0, 0, 0.88)', whiteSpace: 'nowrap' }}>{title}</span>
+                      </div>
+                    </a>
                   );
                 })}
             </div>
@@ -94,11 +97,11 @@ export const HorizontalScrollingBanner = (props: IHorizontalScrollingBanner_inpu
               }}
             >
               {randomProductHuntNews &&
-                randomProductHuntNews.map((item: IGithubTrending | IProductHunt) => {
+                randomProductHuntNews.map((item: IGithubTrending | IProductHunt, index: number) => {
                   const { name, description, website } = item as IProductHunt;
 
                   return (
-                    <a href={website} target="_blank">
+                    <a key={`${name}-${index}`} href={website} target="_blank">
                       <div className="marquee__logo">
                         <span style={{ color: 'rgba(0, 0, 0, 0.88)', whiteSpace: 'nowrap' }}>
                           {name}&nbsp;:&nbsp;<span className="text-gray-600">{description}</span>
@@ -116,11 +119,11 @@ export const HorizontalScrollingBanner = (props: IHorizontalScrollingBanner_inpu
               }}
             >
               {randomProductHuntNews &&
-                randomProductHuntNews.map((item: IGithubTrending | IProductHunt) => {
+                randomProductHuntNews.map((item: IGithubTrending | IProductHunt, index: number) => {
                   const { name, description, website } = item as IProductHunt;
 
                   return (
-                    <a href={website} target="_blank">
+                    <a key={`${name}-${index}-copy`} href={website} target="_blank">
                       <div className="marquee__logo">
                         <span style={{ color: 'rgba(0, 0, 0, 0.88)', whiteSpace: 'nowrap' }}>
                           {name}&nbsp;:&nbsp;<span className="text-gray-600">{description}</span>
