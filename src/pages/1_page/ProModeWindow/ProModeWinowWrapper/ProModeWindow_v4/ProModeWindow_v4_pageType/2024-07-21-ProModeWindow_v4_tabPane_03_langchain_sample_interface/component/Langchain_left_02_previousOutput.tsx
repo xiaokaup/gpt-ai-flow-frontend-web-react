@@ -10,11 +10,12 @@ import { IMessage_for_simpleInterface } from '../../../../../../../../gpt-ai-flo
 
 const { TextArea } = Input;
 
-export const Langchain_previousOutput = (props: {
+interface ILangchain_left_02_previousOutput_input {
   t: IGetT_frontend_output;
   previousOutput: IMessage_for_simpleInterface;
   setPreviousOutput: (newItem: IMessage_for_simpleInterface) => void;
-}) => {
+}
+export const Langchain_left_02_previousOutput = (props: ILangchain_left_02_previousOutput_input) => {
   const { t, previousOutput: previousOutputFromProps, setPreviousOutput } = props;
 
   const previousOutput = useMemo(() => previousOutputFromProps, [previousOutputFromProps]);

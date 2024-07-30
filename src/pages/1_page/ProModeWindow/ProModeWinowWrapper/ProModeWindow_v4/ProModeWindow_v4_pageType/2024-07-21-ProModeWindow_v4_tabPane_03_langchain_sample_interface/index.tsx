@@ -6,16 +6,16 @@ import { Button, message, UploadFile } from 'antd';
 import { LeftOutlined, RightOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import { IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
-import { Langchain_previousOutput } from './component/Langchain_previousOutput';
-import { Langchain_currentOutput } from './component/Langchain_currentOutput';
-import { Langchain_adjust } from './component/Langchain_adjust';
-import { Langchain_background } from './component/Langchain_background';
+import { Langchain_left_02_previousOutput } from './component/Langchain_left_02_previousOutput';
+import { Langchain_left_01_currentOutput } from './component/Langchain_left_01_currentOutput';
+import { Langchain_right_04_adjust } from './component/Langchain_right_04_adjust';
+import { Langchain_right_03_background } from './component/Langchain_right_03_background';
 import { EProductItemDB_type } from '../../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { IInputsCache } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { Langchain_context_description } from './component/Langchain_context_description';
+import { Langchain_left_03_context_description } from './component/Langchain_left_03_context_description';
 import {
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
@@ -41,7 +41,7 @@ import {
   IBackground_v2_default,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
 import { removeAllEmptyValues } from '../../../../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
-import { Langchain_uploader } from './component/Langchain_uploader';
+import { Langchain_right_02_uploader } from './component/Langchain_right_02_uploader';
 
 interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -209,7 +209,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             </div>
 
             <div className="row currentOuput">
-              <Langchain_currentOutput
+              <Langchain_left_01_currentOutput
                 t={t}
                 title={contextSelected.currentOutput.title ?? t.get('Post')}
                 currentOutput={
@@ -227,7 +227,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             </div>
 
             <div className="row previousOutput">
-              <Langchain_previousOutput
+              <Langchain_left_02_previousOutput
                 t={t}
                 previousOutput={
                   chatHistory.length > 1 && currentVersionNum >= 1
@@ -246,7 +246,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
 
             {contextSelected.description && (
               <div className="row description">
-                <Langchain_context_description t={t} description={contextSelected.description} />
+                <Langchain_left_03_context_description t={t} description={contextSelected.description} />
               </div>
             )}
           </div>
@@ -262,11 +262,11 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             {/* <div className="row xiaohongshu_shareUrl"></div> */}
 
             <div className="row uploader">
-              <Langchain_uploader uploadFileList={uploadFileList} setUploadFileList={setUploadFileList} />
+              <Langchain_right_02_uploader uploadFileList={uploadFileList} setUploadFileList={setUploadFileList} />
             </div>
 
             <div className="row background">
-              <Langchain_background
+              <Langchain_right_03_background
                 t={t}
                 backgroundSelected={contextSelected.background}
                 background={background}
@@ -281,7 +281,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             </div>
 
             <div className="row adjust">
-              <Langchain_adjust
+              <Langchain_right_04_adjust
                 t={t}
                 isAdjustCall={currentVersionNum > 0}
                 adjustSelected={contextSelected.adjust}

@@ -42,11 +42,11 @@ import { getBase64, FileType } from '../TImage';
 //   },
 // ];
 
-interface ILangchain_uploader_input {
+interface ILangchain_right_02_uploader_input {
   uploadFileList: UploadFile[];
   setUploadFileList: (newFileList: UploadFile[]) => void;
 }
-export const Langchain_uploader = (props: ILangchain_uploader_input) => {
+export const Langchain_right_02_uploader = (props: ILangchain_right_02_uploader_input) => {
   const { uploadFileList, setUploadFileList } = props;
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
