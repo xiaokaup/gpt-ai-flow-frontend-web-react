@@ -5,36 +5,59 @@ import iconWrong from '../../../../../../../../../assets/icons-customize/icon-st
 import TBackendPuppeteerFile from '../../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendPuppeteer';
 import { ELocale } from '../../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { IInternalRequest } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IRequest';
 
-const { Search } = Input;
+const { Search, TextArea } = Input;
 
 export const Langchain_right_01_xiaohongshu_shareUrl = () => {
-  const [xiaohongshu_shareUrl, setXiaohongshu_shareUrl] = useState<string>('');
+  const [form] = Form.useForm();
+
   const [loading, setLoading] = useState<boolean>(false);
   const [hasAnalyseRequests, setHasAnalyseRequests] = useState<boolean>(false);
-  const [hasSourceUrl, setHasSourceUrl] = useState<boolean>(false);
 
-  const [analyseRequests, setAnalyseRequests] = useState<IInternalRequest[]>([]);
+  const [xiaohongshu_shareUrl, setXiaohongshu_shareUrl] = useState<string>('');
+  const [sourceUrlPostMetaContent, setSourceUrlPostMetaContent] = useState<{ [key: string]: string }>(null);
+  const [postContent_for_backend, setPostContent_for_backend] = useState<string>('');
 
   const analyseRequests_for_shareUrl = async (shareUrl: string) => {
     setHasAnalyseRequests(true);
 
-    const results = await TBackendPuppeteerFile.getAnalyseRequests_for_shareUrl_by_backend(
+    const sourceUrlResponse = await TBackendPuppeteerFile.getAnalyseRequests_for_shareUrl_by_backend(
       shareUrl,
       ELocale.ZH,
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
 
-    console.log('results: ', results);
-    setAnalyseRequests(results);
+    console.log('sourceUrlTextResult: ', sourceUrlResponse);
 
-    const filterUrl = results.find((item: IInternalRequest) => {
-      return item.url.startsWith('https://www.xiaohongshu.com/discovery/item');
-    });
+    if (sourceUrlResponse instanceof Error) {
+      return;
+    }
 
-    setHasSourceUrl(filterUrl);
-    console.log('filterUrl', filterUrl);
+    // 正则表达式，用于匹配 <meta> 标签，并捕获其 name 属性和 content 属性的值
+    const metaTagRegex = /<meta\s+name="(og:title|description)"\s+content="([^"]*)"\s*\/?>/g;
+
+    // 声明一个对象来存储提取到的标题和描述
+    const metaContent: { [key: string]: string } = {};
+
+    // 使用正则表达式匹配，并提取内容
+    let match;
+    while ((match = metaTagRegex.exec(sourceUrlResponse)) !== null) {
+      let name = match[1]; // 捕获的 name 属性值
+      const content = match[2]; // 捕获的 content 属性值
+      if (name === 'og:title') {
+        name = 'title'; // 将 og:title 改为 title
+      }
+      metaContent[name] = content;
+    }
+
+    // 打印结果
+    console.log(metaContent);
+
+    // 将提取到的标题和描述存储到 state 中, 并更新 postContent_for_backend 内容
+    setSourceUrlPostMetaContent(metaContent);
+    const newPostContent_for_backend = `标题: ${metaContent.title}\n\n内容: ${metaContent.description}`;
+    setPostContent_for_backend(newPostContent_for_backend);
+    form.setFieldValue('postContent', newPostContent_for_backend);
   };
 
   return (
@@ -49,41 +72,71 @@ export const Langchain_right_01_xiaohongshu_shareUrl = () => {
         </Button>
         <Button
           onClick={() => {
-            console.log('analyseRequests: ', analyseRequests);
+            console.log('sourceUrlPostMetaContent: ', sourceUrlPostMetaContent);
           }}
         >
-          analyseRequests
+          sourceUrlPostMetaContent
+        </Button>
+        <Button
+          onClick={() => {
+            console.log('postContent_for_backend: ', postContent_for_backend);
+          }}
+        >
+          postContent_for_backend
         </Button>
       </div>
 
       <div className="row">
-        <Form.Item name={'xiaohongshu_shareUrl'} label={'xiaohognshu shareUrl'} rules={[]}>
-          <Search
-            value={xiaohongshu_shareUrl}
-            onChange={(event) => {
-              if (!event.target.value) return;
-              setXiaohongshu_shareUrl(event.target.value);
-            }}
-            loading={loading}
-            enterButton={loading}
-            onSearch={async (value) => {
-              console.log('onSearch value', value);
-              setLoading(true);
-              await analyseRequests_for_shareUrl(xiaohongshu_shareUrl);
-              setLoading(false);
-            }}
-            suffix={
-              <>
-                {hasAnalyseRequests && !loading && hasSourceUrl && (
-                  <img src={iconSuccessful} alt="" style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }} />
-                )}
-                {hasAnalyseRequests && !loading && !hasSourceUrl && (
-                  <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />
-                )}
-              </>
-            }
-          />
-        </Form.Item>
+        <Form form={form}>
+          <Form.Item name={'xiaohongshu_shareUrl'} label={'xiaohognshu shareUrl'} rules={[]}>
+            <Search
+              value={xiaohongshu_shareUrl}
+              onChange={(event) => {
+                if (!event.target.value) return;
+                setXiaohongshu_shareUrl(event.target.value);
+              }}
+              loading={loading}
+              enterButton={loading}
+              onSearch={async (value) => {
+                console.log('onSearch value', value);
+                setLoading(true);
+                await analyseRequests_for_shareUrl(xiaohongshu_shareUrl);
+                setLoading(false);
+              }}
+              suffix={
+                <>
+                  {hasAnalyseRequests &&
+                    !loading &&
+                    sourceUrlPostMetaContent?.title &&
+                    sourceUrlPostMetaContent?.description && (
+                      <img
+                        src={iconSuccessful}
+                        alt=""
+                        style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }}
+                      />
+                    )}
+                  {hasAnalyseRequests &&
+                    !loading &&
+                    !(sourceUrlPostMetaContent?.title && sourceUrlPostMetaContent?.description) && (
+                      <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />
+                    )}
+                </>
+              }
+            />
+          </Form.Item>
+          {postContent_for_backend && (
+            <Form.Item name={'postContent'} label={'postContent'} rules={[]}>
+              <TextArea
+                value={postContent_for_backend}
+                onChange={(event) => {
+                  if (!event.target.value) return;
+                  setPostContent_for_backend(event.target.value);
+                }}
+                autoSize={{ minRows: 2 }}
+              />
+            </Form.Item>
+          )}
+        </Form>
       </div>
     </>
   );
