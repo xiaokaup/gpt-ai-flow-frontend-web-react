@@ -1,14 +1,23 @@
 import { useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import iconSuccessful from '../../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
 import iconWrong from '../../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 import TBackendPuppeteerFile from '../../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendPuppeteer';
 import { ELocale } from '../../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IAdjust_IMessage_v2 } from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 const { Search, TextArea } = Input;
 
-export const Langchain_right_01_xiaohongshu_shareUrl = () => {
+interface ILangchain_right_01_xiaohongshu_shareUrl_input {
+  t: IGetT_frontend_output;
+  adjust: IAdjust_IMessage_v2;
+  setAdjust: (newAdjust: IAdjust_IMessage_v2) => void;
+}
+export const Langchain_right_01_xiaohongshu_shareUrl = (props: ILangchain_right_01_xiaohongshu_shareUrl_input) => {
+  const { t, adjust, setAdjust } = props;
+
   const [form] = Form.useForm();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -16,7 +25,6 @@ export const Langchain_right_01_xiaohongshu_shareUrl = () => {
 
   const [xiaohongshu_shareUrl, setXiaohongshu_shareUrl] = useState<string>('');
   const [sourceUrlPostMetaContent, setSourceUrlPostMetaContent] = useState<{ [key: string]: string }>(null);
-  const [postContent_for_backend, setPostContent_for_backend] = useState<string>('');
 
   const analyseRequests_for_shareUrl = async (shareUrl: string) => {
     setHasAnalyseRequests(true);
@@ -53,16 +61,16 @@ export const Langchain_right_01_xiaohongshu_shareUrl = () => {
     // 打印结果
     console.log(metaContent);
 
-    // 将提取到的标题和描述存储到 state 中, 并更新 postContent_for_backend 内容
+    // 将提取到的标题和描述存储到 state 中, 并更新 adjust.example 内容
     setSourceUrlPostMetaContent(metaContent);
-    const newPostContent_for_backend = `## 标题\n${metaContent.title}\n\n## 内容\n${metaContent.description}`;
-    setPostContent_for_backend(newPostContent_for_backend);
-    form.setFieldValue('postContent', newPostContent_for_backend);
+    const newAdjustExample = `## 标题\n${metaContent.title}\n\n## 内容\n${metaContent.description}`;
+    setAdjust({ ...adjust, example: newAdjustExample });
+    form.setFieldValue('example', newAdjustExample);
   };
 
   return (
     <>
-      <div className="row">
+      {/* <div className="row @DEV">
         <Button
           onClick={() => {
             console.log('xiaohongshu_shareUrl: ', xiaohongshu_shareUrl);
@@ -79,16 +87,16 @@ export const Langchain_right_01_xiaohongshu_shareUrl = () => {
         </Button>
         <Button
           onClick={() => {
-            console.log('postContent_for_backend: ', postContent_for_backend);
+            console.log('adjust.example: ', adjust.example);
           }}
         >
-          postContent_for_backend
+          adjust.example
         </Button>
-      </div>
+      </div> */}
 
       <div className="row">
-        <Form form={form}>
-          <Form.Item name={'xiaohongshu_shareUrl'} label={'xiaohognshu shareUrl'} rules={[]}>
+        <Form form={form} initialValues={adjust}>
+          <Form.Item name={'xiaohongshu_shareUrl'} label={t.get("xiaohongshu's share URL")} rules={[]}>
             <Search
               value={xiaohongshu_shareUrl}
               onChange={(event) => {
@@ -124,13 +132,12 @@ export const Langchain_right_01_xiaohongshu_shareUrl = () => {
               }
             />
           </Form.Item>
-          {(postContent_for_backend || (!postContent_for_backend && hasAnalyseRequests)) && (
-            <Form.Item name={'postContent'} label={'postContent'} rules={[]}>
+          {(adjust.example || (!adjust.example && hasAnalyseRequests)) && (
+            <Form.Item name={'example'} label={t.get('Example')} rules={[]}>
               <TextArea
-                value={postContent_for_backend}
+                value={adjust.example}
                 onChange={(event) => {
-                  if (!event.target.value) return;
-                  setPostContent_for_backend(event.target.value);
+                  setAdjust({ ...adjust, example: event.target.value });
                 }}
                 autoSize={{ minRows: 2 }}
               />

@@ -261,7 +261,17 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             </div>
 
             <div className="row xiaohongshu_shareUrl">
-              <Langchain_right_01_xiaohongshu_shareUrl />
+              <Langchain_right_01_xiaohongshu_shareUrl
+                t={t}
+                adjust={adjust}
+                setAdjust={(newItem: IAdjust_IMessage_v2) => {
+                  setAdjust(newItem);
+                  setInputsCache((prvState: IInputsCache) => ({
+                    ...prvState,
+                    ...newItem,
+                  }));
+                }}
+              />
             </div>
 
             <div className="row uploader">
