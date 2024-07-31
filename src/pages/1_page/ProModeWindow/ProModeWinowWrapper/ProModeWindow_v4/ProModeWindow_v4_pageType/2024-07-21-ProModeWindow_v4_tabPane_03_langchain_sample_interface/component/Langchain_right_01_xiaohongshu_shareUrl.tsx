@@ -124,7 +124,7 @@ export const Langchain_right_01_xiaohongshu_shareUrl = () => {
               }
             />
           </Form.Item>
-          {postContent_for_backend && (
+          {(postContent_for_backend || (!postContent_for_backend && hasAnalyseRequests)) && (
             <Form.Item name={'postContent'} label={'postContent'} rules={[]}>
               <TextArea
                 value={postContent_for_backend}
