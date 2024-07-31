@@ -59,7 +59,7 @@ export const Langchain_right_01_xiaohongshu_shareUrl = (props: ILangchain_right_
     }
 
     // 打印结果
-    console.log(metaContent);
+    // console.log(metaContent);
 
     // 将提取到的标题和描述存储到 state 中, 并更新 adjust.example 内容
     setSourceUrlPostMetaContent(metaContent);
