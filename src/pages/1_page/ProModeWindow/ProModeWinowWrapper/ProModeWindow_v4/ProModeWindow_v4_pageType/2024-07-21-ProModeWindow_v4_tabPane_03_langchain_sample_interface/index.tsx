@@ -42,6 +42,7 @@ import {
 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
 import { removeAllEmptyValues } from '../../../../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
 import { Langchain_right_02_uploader } from './component/Langchain_right_02_uploader';
+import { Langchain_right_01_xiaohongshu_shareUrl } from './component/Langchain_right_01_xiaohongshu_shareUrl';
 
 interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -259,9 +260,21 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
               <h1>{t.get('Content Creation')}</h1>
             </div>
 
-            {/* <div className="row xiaohongshu_shareUrl"></div> */}
+            <div className="row xiaohongshu_shareUrl">
+              <Langchain_right_01_xiaohongshu_shareUrl
+                t={t}
+                adjust={adjust}
+                setAdjust={(newItem: IAdjust_IMessage_v2) => {
+                  setAdjust(newItem);
+                  setInputsCache((prvState: IInputsCache) => ({
+                    ...prvState,
+                    ...newItem,
+                  }));
+                }}
+              />
+            </div>
 
-            <div className="row uploader">
+            <div className="row uploader flex justify-center">
               <Langchain_right_02_uploader uploadFileList={uploadFileList} setUploadFileList={setUploadFileList} />
             </div>
 
