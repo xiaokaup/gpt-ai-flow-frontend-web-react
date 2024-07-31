@@ -5,11 +5,11 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-interface ILangchain_context_description {
+interface ILangchain_left_03_context_description_input {
   t: IGetT_frontend_output;
   description: string;
 }
-export const Langchain_context_description = (props: ILangchain_context_description) => {
+export const Langchain_left_03_context_description = (props: ILangchain_left_03_context_description_input) => {
   const { t, description } = props;
 
   const [isShow, setIsShow] = useState(false);

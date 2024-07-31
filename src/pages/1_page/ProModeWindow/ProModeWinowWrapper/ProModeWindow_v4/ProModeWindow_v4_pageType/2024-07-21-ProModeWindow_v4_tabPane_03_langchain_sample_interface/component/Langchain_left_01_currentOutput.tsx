@@ -12,13 +12,14 @@ import { IMessage_for_simpleInterface } from '../../../../../../../../gpt-ai-flo
 
 const { TextArea } = Input;
 
-export const Langchain_currentOutput = (props: {
+interface ILangchain_left_01_currentOutput_input {
   t: IGetT_frontend_output;
   title: string;
   currentOutput: IMessage_for_simpleInterface;
   setCurrentOutput: (newItem: IMessage_for_simpleInterface) => void;
   onResetAll: () => void;
-}) => {
+}
+export const Langchain_left_01_currentOutput = (props: ILangchain_left_01_currentOutput_input) => {
   const { t, title, currentOutput, setCurrentOutput, onResetAll } = props;
 
   const [form] = Form.useForm();

@@ -1,41 +1,70 @@
-import { useState } from 'react';
-
+import { useCallback, useState } from 'react';
 import { AutoComplete, AutoCompleteProps, Form, Input, Tooltip } from 'antd';
+
+import _ from 'lodash';
+import { CheerioWebBaseLoader } from '@langchain/community/document_loaders/web/cheerio';
+import { convert } from 'html-to-text';
+
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPromode_v4_tabPane_context_for_type_langchain_formItems,
+  IBackground_for_type_langchain,
   IFormItem,
-  IAdjust_for_type_langchain,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { EProMode_v4_tabPane_context_type } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 
+// const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-export const Langchain_adjust = (props: {
+interface ILangchain_right_03_background_input {
   t: IGetT_frontend_output;
-  isAdjustCall: boolean;
-  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
-  adjust: IAdjust_for_type_langchain;
-  setAdjust: (newItem: IAdjust_for_type_langchain) => void;
-  contextSelected_type: EProMode_v4_tabPane_context_type;
-  swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_type) => void;
-}) => {
-  const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;
+  backgroundSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IBackground_for_type_langchain>;
+  background: IBackground_for_type_langchain;
+  setBackground: (newItem: IBackground_for_type_langchain) => void;
+}
+export const Langchain_right_03_background = (props: ILangchain_right_03_background_input) => {
+  const { t, backgroundSelected, background, setBackground } = props;
 
   const [form] = Form.useForm();
 
-  const [autoCompleteOptions_for_input, setAutoCompleteOptions_for_input] = useState<AutoCompleteProps['options']>([]);
   const [autoCompleteOptions_for_textArea, setAutoCompleteOptions_for_textArea] = useState<
     AutoCompleteProps['options']
   >([]);
 
+  const debouncedSetBackground = useCallback(
+    _.debounce(async ({ name, urlValue, convertedName }) => {
+      const loader = new CheerioWebBaseLoader(urlValue);
+      const docs = await loader.load();
+
+      const formattedDocs = docs.map((doc) => {
+        // console.log('doc.metadata: ', doc.metadata);
+        return `<Document name="${doc.metadata?.title}">\n${doc.pageContent}\n</Document>`;
+      });
+      const urlHtmlContent = formattedDocs.join('\n\n');
+      const urlContent = convert(urlHtmlContent);
+
+      // console.log('name: ', name);
+      // console.log('urlValue: ', urlValue);
+      // console.log('convertedName: ', convertedName);
+      // console.log('urlHtmlContent: ', urlHtmlContent);
+      // console.log('urlContent: ', urlContent);
+
+      const newItem = {
+        ...background,
+        [name]: urlValue,
+        [convertedName]: urlContent,
+      };
+      setBackground(newItem);
+    }, 600),
+    [],
+  ); // 600 毫秒的防抖时间
+
   return (
     <div className="row subContainer">
       <div className="row">
-        <Form form={form} initialValues={adjust}>
-          {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_langchain>) => {
+        <Form form={form} initialValues={background}>
+          {backgroundSelected.formItems.map((item: IFormItem<IBackground_for_type_langchain>) => {
             const {
               componentType,
               label,
@@ -44,11 +73,13 @@ export const Langchain_adjust = (props: {
               isAutoSize_minRows,
               tooltip,
               tooltip_isNeedTranslate,
-              isDisabledWhenAdjustCall,
+              // minNum = 1,
+              // maxNum = 4,
+              isHidden,
               autoCompleteOptions,
             } = item;
 
-            if (componentType === 'Input') {
+            if (componentType === 'URLCrawler') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                   <Form.Item
@@ -63,63 +94,44 @@ export const Langchain_adjust = (props: {
                         t.get(label)
                       )
                     }
-                    rules={
-                      isRequired
-                        ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
-                        : []
-                    }
                   >
-                    {autoCompleteOptions && autoCompleteOptions.length > 0 && (
-                      <AutoComplete
-                        options={autoCompleteOptions_for_input}
-                        onSelect={(value: string) => {
+                    <TextArea
+                      autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                      onChange={(event) => {
+                        // const newItem = {
+                        //   ...background,
+                        //   [name]: event.target.value,
+                        // };
+                        const urlValue = event.target.value;
+                        if (event.target.value === '') {
                           const newItem = {
-                            ...adjust,
-                            [name]: value,
+                            ...background,
+                            [name]: '',
+                            urlContent: '',
                           };
-                          setAdjust(newItem);
-                        }}
-                        onFocus={() => {
-                          console.log('onFocus');
-                          setAutoCompleteOptions_for_input(autoCompleteOptions);
-                        }}
-                        onSearch={(searchValue: string) => {
-                          console.log('onSearch', searchValue);
-                          setAutoCompleteOptions_for_input(
-                            autoCompleteOptions.filter((item) => item.value.includes(searchValue)),
-                          );
-                        }}
-                      >
-                        <Input
-                          onChange={(event) => {
-                            const newItem = {
-                              ...adjust,
-                              [name]: event.target.value,
-                            };
-                            setAdjust(newItem);
-                          }}
-                        />
-                      </AutoComplete>
-                    )}
-                    {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
-                      <Input
-                        onChange={(event) => {
-                          const newItem = {
-                            ...adjust,
-                            [name]: event.target.value,
-                          };
-                          setAdjust(newItem);
-                        }}
-                      />
-                    )}
+                          setBackground(newItem);
+                          return;
+                        }
+                        if (!urlValue) {
+                          return;
+                        }
+                        debouncedSetBackground({
+                          name,
+                          urlValue,
+                          convertedName: 'urlContent',
+                        });
+                      }}
+                    />
                   </Form.Item>
                 </Tooltip>
               );
             }
+
             if (componentType === 'TextArea') {
               return (
                 <Tooltip title={tooltip && tooltip_isNeedTranslate ? t.get(tooltip) : tooltip}>
                   <Form.Item
+                    className={isHidden ? 'hidden' : ''}
                     name={name}
                     label={
                       tooltip && tooltip_isNeedTranslate ? (
@@ -133,7 +145,12 @@ export const Langchain_adjust = (props: {
                     }
                     rules={
                       isRequired
-                        ? [{ required: true, message: t.getHTML('Please input your {text}', { text: t.get(label) }) }]
+                        ? [
+                            {
+                              required: true,
+                              message: t.getHTML('Please input your {text}', { text: t.get(label) }),
+                            },
+                          ]
                         : []
                     }
                   >
@@ -142,10 +159,10 @@ export const Langchain_adjust = (props: {
                         options={autoCompleteOptions_for_textArea}
                         onSelect={(value: string) => {
                           const newItem = {
-                            ...adjust,
+                            ...background,
                             [name]: value,
                           };
-                          setAdjust(newItem);
+                          setBackground(newItem);
                         }}
                         onFocus={() => {
                           console.log('onFocus');
@@ -159,28 +176,26 @@ export const Langchain_adjust = (props: {
                         }}
                       >
                         <TextArea
-                          disabled={isDisabledWhenAdjustCall && isAdjustCall}
                           autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                           onChange={(event) => {
                             const newItem = {
-                              ...adjust,
+                              ...background,
                               [name]: event.target.value,
                             };
-                            setAdjust(newItem);
+                            setBackground(newItem);
                           }}
                         />
                       </AutoComplete>
                     )}
                     {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
                       <TextArea
-                        disabled={isDisabledWhenAdjustCall && isAdjustCall}
                         autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                         onChange={(event) => {
                           const newItem = {
-                            ...adjust,
+                            ...background,
                             [name]: event.target.value,
                           };
-                          setAdjust(newItem);
+                          setBackground(newItem);
                         }}
                       />
                     )}
@@ -189,7 +204,7 @@ export const Langchain_adjust = (props: {
               );
             }
 
-            return <>None for componentType for adjust: {componentType}</>;
+            return <>None for componentType for background: {componentType}</>;
           })}
         </Form>
       </div>
