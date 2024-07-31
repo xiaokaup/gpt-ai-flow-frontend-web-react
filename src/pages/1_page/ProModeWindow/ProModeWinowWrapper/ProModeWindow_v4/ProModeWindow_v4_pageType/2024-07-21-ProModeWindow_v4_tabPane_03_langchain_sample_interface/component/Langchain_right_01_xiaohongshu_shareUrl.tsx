@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Tooltip } from 'antd';
 import iconSuccessful from '../../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
 import iconWrong from '../../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 import TBackendPuppeteerFile from '../../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendPuppeteer';
@@ -96,42 +96,60 @@ export const Langchain_right_01_xiaohongshu_shareUrl = (props: ILangchain_right_
 
       <div className="row">
         <Form form={form} initialValues={adjust}>
-          <Form.Item name={'xiaohongshu_shareUrl'} label={t.get("xiaohongshu's share URL")} rules={[]}>
-            <Search
-              value={xiaohongshu_shareUrl}
-              onChange={(event) => {
-                if (!event.target.value) return;
-                setXiaohongshu_shareUrl(event.target.value);
-              }}
-              loading={loading}
-              enterButton={loading}
-              onSearch={async (value) => {
-                console.log('onSearch value', value);
-                setLoading(true);
-                await analyseRequests_for_shareUrl(xiaohongshu_shareUrl);
-                setLoading(false);
-              }}
-              suffix={
-                <>
-                  {hasAnalyseRequests &&
-                    !loading &&
-                    sourceUrlPostMetaContent?.title &&
-                    sourceUrlPostMetaContent?.description && (
-                      <img
-                        src={iconSuccessful}
-                        alt=""
-                        style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }}
-                      />
-                    )}
-                  {hasAnalyseRequests &&
-                    !loading &&
-                    !(sourceUrlPostMetaContent?.title && sourceUrlPostMetaContent?.description) && (
-                      <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />
-                    )}
-                </>
-              }
-            />
-          </Form.Item>
+          <Tooltip
+            title={
+              <>
+                {t.get('Using the XiaoHongShu Share Link: ')}
+                <a
+                  href={
+                    t.currentLocale === ELocale.ZH
+                      ? `https://www.gptaiflow.com/zh/docs/product/guide-xiaohongshu-copy-shareUrl`
+                      : 'https://www.gptaiflow.com/docs/product/guide-xiaohongshu-copy-shareUrl'
+                  }
+                  target="_blank"
+                >
+                  {t.get('click here')}
+                </a>
+              </>
+            }
+          >
+            <Form.Item name={'xiaohongshu_shareUrl'} label={t.get("xiaohongshu's share URL")} rules={[]}>
+              <Search
+                value={xiaohongshu_shareUrl}
+                onChange={(event) => {
+                  if (!event.target.value) return;
+                  setXiaohongshu_shareUrl(event.target.value);
+                }}
+                loading={loading}
+                enterButton={loading}
+                onSearch={async (value) => {
+                  console.log('onSearch value', value);
+                  setLoading(true);
+                  await analyseRequests_for_shareUrl(xiaohongshu_shareUrl);
+                  setLoading(false);
+                }}
+                suffix={
+                  <>
+                    {hasAnalyseRequests &&
+                      !loading &&
+                      sourceUrlPostMetaContent?.title &&
+                      sourceUrlPostMetaContent?.description && (
+                        <img
+                          src={iconSuccessful}
+                          alt=""
+                          style={{ width: 18, marginLeft: '.2rem', marginRight: '.2rem' }}
+                        />
+                      )}
+                    {hasAnalyseRequests &&
+                      !loading &&
+                      !(sourceUrlPostMetaContent?.title && sourceUrlPostMetaContent?.description) && (
+                        <img src={iconWrong} alt="" style={{ width: 18, marginLeft: '.4rem' }} />
+                      )}
+                  </>
+                }
+              />
+            </Form.Item>
+          </Tooltip>
           {(adjust.example || (!adjust.example && hasAnalyseRequests)) && (
             <Form.Item name={'example'} label={t.get('Example')} rules={[]}>
               <TextArea

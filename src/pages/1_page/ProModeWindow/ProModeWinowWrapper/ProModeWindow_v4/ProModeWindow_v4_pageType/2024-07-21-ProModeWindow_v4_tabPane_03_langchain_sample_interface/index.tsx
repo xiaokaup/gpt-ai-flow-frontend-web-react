@@ -274,7 +274,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
               />
             </div>
 
-            <div className="row uploader">
+            <div className="row uploader flex justify-center">
               <Langchain_right_02_uploader uploadFileList={uploadFileList} setUploadFileList={setUploadFileList} />
             </div>
 
