@@ -22,12 +22,12 @@ import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-commo
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import TStripeConstantFile_v3File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v3';
 
-import { SettingsWindow_4_proMode_locale } from './SettingsWindow_4_proMode_locale';
+import { to_deprecate_SettingsWindow_4_proMode_locale } from './to_deprecate_SettingsWindow_4_proMode_locale';
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
-import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
-import { LifetimeVersionAnnounce } from './LifetimeVersionAnnounce';
+import { ToolsEditionAnnounce } from './ToolsEditionAnnounce';
+import { LifetimeToolsEditionAnnounce } from './LifetimeToolsEditionAnnounce';
 
 interface ISettingsWindow_4_payment_freeEdition_input {
   t: IGetT_frontend_output;
@@ -537,10 +537,10 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           <>
             {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS) && (
               <>
-                <ToolsVersionAnnounce locale={t.currentLocale} />
+                <ToolsEditionAnnounce locale={t.currentLocale} />
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
-                <div className="subscription_toolsEdition">
+                <div className="oneSubscription oneSubscription_toolsEdition">
                   <div className="row">
                     {t.get('Email')}: {userEmail}
                     <CopyToClipboard
@@ -592,8 +592,55 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
             {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS) && (
               <>
-                <LifetimeVersionAnnounce locale={t.currentLocale} />
+                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+                <div className="oneSubscription oneSubscription_leftimeToolsEdition">
+                  <div className="row">
+                    {t.get('Email')}: {userEmail}
+                    <CopyToClipboard
+                      text={userEmail}
+                      onCopy={() => {
+                        message.success({
+                          content: <span>{t.get('Copy successful')} !</span>,
+                          key: 'copy',
+                          duration: 3,
+                        });
+                      }}
+                    >
+                      <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
+                    </CopyToClipboard>
+                  </div>
+
+                  <div className="row">
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        createAndOpenStripeBillingSession();
+                      }}
+                    >
+                      {t.get('My Subscription')}
+                    </Button>
+                  </div>
+
+                  <div className="row">
+                    {t.get('Subscription Name')}: {EProductItemDB_name.STARTAI_TOOLS}
+                  </div>
+
+                  <div className="row">
+                    {t.get('Subscription Expiry Date')}:{' '}
+                    <span>
+                      <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+
+                      <span className="column">
+                        {isExpired ? (
+                          <Tag color="#f50">{t.get('Expired')}</Tag>
+                        ) : (
+                          <Tag color="#2db7f5">{t.get('Valid')}</Tag>
+                        )}
+                      </span>
+                    </span>
+                  </div>
+                </div>
               </>
             )}
           </>

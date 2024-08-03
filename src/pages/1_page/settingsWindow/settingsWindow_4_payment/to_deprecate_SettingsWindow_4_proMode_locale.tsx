@@ -26,7 +26,7 @@ interface SettingsWindow_4_proMode_locale_input {
   userData: IUserData;
   productItem: IProductItemDB_with_expiredAt_and_blance;
 }
-export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
+export const to_deprecate_SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
   const { t, locale, userData, productItem } = props;
   const {
     id: userId,
