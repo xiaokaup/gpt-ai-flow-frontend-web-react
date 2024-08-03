@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Stripe from 'stripe';
-import { Alert, Button, Select, Tag, message } from 'antd';
-import { CopyOutlined } from '@ant-design/icons';
+import { Alert, Select, message } from 'antd';
 
 import { IReduxRootState } from '../../../../store/reducer';
 
@@ -16,18 +14,17 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import {
   getProductItem_by_userId_from_backend,
-  getProductItem_by_userId_from_backend_v3,
+  to_update_getProductItem_by_userId_from_backend_v3,
 } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
-import TStripeConstantFile_v3File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v3';
 
-import { to_deprecate_SettingsWindow_4_proMode_locale } from './to_deprecate_SettingsWindow_4_proMode_locale';
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
 import { ToolsEditionAnnounce } from './ToolsEditionAnnounce';
 import { LifetimeToolsEditionAnnounce } from './LifetimeToolsEditionAnnounce';
+import { SettingsWindow_4_payment_subscriptionInfo } from './SettingsWindow_4_payment_subscriptionInfo';
 
 interface ISettingsWindow_4_payment_freeEdition_input {
   t: IGetT_frontend_output;
@@ -400,7 +397,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                   onClick={() => {
                     createAndOpenStripeCheckoutSession_v3(
                       stripePrices[EProductItemDB_name.STARTAI_LIFETIME_TOOLS],
-                      EStripeCheckoutSessionPaymentMode.PAYMENT,
+                      EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                     );
                   }}
                 >
@@ -453,11 +450,12 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
   const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, IStripePriceItem[]>>();
 
   const init = async (paraLocale: ELocale) => {
-    const activeSubscriptionsFound: Stripe.Subscription[] | Error = await getProductItem_by_userId_from_backend_v3(
-      userAccessToken,
-      paraLocale,
-      CONSTANTS_GPT_AI_FLOW_COMMON,
-    );
+    const activeSubscriptionsFound: Stripe.Subscription[] | Error =
+      await to_update_getProductItem_by_userId_from_backend_v3(
+        userAccessToken,
+        paraLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+      );
     console.log('activeSubscriptions', activeSubscriptionsFound);
     if (activeSubscriptionsFound instanceof Error) {
       const error = activeSubscriptionsFound;
@@ -469,7 +467,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
       paraLocale,
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
-    console.log('pricesFound', pricesFound);
     setStripePrices(pricesFound);
   };
 
@@ -480,21 +477,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
   if (!userId) {
     return <>{t.get('Please register a user and log in first')}</>;
   }
-
-  const createAndOpenStripeBillingSession = async () => {
-    const billingSessionResults = await TBackendStripeFile.createStripeBillingPortal(
-      userId,
-      userAccessToken,
-      localeForSettingsWindow,
-      CONSTANTS_GPT_AI_FLOW_COMMON,
-    );
-
-    if (billingSessionResults?.status === 'error') {
-      message.error(billingSessionResults.message);
-    }
-
-    window.open(billingSessionResults.url, '_blank', 'noreferrer');
-  };
 
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
@@ -530,9 +512,17 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           return [...acc, item.price.nickname];
         }, []);
 
+        console.log('itemPriceNicknames', itemPriceNicknames);
+        console.log(
+          'itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS)',
+          itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS),
+        );
+        console.log(
+          'itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS)',
+          itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS),
+        );
+
         const expiredAt = new Date(oneSubscription.current_period_end * 1000);
-        const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
-        // const cancel_at = oneSubscription.cancel_at ? new Date(oneSubscription.cancel_at * 1000) : null;
 
         return (
           <>
@@ -541,55 +531,16 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                 <ToolsEditionAnnounce locale={t.currentLocale} />
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
 
-                <div className="oneSubscription oneSubscription_toolsEdition">
-                  <div className="row">
-                    {t.get('Email')}: {userEmail}
-                    <CopyToClipboard
-                      text={userEmail}
-                      onCopy={() => {
-                        message.success({
-                          content: <span>{t.get('Copy successful')} !</span>,
-                          key: 'copy',
-                          duration: 3,
-                        });
-                      }}
-                    >
-                      <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-                    </CopyToClipboard>
-                  </div>
-
-                  <div className="row">
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        createAndOpenStripeBillingSession();
-                      }}
-                    >
-                      {t.get('My Subscription')}
-                    </Button>
-                  </div>
-
-                  <div className="row">
-                    {t.get('Subscription Name')}: {EProductItemDB_name.STARTAI_TOOLS}
-                  </div>
-
-                  <div className="row">
-                    <div>
-                      {t.get('Subscription Expiry Date')}:{' '}
-                      <span>
-                        <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
-
-                        <span className="column">
-                          {isExpired ? (
-                            <Tag color="#f50">{t.get('Expired')}</Tag>
-                          ) : (
-                            <Tag color="#2db7f5">{t.get('Valid')}</Tag>
-                          )}
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <SettingsWindow_4_payment_subscriptionInfo
+                  subscriptionName={EProductItemDB_name.STARTAI_TOOLS}
+                  t={t}
+                  userId={userId}
+                  userEmail={userEmail}
+                  userAccessToken={userAccessToken}
+                  locale={localeForSettingsWindow}
+                  isShowExpired={true}
+                  expiredAt={expiredAt}
+                />
               </>
             )}
 
@@ -597,55 +548,16 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
               <>
                 <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-                <div className="oneSubscription oneSubscription_leftimeToolsEdition">
-                  <div className="row">
-                    {t.get('Email')}: {userEmail}
-                    <CopyToClipboard
-                      text={userEmail}
-                      onCopy={() => {
-                        message.success({
-                          content: <span>{t.get('Copy successful')} !</span>,
-                          key: 'copy',
-                          duration: 3,
-                        });
-                      }}
-                    >
-                      <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-                    </CopyToClipboard>
-                  </div>
-
-                  <div className="row">
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        createAndOpenStripeBillingSession();
-                      }}
-                    >
-                      {t.get('My Subscription')}
-                    </Button>
-                  </div>
-
-                  <div className="row">
-                    {t.get('Subscription Name')}: {EProductItemDB_name.STARTAI_TOOLS}
-                  </div>
-
-                  <div className="row">
-                    <div>
-                      {t.get('Subscription Expiry Date')}:{' '}
-                      <span>
-                        <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
-
-                        <span className="column">
-                          {isExpired ? (
-                            <Tag color="#f50">{t.get('Expired')}</Tag>
-                          ) : (
-                            <Tag color="#2db7f5">{t.get('Valid')}</Tag>
-                          )}
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <SettingsWindow_4_payment_subscriptionInfo
+                  subscriptionName={EProductItemDB_name.STARTAI_LIFETIME_TOOLS}
+                  t={t}
+                  userId={userId}
+                  userEmail={userEmail}
+                  userAccessToken={userAccessToken}
+                  locale={localeForSettingsWindow}
+                  isShowExpired={false}
+                  expiredAt={expiredAt}
+                />
               </>
             )}
           </>
