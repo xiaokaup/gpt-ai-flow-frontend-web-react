@@ -75,12 +75,12 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
     return <>{t.get('Please register a user and log in first')}</>;
   }
 
-  const createAndOpenStripeCheckoutSession_v2 = async (
+  const createAndOpenStripeCheckoutSession_v3 = async (
     priceItems: IStripePriceItem[],
     paymentMode: EStripeCheckoutSessionPaymentMode,
   ) => {
     try {
-      const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession_v2(
+      const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession_v3(
         {
           userId,
           priceItems,
@@ -290,7 +290,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                       type="button"
                       className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                       onClick={() => {
-                        createAndOpenStripeCheckoutSession_v2(
+                        createAndOpenStripeCheckoutSession_v3(
                           stripePrices[EProductItemDB_name.STARTAI_MODEL],
                           EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                         );
@@ -374,7 +374,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                       type="button"
                       className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                       onClick={() => {
-                        createAndOpenStripeCheckoutSession_v2(
+                        createAndOpenStripeCheckoutSession_v3(
                           stripePrices[EProductItemDB_name.STARTAI_TOOLS],
                           EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                         );
@@ -457,7 +457,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                       type="button"
                       className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                       onClick={() => {
-                        createAndOpenStripeCheckoutSession_v2(
+                        createAndOpenStripeCheckoutSession_v3(
                           stripePrices[EProductItemDB_name.STARTAI_LIFETIME_TOOLS],
                           EStripeCheckoutSessionPaymentMode.PAYMENT,
                         );
