@@ -29,7 +29,7 @@ import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/Features/Pro
 import { useEffect, useState } from 'react';
 import {
   IProductItemDB_default,
-  IProductItemDB_with_expiredAt_and_blance,
+  to_deprecate_IProductItemDB_with_expiredAt_and_blance as IProductItemDB_with_expiredAt_and_blance,
 } from './gpt-ai-flow-common/interface-database/IProductItemDB';
 import { getProductItem_by_userId_from_backend } from './gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 

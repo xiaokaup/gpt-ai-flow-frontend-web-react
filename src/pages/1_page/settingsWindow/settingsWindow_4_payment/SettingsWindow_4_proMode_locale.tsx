@@ -10,7 +10,7 @@ import { CopyOutlined } from '@ant-design/icons';
 
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
-import { IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
+import { to_deprecate_IProductItemDB_with_expiredAt_and_blance as IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
