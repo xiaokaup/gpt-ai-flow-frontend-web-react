@@ -14,7 +14,6 @@ import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-databas
 import { IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
 import { getProductItem_by_userId_from_backend } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
-import { IError } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IError';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import TStripeConstantFile_v3File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v3';
 
@@ -59,6 +58,10 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
     // console.log('itemFound', itemFound);
+    if (itemFound instanceof Error) {
+      const error = itemFound;
+      message.error(error.message);
+    }
     if (itemFound) setProductItem(itemFound);
 
     const pricesFound = await TStripeConstantFile_v3File.getStripePrices(
@@ -79,29 +82,26 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
     priceItems: IStripePriceItem[],
     paymentMode: EStripeCheckoutSessionPaymentMode,
   ) => {
-    try {
-      const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession_v3(
-        {
-          userId,
-          priceItems,
-          paymentMode,
-        },
-        userAccessToken,
-        locale_for_currency,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-      );
+    const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession_v3(
+      {
+        userId,
+        priceItems,
+        paymentMode,
+      },
+      userAccessToken,
+      locale_for_currency,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+    );
 
-      if ((checkoutSessionResults as IError)?.status === 'error') {
-        throw new Error((checkoutSessionResults as IError)?.message);
-      }
-
-      // console.log('checkoutSessionResults', checkoutSessionResults);
-
-      window.open((checkoutSessionResults as { url: string }).url, '_blank', 'noreferrer');
-    } catch (error: any) {
+    if (checkoutSessionResults instanceof Error) {
+      const error = checkoutSessionResults;
       console.error('createAndOpenStripeCheckoutSession', error);
       message.error(error.message);
     }
+
+    // console.log('checkoutSessionResults', checkoutSessionResults);
+
+    window.open((checkoutSessionResults as { url: string }).url, '_blank', 'noreferrer');
   };
 
   return (
