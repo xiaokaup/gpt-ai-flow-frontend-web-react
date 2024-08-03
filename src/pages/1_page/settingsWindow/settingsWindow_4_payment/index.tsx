@@ -27,7 +27,7 @@ import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/3
 import { ToolsVersionAnnounce } from './ToolsVersionAnnounce';
 import { LifetimeVersionAnnounce } from './LifetimeVersionAnnounce';
 
-interface ISettingsWindow_4_payment_freeEdition_pricing {
+interface ISettingsWindow_4_payment_freeEdition_input {
   t: IGetT_frontend_output;
   userId: number;
   userAccessToken: string;
@@ -35,7 +35,7 @@ interface ISettingsWindow_4_payment_freeEdition_pricing {
   setLocale_for_currency: (value: ELocale) => void;
   stripePrices: Record<EProductItemDB_name, IStripePriceItem[]>;
 }
-const SettingsWindow_4_payment_freeEdition_pricing = (props: ISettingsWindow_4_payment_freeEdition_pricing) => {
+const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_freeEdition_input) => {
   const { t, userId, userAccessToken, locale_for_currency, setLocale_for_currency, stripePrices } = props;
 
   const [tabSelected, setTabSelected] = useState<string>('Model');
@@ -461,7 +461,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
       const error = activeSubscriptionsFound;
       message.error(error.message);
     }
-    if (activeSubscriptionsFound) setActiveSubscriptions(activeSubscriptionsFound as Stripe.Subscription[]);
+    if (activeSubscriptionsFound) setActiveSubscriptions(activeSubscriptionsFound);
 
     const pricesFound = await TBackendStripeFile.getStripePrices_v3_by_backend(
       paraLocale,
@@ -481,19 +481,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
-      {/* {activeSubscriptions?.name === EProductItemDB_name.STARTAI_FREE && (
-        <FreeVersionAnnounce locale={t.currentLocale} />
-      )}
-      {activeSubscriptions?.name === EProductItemDB_name.STARTAI_TOOLS && (
-        <ToolsVersionAnnounce locale={t.currentLocale} />
-      )}
-      {activeSubscriptions?.name === EProductItemDB_name.STARTAI_LIFETIME_TOOLS && (
-        <LifetimeVersionAnnounce locale={t.currentLocale} />
-      )}
-
-      {activeSubscriptions && <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />}
-
-      {activeSubscriptions && stripePrices && (
+      {/* {activeSubscriptions && stripePrices && (
         <SettingsWindow_4_proMode_locale
           t={t}
           locale={locale_for_currency}
@@ -502,9 +490,42 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
         />
       )} */}
 
+      {activeSubscriptions.map((oneSubscription: Stripe.Subscription) => {
+        const itemPriceNicknames = oneSubscription.items.data.reduce((acc: string[], item: Stripe.SubscriptionItem) => {
+          if (acc.includes(item.price.nickname)) return acc;
+          return [...acc, item.price.nickname];
+        }, []);
+
+        console.log('itemPriceNicknames', itemPriceNicknames);
+
+        return (
+          <>
+            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_FREE) && (
+              <>
+                <FreeVersionAnnounce locale={t.currentLocale} />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              </>
+            )}
+            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS) && (
+              <>
+                <ToolsVersionAnnounce locale={t.currentLocale} />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              </>
+            )}
+
+            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS) && (
+              <>
+                <LifetimeVersionAnnounce locale={t.currentLocale} />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              </>
+            )}
+          </>
+        );
+      })}
+
       {/* <!--Pricing--> */}
       {activeSubscriptions.length === 0 && (
-        <SettingsWindow_4_payment_freeEdition_pricing
+        <SettingsWindow_4_payment_freeEdition
           t={t}
           userId={userId}
           userAccessToken={userAccessToken}
