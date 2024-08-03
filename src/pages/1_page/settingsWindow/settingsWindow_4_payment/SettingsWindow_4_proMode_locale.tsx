@@ -83,6 +83,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
           </CopyToClipboard>
         </div>
 
+        {/* === Models Edition - start === */}
         {(balance === 0 || balance) && (
           <div className="row">
             {t.get('Balance')}:<span>&nbsp;{-balance / 100}</span>
@@ -90,6 +91,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
             <span>{currency === EStripe_currency.CNY && <>¥</>}</span>
           </div>
         )}
+        {/* === Models Edition - end === */}
 
         <div className="row">
           <Button
@@ -101,6 +103,7 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
             {t.get('My Subscription')}
           </Button>
 
+          {/* === Models Edition - start === */}
           {name === EProductItemDB_name.STARTAI_MODEL && (
             <Button
               onClick={() => {
@@ -112,11 +115,14 @@ export const SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_
               {!isShow_blanceTransactionForm && <>{t.get('Show {text} form', { text: t.get('Recharge') })}</>}
             </Button>
           )}
+          {/* === Models Edition - end === */}
         </div>
 
+        {/* === Models Edition - start === */}
         {isShow_blanceTransactionForm && currency && (
           <SettingWIndow_4_proMode_recharge_form t={t} userAccessToken={userAccessToken} currency={currency} />
         )}
+        {/* === Models Edition - end === */}
 
         <div className="row">
           {t.get('Subscription Name')}: {name ?? EProductItemDB_name.STARTAI_FREE}

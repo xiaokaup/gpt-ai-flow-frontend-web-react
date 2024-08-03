@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Stripe from 'stripe';
-import { Alert, Select, message } from 'antd';
+import { Alert, Button, Select, Tag, message } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
 
 import { IReduxRootState } from '../../../../store/reducer';
 
@@ -434,7 +436,7 @@ interface ISettingsWindow_4_payment_login_input {
 const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_input) => {
   const { t, localeForSettingsWindow, userData } = props;
 
-  const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
+  const { id: userId, email: userEmail, Token: { accessToken: userAccessToken } = {} } = userData;
 
   if (!userAccessToken) {
     return (
@@ -479,6 +481,21 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
     return <>{t.get('Please register a user and log in first')}</>;
   }
 
+  const createAndOpenStripeBillingSession = async () => {
+    const billingSessionResults = await TBackendStripeFile.createStripeBillingPortal(
+      userId,
+      userAccessToken,
+      localeForSettingsWindow,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+    );
+
+    if (billingSessionResults?.status === 'error') {
+      message.error(billingSessionResults.message);
+    }
+
+    window.open(billingSessionResults.url, '_blank', 'noreferrer');
+  };
+
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
       {/* {activeSubscriptions && stripePrices && (
@@ -490,26 +507,86 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
         />
       )} */}
 
+      {/* 0 subscirption -> Free Edition */}
+      {activeSubscriptions.length === 0 && (
+        <>
+          <FreeVersionAnnounce locale={t.currentLocale} />
+          <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+          <SettingsWindow_4_payment_freeEdition
+            t={t}
+            userId={userId}
+            userAccessToken={userAccessToken}
+            locale_for_currency={locale_for_currency}
+            setLocale_for_currency={setLocale_for_currency}
+            stripePrices={stripePrices}
+          />
+        </>
+      )}
+
+      {/* Tools Edition, Lifetime Tools Edition, Model Edition */}
       {activeSubscriptions.map((oneSubscription: Stripe.Subscription) => {
         const itemPriceNicknames = oneSubscription.items.data.reduce((acc: string[], item: Stripe.SubscriptionItem) => {
           if (acc.includes(item.price.nickname)) return acc;
           return [...acc, item.price.nickname];
         }, []);
 
-        console.log('itemPriceNicknames', itemPriceNicknames);
+        const expiredAt = new Date(oneSubscription.current_period_end * 1000);
+        const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
 
         return (
           <>
-            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_FREE) && (
-              <>
-                <FreeVersionAnnounce locale={t.currentLocale} />
-                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-              </>
-            )}
             {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS) && (
               <>
                 <ToolsVersionAnnounce locale={t.currentLocale} />
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+
+                <div className="subscription_toolsEdition">
+                  <div className="row">
+                    {t.get('Email')}: {userEmail}
+                    <CopyToClipboard
+                      text={userEmail}
+                      onCopy={() => {
+                        message.success({
+                          content: <span>{t.get('Copy successful')} !</span>,
+                          key: 'copy',
+                          duration: 3,
+                        });
+                      }}
+                    >
+                      <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
+                    </CopyToClipboard>
+                  </div>
+
+                  <div className="row">
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        createAndOpenStripeBillingSession();
+                      }}
+                    >
+                      {t.get('My Subscription')}
+                    </Button>
+                  </div>
+
+                  <div className="row">
+                    {t.get('Subscription Name')}: {EProductItemDB_name.STARTAI_TOOLS}
+                  </div>
+
+                  <div className="row">
+                    {t.get('Subscription Expiry Date')}:{' '}
+                    <span>
+                      <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+
+                      <span className="column">
+                        {isExpired ? (
+                          <Tag color="#f50">{t.get('Expired')}</Tag>
+                        ) : (
+                          <Tag color="#2db7f5">{t.get('Valid')}</Tag>
+                        )}
+                      </span>
+                    </span>
+                  </div>
+                </div>
               </>
             )}
 
@@ -522,18 +599,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           </>
         );
       })}
-
-      {/* <!--Pricing--> */}
-      {activeSubscriptions.length === 0 && (
-        <SettingsWindow_4_payment_freeEdition
-          t={t}
-          userId={userId}
-          userAccessToken={userAccessToken}
-          locale_for_currency={locale_for_currency}
-          setLocale_for_currency={setLocale_for_currency}
-          stripePrices={stripePrices}
-        />
-      )}
     </div>
   );
 };
