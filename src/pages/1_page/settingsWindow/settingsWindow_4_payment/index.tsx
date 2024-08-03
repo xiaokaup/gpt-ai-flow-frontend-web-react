@@ -532,6 +532,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
         const expiredAt = new Date(oneSubscription.current_period_end * 1000);
         const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
+        // const cancel_at = oneSubscription.cancel_at ? new Date(oneSubscription.cancel_at * 1000) : null;
 
         return (
           <>
@@ -573,18 +574,20 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   </div>
 
                   <div className="row">
-                    {t.get('Subscription Expiry Date')}:{' '}
-                    <span>
-                      <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+                    <div>
+                      {t.get('Subscription Expiry Date')}:{' '}
+                      <span>
+                        <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
 
-                      <span className="column">
-                        {isExpired ? (
-                          <Tag color="#f50">{t.get('Expired')}</Tag>
-                        ) : (
-                          <Tag color="#2db7f5">{t.get('Valid')}</Tag>
-                        )}
+                        <span className="column">
+                          {isExpired ? (
+                            <Tag color="#f50">{t.get('Expired')}</Tag>
+                          ) : (
+                            <Tag color="#2db7f5">{t.get('Valid')}</Tag>
+                          )}
+                        </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
                 </div>
               </>
@@ -627,18 +630,20 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   </div>
 
                   <div className="row">
-                    {t.get('Subscription Expiry Date')}:{' '}
-                    <span>
-                      <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+                    <div>
+                      {t.get('Subscription Expiry Date')}:{' '}
+                      <span>
+                        <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
 
-                      <span className="column">
-                        {isExpired ? (
-                          <Tag color="#f50">{t.get('Expired')}</Tag>
-                        ) : (
-                          <Tag color="#2db7f5">{t.get('Valid')}</Tag>
-                        )}
+                        <span className="column">
+                          {isExpired ? (
+                            <Tag color="#f50">{t.get('Expired')}</Tag>
+                          ) : (
+                            <Tag color="#2db7f5">{t.get('Valid')}</Tag>
+                          )}
+                        </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
                 </div>
               </>
