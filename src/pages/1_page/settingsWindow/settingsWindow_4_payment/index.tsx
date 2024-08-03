@@ -108,7 +108,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
       {productItem?.name === EProductItemDB_name.STARTAI_FREE && <FreeVersionAnnounce locale={t.currentLocale} />}
       {productItem?.name === EProductItemDB_name.STARTAI_TOOLS && <ToolsVersionAnnounce locale={t.currentLocale} />}
-      {productItem?.name === EProductItemDB_name.STARTAI_LIFETIME && (
+      {productItem?.name === EProductItemDB_name.STARTAI_LIFETIME_TOOLS && (
         <LifetimeVersionAnnounce locale={t.currentLocale} />
       )}
       {productItem && <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />}
@@ -458,7 +458,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                       className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                       onClick={() => {
                         createAndOpenStripeCheckoutSession_v2(
-                          stripePrices[EProductItemDB_name.STARTAI_LIFETIME],
+                          stripePrices[EProductItemDB_name.STARTAI_LIFETIME_TOOLS],
                           EStripeCheckoutSessionPaymentMode.PAYMENT,
                         );
                       }}

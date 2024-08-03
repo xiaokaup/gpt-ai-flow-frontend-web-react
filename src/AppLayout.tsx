@@ -163,7 +163,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                 <span className="font-bold text-green-600">{t.get('Model_version')}</span>
               </div>
             )}
-            {productItem_name === EProductItemDB_name.STARTAI_LIFETIME && (
+            {productItem_name === EProductItemDB_name.STARTAI_LIFETIME_TOOLS && (
               // <div className="flex items-center bg-yellow-100">
               <div className="flex items-center bg-transparent">
                 <img
