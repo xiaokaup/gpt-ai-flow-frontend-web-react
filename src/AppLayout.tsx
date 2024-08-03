@@ -13,20 +13,18 @@ import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-com
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 
 import { useBaseUrl } from './hooks/useBaseUrl';
-import { IProductItemDB } from './gpt-ai-flow-common/interface-database/IProductItemDB';
 import { EProductItemDB_name } from './gpt-ai-flow-common/enum-database/EProductItemDB';
 
 const { Header, Content, Footer } = Layout;
 
 interface Layout_input {
   isAuthenticated: boolean;
-  productItem: IProductItemDB;
+  activeSubscriptionsNicknames: EProductItemDB_name[];
   children: React.ReactNode;
 }
 
-const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB }) => {
-  const { isAuthenticated, productItem } = props;
-  const { name: productItem_name } = productItem;
+const AppMenu = (props: { isAuthenticated: boolean; activeSubscriptionsNicknames: EProductItemDB_name[] }) => {
+  const { isAuthenticated, activeSubscriptionsNicknames } = props;
 
   const dispatch = useDispatch();
 
@@ -130,7 +128,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
       {isAuthenticated && (
         <Menu.Item key="subscriptionInfo">
           <a href="/app/info#subscription">
-            {productItem_name === EProductItemDB_name.STARTAI_FREE && (
+            {activeSubscriptionsNicknames.includes(EProductItemDB_name.STARTAI_FREE) && (
               // <div className="flex items-center bg-gray-100">
               <div className="flex items-center bg-transparent">
                 <img
@@ -141,7 +139,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                 <span className="font-bold text-gray-500">{t.get('Free_version')}</span>
               </div>
             )}
-            {productItem_name === EProductItemDB_name.STARTAI_TOOLS && (
+            {activeSubscriptionsNicknames.includes(EProductItemDB_name.STARTAI_TOOLS) && (
               // <div className="flex items-center bg-blue-200">
               <div className="flex items-center bg-transparent">
                 <img
@@ -152,18 +150,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                 <span className="font-bold text-blue-500">{t.get('Tools_version')}</span>
               </div>
             )}
-            {productItem_name === EProductItemDB_name.STARTAI_MODEL && (
-              // <div className="flex items-center bg-green-100">
-              <div className="flex items-center bg-transparent">
-                <img
-                  src="/static/icons/2024-07-06-img-3-model/cube-512x512.png"
-                  alt="image"
-                  className="w-[36px] h-[36px] mr-2"
-                />
-                <span className="font-bold text-green-600">{t.get('Model_version')}</span>
-              </div>
-            )}
-            {productItem_name === EProductItemDB_name.STARTAI_LIFETIME_TOOLS && (
+            {activeSubscriptionsNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS) && (
               // <div className="flex items-center bg-yellow-100">
               <div className="flex items-center bg-transparent">
                 <img
@@ -174,6 +161,17 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                 <span className="font-bold text-yellow-500">{t.get('Lifetime_version')}</span>
               </div>
             )}
+            {activeSubscriptionsNicknames.includes(EProductItemDB_name.STARTAI_MODEL) && (
+              // <div className="flex items-center bg-green-100">
+              <div className="flex items-center bg-transparent">
+                <img
+                  src="/static/icons/2024-07-06-img-3-model/cube-512x512.png"
+                  alt="image"
+                  className="w-[36px] h-[36px] mr-2"
+                />
+                <span className="font-bold text-green-600">{t.get('Model_version')}</span>
+              </div>
+            )}
           </a>
         </Menu.Item>
       )}
@@ -182,7 +180,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
 };
 
 export const AppLayout = (props: Layout_input) => {
-  const { isAuthenticated, productItem, children } = props;
+  const { isAuthenticated, activeSubscriptionsNicknames, children } = props;
 
   return (
     <Layout className="layout_container" style={{ background: '#fff' }}>
@@ -190,7 +188,7 @@ export const AppLayout = (props: Layout_input) => {
       <Header>
         <div className="logo" />
 
-        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
+        <AppMenu isAuthenticated={isAuthenticated} activeSubscriptionsNicknames={activeSubscriptionsNicknames} />
       </Header>
 
       {/* Body/Content */}
@@ -210,14 +208,14 @@ export const AppLayout = (props: Layout_input) => {
 };
 
 export const AppLayoutCenter = (props: Layout_input) => {
-  const { isAuthenticated, productItem, children } = props;
+  const { isAuthenticated, activeSubscriptionsNicknames: productItem, children } = props;
 
   return (
     <Layout className="layout_container h-full" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
-        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
+        <AppMenu isAuthenticated={isAuthenticated} activeSubscriptionsNicknames={productItem} />
       </Header>
 
       {/* Body/Content */}

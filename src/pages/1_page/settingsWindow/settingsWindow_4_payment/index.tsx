@@ -12,10 +12,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
-import {
-  getProductItem_by_userId_from_backend,
-  to_update_getProductItem_by_userId_from_backend_v3,
-} from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
+import { getActiveSubscriptions_by_userId_from_backend_v3 } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
@@ -451,11 +448,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   const init = async (paraLocale: ELocale) => {
     const activeSubscriptionsFound: Stripe.Subscription[] | Error =
-      await to_update_getProductItem_by_userId_from_backend_v3(
-        userAccessToken,
-        paraLocale,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-      );
+      await getActiveSubscriptions_by_userId_from_backend_v3(userAccessToken, paraLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
     console.log('activeSubscriptions', activeSubscriptionsFound);
     if (activeSubscriptionsFound instanceof Error) {
       const error = activeSubscriptionsFound;
@@ -511,16 +504,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           if (acc.includes(item.price.nickname)) return acc;
           return [...acc, item.price.nickname];
         }, []);
-
-        console.log('itemPriceNicknames', itemPriceNicknames);
-        console.log(
-          'itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS)',
-          itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS),
-        );
-        console.log(
-          'itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS)',
-          itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS),
-        );
 
         const expiredAt = new Date(oneSubscription.current_period_end * 1000);
 
