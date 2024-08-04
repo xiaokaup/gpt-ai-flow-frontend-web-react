@@ -484,6 +484,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
     return <>{t.get('Please register a user and log in first')}</>;
   }
 
+  if (!stripePrices_for_locales) return <>{t.get('loading')}...</>;
+
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
       {/* {activeSubscriptions && stripePrices && (
