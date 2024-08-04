@@ -504,8 +504,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
       {/* 0 subscirption -> Free Edition */}
       {activeSubscriptions.length === 0 && (
         <>
-          <FreeVersionAnnounce locale={t.currentLocale} />
-          <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
           <SettingsWindow_4_payment_freeEdition
             t={t}
             userId={userId}
@@ -514,6 +512,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
             setLocale_for_currency={setLocale_for_currency}
             stripePrices_for_locales={stripePrices_for_locales}
           />
+          <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+          <FreeVersionAnnounce locale={t.currentLocale} />
         </>
       )}
 
@@ -531,9 +531,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           <>
             {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS) && (
               <>
-                <ToolsEditionAnnounce locale={t.currentLocale} />
-                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-
                 <SettingsWindow_4_payment_subscriptionInfo
                   subscriptionName={EProductItemDB_name.STARTAI_TOOLS}
                   t={t}
@@ -545,13 +542,13 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   isShowExpired={true}
                   expiredAt={expiredAt}
                 />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+                <ToolsEditionAnnounce locale={t.currentLocale} />
               </>
             )}
 
             {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS) && (
               <>
-                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
-                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
                 <SettingsWindow_4_payment_subscriptionInfo
                   subscriptionName={EProductItemDB_name.STARTAI_LIFETIME_TOOLS}
                   t={t}
@@ -563,13 +560,13 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   isShowExpired={false}
                   expiredAt={expiredAt}
                 />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
               </>
             )}
 
             {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_MODEL) && (
               <>
-                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
-                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
                 <SettingsWindow_4_payment_subscriptionInfo
                   subscriptionName={EProductItemDB_name.STARTAI_MODEL}
                   t={t}
@@ -581,6 +578,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   isShowExpired={true}
                   expiredAt={expiredAt}
                 />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
               </>
             )}
           </>
