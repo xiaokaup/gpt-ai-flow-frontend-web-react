@@ -239,7 +239,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                     );
                   }}
                 >
-                  {t.get('Get started')}
+                  {t.get('Start Trial')}
                 </button>
               </div>
             </div>
@@ -326,7 +326,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                     );
                   }}
                 >
-                  {t.get('Get started')}
+                  {t.get('Start Trial')}
                 </button>
               </div>
               <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col">
