@@ -12,7 +12,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
-import { getActiveSubscriptions_by_userId_from_backend_v3 } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
+import { getTrialAndActiveSubscriptions_by_userId_from_backend_v3 } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
@@ -461,7 +461,11 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   const init = async (paraLocale: ELocale) => {
     const activeSubscriptionsFound: Stripe.Subscription[] | Error =
-      await getActiveSubscriptions_by_userId_from_backend_v3(userAccessToken, paraLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
+      await getTrialAndActiveSubscriptions_by_userId_from_backend_v3(
+        userAccessToken,
+        paraLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+      );
     console.log('activeSubscriptions', activeSubscriptionsFound);
     if (activeSubscriptionsFound instanceof Error) {
       const error = activeSubscriptionsFound;
@@ -548,6 +552,23 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
                 <SettingsWindow_4_payment_subscriptionInfo
                   subscriptionName={EProductItemDB_name.STARTAI_LIFETIME_TOOLS}
+                  t={t}
+                  userId={userId}
+                  userEmail={userEmail}
+                  userAccessToken={userAccessToken}
+                  locale={localeForSettingsWindow}
+                  isShowExpired={false}
+                  expiredAt={expiredAt}
+                />
+              </>
+            )}
+
+            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_MODEL) && (
+              <>
+                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+                <SettingsWindow_4_payment_subscriptionInfo
+                  subscriptionName={EProductItemDB_name.STARTAI_MODEL}
                   t={t}
                   userId={userId}
                   userEmail={userEmail}
