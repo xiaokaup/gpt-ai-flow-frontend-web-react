@@ -29,22 +29,27 @@ interface ISettingsWindow_4_payment_freeEdition_input {
   userAccessToken: string;
   locale_for_currency: ELocale;
   setLocale_for_currency: (value: ELocale) => void;
-  stripePrices: Record<EProductItemDB_name, IStripePriceItem[]>;
+  stripePrices_for_locales: Record<ELocale, Record<EProductItemDB_name, IStripePriceItem[]>>;
 }
 const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_freeEdition_input) => {
-  const { t, userId, userAccessToken, locale_for_currency, setLocale_for_currency, stripePrices } = props;
+  const { t, userId, userAccessToken, locale_for_currency, setLocale_for_currency, stripePrices_for_locales } = props;
+  const stripePrice: Record<EProductItemDB_name, IStripePriceItem[]> = stripePrices_for_locales[locale_for_currency];
 
   const [tabSelected, setTabSelected] = useState<string>('Model');
 
   const createAndOpenStripeCheckoutSession_v3 = async (
     priceItems: IStripePriceItem[],
     paymentMode: EStripeCheckoutSessionPaymentMode,
+    subscriptionData: {
+      trial_period_days?: number;
+    },
   ) => {
     const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession_v3(
       {
         userId,
         priceItems,
         paymentMode,
+        subscriptionData,
       },
       userAccessToken,
       locale_for_currency,
@@ -226,8 +231,11 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                   className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
                     createAndOpenStripeCheckoutSession_v3(
-                      stripePrices[EProductItemDB_name.STARTAI_MODEL],
+                      stripePrice[EProductItemDB_name.STARTAI_MODEL],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                      {
+                        trial_period_days: 7,
+                      },
                     );
                   }}
                 >
@@ -310,8 +318,11 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                   className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
                     createAndOpenStripeCheckoutSession_v3(
-                      stripePrices[EProductItemDB_name.STARTAI_TOOLS],
+                      stripePrice[EProductItemDB_name.STARTAI_TOOLS],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                      {
+                        trial_period_days: 7,
+                      },
                     );
                   }}
                 >
@@ -393,8 +404,9 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                   className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
                     createAndOpenStripeCheckoutSession_v3(
-                      stripePrices[EProductItemDB_name.STARTAI_LIFETIME_TOOLS],
+                      stripePrice[EProductItemDB_name.STARTAI_LIFETIME_TOOLS],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                      {},
                     );
                   }}
                 >
@@ -444,7 +456,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
   const [locale_for_currency, setLocale_for_currency] = useState<ELocale>(localeForSettingsWindow);
 
   const [activeSubscriptions, setActiveSubscriptions] = useState<Stripe.Subscription[]>([]);
-  const [stripePrices, setStripePrices] = useState<Record<EProductItemDB_name, IStripePriceItem[]>>();
+  const [stripePrices_for_locales, setStripePrices_for_locales] =
+    useState<Record<ELocale, Record<EProductItemDB_name, IStripePriceItem[]>>>();
 
   const init = async (paraLocale: ELocale) => {
     const activeSubscriptionsFound: Stripe.Subscription[] | Error =
@@ -456,11 +469,11 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
     }
     if (activeSubscriptionsFound) setActiveSubscriptions(activeSubscriptionsFound);
 
-    const pricesFound = await TBackendStripeFile.getStripePrices_v3_by_backend(
-      paraLocale,
-      CONSTANTS_GPT_AI_FLOW_COMMON,
-    );
-    setStripePrices(pricesFound);
+    const stripePrices_for_localesResults: Record<
+      ELocale,
+      Record<EProductItemDB_name, IStripePriceItem[]>
+    > = await TBackendStripeFile.getStripePrices_v3_by_backend(paraLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
+    setStripePrices_for_locales(stripePrices_for_localesResults);
   };
 
   useEffect(() => {
@@ -493,7 +506,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
             userAccessToken={userAccessToken}
             locale_for_currency={locale_for_currency}
             setLocale_for_currency={setLocale_for_currency}
-            stripePrices={stripePrices}
+            stripePrices_for_locales={stripePrices_for_locales}
           />
         </>
       )}
