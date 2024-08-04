@@ -574,7 +574,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   userEmail={userEmail}
                   userAccessToken={userAccessToken}
                   locale={localeForSettingsWindow}
-                  isShowExpired={false}
+                  isShowExpired={true}
                   expiredAt={expiredAt}
                 />
               </>
