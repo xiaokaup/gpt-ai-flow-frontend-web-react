@@ -2,6 +2,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { CopyOutlined } from '@ant-design/icons';
 
+import Stripe from 'stripe';
+
 import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -16,11 +18,22 @@ interface ISettingsWindow_4_payment_subscriptionInfo {
   userEmail: string;
   userAccessToken: string;
   locale: ELocale;
+  subscriptionStauts: Stripe.Subscription.Status;
   isShowExpired: boolean;
   expiredAt: Date;
 }
 export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow_4_payment_subscriptionInfo) => {
-  const { subscriptionName, t, userId, userEmail, userAccessToken, locale, isShowExpired, expiredAt } = props;
+  const {
+    subscriptionName,
+    t,
+    userId,
+    userEmail,
+    userAccessToken,
+    locale,
+    subscriptionStauts: status,
+    isShowExpired,
+    expiredAt,
+  } = props;
   const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
 
   const createAndOpenStripeBillingSession = async () => {
@@ -68,7 +81,15 @@ export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow
       </div>
 
       <div className="row">
-        {t.get('Subscription Name')}: {subscriptionName}
+        <span className="column">
+          {t.get('Subscription Name')}: {subscriptionName}
+        </span>
+
+        {status && (
+          <span className="column">
+            <Tag>{t.get(status)}</Tag>
+          </span>
+        )}
       </div>
 
       {isShowExpired && (

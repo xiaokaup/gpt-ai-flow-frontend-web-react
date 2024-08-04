@@ -524,6 +524,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           return [...acc, item.price.nickname];
         }, []);
 
+        const { status } = oneSubscription;
         const expiredAt = new Date(oneSubscription.current_period_end * 1000);
 
         return (
@@ -540,6 +541,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   userEmail={userEmail}
                   userAccessToken={userAccessToken}
                   locale={localeForSettingsWindow}
+                  subscriptionStauts={status}
                   isShowExpired={true}
                   expiredAt={expiredAt}
                 />
@@ -557,6 +559,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   userEmail={userEmail}
                   userAccessToken={userAccessToken}
                   locale={localeForSettingsWindow}
+                  subscriptionStauts={status}
                   isShowExpired={false}
                   expiredAt={expiredAt}
                 />
@@ -574,6 +577,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   userEmail={userEmail}
                   userAccessToken={userAccessToken}
                   locale={localeForSettingsWindow}
+                  subscriptionStauts={status}
                   isShowExpired={true}
                   expiredAt={expiredAt}
                 />
