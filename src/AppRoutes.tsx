@@ -8,7 +8,7 @@ import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
 import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { getActiveSubscriptionsNicknames_by_userId_from_backend_v3 } from './gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
+import { get_stripePriceNicknamesFromAllSbuscriptions_by_userId_backend_v3 } from './gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 
 import { NewsPage } from './pages/1_page/NewsPage';
 import { AuthPage } from './pages/1_page/AuthPages';
@@ -59,7 +59,7 @@ export const AppRoutes = () => {
     } = userData;
 
     const subscriptionsNicknamesFound: EStripePrice_nickname[] =
-      await getActiveSubscriptionsNicknames_by_userId_from_backend_v3(
+      await get_stripePriceNicknamesFromAllSbuscriptions_by_userId_backend_v3(
         accessToken,
         locale,
         CONSTANTS_GPT_AI_FLOW_COMMON,
