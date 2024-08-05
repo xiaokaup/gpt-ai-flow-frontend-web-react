@@ -131,7 +131,7 @@ const AppMenu = (props: {
       {isAuthenticated && (
         <Menu.Item key="subscriptionInfo">
           <a href="/app/info#subscription">
-            {stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_FREE) && (
+            {stripePriceNicknames_from_allSbuscriptions.length === 0 && (
               // <div className="flex items-center bg-gray-100">
               <div className="flex items-center bg-transparent">
                 <img

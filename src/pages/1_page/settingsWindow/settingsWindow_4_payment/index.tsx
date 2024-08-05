@@ -12,7 +12,6 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-import { getTrialAndActiveSubscriptions_by_userId_from_backend_v3 } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 import {
   EStripeCheckoutSessionPaymentMode,
   EStripePrice_nickname,
@@ -464,7 +463,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   const init = async (paraLocale: ELocale) => {
     const activeSubscriptionsFound: Stripe.Subscription[] | Error =
-      await getTrialAndActiveSubscriptions_by_userId_from_backend_v3(
+      await TBackendStripeFile.getTrialAndActiveSubscriptions_by_userId_from_backend_v3(
         userAccessToken,
         paraLocale,
         CONSTANTS_GPT_AI_FLOW_COMMON,
