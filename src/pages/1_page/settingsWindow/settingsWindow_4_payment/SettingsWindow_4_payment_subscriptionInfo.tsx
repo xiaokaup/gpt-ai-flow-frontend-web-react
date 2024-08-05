@@ -10,6 +10,7 @@ import { EStripePrice_nickname } from '../../../../gpt-ai-flow-common/enum-app/E
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { getT_with_i18next } from '../../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
 
 interface ISettingsWindow_4_payment_subscriptionInfo {
   subscriptionName: EStripePrice_nickname;
@@ -34,6 +35,7 @@ export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow
     isShowExpired,
     expiredAt,
   } = props;
+  const t_with_i18next = getT_with_i18next(t.currentLocale);
   const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
 
   const createAndOpenStripeBillingSession = async () => {
@@ -82,7 +84,7 @@ export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow
 
       <div className="row">
         <span className="column">
-          {t.get('Subscription Name')}: {subscriptionName}
+          {t.get('Subscription Name')}: {t_with_i18next.get(subscriptionName) ?? subscriptionName}
         </span>
 
         {status && (
