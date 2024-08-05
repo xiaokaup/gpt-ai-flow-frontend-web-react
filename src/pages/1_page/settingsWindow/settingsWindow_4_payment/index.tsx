@@ -408,7 +408,9 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                     createAndOpenStripeCheckoutSession_v3(
                       stripePrice[EStripePrice_nickname.STARTAI_LIFETIME_TOOLS],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
-                      {},
+                      {
+                        // trial_period_days: 0,
+                      },
                     );
                   }}
                 >
