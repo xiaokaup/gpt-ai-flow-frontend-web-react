@@ -23,7 +23,6 @@ import TBackendUserInputFile from '../../../../../../../../gpt-ai-flow-common/to
 import { LangchainRetrivalService } from '../../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
 import { IBuildOpenAIPrompts_ouput } from '../../../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { EProductItemDB_type } from '../../../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import { ELangchainRetrievalDocType } from '../../../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
 import { IStoreStorageLocalSettings } from '../../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -383,7 +382,6 @@ ${t.get('Original content')}: """${exampleText}"""`,
       } else {
         /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postLangchainChatChain(
           {
-            productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
             llmOptions: {
               llmName: proModeModalValue,
               llmSecret: modelSecret,

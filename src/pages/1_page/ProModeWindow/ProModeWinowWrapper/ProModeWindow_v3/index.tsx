@@ -16,7 +16,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/conf
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
-import { EServiceCategoryDB_name } from '../../../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
+import { EServiceCategoryDB_name } from '../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EServiceCategoryDB';
 import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
 
 import IStoreStorageFile, {

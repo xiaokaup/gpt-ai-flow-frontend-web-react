@@ -1,4 +1,4 @@
-import { EServiceCategoryDB_name } from '../../../../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
+import { EServiceCategoryDB_name } from '../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EServiceCategoryDB';
 
 export interface ITabPanel {
   key: EServiceCategoryDB_name;

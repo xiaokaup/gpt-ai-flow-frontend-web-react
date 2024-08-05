@@ -8,16 +8,15 @@ import { Link } from 'react-router-dom';
 import { Button, Tag, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
-import { to_deprecate_IProductItemDB_with_expiredAt_and_blance as IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
-import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-
-import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
-import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { EStripe_currency } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { EStripe_currency, EStripePrice_nickname } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
+import { to_deprecate_IProductItemDB_with_expiredAt_and_blance as IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
+
 import { SettingWIndow_4_proMode_recharge_form } from './SettingWIndow_4_proMode_recharge_form';
 
 interface SettingsWindow_4_proMode_locale_input {
@@ -104,7 +103,7 @@ export const to_deprecate_SettingsWindow_4_proMode_locale = (props: SettingsWind
           </Button>
 
           {/* === Models Edition - start === */}
-          {name === EProductItemDB_name.STARTAI_MODEL && (
+          {name === EStripePrice_nickname.STARTAI_MODEL && (
             <Button
               onClick={() => {
                 setIsShow_blanceTransactionForm((prevState: boolean) => !prevState);
@@ -125,12 +124,12 @@ export const to_deprecate_SettingsWindow_4_proMode_locale = (props: SettingsWind
         {/* === Models Edition - end === */}
 
         <div className="row">
-          {t.get('Subscription Name')}: {name ?? EProductItemDB_name.STARTAI_FREE}
+          {t.get('Subscription Name')}: {name ?? EStripePrice_nickname.STARTAI_FREE}
         </div>
 
         {name && (
           <div className="row">
-            {(name === EProductItemDB_name.STARTAI_TOOLS || name === EProductItemDB_name.STARTAI_MODEL) && (
+            {(name === EStripePrice_nickname.STARTAI_TOOLS || name === EStripePrice_nickname.STARTAI_MODEL) && (
               <>
                 {t.get('Subscription Expiry Date')}:{' '}
                 <span>

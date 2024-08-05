@@ -36,7 +36,6 @@ import EInputTypeDBFile, {
 import { useProModeModelValueProviderContext } from '../../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { LangchainRetrivalService } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
-import { EProductItemDB_type } from '../../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
@@ -430,7 +429,6 @@ ${t.get('Original content')}: """${exampleText}"""`,
       } else {
         /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postLangchainChatChain(
           {
-            productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
             llmOptions: {
               llmName: proModeModalValue,
               llmSecret: openAIApiKey,

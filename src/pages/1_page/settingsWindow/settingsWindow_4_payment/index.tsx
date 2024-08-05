@@ -11,9 +11,12 @@ import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { EProductItemDB_name } from '../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
+
 import { getTrialAndActiveSubscriptions_by_userId_from_backend_v3 } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
-import { EStripeCheckoutSessionPaymentMode } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
+import {
+  EStripeCheckoutSessionPaymentMode,
+  EStripePrice_nickname,
+} from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
@@ -29,11 +32,11 @@ interface ISettingsWindow_4_payment_freeEdition_input {
   userAccessToken: string;
   locale_for_currency: ELocale;
   setLocale_for_currency: (value: ELocale) => void;
-  stripePrices_for_locales: Record<ELocale, Record<EProductItemDB_name, IStripePriceItem[]>>;
+  stripePrices_for_locales: Record<ELocale, Record<EStripePrice_nickname, IStripePriceItem[]>>;
 }
 const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_freeEdition_input) => {
   const { t, userId, userAccessToken, locale_for_currency, setLocale_for_currency, stripePrices_for_locales } = props;
-  const stripePrice: Record<EProductItemDB_name, IStripePriceItem[]> = stripePrices_for_locales[locale_for_currency];
+  const stripePrice: Record<EStripePrice_nickname, IStripePriceItem[]> = stripePrices_for_locales[locale_for_currency];
 
   const [tabSelected, setTabSelected] = useState<string>('Model');
 
@@ -231,7 +234,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                   className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
                     createAndOpenStripeCheckoutSession_v3(
-                      stripePrice[EProductItemDB_name.STARTAI_MODEL],
+                      stripePrice[EStripePrice_nickname.STARTAI_MODEL],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                       {
                         trial_period_days: 7,
@@ -318,7 +321,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                   className="bg-emerald-50 text-emerald-700 hover:bg-emerald-100 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
                     createAndOpenStripeCheckoutSession_v3(
-                      stripePrice[EProductItemDB_name.STARTAI_TOOLS],
+                      stripePrice[EStripePrice_nickname.STARTAI_TOOLS],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                       {
                         trial_period_days: 7,
@@ -404,7 +407,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                   className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
                   onClick={() => {
                     createAndOpenStripeCheckoutSession_v3(
-                      stripePrice[EProductItemDB_name.STARTAI_LIFETIME_TOOLS],
+                      stripePrice[EStripePrice_nickname.STARTAI_LIFETIME_TOOLS],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                       {},
                     );
@@ -457,7 +460,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   const [activeSubscriptions, setActiveSubscriptions] = useState<Stripe.Subscription[]>([]);
   const [stripePrices_for_locales, setStripePrices_for_locales] =
-    useState<Record<ELocale, Record<EProductItemDB_name, IStripePriceItem[]>>>();
+    useState<Record<ELocale, Record<EStripePrice_nickname, IStripePriceItem[]>>>();
 
   const init = async (paraLocale: ELocale) => {
     const activeSubscriptionsFound: Stripe.Subscription[] | Error =
@@ -475,7 +478,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
     const stripePrices_for_localesResults: Record<
       ELocale,
-      Record<EProductItemDB_name, IStripePriceItem[]>
+      Record<EStripePrice_nickname, IStripePriceItem[]>
     > = await TBackendStripeFile.getStripePrices_v3_by_backend(paraLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
     setStripePrices_for_locales(stripePrices_for_localesResults);
   };
@@ -529,10 +532,10 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
         return (
           <>
-            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_TOOLS) && (
+            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_TOOLS) && (
               <>
                 <SettingsWindow_4_payment_subscriptionInfo
-                  subscriptionName={EProductItemDB_name.STARTAI_TOOLS}
+                  subscriptionName={EStripePrice_nickname.STARTAI_TOOLS}
                   t={t}
                   userId={userId}
                   userEmail={userEmail}
@@ -547,10 +550,10 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
               </>
             )}
 
-            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_LIFETIME_TOOLS) && (
+            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS) && (
               <>
                 <SettingsWindow_4_payment_subscriptionInfo
-                  subscriptionName={EProductItemDB_name.STARTAI_LIFETIME_TOOLS}
+                  subscriptionName={EStripePrice_nickname.STARTAI_LIFETIME_TOOLS}
                   t={t}
                   userId={userId}
                   userEmail={userEmail}
@@ -565,10 +568,10 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
               </>
             )}
 
-            {itemPriceNicknames.includes(EProductItemDB_name.STARTAI_MODEL) && (
+            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL) && (
               <>
                 <SettingsWindow_4_payment_subscriptionInfo
-                  subscriptionName={EProductItemDB_name.STARTAI_MODEL}
+                  subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
                   t={t}
                   userId={userId}
                   userEmail={userEmail}

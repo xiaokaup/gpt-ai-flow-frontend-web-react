@@ -1,34 +1,31 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
-import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
 import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
-
-import { AppLayout, AppLayoutCenter } from './AppLayout';
-import { IReduxRootState } from './store/reducer';
-import { updateSpecificUserData } from './store/actions/userActions';
-// import { CounterComponent } from './CounterComponent';
-
+import { EStripePrice_nickname } from './gpt-ai-flow-common/enum-app/EStripe';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
+import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
+import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { getActiveSubscriptionsNicknames_by_userId_from_backend_v3 } from './gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
 
-import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
+import { NewsPage } from './pages/1_page/NewsPage';
+import { AuthPage } from './pages/1_page/AuthPages';
+import { LogoutPage } from './pages/1_page/LogoutPage';
+// import { CounterComponent } from './CounterComponent';
+import { SettingsWindow } from './pages/1_page/settingsWindow';
+import { ProModeWindow_warpper } from './pages/1_page/ProModeWindow/ProModeWinowWrapper';
+import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/Features/ProModeWindowFeatures';
 import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_2_login';
+import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
 import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
-import { ProModeWindow_warpper } from './pages/1_page/ProModeWindow/ProModeWinowWrapper';
+import { IReduxRootState } from './store/reducer';
+import { updateSpecificUserData } from './store/actions/userActions';
 
-import { LogoutPage } from './pages/1_page/LogoutPage';
-import { SettingsWindow } from './pages/1_page/settingsWindow';
-import { NewsPage } from './pages/1_page/NewsPage';
-import { AuthPage } from './pages/1_page/AuthPages';
-
-import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
-import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/Features/ProModeWindowFeatures';
-import { useEffect, useState } from 'react';
-import { getActiveSubscriptionsNicknames_by_userId_from_backend_v3 } from './gpt-ai-flow-common/tools/3_unit/TBackendProductItem';
-import { EProductItemDB_name } from './gpt-ai-flow-common/enum-database/EProductItemDB';
+import { AppLayout, AppLayoutCenter } from './AppLayout';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -51,7 +48,9 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const [activeSubscriptionsNicknames, setActiveSubscriptionsNicknames] = useState<EProductItemDB_name[]>([]);
+  const [stripePriceNicknames_from_allSbuscriptions, setActiveSubscriptionsNicknames] = useState<
+    EStripePrice_nickname[]
+  >([]);
   // console.log('productItem:', productItem);
 
   const init = async () => {
@@ -59,7 +58,7 @@ export const AppRoutes = () => {
       Token: { accessToken },
     } = userData;
 
-    const subscriptionsNicknamesFound: EProductItemDB_name[] =
+    const subscriptionsNicknamesFound: EStripePrice_nickname[] =
       await getActiveSubscriptionsNicknames_by_userId_from_backend_v3(
         accessToken,
         locale,
@@ -82,7 +81,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
@@ -95,7 +94,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_1_signup t={t} />
               </AppLayoutCenter>
@@ -108,7 +107,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
@@ -121,7 +120,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayoutCenter>
@@ -134,7 +133,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_5_forgetPassword t={t} />
               </AppLayoutCenter>
@@ -147,7 +146,7 @@ export const AppRoutes = () => {
             <div className="App">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <AuthPage t={t} />
               </AppLayoutCenter>
@@ -160,7 +159,7 @@ export const AppRoutes = () => {
             <div className="App">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <LogoutPage t={t} />
               </AppLayoutCenter>
@@ -174,7 +173,7 @@ export const AppRoutes = () => {
             <div className="App">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <NewsPage
                   webCase={{
@@ -194,7 +193,10 @@ export const AppRoutes = () => {
           path="/info"
           element={
             <div className="App">
-              <AppLayout isAuthenticated={isAuthenticated} activeSubscriptionsNicknames={activeSubscriptionsNicknames}>
+              <AppLayout
+                isAuthenticated={isAuthenticated}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+              >
                 <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayout>
             </div>
@@ -206,7 +208,7 @@ export const AppRoutes = () => {
             <div className="App">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <ProModeWindow_warpper
                   webCase={{
@@ -233,7 +235,7 @@ export const AppRoutes = () => {
           <div className="App">
             <AppLayoutCenter
               isAuthenticated={isAuthenticated}
-              activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+              stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
             >
               <NewsPage
                 webCase={{
@@ -258,7 +260,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
@@ -271,7 +273,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_1_signup t={t} />
               </AppLayoutCenter>
@@ -284,7 +286,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_2_login t={t} />
               </AppLayoutCenter>
@@ -297,7 +299,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayoutCenter>
@@ -310,7 +312,7 @@ export const AppRoutes = () => {
             <div className="App h-full">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <SettingsWindow_2_user_5_forgetPassword t={t} />
               </AppLayoutCenter>
@@ -323,7 +325,7 @@ export const AppRoutes = () => {
             <div className="App">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <AuthPage t={t} />
               </AppLayoutCenter>
@@ -337,7 +339,7 @@ export const AppRoutes = () => {
               <div className="App">
                 <AppLayoutCenter
                   isAuthenticated={isAuthenticated}
-                  activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                  stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
                 >
                   <ProModeWindowFeatures locale={locale} />
                 </AppLayoutCenter>
@@ -356,7 +358,10 @@ export const AppRoutes = () => {
           path="info"
           element={
             <div className="App">
-              <AppLayout isAuthenticated={isAuthenticated} activeSubscriptionsNicknames={activeSubscriptionsNicknames}>
+              <AppLayout
+                isAuthenticated={isAuthenticated}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+              >
                 <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
               </AppLayout>
             </div>
@@ -369,7 +374,7 @@ export const AppRoutes = () => {
               <div className="App">
                 <AppLayoutCenter
                   isAuthenticated={isAuthenticated}
-                  activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                  stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
                 >
                   <ProModeWindow_warpper
                     webCase={{
@@ -388,7 +393,7 @@ export const AppRoutes = () => {
             <div className="App">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
-                activeSubscriptionsNicknames={activeSubscriptionsNicknames}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <LogoutPage t={t} />
               </AppLayoutCenter>
@@ -420,7 +425,10 @@ function Layout_v1() {
 function NoMatch() {
   return (
     <div className="App">
-      <AppLayoutCenter isAuthenticated={false} activeSubscriptionsNicknames={[EProductItemDB_name.STARTAI_FREE]}>
+      <AppLayoutCenter
+        isAuthenticated={false}
+        stripePriceNicknames_from_allSbuscriptions={[EStripePrice_nickname.STARTAI_FREE]}
+      >
         <h2>Nothing to see here!</h2>
       </AppLayoutCenter>
     </div>
