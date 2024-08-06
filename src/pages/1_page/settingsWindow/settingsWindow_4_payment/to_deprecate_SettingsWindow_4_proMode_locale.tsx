@@ -17,7 +17,7 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 import { EStripe_currency, EStripePrice_nickname } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { to_deprecate_IProductItemDB_with_expiredAt_and_blance as IProductItemDB_with_expiredAt_and_blance } from '../../../../gpt-ai-flow-common/interface-database/IProductItemDB';
 
-import { SettingWIndow_4_proMode_recharge_form } from './SettingWIndow_4_proMode_recharge_form';
+import { SettingWIndow_4_proMode_recharge_form } from './to_deprecate_SettingWIndow_4_proMode_recharge_form';
 
 interface SettingsWindow_4_proMode_locale_input {
   t: IGetT_frontend_output;
