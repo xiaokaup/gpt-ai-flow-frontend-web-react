@@ -474,6 +474,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
     if (activeSubscriptionsFound instanceof Error) {
       const error = activeSubscriptionsFound;
       message.error(error.message);
+      return;
     }
     if (activeSubscriptionsFound) setActiveSubscriptions(activeSubscriptionsFound);
 
