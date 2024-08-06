@@ -496,15 +496,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
-      {/* {activeSubscriptions && stripePrices && (
-        <SettingsWindow_4_proMode_locale
-          t={t}
-          locale={locale_for_currency}
-          userData={userData}
-          productItem={activeSubscriptions}
-        />
-      )} */}
-
       {/* 0 subscirption -> Free Edition */}
       {activeSubscriptions.length === 0 && (
         <>

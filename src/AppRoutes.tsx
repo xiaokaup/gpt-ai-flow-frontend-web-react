@@ -51,7 +51,7 @@ export const AppRoutes = () => {
   const [stripePriceNicknames_from_allSbuscriptions, setActiveSubscriptionsNicknames] = useState<
     EStripePrice_nickname[]
   >([]);
-  // console.log('productItem:', productItem);
+  // console.log('stripePriceNicknames_from_allSbuscriptions:', stripePriceNicknames_from_allSbuscriptions);
 
   const init = async () => {
     const {

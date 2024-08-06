@@ -214,14 +214,17 @@ export const AppLayout = (props: Layout_input) => {
 };
 
 export const AppLayoutCenter = (props: Layout_input) => {
-  const { isAuthenticated, stripePriceNicknames_from_allSbuscriptions: productItem, children } = props;
+  const { isAuthenticated, stripePriceNicknames_from_allSbuscriptions, children } = props;
 
   return (
     <Layout className="layout_container h-full" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
-        <AppMenu isAuthenticated={isAuthenticated} stripePriceNicknames_from_allSbuscriptions={productItem} />
+        <AppMenu
+          isAuthenticated={isAuthenticated}
+          stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+        />
       </Header>
 
       {/* Body/Content */}
