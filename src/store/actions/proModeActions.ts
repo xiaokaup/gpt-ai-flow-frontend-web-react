@@ -1,7 +1,7 @@
 import TBackendProModeDataFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendProMode';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IProMode_v3 } from '../../gpt-ai-flow-common/interface-backend/IProMode_v3';
-import { EServiceCategoryDB_name } from '../../gpt-ai-flow-common/enum-database/EServiceCategoryDB';
+import { EServiceCategoryDB_name } from '../../gpt-ai-flow-common/enum-database/to_deprecate_EServiceCategoryDB';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 
 export const SYNC_PROMODE_DATA = 'SYNC_PROMODE_DATA';
