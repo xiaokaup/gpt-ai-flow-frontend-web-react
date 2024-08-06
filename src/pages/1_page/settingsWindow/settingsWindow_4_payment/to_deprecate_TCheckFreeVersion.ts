@@ -2,7 +2,7 @@ import ISubscriptionDB_v2File, {
   ISubscriptionDB_v2,
 } from '../../../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 
-const checkIsFreeVersion = (subscriptionData: ISubscriptionDB_v2) => {
+const to_deprecate_checkIsFreeVersion = (subscriptionData: ISubscriptionDB_v2) => {
   if (
     ISubscriptionDB_v2File.ISubscriptionDB_v2_default_tool_version_for_free.userId === subscriptionData.userId &&
     ISubscriptionDB_v2File.ISubscriptionDB_v2_default_tool_version_for_free.productLimitId ===
@@ -19,7 +19,7 @@ const checkIsFreeVersion = (subscriptionData: ISubscriptionDB_v2) => {
 };
 
 const TCheckFreeVersionFile = {
-  checkIsFreeVersion,
+  to_deprecate_checkIsFreeVersion,
 };
 
 export default TCheckFreeVersionFile;

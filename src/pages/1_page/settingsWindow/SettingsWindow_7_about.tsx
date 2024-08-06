@@ -14,8 +14,8 @@ export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
         {t.get('Official website')}: <a href="https://www.gptaiflow.com">www.gptaiflow.com</a>
         <br />
         {t.get('Frequently Asked Questions')}:{' '}
-        <a href="https://www.gptaiflow.com/docs/proudct/gpt-ai-flow-guide-and-faq">
-          www.gptaiflow.com/docs/proudct/gpt-ai-flow-guide-and-faq
+        <a href="https://www.gptaiflow.com/docs/product/gpt-ai-flow-faqs">
+          www.gptaiflow.com/docs/product/gpt-ai-flow-faqs
         </a>
       </div>
       <div className="row">

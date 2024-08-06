@@ -10,7 +10,6 @@ import { Langchain_left_02_previousOutput } from './component/Langchain_left_02_
 import { Langchain_left_01_currentOutput } from './component/Langchain_left_01_currentOutput';
 import { Langchain_right_04_adjust } from './component/Langchain_right_04_adjust';
 import { Langchain_right_03_background } from './component/Langchain_right_03_background';
-import { EProductItemDB_type } from '../../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
 import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
@@ -75,7 +74,6 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
 
   const buildRequestBody = (lastMessage_in_chatHistory: IMessage_for_simpleInterface[]) => {
     const newRequestBody: ILangchain_for_type_langchain_request_v4_simpleInterface = {
-      productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
         llmName: proModeModelType,
         llmSecret: modelSecret,

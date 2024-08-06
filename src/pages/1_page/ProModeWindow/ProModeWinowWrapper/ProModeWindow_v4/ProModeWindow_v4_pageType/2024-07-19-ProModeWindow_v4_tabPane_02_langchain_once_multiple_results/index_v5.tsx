@@ -11,7 +11,7 @@ import { Langchain_currentOutput } from './component/Langchain_currentOutput';
 import { Langchain_adjust } from './component/Langchain_adjust';
 import { Langchain_background } from './component/Langchain_background';
 import { EMessage_role } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
-import { EProductItemDB_type } from '../../../../../../../gpt-ai-flow-common/enum-database/EProductItemDB';
+import { to_deprecate_EProductItemDB_type } from '../../../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EProductItemDB';
 import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
@@ -32,9 +32,10 @@ import {
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { EProMode_v4_tabPane_context_type } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 import { IAdjust_morePostsChain } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
-import { ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v3';
+
+import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -130,8 +131,8 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
       role: EMessage_role.HUMAN,
     };
 
-    const newHumanRequest: ILangchain_for_type_langchain_request_v3 = {
-      productItem_type: EProductItemDB_type.PRO_MODE_SERVICE,
+    const newHumanRequest: to_deprecate_ILangchain_for_type_langchain_request_v3 = {
+      productItem_type: to_deprecate_EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
         llmName: proModeModelType,
         llmSecret: modelSecret,
@@ -160,7 +161,9 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
 
       // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
       const filteredParaMessageExchangeData = filterBackendAndAjdust_before_buildHumanMessage(paraMessageExchangeData);
-      const bodyData: ILangchain_for_type_langchain_request_v3 = buildHumanMessage(filteredParaMessageExchangeData);
+      const bodyData: to_deprecate_ILangchain_for_type_langchain_request_v3 = buildHumanMessage(
+        filteredParaMessageExchangeData,
+      );
       const newMessageExchange_for_human = bodyData.currentMessageExchange;
       const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
       const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];

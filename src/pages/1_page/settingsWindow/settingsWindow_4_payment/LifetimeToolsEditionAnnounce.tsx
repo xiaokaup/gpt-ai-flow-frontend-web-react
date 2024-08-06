@@ -3,7 +3,7 @@ import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 interface ILifetimeVersionAnnounce {
   locale: ELocale;
 }
-export const LifetimeVersionAnnounce = (props: ILifetimeVersionAnnounce) => {
+export const LifetimeToolsEditionAnnounce = (props: ILifetimeVersionAnnounce) => {
   const { locale } = props;
 
   if (locale === ELocale.ZH) {

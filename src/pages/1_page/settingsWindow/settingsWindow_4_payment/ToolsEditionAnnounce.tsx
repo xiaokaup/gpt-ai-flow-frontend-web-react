@@ -4,7 +4,7 @@ import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 interface IToolsVersionAnnounce {
   locale: ELocale;
 }
-export const ToolsVersionAnnounce = (props: IToolsVersionAnnounce) => {
+export const ToolsEditionAnnounce = (props: IToolsVersionAnnounce) => {
   const { locale } = props;
 
   if (locale === ELocale.ZH) {

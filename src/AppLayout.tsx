@@ -11,22 +11,23 @@ import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
+import { EStripePrice_nickname } from './gpt-ai-flow-common/enum-app/EStripe';
 
 import { useBaseUrl } from './hooks/useBaseUrl';
-import { IProductItemDB } from './gpt-ai-flow-common/interface-database/IProductItemDB';
-import { EProductItemDB_name } from './gpt-ai-flow-common/enum-database/EProductItemDB';
 
 const { Header, Content, Footer } = Layout;
 
 interface Layout_input {
   isAuthenticated: boolean;
-  productItem: IProductItemDB;
+  stripePriceNicknames_from_allSbuscriptions: EStripePrice_nickname[];
   children: React.ReactNode;
 }
 
-const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB }) => {
-  const { isAuthenticated, productItem } = props;
-  const { name: productItem_name } = productItem;
+const AppMenu = (props: {
+  isAuthenticated: boolean;
+  stripePriceNicknames_from_allSbuscriptions: EStripePrice_nickname[];
+}) => {
+  const { isAuthenticated, stripePriceNicknames_from_allSbuscriptions } = props;
 
   const dispatch = useDispatch();
 
@@ -130,7 +131,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
       {isAuthenticated && (
         <Menu.Item key="subscriptionInfo">
           <a href="/app/info#subscription">
-            {productItem_name === EProductItemDB_name.STARTAI_FREE && (
+            {stripePriceNicknames_from_allSbuscriptions.length === 0 && (
               // <div className="flex items-center bg-gray-100">
               <div className="flex items-center bg-transparent">
                 <img
@@ -141,7 +142,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                 <span className="font-bold text-gray-500">{t.get('Free_version')}</span>
               </div>
             )}
-            {productItem_name === EProductItemDB_name.STARTAI_TOOLS && (
+            {stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_TOOLS) && (
               // <div className="flex items-center bg-blue-200">
               <div className="flex items-center bg-transparent">
                 <img
@@ -152,18 +153,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                 <span className="font-bold text-blue-500">{t.get('Tools_version')}</span>
               </div>
             )}
-            {productItem_name === EProductItemDB_name.STARTAI_MODEL && (
-              // <div className="flex items-center bg-green-100">
-              <div className="flex items-center bg-transparent">
-                <img
-                  src="/static/icons/2024-07-06-img-3-model/cube-512x512.png"
-                  alt="image"
-                  className="w-[36px] h-[36px] mr-2"
-                />
-                <span className="font-bold text-green-600">{t.get('Model_version')}</span>
-              </div>
-            )}
-            {productItem_name === EProductItemDB_name.STARTAI_LIFETIME && (
+            {stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS) && (
               // <div className="flex items-center bg-yellow-100">
               <div className="flex items-center bg-transparent">
                 <img
@@ -174,6 +164,17 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
                 <span className="font-bold text-yellow-500">{t.get('Lifetime_version')}</span>
               </div>
             )}
+            {stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_MODEL) && (
+              // <div className="flex items-center bg-green-100">
+              <div className="flex items-center bg-transparent">
+                <img
+                  src="/static/icons/2024-07-06-img-3-model/cube-512x512.png"
+                  alt="image"
+                  className="w-[36px] h-[36px] mr-2"
+                />
+                <span className="font-bold text-green-600">{t.get('Model_version')}</span>
+              </div>
+            )}
           </a>
         </Menu.Item>
       )}
@@ -182,7 +183,7 @@ const AppMenu = (props: { isAuthenticated: boolean; productItem: IProductItemDB 
 };
 
 export const AppLayout = (props: Layout_input) => {
-  const { isAuthenticated, productItem, children } = props;
+  const { isAuthenticated, stripePriceNicknames_from_allSbuscriptions, children } = props;
 
   return (
     <Layout className="layout_container" style={{ background: '#fff' }}>
@@ -190,7 +191,10 @@ export const AppLayout = (props: Layout_input) => {
       <Header>
         <div className="logo" />
 
-        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
+        <AppMenu
+          isAuthenticated={isAuthenticated}
+          stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+        />
       </Header>
 
       {/* Body/Content */}
@@ -210,14 +214,17 @@ export const AppLayout = (props: Layout_input) => {
 };
 
 export const AppLayoutCenter = (props: Layout_input) => {
-  const { isAuthenticated, productItem, children } = props;
+  const { isAuthenticated, stripePriceNicknames_from_allSbuscriptions, children } = props;
 
   return (
     <Layout className="layout_container h-full" style={{ background: '#fff' }}>
       {/* Header */}
       <Header>
         <div className="logo" />
-        <AppMenu isAuthenticated={isAuthenticated} productItem={productItem} />
+        <AppMenu
+          isAuthenticated={isAuthenticated}
+          stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+        />
       </Header>
 
       {/* Body/Content */}
