@@ -34,6 +34,7 @@ import {
 import { EProMode_v4_tabPane_context_type } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 import { IAdjust_morePostsChain } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { SLLM_v2 } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2';
 
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 
@@ -49,7 +50,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   const { creativityValue, contextSelected } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
   // console.log('contextSelected', contextSelected);
-  const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
+  const { t, userAccessToken, llmOption_secret, llmName, inputsCache, setInputsCache } = props;
   inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -134,8 +135,8 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
     const newHumanRequest: to_deprecate_ILangchain_for_type_langchain_request_v3 = {
       productItem_type: to_deprecate_EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
-        llmName: proModeModelType,
-        llmSecret: modelSecret,
+        llmName,
+        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secret),
         llmTemperature: creativityValue,
       },
       type: messageExchangeType,

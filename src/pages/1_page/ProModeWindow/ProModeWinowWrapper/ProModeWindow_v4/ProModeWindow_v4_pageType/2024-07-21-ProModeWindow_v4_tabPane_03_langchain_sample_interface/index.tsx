@@ -14,7 +14,6 @@ import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { IInputsCache } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { Langchain_left_03_context_description } from './component/Langchain_left_03_context_description';
 import {
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
@@ -25,7 +24,6 @@ import {
   IAdjust_IMessage_v2,
   IAdjust_IMessage_v2_default,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
@@ -40,8 +38,13 @@ import {
   IBackground_v2_default,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
 import { removeAllEmptyValues } from '../../../../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
+
+import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
+
+import { Langchain_left_03_context_description } from './component/Langchain_left_03_context_description';
 import { Langchain_right_02_uploader } from './component/Langchain_right_02_uploader';
 import { Langchain_right_01_xiaohongshu_shareUrl } from './component/Langchain_right_01_xiaohongshu_shareUrl';
+import { SLLM_v2 } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2';
 
 interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -57,7 +60,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
-  const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
+  const { t, userAccessToken, llmOption_secret, llmName: llmName, inputsCache, setInputsCache } = props;
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
@@ -75,8 +78,8 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
   const buildRequestBody = (lastMessage_in_chatHistory: IMessage_for_simpleInterface[]) => {
     const newRequestBody: ILangchain_for_type_langchain_request_v4_simpleInterface = {
       llmOptions: {
-        llmName: proModeModelType,
-        llmSecret: modelSecret,
+        llmName,
+        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secret),
         llmTemperature: creativityValue,
       },
       contextType,
