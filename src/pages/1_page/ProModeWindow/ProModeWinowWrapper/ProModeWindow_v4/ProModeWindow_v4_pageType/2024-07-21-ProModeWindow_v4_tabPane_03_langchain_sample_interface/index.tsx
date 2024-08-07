@@ -60,7 +60,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
-  const { t, userAccessToken, llmOption_secret, llmName: llmName, inputsCache, setInputsCache } = props;
+  const { t, userAccessToken, llmOption_secrets, llmName: llmName, inputsCache, setInputsCache } = props;
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
@@ -79,7 +79,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     const newRequestBody: ILangchain_for_type_langchain_request_v4_simpleInterface = {
       llmOptions: {
         llmName,
-        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secret),
+        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secrets),
         llmTemperature: creativityValue,
       },
       contextType,

@@ -50,7 +50,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
-  const { t, userAccessToken, llmOption_secret, llmName, inputsCache, setInputsCache } = props;
+  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
   inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -126,7 +126,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
       productItem_type: to_deprecate_EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
         llmName,
-        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secret),
+        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secrets),
         llmTemperature: creativityValue,
       },
       type: contextType,

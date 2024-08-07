@@ -23,13 +23,13 @@ export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
   userAccessToken: string;
-  llmOption_secret: ILLMOption_secret;
+  llmOption_secrets: ILLMOption_secret;
   llmName: ELLM_name;
   inputsCache: IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
 }
 export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input) => {
-  const { t, tabPane, userAccessToken, llmOption_secret, llmName, inputsCache, setInputsCache } = props;
+  const { t, tabPane, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
   const { uuid, context } = tabPane;
 
   const creativityValue = useCreativityValueContext();
@@ -115,7 +115,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             // IProModeWindow_v4_wrapper_input
             t={t}
             userAccessToken={userAccessToken}
-            llmOption_secret={llmOption_secret}
+            llmOption_secrets={llmOption_secrets}
             llmName={llmName}
             inputsCache={inputsCache}
             setInputsCache={setInputsCache}
@@ -130,7 +130,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             // IProModeWindow_v4_wrapper_input
             t={t}
             userAccessToken={userAccessToken}
-            llmOption_secret={llmOption_secret}
+            llmOption_secrets={llmOption_secrets}
             llmName={llmName}
             inputsCache={inputsCache}
             setInputsCache={setInputsCache}
@@ -145,7 +145,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             // IProModeWindow_v4_wrapper_input
             t={t}
             userAccessToken={userAccessToken}
-            llmOption_secret={llmOption_secret}
+            llmOption_secrets={llmOption_secrets}
             llmName={llmName}
             inputsCache={inputsCache}
             setInputsCache={setInputsCache}

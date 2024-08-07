@@ -74,7 +74,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
   });
   const {
-    apiKeys: llmOption_secret,
+    apiKeys: llmOption_secrets,
     proMode: { model_type: llmName_from_store },
   } = localDataFromStorage;
 
@@ -285,7 +285,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                             >
                           }
                           userAccessToken={userAccessToken}
-                          llmOption_secret={llmOption_secret}
+                          llmOption_secrets={llmOption_secrets}
                           llmName={llmName}
                           inputsCache={inputsCache}
                           setInputsCache={setInputsCache}
