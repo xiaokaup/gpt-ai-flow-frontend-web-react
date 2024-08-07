@@ -142,6 +142,29 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             </Tooltip>
             {openAIApiKey && <span className="ml-1 ">({openAIApiKey?.slice(-6).toLowerCase()})</span>}
           </div>
+          <div className="anthropicApiKey flex items-center">
+            <Form.Item
+              className="m-0"
+              name="anthropicApiKey"
+              label={
+                <>
+                  Anthropic API key
+                  {/* <InfoCircleOutlined className="px-1" /> */}
+                </>
+              }
+              style={{ width: 300 }}
+            >
+              <Input
+                type="password"
+                size="small"
+                value={anthropicApiKey}
+                onChange={(event) => {
+                  setAnthropicApiKey(event.target.value);
+                }}
+              />
+            </Form.Item>
+            {anthropicApiKey && <span className="ml-1 ">({anthropicApiKey?.slice(-6).toLowerCase()})</span>}
+          </div>
         </Form>
       </div>
 
