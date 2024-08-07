@@ -16,7 +16,7 @@ import {
 
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { SLLM } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM';
+import { SLLM_v2 } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2';
 import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 interface ISettingsWindow_1_local_basic_input {
@@ -133,7 +133,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={SLLM.getAllLLM_selectOptions(t)}
+          options={SLLM_v2.getAllLLM_selectOptions(t)}
           style={{
             width: 200,
           }}
