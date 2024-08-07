@@ -45,10 +45,10 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     dispatch<IStoreStorageLocalSettings | any>(
       saveLocalAction({
         ...localFromStore,
-        openAIApiKey: openAIApiKey.trim(),
+        openAIApiKey: openAIApiKey?.trim(),
         apiKeys: {
-          openAIApiKey: openAIApiKey.trim(),
-          anthropicApiKey: anthropicApiKey.trim(),
+          openAIApiKey: openAIApiKey?.trim(),
+          anthropicApiKey: anthropicApiKey?.trim(),
         },
         chatMode: {
           model_type: chatModeModelType,
@@ -71,68 +71,78 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   return (
     <div id="settingsWindowContainer-1-local_1_basic" className="row">
       <div className="row">
-        <div>
-          <Tooltip
-            title={
-              <>
-                {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
-                <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
-                  {t.get('Click here')}
-                </a>
-                <br />
-                <br />
-                {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
-              </>
-            }
-          >
-            <label htmlFor="openAIApiKeyInput">
-              OpenAI API key
-              <InfoCircleOutlined className="px-1" />:{' '}
-              <input
-                type="password"
-                id="openAIApiKeyInput"
-                name="openAIApiKeyInput"
-                value={openAIApiKey ?? ''}
-                onChange={(e) => setOpenAIApiKey(e.target.value)}
-              />{' '}
-              {openAIApiKey && <>({openAIApiKey.slice(-6).toLowerCase()})</>}
-            </label>
-          </Tooltip>
-          <Tooltip
-            title={
-              <>
-                {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
-                <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
-                  {t.get('Click here')}
-                </a>
-                <br />
-                <br />
-                {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
-              </>
-            }
-          >
-            <Form.Item
-              className="m-0"
-              name="openAIApiKey"
-              label={
+        <Form
+          layout="horizontal"
+          initialValues={{
+            openAIApiKey,
+            anthropicApiKey,
+          }}
+        >
+          <div className="openAIApiKeyInput flex items-center">
+            <Tooltip
+              title={
                 <>
-                  OpenAI API key <InfoCircleOutlined className="px-1" />
+                  {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
+                  <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
+                    {t.get('Click here')}
+                  </a>
+                  <br />
+                  <br />
+                  {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
                 </>
               }
-              style={{ width: 300 }}
             >
-              <Input
-                type="password"
-                size="small"
-                value={openAIApiKey}
-                onChange={(event) => {
-                  setOpenAIApiKey(event.target.value);
-                }}
-              />
-            </Form.Item>
-          </Tooltip>
-          {openAIApiKey && <span className="ml-1 ">({openAIApiKey?.slice(-6).toLowerCase()})</span>}
-        </div>
+              <label htmlFor="openAIApiKeyInput">
+                OpenAI API key
+                <InfoCircleOutlined className="px-1" />:{' '}
+                <input
+                  type="password"
+                  id="openAIApiKeyInput"
+                  name="openAIApiKeyInput"
+                  value={openAIApiKey ?? ''}
+                  onChange={(e) => setOpenAIApiKey(e.target.value)}
+                />{' '}
+                {openAIApiKey && <>({openAIApiKey.slice(-6).toLowerCase()})</>}
+              </label>
+            </Tooltip>
+          </div>
+          <div className="openAIApiKeyInput flex items-center">
+            <Tooltip
+              title={
+                <>
+                  {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
+                  <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
+                    {t.get('Click here')}
+                  </a>
+                  <br />
+                  <br />
+                  {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
+                </>
+              }
+            >
+              <Form.Item
+                className="m-0"
+                name="openAIApiKey"
+                label={
+                  <>
+                    OpenAI API key <InfoCircleOutlined className="px-1" />
+                  </>
+                }
+                style={{ width: 300 }}
+              >
+                <Input
+                  type="password"
+                  size="small"
+                  value={openAIApiKey}
+                  onChange={(event) => {
+                    setOpenAIApiKey(event.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Tooltip>
+            {openAIApiKey && <span className="ml-1 ">({openAIApiKey?.slice(-6).toLowerCase()})</span>}
+          </div>
+        </Form>
       </div>
 
       {/* <div className="row" style={{ marginTop: '.75rem' }}>
