@@ -3,7 +3,7 @@ import { Button, Select, Tag, message } from 'antd';
 
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { ILLMOption_secret } from '../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import { ILLMOption_secrets } from '../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPromode_v4_tabPane_context,
@@ -23,7 +23,7 @@ export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
   tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
   userAccessToken: string;
-  llmOption_secrets: ILLMOption_secret;
+  llmOption_secrets: ILLMOption_secrets;
   llmName: ELLM_name;
   inputsCache: IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
