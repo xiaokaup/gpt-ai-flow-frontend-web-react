@@ -3,7 +3,7 @@ import '../../../../styles/layout.scss';
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Select, Tooltip, message } from 'antd';
+import { Button, Form, Input, Select, Tooltip, message } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IReduxRootState } from '../../../../store/reducer';
@@ -32,6 +32,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   });
 
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
+  const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
 
   const [chatModeModelType] = useState<ELLM_name>(
     localFromStore.chatMode?.model_type ?? ELLM_name.OPENAI_GPT_3_5_TURBO,
@@ -45,6 +46,10 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
       saveLocalAction({
         ...localFromStore,
         openAIApiKey: openAIApiKey.trim(),
+        apiKeys: {
+          openAIApiKey: openAIApiKey.trim(),
+          anthropicApiKey: anthropicApiKey.trim(),
+        },
         chatMode: {
           model_type: chatModeModelType,
         },
@@ -93,6 +98,40 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
               {openAIApiKey && <>({openAIApiKey.slice(-6).toLowerCase()})</>}
             </label>
           </Tooltip>
+          <Tooltip
+            title={
+              <>
+                {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
+                <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
+                  {t.get('Click here')}
+                </a>
+                <br />
+                <br />
+                {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
+              </>
+            }
+          >
+            <Form.Item
+              className="m-0"
+              name="openAIApiKey"
+              label={
+                <>
+                  OpenAI API key <InfoCircleOutlined className="px-1" />
+                </>
+              }
+              style={{ width: 300 }}
+            >
+              <Input
+                type="password"
+                size="small"
+                value={openAIApiKey}
+                onChange={(event) => {
+                  setOpenAIApiKey(event.target.value);
+                }}
+              />
+            </Form.Item>
+          </Tooltip>
+          {openAIApiKey && <span className="ml-1 ">({openAIApiKey?.slice(-6).toLowerCase()})</span>}
         </div>
       </div>
 
