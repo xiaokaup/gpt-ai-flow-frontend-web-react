@@ -33,10 +33,10 @@ import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
-import { IUserData } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { to_deprecate_IUserData as IUserData } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IPrompt } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { ELLM_name } from '../../../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
-import { SLLM_v2 } from '../../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2';
+import { SLLM_v2_common } from '../../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
@@ -385,7 +385,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           {
             llmOptions: {
               llmName,
-              llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, { openAIApiKey, anthropicApiKey }),
+              llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, { openAIApiKey, anthropicApiKey }),
               llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],

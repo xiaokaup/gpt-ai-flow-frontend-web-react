@@ -10,5 +10,5 @@
     "resolveJsonModule": true
   },
   "lib": ["es2015"],
-  "exclude": ["node_modules", "src/gpt-ai-flow-common/interface-backend"]
+  "exclude": ["node_modules", "src/gpt-ai-flow-common/interface-backend", "src/gpt-ai-flow-common/tools-backend"]
 }

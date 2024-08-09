@@ -44,7 +44,7 @@ import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper'
 import { Langchain_left_03_context_description } from './component/Langchain_left_03_context_description';
 import { Langchain_right_02_uploader } from './component/Langchain_right_02_uploader';
 import { Langchain_right_01_xiaohongshu_shareUrl } from './component/Langchain_right_01_xiaohongshu_shareUrl';
-import { SLLM_v2 } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2';
+import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -79,7 +79,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     const newRequestBody: ILangchain_for_type_langchain_request_v4_simpleInterface = {
       llmOptions: {
         llmName,
-        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secrets),
+        llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
         llmTemperature: creativityValue,
       },
       contextType,

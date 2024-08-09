@@ -19,7 +19,10 @@ import {
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
-import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData as IUserData,
+  to_deprecate_IUserData_default as IUserData_default,
+} from '../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IStripePriceItem } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
 import { ToolsEditionAnnounce } from './ToolsEditionAnnounce';
 import { LifetimeToolsEditionAnnounce } from './LifetimeToolsEditionAnnounce';

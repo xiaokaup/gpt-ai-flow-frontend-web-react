@@ -10,7 +10,10 @@ import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
-import { IUserData, IUserData_default } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData as IUserData,
+  to_deprecate_IUserData_default as IUserData_default,
+} from '../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',

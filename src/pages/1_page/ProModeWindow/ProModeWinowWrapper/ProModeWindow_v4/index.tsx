@@ -26,7 +26,7 @@ import IStoreStorageFile, {
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
-import { SLLM_v2 } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2';
+import { SLLM_v2_common } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -36,7 +36,10 @@ import {
   IPromode_v4_tabPane_context,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { getProMode_v4_from_backend } from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
-import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData as IUserData,
+  to_deprecate_IUserData_default as IUserData_default,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import IInputsCacheFile, { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
@@ -228,7 +231,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM_v2.getAllLLM_selectOptions(t)}
+              options={SLLM_v2_common.getAllLLM_selectOptions(t)}
               style={{
                 width: 180,
               }}

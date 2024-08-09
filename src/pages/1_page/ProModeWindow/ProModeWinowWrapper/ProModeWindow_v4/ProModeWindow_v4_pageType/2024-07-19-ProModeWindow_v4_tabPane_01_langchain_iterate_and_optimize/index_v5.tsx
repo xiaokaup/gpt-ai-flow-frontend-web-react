@@ -32,7 +32,7 @@ import {
   EButton_operation,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v3';
-import { SLLM_v2 } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2';
+import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 
@@ -126,7 +126,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
       productItem_type: to_deprecate_EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
         llmName,
-        llmSecret: SLLM_v2.getApiKey_by_llmName(llmName, llmOption_secrets),
+        llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
         llmTemperature: creativityValue,
       },
       type: contextType,

@@ -45,7 +45,10 @@ import {
   IAICommandsResults_v4,
   IAICommands_v4,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
-import { IUserData, IUserData_default } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData as IUserData,
+  to_deprecate_IUserData_default as IUserData_default,
+} from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IPrompt } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 import { ELLM_name } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELLM';

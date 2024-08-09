@@ -10,7 +10,7 @@ import { CopyOutlined } from '@ant-design/icons';
 
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import ITokenDBFile from '../../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { IUserData } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { to_deprecate_IUserData } from '../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -22,7 +22,7 @@ import { SettingWIndow_4_proMode_recharge_form } from './to_deprecate_SettingWIn
 interface SettingsWindow_4_proMode_locale_input {
   t: IGetT_frontend_output;
   locale: ELocale;
-  userData: IUserData;
+  userData: to_deprecate_IUserData;
   productItem: IProductItemDB_with_expiredAt_and_blance;
 }
 export const to_deprecate_SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
