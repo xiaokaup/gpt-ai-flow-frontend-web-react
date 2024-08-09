@@ -78,35 +78,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             anthropicApiKey,
           }}
         >
-          <div className="openAIApiKeyInput flex items-center">
-            <Tooltip
-              title={
-                <>
-                  {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
-                  <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
-                    {t.get('Click here')}
-                  </a>
-                  <br />
-                  <br />
-                  {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
-                </>
-              }
-            >
-              <label htmlFor="openAIApiKeyInput">
-                OpenAI API key
-                <InfoCircleOutlined className="px-1" />:{' '}
-                <input
-                  type="password"
-                  id="openAIApiKeyInput"
-                  name="openAIApiKeyInput"
-                  value={openAIApiKey ?? ''}
-                  onChange={(e) => setOpenAIApiKey(e.target.value)}
-                />{' '}
-                {openAIApiKey && <>({openAIApiKey.slice(-6).toLowerCase()})</>}
-              </label>
-            </Tooltip>
-          </div>
-          <div className="openAIApiKeyInput flex items-center">
+          <div className="openAIApiKey flex items-center">
             <Tooltip
               title={
                 <>
