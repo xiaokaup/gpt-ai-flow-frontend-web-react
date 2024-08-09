@@ -31,7 +31,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     return state.local ?? IStoreStorageLocalSettings_default;
   });
 
-  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
+  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
   const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
 
   const [chatModeModelType] = useState<ELLM_name>(
