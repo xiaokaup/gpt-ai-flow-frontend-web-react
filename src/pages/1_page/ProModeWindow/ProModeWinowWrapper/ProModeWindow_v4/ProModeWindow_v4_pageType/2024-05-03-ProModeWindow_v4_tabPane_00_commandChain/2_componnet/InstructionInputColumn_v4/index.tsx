@@ -21,7 +21,7 @@ import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
 } from '../../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
-import { IUserData } from '../../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { to_deprecate_IUserData as IUserData } from '../../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 
 interface InstructionInputColumn_v4_input {
   t: IGetT_frontend_output;

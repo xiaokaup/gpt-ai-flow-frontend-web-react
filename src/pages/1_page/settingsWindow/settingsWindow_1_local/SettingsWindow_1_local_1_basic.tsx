@@ -3,7 +3,7 @@ import '../../../../styles/layout.scss';
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Select, Tooltip, message } from 'antd';
+import { Button, Form, Input, Select, Tooltip, message } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IReduxRootState } from '../../../../store/reducer';
@@ -16,7 +16,7 @@ import {
 
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { SLLM } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM';
+import { SLLM_v2_common } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 interface ISettingsWindow_1_local_basic_input {
@@ -31,7 +31,8 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     return state.local ?? IStoreStorageLocalSettings_default;
   });
 
-  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.openAIApiKey);
+  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
+  const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
 
   const [chatModeModelType] = useState<ELLM_name>(
     localFromStore.chatMode?.model_type ?? ELLM_name.OPENAI_GPT_3_5_TURBO,
@@ -44,7 +45,12 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     dispatch<IStoreStorageLocalSettings | any>(
       saveLocalAction({
         ...localFromStore,
-        openAIApiKey: openAIApiKey.trim(),
+        openAIApiKey: openAIApiKey?.trim(),
+        apiKeys: {
+          openAIApiKey: openAIApiKey?.trim(),
+          anthropicApiKey: anthropicApiKey?.trim(),
+          googleApiKey: '', // @DEV
+        },
         chatMode: {
           model_type: chatModeModelType,
         },
@@ -66,34 +72,73 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   return (
     <div id="settingsWindowContainer-1-local_1_basic" className="row">
       <div className="row">
-        <div>
-          <Tooltip
-            title={
-              <>
-                {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
-                <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
-                  {t.get('Click here')}
-                </a>
-                <br />
-                <br />
-                {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
-              </>
-            }
-          >
-            <label htmlFor="openAIApiKeyInput">
-              OpenAI API key
-              <InfoCircleOutlined className="px-1" />:{' '}
-              <input
+        <Form
+          layout="horizontal"
+          initialValues={{
+            openAIApiKey,
+            anthropicApiKey,
+          }}
+        >
+          <div className="openAIApiKey flex items-center">
+            <Tooltip
+              title={
+                <>
+                  {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
+                  <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
+                    {t.get('Click here')}
+                  </a>
+                  <br />
+                  <br />
+                  {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
+                </>
+              }
+            >
+              <Form.Item
+                className="m-0"
+                name="openAIApiKey"
+                label={
+                  <>
+                    OpenAI API key <InfoCircleOutlined className="px-1" />
+                  </>
+                }
+                style={{ width: 300 }}
+              >
+                <Input
+                  type="password"
+                  size="small"
+                  value={openAIApiKey}
+                  onChange={(event) => {
+                    setOpenAIApiKey(event.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Tooltip>
+            {openAIApiKey && <span className="ml-1 ">({openAIApiKey?.slice(-6).toLowerCase()})</span>}
+          </div>
+          <div className="anthropicApiKey flex items-center">
+            <Form.Item
+              className="m-0"
+              name="anthropicApiKey"
+              label={
+                <>
+                  Anthropic API key
+                  {/* <InfoCircleOutlined className="px-1" /> */}
+                </>
+              }
+              style={{ width: 300 }}
+            >
+              <Input
                 type="password"
-                id="openAIApiKeyInput"
-                name="openAIApiKeyInput"
-                value={openAIApiKey ?? ''}
-                onChange={(e) => setOpenAIApiKey(e.target.value)}
-              />{' '}
-              {openAIApiKey && <>({openAIApiKey.slice(-6).toLowerCase()})</>}
-            </label>
-          </Tooltip>
-        </div>
+                size="small"
+                value={anthropicApiKey}
+                onChange={(event) => {
+                  setAnthropicApiKey(event.target.value);
+                }}
+              />
+            </Form.Item>
+            {anthropicApiKey && <span className="ml-1 ">({anthropicApiKey?.slice(-6).toLowerCase()})</span>}
+          </div>
+        </Form>
       </div>
 
       {/* <div className="row" style={{ marginTop: '.75rem' }}>
@@ -133,7 +178,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={SLLM.getAllLLM_selectOptions(t)}
+          options={SLLM_v2_common.getAllLLM_selectOptions(t)}
           style={{
             width: 200,
           }}

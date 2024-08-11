@@ -26,8 +26,8 @@ import IStoreStorageFile, {
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
-import { SLLM } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM';
-
+import { SLLM_v2_common } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -36,7 +36,10 @@ import {
   IPromode_v4_tabPane_context,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { getProMode_v4_from_backend } from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
-import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData as IUserData,
+  to_deprecate_IUserData_default as IUserData_default,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import IInputsCacheFile, { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
@@ -47,7 +50,6 @@ import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/inte
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_00_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
-import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { HorizontalScrollingBanner } from './components/HorizontalScrollingBanner';
 
 const getCreationModeOptions = (t: IGetT_frontend_output) => {
@@ -75,8 +77,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
   });
   const {
-    openAIApiKey: modelSecret,
-    proMode: { model_type },
+    apiKeys: llmOption_secrets,
+    proMode: { model_type: llmName_from_store },
   } = localDataFromStorage;
 
   const { Token: { accessToken: userAccessToken } = {} } = userData;
@@ -100,7 +102,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   // ModelOptions
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
-  const [proModeModelType, setProModeModelType] = useState<ELLM_name>(model_type);
+  const [llmName, setLLMName] = useState<ELLM_name>(llmName_from_store);
   // === ProMode tabPane settings - end ===
 
   const init = useCallback(async () => {
@@ -217,19 +219,19 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
             <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
 
             <Select
-              value={proModeModelType}
+              value={llmName}
               showSearch
               placeholder={t.get('Select Model')}
               optionFilterProp="children"
               onChange={(value: string) => {
                 console.log(`selected ${value}`);
-                setProModeModelType(value as ELLM_name);
+                setLLMName(value as ELLM_name);
               }}
               onSearch={(value: string) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM.getAllLLM_selectOptions(t)}
+              options={SLLM_v2_common.getAllLLM_selectOptions(t)}
               style={{
                 width: 180,
               }}
@@ -248,7 +250,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
         </div>
 
         <div className="row bottom_block_tabs">
-          <ProModeModelValueProvider value={proModeModelType}>
+          <ProModeModelValueProvider value={llmName}>
             <CreativityValueProvider value={creativityValue}>
               <Tabs
                 size="small"
@@ -286,8 +288,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                             >
                           }
                           userAccessToken={userAccessToken}
-                          modelSecret={modelSecret}
-                          proModeModelType={proModeModelType}
+                          llmOption_secrets={llmOption_secrets}
+                          llmName={llmName}
                           inputsCache={inputsCache}
                           setInputsCache={setInputsCache}
                         />

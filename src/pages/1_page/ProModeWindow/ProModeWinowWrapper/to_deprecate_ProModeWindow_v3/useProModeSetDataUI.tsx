@@ -6,7 +6,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/conf
 import { EServiceCategoryDB_name } from '../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EServiceCategoryDB';
 import IProMode_v3File, { IProMode_v3 } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { IProMode_v3_oneProMode } from '../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
-import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { to_deprecate_IUserData as IUserData } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { useProModeSetData } from '../../../../../gpt-ai-flow-common/hooks/useProModeSetData';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 

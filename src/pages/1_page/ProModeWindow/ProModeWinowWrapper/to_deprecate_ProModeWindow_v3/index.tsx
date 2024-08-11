@@ -17,7 +17,10 @@ import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/conte
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { EServiceCategoryDB_name } from '../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EServiceCategoryDB';
-import { IUserData, IUserData_default } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData,
+  to_deprecate_IUserData_default,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 
 import IStoreStorageFile, {
   IStoreStorageLocalSettings,
@@ -43,8 +46,8 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
 
   // === Stripe subscription - start ===
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
+  const userDataFromStorage: to_deprecate_IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? to_deprecate_IUserData_default;
   });
   const localDataFromStorage: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
@@ -55,7 +58,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
 
   const { userData } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {
+    onUserDataChange: (newUserData_without_token: to_deprecate_IUserData) => {
       dispatch(updateSpecificUserData(newUserData_without_token) as any);
     },
     locale: t.currentLocale,

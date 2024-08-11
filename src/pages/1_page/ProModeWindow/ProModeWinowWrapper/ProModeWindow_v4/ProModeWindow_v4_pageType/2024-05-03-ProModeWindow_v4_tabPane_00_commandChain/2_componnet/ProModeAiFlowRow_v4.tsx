@@ -28,17 +28,18 @@ import { IStoreStorageLocalSettings } from '../../../../../../../../gpt-ai-flow-
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IAIFlow_v2 } from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import TCryptoJSFile from '../../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-
-import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
-import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
 import { IProMode_v4_tabPane_example } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
-import { IUserData } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { to_deprecate_IUserData as IUserData } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IPrompt } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { ELLM_name } from '../../../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
+import { SLLM_v2_common } from '../../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+
+import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
+import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
 
 const { TextArea } = Input;
 
@@ -57,7 +58,7 @@ interface ProModeAIFlowRow_v4_input {
   };
 }
 export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
-  const proModeModalValue = useProModeModelValueProviderContext();
+  const llmName = useProModeModelValueProviderContext();
   const creativityValue = useCreativityValueContext();
 
   const {
@@ -75,7 +76,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
   const {
     locale,
-    openAIApiKey: modelSecret,
+    apiKeys: { openAIApiKey, anthropicApiKey, googleApiKey },
     proMode: { model_type },
   } = localDataFromStorage;
 
@@ -383,8 +384,8 @@ ${t.get('Original content')}: """${exampleText}"""`,
         /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postLangchainChatChain(
           {
             llmOptions: {
-              llmName: proModeModalValue,
-              llmSecret: modelSecret,
+              llmName,
+              llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, { openAIApiKey, anthropicApiKey, googleApiKey }),
               llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],

@@ -27,12 +27,14 @@ import {
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { EProMode_v4_tabPane_context_type } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
 import { IAdjust_IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+
+import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -48,7 +50,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
-  const { t, userAccessToken, modelSecret, proModeModelType, inputsCache, setInputsCache } = props;
+  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
   inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -123,8 +125,8 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
     const newHumanRequest: to_deprecate_ILangchain_for_type_langchain_request_v3 = {
       productItem_type: to_deprecate_EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
-        llmName: proModeModelType,
-        llmSecret: modelSecret,
+        llmName,
+        llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
         llmTemperature: creativityValue,
       },
       type: contextType,

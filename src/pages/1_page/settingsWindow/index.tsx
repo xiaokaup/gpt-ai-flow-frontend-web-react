@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { IReduxRootState } from '../../../store/reducer';
 
-import { IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { to_deprecate_IUserData as IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IStoreStorageLocalSettings,

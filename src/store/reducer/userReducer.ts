@@ -1,4 +1,7 @@
-import { IUserData, IUserData_default } from '../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData,
+  to_deprecate_IUserData_default,
+} from '../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import {
   USER_GET_USER_PROFILE_BY_EMAIL_v2,
   USER_LOGIN,
@@ -9,9 +12,9 @@ import {
 } from '../actions/userActions';
 import { IAction } from '../store';
 
-export type IUserReducerState = IUserData;
+export type IUserReducerState = to_deprecate_IUserData;
 
-export const userReducer = (state: IUserReducerState = IUserData_default, action: IAction) => {
+export const userReducer = (state: IUserReducerState = to_deprecate_IUserData_default, action: IAction) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -46,7 +49,7 @@ export const userReducer = (state: IUserReducerState = IUserData_default, action
         isBetaUser: payload.isBetaUser,
       };
     case USER_LOGOUT:
-      return IUserData_default;
+      return to_deprecate_IUserData_default;
     case USER_UPDATE_USER_PASSWORD_V1:
     case USER_GET_USER_PROFILE_BY_EMAIL_v2:
     case USER_SIGN_UP:

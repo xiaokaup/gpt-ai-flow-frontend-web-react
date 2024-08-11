@@ -13,7 +13,7 @@ import {
   IStoreStorageLocalSettings_default,
 } from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { getUser } from '../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
-import { IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import { to_deprecate_IUserData as IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
@@ -36,6 +36,8 @@ export const AuthPage = (props: IAuthPage_input) => {
   const userId = query.get('id');
   const accessToken = query.get('accessToken');
   const openAIApiKey = query.get('openAIApiKey');
+  const anthropicApiKey = query.get('anthropicApiKey');
+  const googleApiKey = query.get('googleApiKey');
   const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.OPENAI_GPT_3_5_TURBO;
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
   const redirect = query.get('redirect');
@@ -55,7 +57,13 @@ export const AuthPage = (props: IAuthPage_input) => {
 
     const newLocalSettingsFromStore = { ...localSettingsFromStore };
     if (openAIApiKey) {
-      newLocalSettingsFromStore.openAIApiKey = openAIApiKey.trim();
+      newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey.trim();
+    }
+    if (anthropicApiKey) {
+      newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey.trim();
+    }
+    if (googleApiKey) {
+      newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey.trim();
     }
     if (proMode_llm_name) {
       newLocalSettingsFromStore.proMode.model_type = proMode_llm_name;

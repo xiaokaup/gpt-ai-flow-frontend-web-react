@@ -6,7 +6,10 @@ import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
 import { EStripePrice_nickname } from './gpt-ai-flow-common/enum-app/EStripe';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
-import { IUserData, IUserData_default } from './gpt-ai-flow-common/interface-app/3_unit/IUserData';
+import {
+  to_deprecate_IUserData as IUserData,
+  to_deprecate_IUserData_default as IUserData_default,
+} from './gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TBackendStripeFile from './gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
