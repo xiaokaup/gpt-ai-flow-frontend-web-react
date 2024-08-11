@@ -56,6 +56,16 @@ export const AuthPage = (props: IAuthPage_input) => {
     }
 
     const newLocalSettingsFromStore = { ...localSettingsFromStore };
+
+    // Init apiKeys in store
+    if (!newLocalSettingsFromStore.apiKeys) {
+      newLocalSettingsFromStore.apiKeys = {
+        openAIApiKey: '',
+        anthropicApiKey: '',
+        googleApiKey: '',
+      };
+    }
+
     if (openAIApiKey) {
       newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey.trim();
     }
@@ -65,6 +75,7 @@ export const AuthPage = (props: IAuthPage_input) => {
     if (googleApiKey) {
       newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey.trim();
     }
+
     if (proMode_llm_name) {
       newLocalSettingsFromStore.proMode.model_type = proMode_llm_name;
     }
