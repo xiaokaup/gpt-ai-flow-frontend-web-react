@@ -37,6 +37,7 @@ export const AuthPage = (props: IAuthPage_input) => {
   const accessToken = query.get('accessToken');
   const openAIApiKey = query.get('openAIApiKey');
   const anthropicApiKey = query.get('anthropicApiKey');
+  const googleApiKey = query.get('googleApiKey');
   const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.OPENAI_GPT_3_5_TURBO;
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
   const redirect = query.get('redirect');
@@ -60,6 +61,9 @@ export const AuthPage = (props: IAuthPage_input) => {
     }
     if (anthropicApiKey) {
       newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey.trim();
+    }
+    if (googleApiKey) {
+      newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey.trim();
     }
     if (proMode_llm_name) {
       newLocalSettingsFromStore.proMode.model_type = proMode_llm_name;
