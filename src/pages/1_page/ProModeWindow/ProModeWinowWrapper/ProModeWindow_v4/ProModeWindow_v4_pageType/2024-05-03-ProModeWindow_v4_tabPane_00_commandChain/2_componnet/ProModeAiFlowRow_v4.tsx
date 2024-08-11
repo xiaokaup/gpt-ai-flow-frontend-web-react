@@ -76,9 +76,10 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
   const {
     locale,
-    apiKeys: { openAIApiKey, anthropicApiKey, googleApiKey },
+    apiKeys,
     proMode: { model_type },
   } = localDataFromStorage;
+  const { openAIApiKey, anthropicApiKey, googleApiKey } = apiKeys ?? {};
 
   if (!userAccessToken) {
     return (
