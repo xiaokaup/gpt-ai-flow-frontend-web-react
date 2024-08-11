@@ -76,7 +76,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
   const {
     locale,
-    apiKeys: { openAIApiKey, anthropicApiKey },
+    apiKeys: { openAIApiKey, anthropicApiKey, googleApiKey },
     proMode: { model_type },
   } = localDataFromStorage;
 
@@ -385,7 +385,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           {
             llmOptions: {
               llmName,
-              llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, { openAIApiKey, anthropicApiKey }),
+              llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, { openAIApiKey, anthropicApiKey, googleApiKey }),
               llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],

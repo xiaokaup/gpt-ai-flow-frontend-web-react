@@ -49,6 +49,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
         apiKeys: {
           openAIApiKey: openAIApiKey?.trim(),
           anthropicApiKey: anthropicApiKey?.trim(),
+          googleApiKey: '', // @DEV
         },
         chatMode: {
           model_type: chatModeModelType,
