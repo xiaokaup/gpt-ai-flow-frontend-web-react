@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Select, Tag, message } from 'antd';
+import { Select, message } from 'antd';
 
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
@@ -30,7 +30,7 @@ export interface IProModeWindow_v4_wrapper_input {
 }
 export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input) => {
   const { t, tabPane, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
-  const { uuid, context } = tabPane;
+  const { context } = tabPane;
 
   const creativityValue = useCreativityValueContext();
 
@@ -77,7 +77,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             },
           )}
         />
-        {uuid === 'writingPostAgent' && (
+        {/* {uuid === 'writingPostAgent' && (
           <>
             {!(
               selectedContextType.includes('agent') ||
@@ -104,7 +104,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
               </Tag>
             )}
           </>
-        )}
+        )} */}
       </div>
       <div className="row tabPane_context_container">
         {mode === EProMode_v4_tabPane_type.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
