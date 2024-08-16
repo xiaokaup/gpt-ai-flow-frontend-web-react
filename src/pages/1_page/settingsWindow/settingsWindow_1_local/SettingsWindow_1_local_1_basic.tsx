@@ -10,8 +10,8 @@ import { IReduxRootState } from '../../../../store/reducer';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 
 import {
-  IStoreStorageLocalSettings,
-  IStoreStorageLocalSettings_default,
+  IStoreStorage_settings_local,
+  IStoreStorage_settings_local_default,
 } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -27,8 +27,8 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
 
   const { t } = props;
 
-  const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageLocalSettings_default;
+  const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorage_settings_local_default;
   });
 
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
@@ -42,7 +42,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   );
 
   const onSaveLocalSettings = () => {
-    dispatch<IStoreStorageLocalSettings | any>(
+    dispatch<IStoreStorage_settings_local | any>(
       saveLocalAction({
         ...localFromStore,
         openAIApiKey: openAIApiKey?.trim(),

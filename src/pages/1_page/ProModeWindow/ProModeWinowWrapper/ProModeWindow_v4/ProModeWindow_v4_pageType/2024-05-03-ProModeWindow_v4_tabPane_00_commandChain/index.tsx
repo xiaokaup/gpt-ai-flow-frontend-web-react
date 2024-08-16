@@ -23,7 +23,7 @@ import {
 import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import { convert_IAIFlow_v2_to_IAICommands_v4_new } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/TAIFlow_v2';
 import { to_deprecate_IUserData as IUserData } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
-import { IStoreStorageLocalSettings } from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IStoreStorage_settings_local } from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IAICommands_v4_new } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
 
 interface IProModeWindow_v4_tabPane_commandChain_input {
@@ -31,7 +31,7 @@ interface IProModeWindow_v4_tabPane_commandChain_input {
   tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>;
   webCase: {
     userData: IUserData;
-    localDataFromStorage: IStoreStorageLocalSettings;
+    localDataFromStorage: IStoreStorage_settings_local;
   };
 }
 export const ProModeWindow_v4_tabPane_commandChain = (props: IProModeWindow_v4_tabPane_commandChain_input) => {

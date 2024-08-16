@@ -24,7 +24,7 @@ import { LangchainRetrivalService } from '../../../../../../../../gpt-ai-flow-co
 import { IBuildOpenAIPrompts_ouput } from '../../../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELangchainRetrievalDocType } from '../../../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import { IStoreStorageLocalSettings } from '../../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IStoreStorage_settings_local } from '../../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IAIFlow_v2 } from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import TCryptoJSFile from '../../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
@@ -54,7 +54,7 @@ interface ProModeAIFlowRow_v4_input {
   aiCommandsSettings: IAICommands_v4_new[];
   webCase: {
     userData: IUserData;
-    localDataFromStorage: IStoreStorageLocalSettings;
+    localDataFromStorage: IStoreStorage_settings_local;
   };
 }
 export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {

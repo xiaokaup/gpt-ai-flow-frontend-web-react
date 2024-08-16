@@ -23,7 +23,7 @@ import {
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 
 import IStoreStorageFile, {
-  IStoreStorageLocalSettings,
+  IStoreStorage_settings_local,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -49,8 +49,8 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   const userDataFromStorage: to_deprecate_IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? to_deprecate_IUserData_default;
   });
-  const localDataFromStorage: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  const localDataFromStorage: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
   });
   const {
     proMode: { model_type },

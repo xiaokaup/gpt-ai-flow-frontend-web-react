@@ -1,8 +1,8 @@
-import { IStoreStorageLocalSettings } from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IStoreStorage_settings_local } from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 export const SAVE_LOCAL = 'SAVE_LOCAL';
 export const saveLocalAction =
-  (newLocalSettings: IStoreStorageLocalSettings) =>
+  (newLocalSettings: IStoreStorage_settings_local) =>
   async (
     dispatch: any,
     // getState: () => IReduxRootState

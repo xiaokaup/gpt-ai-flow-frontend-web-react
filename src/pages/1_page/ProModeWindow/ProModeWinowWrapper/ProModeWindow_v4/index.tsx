@@ -21,7 +21,7 @@ import {
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
 import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import IStoreStorageFile, {
-  IStoreStorageLocalSettings,
+  IStoreStorage_settings_local,
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
@@ -73,8 +73,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   const query = new URLSearchParams(useLocation().search);
   const tabPaneDefault_uuid_from_query = query.get('tabPane_uuid');
 
-  const localDataFromStorage: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  const localDataFromStorage: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
   });
   const {
     apiKeys: llmOption_secrets,

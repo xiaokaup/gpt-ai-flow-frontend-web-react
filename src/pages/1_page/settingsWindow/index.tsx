@@ -6,8 +6,8 @@ import { IReduxRootState } from '../../../store/reducer';
 import { to_deprecate_IUserData as IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IStoreStorageLocalSettings,
-  IStoreStorageLocalSettings_default,
+  IStoreStorage_settings_local,
+  IStoreStorage_settings_local_default,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
 import { SettingsWindow_7_about } from './SettingsWindow_7_about';
@@ -25,8 +25,8 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
   const { t, userData, isAuthenticated } = props;
   // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = userData;
 
-  const localFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageLocalSettings_default;
+  const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorage_settings_local_default;
   });
   const { locale } = localFromStore;
 

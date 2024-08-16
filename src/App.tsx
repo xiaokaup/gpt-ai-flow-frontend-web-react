@@ -17,7 +17,7 @@ import { configureStore } from './store/store';
 
 import { AppRoutes } from './AppRoutes';
 
-// import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+// import IStoreStorageFile, { IStoreStorage_settings_local } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 // import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
 // import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
@@ -28,12 +28,12 @@ const { store, persistor } = configureStore();
 
 // const AppInStoreProvider = () => {
 //   const dispatch = useDispatch();
-//   const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-//     return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+//   const localSettingsFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+//     return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
 //   });
 //   const { localSettings } = useLocalSettings({
 //     localSettingsFromStorage: localSettingsFromStore,
-//     onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
+//     onLocalSettingsChange(newItem: IStoreStorage_settings_local) {
 //       const newLocalSettings = { ...localSettings, ...newItem };
 //       dispatch(saveLocalAction(newLocalSettings) as any);
 //     },
