@@ -15,7 +15,7 @@ import { DynamicFormForSelectValue_v4 } from '../../3_unit/DynamicFormForSelectV
 import { IInputRow_v4_InstructionSelect } from './InputRow_v4_InstructionSelect';
 import { InputRow_v4_OutputIndicatorSelect } from './InputRow_v4_OutputIndicatorSelect';
 import { InputRow_v4_CustomizeTextArea } from './InputRow_v4_CustomizeTextArea';
-import { IStoreStorageLocalSettings } from '../../../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IStoreStorage_settings_local } from '../../../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IAIFlow_v2 } from '../../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import {
   IAICommands_v4_new,
@@ -34,7 +34,7 @@ interface InstructionInputColumn_v4_input {
   setAiComandsResults: React.Dispatch<React.SetStateAction<IAICommands_v4_new_resultRow[]>>;
   webCase: {
     userData: IUserData;
-    localDataFromStorage: IStoreStorageLocalSettings;
+    localDataFromStorage: IStoreStorage_settings_local;
   };
 }
 

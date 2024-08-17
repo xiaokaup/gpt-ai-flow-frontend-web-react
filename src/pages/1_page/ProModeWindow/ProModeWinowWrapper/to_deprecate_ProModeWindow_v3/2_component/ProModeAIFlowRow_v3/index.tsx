@@ -22,7 +22,7 @@ import TString from '../../../../../../../gpt-ai-flow-common/tools/TString';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
 import IStoreStorageFile, {
-  IStoreStorageLocalSettings,
+  IStoreStorage_settings_local,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { useUserData } from '../../../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useLocalSettings } from '../../../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
@@ -83,12 +83,12 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   } = props;
   const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(contextHandled);
 
-  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  const localSettingsFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
   });
   const { localSettings } = useLocalSettings({
     localSettingsFromStorage: localSettingsFromStore,
-    onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
+    onLocalSettingsChange(newItem: IStoreStorage_settings_local) {
       const newLocalSettings = { ...localSettings, ...newItem };
       dispatch(saveLocalAction(newLocalSettings) as any);
     },

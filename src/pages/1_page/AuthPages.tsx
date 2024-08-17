@@ -9,8 +9,8 @@ import { USER_LOGIN } from '../../store/actions/userActions';
 import { saveLocalAction } from '../../store/actions/localActions';
 
 import {
-  IStoreStorageLocalSettings,
-  IStoreStorageLocalSettings_default,
+  IStoreStorage_settings_local,
+  IStoreStorage_settings_local_default,
 } from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { getUser } from '../../gpt-ai-flow-common/tools/3_unit/TBackendUser';
 import { to_deprecate_IUserData as IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
@@ -28,8 +28,8 @@ export const AuthPage = (props: IAuthPage_input) => {
 
   const { t } = props;
 
-  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageLocalSettings_default;
+  const localSettingsFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorage_settings_local_default;
   });
 
   const query = new URLSearchParams(useLocation().search);
@@ -84,7 +84,7 @@ export const AuthPage = (props: IAuthPage_input) => {
     }
 
     dispatch({ type: USER_LOGIN, payload: userDataFound });
-    dispatch<IStoreStorageLocalSettings | any>(saveLocalAction(newLocalSettingsFromStore));
+    dispatch<IStoreStorage_settings_local | any>(saveLocalAction(newLocalSettingsFromStore));
 
     await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 

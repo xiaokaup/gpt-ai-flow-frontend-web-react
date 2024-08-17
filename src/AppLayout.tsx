@@ -9,7 +9,9 @@ import { IReduxRootState } from './store/reducer';
 
 import { ELocale } from './gpt-ai-flow-common/enum-app/ELocale';
 import { useLocalSettings } from './gpt-ai-flow-common/hooks/useLocalSettings';
-import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import IStoreStorageFile, {
+  IStoreStorage_settings_local,
+} from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 import { EStripePrice_nickname } from './gpt-ai-flow-common/enum-app/EStripe';
 
@@ -31,12 +33,12 @@ const AppMenu = (props: {
 
   const dispatch = useDispatch();
 
-  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  const localSettingsFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
   });
   const { localSettings } = useLocalSettings({
     localSettingsFromStorage: localSettingsFromStore,
-    onLocalSettingsChange(newItem: IStoreStorageLocalSettings) {
+    onLocalSettingsChange(newItem: IStoreStorage_settings_local) {
       const newLocalSettings = { ...localSettings, ...newItem };
       dispatch<any>(saveLocalAction(newLocalSettings));
     },

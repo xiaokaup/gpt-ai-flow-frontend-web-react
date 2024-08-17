@@ -10,7 +10,9 @@ import {
   to_deprecate_IUserData as IUserData,
   to_deprecate_IUserData_default as IUserData_default,
 } from './gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
-import IStoreStorageFile, { IStoreStorageLocalSettings } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import IStoreStorageFile, {
+  IStoreStorage_settings_local,
+} from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TBackendStripeFile from './gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 import { NewsPage } from './pages/1_page/NewsPage';
@@ -36,8 +38,8 @@ export const AppRoutes = () => {
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserData_default;
   });
-  const localSettingsFromStore: IStoreStorageLocalSettings = useSelector((state: IReduxRootState) => {
-    return state.local ?? IStoreStorageFile.IStoreStorageLocalSettings_default;
+  const localSettingsFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
   });
   const { locale } = localSettingsFromStore;
   const t = getT(locale);
