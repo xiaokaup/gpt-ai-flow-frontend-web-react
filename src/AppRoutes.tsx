@@ -51,9 +51,8 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const {
-    Token: { accessToken },
-  } = userData;
+  const { Token } = userData;
+  const { accessToken } = Token ?? {};
 
   const { stripePriceNicknames_from_allSbuscriptions, isModelEdition } = useStripePriceNicknames_for_allSubscriptions({
     accessToken,
