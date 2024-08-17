@@ -29,6 +29,7 @@ import { updateSpecificUserData } from './store/actions/userActions';
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { useStripePriceNicknames_for_allSubscriptions } from './gpt-ai-flow-common/hooks/useStripePriceNicknames_for_allSubscriptions';
+import { ITokenDB_default } from './gpt-ai-flow-common/interface-database/ITokenDB';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -51,8 +52,7 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const { Token } = userData;
-  const { accessToken } = Token ?? {};
+  const { Token: { accessToken } = ITokenDB_default } = userData;
 
   const { stripePriceNicknames_from_allSbuscriptions, isModelEdition } = useStripePriceNicknames_for_allSubscriptions({
     accessToken,
