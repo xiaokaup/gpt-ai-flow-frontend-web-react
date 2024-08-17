@@ -247,6 +247,12 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
         height: 1920,
         aspect: 1080 / 1920,
       },
+      {
+        name: 'regular_size_9_16',
+        width: 1920,
+        height: 1080,
+        aspect: 1920 / 1080,
+      },
     ],
   },
 ];
