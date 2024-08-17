@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Tabs, TabsProps } from 'antd';
 
@@ -22,11 +22,10 @@ enum ESettingsWindow_1_local_tabKey {
 
 interface ISettingsWindow_1_local_input {
   t: IGetT_frontend_output;
+  isModelEdition: boolean;
 }
 export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => {
-  const dispatch = useDispatch();
-
-  const { t } = props;
+  const { t, isModelEdition } = props;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserData_default;
@@ -34,7 +33,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
 
   const { userData } = useUserData({
     userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {},
+    onUserDataChange: () => {},
     locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
@@ -56,7 +55,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: t.get('Basic'),
-      children: <SettingsWindow_1_local_basic t={t} />,
+      children: <SettingsWindow_1_local_basic t={t} isModelEdition={isModelEdition} />,
     },
   ];
 

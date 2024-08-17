@@ -20,9 +20,10 @@ interface ISettingsWindow_input {
   t: IGetT_frontend_output;
   userData: IUserData;
   isAuthenticated: boolean;
+  isModelEdition: boolean;
 }
 export const SettingsWindow = (props: ISettingsWindow_input) => {
-  const { t, userData, isAuthenticated } = props;
+  const { t, userData, isAuthenticated, isModelEdition } = props;
   // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = userData;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
@@ -46,7 +47,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
         <SettingsWindow_2_user_3_info t={t} userData={userData} isAuthenticated={isAuthenticated} />
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_1_local t={t} />
+        <SettingsWindow_1_local t={t} isModelEdition={isModelEdition} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_4_payment t={t} localeForSettingsWindow={locale} />

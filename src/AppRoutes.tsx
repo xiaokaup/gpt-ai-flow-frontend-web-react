@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
 import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
-import { EStripePrice_nickname } from './gpt-ai-flow-common/enum-app/EStripe';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
 import {
@@ -13,7 +11,6 @@ import {
 import IStoreStorageFile, {
   IStoreStorage_settings_local,
 } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import TBackendStripeFile from './gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 import { NewsPage } from './pages/1_page/NewsPage';
 import { AuthPage } from './pages/1_page/AuthPages';
@@ -31,6 +28,7 @@ import { IReduxRootState } from './store/reducer';
 import { updateSpecificUserData } from './store/actions/userActions';
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
+import { useStripePriceNicknames_for_allSubscriptions } from './gpt-ai-flow-common/hooks/useStripePriceNicknames_for_allSubscriptions';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -53,28 +51,16 @@ export const AppRoutes = () => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const [stripePriceNicknames_from_allSbuscriptions, setActiveSubscriptionsNicknames] = useState<
-    EStripePrice_nickname[]
-  >([]);
+  const {
+    Token: { accessToken },
+  } = userData;
+
+  const { stripePriceNicknames_from_allSbuscriptions, isModelEdition } = useStripePriceNicknames_for_allSubscriptions({
+    accessToken,
+    locale,
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
   // console.log('stripePriceNicknames_from_allSbuscriptions:', stripePriceNicknames_from_allSbuscriptions);
-
-  const init = async () => {
-    const {
-      Token: { accessToken },
-    } = userData;
-
-    const subscriptionsNicknamesFound: EStripePrice_nickname[] =
-      await TBackendStripeFile.get_stripePriceNicknamesFromAllSbuscriptions_by_userId_backend_v3(
-        accessToken,
-        locale,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-      );
-    setActiveSubscriptionsNicknames(subscriptionsNicknamesFound);
-  };
-
-  useEffect(() => {
-    isAuthenticated && init();
-  }, []);
 
   const Routes_v1 = () => {
     return (
@@ -202,7 +188,12 @@ export const AppRoutes = () => {
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
+                <SettingsWindow
+                  t={t}
+                  userData={userData}
+                  isAuthenticated={isAuthenticated}
+                  isModelEdition={isModelEdition}
+                />
               </AppLayout>
             </div>
           }
@@ -367,7 +358,12 @@ export const AppRoutes = () => {
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <SettingsWindow t={t} userData={userData} isAuthenticated={isAuthenticated} />
+                <SettingsWindow
+                  t={t}
+                  userData={userData}
+                  isAuthenticated={isAuthenticated}
+                  isModelEdition={isModelEdition}
+                />
               </AppLayout>
             </div>
           }
