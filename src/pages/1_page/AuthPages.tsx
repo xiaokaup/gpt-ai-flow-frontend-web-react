@@ -44,7 +44,6 @@ export const AuthPage = (props: IAuthPage_input) => {
 
   const init = async () => {
     const userDataFound: IUserData = await getUser(userId, accessToken, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
-    console.log('userDataFound', userDataFound);
 
     if (!userDataFound) {
       message.error(
@@ -66,15 +65,9 @@ export const AuthPage = (props: IAuthPage_input) => {
       };
     }
 
-    if (openAIApiKey) {
-      newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey.trim();
-    }
-    if (anthropicApiKey) {
-      newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey.trim();
-    }
-    if (googleApiKey) {
-      newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey.trim();
-    }
+    newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey.trim();
+    newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey.trim();
+    newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey.trim();
 
     if (proMode_llm_name) {
       newLocalSettingsFromStore.proMode.model_type = proMode_llm_name;
