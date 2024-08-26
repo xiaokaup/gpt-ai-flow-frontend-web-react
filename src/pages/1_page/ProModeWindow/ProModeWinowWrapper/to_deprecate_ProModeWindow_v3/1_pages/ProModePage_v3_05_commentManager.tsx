@@ -96,7 +96,7 @@ export const ProModePage_v3_05_commentManager = (props: IProModePage_comment_inp
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_05_commentManager_contextTypeStage.DEFAULT);
       return;
     }

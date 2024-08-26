@@ -95,7 +95,7 @@ export const ProModePage_v3_02_copyWritingManager = (props: IProModePage_copyWri
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_02_copyWritingManager_contextTypeStage.DEFAULT);
       return;
     }

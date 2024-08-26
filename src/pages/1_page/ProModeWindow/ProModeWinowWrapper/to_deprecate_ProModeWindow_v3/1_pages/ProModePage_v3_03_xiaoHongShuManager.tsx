@@ -96,7 +96,7 @@ export const ProModePage_v3_03_xiaoHongShuManager = (props: IProModePage_xiaoHon
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_03_xiaoHongShuManager_contextTypeStage.DEFAULT);
       return;
     }
