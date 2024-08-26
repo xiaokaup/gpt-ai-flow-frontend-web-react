@@ -21,12 +21,12 @@ import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
-  isModelEdition: boolean;
+  isModelEdition: boolean; // @DEPRECATED
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { t, isModelEdition } = props;
+  const { t } = props;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorage_settings_local_default;
@@ -179,7 +179,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={SLLM_v2_common.getAllLLM_selectOptions(t, isModelEdition)}
+          options={SLLM_v2_common.getAllLLM_selectOptions(t)}
           style={{
             width: 200,
           }}
