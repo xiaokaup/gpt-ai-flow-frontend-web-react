@@ -29,7 +29,7 @@ import IStoreStorageFile, {
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ITabPanel } from './proModeWindowType';
-import { SLLM } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM';
+import { SLLM_v2_common } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
@@ -289,7 +289,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM.getAllLLM_selectOptions(t)}
+              options={SLLM_v2_common.getAllLLM_selectOptions(t)}
               style={{
                 width: 180,
               }}

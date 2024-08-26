@@ -52,6 +52,7 @@ import {
 import { IPrompt } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 import { ELLM_name } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
+import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 const { TextArea } = Input;
 
@@ -93,7 +94,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       dispatch(saveLocalAction(newLocalSettings) as any);
     },
   });
-  const { locale, openAIApiKey } = localSettings;
+  const { locale, apiKeys: llmOption_secrets } = localSettings;
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserData_default;
@@ -434,7 +435,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           {
             llmOptions: {
               llmName: proModeModalValue,
-              llmSecret: openAIApiKey,
+              llmSecret: SLLM_v2_common.getApiKey_by_llmName(proModeModalValue, llmOption_secrets),
               llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],
