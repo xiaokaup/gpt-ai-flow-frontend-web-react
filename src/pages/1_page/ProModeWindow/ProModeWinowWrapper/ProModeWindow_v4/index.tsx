@@ -51,7 +51,6 @@ import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageTy
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 import { HorizontalScrollingBanner } from './components/HorizontalScrollingBanner';
-import { useStripePriceNicknames_for_allSubscriptions } from '../../../../../gpt-ai-flow-common/hooks/useStripePriceNicknames_for_allSubscriptions';
 
 const getCreationModeOptions = (t: IGetT_frontend_output) => {
   return [
@@ -93,11 +92,11 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     );
   }
 
-  const { isModelEdition } = useStripePriceNicknames_for_allSubscriptions({
-    accessToken: userAccessToken,
-    locale,
-    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-  });
+  // const { isModelEdition } = useStripePriceNicknames_for_allSubscriptions({
+  //   accessToken: userAccessToken,
+  //   locale,
+  //   env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  // });
 
   // === ProMode Data - start ===
   const [proMode_v4_tabPanes, setProMode_v4_tabPanes] = useState<IProMode_v4['tabPanes']>([]);
@@ -238,7 +237,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 console.log('search:', value);
               }}
               filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM_v2_common.getAllLLM_selectOptions(t, isModelEdition)}
+              options={SLLM_v2_common.getAllLLM_selectOptions(t)}
               style={{
                 width: 180,
               }}
