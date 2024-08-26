@@ -96,7 +96,7 @@ export const ProModePage_v3_06_careerManager = (props: IProModePage_career_input
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_06_careerManager_contextTypeStage.DEFAULT);
       return;
     }

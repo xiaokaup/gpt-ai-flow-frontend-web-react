@@ -93,7 +93,7 @@ export const ProModePage_v3_07_upZhu = (props: IProModePage_copyWriting_input) =
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_07_upZhu_contextTypeStage.DEFAULT);
       return;
     }

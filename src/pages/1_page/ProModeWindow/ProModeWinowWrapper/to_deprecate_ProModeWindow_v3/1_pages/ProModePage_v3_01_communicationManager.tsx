@@ -96,7 +96,7 @@ export const ProModePage_v3_01_communicationManager = (props: IProModePage_commu
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_01_communicationManager_contextTypeStage.DEFAULT);
       return;
     }

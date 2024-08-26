@@ -96,7 +96,7 @@ export const ProModePage_v3_04_aiAssistant = (props: IProModePage_copyWriting_in
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_04_aiAssistant_contextTypeStage.DEFAULT);
       return;
     }

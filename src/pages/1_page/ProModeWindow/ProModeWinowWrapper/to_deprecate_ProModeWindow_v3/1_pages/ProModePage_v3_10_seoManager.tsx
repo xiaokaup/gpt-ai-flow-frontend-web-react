@@ -94,7 +94,7 @@ export const ProModePage_v3_10_seoManager = (props: IProModePage_copyWriting_inp
     const selectedValue = contexts[contextType]?.stages[contextTypeStage]?.value;
     const selectedExamples = contexts[contextType]?.stages[contextTypeStage]?.examples ?? [];
 
-    if (!selectedDefaultValue || !selectedValue) {
+    if (!selectedDefaultValue) {
       setContextTypeStage(EProMode_v3_10_seoManager_contextTypeStage.DEFAULT);
       return;
     }
