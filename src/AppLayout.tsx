@@ -207,8 +207,8 @@ export const AppLayout = (props: Layout_input) => {
       {/* Footer */}
       <Footer style={{ textAlign: 'center' }}>
         Copyright © {new Date().getFullYear()} GPT AI Flow Powered by{' '}
-        <a href="https://digitechjoy.com/" style={{ color: '#000' }}>
-          DigitechJoy
+        <a href="https://www.flowverse.io/" style={{ color: '#000' }}>
+          Flowverse
         </a>
       </Footer>
     </Layout>
@@ -247,8 +247,8 @@ export const AppLayoutCenter = (props: Layout_input) => {
       {/* Footer */}
       <Footer style={{ textAlign: 'center' }}>
         Copyright © {new Date().getFullYear()} GPT AI Flow Powered by{' '}
-        <a href="https://digitechjoy.com/" style={{ color: '#000' }}>
-          DigitechJoy
+        <a href="https://www.flowverse.io/" style={{ color: '#000' }}>
+          Flowverse
         </a>
       </Footer>
     </Layout>
