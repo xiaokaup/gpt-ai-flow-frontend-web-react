@@ -30,7 +30,7 @@ export const SettingsWindow_7_about = (props: SettingsWindow_7_about_input) => {
 
       <hr />
       <div className="row">
-        <span>{t.get('Release version')}: v0.1.69</span>
+        <span>{t.get('Release version')}: 0.1.72</span>
       </div>
     </div>
   );
