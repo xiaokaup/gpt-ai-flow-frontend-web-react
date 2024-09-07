@@ -325,30 +325,28 @@ ${t.get('Original content')}: """${exampleText}"""`,
     try {
       const { signal } = requestController;
 
-      // eslint-disable-next-line no-use-before-define
       const promptsResults = buildOpenAIPrompts_v5(index, aiCommands, aiComandsResults);
       const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
-      // eslint-disable-next-line @typescript-eslint/no-shadow
       const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(systemPrompt.content);
 
-      const beforeSendRequestFunc = () => {
-        console.log('beforeSendRequestAsStreamFunc');
+      const afterReceiveResponseFunc = () => {
+        console.log('afterReceiveResponseFunc');
       };
 
-      const updateResultsFunc = (paraIndex: number) => (resultText: string) => {
+      const beforeHandleStreamFunc = () => {
+        console.log('beforeHandleStreamFunc');
+      };
+
+      const handleAndUpdateMessage_with_streamFunc = (paraIndex: number) => (resultText: string) => {
         // console.log('resultText', resultText);
-        // eslint-disable-next-line no-use-before-define
         aiComandsResults[paraIndex].value = resultText || '';
-        // eslint-disable-next-line no-use-before-define
         aiComandsResults[paraIndex].isEditing = false;
-        // eslint-disable-next-line no-use-before-define
         setAiComandsResults(aiComandsResults);
-        // eslint-disable-next-line no-use-before-define
         setUpdateRequestResultsCount((prevState) => prevState + 1); // Refresh the component
       };
 
-      const afterEndRequestFunc = (paraIndex: number) => () => {
-        console.log('AfterRequestAsStreamFunc', paraIndex);
+      const afterHandleStreamFunc = (paraIndex: number) => () => {
+        console.log('afterHandleStreamFunc', paraIndex);
       };
 
       if (isUseOfficialDatabase && langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC) {
@@ -363,11 +361,9 @@ ${t.get('Original content')}: """${exampleText}"""`,
               temperature: 0.8,
             },
           },
-          beforeSendRequestFunc,
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          updateResultsFunc(index),
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          afterEndRequestFunc(index),
+          beforeHandleStreamFunc,
+          handleAndUpdateMessage_with_streamFunc(index),
+          afterHandleStreamFunc(index),
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
@@ -392,11 +388,10 @@ ${t.get('Original content')}: """${exampleText}"""`,
             history: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
           },
-          beforeSendRequestFunc,
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          updateResultsFunc(index),
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          afterEndRequestFunc(index),
+          afterReceiveResponseFunc,
+          beforeHandleStreamFunc,
+          handleAndUpdateMessage_with_streamFunc(index),
+          afterHandleStreamFunc(index),
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,

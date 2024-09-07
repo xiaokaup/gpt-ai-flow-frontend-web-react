@@ -117,7 +117,7 @@ export const OutputResultColumn_v4 = (props: IOutputResultColumn_v4_input) => {
               if (!resultsElement) {
                 return;
               }
-              // eslint-disable-next-line promise/catch-or-return, promise/always-return
+
               html2canvas(resultsElement).then(function (canvas) {
                 // Convert canvas to a Blob
                 canvas.toBlob(function (blob) {
@@ -276,7 +276,6 @@ export const OutputResultColumn_v4 = (props: IOutputResultColumn_v4_input) => {
                       onClick={() => {
                         const oneInstructionAiFlowResult = aiCommands[index];
 
-                        // eslint-disable-next-line @typescript-eslint/no-shadow
                         const { uuid } = oneInstructionAiFlowResult;
                         console.log('暂停结果', uuid);
 
