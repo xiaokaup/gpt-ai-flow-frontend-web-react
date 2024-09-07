@@ -65,9 +65,9 @@ export const AuthPage = (props: IAuthPage_input) => {
       };
     }
 
-    newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey.trim();
-    newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey.trim();
-    newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey.trim();
+    newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey?.trim();
 
     if (proMode_llm_name) {
       newLocalSettingsFromStore.proMode.model_type = proMode_llm_name;
