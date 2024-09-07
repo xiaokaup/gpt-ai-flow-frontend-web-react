@@ -45,7 +45,6 @@ export const IInputRow_v4_InstructionSelect = (props: IInputRow_v4_InstructionSe
     console.log(`onInstructionCommandsSelectChange selected ${value}`);
     const newAiCommands = [...aiCommands];
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const oneInstruction = aiFlows_type_instruction_selectOptions.find((item) => item.uuid === value);
     if (!oneInstruction) {
       message.error(t.get('Command does not exist'));

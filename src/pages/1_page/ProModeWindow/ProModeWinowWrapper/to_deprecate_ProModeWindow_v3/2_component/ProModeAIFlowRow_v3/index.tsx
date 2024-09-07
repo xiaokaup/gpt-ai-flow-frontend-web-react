@@ -382,11 +382,15 @@ ${t.get('Original content')}: """${exampleText}"""`,
       const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
       const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(systemPrompt.content);
 
-      const beforeSendRequestFunc = () => {
-        console.log('beforeSendRequestAsStreamFunc');
+      const afterReceiveResponseFunc = () => {
+        console.log('afterReceiveResponseFunc');
       };
 
-      const updateResultsFunc = (index: number) => (resultText: string) => {
+      const beforeHandleStreamFunc = () => {
+        console.log('beforeHandleStreamFunc');
+      };
+
+      const handleAndUpdateMessage_with_streamFunc = (index: number) => (resultText: string) => {
         // console.log('resultText', resultText);
         aiComandsResults[index].value = resultText || '';
         aiComandsResults[index].isEditing = false;
@@ -395,8 +399,8 @@ ${t.get('Original content')}: """${exampleText}"""`,
       };
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const afterEndRequestFunc = (_index: number) => () => {
-        console.log('AfterRequestAsStreamFunc');
+      const afterHandleStreamFunc = (_index: number) => () => {
+        console.log('afterHandleStreamFunc');
       };
 
       if (isUseOfficialDatabase && langchainRetrievalDocType === ELangchainRetrievalDocType.TYPE_XIAO_HONG_SHU_DOC) {
@@ -412,11 +416,9 @@ ${t.get('Original content')}: """${exampleText}"""`,
               temperature: creativityValue,
             },
           },
-          beforeSendRequestFunc,
-          // eslint-disable-next-line @typescript-eslint/no-shadow
-          updateResultsFunc(index),
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          afterEndRequestFunc(index),
+          beforeHandleStreamFunc,
+          handleAndUpdateMessage_with_streamFunc(index),
+          afterHandleStreamFunc(index),
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
@@ -441,10 +443,10 @@ ${t.get('Original content')}: """${exampleText}"""`,
             history: [systemPrompt, ...chatHistory],
             input: inputPrompt.content,
           },
-          beforeSendRequestFunc,
-          updateResultsFunc(index),
-          // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-          afterEndRequestFunc(index),
+          afterReceiveResponseFunc,
+          beforeHandleStreamFunc,
+          handleAndUpdateMessage_with_streamFunc(index),
+          afterHandleStreamFunc(index),
           userAccessToken,
           locale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
