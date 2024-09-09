@@ -3,7 +3,7 @@ import '../../../../styles/layout.scss';
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, Input, Select, Tooltip, message } from 'antd';
+import { Alert, Button, Form, Input, Select, Tooltip, message } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IReduxRootState } from '../../../../store/reducer';
@@ -21,12 +21,12 @@ import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
-  isModelEdition: boolean; // @DEPRECATED
+  isModelEdition: boolean;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { t } = props;
+  const { t, isModelEdition } = props;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorage_settings_local_default;
@@ -80,26 +80,51 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             anthropicApiKey,
           }}
         >
-          <div className="openAIApiKey flex items-center">
-            <Tooltip
-              title={
-                <>
-                  {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
-                  <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
-                    {t.get('Click here')}
-                  </a>
-                  <br />
-                  <br />
-                  {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
-                </>
-              }
-            >
+          <div className={isModelEdition ? 'row block_apiKeys hidden' : 'row block_apiKeys'}>
+            <div className="openAIApiKey flex items-center">
+              <Tooltip
+                title={
+                  <>
+                    {t.get('How to register for an OpenAI account and obtain an OpenAI API key ?')} :{' '}
+                    <a href={getHowToGetOpenAIKeyUrl(t.currentLocale)} target="_blank" rel="noreferrer">
+                      {t.get('Click here')}
+                    </a>
+                    <br />
+                    <br />
+                    {t.get('Use the desktop app to easily store your web API key for seamless use across platforms.')}
+                  </>
+                }
+              >
+                <Form.Item
+                  className="m-0"
+                  name="openAIApiKey"
+                  label={
+                    <>
+                      OpenAI API key <InfoCircleOutlined className="px-1" />
+                    </>
+                  }
+                  style={{ width: 300 }}
+                >
+                  <Input
+                    type="password"
+                    size="small"
+                    value={openAIApiKey}
+                    onChange={(event) => {
+                      setOpenAIApiKey(event.target.value);
+                    }}
+                  />
+                </Form.Item>
+              </Tooltip>
+              {openAIApiKey && <span className="ml-1 ">({openAIApiKey?.slice(-6).toLowerCase()})</span>}
+            </div>
+            <div className="anthropicApiKey flex items-center">
               <Form.Item
                 className="m-0"
-                name="openAIApiKey"
+                name="anthropicApiKey"
                 label={
                   <>
-                    OpenAI API key <InfoCircleOutlined className="px-1" />
+                    Anthropic API key
+                    {/* <InfoCircleOutlined className="px-1" /> */}
                   </>
                 }
                 style={{ width: 300 }}
@@ -107,37 +132,23 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
                 <Input
                   type="password"
                   size="small"
-                  value={openAIApiKey}
+                  value={anthropicApiKey}
                   onChange={(event) => {
-                    setOpenAIApiKey(event.target.value);
+                    setAnthropicApiKey(event.target.value);
                   }}
                 />
               </Form.Item>
-            </Tooltip>
-            {openAIApiKey && <span className="ml-1 ">({openAIApiKey?.slice(-6).toLowerCase()})</span>}
-          </div>
-          <div className="anthropicApiKey flex items-center">
-            <Form.Item
-              className="m-0"
-              name="anthropicApiKey"
-              label={
-                <>
-                  Anthropic API key
-                  {/* <InfoCircleOutlined className="px-1" /> */}
-                </>
-              }
-              style={{ width: 300 }}
-            >
-              <Input
-                type="password"
-                size="small"
-                value={anthropicApiKey}
-                onChange={(event) => {
-                  setAnthropicApiKey(event.target.value);
-                }}
+              {anthropicApiKey && <span className="ml-1 ">({anthropicApiKey?.slice(-6).toLowerCase()})</span>}
+            </div>
+            {/* GoogleAPIKey */}
+            <div className="block_alert_info pt-2">
+              <Alert
+                type="info"
+                message={t.get(
+                  'Note: Some regions may have network access restrictions. If you are unable to use the free version or non-model version of this product normally in your area, please consider using network proxy or VPN tools to improve connectivity. Please comply with relevant local laws and regulations.',
+                )}
               />
-            </Form.Item>
-            {anthropicApiKey && <span className="ml-1 ">({anthropicApiKey?.slice(-6).toLowerCase()})</span>}
+            </div>
           </div>
         </Form>
       </div>
