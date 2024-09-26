@@ -144,7 +144,8 @@ const AppMenu = (props: {
                 <span className="font-bold text-gray-500">{t.get('Free_version')}</span>
               </div>
             )}
-            {stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_TOOLS) && (
+            {(stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_TOOLS) ||
+              stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_TOOLS_ZH)) && (
               // <div className="flex items-center bg-blue-200">
               <div className="flex items-center bg-transparent">
                 <img
@@ -155,7 +156,8 @@ const AppMenu = (props: {
                 <span className="font-bold text-blue-500">{t.get('Tools_version')}</span>
               </div>
             )}
-            {stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS) && (
+            {(stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS) ||
+              stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS_ZH)) && (
               // <div className="flex items-center bg-yellow-100">
               <div className="flex items-center bg-transparent">
                 <img
@@ -166,7 +168,8 @@ const AppMenu = (props: {
                 <span className="font-bold text-yellow-500">{t.get('Lifetime_version')}</span>
               </div>
             )}
-            {stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_MODEL) && (
+            {(stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_MODEL) ||
+              stripePriceNicknames_from_allSbuscriptions.includes(EStripePrice_nickname.STARTAI_MODEL_ZH)) && (
               // <div className="flex items-center bg-green-100">
               <div className="flex items-center bg-transparent">
                 <img
