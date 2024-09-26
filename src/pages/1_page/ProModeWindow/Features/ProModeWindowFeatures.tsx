@@ -3,6 +3,7 @@ import { Input } from 'antd';
 import { isProd } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { Card_with_click } from './Card_with_click';
 import { Card_without_click } from './Card_without_click';
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 
 const { Search } = Input;
 
@@ -602,7 +603,10 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
 
   return (
     <>
-      <div className="search mt-8 flex flex-row-reverse">
+      <div className="search mt-8 px-10 flex justify-between">
+        {locale === ELocale.ZH && <p>请选择专业模块，并开始使用:</p>}
+        {locale === ELocale.EN && <p>Please select a professional module and begin using it:</p>}
+
         <Search
           size="large"
           value={searchInput}
@@ -805,7 +809,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
           />
         </svg>
 
-        {locale === 'en' && (
+        {locale === ELocale.EN && (
           <>
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
               Smart AI, Making Your Self-Media Marketing Easier
@@ -816,7 +820,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
             </p>
           </>
         )}
-        {locale === 'zh' && (
+        {locale === ELocale.ZH && (
           <>
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
               智能AI，让您的自媒体营销更轻松
