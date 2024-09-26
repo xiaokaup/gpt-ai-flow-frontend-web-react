@@ -528,7 +528,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
         return (
           <>
-            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_TOOLS) && (
+            {(itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_TOOLS) ||
+              itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_TOOLS_ZH)) && (
               <>
                 <SettingsWindow_4_payment_subscriptionInfo
                   subscriptionName={EStripePrice_nickname.STARTAI_TOOLS}
@@ -546,7 +547,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
               </>
             )}
 
-            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS) && (
+            {(itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS) ||
+              itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS_ZH)) && (
               <>
                 <SettingsWindow_4_payment_subscriptionInfo
                   subscriptionName={EStripePrice_nickname.STARTAI_LIFETIME_TOOLS}
@@ -564,7 +566,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
               </>
             )}
 
-            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL) && (
+            {(itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL) ||
+              itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL_ZH)) && (
               <>
                 <SettingsWindow_4_payment_subscriptionInfo
                   subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
