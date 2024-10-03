@@ -184,6 +184,10 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               paddingBottom: '.8rem',
             }}
           >
+            <div className="title">
+              <h3 className="m-0">{t.get('ProMode')} v4.0</h3>
+            </div>
+
             <div>
               <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
 
