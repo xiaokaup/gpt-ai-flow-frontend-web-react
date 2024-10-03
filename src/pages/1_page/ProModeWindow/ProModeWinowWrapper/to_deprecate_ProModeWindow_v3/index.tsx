@@ -184,7 +184,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
         style={{ position: 'relative', overflow: 'auto', margin: '1rem auto' }}
       >
         <div
-          className="row top_block"
+          className="row top_block hidden"
           // style={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <div className="row top_block_add_tab">
@@ -249,8 +249,12 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
             marginBottom: '.4rem',
           }}
         >
+          <div className="title">
+            <h3 className="m-0">{t.get('ProMode')} v3.0</h3>
+          </div>
+
           <span style={{ color: '#5D6370', marginLeft: '1rem' }}>
-            {t.get('Creative value')}: {creativityValue}
+            {t.get('Creation value')}: {creativityValue}
           </span>
 
           <Slider
@@ -324,7 +328,8 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
                 hideAdd
                 onChange={onTabsChange}
                 activeKey={activeTabPanelKey}
-                type="editable-card"
+                // type="editable-card"
+                type="card"
                 onEdit={onEditTabPanel}
               >
                 {tabPanels.map((pane) => {
