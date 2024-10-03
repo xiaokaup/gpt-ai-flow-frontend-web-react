@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { IGetNewsDaily_output, getNewsDaily } from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendNews';
+import { IGetNewsDaily_output, getNewsDaily } from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendNews';
 import './index.scss';
-import { IConstantGptAiFlowHandler } from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IConstantGptAiFlowHandler } from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELocale } from '../../../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IGithubTrending,
   IProductHunt,
   IWEIBO_SEARCH,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/INews';
+} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/INews';
 import _ from 'lodash';
 
 interface IHorizontalScrollingBanner_input {

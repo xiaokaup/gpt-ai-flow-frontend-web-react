@@ -17,7 +17,7 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
   const { t, locale } = props.webCase;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [version, setVersion] = useState<string>('v4');
+  const [version, setVersion] = useState<string>('v5');
 
   return (
     <div style={{ width: '100%' }}>

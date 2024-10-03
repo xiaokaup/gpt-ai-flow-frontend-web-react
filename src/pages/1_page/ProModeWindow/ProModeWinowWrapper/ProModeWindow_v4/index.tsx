@@ -50,7 +50,7 @@ import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/inte
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_00_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
-import { HorizontalScrollingBanner } from './components/HorizontalScrollingBanner';
+import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
 
 const getCreationModeOptions = (t: IGetT_frontend_output) => {
   return [
