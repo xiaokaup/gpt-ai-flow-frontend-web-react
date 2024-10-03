@@ -382,7 +382,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
                   <div className="row currentOuput" key={index}>
                     <Langchain_currentOutput
                       t={t}
-                      title={`${contextSelected.currentOutput.title} ${index + 1}` ?? t.get('Post')}
+                      title={contextSelected.currentOutput.title ? `${contextSelected.currentOutput.title} ${index + 1}` : t.get('Post')}
                       currentOutput={item}
                       setCurrentOutput={(newItem: IMessage) => {
                         setMessageExchangeData({
