@@ -17,7 +17,7 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
   const { t, locale } = props.webCase;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [version, setVersion] = useState<string>('v4');
+  const [version, setVersion] = useState<string>('v5');
 
   return (
     <div style={{ width: '100%' }}>
@@ -35,15 +35,15 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
               label: t.get('Version') + ' 4',
               value: 'v4',
             },
-            // {
-            //   label: t.get('Version') + ' 5 (beta)',
-            //   value: 'v5',
-            // },
+            {
+              label: t.get('Version') + ' 5 (beta)',
+              value: 'v5',
+            },
           ]}
         />
       </div>
 
-      {/* {version === 'v5' && <ProModeWindow_v5 t={t} locale={locale} />} */}
+      {version === 'v5' && <ProModeWindow_v5 t={t} locale={locale} />}
       {version === 'v4' && <ProModeWindow_v4 t={t} locale={locale} />}
       {version === 'v3' && <ProModeWindow_v3 t={t} />}
     </div>
