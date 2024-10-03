@@ -14,6 +14,7 @@ const markdownResumeCode = `
       - 帖子内容
       - 图片描述
   - 图片创作能力
+    - 读图能力
     - 文生图能力
 `;
 const mermaidChartCode = `
