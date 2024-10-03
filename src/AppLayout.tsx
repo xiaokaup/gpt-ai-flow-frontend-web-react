@@ -85,6 +85,7 @@ const AppMenu = (props: {
     <Menu
       theme="dark"
       mode="horizontal"
+      className="flex justify-center"
       // defaultSelectedKeys={['1']}
     >
       <Menu.Item key="official-website">
@@ -131,7 +132,7 @@ const AppMenu = (props: {
         </Dropdown>
       </Menu.Item>
       {isAuthenticated && (
-        <Menu.Item key="subscriptionInfo">
+        <Menu.Item key="subscriptionInfo" style={{ position: 'absolute', top: '.5rem', right: '1rem' }}>
           <a href="/app/info#subscription">
             {stripePriceNicknames_from_allSbuscriptions.length === 0 && (
               // <div className="flex items-center bg-gray-100">
