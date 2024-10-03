@@ -10,11 +10,11 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/conf
 
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
 
-import { ReactFlowDemo } from './features/01-ReactFlow';
+import ReactFlowDemo from './features/01-ReactFlow';
+import { WordCloudDemo } from './features/02-WordCloud';
 
 import { OfficerWorker } from './roles/01-OfficerWorker';
 import { ContentWorker } from './roles/02-ContentWorker';
-import { WordCloudDemo } from './features/02-WordCloud';
 
 interface IProModeWindow_v5_input {
   t: IGetT_frontend_output;
