@@ -29,6 +29,7 @@
     "i18next": "^23.12.2",
     "langchain": "^0.2.4",
     "lodash": "^4.17.21",
+    "mermaid": "^11.3.0",
     "node-fetch": "2.7.0",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.1.0",
