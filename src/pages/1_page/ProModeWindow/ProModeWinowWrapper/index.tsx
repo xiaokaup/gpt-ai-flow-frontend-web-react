@@ -24,20 +24,25 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
         <Select
           defaultValue={version}
           onChange={(value) => setVersion(value)}
-          style={{ margin: 'auto' }}
+          style={{ margin: 'auto', width: '8rem' }}
           options={[
             {
-              label: 'version 3',
+              label: t.get('Version') + ' 3',
               value: 'v3',
             },
             {
-              label: 'version 4',
+              label: t.get('Version') + ' 4',
               value: 'v4',
             },
+            // {
+            //   label: t.get('Version') + ' 5 (beta)',
+            //   value: 'v5',
+            // },
           ]}
         />
       </div>
 
+      {/* {version === 'v5' && <ProModeWindow_v5 t={t} locale={locale}/>} */}
       {version === 'v4' && <ProModeWindow_v4 t={t} locale={locale} />}
       {version === 'v3' && <ProModeWindow_v3 t={t} />}
     </div>
