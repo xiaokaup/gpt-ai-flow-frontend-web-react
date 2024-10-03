@@ -166,40 +166,43 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
         <div
           className="row top_block"
           // style={{ display: 'flex', justifyContent: 'space-between' }}
-        />
-
-        <div
-          className="block_creativity_value_slider"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-
-            position: 'sticky',
-            top: 0,
-
-            backgroundColor: '#fff',
-            zIndex: 10,
-            borderBottom: '1px solid #E8E8E8',
-            paddingBottom: '.8rem',
-          }}
         >
-          <div>
-            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
+          <div
+            className="block_creativity_value_slider"
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around',
+              alignItems: 'center',
 
-            <Radio.Group
-              options={getCreationModeOptions(t)}
-              onChange={({ target: { value } }: RadioChangeEvent) => {
-                console.log('radio checked', value);
-                setCreativityValue(value);
-              }}
-              value={creativityValue}
-              optionType="button"
-              buttonStyle="solid"
-            />
+              position: 'sticky',
+              top: 0,
 
-            {/* <Slider
+              backgroundColor: '#fff',
+              zIndex: 10,
+              borderBottom: '1px solid #E8E8E8',
+              paddingBottom: '.8rem',
+            }}
+          >
+            <div className="title">
+              <h3 className="m-0">{t.get('ProMode')} v4.0</h3>
+            </div>
+
+            <div>
+              <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
+
+              <Radio.Group
+                options={getCreationModeOptions(t)}
+                onChange={({ target: { value } }: RadioChangeEvent) => {
+                  console.log('radio checked', value);
+                  setCreativityValue(value);
+                }}
+                value={creativityValue}
+                optionType="button"
+                buttonStyle="solid"
+              />
+
+              {/* <Slider
             min={0}
             max={1.6}
             step={0.1}
@@ -220,42 +223,43 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               marginRight: '2rem',
             }}
           /> */}
-          </div>
-          <div className="modelSwitch">
-            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
+            </div>
+            <div className="modelSwitch">
+              <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
 
-            <Select
-              value={llmName}
-              showSearch
-              placeholder={t.get('Select Model')}
-              optionFilterProp="children"
-              onChange={(value: string) => {
-                console.log(`selected ${value}`);
-                setLLMName(value as ELLM_name);
-              }}
-              onSearch={(value: string) => {
-                console.log('search:', value);
-              }}
-              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={SLLM_v2_common.getAllLLM_selectOptions(t)}
-              style={{
-                width: 180,
+              <Select
+                value={llmName}
+                showSearch
+                placeholder={t.get('Select Model')}
+                optionFilterProp="children"
+                onChange={(value: string) => {
+                  console.log(`selected ${value}`);
+                  setLLMName(value as ELLM_name);
+                }}
+                onSearch={(value: string) => {
+                  console.log('search:', value);
+                }}
+                filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+                options={SLLM_v2_common.getAllLLM_selectOptions(t)}
+                style={{
+                  width: 180,
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="horizontalScrollingBanner">
+            <HorizontalScrollingBanner
+              webCase={{
+                t,
+                locale,
+                env: CONSTANTS_GPT_AI_FLOW_COMMON,
               }}
             />
           </div>
         </div>
 
-        <div className="horizontalScrollingBanner">
-          <HorizontalScrollingBanner
-            webCase={{
-              t,
-              locale,
-              env: CONSTANTS_GPT_AI_FLOW_COMMON,
-            }}
-          />
-        </div>
-
-        <div className="row bottom_block_tabs">
+        <div className="row !mt-0 bottom_block_tabs">
           <ProModeModelValueProvider value={llmName}>
             <CreativityValueProvider value={creativityValue}>
               <Tabs
