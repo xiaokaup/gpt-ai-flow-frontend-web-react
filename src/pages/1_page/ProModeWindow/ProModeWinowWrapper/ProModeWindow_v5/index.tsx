@@ -10,8 +10,8 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/conf
 
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
 
-import { ContentWorker } from './roles/01-ContentWorker';
-import { OfficerWorker } from './roles/02-OfficerWorker';
+import { OfficerWorker } from './roles/01-OfficerWorker';
+import { ContentWorker } from './roles/02-ContentWorker';
 
 interface IProModeWindow_v5_input {
   t: IGetT_frontend_output;
@@ -53,11 +53,11 @@ export const ProModeWindow_v5 = (props: IProModeWindow_v5_input) => {
                 // onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
-                <Tabs.TabPane tab={'内容创作者'} key={'content-worker'} disabled={false}>
-                  <ContentWorker />
-                </Tabs.TabPane>
                 <Tabs.TabPane tab={'职场工作者'} key={'office-worker'} disabled={false}>
                   <OfficerWorker />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab={'内容创作者'} key={'content-worker'} disabled={false}>
+                  <ContentWorker />
                 </Tabs.TabPane>
               </Tabs>
             </CreativityValueProvider>
