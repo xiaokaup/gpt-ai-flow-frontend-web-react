@@ -5,8 +5,8 @@ import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 
 import ProModeWindow_v4 from './ProModeWindow_v4';
 import ProModeWindow_v3 from './to_deprecate_ProModeWindow_v3';
-import { ProModeWindow_v4_v2 } from './ProModeWindow_v4_v2';
-// import { ProModeWindow_v5 } from './ProModeWindow_v5';
+// import { ProModeWindow_v4_v2 } from './to_deprecate_ProModeWindow_v4_v2';
+// import { ProModeWindow_v5 } from './to_plan_ProModeWindow_v5';
 
 interface IProModeWindow_warpper {
   webCase: {
