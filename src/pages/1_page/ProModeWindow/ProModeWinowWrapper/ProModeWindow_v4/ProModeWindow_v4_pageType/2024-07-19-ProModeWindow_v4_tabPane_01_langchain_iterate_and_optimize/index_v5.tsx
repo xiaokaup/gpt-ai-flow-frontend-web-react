@@ -2,7 +2,7 @@ import '../../index.scss';
 
 import { useState } from 'react';
 
-import { Button, message } from 'antd';
+import { Button, message, Splitter } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { IMessage, IMessage_default } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
@@ -279,8 +279,12 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
   return (
     <>
       {contextSelected && (
-        <div className="row row_contextSelected" style={{ display: 'flex' }}>
-          <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
+        <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
+          <Splitter.Panel
+            className="column"
+            style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}
+            collapsible
+          >
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
               {chatHistory.length > 0 && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -371,11 +375,12 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                 <Langchain_context_description t={t} description={contextSelected.description} />
               </div>
             )}
-          </div>
+          </Splitter.Panel>
 
-          <div
+          <Splitter.Panel
             className="column m-0"
             style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
+            collapsible
           >
             <div className="row adjust">
               <Langchain_adjust
@@ -465,8 +470,8 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                 </Button>
               </div>
             </div>
-          </div>
-        </div>
+          </Splitter.Panel>
+        </Splitter>
       )}
       {/* <div className="row @DEV">
         <Button

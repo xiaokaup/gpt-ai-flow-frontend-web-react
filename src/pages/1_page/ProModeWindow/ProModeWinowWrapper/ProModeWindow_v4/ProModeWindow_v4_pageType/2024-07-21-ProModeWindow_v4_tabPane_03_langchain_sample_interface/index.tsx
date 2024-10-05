@@ -2,7 +2,7 @@ import '../../index.scss';
 
 import { useState } from 'react';
 
-import { Button, message, UploadFile } from 'antd';
+import { Button, message, Splitter, UploadFile } from 'antd';
 import { LeftOutlined, RightOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import { IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
@@ -169,8 +169,12 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
   return (
     <>
       {contextSelected && (
-        <div className="row row_contextSelected" style={{ display: 'flex' }}>
-          <div className="column" style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}>
+        <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
+          <Splitter.Panel
+            className="column"
+            style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}
+            collapsible
+          >
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
               {chatHistory.length > 0 && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -251,11 +255,12 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 <Langchain_left_03_context_description t={t} description={contextSelected.description} />
               </div>
             )}
-          </div>
+          </Splitter.Panel>
 
-          <div
+          <Splitter.Panel
             className="column m-0"
             style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
+            collapsible
           >
             <div className="row title">
               <h1>{t.get('Content Creation')}</h1>
@@ -360,8 +365,8 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 {isCalling && <LoadingOutlined style={{ fontSize: 18, marginLeft: '0.4rem' }} />}
               </div>
             </div>
-          </div>
-        </div>
+          </Splitter.Panel>
+        </Splitter>
       )}
       {/* <div className="row @DEV">
         <Button
