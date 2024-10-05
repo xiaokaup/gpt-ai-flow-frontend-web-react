@@ -1,3 +1,7 @@
+import {
+  EProMode_v4_tabPane_uuid,
+  EProMode_v4_tabPanes_role,
+} from '../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 import { webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
@@ -540,7 +544,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=officeWorkerProfile',
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-07-15-img-2-content-creator.png',
@@ -560,7 +564,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           🔍 <b>用户需求的洞察者</b>：深入了解受众需求,创造有价值的内容
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=contentCreatorProfile',
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
     },
     {
       icon: '/img/icons/2024-07-15-img-4-self-media-creator.png',
@@ -580,7 +584,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=selfMediaCreatorProfile',
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
     },
     {
       icon: '/img/icons/2024-07-15-img-5-product-manager.png',
@@ -600,7 +604,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=productManagerProfile',
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
     },
   ];
 
