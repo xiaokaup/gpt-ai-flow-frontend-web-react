@@ -5,7 +5,10 @@ import { useEffect, useState } from 'react';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IGetNewsDaily_output, getNewsDaily } from '../../../gpt-ai-flow-common/tools/3_unit/TBackendNews';
-import { IConstantGptAiFlowHandler } from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import CONSTANTS_GPT_AI_FLOW_COMMON, {
+  IConstantGptAiFlowHandler,
+} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { HorizontalScrollingBanner } from '../ProModeWindow/ProModeWinowWrapper/components/HorizontalScrollingBanner';
 import { ToutiaoSearchCard } from './component/NewsCard/ToutiaoSearchCard';
 import { WeiboSearchCard } from './component/NewsCard/WeiboSearchCard';
 import { ZhihuQuestions } from './component/NewsCard/ZhihuQuestions';
@@ -43,9 +46,19 @@ export const NewsPage = (props: INewsPageProps) => {
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
+      <div className="horizontalScrollingBanner">
+        <HorizontalScrollingBanner
+          webCase={{
+            t,
+            locale,
+            env: CONSTANTS_GPT_AI_FLOW_COMMON,
+          }}
+        />
+      </div>
       <div className="container newsPage my-4">
-        <div className="row top_block">
+        <div className="row top_block mt-4">
           <h1>{t.get('Top News')}</h1>
+
           {news === undefined && <p>Loading...</p>}
 
           {news && (
