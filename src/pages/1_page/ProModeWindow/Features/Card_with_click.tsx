@@ -1,4 +1,4 @@
-import { IOneFeature } from './ProModeWindowFeatures';
+import { IOneFeature } from './interface';
 
 interface ICard_with_click {
   locale: string;

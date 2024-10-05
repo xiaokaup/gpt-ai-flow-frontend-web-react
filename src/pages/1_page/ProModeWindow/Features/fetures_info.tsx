@@ -515,3 +515,24 @@ export const getModules = (isHomePage: boolean, locale: string) => {
 
   return homePageModules_en;
 };
+
+export const getRoles = (isHomePage: boolean, locale: string) => {
+  const homePageRoles_zh: IOneFeature[] = [];
+  const homePageRoles_en: IOneFeature[] = [];
+  const proModePageRoles_zh: IOneFeature[] = [];
+  const proModePageRoles_en: IOneFeature[] = [];
+
+  if (!isHomePage) {
+    if (locale === 'zh') {
+      return [...homePageRoles_zh, ...proModePageRoles_zh];
+    }
+
+    return [...homePageRoles_en, ...proModePageRoles_en];
+  }
+
+  if (locale === 'zh') {
+    return homePageRoles_zh;
+  }
+
+  return homePageRoles_en;
+};

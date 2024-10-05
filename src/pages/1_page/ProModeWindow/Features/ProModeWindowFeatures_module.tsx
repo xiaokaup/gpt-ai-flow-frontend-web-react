@@ -5,7 +5,7 @@ import { Card_with_click } from './Card_with_click';
 import { Card_without_click } from './Card_without_click';
 import { webAppUrl, docBaseUrl } from './constant';
 import { IOneFeature } from './interface';
-import { getModules } from './fetures_info';
+import { getRoles, getModules } from './fetures_info';
 
 const { Search } = Input;
 
@@ -17,7 +17,7 @@ const getFeatures = (features_type: string, locale: ELocale) => {
   }
 
   // 'role'
-  return getModules(isHomePage, locale);
+  return getRoles(isHomePage, locale);
 };
 
 interface IProModeWindowFeatures_module_input {
