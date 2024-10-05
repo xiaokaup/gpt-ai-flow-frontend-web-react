@@ -27,11 +27,9 @@ interface IProModeWindowFeatures_module_input {
 export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module_input) => {
   const { locale, features_type } = props;
 
-  const features = getFeatures(features_type, locale);
-
   // console.log('features', features);
   const [searchInput, setSearchInput] = useState<string>('');
-  const [featuresFiltered, setFeaturesFiltered] = useState<IOneFeature[]>(features);
+  const [featuresFiltered, setFeaturesFiltered] = useState<IOneFeature[]>([]);
 
   const _getTextFrom_IOneFeature_featureTextItem = (item: string | JSX.Element): string => {
     let results = '';
@@ -68,6 +66,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
   };
 
   useEffect(() => {
+    const features = getFeatures(features_type, locale);
     if (!searchInput) {
       setFeaturesFiltered(features);
       return;
@@ -79,7 +78,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
     });
 
     setFeaturesFiltered(featuresFiltered);
-  }, [searchInput]);
+  }, [searchInput, features_type]);
 
   return (
     <>
@@ -115,7 +114,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         })}
 
         {/* More cards for homePage */}
-        {isHomePage && (
+        {false && isHomePage && (
           <div className="group relative bg-gray-50 dark:bg-gray-900 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
             <a className="!no-underline" href={'/app'}>
               <div className="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-800">
@@ -187,7 +186,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         )}
 
         {/* More cards for application-senarios */}
-        {!isHomePage && (
+        {false && !isHomePage && (
           <>
             <div className="group relative bg-gray-50 dark:bg-gray-900 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
               <a className="!no-underline" href={'/app'}>
