@@ -238,7 +238,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
             }}
           >
             <div className="title">
-              <h3 className="m-0">{t.get('ProMode')} v4.0</h3>
+              <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
+                <h3 className="m-0">{t.get('ProMode')} v4.0</h3>
+              </a>
             </div>
 
             <div>

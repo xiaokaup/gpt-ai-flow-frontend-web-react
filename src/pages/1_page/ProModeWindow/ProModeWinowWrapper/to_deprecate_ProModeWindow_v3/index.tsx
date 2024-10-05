@@ -250,7 +250,9 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
           }}
         >
           <div className="title">
-            <h3 className="m-0">{t.get('ProMode')} v3.0</h3>
+            <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
+              <h3 className="m-0">{t.get('ProMode')} v3.0</h3>
+            </a>
           </div>
 
           <span style={{ color: '#5D6370', marginLeft: '1rem' }}>
