@@ -17,6 +17,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
   return (
     <div
       id="features"
+      className="w-full"
       style={{
         padding: '1rem',
         margin: '1rem auto',
@@ -80,7 +81,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
           buttonStyle="solid"
         />
       </div>
-      <ProModeWindowFeatures_cards locale={locale} features_type={proMode_showForm} />
+      <ProModeWindowFeatures_cards locale={locale} features_type={proMode_showForm} isShowMoreCard={false} />
     </div>
   );
 };

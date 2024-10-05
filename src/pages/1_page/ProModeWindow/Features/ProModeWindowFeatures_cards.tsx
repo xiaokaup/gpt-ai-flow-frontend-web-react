@@ -23,9 +23,10 @@ const getFeatures = (features_type: string, locale: ELocale) => {
 interface IProModeWindowFeatures_module_input {
   locale: ELocale;
   features_type: string;
+  isShowMoreCard: boolean;
 }
 export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module_input) => {
-  const { locale, features_type } = props;
+  const { locale, features_type, isShowMoreCard } = props;
 
   // console.log('features', features);
   const [searchInput, setSearchInput] = useState<string>('');
@@ -95,7 +96,13 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
           style={{ width: 200 }}
         />
       </div>
-      <div className="grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
+      <div
+        className={
+          features_type === 'role'
+            ? 'grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-2 lg:divide-y-0 xl:grid-cols-2'
+            : 'grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4'
+        }
+      >
         {featuresFiltered.map((item) => {
           const { openLink } = item;
 
@@ -114,7 +121,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         })}
 
         {/* More cards for homePage */}
-        {false && isHomePage && (
+        {isShowMoreCard && isHomePage && (
           <div className="group relative bg-gray-50 dark:bg-gray-900 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
             <a className="!no-underline" href={'/app'}>
               <div className="relative space-y-8 py-12 p-8 transition duration-300 group-hover:bg-white dark:group-hover:bg-gray-800">
@@ -186,7 +193,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         )}
 
         {/* More cards for application-senarios */}
-        {false && !isHomePage && (
+        {isShowMoreCard && !isHomePage && (
           <>
             <div className="group relative bg-gray-50 dark:bg-gray-900 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
               <a className="!no-underline" href={'/app'}>
