@@ -1,25 +1,21 @@
+import { useState } from 'react';
 import { Tabs } from 'antd';
+
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { Mermaid } from '../components/Mermaid';
-import { useState } from 'react';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
 
-const mermaidChartCode = `
-graph TB; 
-A[Start] --> B[Ques 1];
-B --> C[Ques 2];
-B --> D[Ques 3];
-C --> E[Ques 4];
-D --> E[Ques 4];
-E --> F;
-F[Ques 5] --> id7[End];
-F --> B
-`;
+import ReactFlowDemo from './features/01-ReactFlow';
+import { WordCloudDemo } from './features/02-WordCloud';
+
+import { OfficerWorker } from './roles/01-OfficerWorker';
+import { ContentWorker } from './roles/02-ContentWorker';
+
 interface IProModeWindow_v5_input {
   t: IGetT_frontend_output;
   locale: ELocale;
@@ -54,14 +50,23 @@ export const ProModeWindow_v5 = (props: IProModeWindow_v5_input) => {
               <Tabs
                 size="small"
                 hideAdd
-                // activeKey={activeTabPanelKey}
+                // activeKey={'office-worker'}
                 type="card"
                 // type="editable-card"
                 // onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
-                <Tabs.TabPane tab={'企业家'} key={'entrepreneur'} disabled={false}>
-                  <Mermaid chart={mermaidChartCode} />
+                <Tabs.TabPane tab={'职场工作者'} key={'office-worker'} disabled={false}>
+                  <OfficerWorker />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab={'内容创作者'} key={'content-worker'} disabled={false}>
+                  <ContentWorker />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab={'React Flow Demo'} key={'react-flow-demo'} disabled={false}>
+                  <ReactFlowDemo />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab={'Word Cloud Demo'} key={'word-cloud-demo'} disabled={false}>
+                  <WordCloudDemo />
                 </Tabs.TabPane>
               </Tabs>
             </CreativityValueProvider>

@@ -10,7 +10,7 @@ mermaid.initialize({
 interface IMermaid_input {
   chart: string;
 }
-export const Mermaid = (props: IMermaid_input) => {
+export const MermaidComponent = (props: IMermaid_input) => {
   const { chart } = props;
 
   useEffect(() => {
