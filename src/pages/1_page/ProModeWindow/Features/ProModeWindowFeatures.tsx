@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Input } from 'antd';
+import { Input, Radio, RadioChangeEvent } from 'antd';
 import { isProd } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { Card_with_click } from './Card_with_click';
 import { Card_without_click } from './Card_without_click';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { getT_with_i18next } from '../../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
 
 const { Search } = Input;
 
@@ -783,10 +784,15 @@ export const CardsForFeatures = (props: CardsForFeatures_input) => {
 };
 
 interface IProModeWindowFeatures {
-  locale: string;
+  locale: ELocale;
 }
 export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
   const { locale } = props;
+
+  const t = getT_with_i18next(locale);
+
+  const [proMode_showForm, setProMode_showForm] = useState<string>('role');
+
   return (
     <div
       id="features"
@@ -830,6 +836,28 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
             </p>
           </>
         )}
+      </div>
+      <div className="select_for_role_or_module flex justify-center">
+        <Radio.Group
+          size="large"
+          options={[
+            {
+              label: t.get('Role'),
+              value: 'role',
+            },
+            {
+              label: t.get('Module'),
+              value: 'module',
+            },
+          ]}
+          onChange={({ target: { value } }: RadioChangeEvent) => {
+            console.log('radio checked', value);
+            setProMode_showForm(value);
+          }}
+          value={proMode_showForm}
+          optionType="button"
+          buttonStyle="solid"
+        />
       </div>
       <CardsForFeatures
         locale={locale}
