@@ -28,7 +28,7 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
     },
     {
-      icon: '/img/icons/2024-07-14-img-1-workflow.png',
+      icon: '/img/icons/2024-07-14-img-26-workflow.png',
       proModeModuleName: '写作/审核帖子智能体 (beta)',
       featureText_1: (
         <>
@@ -190,7 +190,7 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
     },
     {
-      icon: '/img/icons/2024-07-14-img-1-workflow.png',
+      icon: '/img/icons/2024-07-14-img-26-workflow.png',
       proModeModuleName: 'Writing/Review Post Agent (beta)',
       featureText_1: (
         <>
@@ -523,11 +523,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
 export const getRoles = (isHomePage: boolean, locale: string) => {
   const homePageRoles_zh: IOneFeature[] = [];
   const homePageRoles_en: IOneFeature[] = [];
-  const proModePageRoles_en: IOneFeature[] = [];
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
-      icon: '/img/icons/2024-07-15-img-1-office-worker.png',
+      icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
       proModeModuleName: '职场工作者',
       featureText_1: (
         <>
@@ -547,7 +546,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
       openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
     },
     {
-      icon: '/img/icons/2024-07-15-img-2-content-creator.png',
+      icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
       proModeModuleName: '内容工作者',
       featureText_1: (
         <>
@@ -567,7 +566,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
       openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
     },
     {
-      icon: '/img/icons/2024-07-15-img-4-self-media-creator.png',
+      icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
       proModeModuleName: '自媒体工作者',
       featureText_1: (
         <>
@@ -587,7 +586,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
       openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
     },
     {
-      icon: '/img/icons/2024-07-15-img-5-product-manager.png',
+      icon: '/img/icons/2024-10-05-img-30-product-manager.png',
       proModeModuleName: '产品经理',
       featureText_1: (
         <>
@@ -602,6 +601,93 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
       featureText_3: (
         <>
           🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
+        </>
+      ),
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
+    },
+  ];
+  const proModePageRoles_en: IOneFeature[] = [
+    {
+      icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
+      proModeModuleName: 'Office Worker',
+      featureText_1: (
+        <>
+          💼 <b>Efficient Professional</b>: Skilled in time management, planning, and delivering high-quality work
+        </>
+      ),
+      featureText_2: (
+        <>
+          🤝 <b>Communication and Coordination Expert</b>: Maintains good communication with colleagues and superiors,
+          promoting team collaboration
+        </>
+      ),
+      featureText_3: (
+        <>
+          📈 <b>Keen Industry Insights</b>: Stays up-to-date with industry trends, continuously learning new knowledge
+          and skills
+        </>
+      ),
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+    },
+    {
+      icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
+      proModeModuleName: 'Content Creator',
+      featureText_1: (
+        <>
+          ✒️ <b>Creative Content Producer</b>: Skilled in creating engaging and unique content
+        </>
+      ),
+      featureText_2: (
+        <>
+          🎥 <b>Multimedia Production Expert</b>: Proficient in various content formats, including text, images, audio,
+          and video
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔍 <b>User Needs Insights</b>: Deeply understands audience needs and creates valuable content
+        </>
+      ),
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
+    },
+    {
+      icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
+      proModeModuleName: 'Social Media Influencer',
+      featureText_1: (
+        <>
+          📱 <b>Social Media Native</b>: Familiar with various platforms and skilled in leveraging platform features to
+          spread content
+        </>
+      ),
+      featureText_2: (
+        <>
+          🎤 <b>Personal Brand Builder</b>: Establishes personal brand influence through unique content and style
+        </>
+      ),
+      featureText_3: (
+        <>
+          📈 <b>Business Value Creator</b>: Converts traffic into business value, achieving content monetization
+        </>
+      ),
+      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+    },
+    {
+      icon: '/img/icons/2024-10-05-img-30-product-manager.png',
+      proModeModuleName: 'Product Manager',
+      featureText_1: (
+        <>
+          🔍 <b>User Needs Explorer</b>: Deeply understands user pain points and identifies product opportunities
+        </>
+      ),
+      featureText_2: (
+        <>
+          🧩 <b>Product Solution Designer</b>: Designs product solutions that meet user needs and have market
+          competitiveness
+        </>
+      ),
+      featureText_3: (
+        <>
+          🚀 <b>Product Growth Driver</b>: Develops product roadmaps and drives product iteration and optimization
         </>
       ),
       openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
