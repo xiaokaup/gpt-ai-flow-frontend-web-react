@@ -12,7 +12,7 @@ import {
   IFormItem,
   IAdjust_for_type_langchain,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { EProMode_v4_tabPane_context_type } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_tabPane_context_contextType } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 
 const { TextArea } = Input;
 
@@ -22,8 +22,8 @@ export const Langchain_adjust = (props: {
   adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
   adjust: IAdjust_for_type_langchain;
   setAdjust: (newItem: IAdjust_for_type_langchain) => void;
-  contextSelected_type: EProMode_v4_tabPane_context_type;
-  swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_type) => void;
+  contextSelected_type: EProMode_v4_tabPane_context_contextType;
+  swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_contextType) => void;
 }) => {
   const { t, isAdjustCall, adjustSelected, adjust, setAdjust, contextSelected_type, swtichContextSelected_by_type } =
     props;
@@ -40,7 +40,7 @@ export const Langchain_adjust = (props: {
         <h1>{t.get('Content adjust')}</h1>
 
         <div className="row icons_button">
-          {contextSelected_type === EProMode_v4_tabPane_context_type.EXPRESS && (
+          {contextSelected_type === EProMode_v4_tabPane_context_contextType.EXPRESS && (
             <img
               id="reset-messages-history-button"
               src={expressionIcon}
@@ -58,11 +58,11 @@ export const Langchain_adjust = (props: {
               }}
               onClick={() => {
                 console.log('click expression icon');
-                swtichContextSelected_by_type(EProMode_v4_tabPane_context_type.RESPONSE);
+                swtichContextSelected_by_type(EProMode_v4_tabPane_context_contextType.RESPONSE);
               }}
             />
           )}
-          {contextSelected_type === EProMode_v4_tabPane_context_type.RESPONSE && (
+          {contextSelected_type === EProMode_v4_tabPane_context_contextType.RESPONSE && (
             <img
               id="reset-messages-history-button"
               src={responseIcon}
@@ -80,7 +80,7 @@ export const Langchain_adjust = (props: {
               }}
               onClick={() => {
                 console.log('click response icon');
-                swtichContextSelected_by_type(EProMode_v4_tabPane_context_type.EXPRESS);
+                swtichContextSelected_by_type(EProMode_v4_tabPane_context_contextType.EXPRESS);
               }}
             />
           )}
