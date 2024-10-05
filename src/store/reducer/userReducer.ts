@@ -8,7 +8,7 @@ import {
   USER_LOGOUT,
   USER_SIGN_UP,
   USER_UPDATE_USER_PASSWORD_V1,
-  UPDATTE_SPECIFIC_USER_DATA,
+  UPDATTE_SPECIFIC_USER_DB,
 } from '../actions/userActions';
 import { IAction } from '../store';
 
@@ -20,7 +20,7 @@ export const userReducer = (state: IUserReducerState = to_deprecate_IUserData_de
   switch (type) {
     case USER_LOGIN:
       return payload;
-    case UPDATTE_SPECIFIC_USER_DATA:
+    case UPDATTE_SPECIFIC_USER_DB:
       if (state.roles?.length === payload.roles?.length) return state;
       if (state.services?.length === payload.services?.length) return state;
       if (state.serviceCategories?.length === payload.serviceCategories?.length) return state;

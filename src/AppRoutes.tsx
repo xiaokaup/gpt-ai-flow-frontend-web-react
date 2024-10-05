@@ -25,7 +25,7 @@ import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsW
 import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
 import { IReduxRootState } from './store/reducer';
-import { updateSpecificUserData } from './store/actions/userActions';
+import { updateSpecificUserDB } from './store/actions/userActions';
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { useStripePriceNicknames_for_allSubscriptions } from './gpt-ai-flow-common/hooks/useStripePriceNicknames_for_allSubscriptions';
@@ -46,7 +46,7 @@ export const AppRoutes = () => {
   const { userData, isAuthenticated } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {
-      dispatch(updateSpecificUserData(newUserData_without_token) as any);
+      dispatch(updateSpecificUserDB(newUserData_without_token) as any);
     },
     locale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,

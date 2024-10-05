@@ -75,15 +75,17 @@ export const authRegisterByEmailAndPasswordAction_v0 =
     }
   };
 
-export const UPDATTE_SPECIFIC_USER_DATA = 'UPDATTE_SPECIFIC_USER_DATA';
-export const updateSpecificUserData = (newUser: to_deprecate_IUserData) => async (dispatch: any) => {
-  dispatch({ type: UPDATTE_SPECIFIC_USER_DATA, payload: newUser });
+export const UPDATTE_SPECIFIC_USER_DB = 'UPDATTE_SPECIFIC_USER_DB';
+export const updateSpecificUserDB = (newUser: to_deprecate_IUserData | IUserDB) => async (dispatch: any) => {
+  dispatch({ type: UPDATTE_SPECIFIC_USER_DB, payload: newUser });
 };
 
 export const USER_LOGOUT = 'USER_LOGOUT';
-export const userLogoutAction = () => async (dispatch: any) => {
-  dispatch({ type: USER_LOGOUT });
-};
+export const userLogoutAction =
+  () =>
+  async (dispatch: any): Promise<void> => {
+    dispatch({ type: USER_LOGOUT });
+  };
 
 export const USER_RESET_PASSWORD_WITH_EMAIL = 'USER_RESET_PASSWORD_WITH_EMAIL';
 export const userResetPasswordWithEmailAction =

@@ -12,7 +12,7 @@ import { Radio, RadioChangeEvent, Select, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../store/actions/inputsCacheActions';
-import { updateSpecificUserData, userLogoutAction } from '../../../../../store/actions/userActions';
+import { updateSpecificUserDB, userLogoutAction } from '../../../../../store/actions/userActions';
 
 import {
   All_type_IProMode_v4_tabPane,
@@ -359,7 +359,7 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
   const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: IUserData) => {
-      dispatch<any>(updateSpecificUserData(newUserData_without_token));
+      dispatch<any>(updateSpecificUserDB(newUserData_without_token));
     },
     locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,

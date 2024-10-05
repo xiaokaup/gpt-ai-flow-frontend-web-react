@@ -9,7 +9,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../../../store/reducer';
-import { updateSpecificUserData, userLogoutAction } from '../../../../../store/actions/userActions';
+import { updateSpecificUserDB, userLogoutAction } from '../../../../../store/actions/userActions';
 
 import { useProModeSetDataUI } from './useProModeSetDataUI';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -59,7 +59,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   const { userData } = useUserData({
     userDataFromStorage,
     onUserDataChange: (newUserData_without_token: to_deprecate_IUserData) => {
-      dispatch(updateSpecificUserData(newUserData_without_token) as any);
+      dispatch(updateSpecificUserDB(newUserData_without_token) as any);
     },
     locale: t.currentLocale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
