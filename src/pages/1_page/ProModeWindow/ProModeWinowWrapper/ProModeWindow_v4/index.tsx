@@ -43,7 +43,11 @@ import {
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import IInputsCacheFile, { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import { EProMode_v4_tabPane_context_mode } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
+import {
+  EProMode_v4_tabPane_context_mode,
+  EProMode_v4_tabPane_uuid,
+  EProMode_v4_tabPanes_role,
+} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/05-tool/interface';
 
@@ -113,9 +117,43 @@ const getCreationModeOptions = (t: IGetT_frontend_output) => {
   ];
 };
 
-const getFilteredTabPanes_by_role = (role: string, proMode_v4_tabPanes: IProMode_v4['tabPanes']) => {
-  if (role === 'office-worker') {
-    const module_uuids = ['communicationChain'];
+const getFilteredTabPanes_by_role = (
+  roleModule: EProMode_v4_tabPanes_role,
+  proMode_v4_tabPanes: IProMode_v4['tabPanes'],
+) => {
+  if (roleModule === EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER) {
+    const module_uuids: EProMode_v4_tabPane_uuid[] = [EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION];
+    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+  }
+
+  if (roleModule === EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER) {
+    const module_uuids: EProMode_v4_tabPane_uuid[] = [
+      EProMode_v4_tabPane_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
+      EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING,
+      EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
+      EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
+    ];
+    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+  }
+
+  if (roleModule === EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA) {
+    const module_uuids: EProMode_v4_tabPane_uuid[] = [
+      EProMode_v4_tabPane_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
+      EProMode_v4_tabPane_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
+      EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_tabPane_uuid.TAB_PANE_05_WRITING_COMMENT,
+      EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT,
+      EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
+      EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU,
+    ];
+    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+  }
+
+  if (roleModule === EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER) {
+    const module_uuids: EProMode_v4_tabPane_uuid[] = [
+      EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER,
+      EProMode_v4_tabPane_uuid.TAB_PANE_09_SEO_CHAIN,
+    ];
     return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
   }
 
@@ -133,7 +171,11 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   const { t, locale, userData, inputsCache, setInputsCache } = props;
 
   const query = new URLSearchParams(useLocation().search);
-  const role = query.get('role');
+  const roleModule = (
+    Object.values(EProMode_v4_tabPanes_role).includes(query.get('role') as EProMode_v4_tabPanes_role)
+      ? query.get('role')
+      : ''
+  ) as EProMode_v4_tabPanes_role;
   const tabPaneDefault_uuid_from_query = query.get('tabPane_uuid');
 
   const localDataFromStorage: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
@@ -184,7 +226,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
     const resultTabPanes = result.tabPanes;
-    setProMode_v4_tabPanes(getFilteredTabPanes_by_role(role, resultTabPanes));
+    setProMode_v4_tabPanes(getFilteredTabPanes_by_role(roleModule, resultTabPanes));
 
     if (resultTabPanes.length === 0) {
       message.error(`${t.get('Error')}: ${t.get('Professional mode information not found')}`);
