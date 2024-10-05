@@ -7,3 +7,7 @@ build
 
 # OSX
 .DS_Store
+
+
+# ProMode_V4 data
+ProModeModules_data

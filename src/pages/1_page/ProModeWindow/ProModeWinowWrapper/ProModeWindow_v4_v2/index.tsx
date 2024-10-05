@@ -16,7 +16,7 @@ import IStoreStorageFile, {
 import { ITokenDB_default } from '../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 import { useCallback, useEffect, useState } from 'react';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
-import { message, Radio, RadioChangeEvent, Select } from 'antd';
+import { message, Radio, RadioChangeEvent, Select, Tabs } from 'antd';
 import locale from 'antd/es/locale';
 import _ from 'lodash';
 import { IProMode_v4 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
@@ -24,6 +24,9 @@ import { getProMode_v4_from_backend } from '../../../../../gpt-ai-flow-common/to
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { SLLM_v2_common } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
+import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
+import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
+import TabPane from 'antd/es/tabs/TabPane';
 
 interface IProModeWindow_v4_v2_input {
   t: IGetT_frontend_output;
@@ -220,6 +223,26 @@ const ProModeWindow_v4_v2_login = (props: IProModeWindow_v4_v2_login) => {
               }}
             />
           </div>
+        </div>
+
+        <div className="row !mt-0 bottom_block_tabs">
+          <ProModeModelValueProvider value={llmName}>
+            <CreativityValueProvider value={creativityValue}>
+              <Tabs
+                // size="small"
+                hideAdd
+                activeKey={activeTabPanelKey}
+                type="card"
+                // type="editable-card"
+                onChange={onTabsChange}
+                // onEdit={onEditTabPanel}
+              >
+                <TabPane key={'uuid'} tab={'TabPane'} disabled={false}>
+                  abc
+                </TabPane>
+              </Tabs>
+            </CreativityValueProvider>
+          </ProModeModelValueProvider>
         </div>
       </div>
     </div>
