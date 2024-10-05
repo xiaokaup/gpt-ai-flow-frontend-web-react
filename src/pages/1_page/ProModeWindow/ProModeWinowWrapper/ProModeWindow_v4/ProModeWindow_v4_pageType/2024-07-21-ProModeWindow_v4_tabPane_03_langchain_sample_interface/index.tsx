@@ -19,7 +19,7 @@ import {
   IAdjust_for_type_langchain,
   IPromode_v4_tabPane_context,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { EProMode_v4_tabPane_context_type } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
+import { EProMode_v4_tabPane_context_type } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 import {
   IAdjust_IMessage_v2,
   IAdjust_IMessage_v2_default,

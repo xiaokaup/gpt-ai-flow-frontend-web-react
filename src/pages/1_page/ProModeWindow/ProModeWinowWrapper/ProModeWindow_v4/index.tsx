@@ -43,7 +43,7 @@ import {
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import IInputsCacheFile, { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import { EProMode_v4_tabPane_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_type';
+import { EProMode_v4_tabPane_type } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/05-tool/interface';
 

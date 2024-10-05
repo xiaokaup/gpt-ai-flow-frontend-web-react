@@ -12,7 +12,7 @@ import {
   IFormItem,
   IAdjust_for_type_langchain,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { EProMode_v4_tabPane_context_type } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
+import { EProMode_v4_tabPane_context_type } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 
 const { TextArea } = Input;
 
