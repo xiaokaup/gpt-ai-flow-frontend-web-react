@@ -21,7 +21,7 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
   const [version, setVersion] = useState<string>('v4');
 
   return (
-    <div style={{ width: '100%' }}>
+    <div className="w-full">
       <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', top: '.5rem' }}>
         <Select
           defaultValue={version}

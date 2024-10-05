@@ -113,6 +113,15 @@ const getCreationModeOptions = (t: IGetT_frontend_output) => {
   ];
 };
 
+const getFilteredTabPanes_by_role = (role: string, proMode_v4_tabPanes: IProMode_v4['tabPanes']) => {
+  if (role === 'office-worker') {
+    const module_uuids = ['communicationChain'];
+    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+  }
+
+  return proMode_v4_tabPanes;
+};
+
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
   locale: ELocale;
@@ -124,6 +133,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   const { t, locale, userData, inputsCache, setInputsCache } = props;
 
   const query = new URLSearchParams(useLocation().search);
+  const role = query.get('role');
   const tabPaneDefault_uuid_from_query = query.get('tabPane_uuid');
 
   const localDataFromStorage: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
@@ -174,7 +184,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
     const resultTabPanes = result.tabPanes;
-    setProMode_v4_tabPanes(resultTabPanes);
+    setProMode_v4_tabPanes(getFilteredTabPanes_by_role(role, resultTabPanes));
 
     if (resultTabPanes.length === 0) {
       message.error(`${t.get('Error')}: ${t.get('Professional mode information not found')}`);
