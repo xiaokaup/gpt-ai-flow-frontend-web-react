@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Radio, RadioChangeEvent } from 'antd';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { getT_with_i18next } from '../../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
-import { ProModeWindowFeatures_module } from './ProModeWindowFeatures_module';
+import { ProModeWindowFeatures_cards } from './ProModeWindowFeatures_module';
 
 interface IProModeWindowFeatures {
   locale: ELocale;
@@ -80,10 +80,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
           buttonStyle="solid"
         />
       </div>
-      <ProModeWindowFeatures_module
-        locale={locale}
-        // location="webApp"
-      />
+      <ProModeWindowFeatures_cards locale={locale} features_type={proMode_showForm} />
     </div>
   );
 };
