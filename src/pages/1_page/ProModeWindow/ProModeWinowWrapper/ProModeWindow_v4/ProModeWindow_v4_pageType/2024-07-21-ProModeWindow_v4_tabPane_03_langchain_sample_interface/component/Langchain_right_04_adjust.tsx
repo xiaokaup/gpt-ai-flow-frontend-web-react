@@ -9,7 +9,7 @@ import {
   IFormItem,
   IAdjust_for_type_langchain,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { EProMode_v4_tabPane_context_type } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane_context_type';
+import { EProMode_v4_tabPane_context_contextType } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 
 const { TextArea } = Input;
 
@@ -19,8 +19,8 @@ interface ILangchain_right_04_adjust_input {
   adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
   adjust: IAdjust_for_type_langchain;
   setAdjust: (newItem: IAdjust_for_type_langchain) => void;
-  contextSelected_type: EProMode_v4_tabPane_context_type;
-  swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_type) => void;
+  contextSelected_type: EProMode_v4_tabPane_context_contextType;
+  swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_contextType) => void;
 }
 export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_input) => {
   const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;

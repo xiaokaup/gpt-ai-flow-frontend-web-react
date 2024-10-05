@@ -1,4 +1,4 @@
-import { IOneFeature } from './ProModeWindowFeatures';
+import { IOneFeature } from './interface';
 
 export const Card_without_click = (props: { item: IOneFeature; imgBaseUrl: string }) => {
   const {
