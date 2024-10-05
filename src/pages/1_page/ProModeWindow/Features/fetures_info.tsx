@@ -519,8 +519,129 @@ export const getModules = (isHomePage: boolean, locale: string) => {
 export const getRoles = (isHomePage: boolean, locale: string) => {
   const homePageRoles_zh: IOneFeature[] = [];
   const homePageRoles_en: IOneFeature[] = [];
-  const proModePageRoles_zh: IOneFeature[] = [];
   const proModePageRoles_en: IOneFeature[] = [];
+
+  const proModePageRoles_zh: IOneFeature[] = [
+    {
+      icon: '/img/icons/2024-07-15-img-1-office-worker.png',
+      proModeModuleName: '职场工作者',
+      featureText_1: (
+        <>
+          💼 <b>高效的职场精英</b>：善于管理时间,制定计划,并高质量完成工作
+        </>
+      ),
+      featureText_2: (
+        <>
+          🤝 <b>沟通协调能手</b>：与同事和上级保持良好沟通,促进团队协作
+        </>
+      ),
+      featureText_3: (
+        <>
+          📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=officeWorkerProfile',
+    },
+    {
+      icon: '/img/icons/2024-07-15-img-2-content-creator.png',
+      proModeModuleName: '内容工作者',
+      featureText_1: (
+        <>
+          ✒️ <b>创意无限的内容创造者</b>：擅长创作引人入胜、独具一格的内容
+        </>
+      ),
+      featureText_2: (
+        <>
+          🎥 <b>多媒体制作专家</b>：熟练掌握图文、音视频等多种内容形式
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔍 <b>用户需求的洞察者</b>：深入了解受众需求,创造有价值的内容
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=contentCreatorProfile',
+    },
+    {
+      icon: '/img/icons/2024-07-15-img-4-self-media-creator.png',
+      proModeModuleName: '自媒体工作者',
+      featureText_1: (
+        <>
+          📱 <b>社交媒体的原住民</b>：熟悉各大平台,善于利用平台特性传播内容
+        </>
+      ),
+      featureText_2: (
+        <>
+          🎤 <b>个人品牌的缔造者</b>：通过独特的内容和风格,建立个人品牌影响力
+        </>
+      ),
+      featureText_3: (
+        <>
+          📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=selfMediaCreatorProfile',
+    },
+    {
+      icon: '/img/icons/2024-07-15-img-5-product-manager.png',
+      proModeModuleName: '产品经理',
+      featureText_1: (
+        <>
+          🔍 <b>用户需求的探索者</b>：深入了解用户痛点,挖掘产品机会
+        </>
+      ),
+      featureText_2: (
+        <>
+          🧩 <b>产品方案的设计师</b>：设计满足用户需求、具备市场竞争力的产品方案
+        </>
+      ),
+      featureText_3: (
+        <>
+          🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=productManagerProfile',
+    },
+  ];
+
+  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
+  const proModePageRoles_zh_next: IOneFeature[] = [
+    {
+      icon: '/img/icons/2024-07-15-img-3-freelancer.png',
+      proModeModuleName: '自由职业者',
+      featureText_1: (
+        <>
+          🎨 <b>全能的创意专家</b>：涉猎广泛,能够提供多元化的创意服务
+        </>
+      ),
+      featureText_2: (
+        <>
+          ⏰ <b>灵活的时间管理大师</b>：自由安排工作时间,兼顾工作与生活
+        </>
+      ),
+      featureText_3: (
+        <>
+          💼 <b>独立自主的个体经营者</b>：自己就是老板,掌控职业发展方向
+        </>
+      ),
+      openLink: '/app/proMode?tabPane_uuid=freelancerProfile',
+    },
+    // 设计师
+    // 程序员
+    // 市场营销专员
+    // 数据分析师
+    // 人力资源专员
+    // 客户服务代表
+    // 销售代表
+    // 财务专员
+    // 法律顾问
+    // 公关专员
+    // 翻译
+    // 作家
+    // 教师
+    // 培训师
+    // 创业者
+  ];
 
   if (!isHomePage) {
     if (locale === 'zh') {
