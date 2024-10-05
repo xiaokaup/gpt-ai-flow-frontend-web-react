@@ -52,6 +52,59 @@ import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
 
+interface IProModeWindow_input {
+  t: IGetT_frontend_output;
+  locale: ELocale;
+}
+const ProModeWindow_v4 = (props: IProModeWindow_input) => {
+  const dispatch = useDispatch();
+
+  const { t, locale } = props;
+
+  // === Stripe subscription - start ===
+  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserData_default;
+  });
+
+  const { userData } = useUserData({
+    userDataFromStorage,
+    onUserDataChange: (newUserData_without_token: IUserData) => {
+      dispatch<any>(updateSpecificUserDB(newUserData_without_token));
+    },
+    locale: t.currentLocale,
+    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+  });
+
+  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+  });
+  const { inputsCache, setInputsCache } = useInputsCache({
+    inputsCacheFromStorage,
+    onInputsCacheChange: (newItem: IInputsCache) => {
+      dispatch(updateInputsCache(newItem) as any);
+    },
+  });
+
+  const { id: userId } = userData;
+
+  return (
+    <>
+      {userId && (
+        <ProModeWindow_v4_login
+          t={t}
+          locale={locale}
+          userData={userData}
+          inputsCache={inputsCache}
+          setInputsCache={setInputsCache}
+        />
+      )}
+      {!userId && <ProModeWindow_v4_logout t={t} />}
+    </>
+  );
+};
+
+export default ProModeWindow_v4;
+
 const getCreationModeOptions = (t: IGetT_frontend_output) => {
   return [
     { label: t.get('Precise'), value: 0.6 },
@@ -341,56 +394,3 @@ const ProModeWindow_v4_logout = (props: { t: IGetT_frontend_output }) => {
     </>
   );
 };
-
-interface IProModeWindow_input {
-  t: IGetT_frontend_output;
-  locale: ELocale;
-}
-const ProModeWindow_v4 = (props: IProModeWindow_input) => {
-  const dispatch = useDispatch();
-
-  const { t, locale } = props;
-
-  // === Stripe subscription - start ===
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
-  });
-
-  const { userData } = useUserData({
-    userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {
-      dispatch<any>(updateSpecificUserDB(newUserData_without_token));
-    },
-    locale: t.currentLocale,
-    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-  });
-
-  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
-    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
-  });
-  const { inputsCache, setInputsCache } = useInputsCache({
-    inputsCacheFromStorage,
-    onInputsCacheChange: (newItem: IInputsCache) => {
-      dispatch(updateInputsCache(newItem) as any);
-    },
-  });
-
-  const { id: userId } = userData;
-
-  return (
-    <>
-      {userId && (
-        <ProModeWindow_v4_login
-          t={t}
-          locale={locale}
-          userData={userData}
-          inputsCache={inputsCache}
-          setInputsCache={setInputsCache}
-        />
-      )}
-      {!userId && <ProModeWindow_v4_logout t={t} />}
-    </>
-  );
-};
-
-export default ProModeWindow_v4;
