@@ -4,7 +4,7 @@ import { EyeOutlined, EyeInvisibleOutlined, InfoCircleOutlined } from '@ant-desi
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IPromode_v4_tabPane_context_for_type_langchain_formItems,
+  IProMode_v4_tabPane_context_for_type_langchain_formItems,
   IBackground_for_type_langchain,
   IFormItem,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
@@ -14,7 +14,7 @@ const { TextArea } = Input;
 
 export const Langchain_background = (props: {
   t: IGetT_frontend_output;
-  backgroundSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IBackground_for_type_langchain>;
+  backgroundSelected: IProMode_v4_tabPane_context_for_type_langchain_formItems<IBackground_for_type_langchain>;
   background: IBackground_for_type_langchain;
   setBackground: (newItem: IBackground_for_type_langchain) => void;
 }) => {
