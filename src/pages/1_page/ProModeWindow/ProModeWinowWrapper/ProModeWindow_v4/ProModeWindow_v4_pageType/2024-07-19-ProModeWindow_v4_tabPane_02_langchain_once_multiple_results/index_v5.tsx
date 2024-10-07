@@ -49,6 +49,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
 ) => {
   const { creativityValue, contextSelected } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
+  const { currentOutput: currentOuputFromContextSelected } = contextSelected;
   // console.log('contextSelected', contextSelected);
   const { t, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
   inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
@@ -260,10 +261,10 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
               .map((item: IMessage, index: number) => {
                 let content: string = '';
                 if (t.currentLocale === ELocale.EN) {
-                  content += `## ${t.get('Rewrite')} ${t.get('Result')} ${index + 1}:\n`;
+                  content += `## ${currentOuputFromContextSelected?.title ? currentOuputFromContextSelected?.title : `${t.get('Rewrite')} ${t.get('Result')}`} ${index + 1}:\n`;
                 }
                 if (t.currentLocale === ELocale.ZH) {
-                  content += `## ${t.get('Rewrite')}${t.get('Result')} ${index + 1}:\n`;
+                  content += `## ${currentOuputFromContextSelected?.title ? currentOuputFromContextSelected?.title : `${t.get('Rewrite')}${t.get('Result')}`} ${index + 1}:\n`;
                 }
                 content += item.content;
                 return content;
