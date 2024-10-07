@@ -6,7 +6,7 @@ import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_
 import { ILLMOption_secrets } from '../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IPromode_v4_tabPane_context,
+  IProMode_v4_tabPane_context,
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
@@ -21,7 +21,7 @@ import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
-  tabPane: IProMode_v4_tabPane<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
+  tabPane: IProMode_v4_tabPane<IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>>;
   userAccessToken: string;
   llmOption_secrets: ILLMOption_secrets;
   llmName: ELLM_name;
@@ -37,7 +37,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
   const [selectedContextType, setSelectedContextType] = useState<EProMode_v4_tabPane_context_contextType>(
     context.length > 0 ? context[0].contextType : EProMode_v4_tabPane_context_contextType.GENERAL,
   );
-  const [contextSelected, setContextSelected] = useState<IPromode_v4_tabPane_context<
+  const [contextSelected, setContextSelected] = useState<IProMode_v4_tabPane_context<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain
   > | null>(context.length > 0 ? context[0] : null);
@@ -69,7 +69,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             swtichContextSelected_by_type(value as EProMode_v4_tabPane_context_contextType);
           }}
           options={context.map(
-            (item: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
+            (item: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
               return {
                 label: t.get(item.label),
                 value: item.contextType,
