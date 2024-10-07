@@ -33,7 +33,7 @@ import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nPro
 import {
   IAdjust_for_type_langchain,
   IBackground_for_type_langchain,
-  IPromode_v4_tabPane_context,
+  IProMode_v4_tabPane_context,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { getProMode_v4_from_backend } from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
 import {
@@ -122,7 +122,10 @@ const getFilteredTabPanes_by_role = (
   proMode_v4_tabPanes: IProMode_v4['tabPanes'],
 ) => {
   if (roleModule === EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER) {
-    const module_uuids: EProMode_v4_tabPane_uuid[] = [EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION];
+    const module_uuids: EProMode_v4_tabPane_uuid[] = [
+      EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION,
+      EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS,
+    ];
     return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
   }
 
@@ -401,7 +404,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           t={t}
                           tabPane={
                             tabPane as IProMode_v4_tabPane<
-                              IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>
+                              IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>
                             >
                           }
                           userAccessToken={userAccessToken}
