@@ -22,7 +22,7 @@ import {
   IAdjust_for_type_langchain,
   ILangchainMessageExchange_default,
   ILangchainMessageExchange,
-  IPromode_v4_tabPane_context,
+  IProMode_v4_tabPane_context,
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { EProMode_v4_tabPane_context_contextType } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
@@ -39,9 +39,9 @@ import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper'
 interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
   creativityValue: number;
-  contextSelected: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
+  contextSelected: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
   // setContextSelected: React.Dispatch<
-  //   React.SetStateAction<IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain> | null>
+  //   React.SetStateAction<IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain> | null>
   // >;
   swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
 }

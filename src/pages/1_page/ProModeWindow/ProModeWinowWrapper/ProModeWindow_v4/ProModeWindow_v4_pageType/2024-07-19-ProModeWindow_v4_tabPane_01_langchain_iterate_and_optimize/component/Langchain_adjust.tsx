@@ -8,7 +8,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IPromode_v4_tabPane_context_for_type_langchain_formItems,
+  IProMode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
   IAdjust_for_type_langchain,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
@@ -19,7 +19,7 @@ const { TextArea } = Input;
 export const Langchain_adjust = (props: {
   t: IGetT_frontend_output;
   isAdjustCall: boolean;
-  adjustSelected: IPromode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
+  adjustSelected: IProMode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
   adjust: IAdjust_for_type_langchain;
   setAdjust: (newItem: IAdjust_for_type_langchain) => void;
   contextSelected_type: EProMode_v4_tabPane_context_contextType;

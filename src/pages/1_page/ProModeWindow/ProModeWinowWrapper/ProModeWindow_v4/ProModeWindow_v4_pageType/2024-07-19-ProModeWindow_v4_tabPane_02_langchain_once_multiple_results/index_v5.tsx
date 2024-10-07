@@ -23,7 +23,7 @@ import {
 } from '../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProMode_v4_buttons';
 
 import {
-  IPromode_v4_tabPane_context,
+  IProMode_v4_tabPane_context,
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
   ILangchainMessageExchange_default,
@@ -41,7 +41,7 @@ import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper'
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
   creativityValue: number;
-  contextSelected: IPromode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
+  contextSelected: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
   // swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
 }
 export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
@@ -49,6 +49,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
 ) => {
   const { creativityValue, contextSelected } = props;
   const { urlSlug, contextType, buttons } = contextSelected;
+  const { currentOutput: currentOuputFromContextSelected } = contextSelected;
   // console.log('contextSelected', contextSelected);
   const { t, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
   inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
@@ -260,10 +261,10 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
               .map((item: IMessage, index: number) => {
                 let content: string = '';
                 if (t.currentLocale === ELocale.EN) {
-                  content += `## ${t.get('Rewrite')} ${t.get('Result')} ${index + 1}:\n`;
+                  content += `## ${currentOuputFromContextSelected?.title ? currentOuputFromContextSelected?.title : `${t.get('Rewrite')} ${t.get('Result')}`} ${index + 1}:\n`;
                 }
                 if (t.currentLocale === ELocale.ZH) {
-                  content += `## ${t.get('Rewrite')}${t.get('Result')} ${index + 1}:\n`;
+                  content += `## ${currentOuputFromContextSelected?.title ? currentOuputFromContextSelected?.title : `${t.get('Rewrite')}${t.get('Result')}`} ${index + 1}:\n`;
                 }
                 content += item.content;
                 return content;
