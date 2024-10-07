@@ -55,10 +55,10 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   return (
     <div className="tabPane_wrapper_context_container">
-      {(mode === EProMode_v4_tabPane_context_mode.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE ||
+      {/* {(mode === EProMode_v4_tabPane_context_mode.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE ||
         mode === EProMode_v4_tabPane_context_mode.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS) && (
         <div className="float-right">v5</div>
-      )}
+      )} */}
       <div className="row" style={{ paddingLeft: '1rem' }}>
         <Select
           defaultValue={contextSelected?.contextType}
@@ -71,7 +71,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           options={context.map(
             (item: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
               return {
-                label: t.get(item.label),
+                label: item.label,
                 value: item.contextType,
               };
             },
