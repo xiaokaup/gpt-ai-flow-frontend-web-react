@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+
+import { Button } from 'antd';
 
 import { IReduxRootState } from '../../../store/reducer';
 
@@ -9,6 +11,7 @@ import {
   IStoreStorage_settings_local,
   IStoreStorage_settings_local_default,
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 
 import { SettingsWindow_7_about } from './SettingsWindow_7_about';
 import { SettingsWindow_1_local } from './settingsWindow_1_local';
@@ -23,13 +26,17 @@ interface ISettingsWindow_input {
   isModelEdition: boolean;
 }
 export const SettingsWindow = (props: ISettingsWindow_input) => {
-  const { t, userData, isAuthenticated, isModelEdition } = props;
+  const { t, userData: userDB, isAuthenticated, isModelEdition } = props;
+  // console.log('userDB', userDB);
   // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = userData;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorage_settings_local_default;
   });
   const { locale } = localFromStore;
+
+  const [openAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
+  const [anthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
 
   const containerStyle = {
     marginTop: 12,
@@ -44,7 +51,37 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
   return (
     <>
       <div style={containerStyle}>
-        <SettingsWindow_2_user_3_info t={t} userData={userData} isAuthenticated={isAuthenticated} />
+        <h3 className="mt-0">Desktop App</h3>
+        <Button
+          type="primary"
+          onClick={() => {
+            console.log('Connect Desktop app');
+            const link = document.createElement('a');
+            let desktopAppUrl = `gpt-ai-flow-app://id=${userDB.id}&accessToken=${userDB.Token?.accessToken}`;
+            desktopAppUrl += `&openAIApiKey=${openAIApiKey}`;
+            desktopAppUrl += `&anthropicApiKey=${anthropicApiKey}`;
+            link.href = desktopAppUrl;
+            document.body.appendChild(link);
+            link.click();
+          }}
+        >
+          Connect Desktop app
+        </Button>
+        <Button
+          className="ml-4"
+          onClick={() => {
+            let downloadUrl = 'https://www.gptaiflow.com/download';
+            if (locale === ELocale.ZH) {
+              downloadUrl = 'https://www.gptaiflow.com/zh/download';
+            }
+            window.open(downloadUrl, '_blank');
+          }}
+        >
+          Download
+        </Button>
+      </div>
+      <div style={containerStyle}>
+        <SettingsWindow_2_user_3_info t={t} userData={userDB} isAuthenticated={isAuthenticated} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_1_local t={t} isModelEdition={isModelEdition} />
