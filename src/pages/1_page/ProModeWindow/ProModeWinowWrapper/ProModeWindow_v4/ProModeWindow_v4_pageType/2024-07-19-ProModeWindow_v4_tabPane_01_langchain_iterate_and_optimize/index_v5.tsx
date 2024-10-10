@@ -15,7 +15,7 @@ import { to_deprecate_EProductItemDB_type } from '../../../../../../../gpt-ai-fl
 import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { IInputsCache } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IInputsCache_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { Langchain_context_description } from './component/Langchain_context_description';
 import {
   IBackground_for_type_langchain,
@@ -49,9 +49,10 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input,
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
-  const { urlSlug, contextType, buttons } = contextSelected;
-  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
-  inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
+  const { uuid, urlSlug, contextType, buttons } = contextSelected;
+
+  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache_v2, setInputsCache_v2 } = props;
+  inputsCache_v2.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
@@ -61,11 +62,11 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
     // background: defaultBackgtound,
     background: {
       ...ILangchainMessageExchange_default.background,
-      ...inputsCache,
+      ...inputsCache_v2[uuid],
     },
     adjust: {
       ...ILangchainMessageExchange_default.adjust,
-      ...inputsCache,
+      ...inputsCache_v2[uuid],
     },
     createdAt: new Date(),
     role: EMessage_role.HUMAN,
@@ -393,9 +394,12 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                     ...messageExchangeData,
                     adjust: newItem,
                   });
-                  setInputsCache((prvState: IInputsCache) => ({
+                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    ...newItem,
+                    [uuid]: {
+                      ...prvState,
+                      ...newItem,
+                    },
                   }));
                 }}
                 contextSelected_type={contextSelected.contextType}
@@ -413,9 +417,12 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                     ...messageExchangeData,
                     background: newItem,
                   });
-                  setInputsCache((prvState: IInputsCache) => ({
+                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    ...newItem,
+                    [uuid]: {
+                      ...prvState,
+                      ...newItem,
+                    },
                   }));
                 }}
               />
