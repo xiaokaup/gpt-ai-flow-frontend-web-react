@@ -398,7 +398,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                   setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
                     [contextSelected_uuid]: {
-                      ...prvState,
+                      ...prvState[contextSelected_uuid],
                       ...newItem,
                     },
                   }));
@@ -421,7 +421,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                   setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
                     [contextSelected_uuid]: {
-                      ...prvState,
+                      ...prvState[contextSelected_uuid],
                       ...newItem,
                     },
                   }));
