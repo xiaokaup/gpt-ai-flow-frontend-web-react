@@ -11,10 +11,10 @@ import { IReduxRootState } from '../../../../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../../../../store/actions/inputsCacheActions';
 
 import TStringFile from '../../../../../../../../gpt-ai-flow-common/tools/TString';
-import { useInputsCache } from '../../../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import IInputsCacheFile, {
-  IInputsCache,
+  to_deprecate_IInputsCache,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 interface DynamicFormForContextPrompt_input {
@@ -29,12 +29,12 @@ interface DynamicFormForContextPrompt_input {
 export function DynamicFormForContextPrompt_v4(props: DynamicFormForContextPrompt_input) {
   const dispatch = useDispatch();
 
-  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+  const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
     return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
   });
-  const { inputsCache, setInputsCache } = useInputsCache({
+  const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,
-    onInputsCacheChange: (newItem: IInputsCache) => {
+    onInputsCacheChange: (newItem: to_deprecate_IInputsCache) => {
       dispatch(updateInputsCache(newItem) as any);
     },
   });

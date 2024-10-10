@@ -10,8 +10,10 @@ import TextArea from 'antd/es/input/TextArea';
 import { IReduxRootState } from '../../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../../store/actions/inputsCacheActions';
 
-import IInputsCacheFile, { IInputsCache } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { useInputsCache } from '../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import IInputsCacheFile, {
+  to_deprecate_IInputsCache,
+} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface DynamicFormForSelectValue_input {
@@ -26,12 +28,12 @@ interface DynamicFormForSelectValue_input {
 export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input) {
   const dispatch = useDispatch();
 
-  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+  const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
     return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
   });
-  const { inputsCache, setInputsCache } = useInputsCache({
+  const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,
-    onInputsCacheChange: (newItem: IInputsCache) => {
+    onInputsCacheChange: (newItem: to_deprecate_IInputsCache) => {
       dispatch(updateInputsCache(newItem) as any);
     },
   });

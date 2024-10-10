@@ -25,7 +25,7 @@ import IStoreStorageFile, {
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
-import { useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { SLLM_v2_common } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -42,7 +42,7 @@ import {
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import IInputsCacheFile, {
-  IInputsCache,
+  to_deprecate_IInputsCache,
   IInputsCache_v2,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
@@ -83,12 +83,12 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+  const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
     return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
   });
-  const { inputsCache, setInputsCache } = useInputsCache({
+  const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,
-    onInputsCacheChange: (newItem: IInputsCache) => {
+    onInputsCacheChange: (newItem: to_deprecate_IInputsCache) => {
       dispatch(updateInputsCache(newItem) as any);
     },
   });
@@ -179,8 +179,8 @@ interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
   locale: ELocale;
   userData: IUserData;
-  inputsCache: IInputsCache;
-  setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
+  inputsCache: to_deprecate_IInputsCache;
+  setInputsCache: React.Dispatch<React.SetStateAction<to_deprecate_IInputsCache>>;
   inputsCache_v2: IInputsCache_v2;
   setInputsCache_v2: React.Dispatch<React.SetStateAction<IInputsCache_v2>>;
 }
