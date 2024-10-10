@@ -108,7 +108,6 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
           t={t}
           locale={locale}
           userData={userData}
-          inputsCacheFromStorage={inputsCacheFromStorage}
           inputsCache={inputsCache}
           setInputsCache={setInputsCache}
           inputsCache_v2={inputsCache_v2}
@@ -180,7 +179,6 @@ interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
   locale: ELocale;
   userData: IUserData;
-  inputsCacheFromStorage: IInputsCache;
   inputsCache: IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
   inputsCache_v2: IInputsCache_v2;
