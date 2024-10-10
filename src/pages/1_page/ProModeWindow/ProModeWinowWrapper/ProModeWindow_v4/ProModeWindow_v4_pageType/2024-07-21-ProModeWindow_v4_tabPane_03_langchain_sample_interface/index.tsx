@@ -13,7 +13,7 @@ import { Langchain_right_03_background } from './component/Langchain_right_03_ba
 import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { IInputsCache } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IInputsCache_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import {
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
@@ -59,8 +59,8 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
   props: ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input,
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
-  const { urlSlug, contextType, buttons } = contextSelected;
-  const { t, userAccessToken, llmOption_secrets, llmName: llmName, inputsCache, setInputsCache } = props;
+  const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
+  const { t, userAccessToken, llmOption_secrets, llmName: llmName, inputsCache_v2, setInputsCache_v2 } = props;
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
@@ -72,8 +72,14 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     // { content: '测试3' },
   ]);
   const [uploadFileList, setUploadFileList] = useState<UploadFile[]>([]);
-  const [background, setBackground] = useState<IBackground_v2>({ ...IBackground_v2_default, ...inputsCache });
-  const [adjust, setAdjust] = useState<IAdjust_IMessage_v2>({ ...IAdjust_IMessage_v2_default, ...inputsCache });
+  const [background, setBackground] = useState<IBackground_v2>({
+    ...IBackground_v2_default,
+    ...inputsCache_v2[contextSelected_uuid],
+  });
+  const [adjust, setAdjust] = useState<IAdjust_IMessage_v2>({
+    ...IAdjust_IMessage_v2_default,
+    ...inputsCache_v2[contextSelected_uuid],
+  });
 
   const buildRequestBody = (lastMessage_in_chatHistory: IMessage_for_simpleInterface[]) => {
     const newRequestBody: ILangchain_for_type_langchain_request_v4_simpleInterface = {
@@ -214,7 +220,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             </div> */}
             </div>
 
-            <div className="row currentOuput">
+            <div className="row currentOutput">
               <Langchain_left_01_currentOutput
                 t={t}
                 title={contextSelected.currentOutput.title ?? t.get('Post')}
@@ -272,9 +278,12 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 adjust={adjust}
                 setAdjust={(newItem: IAdjust_IMessage_v2) => {
                   setAdjust(newItem);
-                  setInputsCache((prvState: IInputsCache) => ({
+                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    ...newItem,
+                    [contextSelected_uuid]: {
+                      ...prvState[contextSelected_uuid],
+                      ...newItem,
+                    },
                   }));
                 }}
               />
@@ -291,9 +300,12 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 background={background}
                 setBackground={(newItem: IBackground_v2) => {
                   setBackground(newItem);
-                  setInputsCache((prvState: IInputsCache) => ({
+                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    ...newItem,
+                    [contextSelected_uuid]: {
+                      ...prvState[contextSelected_uuid],
+                      ...newItem,
+                    },
                   }));
                 }}
               />
@@ -307,9 +319,12 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 adjust={adjust}
                 setAdjust={(newItem: IAdjust_IMessage_v2) => {
                   setAdjust(newItem);
-                  setInputsCache((prvState: IInputsCache) => ({
+                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    ...newItem,
+                    [contextSelected_uuid]: {
+                      ...prvState[contextSelected_uuid],
+                      ...newItem,
+                    },
                   }));
                 }}
                 contextSelected_type={contextSelected.contextType}

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { ISubscriptionDB_v2 } from '../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
-import { IInputsCache } from '../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { to_deprecate_IInputsCache } from '../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { IStoreStorage_settings_local } from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { to_deprecate_IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 
@@ -19,7 +19,7 @@ export interface IReduxRootState {
   proModeSet: string; // OK, not IProMode_v3
   // subscription: ISubscirptionMix;
   subscription_v2: ISubscriptionDB_v2;
-  inputsCache: IInputsCache;
+  inputsCache: to_deprecate_IInputsCache;
 }
 
 export const createRootReducer = () =>

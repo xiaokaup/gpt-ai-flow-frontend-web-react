@@ -25,7 +25,7 @@ import IStoreStorageFile, {
 } from '../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { useUserData } from '../../../../../gpt-ai-flow-common/hooks/useUserData';
-import { useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { SLLM_v2_common } from '../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
@@ -41,7 +41,10 @@ import {
   to_deprecate_IUserData_default as IUserData_default,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { CreativityValueProvider } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import IInputsCacheFile, { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import IInputsCacheFile, {
+  to_deprecate_IInputsCache,
+  IInputsCache_v2,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import {
   EProMode_v4_tabPane_context_mode,
@@ -55,6 +58,7 @@ import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageTy
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
+import { useInputsCache_v2 } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache_v2';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -79,13 +83,19 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+  const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
     return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
   });
-  const { inputsCache, setInputsCache } = useInputsCache({
+  const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,
-    onInputsCacheChange: (newItem: IInputsCache) => {
+    onInputsCacheChange: (newItem: to_deprecate_IInputsCache) => {
       dispatch(updateInputsCache(newItem) as any);
+    },
+  });
+  const { inputsCache_v2, setInputsCache_v2 } = useInputsCache_v2({
+    inputsCache_v2FromStorage: inputsCacheFromStorage as unknown as IInputsCache_v2,
+    onInputsCache_v2Change: (newItem: IInputsCache_v2) => {
+      dispatch<any>(updateInputsCache(newItem));
     },
   });
 
@@ -100,6 +110,8 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
           userData={userData}
           inputsCache={inputsCache}
           setInputsCache={setInputsCache}
+          inputsCache_v2={inputsCache_v2}
+          setInputsCache_v2={setInputsCache_v2}
         />
       )}
       {!userId && <ProModeWindow_v4_logout t={t} />}
@@ -167,11 +179,13 @@ interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
   locale: ELocale;
   userData: IUserData;
-  inputsCache: IInputsCache;
-  setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
+  inputsCache: to_deprecate_IInputsCache;
+  setInputsCache: React.Dispatch<React.SetStateAction<to_deprecate_IInputsCache>>;
+  inputsCache_v2: IInputsCache_v2;
+  setInputsCache_v2: React.Dispatch<React.SetStateAction<IInputsCache_v2>>;
 }
 const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
-  const { t, locale, userData, inputsCache, setInputsCache } = props;
+  const { t, locale, userData, inputsCache, setInputsCache, inputsCache_v2, setInputsCache_v2 } = props;
 
   const query = new URLSearchParams(useLocation().search);
   const roleModule = (
@@ -412,6 +426,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           llmName={llmName}
                           inputsCache={inputsCache}
                           setInputsCache={setInputsCache}
+                          inputsCache_v2={inputsCache_v2}
+                          setInputsCache_v2={setInputsCache_v2}
                         />
                       )}
 
