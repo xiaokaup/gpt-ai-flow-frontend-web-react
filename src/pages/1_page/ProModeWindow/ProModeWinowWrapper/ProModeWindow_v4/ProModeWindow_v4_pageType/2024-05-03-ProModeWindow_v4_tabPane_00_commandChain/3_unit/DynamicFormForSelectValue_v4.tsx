@@ -11,10 +11,10 @@ import { IReduxRootState } from '../../../../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../../../../store/actions/inputsCacheActions';
 
 import TStringFile from '../../../../../../../../gpt-ai-flow-common/tools/TString';
-import { useInputsCache } from '../../../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
 import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import IInputsCacheFile, {
-  IInputsCache,
+  to_deprecate_IInputsCache,
 } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 interface DynamicFormForSelectValue_v4_input {
@@ -29,12 +29,12 @@ interface DynamicFormForSelectValue_v4_input {
 export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4_input) {
   const dispatch = useDispatch();
 
-  const inputsCacheFromStorage: IInputsCache = useSelector((state: IReduxRootState) => {
+  const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
     return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
   });
-  const { inputsCache, setInputsCache } = useInputsCache({
+  const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,
-    onInputsCacheChange: (newItem: IInputsCache) => {
+    onInputsCacheChange: (newItem: to_deprecate_IInputsCache) => {
       dispatch(updateInputsCache(newItem) as any);
     },
   });
@@ -53,7 +53,8 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
   const [placeholderKeys, setPlacehodlerKeys] = useState<string[]>([]);
   const [placeholderValues, setPlaceholderValues] = useState<string[]>([]);
   const [placeholderKeyValues, setPlaceholderKeyValues] = useState<{ [key: string]: string }>({});
-  const [newInputsCache_for_component, setNewInputsCache_for_component] = useState<IInputsCache>(inputsCache);
+  const [newInputsCache_for_component, setNewInputsCache_for_component] =
+    useState<to_deprecate_IInputsCache>(inputsCache);
 
   const init = useCallback(() => {
     const placeholderRegex = /\[([^:\]]+)(?::([^\]]+))?\]/g;

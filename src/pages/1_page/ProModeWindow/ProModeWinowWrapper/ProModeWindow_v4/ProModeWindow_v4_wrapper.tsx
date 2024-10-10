@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { Select, message } from 'antd';
 
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
-import { IInputsCache } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import {
+  to_deprecate_IInputsCache,
+  IInputsCache_v2,
+} from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ILLMOption_secrets } from '../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
@@ -25,11 +28,23 @@ export interface IProModeWindow_v4_wrapper_input {
   userAccessToken: string;
   llmOption_secrets: ILLMOption_secrets;
   llmName: ELLM_name;
-  inputsCache: IInputsCache;
-  setInputsCache: React.Dispatch<React.SetStateAction<IInputsCache>>;
+  inputsCache: to_deprecate_IInputsCache;
+  setInputsCache: React.Dispatch<React.SetStateAction<to_deprecate_IInputsCache>>;
+  inputsCache_v2: IInputsCache_v2;
+  setInputsCache_v2: React.Dispatch<React.SetStateAction<IInputsCache_v2>>;
 }
 export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input) => {
-  const { t, tabPane, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
+  const {
+    t,
+    tabPane,
+    userAccessToken,
+    llmOption_secrets,
+    llmName,
+    inputsCache,
+    setInputsCache,
+    inputsCache_v2,
+    setInputsCache_v2,
+  } = props;
   const { context } = tabPane;
 
   const creativityValue = useCreativityValueContext();
@@ -113,8 +128,10 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache}
-            setInputsCache={setInputsCache}
+            inputsCache={inputsCache} // @DEPRECATED
+            setInputsCache={setInputsCache} // @DEPRECATED
+            inputsCache_v2={inputsCache_v2}
+            setInputsCache_v2={setInputsCache_v2}
           />
         )}
 
@@ -128,8 +145,10 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache}
-            setInputsCache={setInputsCache}
+            inputsCache={inputsCache} // @DEPRECATED
+            setInputsCache={setInputsCache} // @DEPRECATED
+            inputsCache_v2={inputsCache_v2}
+            setInputsCache_v2={setInputsCache_v2}
           />
         )}
 
@@ -143,8 +162,10 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache}
-            setInputsCache={setInputsCache}
+            inputsCache={inputsCache} // @DEPRECATED
+            setInputsCache={setInputsCache} // @DEPRECATED
+            inputsCache_v2={inputsCache_v2}
+            setInputsCache_v2={setInputsCache_v2}
           />
         )}
       </div>
