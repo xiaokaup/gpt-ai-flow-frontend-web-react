@@ -49,9 +49,10 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input,
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
-  const { uuid, urlSlug, contextType, buttons } = contextSelected;
-
+  const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
+  // console.log('contextSelected', contextSelected);
   const { t, userAccessToken, llmOption_secrets, llmName, inputsCache_v2, setInputsCache_v2 } = props;
+  // console.log('inputsCache_v2', inputsCache_v2);
   inputsCache_v2.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
@@ -62,11 +63,11 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
     // background: defaultBackgtound,
     background: {
       ...ILangchainMessageExchange_default.background,
-      ...inputsCache_v2[uuid],
+      ...inputsCache_v2[contextSelected_uuid],
     },
     adjust: {
       ...ILangchainMessageExchange_default.adjust,
-      ...inputsCache_v2[uuid],
+      ...inputsCache_v2[contextSelected_uuid],
     },
     createdAt: new Date(),
     role: EMessage_role.HUMAN,
@@ -390,13 +391,13 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                 adjustSelected={contextSelected.adjust}
                 adjust={adjust}
                 setAdjust={(newItem: IAdjust_IMessage) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
+                  setMessageExchangeData((prvState: ILangchainMessageExchange) => ({
+                    ...prvState,
                     adjust: newItem,
-                  });
+                  }));
                   setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    [uuid]: {
+                    [contextSelected_uuid]: {
                       ...prvState,
                       ...newItem,
                     },
@@ -413,13 +414,13 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                 backgroundSelected={contextSelected.background}
                 background={background}
                 setBackground={(newItem: IBackground_for_type_langchain) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
+                  setMessageExchangeData((prvState: ILangchainMessageExchange) => ({
+                    ...prvState,
                     background: newItem,
-                  });
+                  }));
                   setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    [uuid]: {
+                    [contextSelected_uuid]: {
                       ...prvState,
                       ...newItem,
                     },
