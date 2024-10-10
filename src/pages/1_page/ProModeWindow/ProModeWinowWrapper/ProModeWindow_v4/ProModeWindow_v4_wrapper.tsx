@@ -125,8 +125,8 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache}
-            setInputsCache={setInputsCache}
+            inputsCache={inputsCache} // @DEPRECATED
+            setInputsCache={setInputsCache} // @DEPRECATED
             inputsCache_v2={inputsCache_v2}
             setInputsCache_v2={setInputsCache_v2}
           />
@@ -142,8 +142,8 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache}
-            setInputsCache={setInputsCache}
+            inputsCache={inputsCache} // @DEPRECATED
+            setInputsCache={setInputsCache} // @DEPRECATED
             inputsCache_v2={inputsCache_v2}
             setInputsCache_v2={setInputsCache_v2}
           />
@@ -159,8 +159,8 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache}
-            setInputsCache={setInputsCache}
+            inputsCache={inputsCache} // @DEPRECATED
+            setInputsCache={setInputsCache} // @DEPRECATED
             inputsCache_v2={inputsCache_v2}
             setInputsCache_v2={setInputsCache_v2}
           />

@@ -50,9 +50,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
 ) => {
   const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
   const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
-  // console.log('contextSelected', contextSelected);
   const { t, userAccessToken, llmOption_secrets, llmName, inputsCache_v2, setInputsCache_v2 } = props;
-  // console.log('inputsCache_v2', inputsCache_v2);
   inputsCache_v2.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());

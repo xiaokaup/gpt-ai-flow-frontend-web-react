@@ -15,7 +15,7 @@ import { to_deprecate_EProductItemDB_type } from '../../../../../../../gpt-ai-fl
 import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { IInputsCache } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IInputsCache_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import {
   EButton_operation,
@@ -48,11 +48,10 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input,
 ) => {
   const { creativityValue, contextSelected } = props;
-  const { urlSlug, contextType, buttons } = contextSelected;
+  const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
   const { currentOutput: currentOuputFromContextSelected } = contextSelected;
-  // console.log('contextSelected', contextSelected);
-  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache, setInputsCache } = props;
-  inputsCache.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
+  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache_v2, setInputsCache_v2 } = props;
+  inputsCache_v2.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
@@ -66,11 +65,11 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
     // background: defaultBackgtound,
     background: {
       ...ILangchainMessageExchange_default.background,
-      ...inputsCache,
+      ...inputsCache_v2[contextSelected_uuid],
     },
     adjust: {
       ...IAdjust_type_langchain_default,
-      ...inputsCache,
+      ...inputsCache_v2[contextSelected_uuid],
     },
     createdAt: new Date(),
     role: EMessage_role.HUMAN,
@@ -83,7 +82,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
 
   // Manage multiple outputs results
   const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(
-    inputsCache.currentOutputNums ? parseInt(inputsCache.currentOutputNums, 10) : 2, // IAdjust_morePostsChain
+    inputsCache_v2.currentOutputNums ? parseInt(inputsCache_v2[contextSelected_uuid].currentOutputNums, 10) : 2, // IAdjust_morePostsChain
   );
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
@@ -434,14 +433,17 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
                 adjust={adjust as IAdjust_morePostsChain}
                 setAdjust={(newItem: IAdjust_morePostsChain) => {
                   setMessages_outputs_num(newItem.currentOutputNums);
-                  setMessageExchangeData({
-                    ...messageExchangeData,
+                  setMessageExchangeData((prevState: ILangchainMessageExchange) => ({
+                    ...prevState,
                     adjust: newItem,
-                  });
-                  setInputsCache((prvState: IInputsCache) => ({
+                  }));
+                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    ...newItem,
-                    currentOutputNums: newItem?.currentOutputNums?.toString(), // Convert currentOutputNums to string
+                    [contextSelected_uuid]: {
+                      ...prvState[contextSelected_uuid],
+                      ...newItem,
+                      currentOutputNums: newItem?.currentOutputNums?.toString(), // Convert currentOutputNums to string
+                    },
                   }));
                 }}
               />
@@ -453,13 +455,16 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
                 backgroundSelected={contextSelected.background}
                 background={background}
                 setBackground={(newItem: IBackground_for_type_langchain) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
+                  setMessageExchangeData((prevState: ILangchainMessageExchange) => ({
+                    ...prevState,
                     background: newItem,
-                  });
-                  setInputsCache((prvState: IInputsCache) => ({
+                  }));
+                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
                     ...prvState,
-                    ...newItem,
+                    [contextSelected_uuid]: {
+                      ...prvState[contextSelected_uuid],
+                      ...newItem,
+                    },
                   }));
                 }}
               />
