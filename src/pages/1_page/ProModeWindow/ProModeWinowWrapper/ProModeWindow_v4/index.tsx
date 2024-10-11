@@ -147,6 +147,7 @@ const getFilteredTabPanes_by_role = (
       EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING,
       EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
       EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL,
     ];
     return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
   }
