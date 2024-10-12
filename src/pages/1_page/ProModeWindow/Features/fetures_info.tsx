@@ -567,7 +567,7 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
     },
     {
       icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
-      proModeModuleName: '自媒体工作者',
+      proModeModuleName: '自媒体红人',
       featureText_1: (
         <>
           📱 <b>社交媒体的原住民</b>：熟悉各大平台,善于利用平台特性传播内容

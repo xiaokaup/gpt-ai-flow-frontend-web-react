@@ -50,6 +50,7 @@ import {
   EProMode_v4_tabPane_context_mode,
   EProMode_v4_tabPane_uuid,
   EProMode_v4_tabPanes_role,
+  EProMode_v4_tabPanes_role_labels,
 } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/05-tool/interface';
@@ -309,7 +310,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
           >
             <div className="title">
               <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
-                <h3 className="m-0">{t.get('ProMode')} v4.0</h3>
+                <h3 className="m-0">{t.get(EProMode_v4_tabPanes_role_labels[roleModule])} v4.0</h3>
               </a>
             </div>
 
@@ -411,8 +412,6 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           webCase={{ userData, localDataFromStorage }}
                         />
                       )}
-
-                      {}
 
                       {versionNum == 2 && (
                         <ProModeWindow_v4_wrapper
