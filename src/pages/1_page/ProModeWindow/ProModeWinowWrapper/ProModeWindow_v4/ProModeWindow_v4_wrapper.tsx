@@ -74,7 +74,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
         <Select
           defaultValue={contextSelected?.contextType}
           value={selectedContextType}
-          style={{ width: 210 }}
+          style={{ width: 240 }}
           onChange={(value: string) => {
             console.log(`selected ${value}`);
             swtichContextSelected_by_type(value as EProMode_v4_tabPane_context_contextType);
