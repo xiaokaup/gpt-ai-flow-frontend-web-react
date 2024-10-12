@@ -51,7 +51,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
   return (
     <>
       <div style={containerStyle}>
-        <h3 className="mt-0">Desktop App</h3>
+        <h3 className="mt-0">{t.get('Desktop App')}</h3>
         <Button
           type="primary"
           onClick={() => {
@@ -65,7 +65,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
             link.click();
           }}
         >
-          Connect Desktop app
+          {t.get('Connect Desktop App')}
         </Button>
         <Button
           className="ml-4"
@@ -77,7 +77,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
             window.open(downloadUrl, '_blank');
           }}
         >
-          Download
+          {t.get('Download')}
         </Button>
       </div>
       <div style={containerStyle}>
