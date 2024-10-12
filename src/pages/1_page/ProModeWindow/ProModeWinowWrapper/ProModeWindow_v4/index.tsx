@@ -310,7 +310,14 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
           >
             <div className="title">
               <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
-                <h3 className="m-0">{t.get(EProMode_v4_tabPanes_role_labels[roleModule])} v4.0</h3>
+                <h3 className="m-0">
+                  {t.get(
+                    EProMode_v4_tabPanes_role_labels[roleModule]
+                      ? EProMode_v4_tabPanes_role_labels[roleModule]
+                      : 'ProMode',
+                  )}{' '}
+                  v4.0
+                </h3>
               </a>
             </div>
 
