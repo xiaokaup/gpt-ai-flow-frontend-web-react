@@ -10,7 +10,7 @@ import { userReducer } from './userReducer';
 import { localReducer } from './localReducer';
 import { proModeReducer } from './proModeReducer';
 import { subscriptionReducer } from './SubscriptionReducer';
-import { inputsCacheReduer } from './inputsCacheReducer';
+import { inputsCacheReducer } from './inputsCacheReducer';
 import { IPersonaModelsReducerState, personaModelsReducer } from './personaModelsReducer';
 
 export interface IReduxRootState {
@@ -31,6 +31,6 @@ export const createRootReducer = () =>
     local: localReducer,
     proModeSet: proModeReducer,
     subscription: subscriptionReducer,
-    inputsCache: inputsCacheReduer,
+    inputsCache: inputsCacheReducer,
     personaModels: personaModelsReducer,
   });
