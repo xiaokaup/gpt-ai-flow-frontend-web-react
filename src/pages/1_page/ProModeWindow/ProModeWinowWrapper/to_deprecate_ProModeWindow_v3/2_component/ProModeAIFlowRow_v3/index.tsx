@@ -44,7 +44,7 @@ import { InstructionInputColumn_v3 } from './InstructionInputColumn_v3';
 import {
   IAICommandsResults_v4,
   IAICommands_v4,
-} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IProMode/IProModeAICommands';
 import {
   to_deprecate_IUserData as IUserData,
   to_deprecate_IUserData_default as IUserData_default,
