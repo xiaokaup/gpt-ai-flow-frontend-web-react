@@ -11,7 +11,6 @@ import { localReducer } from './localReducer';
 import { proModeReducer } from './proModeReducer';
 import { subscriptionReducer } from './SubscriptionReducer';
 import { inputsCacheReducer } from './inputsCacheReducer';
-import { IPersonaModelsReducerState, personaModelsReducer } from './personaModelsReducer';
 
 export interface IReduxRootState {
   counterInfo: ICounterReducerState;
@@ -21,7 +20,6 @@ export interface IReduxRootState {
   // subscription: ISubscirptionMix;
   subscription_v2: to_deprecate_ISubscriptionDB_v2;
   inputsCache: to_deprecate_IInputsCache;
-  personaModels: IPersonaModelsReducerState;
 }
 
 export const createRootReducer = () =>
@@ -32,5 +30,4 @@ export const createRootReducer = () =>
     proModeSet: proModeReducer,
     subscription: subscriptionReducer,
     inputsCache: inputsCacheReducer,
-    personaModels: personaModelsReducer,
   });
