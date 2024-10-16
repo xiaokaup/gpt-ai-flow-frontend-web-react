@@ -15,7 +15,7 @@ import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-commo
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
-} from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+} from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IProMode/IProModeAICommands';
 
 interface InstructionInputColumn_v3_OutputIndicatorSelect_input {
   t: IGetT_frontend_output;
