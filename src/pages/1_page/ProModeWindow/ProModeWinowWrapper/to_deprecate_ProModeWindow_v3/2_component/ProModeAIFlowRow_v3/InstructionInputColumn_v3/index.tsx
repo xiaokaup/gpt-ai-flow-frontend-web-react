@@ -14,7 +14,7 @@ import { EAIFlowRole, EAIFlow_type } from '../../../../../../../../gpt-ai-flow-c
 import {
   IAICommands_v4,
   IAICommandsResults_v4,
-} from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/ProMode/IProModeAICommands';
+} from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IProMode/IProModeAICommands';
 
 import { DynamicFormForSelectValue } from '../../../3_unit/DynamicFormForSelectValue';
 

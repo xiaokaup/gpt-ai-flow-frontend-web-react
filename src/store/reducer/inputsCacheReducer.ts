@@ -7,7 +7,7 @@ import { UPDATE_INPUTS_CACHE } from '../actions/inputsCacheActions';
 
 import { IAction } from '../store';
 
-export const inputsCacheReduer = (
+export const inputsCacheReducer = (
   state: to_deprecate_IInputsCache = IInputsCacheFile.IInputsCache_default,
   action: IAction,
 ) => {

@@ -1,4 +1,4 @@
-import { ISubscriptionDB_v2 } from '../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
+import { to_deprecate_ISubscriptionDB_v2 } from '../../gpt-ai-flow-common/interface-database/ISubscriptionDB_v2';
 
 // export const GET_SUBSCRIPTION_DATA_V2 = 'GET_SUBSCRIPTION_DATA_V2';
 // export const getSubscriptionDBAction_v2 =
@@ -11,7 +11,7 @@ import { ISubscriptionDB_v2 } from '../../gpt-ai-flow-common/interface-database/
 //   };
 
 export const UPDATE_SUBSCRIPTION_DATA_V2 = 'UPDATE_SUBSCRIPTION_DATA_V2';
-export const udpateSubscriptionDBAction_v2 = (newItem: ISubscriptionDB_v2) => async (dispatch: any) => {
+export const udpateSubscriptionDBAction_v2 = (newItem: to_deprecate_ISubscriptionDB_v2) => async (dispatch: any) => {
   const results = { ...newItem };
 
   dispatch({ type: UPDATE_SUBSCRIPTION_DATA_V2, payload: results });
