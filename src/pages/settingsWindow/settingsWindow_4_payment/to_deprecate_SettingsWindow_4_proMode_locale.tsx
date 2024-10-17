@@ -1,0 +1,153 @@
+import '../../../../styles/global.css';
+import '../../../../styles/layout.scss';
+
+import { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
+
+import { Button, Tag, message } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
+
+import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
+import ITokenDBFile from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import { to_deprecate_IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
+import TBackendStripeFile from '../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { EStripe_currency, EStripePrice_nickname } from '../../../gpt-ai-flow-common/enum-app/EStripe';
+import { to_deprecate_IProductItemDB_with_expiredAt_and_blance as IProductItemDB_with_expiredAt_and_blance } from '../../../gpt-ai-flow-common/interface-database/IProductItemDB';
+
+import { SettingWIndow_4_proMode_recharge_form } from './to_deprecate_SettingWIndow_4_proMode_recharge_form';
+
+interface SettingsWindow_4_proMode_locale_input {
+  t: IGetT_frontend_output;
+  locale: ELocale;
+  userData: to_deprecate_IUserData;
+  productItem: IProductItemDB_with_expiredAt_and_blance;
+}
+export const to_deprecate_SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
+  const { t, locale, userData, productItem } = props;
+  const {
+    id: userId,
+    email: userEmail,
+    Token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
+  } = userData;
+
+  if (!userId || !userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
+      </div>
+    );
+  }
+
+  const [isShow_blanceTransactionForm, setIsShow_blanceTransactionForm] = useState(false);
+
+  const { name, expiredAt, balance, currency } = productItem;
+
+  const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
+
+  const createAndOpenStripeBillingSession = async () => {
+    const billingSessionResults = await TBackendStripeFile.createStripeBillingPortal(
+      userId,
+      userAccessToken,
+      locale,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+    );
+
+    if (billingSessionResults?.status === 'error') {
+      message.error(billingSessionResults.message);
+    }
+
+    window.open(billingSessionResults.url, '_blank', 'noreferrer');
+  };
+
+  return (
+    <div className="row pageContainer">
+      <div className="row subscirption">
+        <div className="row">
+          {t.get('Email')}: {userEmail}
+          <CopyToClipboard
+            text={userEmail}
+            onCopy={() => {
+              message.success({
+                content: <span>{t.get('Copy successful')} !</span>,
+                key: 'copy',
+                duration: 3,
+              });
+            }}
+          >
+            <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
+          </CopyToClipboard>
+        </div>
+
+        {/* === Models Edition - start === */}
+        {(balance === 0 || balance) && (
+          <div className="row">
+            {t.get('Balance')}:<span>&nbsp;{-balance / 100}</span>
+            <span>{currency === EStripe_currency.USD && <>$</>}</span>
+            <span>{currency === EStripe_currency.CNY && <>¥</>}</span>
+          </div>
+        )}
+        {/* === Models Edition - end === */}
+
+        <div className="row">
+          <Button
+            type="primary"
+            onClick={() => {
+              createAndOpenStripeBillingSession();
+            }}
+          >
+            {t.get('My Subscription')}
+          </Button>
+
+          {/* === Models Edition - start === */}
+          {name === EStripePrice_nickname.STARTAI_MODEL && (
+            <Button
+              onClick={() => {
+                setIsShow_blanceTransactionForm((prevState: boolean) => !prevState);
+              }}
+              style={{ marginLeft: 10 }}
+            >
+              {isShow_blanceTransactionForm && <>{t.get('Hide {text} form', { text: t.get('Recharge') })}</>}
+              {!isShow_blanceTransactionForm && <>{t.get('Show {text} form', { text: t.get('Recharge') })}</>}
+            </Button>
+          )}
+          {/* === Models Edition - end === */}
+        </div>
+
+        {/* === Models Edition - start === */}
+        {isShow_blanceTransactionForm && currency && (
+          <SettingWIndow_4_proMode_recharge_form t={t} userAccessToken={userAccessToken} currency={currency} />
+        )}
+        {/* === Models Edition - end === */}
+
+        <div className="row">
+          {t.get('Subscription Name')}: {name ?? EStripePrice_nickname.STARTAI_FREE}
+        </div>
+
+        {name && (
+          <div className="row">
+            {(name === EStripePrice_nickname.STARTAI_TOOLS || name === EStripePrice_nickname.STARTAI_MODEL) && (
+              <>
+                {t.get('Subscription Expiry Date')}:{' '}
+                <span>
+                  <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+
+                  <span className="column">
+                    {isExpired ? (
+                      <Tag color="#f50">{t.get('Expired')}</Tag>
+                    ) : (
+                      <Tag color="#2db7f5">{t.get('Valid')}</Tag>
+                    )}
+                  </span>
+                </span>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
