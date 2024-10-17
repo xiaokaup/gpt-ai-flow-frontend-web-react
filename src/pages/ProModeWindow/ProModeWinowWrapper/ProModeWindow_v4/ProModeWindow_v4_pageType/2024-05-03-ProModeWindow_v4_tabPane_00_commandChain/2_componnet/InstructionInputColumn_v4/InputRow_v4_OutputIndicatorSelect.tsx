@@ -1,9 +1,9 @@
-import '../../../../../../../../../styles/global.css';
-import '../../../../../../../../../styles/layout.scss';
+import '../../../../../../../../styles/global.css';
+import '../../../../../../../../styles/layout.scss';
 
-import iconFormat from '../../../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
-import iconSuccessful from '../../../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
-import iconWrong from '../../../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
+import iconFormat from '../../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
+import iconSuccessful from '../../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
+import iconWrong from '../../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import { Dispatch, SetStateAction } from 'react';
 import { Select, message } from 'antd';

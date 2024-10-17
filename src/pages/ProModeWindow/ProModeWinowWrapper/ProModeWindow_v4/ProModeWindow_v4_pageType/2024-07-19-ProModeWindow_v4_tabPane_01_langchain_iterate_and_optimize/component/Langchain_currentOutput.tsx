@@ -1,4 +1,4 @@
-import iconCleanRight from '../../../../../../../../../assets/icons-customize/icon-clean-right/icon-clean-right-24x24.png';
+import iconCleanRight from '../../../../../../../../assets/icons-customize/icon-clean-right/icon-clean-right-24x24.png';
 
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';

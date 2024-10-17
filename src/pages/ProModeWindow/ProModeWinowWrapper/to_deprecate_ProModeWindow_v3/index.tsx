@@ -1,6 +1,6 @@
-import '../../../../../styles/global.css';
-import '../../../../../styles/drag.css';
-import '../../../../../styles/layout.scss';
+import '../../../../styles/global.css';
+import '../../../../styles/drag.css';
+import '../../../../styles/layout.scss';
 
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

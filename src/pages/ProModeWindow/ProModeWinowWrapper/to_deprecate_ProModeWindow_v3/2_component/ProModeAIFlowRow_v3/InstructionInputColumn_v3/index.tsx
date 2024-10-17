@@ -1,7 +1,7 @@
-import '../../../../../../../../styles/global.css';
-import '../../../../../../../../styles/layout.scss';
+import '../../../../../../../styles/global.css';
+import '../../../../../../../styles/layout.scss';
 
-import iconFormat from '../../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
+import iconFormat from '../../../../../../../../assets/icons-customize/icon-format/icon-format-36x36.png';
 
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';

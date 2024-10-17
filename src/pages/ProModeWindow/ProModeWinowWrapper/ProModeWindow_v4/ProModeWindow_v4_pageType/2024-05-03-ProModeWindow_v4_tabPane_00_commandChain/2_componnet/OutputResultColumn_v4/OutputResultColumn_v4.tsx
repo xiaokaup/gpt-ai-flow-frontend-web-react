@@ -1,8 +1,8 @@
-import '../../../../../../../../../styles/global.css';
-import '../../../../../../../../../styles/layout.scss';
+import '../../../../../../../../styles/global.css';
+import '../../../../../../../../styles/layout.scss';
 import './OutputResultColumn_v4.scss';
 
-import iconShare from '../../../../../../../../../../assets/icons-customize/icon-share/icon-share-18x18.png';
+import iconShare from '../../../../../../../../../assets/icons-customize/icon-share/icon-share-18x18.png';
 
 import { Dispatch, SetStateAction, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';

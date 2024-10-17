@@ -1,5 +1,5 @@
-import expressionIcon from '../../../../../../../../../assets/icons-customize/2024-06-15-icon-communication-expression/megaphone.png';
-import responseIcon from '../../../../../../../../../assets/icons-customize/2024-06-15-communication-response/text-notification.png';
+import expressionIcon from '../../../../../../../../assets/icons-customize/2024-06-15-icon-communication-expression/megaphone.png';
+import responseIcon from '../../../../../../../../assets/icons-customize/2024-06-15-communication-response/text-notification.png';
 
 import { useState } from 'react';
 

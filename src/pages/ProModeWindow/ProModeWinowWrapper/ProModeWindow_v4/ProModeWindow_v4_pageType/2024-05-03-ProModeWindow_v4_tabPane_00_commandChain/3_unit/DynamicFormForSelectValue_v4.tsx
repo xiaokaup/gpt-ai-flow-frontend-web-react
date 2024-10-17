@@ -1,5 +1,5 @@
-import '../../../../../../../../styles/global.css';
-import '../../../../../../../../styles/layout.scss';
+import '../../../../../../../styles/global.css';
+import '../../../../../../../styles/layout.scss';
 
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

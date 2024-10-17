@@ -1,4 +1,4 @@
-import '../../../../styles/global.css';
+import '../../../styles/global.css';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined } from '@ant-design/icons';

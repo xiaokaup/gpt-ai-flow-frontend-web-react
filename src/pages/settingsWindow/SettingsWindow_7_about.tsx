@@ -1,6 +1,5 @@
-import '../../../styles/global.css';
+import '../../styles/global.css';
 
-import React from 'react';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface SettingsWindow_7_about_input {

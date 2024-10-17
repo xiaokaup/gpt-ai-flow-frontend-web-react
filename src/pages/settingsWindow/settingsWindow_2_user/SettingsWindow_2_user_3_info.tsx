@@ -1,5 +1,5 @@
-import '../../../../styles/global.css';
-import '../../../../styles/layout.scss';
+import '../../../styles/global.css';
+import '../../../styles/layout.scss';
 
 import { useEffect } from 'react';
 

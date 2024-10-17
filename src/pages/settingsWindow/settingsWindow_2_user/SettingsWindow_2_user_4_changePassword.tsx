@@ -1,4 +1,4 @@
-import '../../../../styles/global.css';
+import '../../../styles/global.css';
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
