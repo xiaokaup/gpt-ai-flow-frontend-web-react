@@ -6,8 +6,8 @@ import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-commo
 import {
   IProMode_v4_tabPane_context_for_type_langchain_formItems,
   IFormItem,
-} from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { IAdjust_morePostsChain } from '../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
+} from '../../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { IAdjust_morePostsChain } from '../../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
 
 const { TextArea } = Input;
 

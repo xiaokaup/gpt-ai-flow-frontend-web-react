@@ -17,11 +17,11 @@ import { InputRow_v4_OutputIndicatorSelect } from './InputRow_v4_OutputIndicator
 import { InputRow_v4_CustomizeTextArea } from './InputRow_v4_CustomizeTextArea';
 import { IStoreStorage_settings_local } from '../../../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IAIFlow_v2 } from '../../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
+import { to_deprecate_IUserData as IUserData } from '../../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import {
   IAICommands_v4_new,
   IAICommands_v4_new_resultRow,
-} from '../../../../../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/IProModeAICommands_v4_new';
-import { to_deprecate_IUserData as IUserData } from '../../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
+} from '../../../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProModeAICommands_v4_new';
 
 interface InstructionInputColumn_v4_input {
   t: IGetT_frontend_output;
