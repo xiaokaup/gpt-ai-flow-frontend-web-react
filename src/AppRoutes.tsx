@@ -12,17 +12,17 @@ import IStoreStorageFile, {
   IStoreStorage_settings_local,
 } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 
-import { NewsPage } from './pages/1_page/NewsPage';
-import { AuthPage } from './pages/1_page/AuthPages';
-import { LogoutPage } from './pages/1_page/LogoutPage';
+import { NewsPage } from './pages/NewsPage';
+import { AuthPage } from './pages/AuthPages';
+import { LogoutPage } from './pages/LogoutPage';
 // import { CounterComponent } from './CounterComponent';
-import { SettingsWindow } from './pages/1_page/settingsWindow';
-import { ProModeWindow_warpper } from './pages/1_page/ProModeWindow/ProModeWinowWrapper';
-import { ProModeWindowFeatures } from './pages/1_page/ProModeWindow/Features/ProModeWindowFeatures';
-import { SettingsWindow_2_user_2_login } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_2_login';
-import { SettingsWindow_2_user_1_signup } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
-import { SettingsWindow_2_user_5_forgetPassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
-import { SettingsWindow_2_user_4_changePassword } from './pages/1_page/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
+import { SettingsWindow } from './pages/settingsWindow';
+import { ProModeWindow_warpper } from './pages/ProModeWindow/ProModeWinowWrapper';
+import { ProModeWindowFeatures } from './pages/ProModeWindow/Features/ProModeWindowFeatures';
+import { SettingsWindow_2_user_2_login } from './pages/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_2_login';
+import { SettingsWindow_2_user_1_signup } from './pages/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
+import { SettingsWindow_2_user_5_forgetPassword } from './pages/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
+import { SettingsWindow_2_user_4_changePassword } from './pages/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
 
 import { IReduxRootState } from './store/reducer';
 import { updateSpecificUserDB } from './store/actions/userActions';
