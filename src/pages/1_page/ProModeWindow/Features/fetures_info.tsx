@@ -1,7 +1,7 @@
 import {
-  EProMode_v4_tabPane_uuid,
   EProMode_v4_tabPanes_role,
-} from '../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
+  EProMode_v4_tabPane_uuid,
+} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
 import { webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 

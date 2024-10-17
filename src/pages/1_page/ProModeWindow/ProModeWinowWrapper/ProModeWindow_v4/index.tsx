@@ -14,11 +14,6 @@ import { IReduxRootState } from '../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../store/actions/inputsCacheActions';
 import { updateSpecificUserDB, userLogoutAction } from '../../../../../store/actions/userActions';
 
-import {
-  All_type_IProMode_v4_tabPane,
-  IProMode_v4,
-  IProMode_v4_tabPane,
-} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
 import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import IStoreStorageFile, {
   IStoreStorage_settings_local,
@@ -30,11 +25,6 @@ import { SLLM_v2_common } from '../../../../../gpt-ai-flow-common/tools/2_class/
 import { ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import {
-  IAdjust_for_type_langchain,
-  IBackground_for_type_langchain,
-  IProMode_v4_tabPane_context,
-} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
 import { getProMode_v4_from_backend } from '../../../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
 import {
   to_deprecate_IUserData as IUserData,
@@ -46,20 +36,16 @@ import IInputsCacheFile, {
   IInputsCache_v2,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import {
-  EProMode_v4_tabPane_context_mode,
-  EProMode_v4_tabPane_uuid,
-  EProMode_v4_tabPanes_role,
-  EProMode_v4_tabPanes_role_labels,
-} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
-import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
-import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/05-tool/interface';
-
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_00_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
 import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
 import { useInputsCache_v2 } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache_v2';
+import { IProMode_v4, All_type_IProMode_v4_tabPane, IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
+import { EProMode_v4_tabPanes_role, EProMode_v4_tabPane_uuid, EProMode_v4_tabPanes_role_labels, EProMode_v4_tabPane_context_mode } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
+import { IProMode_v4_tabPane_context, IBackground_for_type_langchain, IAdjust_for_type_langchain } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { IProMode_v4_tabPane_tool } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/05-tool/interface';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
