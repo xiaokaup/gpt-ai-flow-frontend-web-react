@@ -137,6 +137,7 @@ const getFilteredTabPanes_by_role = (
     const module_uuids: EProMode_v4_tabPane_uuid[] = [
       EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION,
       EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS,
+      EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY,
     ];
     return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
   }
