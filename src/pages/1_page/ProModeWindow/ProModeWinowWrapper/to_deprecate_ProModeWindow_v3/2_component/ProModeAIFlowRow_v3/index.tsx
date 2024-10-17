@@ -36,7 +36,7 @@ import EInputTypeDBFile, {
 import { useProModeModelValueProviderContext } from '../../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { LangchainRetrivalService } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
-import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendLangchain';
+import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
 import { OutputResultColumn_v3 } from './OutputResultColumn_v3';

@@ -8,19 +8,21 @@ import {
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ILLMOption_secrets } from '../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import {
-  IProMode_v4_tabPane_context,
-  IBackground_for_type_langchain,
-  IAdjust_for_type_langchain,
-} from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/interface-type/03-langchain';
-import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4';
-import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { EProMode_v4_tabPane_context_mode } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
-import { EProMode_v4_tabPane_context_contextType } from '../../../../../gpt-ai-flow-common/interface-app/1_page/IProMode_v4/EProMode_v4_tabPane';
 
 import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize/index_v5';
 import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results/index_v5';
 import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface';
+import { useCreativityValueContext } from '../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
+import { IProMode_v4_tabPane } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
+import {
+  EProMode_v4_tabPane_context_contextType,
+  EProMode_v4_tabPane_context_mode,
+} from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import {
+  IProMode_v4_tabPane_context,
+  IBackground_for_type_langchain,
+  IAdjust_for_type_langchain,
+} from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
