@@ -31,25 +31,130 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
     },
     {
-      icon: '/img/icons/2024-07-14-img-26-workflow.png',
-      proModeModuleName: '写作/审核帖子智能体 (beta)',
+      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
+      proModeModuleName: '对话优化',
       featureText_1: (
         <>
-          📝 <b>智能内容生成</b>，快速产出高质量的文本内容，匹配用户和市场需求
+          🤖 输入现有对话，智能<b>提出替代表达和回答</b>
         </>
       ),
       featureText_2: (
         <>
-          ✅ <b>实时内容审核</b>，确保内容合规性，提升内容安全标准
+          👥 设定目标听众，<b>定向调整对话风格和内容</b>
         </>
       ),
       featureText_3: (
         <>
-          🔄 <b>持续学习与优化</b>，利用最新数据反馈不断改进内容质量与相关性
+          📌 提供反馈，不断<b>优化对话表达与回答方式</b>
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+    },
+    {
+      icon: '/img/icons/2024-10-18-img-32-summary.png',
+      proModeModuleName: '总结工具',
+      featureText_1: (
+        <>
+          📚 <b>快速提取关键信息</b>，节省阅读时间
+        </>
+      ),
+      featureText_2: (
+        <>
+          🔍 <b>多角度分析内容</b>，深入理解核心要点
+        </>
+      ),
+      featureText_3: (
+        <>
+          📊 <b>生成结构化摘要</b>，便于复习和分享
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
+    },
+    {
+      icon: '/img/icons/2024-10-18-img-34-meeting-table.png',
+      proModeModuleName: '会议报告',
+      featureText_1: (
+        <>
+          🎯 <b>自动提取会议要点</b>，确保重要信息不遗漏
+        </>
+      ),
+      featureText_2: (
+        <>
+          👥 <b>智能分配任务和跟进事项</b>，提高会议效率
+        </>
+      ),
+      featureText_3: (
+        <>
+          📅 <b>生成清晰的会议纪要</b>，便于后续追踪和执行
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
+    },
+    {
+      icon: '/img/icons/2024-10-18-img-31-outline.png',
+      proModeModuleName: '大纲工具',
+      featureText_1: (
+        <>
+          🌳 <b>快速生成层次分明的结构</b>，理清思路
+        </>
+      ),
+      featureText_2: (
+        <>
+          🔀 <b>灵活调整大纲顺序</b>，优化内容逻辑
+        </>
+      ),
+      featureText_3: (
+        <>
+          📝 <b>一键展开大纲为文章</b>，提高写作效率
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-25-seo.png',
+      proModeModuleName: 'SEO 优化工具',
+      featureText_1: (
+        <>
+          🔍 <b>直接抓取页面内容</b>, 作为优化的起点
+        </>
+      ),
+      featureText_2: (
+        <>
+          💡 <b>直接提供优化结果</b>, 查看效果立竿见影
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔁 <b>根据反馈迭代</b>, 不断优化SEO内容
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+    },
+    {
+      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
+      proModeModuleName: '小红书达人',
+      featureText_1: (
+        <>
+          🖋 制定与执行<b>针对性的内容计划</b>，满足受众需求并增强用户互动
+        </>
+      ),
+      featureText_2: (
+        <>
+          📈 利用<b>市场趋势和数据分析</b>，优化内容策略并提高内容分发效率
+        </>
+      ),
+      featureText_3: (
+        <>
+          🎨 应用<b>创意故事讲述和差异化策略</b>，增强品牌形象并突出竞争优势
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
@@ -73,117 +178,6 @@ export const getModules = (isHomePage: boolean, locale: string) => {
         ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
         : `${docBaseUrl}/${locale}/docs/application-scenarios/post-rewriting-tool`,
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=morePostsChain`,
-    },
-    {
-      icon: '/img/icons/2024-05-24-img-20-recommend.png',
-      proModeModuleName: '自媒体类型推荐',
-      featureText_1: (
-        <>
-          🌟 根据您的个人兴趣和市场需求，<b>量身定制自媒体类型建议</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          📊 对您的背景和兴趣进行详尽分析，<b>精确推荐符合的自媒体类型</b>
-        </>
-      ),
-      featureText_3: (
-        <>
-          🚀 为所推荐的自媒体类型提供<b>实用的运营策略和内容创作指导</b>
-        </>
-      ),
-      docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/self-media-type-recommendation`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=selfMediaRecommandChain`,
-    },
-    {
-      icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
-      proModeModuleName: '话题拓展',
-      featureText_1: (
-        <>
-          🌟 根据博主特性和受众需求，<b>精确定制话题拓展计划</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          🔍 提供详细的话题建议，<b>每项包括发展路径和策略重点</b>
-        </>
-      ),
-      featureText_3: (
-        <>
-          📊 明确每个话题的准备流程、调研方法及<b>实用工具和资源</b>
-        </>
-      ),
-      docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
-    },
-    {
-      icon: '/img/icons/2024-05-24-img-22-screenshot.png',
-      proModeModuleName: '图片尺寸调整',
-      featureText_1: (
-        <>
-          🖼️ 调整图片尺寸以符合各大社交媒体平台的格式要求，<b>选择想要的位置和截取范围</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          🌐 支持小红书、微信、抖音、微博、哔哩哔哩、快手、知乎等图片规格，<b>持续增加新的支持平台</b>
-        </>
-      ),
-      featureText_3: (
-        <>
-          ⚡ <b>一键调整</b>，操作简便，实现精准的图片定制
-        </>
-      ),
-      docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/tool-for-image-resizing-social-media`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=tool-image-crop`,
-    },
-    {
-      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
-      proModeModuleName: '对话优化',
-      featureText_1: (
-        <>
-          🤖 输入现有对话，智能<b>提出替代表达和回答</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          👥 设定目标听众，<b>定向调整对话风格和内容</b>
-        </>
-      ),
-      featureText_3: (
-        <>
-          📌 提供反馈，不断<b>优化对话表达与回答方式</b>
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
-    },
-    {
-      icon: '/img/icons/2024-06-30-img-24-comment.png',
-      proModeModuleName: '写评论神器',
-      featureText_1: (
-        <>
-          📖 提供原文分析，<b>自动引出与主题紧密相关的评论初稿</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          📌 根据特定背景和目标读者群体，<b>定制评论内容</b>以满足不同语境需求
-        </>
-      ),
-      featureText_3: (
-        <>
-          ♻️ 通过<b>持续版本迭代</b>，对每一个评论进行精细的语句打磨
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
     },
   ];
   const homePageModules_en: IOneFeature[] = [
@@ -211,27 +205,132 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
     },
     {
-      icon: '/img/icons/2024-07-14-img-26-workflow.png',
-      proModeModuleName: 'Writing/Review Post Agent (beta)',
+      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
+      proModeModuleName: 'Dialogue Optimization',
       featureText_1: (
         <>
-          📝 <b>Intelligent Content Generation</b>, quickly produce high-quality text content that matches user and
-          market demands
+          🤖 Enter existing conversations and intelligently <b>suggest alternative expressions and responses</b>
         </>
       ),
       featureText_2: (
         <>
-          ✅ <b>Real-time Content Review</b>, ensure content compliance and elevate content safety standards
+          👥 Set target audience and <b>customize the dialogue style and content</b>
         </>
       ),
       featureText_3: (
         <>
-          🔄 <b>Continuous Learning and Optimization</b>, use the latest data feedback to constantly improve content
-          quality and relevance
+          📌 Provide feedback to continuously <b>improve the expression and response methods in dialogues</b>
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+    },
+    {
+      icon: '/img/icons/2024-10-18-img-32-summary.png',
+      proModeModuleName: 'Summary Tool',
+      featureText_1: (
+        <>
+          📚 <b>Quickly extract key information</b>, saving reading time
+        </>
+      ),
+      featureText_2: (
+        <>
+          🔍 <b>Analyze content from multiple angles</b>, deepening understanding of core points
+        </>
+      ),
+      featureText_3: (
+        <>
+          📊 <b>Generate structured abstracts</b>, facilitating review and sharing
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
+    },
+    {
+      icon: '/img/icons/2024-10-18-img-34-meeting-table.png',
+      proModeModuleName: 'Meeting Report',
+      featureText_1: (
+        <>
+          🎯 <b>Automatically extract meeting key points</b>, ensuring no important information is missed
+        </>
+      ),
+      featureText_2: (
+        <>
+          👥 <b>Intelligently assign tasks and follow-up items</b>, enhancing meeting efficiency
+        </>
+      ),
+      featureText_3: (
+        <>
+          📅 <b>Generate clear meeting minutes</b>, facilitating subsequent tracking and execution
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
+    },
+    {
+      icon: '/img/icons/2024-10-18-img-31-outline.png',
+      proModeModuleName: 'Outline Tool',
+      featureText_1: (
+        <>
+          🌳 <b>Quickly generate hierarchical structures</b>, clarifying thoughts
+        </>
+      ),
+      featureText_2: (
+        <>
+          🔀 <b>Flexibly adjust outline order</b>, optimizing content logic
+        </>
+      ),
+      featureText_3: (
+        <>
+          📝 <b>Expand outline into article with one click</b>, improving writing efficiency
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-25-seo.png',
+      proModeModuleName: 'SEO Optimization Tool',
+      featureText_1: (
+        <>
+          🔍 <b>Directly extract page content</b> as the starting point for optimization
+        </>
+      ),
+      featureText_2: (
+        <>
+          💡 <b>Provide immediate optimization results</b>, see effects instantly
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔁 <b>Iterate based on feedback</b>, continuously optimize SEO content
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+    },
+    {
+      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
+      proModeModuleName: 'Xiaohongshu Expert',
+      featureText_1: (
+        <>
+          🖋 Create and execute <b>targeted content plans</b>, meet audience needs and enhance user interaction
+        </>
+      ),
+      featureText_2: (
+        <>
+          📈 Utilize <b>market trends and data analysis</b>, optimize content strategy and improve content distribution
+          efficiency
+        </>
+      ),
+      featureText_3: (
+        <>
+          🎨 Apply <b>creative storytelling and differentiated strategies</b>, enhance brand image and highlight
+          competitive advantages
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
@@ -255,6 +354,50 @@ export const getModules = (isHomePage: boolean, locale: string) => {
         ? `${docBaseUrl}/docs/application-scenarios/overview`
         : `${docBaseUrl}/docs/application-scenarios/post-rewriting-tool`,
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=morePostsChain`,
+    },
+  ];
+  const proModePageModules_en: IOneFeature[] = [
+    {
+      icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
+      proModeModuleName: 'Article Refinement and Optimization',
+      featureText_1: (
+        <>
+          📝 Select <b>varied writing styles and structures</b> to enrich the presentation of the article
+        </>
+      ),
+      featureText_2: (
+        <>
+          ✨ Adjust and optimize the article based on user feedback to <b>enhance the reading experience</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>Switch between different draft versions with one click</b> for easy comparison of editing effects
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+    },
+    {
+      icon: '/img/icons/2024-05-24-img-17-product-management.png',
+      proModeModuleName: 'Product Manager',
+      featureText_1: (
+        <>
+          📊 <b>From requirements to product features</b>, accurately grasp market and user needs
+        </>
+      ),
+      featureText_2: (
+        <>
+          🛠️ <b>Project management and execution</b>, ensuring projects progress efficiently by milestones
+        </>
+      ),
+      featureText_3: (
+        <>
+          🔄 <b>Data-driven product optimization</b>, continuously enhancing user experience and product performance
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
     },
     {
       icon: '/img/icons/2024-05-24-img-20-recommend.png',
@@ -328,27 +471,6 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=tool-image-crop`,
     },
     {
-      icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
-      proModeModuleName: 'Dialogue Optimization',
-      featureText_1: (
-        <>
-          🤖 Enter existing conversations and intelligently <b>suggest alternative expressions and responses</b>
-        </>
-      ),
-      featureText_2: (
-        <>
-          👥 Set target audience and <b>customize the dialogue style and content</b>
-        </>
-      ),
-      featureText_3: (
-        <>
-          📌 Provide feedback to continuously <b>improve the expression and response methods in dialogues</b>
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
-    },
-    {
       icon: '/img/icons/2024-06-30-img-24-comment.png',
       proModeModuleName: 'Comment Writing Wizard',
       featureText_1: (
@@ -370,94 +492,6 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       ),
       docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
-    },
-  ];
-  const proModePageModules_en: IOneFeature[] = [
-    {
-      icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
-      proModeModuleName: 'Article Refinement and Optimization',
-      featureText_1: (
-        <>
-          📝 Select <b>varied writing styles and structures</b> to enrich the presentation of the article
-        </>
-      ),
-      featureText_2: (
-        <>
-          ✨ Adjust and optimize the article based on user feedback to <b>enhance the reading experience</b>
-        </>
-      ),
-      featureText_3: (
-        <>
-          🔄 <b>Switch between different draft versions with one click</b> for easy comparison of editing effects
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
-    },
-    {
-      icon: '/img/icons/2024-06-30-img-25-seo.png',
-      proModeModuleName: 'SEO Optimization Tool',
-      featureText_1: (
-        <>
-          🔍 <b>Directly extract page content</b> as the starting point for optimization
-        </>
-      ),
-      featureText_2: (
-        <>
-          💡 <b>Provide immediate optimization results</b>, see effects instantly
-        </>
-      ),
-      featureText_3: (
-        <>
-          🔁 <b>Iterate based on feedback</b>, continuously optimize SEO content
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
-    },
-    {
-      icon: '/img/icons/2024-05-24-img-17-product-management.png',
-      proModeModuleName: 'Product Manager',
-      featureText_1: (
-        <>
-          📊 <b>From requirements to product features</b>, accurately grasp market and user needs
-        </>
-      ),
-      featureText_2: (
-        <>
-          🛠️ <b>Project management and execution</b>, ensuring projects progress efficiently by milestones
-        </>
-      ),
-      featureText_3: (
-        <>
-          🔄 <b>Data-driven product optimization</b>, continuously enhancing user experience and product performance
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
-    },
-    {
-      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
-      proModeModuleName: 'Xiaohongshu Expert',
-      featureText_1: (
-        <>
-          🖋 Create and execute <b>targeted content plans</b>, meet audience needs and enhance user interaction
-        </>
-      ),
-      featureText_2: (
-        <>
-          📈 Utilize <b>market trends and data analysis</b>, optimize content strategy and improve content distribution
-          efficiency
-        </>
-      ),
-      featureText_3: (
-        <>
-          🎨 Apply <b>creative storytelling and differentiated strategies</b>, enhance brand image and highlight
-          competitive advantages
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
     },
   ];
   const proModePageModules_zh: IOneFeature[] = [
@@ -483,27 +517,6 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
     },
     {
-      icon: '/img/icons/2024-06-30-img-25-seo.png',
-      proModeModuleName: 'SEO 优化工具',
-      featureText_1: (
-        <>
-          🔍 <b>直接抓取页面内容</b>, 作为优化的起点
-        </>
-      ),
-      featureText_2: (
-        <>
-          💡 <b>直接提供优化结果</b>, 查看效果立竿见影
-        </>
-      ),
-      featureText_3: (
-        <>
-          🔁 <b>根据反馈迭代</b>, 不断优化SEO内容
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
-    },
-    {
       icon: '/img/icons/2024-05-24-img-17-product-management.png',
       proModeModuleName: '产品经理',
       featureText_1: (
@@ -525,25 +538,94 @@ export const getModules = (isHomePage: boolean, locale: string) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
     },
     {
-      icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
-      proModeModuleName: '小红书达人',
+      icon: '/img/icons/2024-05-24-img-20-recommend.png',
+      proModeModuleName: '自媒体类型推荐',
       featureText_1: (
         <>
-          🖋 制定与执行<b>针对性的内容计划</b>，满足受众需求并增强用户互动
+          🌟 根据您的个人兴趣和市场需求，<b>量身定制自媒体类型建议</b>
         </>
       ),
       featureText_2: (
         <>
-          📈 利用<b>市场趋势和数据分析</b>，优化内容策略并提高内容分发效率
+          📊 对您的背景和兴趣进行详尽分析，<b>精确推荐符合的自媒体类型</b>
         </>
       ),
       featureText_3: (
         <>
-          🎨 应用<b>创意故事讲述和差异化策略</b>，增强品牌形象并突出竞争优势
+          🚀 为所推荐的自媒体类型提供<b>实用的运营策略和内容创作指导</b>
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/self-media-type-recommendation`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=selfMediaRecommandChain`,
+    },
+    {
+      icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
+      proModeModuleName: '话题拓展',
+      featureText_1: (
+        <>
+          🌟 根据博主特性和受众需求，<b>精确定制话题拓展计划</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          🔍 提供详细的话题建议，<b>每项包括发展路径和策略重点</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          📊 明确每个话题的准备流程、调研方法及<b>实用工具和资源</b>
+        </>
+      ),
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
+    },
+    {
+      icon: '/img/icons/2024-05-24-img-22-screenshot.png',
+      proModeModuleName: '图片尺寸调整',
+      featureText_1: (
+        <>
+          🖼️ 调整图片尺寸以符合各大社交媒体平台的格式要求，<b>选择想要的位置和截取范围</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          🌐 支持小红书、微信、抖音、微博、哔哩哔哩、快手、知乎等图片规格，<b>持续增加新的支持平台</b>
+        </>
+      ),
+      featureText_3: (
+        <>
+          ⚡ <b>一键调整</b>，操作简便，实现精准的图片定制
+        </>
+      ),
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/tool-for-image-resizing-social-media`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=tool-image-crop`,
+    },
+    {
+      icon: '/img/icons/2024-06-30-img-24-comment.png',
+      proModeModuleName: '写评论神器',
+      featureText_1: (
+        <>
+          📖 提供原文分析，<b>自动引出与主题紧密相关的评论初稿</b>
+        </>
+      ),
+      featureText_2: (
+        <>
+          📌 根据特定背景和目标读者群体，<b>定制评论内容</b>以满足不同语境需求
+        </>
+      ),
+      featureText_3: (
+        <>
+          ♻️ 通过<b>持续版本迭代</b>，对每一个评论进行精细的语句打磨
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
     },
   ];
 
