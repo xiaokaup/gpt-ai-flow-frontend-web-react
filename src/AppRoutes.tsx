@@ -400,6 +400,19 @@ export const AppRoutes = () => {
             </div>
           }
         />
+        <Route
+          path="personalModel"
+          element={
+            <div className="App">
+              <AppLayoutCenter
+                isAuthenticated={isAuthenticated}
+                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+              >
+                <h1>personalModel</h1>
+              </AppLayoutCenter>
+            </div>
+          }
+        />
       </>
     );
   };
