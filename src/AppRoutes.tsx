@@ -401,14 +401,14 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="personalModel"
+          path="personaModel"
           element={
             <div className="App">
               <AppLayoutCenter
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <h1>personalModel</h1>
+                <h1>personaModel</h1>
               </AppLayoutCenter>
             </div>
           }
