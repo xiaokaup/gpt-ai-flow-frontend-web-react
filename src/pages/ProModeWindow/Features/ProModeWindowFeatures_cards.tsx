@@ -104,7 +104,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         }
       >
         {featuresFiltered.map((item) => {
-          const { openLink } = item;
+          const { webAppOpenLink: openLink } = item;
 
           if (!openLink || (openLink && openLink === '#'))
             return <Card_without_click key={item.proModeModuleName} item={item} imgBaseUrl={docBaseUrl} />;
