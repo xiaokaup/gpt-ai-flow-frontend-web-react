@@ -2,7 +2,7 @@ import {
   EProMode_v4_tabPanes_role,
   EProMode_v4_tabPane_uuid,
 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
-import { webAppUrl } from './constant';
+import { docBaseUrl, webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
 export const getModules = (isHomePage: boolean, locale: string) => {
