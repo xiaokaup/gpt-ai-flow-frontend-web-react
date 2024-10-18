@@ -13,7 +13,7 @@ import { updateInputsCache } from '../../../../../store/actions/inputsCacheActio
 import IInputsCacheFile, {
   to_deprecate_IInputsCache,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/to_deprecate_useInputsCache';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface DynamicFormForSelectValue_input {

@@ -11,7 +11,7 @@ import { IReduxRootState } from '../../../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../../../store/actions/inputsCacheActions';
 
 import TStringFile from '../../../../../../../gpt-ai-flow-common/tools/TString';
-import { to_deprecate_useInputsCache } from '../../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../../../gpt-ai-flow-common/hooks/to_deprecate_useInputsCache';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import IInputsCacheFile, {
   to_deprecate_IInputsCache,

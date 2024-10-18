@@ -7,7 +7,7 @@ import { EServiceCategoryDB_name } from '../../../../gpt-ai-flow-common/enum-dat
 import IProMode_v3File, { IProMode_v3 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { IProMode_v3_oneProMode } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
 import { to_deprecate_IUserData as IUserData } from '../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
-import { useProModeSetData } from '../../../../gpt-ai-flow-common/hooks/useProModeSetData';
+import { to_deprecate_useProModeSetData } from '../../../../gpt-ai-flow-common/hooks/to_deprecate_useProModeSetData';
 import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
 import { IReduxRootState } from '../../../../store/reducer/index';
@@ -98,7 +98,7 @@ export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
       CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
     ) ?? IProMode_v3File.IProMode_v3_default;
 
-  const { proModeSetData } = useProModeSetData({
+  const { proModeSetData } = to_deprecate_useProModeSetData({
     userDataFromStorage,
     proModeSetData: proModeSetFromStorage,
     onProModeSetDataChange: (newPromodeSetData: Omit<IProMode_v3, EServiceCategoryDB_name.DEFAULT>) => {

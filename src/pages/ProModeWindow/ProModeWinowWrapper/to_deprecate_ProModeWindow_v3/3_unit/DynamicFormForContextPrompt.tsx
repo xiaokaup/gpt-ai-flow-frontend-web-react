@@ -10,7 +10,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { IReduxRootState } from '../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../store/actions/inputsCacheActions';
 
-import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/to_deprecate_useInputsCache';
 import IInputsCacheFile, {
   to_deprecate_IInputsCache,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
