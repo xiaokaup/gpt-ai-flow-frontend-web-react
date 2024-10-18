@@ -79,7 +79,7 @@ interface useProModeSetDataUI_input {
   userDataFromStorage: IUserData;
   serviceCategories: string[];
 }
-export const useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
+export const to_deprecate_useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
