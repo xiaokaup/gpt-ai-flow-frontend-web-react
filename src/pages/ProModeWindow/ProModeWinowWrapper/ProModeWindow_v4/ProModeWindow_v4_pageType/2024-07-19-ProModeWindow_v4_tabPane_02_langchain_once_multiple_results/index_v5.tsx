@@ -36,7 +36,6 @@ import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
-import { ProMode_v4_Debug } from '../ProMode_v4_Debug';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -524,12 +523,12 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
           </Splitter.Panel>
         </Splitter>
       )}
-      <ProMode_v4_Debug
+      {/* <ProMode_v4_Debug
         chatHistory={chatHistory}
         currentVersionNum={currentVersionNum}
         contextType={contextType}
         messageExchangeData={messageExchangeData}
-      />
+      /> */}
     </>
   );
 };
