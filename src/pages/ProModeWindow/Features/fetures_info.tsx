@@ -2,7 +2,7 @@ import {
   EProMode_v4_tabPanes_role,
   EProMode_v4_tabPane_uuid,
 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
-import { webAppUrl } from './constant';
+import { docBaseUrl, webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
 export const getModules = (isHomePage: boolean, locale: string) => {
@@ -25,7 +25,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🕒 <b>保存每一步的版本变化</b>，轻松回到任何草稿版本
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/social-media-post-creator`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
     },
     {
       icon: '/img/icons/2024-07-14-img-26-workflow.png',
@@ -45,7 +48,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🔄 <b>持续学习与优化</b>，利用最新数据反馈不断改进内容质量与相关性
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
@@ -65,7 +69,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           📌 详细填写背景信息，<b>精细定制帖子的主题和内容质量</b>
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=morePostsChain',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/post-rewriting-tool`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=morePostsChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-20-recommend.png',
@@ -85,7 +92,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🚀 为所推荐的自媒体类型提供<b>实用的运营策略和内容创作指导</b>
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=selfMediaRecommandChain',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/self-media-type-recommendation`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=selfMediaRecommandChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
@@ -105,7 +115,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           📊 明确每个话题的准备流程、调研方法及<b>实用工具和资源</b>
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=topicFindingToolChain',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
@@ -125,7 +138,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           ⚡ <b>一键调整</b>，操作简便，实现精准的图片定制
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/${locale}/docs/application-scenarios/tool-for-image-resizing-social-media`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=tool-image-crop`,
     },
     {
       icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
@@ -145,7 +161,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           📌 提供反馈，不断<b>优化对话表达与回答方式</b>
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
     },
     {
       icon: '/img/icons/2024-06-30-img-24-comment.png',
@@ -165,7 +182,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           ♻️ 通过<b>持续版本迭代</b>，对每一个评论进行精细的语句打磨
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
     },
   ];
   const homePageModules_en: IOneFeature[] = [
@@ -187,7 +205,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🕒 <b>Save each step of version changes</b>, easily revert to any draft version
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/docs/application-scenarios/social-media-post-creator`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
     },
     {
       icon: '/img/icons/2024-07-14-img-26-workflow.png',
@@ -209,7 +230,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           quality and relevance
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=writingPostAgent',
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingPostAgent`,
     },
     {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
@@ -229,7 +251,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           📌 Fill in detailed background information, <b>finely customize the theme and content quality of the post</b>
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=morePostsChain',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/docs/application-scenarios/post-rewriting-tool`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=morePostsChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-20-recommend.png',
@@ -251,7 +276,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           self-media types
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=selfMediaRecommandChain',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/docs/application-scenarios/self-media-type-recommendation`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=selfMediaRecommandChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
@@ -271,7 +299,10 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           📊 Clearly define each topic's preparation process, research methods, and <b>practical tools and resources</b>
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=topicFindingToolChain',
+      docOpenLink: isHomePage
+        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        : `${docBaseUrl}/docs/application-scenarios/topic-expansion-for-content-creators`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
@@ -293,7 +324,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           ⚡ <b>One-click adjustment</b>, easy to operate, achieving precise image customization
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=tool-image-crop',
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=tool-image-crop`,
     },
     {
       icon: '/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
@@ -313,7 +345,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           📌 Provide feedback to continuously <b>improve the expression and response methods in dialogues</b>
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=communicationChain`,
     },
     {
       icon: '/img/icons/2024-06-30-img-24-comment.png',
@@ -335,7 +368,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           ♻️ Refine each comment through <b>continuous version iterations</b>
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=writingCommentChain`,
     },
   ];
   const proModePageModules_en: IOneFeature[] = [
@@ -357,7 +391,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🔄 <b>Switch between different draft versions with one click</b> for easy comparison of editing effects
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
     },
     {
       icon: '/img/icons/2024-06-30-img-25-seo.png',
@@ -377,7 +412,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🔁 <b>Iterate based on feedback</b>, continuously optimize SEO content
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-17-product-management.png',
@@ -397,7 +433,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🔄 <b>Data-driven product optimization</b>, continuously enhancing user experience and product performance
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=product_manager',
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
     },
     {
       icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
@@ -419,7 +456,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           competitive advantages
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
     },
   ];
   const proModePageModules_zh: IOneFeature[] = [
@@ -441,7 +479,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🔄 <b>一键切换草稿版本</b>，方便比较编辑效果
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=contentWritingChain`,
     },
     {
       icon: '/img/icons/2024-06-30-img-25-seo.png',
@@ -461,7 +500,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🔁 <b>根据反馈迭代</b>, 不断优化SEO内容
         </>
       ),
-      openLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=SEOChain`,
     },
     {
       icon: '/img/icons/2024-05-24-img-17-product-management.png',
@@ -481,7 +521,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🔄 <b>数据驱动的产品优化</b>，持续提升用户体验和产品性能
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=product_manager',
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=product_manager`,
     },
     {
       icon: '/img/icons/2023-09-18-img-11-icon-social-media.png',
@@ -501,7 +542,8 @@ export const getModules = (isHomePage: boolean, locale: string) => {
           🎨 应用<b>创意故事讲述和差异化策略</b>，增强品牌形象并突出竞争优势
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=xiaoHongShu',
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=xiaoHongShu`,
     },
   ];
 
@@ -543,7 +585,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
@@ -563,7 +606,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           🔍 <b>用户需求的洞察者</b>：深入了解受众需求,创造有价值的内容
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
@@ -583,7 +627,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
@@ -603,7 +648,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
     },
   ];
   const proModePageRoles_en: IOneFeature[] = [
@@ -627,7 +673,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           and skills
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
@@ -648,7 +695,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           🔍 <b>User Needs Insights</b>: Deeply understands audience needs and creates valuable content
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
@@ -669,7 +717,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           📈 <b>Business Value Creator</b>: Converts traffic into business value, achieving content monetization
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
@@ -690,7 +739,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           🚀 <b>Product Growth Driver</b>: Develops product roadmaps and drives product iteration and optimization
         </>
       ),
-      openLink: `/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
     },
   ];
 
@@ -714,7 +764,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           💼 <b>独立自主的个体经营者</b>：自己就是老板,掌控职业发展方向
         </>
       ),
-      openLink: '/app/proMode?tabPane_uuid=freelancerProfile',
+      docOpenLink: '/app/proMode?tabPane_uuid=freelancerProfile',
+      webAppOpenLink: '/app/proMode?tabPane_uuid=freelancerProfile',
     },
     // 设计师
     // 程序员

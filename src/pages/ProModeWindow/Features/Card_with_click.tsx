@@ -11,7 +11,7 @@ export const Card_with_click = (props: ICard_with_click) => {
     locale,
     baseUrl,
     imgBaseUrl,
-    item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3, openLink },
+    item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3, webAppOpenLink: openLink },
   } = props;
 
   return (

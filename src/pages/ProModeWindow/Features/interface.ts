@@ -4,5 +4,6 @@ export interface IOneFeature {
   featureText_1: JSX.Element;
   featureText_2: JSX.Element;
   featureText_3: JSX.Element;
-  openLink: string;
+  docOpenLink: string;
+  webAppOpenLink: string;
 }
