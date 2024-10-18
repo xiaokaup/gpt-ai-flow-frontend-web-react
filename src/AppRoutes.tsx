@@ -401,7 +401,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="personaModel"
+          path="persona"
           element={
             <div className="App">
               <AppLayoutCenter

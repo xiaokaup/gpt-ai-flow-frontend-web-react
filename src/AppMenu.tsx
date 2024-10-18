@@ -108,6 +108,9 @@ export const AppMenu = (props: {
           <Menu.Item key="4">
             <Link to="/app/proMode/features">{t.get('ProMode')}</Link>
           </Menu.Item>
+          <Menu.Item key="persona">
+            <Link to="/app/persona">{t.get('Persona system')}</Link>
+          </Menu.Item>
         </>
       )}
 
