@@ -338,7 +338,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                     setIsShow_personaDrawer(true);
                   }}
                 >
-                  {t.get('Open {text}', { text: t.get('Persona panel') })}
+                  {`${t.get('Open {text}', { text: t.get('Persona panel') })}`}
                 </Button>
               </div>
 
