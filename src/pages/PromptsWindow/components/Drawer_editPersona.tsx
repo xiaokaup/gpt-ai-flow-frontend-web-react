@@ -4,7 +4,7 @@ import TextArea from 'antd/es/input/TextArea';
 
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IPrompt_v3_IPersonaModel,
+  IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
 } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
@@ -12,8 +12,8 @@ interface IModal_editPersona_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  thisPrompt_v3: IPrompt_v3_IPersonaModel;
-  editPrompt_v3_from: FormInstance<IPrompt_v3_IPersonaModel>;
+  thisPrompt_v3: IPrompt_v3_type_persona;
+  editPrompt_v3_from: FormInstance<IPrompt_v3_type_persona>;
 }
 export const Drawer_editPersona = (props: IModal_editPersona_input) => {
   const { t, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from } = props;
@@ -25,7 +25,7 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
     form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = (values: IPrompt_v3_IPersonaModel['metadata']) => {
+  const onFinishInDrawer = (values: IPrompt_v3_type_persona['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -44,7 +44,7 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
     if (additionalInfo) newValue += `${t.get('Additional information')}: ${additionalInfo}\n`;
     newValue += '"""';
 
-    const createPrompt_v3_modal_values: IPrompt_v3_IPersonaModel = editPrompt_v3_from.getFieldsValue();
+    const createPrompt_v3_modal_values: IPrompt_v3_type_persona = editPrompt_v3_from.getFieldsValue();
     const newPrompts_v3 = {
       ...createPrompt_v3_modal_values,
       value: newValue, // Update IPrompt_v3.value

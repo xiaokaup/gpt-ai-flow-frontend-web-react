@@ -19,7 +19,7 @@ import { Drawer_createPersona } from './components/Drawer_createPersona';
 import { useForm } from 'antd/es/form/Form';
 import { Drawer_editPersona } from './components/Drawer_editPersona';
 import {
-  IPrompt_v3_IPersonaModel,
+  IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
 } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
@@ -27,8 +27,8 @@ const { Search } = Input;
 
 interface IPromptsWindow_input {
   t: IGetT_frontend_output;
-  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_IPersonaModel)[];
-  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_IPersonaModel)[]>>;
+  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
+  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
   accessToken: string;
   env: IConstantGptAiFlowHandler;
 }
@@ -50,7 +50,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
   const [editPrompt_v3_from] = useForm();
 
   const [isShowModal_edit_prompts_v3, setIsShowModal_edit_prompts_v3] = useState<boolean>(false);
-  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3 | IPrompt_v3_IPersonaModel | null>({
+  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3 | IPrompt_v3_type_persona | null>({
     ...IPrompts_v3_default,
     ...IPrompt_v3_IPersonaModel_default,
     metadata: {
@@ -245,7 +245,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
           t={t}
           isShow={isShowModal_edit_persona}
           setIsShow={setIsShowModal_edit_persona}
-          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_IPersonaModel}
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
           // Prompts_v3
           editPrompt_v3_from={editPrompt_v3_from}
         />

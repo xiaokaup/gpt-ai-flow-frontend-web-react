@@ -11,7 +11,7 @@ import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILo
 
 import { PromptsWindow } from '.';
 import { IReduxRootState } from '../../store/reducer';
-import { IPrompt_v3_IPersonaModel } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
 interface IPromptsWindowWrapper_input {
   userDB: IUserDB;
@@ -29,15 +29,13 @@ export const PromptsWindowWrapper = (props: IPromptsWindowWrapper_input) => {
 
   //   const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user();
   // const [prompts_v3_user, setPrompts_v3_user] = useState<IPrompt_v3[]>([]);
-  const prompts_v3_userFromStorage: (IPrompt_v3 | IPrompt_v3_IPersonaModel)[] = useSelector(
-    (state: IReduxRootState) => {
-      return state.prompts_v3.user;
-    },
-  );
+  const prompts_v3_userFromStorage: (IPrompt_v3 | IPrompt_v3_type_persona)[] = useSelector((state: IReduxRootState) => {
+    return state.prompts_v3.user;
+  });
 
   const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user_v2({
     prompts_v3_userFromStorage,
-    onChangePrompts_v3_user: (newPrompts_v3_user: (IPrompt_v3 | IPrompt_v3_IPersonaModel)[]) => {
+    onChangePrompts_v3_user: (newPrompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[]) => {
       dispatch<any>(updateUserPrompts_v3(newPrompts_v3_user));
     },
   });

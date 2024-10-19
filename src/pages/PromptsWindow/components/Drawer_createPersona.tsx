@@ -4,13 +4,13 @@ import { FormInstance, useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3_IPersonaModel } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
 interface IDrawer_createPersona_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  createPrompt_v3_form: FormInstance<IPrompt_v3_IPersonaModel>;
+  createPrompt_v3_form: FormInstance<IPrompt_v3_type_persona>;
 }
 export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
   const { t, isShow, setIsShow, createPrompt_v3_form } = props;
@@ -22,7 +22,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     // form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = (values: IPrompt_v3_IPersonaModel['metadata']) => {
+  const onFinishInDrawer = (values: IPrompt_v3_type_persona['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -41,7 +41,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     if (additionalInfo) newValue += `${t.get('Additional information')}: ${additionalInfo}\n`;
     newValue += '"""';
 
-    const createPrompt_v3_modal_values: IPrompt_v3_IPersonaModel = createPrompt_v3_form.getFieldsValue();
+    const createPrompt_v3_modal_values: IPrompt_v3_type_persona = createPrompt_v3_form.getFieldsValue();
     const newPrompts_v3 = {
       ...createPrompt_v3_modal_values,
       value: newValue, // Update IPrompt_v3.value

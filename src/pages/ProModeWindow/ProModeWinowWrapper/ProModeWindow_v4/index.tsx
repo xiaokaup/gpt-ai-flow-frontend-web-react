@@ -60,10 +60,8 @@ import {
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { IProMode_v4_tabPane_tool } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/05-tool/interface';
 import { Prompt_v3_persona_Provider } from '../../../../gpt-ai-flow-common/contexts/Prompt_v3_persona_ProviderContext';
-import {
-  IPrompt_v3_IPersonaModel,
-  IPrompt_v3_IPersonaModel_default,
-} from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { Drawer_prompt_v3_persona } from './Drawer_prompt_v3_persona';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -240,10 +238,12 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   // ModelOptions
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
   const [llmName, setLLMName] = useState<ELLM_name>(llmName_from_store);
-  const [prompt_v3_persona, setPrompt_v3_persona] = useState<IPrompt_v3_IPersonaModel>(
-    IPrompt_v3_IPersonaModel_default,
-  );
   // === ProMode tabPane settings - end ===
+
+  // === Drawer - start ===
+  const [prompt_v3_persona, setPrompt_v3_persona] = useState<IPrompt_v3_type_persona>();
+  const [isShow_personaDrawer, setIsShow_personaDrawer] = useState<boolean>(false);
+  // === Drawer - end ===
 
   const init = useCallback(async () => {
     const result: IProMode_v4 = await getProMode_v4_from_backend(
@@ -459,6 +459,15 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               </CreativityValueProvider>
             </ProModeModelValueProvider>
           </Prompt_v3_persona_Provider>
+        </div>
+
+        <div className="drawers">
+          <Drawer_prompt_v3_persona
+            t={t}
+            isShow={!isShow_personaDrawer}
+            setIsShow={setIsShow_personaDrawer}
+            setPrompt_v3_persona={setPrompt_v3_persona}
+          />
         </div>
       </div>
     </div>
