@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Button, Card, Input, message, Tag, Tooltip } from 'antd';
-import { CloseOutlined, MessageOutlined, EditOutlined } from '@ant-design/icons';
+import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
