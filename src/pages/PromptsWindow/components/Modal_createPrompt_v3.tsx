@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Modal, Input, Button, Form, message, Select } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { FormInstance, useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
 import { EPrompts_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
@@ -13,11 +13,19 @@ interface IModal_createPrompt_v3_input {
   setIsShow: (isShow: boolean) => void;
   prompts_v3_user: IPrompt_v3[];
   setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3[]>>;
+  setIsShowModal_create_persona: (isShow: boolean) => void;
+  createPrompt_v3_form: FormInstance<any>;
 }
 export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
-  const { t, isShow, setIsShow, prompts_v3_user, setPrompts_v3_user } = props;
-
-  const [form] = useForm();
+  const {
+    t,
+    isShow,
+    setIsShow,
+    prompts_v3_user,
+    setPrompts_v3_user,
+    setIsShowModal_create_persona,
+    createPrompt_v3_form: form,
+  } = props;
 
   const closeModal = () => {
     setIsShow(false);
@@ -63,7 +71,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
     <div className="modal_create_prompts_v3">
       <Modal
         open={isShow}
-        title={t.get('Add') + t.get('prompt')}
+        title={t.get('Create') + t.get('prompt')}
         onCancel={() => {
           closeModal();
         }}
@@ -100,7 +108,21 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
             <Select mode="tags" />
           </Form.Item> */}
           <Form.Item
-            label={t.get('Value')}
+            label={
+              <div>
+                <span>{t.get('Value')} </span>
+                <Button
+                  type="primary"
+                  className="ml-2"
+                  size="small"
+                  onClick={() => {
+                    setIsShowModal_create_persona(true);
+                  }}
+                >
+                  {t.get('Create') + t.get('persona')}
+                </Button>
+              </div>
+            }
             name="value"
             rules={[
               {
