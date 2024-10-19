@@ -358,6 +358,27 @@ export const getModules = (isHomePage: boolean, locale: string) => {
   ];
   const proModePageModules_en: IOneFeature[] = [
     {
+      icon: '/img/icons/2024-10-19-img-35-translate.png',
+      proModeModuleName: 'Translation Tool',
+      featureText_1: (
+        <>
+          🌐 <b>Support multi-language translation</b>, breaking language barriers
+        </>
+      ),
+      featureText_2: (
+        <>
+          🧠 <b>Intelligent context understanding</b>, ensuring translation accuracy
+        </>
+      ),
+      featureText_3: (
+        <>
+          📚 <b>Professional terminology database support</b>, providing industry-specific precise translations
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
+    },
+    {
       icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
       proModeModuleName: 'Article Refinement and Optimization',
       featureText_1: (
@@ -495,6 +516,27 @@ export const getModules = (isHomePage: boolean, locale: string) => {
     },
   ];
   const proModePageModules_zh: IOneFeature[] = [
+    {
+      icon: '/img/icons/2024-10-19-img-35-translate.png',
+      proModeModuleName: '翻译工具',
+      featureText_1: (
+        <>
+          🌐 <b>支持多种语言互译</b>，打破语言障碍
+        </>
+      ),
+      featureText_2: (
+        <>
+          🧠 <b>智能理解上下文</b>，确保翻译准确性
+        </>
+      ),
+      featureText_3: (
+        <>
+          📚 <b>专业术语库支持</b>，提供行业精准翻译
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
+    },
     {
       icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
       proModeModuleName: '文章细化与优化',
