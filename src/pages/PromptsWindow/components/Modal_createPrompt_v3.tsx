@@ -148,12 +148,66 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
               </Select.Option>
             </Select>
           </Form.Item>
+
           <Form.Item label={t.get('Tags')} name="tags">
-            <Select mode="tags">
-              {/*  */}
-              {/* <Select.Option value="demo">Demo</Select.Option> */}
-            </Select>
+            <Select mode="tags" />
           </Form.Item>
+
+          {/* === metadata - start */}
+          <Form.Item className="hidden" label={t.get('Occupation')} name={['metadata', 'occupation']}>
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item
+            className="hidden"
+            label={t.get('Core values')}
+            name={['metadata', 'coreValues']}
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item
+            className="hidden"
+            label={t.get('Unique skills')}
+            name={['metadata', 'uniqueSkill']}
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item
+            className="hidden"
+            label={t.get('Personality traits')}
+            name={['metadata', 'personalityTrait']}
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item
+            className="hidden"
+            label={t.get('Appearance')}
+            name={['metadata', 'appearance']}
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item
+            className="hidden"
+            label={t.get('Additional information')}
+            name={['metadata', 'additionalInfo']}
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <TextArea autoSize />
+          </Form.Item>
+          {/* === metadata - end */}
 
           <Form.Item
           // wrapperCol={{ offset: 8, span: 16 }}

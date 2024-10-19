@@ -36,11 +36,12 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     const newValue = 'hahah';
 
     const createPrompt_v3_modal_values: IPrompt_v3 = createPrompt_v3_form.getFieldsValue();
-    createPrompt_v3_form.setFieldsValue({
+    const newPrompts_v3 = {
       ...createPrompt_v3_modal_values,
       value: newValue, // Update IPrompt_v3.value
       metadata: { ...createPrompt_v3_modal_values.metadata, ...values },
-    });
+    };
+    createPrompt_v3_form.setFieldsValue(newPrompts_v3);
 
     setIsShow(false);
   };
