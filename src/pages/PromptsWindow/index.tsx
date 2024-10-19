@@ -15,9 +15,9 @@ import {
 import { Modal_createPrompt_v3 } from './components/Modal_createPrompt_v3';
 import { Modal_editPrompt_v3 } from './components/Modal_editPrompt_v3';
 import { LinkService } from '../../gpt-ai-flow-common/tools/3_unit/SLink';
-import { Drawer_createPersona } from './components/Modal_createPersona';
+import { Drawer_createPersona } from './components/Drawer_createPersona';
 import { useForm } from 'antd/es/form/Form';
-import { Drawer_editPersona } from './components/Modal_editPersona';
+import { Drawer_editPersona } from './components/Drawer_editPersona';
 import {
   IPrompt_v3_IPersonaModel,
   IPrompt_v3_IPersonaModel_default,
