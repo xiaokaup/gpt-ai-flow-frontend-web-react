@@ -11,7 +11,7 @@ import { Alert, Button, Select, Slider, Tabs, message } from 'antd';
 import { IReduxRootState } from '../../../../store/reducer';
 import { updateSpecificUserDB, userLogoutAction } from '../../../../store/actions/userActions';
 
-import { useProModeSetDataUI } from './useProModeSetDataUI';
+import { to_deprecate_useProModeSetDataUI } from './to_deprecate_useProModeSetDataUI';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { CreativityValueProvider } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { ProModeModelValueProvider } from '../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
@@ -86,7 +86,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   const isFreeVersion = true;
 
   // === ProMode Data - start ===
-  const { defaultTabPanels } = useProModeSetDataUI({
+  const { defaultTabPanels } = to_deprecate_useProModeSetDataUI({
     t,
     userDataFromStorage: userData,
     serviceCategories,
