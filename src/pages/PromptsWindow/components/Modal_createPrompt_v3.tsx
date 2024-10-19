@@ -5,16 +5,16 @@ import TextArea from 'antd/es/input/TextArea';
 
 import { EPrompts_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
+import { IPrompt_v3_IPersonaModel } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
 interface IModal_createPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  prompts_v3_user: IPrompt_v3[];
-  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3[]>>;
+  prompts_v3_user: IPrompt_v3_IPersonaModel[];
+  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3_IPersonaModel[]>>;
   setIsShowModal_create_persona: (isShow: boolean) => void;
-  createPrompt_v3_form: FormInstance<any>;
+  createPrompt_v3_form: FormInstance<IPrompt_v3_IPersonaModel>;
 }
 export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
   const {
@@ -32,7 +32,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
     // form.setFieldsValue(null);
   };
 
-  const onFinishInModal = (values: IPrompt_v3) => {
+  const onFinishInModal = (values: IPrompt_v3_IPersonaModel) => {
     console.log('Success:', values);
 
     const { name, category } = values;
@@ -46,7 +46,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
       return;
     }
 
-    const newItem: IPrompt_v3 = values;
+    const newItem: IPrompt_v3_IPersonaModel = values;
 
     const newPrompts_v3_user = [newItem, ...prompts_v3_user];
 
@@ -154,12 +154,12 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
           </Form.Item>
 
           {/* === metadata - start */}
-          <Form.Item className="hidden" label={t.get('Occupation')} name={['metadata', 'occupation']}>
+          <Form.Item className="" label={t.get('Occupation')} name={['metadata', 'occupation']}>
             <TextArea autoSize />
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Core values')}
             name={['metadata', 'coreValues']}
             labelCol={{ span: 24 }}
@@ -169,7 +169,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Unique skills')}
             name={['metadata', 'uniqueSkill']}
             labelCol={{ span: 24 }}
@@ -179,7 +179,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Personality traits')}
             name={['metadata', 'personalityTrait']}
             labelCol={{ span: 24 }}
@@ -189,7 +189,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Appearance')}
             name={['metadata', 'appearance']}
             labelCol={{ span: 24 }}
@@ -199,7 +199,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Additional information')}
             name={['metadata', 'additionalInfo']}
             labelCol={{ span: 24 }}

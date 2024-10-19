@@ -1,30 +1,44 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
+
 import { Modal, Input, Button, Form, message, Select } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { FormInstance } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
+
 import { EPrompts_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3, IPrompts_v3_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
+import {
+  IPrompt_v3_IPersonaModel,
+  IPrompt_v3_IPersonaModel_default,
+} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
 interface IModal_editPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  thisPrompt_v3: IPrompt_v3 | null;
-  prompts_v3_user: IPrompt_v3[];
-  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3[]>>;
+  thisPrompt_v3: IPrompt_v3_IPersonaModel | null;
+  prompts_v3_user: IPrompt_v3_IPersonaModel[];
+  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3_IPersonaModel[]>>;
+  setIsShowModal_edit_persona: (isShow: boolean) => void;
+  editPrompt_v3_from: FormInstance<IPrompt_v3_IPersonaModel>;
 }
 export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
-  const { t, isShow, setIsShow, thisPrompt_v3, prompts_v3_user, setPrompts_v3_user } = props;
-
-  const [form] = useForm();
+  const {
+    t,
+    isShow,
+    setIsShow,
+    thisPrompt_v3,
+    prompts_v3_user,
+    setPrompts_v3_user,
+    setIsShowModal_edit_persona,
+    editPrompt_v3_from: form,
+  } = props;
 
   const closeModal = () => {
     setIsShow(false);
     form.setFieldsValue(null);
   };
 
-  const onFinishInModal = (values: IPrompt_v3) => {
+  const onFinishInModal = (values: IPrompt_v3_IPersonaModel) => {
     console.log('Success:', values);
 
     const { category } = values;
@@ -37,7 +51,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
       (prompt) => prompt.name !== thisPrompt_v3?.name,
     );
 
-    const newItem: IPrompt_v3 = values;
+    const newItem: IPrompt_v3_IPersonaModel = values;
 
     const newPrompts_v3_user = [newItem, ...prompts_v3_user_without_thisPrompt_v3];
 
@@ -77,7 +91,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           style={{ maxWidth: 600 }}
           size="small"
           autoComplete="off"
-          initialValues={{ ...IPrompts_v3_default, thisPrompt_v3 }}
+          initialValues={{ ...IPrompt_v3_IPersonaModel_default, thisPrompt_v3 }}
           onFinish={onFinishInModal}
           onFinishFailed={onTableFinishFailedInAiFlowModal}
         >
@@ -100,7 +114,21 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
             <Select mode="tags" />
           </Form.Item> */}
           <Form.Item
-            label={t.get('Value')}
+            label={
+              <div>
+                <span>{t.get('Value')}</span>
+                <Button
+                  type="primary"
+                  className="ml-2"
+                  size="small"
+                  onClick={() => {
+                    setIsShowModal_edit_persona(true);
+                  }}
+                >
+                  {t.get('Edit') + t.get('persona')}
+                </Button>
+              </div>
+            }
             name="value"
             rules={[
               {
@@ -131,12 +159,12 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           {/* === metadata - start */}
-          <Form.Item className="hidden" label={t.get('Occupation')} name={['metadata', 'occupation']}>
+          <Form.Item className="" label={t.get('Occupation')} name={['metadata', 'occupation']}>
             <TextArea autoSize />
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Core values')}
             name={['metadata', 'coreValues']}
             labelCol={{ span: 24 }}
@@ -146,7 +174,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Unique skills')}
             name={['metadata', 'uniqueSkill']}
             labelCol={{ span: 24 }}
@@ -156,7 +184,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Personality traits')}
             name={['metadata', 'personalityTrait']}
             labelCol={{ span: 24 }}
@@ -166,7 +194,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Appearance')}
             name={['metadata', 'appearance']}
             labelCol={{ span: 24 }}
@@ -176,7 +204,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className="hidden"
+            className=""
             label={t.get('Additional information')}
             name={['metadata', 'additionalInfo']}
             labelCol={{ span: 24 }}

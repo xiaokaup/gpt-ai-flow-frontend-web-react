@@ -6,13 +6,22 @@ import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/const
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 import { EPrompts_v3_category } from '../../gpt-ai-flow-common/enum-app/EPrompts_v3';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3, IPrompt_v3_category } from '../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
+import {
+  IPrompt_v3,
+  IPrompt_v3_category,
+  IPrompts_v3_default,
+} from '../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 
 import { Modal_createPrompt_v3 } from './components/Modal_createPrompt_v3';
 import { Modal_editPrompt_v3 } from './components/Modal_editPrompt_v3';
 import { LinkService } from '../../gpt-ai-flow-common/tools/3_unit/SLink';
 import { Drawer_createPersona } from './components/Modal_createPersona';
 import { useForm } from 'antd/es/form/Form';
+import { Drawer_editPersona } from './components/Modal_editPersona';
+import {
+  IPrompt_v3_IPersonaModel,
+  IPrompt_v3_IPersonaModel_default,
+} from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
 const { Search } = Input;
 
@@ -36,12 +45,21 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
 
   const [searchInput, setSearchInput] = useState<string>('');
   const [isShowModal_create_prompt_v3, setIsShowModal_create_prompt_v3] = useState<boolean>(false);
-  const [isShowModal_create_persona, setIsShowModal_create_persona] = useState(false);
 
   const [createPrompt_v3_form] = useForm();
+  const [editPrompt_v3_from] = useForm();
 
   const [isShowModal_edit_prompts_v3, setIsShowModal_edit_prompts_v3] = useState<boolean>(false);
-  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3 | null>(null);
+  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3 | IPrompt_v3_IPersonaModel | null>({
+    ...IPrompts_v3_default,
+    ...IPrompt_v3_IPersonaModel_default,
+    metadata: {
+      ...IPrompt_v3_IPersonaModel_default.metadata,
+    },
+  });
+
+  const [isShowModal_create_persona, setIsShowModal_create_persona] = useState(false);
+  const [isShowModal_edit_persona, setIsShowModal_edit_persona] = useState(false);
 
   // useEffect(() => {
   //   // @DEPREACTED
@@ -191,25 +209,45 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         <Modal_createPrompt_v3
           t={t}
           isShow={isShowModal_create_prompt_v3}
-          setIsShow={setIsShowModal_create_prompt_v3}
+          setIsShow={(isShow: boolean) => {
+            setIsShowModal_create_persona(isShow);
+            setIsShowModal_create_prompt_v3(isShow);
+          }}
+          createPrompt_v3_form={createPrompt_v3_form}
           prompts_v3_user={prompts_v3_user}
           setPrompts_v3_user={setPrompts_v3_user}
+          // persona
           setIsShowModal_create_persona={setIsShowModal_create_persona}
-          createPrompt_v3_form={createPrompt_v3_form}
         />
         <Drawer_createPersona
           t={t}
           isShow={isShowModal_create_persona}
           setIsShow={setIsShowModal_create_persona}
+          // Prompts_v3
           createPrompt_v3_form={createPrompt_v3_form}
         />
+
         <Modal_editPrompt_v3
           t={t}
           isShow={isShowModal_edit_prompts_v3}
-          setIsShow={setIsShowModal_edit_prompts_v3}
+          setIsShow={(isShow: boolean) => {
+            setIsShowModal_edit_persona(isShow);
+            setIsShowModal_edit_prompts_v3(isShow);
+          }}
+          editPrompt_v3_from={editPrompt_v3_from}
           thisPrompt_v3={prompts_v3_toEdit}
           prompts_v3_user={prompts_v3_user}
           setPrompts_v3_user={setPrompts_v3_user}
+          // persona
+          setIsShowModal_edit_persona={setIsShowModal_edit_persona}
+        />
+        <Drawer_editPersona
+          t={t}
+          isShow={isShowModal_edit_persona}
+          setIsShow={setIsShowModal_edit_persona}
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_IPersonaModel}
+          // Prompts_v3
+          editPrompt_v3_from={editPrompt_v3_from}
         />
       </div>
     </div>

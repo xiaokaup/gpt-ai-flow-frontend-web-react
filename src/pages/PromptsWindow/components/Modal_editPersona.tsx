@@ -1,25 +1,28 @@
 import { Button, Form, message, Drawer } from 'antd';
-
 import { FormInstance, useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3_IPersonaModel } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import {
+  IPrompt_v3_IPersonaModel,
+  IPrompt_v3_IPersonaModel_default,
+} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
-interface IDrawer_createPersona_input {
+interface IModal_editPersona_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  createPrompt_v3_form: FormInstance<IPrompt_v3_IPersonaModel>;
+  thisPrompt_v3: IPrompt_v3_IPersonaModel;
+  editPrompt_v3_from: FormInstance<IPrompt_v3_IPersonaModel>;
 }
-export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
-  const { t, isShow, setIsShow, createPrompt_v3_form } = props;
+export const Drawer_editPersona = (props: IModal_editPersona_input) => {
+  const { t, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from } = props;
 
   const [form] = useForm();
 
   const closeDrawer = () => {
     setIsShow(false);
-    // form.setFieldsValue(null);
+    form.setFieldsValue(null);
   };
 
   const onFinishInDrawer = (values: IPrompt_v3_IPersonaModel['metadata']) => {
@@ -34,15 +37,36 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     // Calculate newValue
     const newValue = 'hahah';
 
-    const createPrompt_v3_modal_values: IPrompt_v3_IPersonaModel = createPrompt_v3_form.getFieldsValue();
+    const createPrompt_v3_modal_values: IPrompt_v3_IPersonaModel = editPrompt_v3_from.getFieldsValue();
     const newPrompts_v3 = {
       ...createPrompt_v3_modal_values,
       value: newValue, // Update IPrompt_v3.value
       metadata: { ...createPrompt_v3_modal_values.metadata, ...values },
     };
-    createPrompt_v3_form.setFieldsValue(newPrompts_v3);
+    editPrompt_v3_from.setFieldsValue(newPrompts_v3);
 
     setIsShow(false);
+    // const { category } = values;
+
+    // if (!category || category?.length === 0) {
+    //   message.error(t.get('Please enter your {text}', { text: t.get('Category') }));
+    //   return;
+    // }
+    // const prompts_v3_user_without_thisPrompt_v3 = prompts_v3_user.filter(
+    //   (prompt) => prompt.name !== thisPrompt_v3?.name,
+    // );
+
+    // const newItem: IPrompt_v3 = values;
+
+    // const newPrompts_v3_user = [newItem, ...prompts_v3_user_without_thisPrompt_v3];
+
+    // setPrompts_v3_user(newPrompts_v3_user);
+    // // window.electron.ipcRenderer.sendMessage('ipc-refresh-all-prompts_v3-in-mainWindow', newPrompts_v3_user);
+
+    // form.resetFields();
+    // closeModal();
+
+    // message.success(t.get('The prompt has been updated'));
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -50,14 +74,14 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
   };
 
   // useEffect(() => {
-  //   form.setFieldsValue(modalInitialValues);
-  // }, [form, modalInitialValues]);
+  //   form.setFieldsValue(thisPrompt_v3);
+  // }, [form, thisPrompt_v3]);
 
   return (
     <div className="modal_create_prompts_v3">
       <Drawer
-        title={t.get('Create') + t.get('persona')}
         open={isShow}
+        title={t.get('Edit') + t.get('prompt')}
         onClose={() => {
           closeDrawer();
         }}
@@ -72,6 +96,10 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           style={{ maxWidth: 600 }}
           size="small"
           autoComplete="off"
+          initialValues={{
+            ...IPrompt_v3_IPersonaModel_default.metadata,
+            ...thisPrompt_v3.metadata,
+          }}
           onFinish={onFinishInDrawer}
           onFinishFailed={onTableFinishFailedInAiFlowModal}
         >
@@ -118,7 +146,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           // wrapperCol={{ offset: 8, span: 16 }}
           >
             <Button type="primary" htmlType="submit">
-              {t.get('Create')}
+              {t.get('Save')}
             </Button>
             <Button
               style={{ marginLeft: 10 }}
