@@ -30,7 +30,7 @@ export function DynamicFormForContextPrompt_v4(props: DynamicFormForContextPromp
   const dispatch = useDispatch();
 
   const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
-    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+    return (state.inputsCache as to_deprecate_IInputsCache) ?? IInputsCacheFile.IInputsCache_default;
   });
   const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,
