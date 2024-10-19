@@ -35,7 +35,14 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
     }
 
     // Calculate newValue
-    const newValue = 'hahah';
+    const newValue = `
+    ${t.get('Occupation')}: ${occupation}
+    ${t.get('Core values')}: ${coreValues}
+    ${t.get('Unique skills')}: ${uniqueSkill}
+    ${t.get('Personality traits')}: ${personalityTrait}
+    ${t.get('Appearance')}: ${appearance}
+    ${t.get('Additional information')}: ${additionalInfo}
+  `;
 
     const createPrompt_v3_modal_values: IPrompt_v3_IPersonaModel = editPrompt_v3_from.getFieldsValue();
     const newPrompts_v3 = {

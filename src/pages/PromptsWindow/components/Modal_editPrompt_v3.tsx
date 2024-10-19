@@ -160,12 +160,12 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           {/* === metadata - start */}
-          <Form.Item className="" label={t.get('Occupation')} name={['metadata', 'occupation']}>
+          <Form.Item className="hidden" label={t.get('Occupation')} name={['metadata', 'occupation']}>
             <TextArea autoSize />
           </Form.Item>
 
           <Form.Item
-            className=""
+            className="hidden"
             label={t.get('Core values')}
             name={['metadata', 'coreValues']}
             labelCol={{ span: 24 }}
@@ -175,7 +175,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className=""
+            className="hidden"
             label={t.get('Unique skills')}
             name={['metadata', 'uniqueSkill']}
             labelCol={{ span: 24 }}
@@ -185,7 +185,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className=""
+            className="hidden"
             label={t.get('Personality traits')}
             name={['metadata', 'personalityTrait']}
             labelCol={{ span: 24 }}
@@ -195,7 +195,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className=""
+            className="hidden"
             label={t.get('Appearance')}
             name={['metadata', 'appearance']}
             labelCol={{ span: 24 }}
@@ -205,7 +205,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item
-            className=""
+            className="hidden"
             label={t.get('Additional information')}
             name={['metadata', 'additionalInfo']}
             labelCol={{ span: 24 }}
