@@ -10,16 +10,17 @@ import {
   IPrompt_v3_IPersonaModel,
   IPrompt_v3_IPersonaModel_default,
 } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3, IPrompt_v3_base_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 
 interface IModal_editPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  thisPrompt_v3: IPrompt_v3_IPersonaModel | null;
-  prompts_v3_user: IPrompt_v3_IPersonaModel[];
-  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3_IPersonaModel[]>>;
+  thisPrompt_v3: (IPrompt_v3 | IPrompt_v3_IPersonaModel) | null;
+  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_IPersonaModel)[];
+  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_IPersonaModel)[]>>;
   setIsShowModal_edit_persona: (isShow: boolean) => void;
-  editPrompt_v3_from: FormInstance<IPrompt_v3_IPersonaModel>;
+  editPrompt_v3_from: FormInstance<IPrompt_v3 | IPrompt_v3_IPersonaModel>;
 }
 export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
   const {
@@ -38,7 +39,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
     form.setFieldsValue(null);
   };
 
-  const onFinishInModal = (values: IPrompt_v3_IPersonaModel) => {
+  const onFinishInModal = (values: IPrompt_v3 | IPrompt_v3_IPersonaModel) => {
     console.log('Success:', values);
 
     const { category } = values;
@@ -51,7 +52,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
       (prompt) => prompt.name !== thisPrompt_v3?.name,
     );
 
-    const newItem: IPrompt_v3_IPersonaModel = values;
+    const newItem: IPrompt_v3 | IPrompt_v3_IPersonaModel = values;
 
     const newPrompts_v3_user = [newItem, ...prompts_v3_user_without_thisPrompt_v3];
 
@@ -91,7 +92,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           style={{ maxWidth: 600 }}
           size="small"
           autoComplete="off"
-          initialValues={{ ...IPrompt_v3_IPersonaModel_default, thisPrompt_v3 }}
+          initialValues={{ ...IPrompt_v3_base_default, ...IPrompt_v3_IPersonaModel_default, thisPrompt_v3 }}
           onFinish={onFinishInModal}
           onFinishFailed={onTableFinishFailedInAiFlowModal}
         >

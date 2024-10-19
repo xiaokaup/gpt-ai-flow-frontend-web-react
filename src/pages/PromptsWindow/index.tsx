@@ -27,13 +27,13 @@ const { Search } = Input;
 
 interface IPromptsWindow_input {
   t: IGetT_frontend_output;
-  prompts_v3_user: IPrompt_v3[];
-  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3[]>>;
+  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_IPersonaModel)[];
+  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_IPersonaModel)[]>>;
   accessToken: string;
   env: IConstantGptAiFlowHandler;
 }
 export const PromptsWindow = (props: IPromptsWindow_input) => {
-  const { t, prompts_v3_user, setPrompts_v3_user, accessToken, env } = props;
+  const { t, prompts_v3_user, setPrompts_v3_user } = props;
 
   const [locale] = useState<ELocale>(t.currentLocale);
 

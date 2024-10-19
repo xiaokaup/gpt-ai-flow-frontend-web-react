@@ -6,15 +6,16 @@ import TextArea from 'antd/es/input/TextArea';
 import { EPrompts_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt_v3_IPersonaModel } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 
 interface IModal_createPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  prompts_v3_user: IPrompt_v3_IPersonaModel[];
-  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3_IPersonaModel[]>>;
+  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_IPersonaModel)[];
+  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_IPersonaModel)[]>>;
   setIsShowModal_create_persona: (isShow: boolean) => void;
-  createPrompt_v3_form: FormInstance<IPrompt_v3_IPersonaModel>;
+  createPrompt_v3_form: FormInstance<IPrompt_v3 | IPrompt_v3_IPersonaModel>;
 }
 export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
   const {
