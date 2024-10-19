@@ -13,7 +13,6 @@ import {
   IBackground_for_type_langchain,
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
-import { usePrompt_v3_persona_ProviderContext } from '../../../../../../../gpt-ai-flow-common/contexts/Prompt_v3_persona_ProviderContext';
 import { useLastFocusedElement } from '../../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 
 // const { RangePicker } = DatePicker;
@@ -30,8 +29,6 @@ export const Langchain_background = (props: {
   const { setLastFocusedElement } = useLastFocusedElement();
 
   const [form] = Form.useForm();
-  const prompt_v3_persona = usePrompt_v3_persona_ProviderContext();
-  console.log('prompt_v3_persona in background', prompt_v3_persona);
 
   const [isShow, setIsShow] = useState(true);
 
@@ -130,7 +127,7 @@ export const Langchain_background = (props: {
                         min={minNum}
                         max={maxNum}
                         onFocus={() => {
-                          setLastFocusedElement({ name, element: 'InputNumber' });
+                          setLastFocusedElement({ form, name, element: 'InputNumber', updateItems: setBackground });
                         }}
                         onChange={(value) => {
                           const newItem = {
@@ -178,7 +175,7 @@ export const Langchain_background = (props: {
                           }}
                           onFocus={() => {
                             console.log('onFocus');
-                            setLastFocusedElement({ name, element: 'AutoComplete' });
+                            setLastFocusedElement({ form, name, element: 'AutoComplete', updateItems: setBackground });
                             setAutoCompleteOptions_for_input(autoCompleteOptions);
                           }}
                           onSearch={(searchValue: string) => {
@@ -190,7 +187,7 @@ export const Langchain_background = (props: {
                         >
                           <Input
                             onFocus={() => {
-                              setLastFocusedElement({ name, element: 'Input' });
+                              setLastFocusedElement({ form, name, element: 'Input', updateItems: setBackground });
                             }}
                             onChange={(event) => {
                               const newItem = {
@@ -206,7 +203,7 @@ export const Langchain_background = (props: {
                       {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
                         <Input
                           onFocus={() => {
-                            setLastFocusedElement({ name, element: 'Input' });
+                            setLastFocusedElement({ form, name, element: 'Input', updateItems: setBackground });
                           }}
                           onChange={(event) => {
                             const newItem = {
@@ -261,8 +258,8 @@ export const Langchain_background = (props: {
                           }}
                           onFocus={() => {
                             console.log('onFocus');
-                            setLastFocusedElement({ name, element: 'AutoComplete' });
                             setAutoCompleteOptions_for_textArea(autoCompleteOptions);
+                            setLastFocusedElement({ form, name, element: 'AutoComplete', updateItems: setBackground });
                           }}
                           onSearch={(searchValue: string) => {
                             console.log('onSearch', searchValue);
@@ -274,7 +271,7 @@ export const Langchain_background = (props: {
                           <TextArea
                             autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                             onFocus={() => {
-                              setLastFocusedElement({ name, element: 'TextArea' });
+                              setLastFocusedElement({ form, name, element: 'TextArea', updateItems: setBackground });
                             }}
                             onChange={(event) => {
                               const newItem = {
@@ -290,7 +287,7 @@ export const Langchain_background = (props: {
                         <TextArea
                           autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                           onFocus={() => {
-                            setLastFocusedElement({ name, element: 'TextArea' });
+                            setLastFocusedElement({ form, name, element: 'TextArea', updateItems: setBackground });
                           }}
                           onChange={(event) => {
                             const newItem = {
@@ -324,7 +321,7 @@ export const Langchain_background = (props: {
                       <TextArea
                         autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                         onFocus={() => {
-                          setLastFocusedElement({ name, element: 'TextArea' });
+                          setLastFocusedElement({ form, name, element: 'TextArea', updateItems: setBackground });
                         }}
                         onChange={(event) => {
                           // const newItem = {
@@ -373,7 +370,7 @@ export const Langchain_background = (props: {
                     >
                       <DatePicker
                         onFocus={() => {
-                          setLastFocusedElement({ name, element: 'DatePicker' });
+                          setLastFocusedElement({ form, name, element: 'DatePicker', updateItems: setBackground });
                         }}
                         onChange={(date, dates) => {
                           const newItem = {

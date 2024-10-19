@@ -46,7 +46,7 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
       }
     >
       {prompts_v3_persona.map((thisPrompts_v3_persona: IPrompt_v3_type_persona) => {
-        const { uuid, type, name, value, category, tags, description, metadata } = thisPrompts_v3_persona;
+        const { uuid, name, value, category, tags } = thisPrompts_v3_persona;
 
         return (
           <Card
