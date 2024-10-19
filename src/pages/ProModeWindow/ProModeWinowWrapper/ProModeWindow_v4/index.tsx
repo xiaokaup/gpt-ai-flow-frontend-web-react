@@ -83,11 +83,11 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
+  const inputsCacheFromStorage: to_deprecate_IInputsCache | IInputsCache_v2 = useSelector((state: IReduxRootState) => {
     return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
   });
   const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
-    inputsCacheFromStorage,
+    inputsCacheFromStorage: inputsCacheFromStorage as unknown as to_deprecate_IInputsCache,
     onInputsCacheChange: (newItem: to_deprecate_IInputsCache) => {
       dispatch(updateInputsCache(newItem) as any);
     },
