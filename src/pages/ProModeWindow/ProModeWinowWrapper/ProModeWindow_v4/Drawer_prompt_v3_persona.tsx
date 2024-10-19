@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { IReduxRootState } from '../../../../store/reducer';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
-import { t } from 'i18next';
 import { IPrompt_v3_category } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { useLastFocusedElement } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 
 interface IDrawer_prompt_v3_persona_input {
   t: IGetT_frontend_output;
@@ -16,6 +16,8 @@ interface IDrawer_prompt_v3_persona_input {
 
 export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input) => {
   const { t, isShow, setIsShow: setShow } = props;
+
+  const { updateLastFocusedElement } = useLastFocusedElement();
 
   const [isExpand, setIsExpand] = useState<boolean>(false);
 
@@ -57,6 +59,7 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
                 type="link"
                 onClick={() => {
                   console.log('selected 这个', thisPrompts_v3_persona);
+                  updateLastFocusedElement(thisPrompts_v3_persona.value);
                   // setShow(false);
                 }}
               >

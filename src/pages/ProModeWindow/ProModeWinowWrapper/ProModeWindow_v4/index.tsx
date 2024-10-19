@@ -62,6 +62,7 @@ import { IProMode_v4_tabPane_tool } from '../../../../gpt-ai-flow-common/ProMode
 import { Prompt_v3_persona_Provider } from '../../../../gpt-ai-flow-common/contexts/Prompt_v3_persona_ProviderContext';
 import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 import { Drawer_prompt_v3_persona } from './Drawer_prompt_v3_persona';
+import { LastFocusedElementProvider } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -293,59 +294,60 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
-      <div
-        className="container proModeContainer"
-        style={{ position: 'relative', overflow: 'auto', margin: '1rem auto' }}
-      >
+      <LastFocusedElementProvider>
         <div
-          className="row top_block"
-          // style={{ display: 'flex', justifyContent: 'space-between' }}
+          className="container proModeContainer"
+          style={{ position: 'relative', overflow: 'auto', margin: '1rem auto' }}
         >
           <div
-            className="block_creativity_value_slider"
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-
-              position: 'sticky',
-              top: 0,
-
-              backgroundColor: '#fff',
-              zIndex: 10,
-              borderBottom: '1px solid #E8E8E8',
-              paddingBottom: '.8rem',
-            }}
+            className="row top_block"
+            // style={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <div className="title">
-              <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
-                <h3 className="m-0">
-                  {t.get(
-                    EProMode_v4_tabPanes_role_labels[roleModule]
-                      ? EProMode_v4_tabPanes_role_labels[roleModule]
-                      : 'ProMode',
-                  )}{' '}
-                  v4.0
-                </h3>
-              </a>
-            </div>
+            <div
+              className="block_creativity_value_slider"
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+                alignItems: 'center',
 
-            <div>
-              <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
+                position: 'sticky',
+                top: 0,
 
-              <Radio.Group
-                options={getCreationModeOptions(t)}
-                onChange={({ target: { value } }: RadioChangeEvent) => {
-                  console.log('radio checked', value);
-                  setCreativityValue(value);
-                }}
-                value={creativityValue}
-                optionType="button"
-                buttonStyle="solid"
-              />
+                backgroundColor: '#fff',
+                zIndex: 10,
+                borderBottom: '1px solid #E8E8E8',
+                paddingBottom: '.8rem',
+              }}
+            >
+              <div className="title">
+                <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
+                  <h3 className="m-0">
+                    {t.get(
+                      EProMode_v4_tabPanes_role_labels[roleModule]
+                        ? EProMode_v4_tabPanes_role_labels[roleModule]
+                        : 'ProMode',
+                    )}{' '}
+                    v4.0
+                  </h3>
+                </a>
+              </div>
 
-              {/* <Slider
+              <div>
+                <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
+
+                <Radio.Group
+                  options={getCreationModeOptions(t)}
+                  onChange={({ target: { value } }: RadioChangeEvent) => {
+                    console.log('radio checked', value);
+                    setCreativityValue(value);
+                  }}
+                  value={creativityValue}
+                  optionType="button"
+                  buttonStyle="solid"
+                />
+
+                {/* <Slider
             min={0}
             max={1.6}
             step={0.1}
@@ -366,110 +368,114 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               marginRight: '2rem',
             }}
           /> */}
-            </div>
-            <div className="modelSwitch">
-              <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
+              </div>
+              <div className="modelSwitch">
+                <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
 
-              <Select
-                value={llmName}
-                showSearch
-                placeholder={t.get('Select Model')}
-                optionFilterProp="children"
-                onChange={(value: string) => {
-                  console.log(`selected ${value}`);
-                  setLLMName(value as ELLM_name);
-                }}
-                onSearch={(value: string) => {
-                  console.log('search:', value);
-                }}
-                filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-                options={SLLM_v2_common.getAllLLM_selectOptions(t)}
-                style={{
-                  width: 180,
+                <Select
+                  value={llmName}
+                  showSearch
+                  placeholder={t.get('Select Model')}
+                  optionFilterProp="children"
+                  onChange={(value: string) => {
+                    console.log(`selected ${value}`);
+                    setLLMName(value as ELLM_name);
+                  }}
+                  onSearch={(value: string) => {
+                    console.log('search:', value);
+                  }}
+                  filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+                  options={SLLM_v2_common.getAllLLM_selectOptions(t)}
+                  style={{
+                    width: 180,
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="horizontalScrollingBanner">
+              <HorizontalScrollingBanner
+                webCase={{
+                  t,
+                  locale,
+                  env: CONSTANTS_GPT_AI_FLOW_COMMON,
                 }}
               />
             </div>
           </div>
 
-          <div className="horizontalScrollingBanner">
-            <HorizontalScrollingBanner
-              webCase={{
-                t,
-                locale,
-                env: CONSTANTS_GPT_AI_FLOW_COMMON,
-              }}
+          <div className="row !mt-0 bottom_block_tabs">
+            <Prompt_v3_persona_Provider value={prompt_v3_persona}>
+              <ProModeModelValueProvider value={llmName}>
+                <CreativityValueProvider value={creativityValue}>
+                  <Tabs
+                    size="small"
+                    hideAdd
+                    activeKey={activeTabPanelKey}
+                    type="card"
+                    // type="editable-card"
+                    onChange={onTabsChange}
+                    // onEdit={onEditTabPanel}
+                  >
+                    {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
+                      const {
+                        // versionDate,
+                        versionNum,
+                        type,
+                      } = tabPane;
+                      return (
+                        <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
+                          {type === EProMode_v4_tabPane_context_mode.COMMAND_CHAIN_v3 && (
+                            <ProModeWindow_v4_tabPane_commandChain
+                              t={t}
+                              tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
+                              webCase={{ userData, localDataFromStorage }}
+                            />
+                          )}
+
+                          {versionNum == 2 && (
+                            <ProModeWindow_v4_wrapper
+                              t={t}
+                              tabPane={
+                                tabPane as IProMode_v4_tabPane<
+                                  IProMode_v4_tabPane_context<
+                                    IBackground_for_type_langchain,
+                                    IAdjust_for_type_langchain
+                                  >
+                                >
+                              }
+                              userAccessToken={userAccessToken}
+                              llmOption_secrets={llmOption_secrets}
+                              llmName={llmName}
+                              inputsCache={inputsCache}
+                              setInputsCache={setInputsCache}
+                              inputsCache_v2={inputsCache_v2}
+                              setInputsCache_v2={setInputsCache_v2}
+                            />
+                          )}
+
+                          {type === EProMode_v4_tabPane_context_mode.TOOL_IMAGE_CROP && (
+                            <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
+                          )}
+                        </Tabs.TabPane>
+                      );
+                    })}
+                  </Tabs>
+                </CreativityValueProvider>
+              </ProModeModelValueProvider>
+            </Prompt_v3_persona_Provider>
+          </div>
+
+          <div className="drawers">
+            <Drawer_prompt_v3_persona
+              t={t}
+              isShow={!isShow_personaDrawer}
+              setIsShow={setIsShow_personaDrawer}
+              setPrompt_v3_persona={setPrompt_v3_persona}
             />
           </div>
         </div>
-
-        <div className="row !mt-0 bottom_block_tabs">
-          <Prompt_v3_persona_Provider value={prompt_v3_persona}>
-            <ProModeModelValueProvider value={llmName}>
-              <CreativityValueProvider value={creativityValue}>
-                <Tabs
-                  size="small"
-                  hideAdd
-                  activeKey={activeTabPanelKey}
-                  type="card"
-                  // type="editable-card"
-                  onChange={onTabsChange}
-                  // onEdit={onEditTabPanel}
-                >
-                  {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
-                    const {
-                      // versionDate,
-                      versionNum,
-                      type,
-                    } = tabPane;
-                    return (
-                      <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
-                        {type === EProMode_v4_tabPane_context_mode.COMMAND_CHAIN_v3 && (
-                          <ProModeWindow_v4_tabPane_commandChain
-                            t={t}
-                            tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
-                            webCase={{ userData, localDataFromStorage }}
-                          />
-                        )}
-
-                        {versionNum == 2 && (
-                          <ProModeWindow_v4_wrapper
-                            t={t}
-                            tabPane={
-                              tabPane as IProMode_v4_tabPane<
-                                IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>
-                              >
-                            }
-                            userAccessToken={userAccessToken}
-                            llmOption_secrets={llmOption_secrets}
-                            llmName={llmName}
-                            inputsCache={inputsCache}
-                            setInputsCache={setInputsCache}
-                            inputsCache_v2={inputsCache_v2}
-                            setInputsCache_v2={setInputsCache_v2}
-                          />
-                        )}
-
-                        {type === EProMode_v4_tabPane_context_mode.TOOL_IMAGE_CROP && (
-                          <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
-                        )}
-                      </Tabs.TabPane>
-                    );
-                  })}
-                </Tabs>
-              </CreativityValueProvider>
-            </ProModeModelValueProvider>
-          </Prompt_v3_persona_Provider>
-        </div>
-
-        <div className="drawers">
-          <Drawer_prompt_v3_persona
-            t={t}
-            isShow={!isShow_personaDrawer}
-            setIsShow={setIsShow_personaDrawer}
-            setPrompt_v3_persona={setPrompt_v3_persona}
-          />
-        </div>
-      </div>
+      </LastFocusedElementProvider>
     </div>
   );
 };
