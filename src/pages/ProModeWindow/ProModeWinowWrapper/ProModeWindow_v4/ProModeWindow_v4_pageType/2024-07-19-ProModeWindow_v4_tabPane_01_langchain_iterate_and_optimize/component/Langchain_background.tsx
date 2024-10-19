@@ -13,6 +13,7 @@ import {
   IBackground_for_type_langchain,
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { usePrompt_v3_persona_ProviderContext } from '../../../../../../../gpt-ai-flow-common/contexts/Prompt_v3_persona_ProviderContext';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -26,6 +27,8 @@ export const Langchain_background = (props: {
   const { t, backgroundSelected, background, setBackground } = props;
 
   const [form] = Form.useForm();
+  const prompt_v3_persona = usePrompt_v3_persona_ProviderContext();
+  console.log('prompt_v3_persona in background', prompt_v3_persona);
 
   const [isShow, setIsShow] = useState(true);
 

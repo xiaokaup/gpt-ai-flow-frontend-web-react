@@ -59,6 +59,11 @@ import {
   IAdjust_for_type_langchain,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { IProMode_v4_tabPane_tool } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/05-tool/interface';
+import { Prompt_v3_persona_Provider } from '../../../../gpt-ai-flow-common/contexts/Prompt_v3_persona_ProviderContext';
+import {
+  IPrompt_v3_IPersonaModel,
+  IPrompt_v3_IPersonaModel_default,
+} from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -235,6 +240,9 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   // ModelOptions
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
   const [llmName, setLLMName] = useState<ELLM_name>(llmName_from_store);
+  const [prompt_v3_persona, setPrompt_v3_persona] = useState<IPrompt_v3_IPersonaModel>(
+    IPrompt_v3_IPersonaModel_default,
+  );
   // === ProMode tabPane settings - end ===
 
   const init = useCallback(async () => {
@@ -395,60 +403,62 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
         </div>
 
         <div className="row !mt-0 bottom_block_tabs">
-          <ProModeModelValueProvider value={llmName}>
-            <CreativityValueProvider value={creativityValue}>
-              <Tabs
-                size="small"
-                hideAdd
-                activeKey={activeTabPanelKey}
-                type="card"
-                // type="editable-card"
-                onChange={onTabsChange}
-                // onEdit={onEditTabPanel}
-              >
-                {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
-                  const {
-                    // versionDate,
-                    versionNum,
-                    type,
-                  } = tabPane;
-                  return (
-                    <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
-                      {type === EProMode_v4_tabPane_context_mode.COMMAND_CHAIN_v3 && (
-                        <ProModeWindow_v4_tabPane_commandChain
-                          t={t}
-                          tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
-                          webCase={{ userData, localDataFromStorage }}
-                        />
-                      )}
+          <Prompt_v3_persona_Provider value={prompt_v3_persona}>
+            <ProModeModelValueProvider value={llmName}>
+              <CreativityValueProvider value={creativityValue}>
+                <Tabs
+                  size="small"
+                  hideAdd
+                  activeKey={activeTabPanelKey}
+                  type="card"
+                  // type="editable-card"
+                  onChange={onTabsChange}
+                  // onEdit={onEditTabPanel}
+                >
+                  {proMode_v4_tabPanes.map((tabPane: All_type_IProMode_v4_tabPane | IProMode_v4_tabPane_tool) => {
+                    const {
+                      // versionDate,
+                      versionNum,
+                      type,
+                    } = tabPane;
+                    return (
+                      <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
+                        {type === EProMode_v4_tabPane_context_mode.COMMAND_CHAIN_v3 && (
+                          <ProModeWindow_v4_tabPane_commandChain
+                            t={t}
+                            tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
+                            webCase={{ userData, localDataFromStorage }}
+                          />
+                        )}
 
-                      {versionNum == 2 && (
-                        <ProModeWindow_v4_wrapper
-                          t={t}
-                          tabPane={
-                            tabPane as IProMode_v4_tabPane<
-                              IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>
-                            >
-                          }
-                          userAccessToken={userAccessToken}
-                          llmOption_secrets={llmOption_secrets}
-                          llmName={llmName}
-                          inputsCache={inputsCache}
-                          setInputsCache={setInputsCache}
-                          inputsCache_v2={inputsCache_v2}
-                          setInputsCache_v2={setInputsCache_v2}
-                        />
-                      )}
+                        {versionNum == 2 && (
+                          <ProModeWindow_v4_wrapper
+                            t={t}
+                            tabPane={
+                              tabPane as IProMode_v4_tabPane<
+                                IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>
+                              >
+                            }
+                            userAccessToken={userAccessToken}
+                            llmOption_secrets={llmOption_secrets}
+                            llmName={llmName}
+                            inputsCache={inputsCache}
+                            setInputsCache={setInputsCache}
+                            inputsCache_v2={inputsCache_v2}
+                            setInputsCache_v2={setInputsCache_v2}
+                          />
+                        )}
 
-                      {type === EProMode_v4_tabPane_context_mode.TOOL_IMAGE_CROP && (
-                        <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
-                      )}
-                    </Tabs.TabPane>
-                  );
-                })}
-              </Tabs>
-            </CreativityValueProvider>
-          </ProModeModelValueProvider>
+                        {type === EProMode_v4_tabPane_context_mode.TOOL_IMAGE_CROP && (
+                          <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
+                        )}
+                      </Tabs.TabPane>
+                    );
+                  })}
+                </Tabs>
+              </CreativityValueProvider>
+            </ProModeModelValueProvider>
+          </Prompt_v3_persona_Provider>
         </div>
       </div>
     </div>
