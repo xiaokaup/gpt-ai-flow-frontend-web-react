@@ -2,10 +2,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Modal, Input, Button, Form, message, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
-import {
-  EPrompts_v3_category,
-  getEPrompts_v3_category_for_select_options,
-} from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
+import { EPrompts_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt_v3, IPrompts_v3_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 
@@ -120,10 +117,13 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           </Form.Item>
 
           <Form.Item label={t.get('Category')} name="category">
-            <Select mode="multiple" defaultValue={EPrompts_v3_category.CONTEXT_PERSONA}>
-              {getEPrompts_v3_category_for_select_options().map((oneSelectValue: string) => {
+            <Select mode="multiple">
+              {/* {getEPrompts_v3_category_for_select_options().map((oneSelectValue: string) => {
                 return <Select.Option value={oneSelectValue}>{t.get(oneSelectValue)}</Select.Option>;
-              })}
+              })} */}
+              <Select.Option value={EPrompts_v3_category.CONTEXT_PERSONA}>
+                {t.get(EPrompts_v3_category.CONTEXT_PERSONA)}
+              </Select.Option>
             </Select>
           </Form.Item>
           <Form.Item label={t.get('Tags')} name="tags">
@@ -137,7 +137,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           // wrapperCol={{ offset: 8, span: 16 }}
           >
             <Button type="primary" htmlType="submit">
-              {t.get('Create')}
+              {t.get('Save')}
             </Button>
             <Button
               style={{ marginLeft: 10 }}

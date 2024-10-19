@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Button, Card, Input, Tag, Tooltip } from 'antd';
+import { Button, Card, Input, message, Tag, Tooltip } from 'antd';
+import { CloseOutlined, MessageOutlined, EditOutlined } from '@ant-design/icons';
 
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
@@ -30,7 +31,6 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
   //   locale,
   //   env,
   // });
-  const prompts_v3_default = [];
 
   const [searchInput, setSearchInput] = useState<string>('');
   const [isShowModal_create_prompt_v3, setIsShowModal_create_prompt_v3] = useState<boolean>(false);
@@ -126,8 +126,8 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
 
             return searchContent_lowercase.includes(searchInput_lowerCase);
           })
-          .map((item: IPrompt_v3) => {
-            const { name, value, category, tags } = item;
+          .map((thisPrompt_v3: IPrompt_v3) => {
+            const { name, value, category, tags } = thisPrompt_v3;
 
             return (
               <div key={name + value} style={{ flex: '0 0 30%', padding: 10 }}>
@@ -146,6 +146,23 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
                   //   isShowTour: false,
                   //   refs_tour: [],
                   // })}
+                  actions={[
+                    <EditOutlined
+                      onClick={() => {
+                        setPrompts_v3_toEdit(thisPrompt_v3);
+                        setIsShowModal_edit_prompts_v3(true);
+                      }}
+                    />,
+                    <CloseOutlined
+                      onClick={() => {
+                        const newPrompts_v3_user = prompts_v3_user.filter(
+                          (prompt) => prompt.name !== thisPrompt_v3.name,
+                        );
+                        setPrompts_v3_user(newPrompts_v3_user);
+                        message.success(t.get('The prompt has been removed from My prompts'));
+                      }}
+                    />,
+                  ]}
                 >
                   <div style={{ height: 150, overflow: 'auto' }}>
                     <p>{value}</p>
