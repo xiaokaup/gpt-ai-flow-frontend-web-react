@@ -1,32 +1,29 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Modal, Input, Button, Form, message, Select } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { Button, Form, message, Drawer } from 'antd';
+
+import { FormInstance, useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
-import { FieldNamesType } from 'antd/es/cascader';
 import { IPrompt_v3_IPersonaModel } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 
-interface IModal_createPersona_input {
+interface IDrawer_createPersona_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  prompts_v3_user: IPrompt_v3[];
-  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3[]>>;
   createPrompt_v3_form: FormInstance<IPrompt_v3>;
 }
-export const Modal_createPersona = (props: IModal_createPersona_input) => {
-  const { t, isShow, setIsShow, prompts_v3_user, setPrompts_v3_user, createPrompt_v3_form } = props;
+export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
+  const { t, isShow, setIsShow, createPrompt_v3_form } = props;
 
   const [form] = useForm();
 
-  const closeModal = () => {
+  const closeDrawer = () => {
     setIsShow(false);
-    form.setFieldsValue(null);
+    // form.setFieldsValue(null);
   };
 
-  const onFinishInModal = (values: IPrompt_v3_IPersonaModel<FieldNamesType>['metadata']) => {
+  const onFinishInDrawer = (values: IPrompt_v3_IPersonaModel['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -46,29 +43,6 @@ export const Modal_createPersona = (props: IModal_createPersona_input) => {
     });
 
     setIsShow(false);
-
-    // const { name, category } = values;
-
-    // if (!category || category?.length === 0) {
-    //   message.error(t.get('Please enter your {text}', { text: t.get('Category') }));
-    //   return;
-    // }
-    // if (prompts_v3_user.find((prompt) => prompt.name === name)) {
-    //   message.error(t.get('The prompt name already exists'));
-    //   return;
-    // }
-
-    // const newItem: IPrompt_v3 = values;
-
-    // const newPrompts_v3_user = [newItem, ...prompts_v3_user];
-
-    // setPrompts_v3_user(newPrompts_v3_user);
-    // // window.electron.ipcRenderer.sendMessage('ipc-refresh-all-prompts_v3-in-mainWindow', newPrompts_v3_user);
-
-    // form.resetFields();
-    // closeModal();
-
-    // message.success(t.get('The prompt has been added to My prompts'));
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -81,13 +55,13 @@ export const Modal_createPersona = (props: IModal_createPersona_input) => {
 
   return (
     <div className="modal_create_prompts_v3">
-      <Modal
-        open={isShow}
+      <Drawer
         title={t.get('Create') + t.get('persona')}
-        onCancel={() => {
-          closeModal();
+        open={isShow}
+        onClose={() => {
+          closeDrawer();
         }}
-        footer={null}
+        mask={false}
       >
         <Form
           form={form}
@@ -98,7 +72,7 @@ export const Modal_createPersona = (props: IModal_createPersona_input) => {
           style={{ maxWidth: 600 }}
           size="small"
           autoComplete="off"
-          onFinish={onFinishInModal}
+          onFinish={onFinishInDrawer}
           onFinishFailed={onTableFinishFailedInAiFlowModal}
         >
           <Form.Item label={t.get('Occupation')} name="occupation">
@@ -149,14 +123,14 @@ export const Modal_createPersona = (props: IModal_createPersona_input) => {
             <Button
               style={{ marginLeft: 10 }}
               onClick={() => {
-                closeModal();
+                closeDrawer();
               }}
             >
               {t.get('Cancel')}
             </Button>
           </Form.Item>
         </Form>
-      </Modal>
+      </Drawer>
     </div>
   );
 };

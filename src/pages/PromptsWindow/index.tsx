@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Button, Card, Input, message, Tag, Tooltip } from 'antd';
 import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -11,7 +11,7 @@ import { IPrompt_v3, IPrompt_v3_category } from '../../gpt-ai-flow-common/interf
 import { Modal_createPrompt_v3 } from './components/Modal_createPrompt_v3';
 import { Modal_editPrompt_v3 } from './components/Modal_editPrompt_v3';
 import { LinkService } from '../../gpt-ai-flow-common/tools/3_unit/SLink';
-import { Modal_createPersona } from './components/Modal_createPersona';
+import { Drawer_createPersona } from './components/Modal_createPersona';
 import { useForm } from 'antd/es/form/Form';
 
 const { Search } = Input;
@@ -197,12 +197,10 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
           setIsShowModal_create_persona={setIsShowModal_create_persona}
           createPrompt_v3_form={createPrompt_v3_form}
         />
-        <Modal_createPersona
+        <Drawer_createPersona
           t={t}
           isShow={isShowModal_create_persona}
           setIsShow={setIsShowModal_create_persona}
-          prompts_v3_user={prompts_v3_user}
-          setPrompts_v3_user={setPrompts_v3_user}
           createPrompt_v3_form={createPrompt_v3_form}
         />
         <Modal_editPrompt_v3

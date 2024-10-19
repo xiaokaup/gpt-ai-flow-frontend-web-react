@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Modal, Input, Button, Form, message, Select } from 'antd';
-import { FormInstance, useForm } from 'antd/es/form/Form';
+import { FormInstance } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
 import { EPrompts_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
@@ -29,7 +29,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
 
   const closeModal = () => {
     setIsShow(false);
-    form.setFieldsValue(null);
+    // form.setFieldsValue(null);
   };
 
   const onFinishInModal = (values: IPrompt_v3) => {
