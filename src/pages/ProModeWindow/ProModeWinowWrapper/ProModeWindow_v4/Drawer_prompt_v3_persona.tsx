@@ -1,11 +1,15 @@
-import { Button, Card, Drawer, Tag } from 'antd';
-import { useSelector } from 'react-redux';
-import { IReduxRootState } from '../../../../store/reducer';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useSelector } from 'react-redux';
+import CopyToClipboard from 'react-copy-to-clipboard';
+
+import { Button, Card, Drawer, message, Tag } from 'antd';
+
+import { IReduxRootState } from '../../../../store/reducer';
 import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
 import { IPrompt_v3_category } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { useLastFocusedElement } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
+import { Link } from 'react-router-dom';
 
 interface IDrawer_prompt_v3_persona_input {
   t: IGetT_frontend_output;
@@ -29,20 +33,26 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
   };
   return (
     <Drawer
-      title="Persona"
+      title={t.get('Persona panel')}
       open={isShow}
       onClose={onClose}
       placement="left"
       mask={false}
       extra={
-        <Button
-          type="link"
-          onClick={() => {
-            setIsExpand(!isExpand);
-          }}
-        >
-          {isExpand ? 'collapse' : 'Expand'}
-        </Button>
+        <>
+          <Button type="link">
+            <Link to="/app/persona">{t.get('Manage')}</Link>
+          </Button>
+
+          <Button
+            type="link"
+            onClick={() => {
+              setIsExpand(!isExpand);
+            }}
+          >
+            {isExpand ? t.get('Collapse') : t.get('Expand')}
+          </Button>
+        </>
       }
     >
       {prompts_v3_persona.map((thisPrompts_v3_persona: IPrompt_v3_type_persona) => {
@@ -55,16 +65,31 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
             className="mt-2"
             title={name}
             extra={
-              <Button
-                type="link"
-                onClick={() => {
-                  console.log('selected 这个', thisPrompts_v3_persona);
-                  updateLastFocusedElement(thisPrompts_v3_persona.value);
-                  // setShow(false);
-                }}
-              >
-                Select
-              </Button>
+              <>
+                <CopyToClipboard
+                  text={value}
+                  onCopy={() => {
+                    message.success({
+                      content: <span>{t.get('Copy successful')} !</span>,
+                      key: 'copy',
+                      duration: 3,
+                    });
+                  }}
+                >
+                  <Button type="link">{t.get('Copy')}</Button>
+                </CopyToClipboard>
+
+                <Button
+                  type="link"
+                  onClick={() => {
+                    console.log('selected in Drawer_prompt_v3_persona', thisPrompts_v3_persona);
+                    updateLastFocusedElement(thisPrompts_v3_persona.value);
+                    // setShow(false);
+                  }}
+                >
+                  {t.get('Select')}
+                </Button>
+              </>
             }
           >
             <div style={{ height: isExpand ? 200 : 60, overflow: 'auto' }}>

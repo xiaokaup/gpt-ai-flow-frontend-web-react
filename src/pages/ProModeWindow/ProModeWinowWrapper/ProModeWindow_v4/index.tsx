@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import _ from 'lodash';
-import { Radio, RadioChangeEvent, Select, Tabs, message } from 'antd';
+import { Button, Radio, RadioChangeEvent, Select, Tabs, message } from 'antd';
 
 import { IReduxRootState } from '../../../../store/reducer';
 import { updateInputsCache } from '../../../../store/actions/inputsCacheActions';
@@ -294,7 +294,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
-      <LastFocusedElementProvider>
+      <LastFocusedElementProvider t={t}>
         <div
           className="container proModeContainer"
           style={{ position: 'relative', overflow: 'auto', margin: '1rem auto' }}
@@ -320,7 +320,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                 paddingBottom: '.8rem',
               }}
             >
-              <div className="title">
+              <div className="title flex items-center">
                 <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
                   <h3 className="m-0">
                     {t.get(
@@ -331,6 +331,15 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                     v4.0
                   </h3>
                 </a>
+                <Button
+                  type="link"
+                  className="ml-4"
+                  onClick={() => {
+                    setIsShow_personaDrawer(true);
+                  }}
+                >
+                  {t.get('Open {text}', { text: t.get('Persona panel') })}
+                </Button>
               </div>
 
               <div>
@@ -469,7 +478,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
           <div className="drawers">
             <Drawer_prompt_v3_persona
               t={t}
-              isShow={!isShow_personaDrawer}
+              isShow={isShow_personaDrawer}
               setIsShow={setIsShow_personaDrawer}
               setPrompt_v3_persona={setPrompt_v3_persona}
             />
