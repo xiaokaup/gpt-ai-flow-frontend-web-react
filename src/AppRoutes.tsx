@@ -11,6 +11,8 @@ import {
 import IStoreStorageFile, {
   IStoreStorage_settings_local,
 } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { useStripePriceNicknames_for_allSubscriptions } from './gpt-ai-flow-common/hooks/useStripePriceNicknames_for_allSubscriptions';
+import { ITokenDB_default } from './gpt-ai-flow-common/interface-database/ITokenDB';
 
 import { NewsPage } from './pages/NewsPage';
 import { AuthPage } from './pages/AuthPages';
@@ -23,13 +25,12 @@ import { SettingsWindow_2_user_2_login } from './pages/settingsWindow/settingsWi
 import { SettingsWindow_2_user_1_signup } from './pages/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_1_signup';
 import { SettingsWindow_2_user_5_forgetPassword } from './pages/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_5_forgetPassword';
 import { SettingsWindow_2_user_4_changePassword } from './pages/settingsWindow/settingsWindow_2_user/SettingsWindow_2_user_4_changePassword';
+import { PromptsWindowWrapper } from './pages/PromptsWindow/PromptsWindowWrapper';
 
 import { IReduxRootState } from './store/reducer';
 import { updateSpecificUserDB } from './store/actions/userActions';
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
-import { useStripePriceNicknames_for_allSubscriptions } from './gpt-ai-flow-common/hooks/useStripePriceNicknames_for_allSubscriptions';
-import { ITokenDB_default } from './gpt-ai-flow-common/interface-database/ITokenDB';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -408,7 +409,14 @@ export const AppRoutes = () => {
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <h1>personaModel</h1>
+                <PromptsWindowWrapper
+                  userDB={userData}
+                  webCase={{
+                    t,
+                    locale,
+                    env: CONSTANTS_GPT_AI_FLOW_COMMON,
+                  }}
+                />
               </AppLayoutCenter>
             </div>
           }
