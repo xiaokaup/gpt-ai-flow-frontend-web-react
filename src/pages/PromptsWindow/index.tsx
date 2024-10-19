@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Button, Card, Input, Tag } from 'antd';
+import { Button, Card, Input, Tag, Tooltip } from 'antd';
 
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
@@ -9,6 +9,7 @@ import { IPrompt_v3, IPrompt_v3_category } from '../../gpt-ai-flow-common/interf
 
 import { Modal_createPrompt_v3 } from './components/Modal_createPrompt_v3';
 import { Modal_editPrompt_v3 } from './components/Modal_editPrompt_v3';
+import { LinkService } from '../../gpt-ai-flow-common/tools/3_unit/SLink';
 
 const { Search } = Input;
 
@@ -33,6 +34,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
 
   const [searchInput, setSearchInput] = useState<string>('');
   const [isShowModal_create_prompt_v3, setIsShowModal_create_prompt_v3] = useState<boolean>(false);
+  // const [isShowImportAndExportModal, setIsShowImportAndExportModal] = useState(false);
 
   const [isShowModal_edit_prompts_v3, setIsShowModal_edit_prompts_v3] = useState<boolean>(false);
   const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3 | null>(null);
@@ -72,6 +74,18 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         >
           {`${t.get('Add')} ${t.get('prompt')}`}
         </Button>
+
+        <Tooltip title={t.get('Currently, this feature is only supported in the desktop software.')}>
+          <Button
+            onClick={() => {
+              window.open(LinkService.getDownloadLink(locale), '_blank');
+              // setIsShowImportAndExportModal(true);
+            }}
+            style={{ marginLeft: 8 }}
+          >
+            {t.get('Import/Export')}
+          </Button>
+        </Tooltip>
       </div>
       <div
         className="prompts_v3"
