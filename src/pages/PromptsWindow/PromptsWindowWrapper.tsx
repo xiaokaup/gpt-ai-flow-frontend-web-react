@@ -42,8 +42,6 @@ export const PromptsWindowWrapper = (props: IPromptsWindowWrapper_input) => {
 
   const { Token: { accessToken } = ITokenDB_default } = userDB;
 
-  console.log('prompts_v3_user in store', prompts_v3_user);
-
   return (
     <PromptsWindow
       t={t}

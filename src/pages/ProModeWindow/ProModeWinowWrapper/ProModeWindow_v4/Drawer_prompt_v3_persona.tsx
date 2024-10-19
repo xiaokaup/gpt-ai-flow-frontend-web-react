@@ -26,7 +26,6 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
   const [isExpand, setIsExpand] = useState<boolean>(false);
 
   const prompts_v3_persona = useSelector((state: IReduxRootState) => state.prompts_v3.user);
-  console.log('prompts_v3_persona in drawer', prompts_v3_persona);
 
   const onClose = () => {
     setShow(false);
