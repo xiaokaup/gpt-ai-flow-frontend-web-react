@@ -479,52 +479,12 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
           </Splitter.Panel>
         </Splitter>
       )}
-      {/* <div className="row @DEV">
-        <Button
-          type="primary"
-          onClick={() => {
-            console.log('chatHistory', chatHistory);
-          }}
-        >
-          chatHistory
-        </Button>
-
-        <Button
-          type="primary"
-          onClick={() => {
-            console.log('currentVersionNum', currentVersionNum);
-          }}
-          style={{ marginLeft: '1rem' }}
-        >
-          currentVersionNum
-        </Button>
-
-        <Button
-          type="primary"
-          onClick={() => {
-            console.log('contextType', contextType);
-            console.log('messageExchangeData', messageExchangeData);
-          }}
-          style={{ marginLeft: '1rem' }}
-        >
-          messageExchangeData
-        </Button>
-
-        <Button
-          type="primary"
-          onClick={() => {
-            console.log('currentVersionNum', currentVersionNum);
-          }}
-          style={{ marginLeft: '1rem' }}
-        >
-          inputsCache
-        </Button>
-      </div>
-      <div>
-        <pre>
-          <code>{JSON.stringify(messageExchangeData, null, 2)}</code>
-        </pre>
-      </div> */}
+      {/* <ProMode_v4_Debug
+        chatHistory={chatHistory}
+        currentVersionNum={currentVersionNum}
+        contextType={contextType}
+        messageExchangeData={messageExchangeData}
+      /> */}
     </>
   );
 };

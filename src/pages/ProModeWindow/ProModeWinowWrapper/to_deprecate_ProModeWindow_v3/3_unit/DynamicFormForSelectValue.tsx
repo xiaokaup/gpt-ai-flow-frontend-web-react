@@ -13,7 +13,7 @@ import { updateInputsCache } from '../../../../../store/actions/inputsCacheActio
 import IInputsCacheFile, {
   to_deprecate_IInputsCache,
 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../gpt-ai-flow-common/hooks/to_deprecate_useInputsCache';
 import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface DynamicFormForSelectValue_input {
@@ -29,7 +29,7 @@ export function DynamicFormForSelectValue(props: DynamicFormForSelectValue_input
   const dispatch = useDispatch();
 
   const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
-    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+    return (state.inputsCache as to_deprecate_IInputsCache) ?? IInputsCacheFile.IInputsCache_default;
   });
   const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,

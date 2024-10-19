@@ -11,7 +11,7 @@ import { IReduxRootState } from '../../../../../../../store/reducer';
 import { updateInputsCache } from '../../../../../../../store/actions/inputsCacheActions';
 
 import TStringFile from '../../../../../../../gpt-ai-flow-common/tools/TString';
-import { to_deprecate_useInputsCache } from '../../../../../../../gpt-ai-flow-common/hooks/useInputsCache';
+import { to_deprecate_useInputsCache } from '../../../../../../../gpt-ai-flow-common/hooks/to_deprecate_useInputsCache';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import IInputsCacheFile, {
   to_deprecate_IInputsCache,
@@ -30,7 +30,7 @@ export function DynamicFormForSelectValue_v4(props: DynamicFormForSelectValue_v4
   const dispatch = useDispatch();
 
   const inputsCacheFromStorage: to_deprecate_IInputsCache = useSelector((state: IReduxRootState) => {
-    return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+    return (state.inputsCache as to_deprecate_IInputsCache) ?? IInputsCacheFile.IInputsCache_default;
   });
   const { inputsCache, setInputsCache } = to_deprecate_useInputsCache({
     inputsCacheFromStorage,
