@@ -40,7 +40,9 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
       extra={
         <>
           <Button type="link">
-            <Link to="/app/persona">{t.get('Manage')}</Link>
+            <Link to="/app/persona" target="__blank">
+              {t.get('Manage')}
+            </Link>
           </Button>
 
           <Button
