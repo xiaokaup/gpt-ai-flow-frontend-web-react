@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
-import { Button, Form, message, Drawer } from 'antd';
-
-import { FormInstance, useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
+import { Button, Form, message, Drawer } from 'antd';
+import { FormInstance, useForm } from 'antd/es/form/Form';
+
+import { LoadingOutlined } from '@ant-design/icons';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
@@ -169,7 +170,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           // wrapperCol={{ offset: 8, span: 16 }}
           >
             <Button type="primary" htmlType="submit" disabled={isCalling}>
-              {t.get('Create')}
+              {t.get('Create')} {isCalling && <LoadingOutlined />}
             </Button>
             <Button
               style={{ marginLeft: 10 }}

@@ -270,6 +270,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         />
         <Drawer_editPersona
           t={t}
+          llmOptions={llmOptions}
           isShow={isShowModal_edit_persona}
           setIsShow={setIsShowModal_edit_persona}
           thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
