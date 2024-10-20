@@ -13,6 +13,7 @@ import {
   IBackground_for_type_langchain,
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { useLastFocusedElement } from '../../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -25,6 +26,8 @@ interface ILangchain_right_03_background_input {
 }
 export const Langchain_right_03_background = (props: ILangchain_right_03_background_input) => {
   const { t, backgroundSelected, background, setBackground } = props;
+
+  const { setLastFocusedElement } = useLastFocusedElement();
 
   const [form] = Form.useForm();
 
@@ -97,6 +100,14 @@ export const Langchain_right_03_background = (props: ILangchain_right_03_backgro
                   >
                     <TextArea
                       autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                      onFocus={() => {
+                        setLastFocusedElement({
+                          form,
+                          name,
+                          element: 'TextArea',
+                          updateItems: setBackground,
+                        });
+                      }}
                       onChange={(event) => {
                         // const newItem = {
                         //   ...background,
@@ -157,16 +168,22 @@ export const Langchain_right_03_background = (props: ILangchain_right_03_backgro
                     {autoCompleteOptions && autoCompleteOptions.length > 0 && (
                       <AutoComplete
                         options={autoCompleteOptions_for_textArea}
+                        onFocus={() => {
+                          console.log('onFocus');
+                          setAutoCompleteOptions_for_textArea(autoCompleteOptions);
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'AutoComplete',
+                            updateItems: setBackground,
+                          });
+                        }}
                         onSelect={(value: string) => {
                           const newItem = {
                             ...background,
                             [name]: value,
                           };
                           setBackground(newItem);
-                        }}
-                        onFocus={() => {
-                          console.log('onFocus');
-                          setAutoCompleteOptions_for_textArea(autoCompleteOptions);
                         }}
                         onSearch={(searchValue: string) => {
                           console.log('onSearch', searchValue);
@@ -177,6 +194,14 @@ export const Langchain_right_03_background = (props: ILangchain_right_03_backgro
                       >
                         <TextArea
                           autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                          onFocus={() => {
+                            setLastFocusedElement({
+                              form,
+                              name,
+                              element: 'TextArea',
+                              updateItems: setBackground,
+                            });
+                          }}
                           onChange={(event) => {
                             const newItem = {
                               ...background,
@@ -190,6 +215,14 @@ export const Langchain_right_03_background = (props: ILangchain_right_03_backgro
                     {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
                       <TextArea
                         autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                        onFocus={() => {
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'TextArea',
+                            updateItems: setBackground,
+                          });
+                        }}
                         onChange={(event) => {
                           const newItem = {
                             ...background,

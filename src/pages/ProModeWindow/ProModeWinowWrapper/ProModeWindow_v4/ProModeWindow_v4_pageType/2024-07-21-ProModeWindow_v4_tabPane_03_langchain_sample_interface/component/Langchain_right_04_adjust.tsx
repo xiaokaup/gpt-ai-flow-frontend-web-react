@@ -10,6 +10,7 @@ import {
   IAdjust_for_type_langchain,
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { useLastFocusedElement } from '../../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 
 const { TextArea } = Input;
 
@@ -24,6 +25,8 @@ interface ILangchain_right_04_adjust_input {
 }
 export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_input) => {
   const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;
+
+  const { setLastFocusedElement } = useLastFocusedElement();
 
   const [form] = Form.useForm();
 
@@ -73,16 +76,22 @@ export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_inpu
                     {autoCompleteOptions && autoCompleteOptions.length > 0 && (
                       <AutoComplete
                         options={autoCompleteOptions_for_input}
+                        onFocus={() => {
+                          console.log('onFocus');
+                          setAutoCompleteOptions_for_input(autoCompleteOptions);
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'AutoComplete',
+                            updateItems: setAdjust,
+                          });
+                        }}
                         onSelect={(value: string) => {
                           const newItem = {
                             ...adjust,
                             [name]: value,
                           };
                           setAdjust(newItem);
-                        }}
-                        onFocus={() => {
-                          console.log('onFocus');
-                          setAutoCompleteOptions_for_input(autoCompleteOptions);
                         }}
                         onSearch={(searchValue: string) => {
                           console.log('onSearch', searchValue);
@@ -92,6 +101,14 @@ export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_inpu
                         }}
                       >
                         <Input
+                          onFocus={() => {
+                            setLastFocusedElement({
+                              form,
+                              name,
+                              element: 'Input',
+                              updateItems: setAdjust,
+                            });
+                          }}
                           onChange={(event) => {
                             const newItem = {
                               ...adjust,
@@ -104,6 +121,14 @@ export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_inpu
                     )}
                     {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
                       <Input
+                        onFocus={() => {
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'Input',
+                            updateItems: setAdjust,
+                          });
+                        }}
                         onChange={(event) => {
                           const newItem = {
                             ...adjust,
@@ -141,16 +166,22 @@ export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_inpu
                     {autoCompleteOptions && autoCompleteOptions.length > 0 && (
                       <AutoComplete
                         options={autoCompleteOptions_for_textArea}
+                        onFocus={() => {
+                          console.log('onFocus');
+                          setAutoCompleteOptions_for_textArea(autoCompleteOptions);
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'AutoComplete',
+                            updateItems: setAdjust,
+                          });
+                        }}
                         onSelect={(value: string) => {
                           const newItem = {
                             ...adjust,
                             [name]: value,
                           };
                           setAdjust(newItem);
-                        }}
-                        onFocus={() => {
-                          console.log('onFocus');
-                          setAutoCompleteOptions_for_textArea(autoCompleteOptions);
                         }}
                         onSearch={(searchValue: string) => {
                           console.log('onSearch', searchValue);
@@ -162,6 +193,14 @@ export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_inpu
                         <TextArea
                           disabled={isDisabledWhenAdjustCall && isAdjustCall}
                           autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                          onFocus={() => {
+                            setLastFocusedElement({
+                              form,
+                              name,
+                              element: 'TextArea',
+                              updateItems: setAdjust,
+                            });
+                          }}
                           onChange={(event) => {
                             const newItem = {
                               ...adjust,
@@ -176,6 +215,14 @@ export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_inpu
                       <TextArea
                         disabled={isDisabledWhenAdjustCall && isAdjustCall}
                         autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                        onFocus={() => {
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'TextArea',
+                            updateItems: setAdjust,
+                          });
+                        }}
                         onChange={(event) => {
                           const newItem = {
                             ...adjust,
