@@ -41,7 +41,7 @@ interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
   creativityValue: number;
   contextSelected: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
-  // swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
+  // switchContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
 }
 export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input,

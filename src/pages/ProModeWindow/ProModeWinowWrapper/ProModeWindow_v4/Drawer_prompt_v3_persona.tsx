@@ -5,7 +5,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Button, Card, Drawer, message, Tag } from 'antd';
 
 import { IReduxRootState } from '../../../../store/reducer';
-import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IPrompt_v3_category } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { useLastFocusedElement } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
@@ -40,7 +40,9 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
       extra={
         <>
           <Button type="link">
-            <Link to="/app/persona">{t.get('Manage')}</Link>
+            <Link to="/app/persona" target="__blank">
+              {t.get('Manage')}
+            </Link>
           </Button>
 
           <Button

@@ -13,7 +13,7 @@ import { proModeReducer } from './proModeReducer';
 import { subscriptionReducer } from './SubscriptionReducer';
 import { inputsCacheReducer } from './inputsCacheReducer';
 import { prompts_v3Reducer } from './prompts_v3Reducer';
-import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 
 export interface IReduxRootState {
   counterInfo: ICounterReducerState;

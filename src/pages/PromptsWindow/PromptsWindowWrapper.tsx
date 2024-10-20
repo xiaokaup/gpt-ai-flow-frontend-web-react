@@ -11,7 +11,7 @@ import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILo
 
 import { PromptsWindow } from '.';
 import { IReduxRootState } from '../../store/reducer';
-import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 
 interface IPromptsWindowWrapper_input {
   userDB: IUserDB;
@@ -25,7 +25,7 @@ export const PromptsWindowWrapper = (props: IPromptsWindowWrapper_input) => {
   const dispatch = useDispatch();
 
   const { userDB, webCase } = props;
-  const { t, env } = webCase;
+  const { t } = webCase;
 
   //   const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user();
   // const [prompts_v3_user, setPrompts_v3_user] = useState<IPrompt_v3[]>([]);
@@ -47,8 +47,7 @@ export const PromptsWindowWrapper = (props: IPromptsWindowWrapper_input) => {
       t={t}
       prompts_v3_user={prompts_v3_user}
       setPrompts_v3_user={setPrompts_v3_user}
-      accessToken={accessToken}
-      env={env}
+      webCase={{ ...webCase, accessToken }}
     />
   );
 };
