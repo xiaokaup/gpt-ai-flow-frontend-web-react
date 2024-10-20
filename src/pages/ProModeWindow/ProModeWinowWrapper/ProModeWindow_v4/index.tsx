@@ -63,6 +63,7 @@ import { Prompt_v3_persona_Provider } from '../../../../gpt-ai-flow-common/conte
 import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { Drawer_prompt_v3_persona } from './Drawer_prompt_v3_persona';
 import { LastFocusedElementProvider } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
+import { saveLocalAction } from '../../../../store/actions/localActions';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -195,6 +196,8 @@ interface IProModeWindow_v4_login {
 const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   const { t, locale, userData, inputsCache, setInputsCache, inputsCache_v2, setInputsCache_v2 } = props;
 
+  const dispatch = useDispatch();
+
   const query = new URLSearchParams(useLocation().search);
   const roleModule = (
     Object.values(EProMode_v4_tabPanes_role).includes(query.get('role') as EProMode_v4_tabPanes_role)
@@ -203,13 +206,13 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   ) as EProMode_v4_tabPanes_role;
   const tabPaneDefault_uuid_from_query = query.get('tabPane_uuid');
 
-  const localDataFromStorage: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+  const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
   });
   const {
     apiKeys: llmOption_secrets,
     proMode: { model_type: llmName_from_store },
-  } = localDataFromStorage;
+  } = localFromStore;
 
   const { Token: { accessToken: userAccessToken } = {} } = userData;
 
@@ -389,6 +392,15 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                   onChange={(value: string) => {
                     console.log(`selected ${value}`);
                     setLLMName(value as ELLM_name);
+                    dispatch<IStoreStorage_settings_local | any>(
+                      saveLocalAction({
+                        ...localFromStore,
+                        proMode: {
+                          ...localFromStore.proMode,
+                          model_type: value as ELLM_name,
+                        },
+                      }),
+                    );
                   }}
                   onSearch={(value: string) => {
                     console.log('search:', value);
@@ -438,7 +450,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                             <ProModeWindow_v4_tabPane_commandChain
                               t={t}
                               tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
-                              webCase={{ userData, localDataFromStorage }}
+                              webCase={{ userData, localDataFromStorage: localFromStore }}
                             />
                           )}
 
