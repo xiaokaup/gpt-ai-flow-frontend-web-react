@@ -1,28 +1,48 @@
+import { useState } from 'react';
+
 import { Button, Form, message, Drawer } from 'antd';
 
 import { FormInstance, useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
+import CONSTANTS_GPT_AI_FLOW_COMMON, {
+  IConstantGptAiFlowHandler,
+} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
+import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import { EProMode_v4_tabPane_context_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 
 interface IDrawer_createPersona_input {
   t: IGetT_frontend_output;
+  llmOptions: ILLMOptions;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
   createPrompt_v3_form: FormInstance<IPrompt_v3_type_persona>;
+  webCase: {
+    t: IGetT_frontend_output;
+    locale: ELocale;
+    accessToken: string;
+    env: IConstantGptAiFlowHandler;
+  };
 }
 export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
-  const { t, isShow, setIsShow, createPrompt_v3_form } = props;
+  const { t, llmOptions, isShow, setIsShow, createPrompt_v3_form, webCase } = props;
 
   const [form] = useForm();
+
+  const [isCalling, setIsCalling] = useState(false);
 
   const closeDrawer = () => {
     setIsShow(false);
     // form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = (values: IPrompt_v3_type_persona['metadata']) => {
+  const onFinishInDrawer = async (values: IPrompt_v3_type_persona['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -31,15 +51,39 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
       return;
     }
 
-    // Calculate newValue
-    let newValue = '"""';
-    if (occupation) newValue += `${t.get('Occupation')}: ${occupation}\n`;
-    if (coreValues) newValue += `${t.get('Core values')}: ${coreValues}\n`;
-    if (uniqueSkill) newValue += `${t.get('Unique skills')}: ${uniqueSkill}\n`;
-    if (personalityTrait) newValue += `${t.get('Personality traits')}: ${personalityTrait}\n`;
-    if (appearance) newValue += `${t.get('Appearance')}: ${appearance}\n`;
-    if (additionalInfo) newValue += `${t.get('Additional information')}: ${additionalInfo}\n`;
-    newValue += '"""';
+    setIsCalling(true);
+
+    const urlSlug = '/v1.0/post/langchain/chains/personaChain/';
+    const response = await postProMode_v4_langchain_tabPane_chains_v2<{
+      personaData: IPrompt_v3_type_persona['metadata'];
+    }>(
+      urlSlug,
+      {
+        ...getILangchain_for_type_langchain_request_v3_subV2_default<{
+          personaData: IPrompt_v3_type_persona['metadata'];
+        }>({
+          personaData: {
+            occupation,
+            coreValues,
+            uniqueSkill,
+            personalityTrait,
+            appearance,
+            additionalInfo,
+          },
+        }),
+        llmOptions,
+        contextType: EProMode_v4_tabPane_context_contextType.GENERAL,
+      },
+      () => console.log('beforeSendRequestAsStreamFunc'),
+      (wrtingResultText: string) => console.log('updateResultFromRequestAsStreamFunc', wrtingResultText),
+      (resultText: string) => console.log('AfterRequestAsStreamFunc', resultText),
+      webCase.accessToken,
+      webCase.t.currentLocale,
+      webCase.env,
+      TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+    );
+
+    const newValue = response.results;
 
     const createPrompt_v3_modal_values: IPrompt_v3_type_persona = createPrompt_v3_form.getFieldsValue();
     const newPrompts_v3 = {
@@ -49,7 +93,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     };
     createPrompt_v3_form.setFieldsValue(newPrompts_v3);
 
-    setIsShow(false);
+    setIsCalling(false);
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -124,7 +168,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           <Form.Item
           // wrapperCol={{ offset: 8, span: 16 }}
           >
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" disabled={isCalling}>
               {t.get('Create')}
             </Button>
             <Button

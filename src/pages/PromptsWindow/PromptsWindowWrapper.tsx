@@ -25,7 +25,7 @@ export const PromptsWindowWrapper = (props: IPromptsWindowWrapper_input) => {
   const dispatch = useDispatch();
 
   const { userDB, webCase } = props;
-  const { t, env } = webCase;
+  const { t } = webCase;
 
   //   const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user();
   // const [prompts_v3_user, setPrompts_v3_user] = useState<IPrompt_v3[]>([]);
@@ -47,8 +47,7 @@ export const PromptsWindowWrapper = (props: IPromptsWindowWrapper_input) => {
       t={t}
       prompts_v3_user={prompts_v3_user}
       setPrompts_v3_user={setPrompts_v3_user}
-      accessToken={accessToken}
-      env={env}
+      webCase={{ ...webCase, accessToken }}
     />
   );
 };

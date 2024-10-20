@@ -22,6 +22,13 @@ import {
   IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
 } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
+import { ILLMOptions, ILLMOptions_v2_default } from '../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import IStoreStorageFile, {
+  IStoreStorage_settings_local,
+} from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { useSelector } from 'react-redux';
+import { SLLM_v2_common } from '../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+import { IReduxRootState } from '../../store/reducer';
 
 const { Search } = Input;
 
@@ -29,11 +36,29 @@ interface IPromptsWindow_input {
   t: IGetT_frontend_output;
   prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
   setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
-  accessToken: string;
-  env: IConstantGptAiFlowHandler;
+  webCase: {
+    t: IGetT_frontend_output;
+    locale: ELocale;
+    accessToken: string;
+    env: IConstantGptAiFlowHandler;
+  };
 }
 export const PromptsWindow = (props: IPromptsWindow_input) => {
-  const { t, prompts_v3_user, setPrompts_v3_user } = props;
+  const { t, prompts_v3_user, setPrompts_v3_user, webCase } = props;
+
+  const localDataFromStorage: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
+  });
+  const {
+    apiKeys: llmOption_secrets,
+    proMode: { model_type: llmName_from_store },
+  } = localDataFromStorage;
+
+  const llmOptions: ILLMOptions = {
+    ...ILLMOptions_v2_default,
+    llmName: llmName_from_store,
+    llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName_from_store, llmOption_secrets),
+  };
 
   const [locale] = useState<ELocale>(t.currentLocale);
 
@@ -221,10 +246,12 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         />
         <Drawer_createPersona
           t={t}
+          llmOptions={llmOptions}
           isShow={isShowModal_create_persona}
           setIsShow={setIsShowModal_create_persona}
           // Prompts_v3
           createPrompt_v3_form={createPrompt_v3_form}
+          webCase={webCase}
         />
 
         <Modal_editPrompt_v3
@@ -248,6 +275,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
           thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
           // Prompts_v3
           editPrompt_v3_from={editPrompt_v3_from}
+          webCase={webCase}
         />
       </div>
     </div>

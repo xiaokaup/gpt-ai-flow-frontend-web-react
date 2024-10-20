@@ -14,9 +14,15 @@ interface IModal_editPersona_input {
   setIsShow: (isShow: boolean) => void;
   thisPrompt_v3: IPrompt_v3_type_persona;
   editPrompt_v3_from: FormInstance<IPrompt_v3_type_persona>;
+  webCase: {
+    t: IGetT_frontend_output;
+    locale: ELocale;
+    accessToken: string;
+    env: IConstantGptAiFlowHandler;
+  };
 }
 export const Drawer_editPersona = (props: IModal_editPersona_input) => {
-  const { t, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from } = props;
+  const { t, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from, webCase } = props;
 
   const [form] = useForm();
 
