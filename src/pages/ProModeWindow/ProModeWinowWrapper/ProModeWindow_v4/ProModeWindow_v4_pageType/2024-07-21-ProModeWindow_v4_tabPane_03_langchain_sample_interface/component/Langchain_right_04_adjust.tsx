@@ -21,7 +21,7 @@ interface ILangchain_right_04_adjust_input {
   adjust: IAdjust_for_type_langchain;
   setAdjust: (newItem: IAdjust_for_type_langchain) => void;
   contextSelected_type: EProMode_v4_tabPane_context_contextType;
-  swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_contextType) => void;
+  switchContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_contextType) => void;
 }
 export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_input) => {
   const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;

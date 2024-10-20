@@ -328,7 +328,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                   }));
                 }}
                 contextSelected_type={contextSelected.contextType}
-                swtichContextSelected_by_type={switchContextSelected_by_type}
+                switchContextSelected_by_type={switchContextSelected_by_type}
               />
             </div>
 
