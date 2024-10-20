@@ -8,6 +8,7 @@ import {
   IBackground_for_type_langchain,
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { useLastFocusedElement } from '../../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 
 // const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -19,6 +20,8 @@ export const Langchain_background = (props: {
   setBackground: (newItem: IBackground_for_type_langchain) => void;
 }) => {
   const { t, backgroundSelected, background, setBackground } = props;
+
+  const { setLastFocusedElement } = useLastFocusedElement();
 
   const [form] = Form.useForm();
 
@@ -83,6 +86,14 @@ export const Langchain_background = (props: {
                       <InputNumber
                         min={minNum}
                         max={maxNum}
+                        onFocus={() => {
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'InputNumber',
+                            updateItems: setBackground,
+                          });
+                        }}
                         onChange={(value) => {
                           const newItem = {
                             ...background,
@@ -118,6 +129,14 @@ export const Langchain_background = (props: {
                       }
                     >
                       <Input
+                        onFocus={() => {
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'Input',
+                            updateItems: setBackground,
+                          });
+                        }}
                         onChange={(event) => {
                           const newItem = {
                             ...background,
@@ -153,6 +172,14 @@ export const Langchain_background = (props: {
                     >
                       <TextArea
                         autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                        onFocus={() => {
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'TextArea',
+                            updateItems: setBackground,
+                          });
+                        }}
                         onChange={(event) => {
                           const newItem = {
                             ...background,
@@ -182,6 +209,14 @@ export const Langchain_background = (props: {
                       }
                     >
                       <DatePicker
+                        onFocus={() => {
+                          setLastFocusedElement({
+                            form,
+                            name,
+                            element: 'DatePicker',
+                            updateItems: setBackground,
+                          });
+                        }}
                         onChange={(date, dates) => {
                           const newItem = {
                             ...background,
