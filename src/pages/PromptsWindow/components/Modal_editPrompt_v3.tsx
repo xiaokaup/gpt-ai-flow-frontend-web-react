@@ -9,7 +9,7 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import {
   IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
-} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IPrompt_v3, IPrompt_v3_base_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 
 interface IModal_editPrompt_v3_input {

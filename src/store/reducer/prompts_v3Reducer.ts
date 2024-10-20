@@ -1,4 +1,4 @@
-import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IPrompt_v3, IPrompts_v3_default } from '../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { IAction } from '../store';
 

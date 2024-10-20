@@ -6,7 +6,7 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import {
   IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
-} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 
 interface IModal_editPersona_input {
   t: IGetT_frontend_output;

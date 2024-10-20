@@ -60,7 +60,7 @@ import {
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { IProMode_v4_tabPane_tool } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/05-tool/interface';
 import { Prompt_v3_persona_Provider } from '../../../../gpt-ai-flow-common/contexts/Prompt_v3_persona_ProviderContext';
-import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { Drawer_prompt_v3_persona } from './Drawer_prompt_v3_persona';
 import { LastFocusedElementProvider } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 

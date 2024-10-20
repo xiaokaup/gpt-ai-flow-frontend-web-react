@@ -11,7 +11,7 @@ import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILo
 
 import { PromptsWindow } from '.';
 import { IReduxRootState } from '../../store/reducer';
-import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 
 interface IPromptsWindowWrapper_input {
   userDB: IUserDB;

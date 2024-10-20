@@ -4,7 +4,7 @@ import { FormInstance, useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 
 interface IDrawer_createPersona_input {
   t: IGetT_frontend_output;
