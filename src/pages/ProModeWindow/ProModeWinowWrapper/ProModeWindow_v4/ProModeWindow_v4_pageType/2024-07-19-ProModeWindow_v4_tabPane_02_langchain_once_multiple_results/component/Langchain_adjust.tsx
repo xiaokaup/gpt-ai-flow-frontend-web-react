@@ -8,6 +8,7 @@ import {
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { IAdjust_morePostsChain } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
+import { useLastFocusedElement } from '../../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 
 const { TextArea } = Input;
 
@@ -19,6 +20,8 @@ export const Langchain_adjust = (props: {
   setAdjust: (newItem: IAdjust_morePostsChain) => void;
 }) => {
   const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;
+
+  const { setLastFocusedElement } = useLastFocusedElement();
 
   const [form] = Form.useForm();
 
@@ -60,6 +63,14 @@ export const Langchain_adjust = (props: {
                     <InputNumber
                       min={minNum}
                       max={maxNum}
+                      onFocus={() => {
+                        setLastFocusedElement({
+                          form,
+                          name,
+                          element: 'InputNumber',
+                          updateItems: setAdjust,
+                        });
+                      }}
                       onChange={(value) => {
                         const newItem = {
                           ...adjust,
@@ -86,11 +97,20 @@ export const Langchain_adjust = (props: {
                     }
                   >
                     <Input
+                      onFocus={() => {
+                        setLastFocusedElement({
+                          form,
+                          name,
+                          element: 'Input',
+                          updateItems: setAdjust,
+                        });
+                      }}
                       onChange={(event) => {
                         const newItem = {
                           ...adjust,
                           [name]: event.target.value,
                         };
+
                         setAdjust(newItem);
                       }}
                     />
@@ -113,6 +133,14 @@ export const Langchain_adjust = (props: {
                     <TextArea
                       disabled={isDisabledWhenAdjustCall && isAdjustCall}
                       autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
+                      onFocus={() => {
+                        setLastFocusedElement({
+                          form,
+                          name,
+                          element: 'TextArea',
+                          updateItems: setAdjust,
+                        });
+                      }}
                       onChange={(event) => {
                         const newItem = {
                           ...adjust,
@@ -142,6 +170,14 @@ export const Langchain_adjust = (props: {
                     }
                   >
                     <DatePicker
+                      onFocus={() => {
+                        setLastFocusedElement({
+                          form,
+                          name,
+                          element: 'DatePicker',
+                          updateItems: setAdjust,
+                        });
+                      }}
                       onChange={(date, dates) => {
                         const newItem = {
                           ...adjust,
@@ -160,6 +196,14 @@ export const Langchain_adjust = (props: {
 
           {/* <Form.Item name="title" label={t.get('Title')}>
             <Input
+              onFocus={() => {
+                setLastFocusedElement({
+                  form,
+                  name,
+                  element: 'Input',
+                  updateItems: setAdjust,
+                });
+              }}
               onChange={(event) => {
                 setAdjust({
                   ...adjust,
@@ -172,6 +216,14 @@ export const Langchain_adjust = (props: {
           <Form.Item name="content" label={t.get('Content')}>
             <TextArea
               autoSize
+              onFocus={() => {
+                setLastFocusedElement({
+                  form,
+                  name,
+                  element: 'TextArea',
+                  updateItems: setAdjust,
+                });
+              }}
               onChange={(event) => {
                 setAdjust({
                   ...adjust,
@@ -184,6 +236,14 @@ export const Langchain_adjust = (props: {
           <Form.Item name="feedback" label={t.get('Input')}>
             <TextArea
               autoSize={{ minRows: 4 }}
+              onFocus={() => {
+                setLastFocusedElement({
+                  form,
+                  name,
+                  element: 'TextArea',
+                  updateItems: setAdjust,
+                });
+              }}
               onChange={(event) => {
                 setAdjust({
                   ...adjust,

@@ -24,10 +24,17 @@ export const Langchain_adjust = (props: {
   adjust: IAdjust_for_type_langchain;
   setAdjust: (newItem: IAdjust_for_type_langchain) => void;
   contextSelected_type: EProMode_v4_tabPane_context_contextType;
-  swtichContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_contextType) => void;
+  switchContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_contextType) => void;
 }) => {
-  const { t, isAdjustCall, adjustSelected, adjust, setAdjust, contextSelected_type, swtichContextSelected_by_type } =
-    props;
+  const {
+    t,
+    isAdjustCall,
+    adjustSelected,
+    adjust,
+    setAdjust,
+    contextSelected_type,
+    switchContextSelected_by_type: switchContextSelected_by_type,
+  } = props;
 
   const { setLastFocusedElement } = useLastFocusedElement();
 
@@ -61,7 +68,7 @@ export const Langchain_adjust = (props: {
               }}
               onClick={() => {
                 console.log('click expression icon');
-                swtichContextSelected_by_type(EProMode_v4_tabPane_context_contextType.RESPONSE);
+                switchContextSelected_by_type(EProMode_v4_tabPane_context_contextType.RESPONSE);
               }}
             />
           )}
@@ -83,7 +90,7 @@ export const Langchain_adjust = (props: {
               }}
               onClick={() => {
                 console.log('click response icon');
-                swtichContextSelected_by_type(EProMode_v4_tabPane_context_contextType.EXPRESS);
+                switchContextSelected_by_type(EProMode_v4_tabPane_context_contextType.EXPRESS);
               }}
             />
           )}

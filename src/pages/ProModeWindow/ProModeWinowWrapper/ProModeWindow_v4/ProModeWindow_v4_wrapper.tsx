@@ -65,7 +65,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
   }
   const { mode } = contextSelected;
 
-  const swtichContextSelected_by_type = (newType: EProMode_v4_tabPane_context_contextType) => {
+  const switchContextSelected_by_type = (newType: EProMode_v4_tabPane_context_contextType) => {
     setSelectedContextType(newType);
     setContextSelected(context.find((item) => item.contextType === newType) ?? null);
   };
@@ -79,7 +79,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           style={{ width: 240 }}
           onChange={(value: string) => {
             console.log(`selected ${value}`);
-            swtichContextSelected_by_type(value as EProMode_v4_tabPane_context_contextType);
+            switchContextSelected_by_type(value as EProMode_v4_tabPane_context_contextType);
           }}
           options={context.map(
             (item: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
@@ -101,7 +101,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
                 type="primary"
                 className="ml-2"
                 onClick={() => {
-                  swtichContextSelected_by_type(
+                  switchContextSelected_by_type(
                     EProMode_v4_tabPane_context_contextType.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT,
                   );
                 }}
@@ -124,7 +124,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           <ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5
             creativityValue={creativityValue}
             contextSelected={contextSelected}
-            swtichContextSelected_by_type={swtichContextSelected_by_type}
+            switchContextSelected_by_type={switchContextSelected_by_type}
             // IProModeWindow_v4_wrapper_input
             t={t}
             userAccessToken={userAccessToken}
@@ -141,7 +141,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           <ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5
             creativityValue={creativityValue}
             contextSelected={contextSelected}
-            // swtichContextSelected_by_type={swtichContextSelected_by_type}
+            // switchContextSelected_by_type={switchContextSelected_by_type}
             // IProModeWindow_v4_wrapper_input
             t={t}
             userAccessToken={userAccessToken}
@@ -158,7 +158,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           <ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface
             creativityValue={creativityValue}
             contextSelected={contextSelected}
-            swtichContextSelected_by_type={swtichContextSelected_by_type}
+            switchContextSelected_by_type={switchContextSelected_by_type}
             // IProModeWindow_v4_wrapper_input
             t={t}
             userAccessToken={userAccessToken}

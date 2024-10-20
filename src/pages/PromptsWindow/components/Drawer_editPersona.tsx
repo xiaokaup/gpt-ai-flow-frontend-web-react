@@ -1,31 +1,53 @@
+import { useState } from 'react';
+
+import TextArea from 'antd/es/input/TextArea';
 import { Button, Form, message, Drawer } from 'antd';
 import { FormInstance, useForm } from 'antd/es/form/Form';
-import TextArea from 'antd/es/input/TextArea';
+
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
-} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_IPersonaModel';
+} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
+import CONSTANTS_GPT_AI_FLOW_COMMON, {
+  IConstantGptAiFlowHandler,
+} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
+import { EProMode_v4_tabPane_context_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 
 interface IModal_editPersona_input {
   t: IGetT_frontend_output;
+  llmOptions: ILLMOptions;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
   thisPrompt_v3: IPrompt_v3_type_persona;
   editPrompt_v3_from: FormInstance<IPrompt_v3_type_persona>;
+  webCase: {
+    t: IGetT_frontend_output;
+    locale: ELocale;
+    accessToken: string;
+    env: IConstantGptAiFlowHandler;
+  };
 }
 export const Drawer_editPersona = (props: IModal_editPersona_input) => {
-  const { t, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from } = props;
+  const { t, llmOptions, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from, webCase } = props;
 
   const [form] = useForm();
 
+  const [isCalling, setIsCalling] = useState(false);
+
   const closeDrawer = () => {
     setIsShow(false);
-    form.setFieldsValue(null);
+    // form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = (values: IPrompt_v3_type_persona['metadata']) => {
+  const onFinishInDrawer = async (values: IPrompt_v3_type_persona['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -34,15 +56,39 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
       return;
     }
 
-    // Calculate newValue
-    let newValue = '"""';
-    if (occupation) newValue += `${t.get('Occupation')}: ${occupation}\n`;
-    if (coreValues) newValue += `${t.get('Core values')}: ${coreValues}\n`;
-    if (uniqueSkill) newValue += `${t.get('Unique skills')}: ${uniqueSkill}\n`;
-    if (personalityTrait) newValue += `${t.get('Personality traits')}: ${personalityTrait}\n`;
-    if (appearance) newValue += `${t.get('Appearance')}: ${appearance}\n`;
-    if (additionalInfo) newValue += `${t.get('Additional information')}: ${additionalInfo}\n`;
-    newValue += '"""';
+    setIsCalling(true);
+
+    const urlSlug = '/v1.0/post/langchain/chains/personaChain/';
+    const response = await postProMode_v4_langchain_tabPane_chains_v2<{
+      personaData: IPrompt_v3_type_persona['metadata'];
+    }>(
+      urlSlug,
+      {
+        ...getILangchain_for_type_langchain_request_v3_subV2_default<{
+          personaData: IPrompt_v3_type_persona['metadata'];
+        }>({
+          personaData: {
+            occupation,
+            coreValues,
+            uniqueSkill,
+            personalityTrait,
+            appearance,
+            additionalInfo,
+          },
+        }),
+        llmOptions,
+        contextType: EProMode_v4_tabPane_context_contextType.GENERAL,
+      },
+      () => console.log('beforeSendRequestAsStreamFunc'),
+      (wrtingResultText: string) => console.log('updateResultFromRequestAsStreamFunc', wrtingResultText),
+      (resultText: string) => console.log('AfterRequestAsStreamFunc', resultText),
+      webCase.accessToken,
+      webCase.t.currentLocale,
+      webCase.env,
+      TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+    );
+
+    const newValue = response.results;
 
     const createPrompt_v3_modal_values: IPrompt_v3_type_persona = editPrompt_v3_from.getFieldsValue();
     const newPrompts_v3 = {
@@ -52,28 +98,7 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
     };
     editPrompt_v3_from.setFieldsValue(newPrompts_v3);
 
-    setIsShow(false);
-    // const { category } = values;
-
-    // if (!category || category?.length === 0) {
-    //   message.error(t.get('Please enter your {text}', { text: t.get('Category') }));
-    //   return;
-    // }
-    // const prompts_v3_user_without_thisPrompt_v3 = prompts_v3_user.filter(
-    //   (prompt) => prompt.name !== thisPrompt_v3?.name,
-    // );
-
-    // const newItem: IPrompt_v3 = values;
-
-    // const newPrompts_v3_user = [newItem, ...prompts_v3_user_without_thisPrompt_v3];
-
-    // setPrompts_v3_user(newPrompts_v3_user);
-    // // window.electron.ipcRenderer.sendMessage('ipc-refresh-all-prompts_v3-in-mainWindow', newPrompts_v3_user);
-
-    // form.resetFields();
-    // closeModal();
-
-    // message.success(t.get('The prompt has been updated'));
+    setIsCalling(false);
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -152,8 +177,8 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
           <Form.Item
           // wrapperCol={{ offset: 8, span: 16 }}
           >
-            <Button type="primary" htmlType="submit">
-              {t.get('Save')}
+            <Button type="primary" htmlType="submit" disabled={isCalling}>
+              {t.get('Save')} {isCalling && <LoadingOutlined />}
             </Button>
             <Button
               style={{ marginLeft: 10 }}

@@ -53,12 +53,12 @@ interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   // setContextSelected: React.Dispatch<
   //   React.SetStateAction<IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain> | null>
   // >;
-  swtichContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
+  switchContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
 }
 export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = (
   props: ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input,
 ) => {
-  const { creativityValue, contextSelected, swtichContextSelected_by_type } = props;
+  const { creativityValue, contextSelected, switchContextSelected_by_type } = props;
   const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
   const { t, userAccessToken, llmOption_secrets, llmName: llmName, inputsCache_v2, setInputsCache_v2 } = props;
 
@@ -328,7 +328,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                   }));
                 }}
                 contextSelected_type={contextSelected.contextType}
-                swtichContextSelected_by_type={swtichContextSelected_by_type}
+                switchContextSelected_by_type={switchContextSelected_by_type}
               />
             </div>
 
