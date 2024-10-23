@@ -3,7 +3,7 @@ import { Modal, Input, Button, Form, message, Select } from 'antd';
 import { FormInstance } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
 
-import { EPrompts_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompts_v3';
+import { EPrompt_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
@@ -144,8 +144,8 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
               {/* {getEPrompts_v3_category_for_select_options().map((oneSelectValue: string) => {
                 return <Select.Option value={oneSelectValue}>{t.get(oneSelectValue)}</Select.Option>;
               })} */}
-              <Select.Option value={EPrompts_v3_category.CONTEXT_PERSONA}>
-                {t.get(EPrompts_v3_category.CONTEXT_PERSONA)}
+              <Select.Option value={EPrompt_v3_category.CONTEXT_PERSONA}>
+                {t.get(EPrompt_v3_category.CONTEXT_PERSONA)}
               </Select.Option>
             </Select>
           </Form.Item>

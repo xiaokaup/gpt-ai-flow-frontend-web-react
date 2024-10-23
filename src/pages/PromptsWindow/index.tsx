@@ -4,7 +4,7 @@ import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
-import { EPrompts_v3_category } from '../../gpt-ai-flow-common/enum-app/EPrompts_v3';
+import { EPrompt_v3_category } from '../../gpt-ai-flow-common/enum-app/EPrompt_v3';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPrompt_v3,
@@ -153,22 +153,22 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
             const searchContent_lowercase = `${name} ${value} ${category?.join(' ')} ${tags?.join(' ')}`.toLowerCase();
 
             if (
-              searchInput_lowerCase.length === t.get(EPrompts_v3_category.CONTEXT).length &&
-              searchInput_lowerCase.includes(t.get(EPrompts_v3_category.CONTEXT))
+              searchInput_lowerCase.length === t.get(EPrompt_v3_category.CONTEXT).length &&
+              searchInput_lowerCase.includes(t.get(EPrompt_v3_category.CONTEXT))
             ) {
-              return category?.includes(EPrompts_v3_category.CONTEXT);
+              return category?.includes(EPrompt_v3_category.CONTEXT);
             }
             if (
-              searchInput_lowerCase.length === t.get(EPrompts_v3_category.INSTRUCTION).length &&
-              searchInput_lowerCase.includes(t.get(EPrompts_v3_category.INSTRUCTION))
+              searchInput_lowerCase.length === t.get(EPrompt_v3_category.INSTRUCTION).length &&
+              searchInput_lowerCase.includes(t.get(EPrompt_v3_category.INSTRUCTION))
             ) {
-              return category?.includes(EPrompts_v3_category.INSTRUCTION);
+              return category?.includes(EPrompt_v3_category.INSTRUCTION);
             }
             if (
-              searchInput_lowerCase.length === t.get(EPrompts_v3_category.OUTPUT_INDICATOR).length &&
-              searchInput_lowerCase.includes(t.get(EPrompts_v3_category.OUTPUT_INDICATOR))
+              searchInput_lowerCase.length === t.get(EPrompt_v3_category.OUTPUT_INDICATOR).length &&
+              searchInput_lowerCase.includes(t.get(EPrompt_v3_category.OUTPUT_INDICATOR))
             ) {
-              return category?.includes(EPrompts_v3_category.OUTPUT_INDICATOR);
+              return category?.includes(EPrompt_v3_category.OUTPUT_INDICATOR);
             }
 
             return searchContent_lowercase.includes(searchInput_lowerCase);
