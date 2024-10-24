@@ -6,24 +6,28 @@ import { FormInstance, useForm } from 'antd/es/form/Form';
 
 import { LoadingOutlined } from '@ant-design/icons';
 
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import {
+  IPrompt_v3_type_persona,
+  IPrompt_v3_IPersonaModel_default,
+} from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
-} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
-import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
-import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
-import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
-import { EProMode_v4_tabPane_context_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
-import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
+} from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { EProMode_v4_tabPane_context_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 
-interface IDrawer_createPersona_input {
+interface IDrawer_editPersona_input {
   t: IGetT_frontend_output;
   llmOptions: ILLMOptions;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  createPrompt_v3_form: FormInstance<IPrompt_v3_type_persona>;
+  thisPrompt_v3: IPrompt_v3_type_persona;
+  editPrompt_v3_from: FormInstance<IPrompt_v3_type_persona>;
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
@@ -31,8 +35,8 @@ interface IDrawer_createPersona_input {
     env: IConstantGptAiFlowHandler;
   };
 }
-export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
-  const { t, llmOptions, isShow, setIsShow, createPrompt_v3_form, webCase } = props;
+export const Drawer_editPersona = (props: IDrawer_editPersona_input) => {
+  const { t, llmOptions, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from, webCase } = props;
 
   const [form] = useForm();
 
@@ -43,7 +47,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     // form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = async (values: IPrompt_v3_type_persona['metadata']) => {
+  const onFinish = async (values: IPrompt_v3_type_persona['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -86,30 +90,26 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
 
     const newValue = response.results;
 
-    const createPrompt_v3_modal_values: IPrompt_v3_type_persona = createPrompt_v3_form.getFieldsValue();
+    const createPrompt_v3_drawer_values: IPrompt_v3_type_persona = editPrompt_v3_from.getFieldsValue();
     const newPrompts_v3 = {
-      ...createPrompt_v3_modal_values,
+      ...createPrompt_v3_drawer_values,
       value: newValue, // Update IPrompt_v3.value
-      metadata: { ...createPrompt_v3_modal_values.metadata, ...values },
+      metadata: { ...createPrompt_v3_drawer_values.metadata, ...values },
     };
-    createPrompt_v3_form.setFieldsValue(newPrompts_v3);
+    editPrompt_v3_from.setFieldsValue(newPrompts_v3);
 
     setIsCalling(false);
   };
 
-  const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: any) => {
     console.log(t.get('Add failed'), ':', errorInfo);
   };
 
-  // useEffect(() => {
-  //   form.setFieldsValue(modalInitialValues);
-  // }, [form, modalInitialValues]);
-
   return (
-    <div className="modal_create_prompts_v3">
+    <div className="drawer_create_prompts_v3">
       <Drawer
-        title={t.get('Create') + t.get('persona')}
         open={isShow}
+        title={t.get('Edit') + t.get('prompt')}
         onClose={() => {
           closeDrawer();
         }}
@@ -124,8 +124,12 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           style={{ maxWidth: 600 }}
           size="small"
           autoComplete="off"
-          onFinish={onFinishInDrawer}
-          onFinishFailed={onTableFinishFailedInAiFlowModal}
+          initialValues={{
+            ...IPrompt_v3_IPersonaModel_default.metadata,
+            ...thisPrompt_v3.metadata,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
           <Form.Item label={t.get('Occupation')} name="occupation">
             <TextArea autoSize />
@@ -170,7 +174,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           // wrapperCol={{ offset: 8, span: 16 }}
           >
             <Button type="primary" htmlType="submit" disabled={isCalling}>
-              {t.get('Create')} {isCalling && <LoadingOutlined />}
+              {t.get('Save')} {isCalling && <LoadingOutlined />}
             </Button>
             <Button
               style={{ marginLeft: 10 }}

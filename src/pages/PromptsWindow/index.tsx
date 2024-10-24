@@ -4,7 +4,7 @@ import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
-import { EPrompts_v3_category } from '../../gpt-ai-flow-common/enum-app/EPrompts_v3';
+import { EPrompt_v3_category } from '../../gpt-ai-flow-common/enum-app/EPrompt_v3';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IPrompt_v3,
@@ -15,9 +15,9 @@ import {
 import { Modal_createPrompt_v3 } from './components/Modal_createPrompt_v3';
 import { Modal_editPrompt_v3 } from './components/Modal_editPrompt_v3';
 import { LinkService } from '../../gpt-ai-flow-common/tools/3_unit/SLink';
-import { Drawer_createPersona } from './components/Drawer_createPersona';
+import { Drawer_createPersona } from './components/Drawer_create/Drawer_createPersona';
 import { useForm } from 'antd/es/form/Form';
-import { Drawer_editPersona } from './components/Drawer_editPersona';
+import { Drawer_editPersona } from './components/Drawer_edit/Drawer_editPersona';
 import {
   IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
@@ -29,13 +29,26 @@ import IStoreStorageFile, {
 import { useSelector } from 'react-redux';
 import { SLLM_v2_common } from '../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { IReduxRootState } from '../../store/reducer';
+import { Drawer_createTargetAudience } from './components/Drawer_create/Drawer_createTargetAudience';
+import { Drawer_editTargetAudience } from './components/Drawer_edit/Drawer_editTargetAudience';
+import {
+  IPrompt_v3_type_targetAudience,
+  IPrompt_v3_type_targetAudience_default,
+} from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_targetAudience';
+import { Drawer_createBackground } from './components/Drawer_create/Drawer_createBackground';
+import { Drawer_editBackground } from './components/Drawer_edit/Drawer_editBackground';
+import {
+  IPrompt_v3_type_background,
+  IPrompt_v3_type_background_default,
+} from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_background';
+import { IPrompt_v3_types } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3';
 
 const { Search } = Input;
 
 interface IPromptsWindow_input {
   t: IGetT_frontend_output;
-  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
-  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
+  prompts_v3_user: IPrompt_v3_types[];
+  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3_types[]>>;
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
@@ -75,16 +88,24 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
   const [editPrompt_v3_from] = useForm();
 
   const [isShowModal_edit_prompts_v3, setIsShowModal_edit_prompts_v3] = useState<boolean>(false);
-  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3 | IPrompt_v3_type_persona | null>({
+  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3_types | null>({
     ...IPrompts_v3_default,
     ...IPrompt_v3_IPersonaModel_default,
+    ...IPrompt_v3_type_targetAudience_default,
+    ...IPrompt_v3_type_background_default,
     metadata: {
       ...IPrompt_v3_IPersonaModel_default.metadata,
+      ...IPrompt_v3_type_targetAudience_default.metadata,
+      ...IPrompt_v3_type_background_default.metadata,
     },
   });
 
-  const [isShowModal_create_persona, setIsShowModal_create_persona] = useState(false);
-  const [isShowModal_edit_persona, setIsShowModal_edit_persona] = useState(false);
+  const [isShowDrawer_create_persona, setIsShowDrawer_create_persona] = useState(false);
+  const [isShowDrawer_edit_persona, setIsShowDrawer_edit_persona] = useState(false);
+  const [isShowDrawer_create_targetAudience, setIsShowDrawer_create_targetAudience] = useState(false);
+  const [isShowDrawer_edit_targetAudience, setIsShowDrawer_edit_targetAudience] = useState(false);
+  const [isShowDrawer_create_background, setIsShowDrawer_create_background] = useState(false);
+  const [isShowDrawer_edit_background, setIsShowDrawer_edit_background] = useState(false);
 
   // useEffect(() => {
   //   // @DEPREACTED
@@ -153,22 +174,22 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
             const searchContent_lowercase = `${name} ${value} ${category?.join(' ')} ${tags?.join(' ')}`.toLowerCase();
 
             if (
-              searchInput_lowerCase.length === t.get(EPrompts_v3_category.CONTEXT).length &&
-              searchInput_lowerCase.includes(t.get(EPrompts_v3_category.CONTEXT))
+              searchInput_lowerCase.length === t.get(EPrompt_v3_category.CONTEXT).length &&
+              searchInput_lowerCase.includes(t.get(EPrompt_v3_category.CONTEXT))
             ) {
-              return category?.includes(EPrompts_v3_category.CONTEXT);
+              return category?.includes(EPrompt_v3_category.CONTEXT);
             }
             if (
-              searchInput_lowerCase.length === t.get(EPrompts_v3_category.INSTRUCTION).length &&
-              searchInput_lowerCase.includes(t.get(EPrompts_v3_category.INSTRUCTION))
+              searchInput_lowerCase.length === t.get(EPrompt_v3_category.INSTRUCTION).length &&
+              searchInput_lowerCase.includes(t.get(EPrompt_v3_category.INSTRUCTION))
             ) {
-              return category?.includes(EPrompts_v3_category.INSTRUCTION);
+              return category?.includes(EPrompt_v3_category.INSTRUCTION);
             }
             if (
-              searchInput_lowerCase.length === t.get(EPrompts_v3_category.OUTPUT_INDICATOR).length &&
-              searchInput_lowerCase.includes(t.get(EPrompts_v3_category.OUTPUT_INDICATOR))
+              searchInput_lowerCase.length === t.get(EPrompt_v3_category.OUTPUT_INDICATOR).length &&
+              searchInput_lowerCase.includes(t.get(EPrompt_v3_category.OUTPUT_INDICATOR))
             ) {
-              return category?.includes(EPrompts_v3_category.OUTPUT_INDICATOR);
+              return category?.includes(EPrompt_v3_category.OUTPUT_INDICATOR);
             }
 
             return searchContent_lowercase.includes(searchInput_lowerCase);
@@ -234,50 +255,104 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         <Modal_createPrompt_v3
           t={t}
           isShow={isShowModal_create_prompt_v3}
-          setIsShow={(isShow: boolean) => {
-            setIsShowModal_create_persona(isShow);
-            setIsShowModal_create_prompt_v3(isShow);
+          setIsShow={(isShow: boolean, drawerName: EPrompt_v3_category) => {
+            if (!isShow) {
+              setIsShowModal_create_prompt_v3(false);
+              setIsShowDrawer_create_persona(false);
+              setIsShowDrawer_create_targetAudience(false);
+              setIsShowDrawer_create_background(false);
+              return;
+            }
+
+            setIsShowModal_create_prompt_v3(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_PERSONA) setIsShowDrawer_create_persona(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE) setIsShowDrawer_create_targetAudience(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_BACKGROUND) setIsShowDrawer_create_background(true);
           }}
           createPrompt_v3_form={createPrompt_v3_form}
           prompts_v3_user={prompts_v3_user}
           setPrompts_v3_user={setPrompts_v3_user}
-          // persona
-          setIsShowModal_create_persona={setIsShowModal_create_persona}
-        />
-        <Drawer_createPersona
-          t={t}
-          llmOptions={llmOptions}
-          isShow={isShowModal_create_persona}
-          setIsShow={setIsShowModal_create_persona}
-          // Prompts_v3
-          createPrompt_v3_form={createPrompt_v3_form}
-          webCase={webCase}
         />
 
         <Modal_editPrompt_v3
           t={t}
           isShow={isShowModal_edit_prompts_v3}
-          setIsShow={(isShow: boolean) => {
-            setIsShowModal_edit_persona(isShow);
-            setIsShowModal_edit_prompts_v3(isShow);
+          setIsShow={(isShow: boolean, drawerName: EPrompt_v3_category) => {
+            if (!isShow) {
+              setIsShowModal_edit_prompts_v3(false);
+              setIsShowDrawer_edit_persona(false);
+              setIsShowDrawer_edit_targetAudience(false);
+              setIsShowDrawer_create_background(false);
+              return;
+            }
+            setIsShowModal_edit_prompts_v3(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_PERSONA) setIsShowDrawer_edit_persona(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE) setIsShowDrawer_edit_targetAudience(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_BACKGROUND) setIsShowDrawer_create_background(true);
           }}
           editPrompt_v3_from={editPrompt_v3_from}
           thisPrompt_v3={prompts_v3_toEdit}
           prompts_v3_user={prompts_v3_user}
           setPrompts_v3_user={setPrompts_v3_user}
-          // persona
-          setIsShowModal_edit_persona={setIsShowModal_edit_persona}
         />
-        <Drawer_editPersona
+
+        {/* === Drawers - start === */}
+        <Drawer_createPersona
           t={t}
+          createPrompt_v3_form={createPrompt_v3_form}
+          isShow={isShowDrawer_create_persona}
+          setIsShow={setIsShowDrawer_create_persona}
           llmOptions={llmOptions}
-          isShow={isShowModal_edit_persona}
-          setIsShow={setIsShowModal_edit_persona}
-          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
-          // Prompts_v3
-          editPrompt_v3_from={editPrompt_v3_from}
           webCase={webCase}
         />
+        <Drawer_createTargetAudience
+          t={t}
+          createPrompt_v3_form={createPrompt_v3_form}
+          isShow={isShowDrawer_create_targetAudience}
+          setIsShow={setIsShowDrawer_create_targetAudience}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+        <Drawer_createBackground
+          t={t}
+          createPrompt_v3_form={createPrompt_v3_form}
+          isShow={isShowDrawer_create_background}
+          setIsShow={setIsShowDrawer_create_background}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+
+        <Drawer_editPersona
+          t={t}
+          editPrompt_v3_from={editPrompt_v3_from}
+          // Prompts_v3
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
+          isShow={isShowDrawer_edit_persona}
+          setIsShow={setIsShowDrawer_edit_persona}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+        <Drawer_editTargetAudience
+          t={t}
+          editPrompt_v3_from={editPrompt_v3_from}
+          // Prompts_v3
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_targetAudience}
+          isShow={isShowDrawer_edit_targetAudience}
+          setIsShow={setIsShowDrawer_edit_targetAudience}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+        <Drawer_editBackground
+          t={t}
+          editPrompt_v3_from={editPrompt_v3_from}
+          // Prompts_v3
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_background}
+          isShow={isShowDrawer_edit_background}
+          setIsShow={setIsShowDrawer_edit_background}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+        {/* === Drawers - end === */}
       </div>
     </div>
   );

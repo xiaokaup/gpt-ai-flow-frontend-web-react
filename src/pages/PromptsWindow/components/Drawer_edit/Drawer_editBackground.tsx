@@ -6,28 +6,28 @@ import { FormInstance, useForm } from 'antd/es/form/Form';
 
 import { LoadingOutlined } from '@ant-design/icons';
 
-import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IPrompt_v3_type_persona,
-  IPrompt_v3_IPersonaModel_default,
-} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
+  IPrompt_v3_type_background,
+  IPrompt_v3_type_background_default,
+} from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_background';
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
-} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
-import { EProMode_v4_tabPane_context_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
-import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
-import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
-import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+} from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { EProMode_v4_tabPane_context_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 
-interface IModal_editPersona_input {
+interface IDrawer_editBackground_input {
   t: IGetT_frontend_output;
   llmOptions: ILLMOptions;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  thisPrompt_v3: IPrompt_v3_type_persona;
-  editPrompt_v3_from: FormInstance<IPrompt_v3_type_persona>;
+  thisPrompt_v3: IPrompt_v3_type_background;
+  editPrompt_v3_from: FormInstance<IPrompt_v3_type_background>;
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
@@ -35,7 +35,7 @@ interface IModal_editPersona_input {
     env: IConstantGptAiFlowHandler;
   };
 }
-export const Drawer_editPersona = (props: IModal_editPersona_input) => {
+export const Drawer_editBackground = (props: IDrawer_editBackground_input) => {
   const { t, llmOptions, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from, webCase } = props;
 
   const [form] = useForm();
@@ -47,11 +47,11 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
     // form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = async (values: IPrompt_v3_type_persona['metadata']) => {
+  const onFinish = async (values: IPrompt_v3_type_background['metadata']) => {
     console.log('Success:', values);
 
-    const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
-    if (!occupation && !coreValues && !uniqueSkill && !personalityTrait && !appearance && !additionalInfo) {
+    const { subject, when, where, what, context, additionalInfo } = values;
+    if (!subject && !when && !where && !what && !context && !additionalInfo) {
       message.error(t.get('Please fill in at least one input field'));
       return;
     }
@@ -60,21 +60,14 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
 
     const urlSlug = '/v1.0/post/langchain/chains/personaChain/';
     const response = await postProMode_v4_langchain_tabPane_chains_v2<{
-      personaData: IPrompt_v3_type_persona['metadata'];
+      backgroundData: IPrompt_v3_type_background['metadata'];
     }>(
       urlSlug,
       {
         ...getILangchain_for_type_langchain_request_v3_subV2_default<{
-          personaData: IPrompt_v3_type_persona['metadata'];
+          backgroundData: IPrompt_v3_type_background['metadata'];
         }>({
-          personaData: {
-            occupation,
-            coreValues,
-            uniqueSkill,
-            personalityTrait,
-            appearance,
-            additionalInfo,
-          },
+          backgroundData: values,
         }),
         llmOptions,
         contextType: EProMode_v4_tabPane_context_contextType.GENERAL,
@@ -90,27 +83,23 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
 
     const newValue = response.results;
 
-    const createPrompt_v3_modal_values: IPrompt_v3_type_persona = editPrompt_v3_from.getFieldsValue();
+    const createPrompt_v3_drawer_values: IPrompt_v3_type_background = editPrompt_v3_from.getFieldsValue();
     const newPrompts_v3 = {
-      ...createPrompt_v3_modal_values,
+      ...createPrompt_v3_drawer_values,
       value: newValue, // Update IPrompt_v3.value
-      metadata: { ...createPrompt_v3_modal_values.metadata, ...values },
+      metadata: { ...createPrompt_v3_drawer_values.metadata, ...values },
     };
     editPrompt_v3_from.setFieldsValue(newPrompts_v3);
 
     setIsCalling(false);
   };
 
-  const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: any) => {
     console.log(t.get('Add failed'), ':', errorInfo);
   };
 
-  // useEffect(() => {
-  //   form.setFieldsValue(thisPrompt_v3);
-  // }, [form, thisPrompt_v3]);
-
   return (
-    <div className="modal_create_prompts_v3">
+    <div className="drawer_create_prompts_v3">
       <Drawer
         open={isShow}
         title={t.get('Edit') + t.get('prompt')}
@@ -129,43 +118,47 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
           size="small"
           autoComplete="off"
           initialValues={{
-            ...IPrompt_v3_IPersonaModel_default.metadata,
+            ...IPrompt_v3_type_background_default.metadata,
             ...thisPrompt_v3.metadata,
           }}
-          onFinish={onFinishInDrawer}
-          onFinishFailed={onTableFinishFailedInAiFlowModal}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
-          <Form.Item label={t.get('Occupation')} name="occupation">
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item label={t.get('Core values')} name="coreValues" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-            <TextArea autoSize />
-          </Form.Item>
-
           <Form.Item
-            label={t.get('Unique skills')}
-            name="uniqueSkill"
+            className=""
+            label={t.get('Subject')}
+            name="subject"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
           >
             <TextArea autoSize />
           </Form.Item>
-
+          <Form.Item className="" label={t.get('Date')} name="when" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+            <TextArea autoSize />
+          </Form.Item>
           <Form.Item
-            label={t.get('Personality traits')}
-            name="personalityTrait"
+            className=""
+            label={t.get('Address')}
+            name="where"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
           >
             <TextArea autoSize />
           </Form.Item>
-
-          <Form.Item label={t.get('Appearance')} name="appearance" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+          <Form.Item className="" label={t.get('Event')} name="what" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
             <TextArea autoSize />
           </Form.Item>
-
           <Form.Item
+            className=""
+            label={t.get('Background')}
+            name="context"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <TextArea autoSize />
+          </Form.Item>
+          <Form.Item
+            className=""
             label={t.get('Additional information')}
             name="additionalInfo"
             labelCol={{ span: 24 }}
