@@ -126,6 +126,16 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
                 >
                   {t.get('Edit') + t.get('target audience')}
                 </Button>
+                <Button
+                  type="primary"
+                  className="ml-2"
+                  size="small"
+                  onClick={() => {
+                    setIsShow(true, EPrompt_v3_category.CONTEXT_BACKGROUND);
+                  }}
+                >
+                  {t.get('Create') + t.get('background')}
+                </Button>
               </div>
             }
             name="value"

@@ -125,60 +125,40 @@ export const Drawer_editBackground = (props: IDrawer_editBackground_input) => {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            label={t.get('Demographics')}
-            name="demographics"
+            className=""
+            label={t.get('Subject')}
+            name="subject"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
           >
             <TextArea autoSize />
           </Form.Item>
-
-          <Form.Item label={t.get('Lifestyle')} name="lifestyle" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+          <Form.Item className="" label={t.get('Date')} name="when" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
             <TextArea autoSize />
           </Form.Item>
-
-          <Form.Item label={t.get('Core values')} name="coreValues" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item label={t.get('Challenges')} name="challenges" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item label={t.get('Needs')} name="needs" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-            <TextArea autoSize />
-          </Form.Item>
-
           <Form.Item
-            label={t.get('Consumer Behavior')}
-            name="consumerBehavior"
+            className=""
+            label={t.get('Address')}
+            name="where"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
           >
             <TextArea autoSize />
           </Form.Item>
-
-          <Form.Item label={t.get('Scenarios')} name="scenarios" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+          <Form.Item className="" label={t.get('Event')} name="what" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
             <TextArea autoSize />
           </Form.Item>
-
-          <Form.Item label={t.get('Emotions')} name="emotions" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-            <TextArea autoSize />
-          </Form.Item>
-
           <Form.Item
-            label={t.get('Social Influence')}
-            name="socialInfluence"
+            className=""
+            label={t.get('Background')}
+            name="context"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
           >
             <TextArea autoSize />
           </Form.Item>
-          <Form.Item label={t.get('Trends')} name="trends" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
-            <TextArea autoSize />
-          </Form.Item>
-
           <Form.Item
+            className=""
             label={t.get('Additional information')}
             name="additionalInfo"
             labelCol={{ span: 24 }}
