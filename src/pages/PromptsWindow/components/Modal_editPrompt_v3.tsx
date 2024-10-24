@@ -11,15 +11,19 @@ import {
   IPrompt_v3_IPersonaModel_default,
 } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IPrompt_v3, IPrompt_v3_base_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
+import { IPrompt_v3_type_targetAudience } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_targetAudience';
+import { MetadataHiddenForm } from './Modal_createPrompt_v3';
+
+type IPrompt_v3_types = IPrompt_v3 | IPrompt_v3_type_persona | IPrompt_v3_type_targetAudience;
 
 interface IModal_editPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
   setIsShow: (isShow: boolean, drawerName: EPrompt_v3_category) => void;
-  thisPrompt_v3: (IPrompt_v3 | IPrompt_v3_type_persona) | null;
-  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
-  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
-  editPrompt_v3_from: FormInstance<IPrompt_v3 | IPrompt_v3_type_persona>;
+  thisPrompt_v3: IPrompt_v3_types | null;
+  prompts_v3_user: IPrompt_v3_types[];
+  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3_types[]>>;
+  editPrompt_v3_from: FormInstance<IPrompt_v3_types>;
 }
 export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
   const { t, isShow, setIsShow, thisPrompt_v3, prompts_v3_user, setPrompts_v3_user, editPrompt_v3_from: form } = props;
@@ -29,7 +33,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
     form.setFieldsValue(null);
   };
 
-  const onFinishInModal = (values: IPrompt_v3 | IPrompt_v3_type_persona) => {
+  const onFinishInModal = (values: IPrompt_v3_types) => {
     console.log('Success:', values);
 
     const { category } = values;
@@ -42,7 +46,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
       (prompt) => prompt.name !== thisPrompt_v3?.name,
     );
 
-    const newItem: IPrompt_v3 | IPrompt_v3_type_persona = values;
+    const newItem: IPrompt_v3_types = values;
 
     const newPrompts_v3_user = [newItem, ...prompts_v3_user_without_thisPrompt_v3];
 
@@ -100,7 +104,6 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           >
             <Input />
           </Form.Item>
-
           {/* <Form.Item label={t.get('Tags')} name="tags">
             <Select mode="tags" />
           </Form.Item> */}
@@ -144,7 +147,6 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
           >
             <TextArea autoSize />
           </Form.Item>
-
           <Form.Item label={t.get('Category')} name="category">
             <Select mode="multiple">
               {/* {getEPrompts_v3_category_for_select_options().map((oneSelectValue: string) => {
@@ -162,61 +164,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
             <Select mode="tags" />
           </Form.Item>
 
-          {/* === metadata - start */}
-          <Form.Item className="hidden" label={t.get('Occupation')} name={['metadata', 'occupation']}>
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Core values')}
-            name={['metadata', 'coreValues']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Unique skills')}
-            name={['metadata', 'uniqueSkill']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Personality traits')}
-            name={['metadata', 'personalityTrait']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Appearance')}
-            name={['metadata', 'appearance']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Additional information')}
-            name={['metadata', 'additionalInfo']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-          {/* === metadata - end */}
+          <MetadataHiddenForm t={t} />
 
           <Form.Item
           // wrapperCol={{ offset: 8, span: 16 }}

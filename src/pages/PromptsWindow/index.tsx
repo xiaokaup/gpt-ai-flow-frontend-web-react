@@ -17,7 +17,7 @@ import { Modal_editPrompt_v3 } from './components/Modal_editPrompt_v3';
 import { LinkService } from '../../gpt-ai-flow-common/tools/3_unit/SLink';
 import { Drawer_createPersona } from './components/Drawer_create/Drawer_createPersona';
 import { useForm } from 'antd/es/form/Form';
-import { Drawer_editPersona } from './components/Drawer_editPersona';
+import { Drawer_editPersona } from './components/Drawer_edit/Drawer_editPersona';
 import {
   IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
@@ -30,6 +30,11 @@ import { useSelector } from 'react-redux';
 import { SLLM_v2_common } from '../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { IReduxRootState } from '../../store/reducer';
 import { Drawer_createTargetAudience } from './components/Drawer_create/Drawer_createTargetAudience';
+import { Drawer_editTargetAudience } from './components/Drawer_edit/Drawer_editTargetAudience';
+import {
+  IPrompt_v3_type_targetAudience,
+  IPrompt_v3_type_targetAudience_default,
+} from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_targetAudience';
 
 const { Search } = Input;
 
@@ -76,11 +81,15 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
   const [editPrompt_v3_from] = useForm();
 
   const [isShowModal_edit_prompts_v3, setIsShowModal_edit_prompts_v3] = useState<boolean>(false);
-  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3 | IPrompt_v3_type_persona | null>({
+  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<
+    IPrompt_v3 | IPrompt_v3_type_persona | IPrompt_v3_type_targetAudience | null
+  >({
     ...IPrompts_v3_default,
     ...IPrompt_v3_IPersonaModel_default,
+    ...IPrompt_v3_type_targetAudience_default,
     metadata: {
       ...IPrompt_v3_IPersonaModel_default.metadata,
+      ...IPrompt_v3_type_targetAudience_default.metadata,
     },
   });
 
@@ -296,12 +305,22 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
 
         <Drawer_editPersona
           t={t}
-          llmOptions={llmOptions}
+          editPrompt_v3_from={editPrompt_v3_from}
+          // Prompts_v3
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
           isShow={isShowDrawer_edit_persona}
           setIsShow={setIsShowDrawer_edit_persona}
-          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
-          // Prompts_v3
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+        <Drawer_editTargetAudience
+          t={t}
           editPrompt_v3_from={editPrompt_v3_from}
+          // Prompts_v3
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_targetAudience}
+          isShow={isShowDrawer_edit_targetAudience}
+          setIsShow={setIsShowDrawer_edit_targetAudience}
+          llmOptions={llmOptions}
           webCase={webCase}
         />
         {/* === Drawers - end === */}

@@ -8,6 +8,165 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 
+export const MetadataHiddenForm = (props: { t: IGetT_frontend_output }) => {
+  const { t } = props;
+  return (
+    <>
+      {/* === metadata - start */}
+      {/* persona */}
+      <Form.Item className="" label={t.get('Occupation')} name={['metadata', 'occupation']}>
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Core values')}
+        name={['metadata', 'coreValues']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Unique skills')}
+        name={['metadata', 'uniqueSkill']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Personality traits')}
+        name={['metadata', 'personalityTrait']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Appearance')}
+        name={['metadata', 'appearance']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Additional information')}
+        name={['metadata', 'additionalInfo']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      {/* targetAudience */}
+      <Form.Item
+        className=""
+        label={t.get('Demographics')}
+        name={['metadata', 'demographics']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Lifestyle')}
+        name={['metadata', 'lifestyle']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Core values')}
+        name={['metadata', 'coreValues']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Challenges')}
+        name={['metadata', 'challenges']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Needs')}
+        name={['metadata', 'needs']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Consumer Behavior')}
+        name={['metadata', 'consumerBehavior']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Scenarios')}
+        name={['metadata', 'scenarios']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Emotions')}
+        name={['metadata', 'emotions']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Social Influence')}
+        name={['metadata', 'socialInfluence']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Trends')}
+        name={['metadata', 'trends']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Additional information')}
+        name={['metadata', 'additionalInfo']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      {/* === metadata - end */}
+    </>
+  );
+};
+
 interface IModal_createPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
@@ -95,7 +254,6 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
           >
             <Input />
           </Form.Item>
-
           {/* <Form.Item label={t.get('Tags')} name="tags">
             <Select mode="tags" />
           </Form.Item> */}
@@ -139,7 +297,6 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
           >
             <TextArea autoSize />
           </Form.Item>
-
           <Form.Item label={t.get('Category')} name="category">
             <Select mode="multiple">
               {/* {getEPrompts_v3_category_for_select_options().map((oneSelectValue: string) => {
@@ -153,66 +310,11 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
               </Select.Option>
             </Select>
           </Form.Item>
-
           <Form.Item label={t.get('Tags')} name="tags">
             <Select mode="tags" />
           </Form.Item>
 
-          {/* === metadata - start */}
-          <Form.Item className="hidden" label={t.get('Occupation')} name={['metadata', 'occupation']}>
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Core values')}
-            name={['metadata', 'coreValues']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Unique skills')}
-            name={['metadata', 'uniqueSkill']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Personality traits')}
-            name={['metadata', 'personalityTrait']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Appearance')}
-            name={['metadata', 'appearance']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-
-          <Form.Item
-            className="hidden"
-            label={t.get('Additional information')}
-            name={['metadata', 'additionalInfo']}
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-          >
-            <TextArea autoSize />
-          </Form.Item>
-          {/* === metadata - end */}
+          <MetadataHiddenForm t={t} />
 
           <Form.Item
           // wrapperCol={{ offset: 8, span: 16 }}
