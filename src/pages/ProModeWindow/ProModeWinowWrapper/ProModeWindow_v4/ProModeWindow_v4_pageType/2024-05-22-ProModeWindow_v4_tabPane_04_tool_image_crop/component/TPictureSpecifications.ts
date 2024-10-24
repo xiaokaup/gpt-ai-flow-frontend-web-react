@@ -39,7 +39,7 @@ export const socialMediaPictureSpecifications: SocialMediaPictureSpecifications 
         aspect: 800 / 600,
       },
       {
-        name: 'background',
+        name: 'Background image',
         width: 1000,
         height: 800,
         aspect: 1000 / 800,
