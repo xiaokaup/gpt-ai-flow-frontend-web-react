@@ -11,25 +11,16 @@ import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPr
 interface IModal_createPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
-  setIsShow: (isShow: boolean) => void;
+  setIsShow: (isShow: boolean, drawerName: string) => void;
   prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
   setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
-  setIsShowModal_create_persona: (isShow: boolean) => void;
   createPrompt_v3_form: FormInstance<IPrompt_v3 | IPrompt_v3_type_persona>;
 }
 export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
-  const {
-    t,
-    isShow,
-    setIsShow,
-    prompts_v3_user,
-    setPrompts_v3_user,
-    setIsShowModal_create_persona,
-    createPrompt_v3_form: form,
-  } = props;
+  const { t, isShow, setIsShow, prompts_v3_user, setPrompts_v3_user, createPrompt_v3_form: form } = props;
 
   const closeModal = () => {
-    setIsShow(false);
+    setIsShow(false, null);
     // form.setFieldsValue(null);
   };
 
@@ -117,10 +108,20 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
                   className="ml-2"
                   size="small"
                   onClick={() => {
-                    setIsShowModal_create_persona(true);
+                    setIsShow(true, 'persona');
                   }}
                 >
                   {t.get('Create') + t.get('persona')}
+                </Button>
+                <Button
+                  type="primary"
+                  className="ml-2"
+                  size="small"
+                  onClick={() => {
+                    setIsShow(true, 'targetAudience');
+                  }}
+                >
+                  {t.get('Create') + t.get('target audience')}
                 </Button>
               </div>
             }
@@ -146,6 +147,9 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
               })} */}
               <Select.Option value={EPrompt_v3_category.CONTEXT_PERSONA}>
                 {t.get(EPrompt_v3_category.CONTEXT_PERSONA)}
+              </Select.Option>
+              <Select.Option value={EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE}>
+                {t.get(EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE)}
               </Select.Option>
             </Select>
           </Form.Item>

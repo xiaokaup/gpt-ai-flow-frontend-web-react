@@ -15,27 +15,17 @@ import { IPrompt_v3, IPrompt_v3_base_default } from '../../../gpt-ai-flow-common
 interface IModal_editPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
-  setIsShow: (isShow: boolean) => void;
+  setIsShow: (isShow: boolean, drawerName: string) => void;
   thisPrompt_v3: (IPrompt_v3 | IPrompt_v3_type_persona) | null;
   prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
   setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
-  setIsShowModal_edit_persona: (isShow: boolean) => void;
   editPrompt_v3_from: FormInstance<IPrompt_v3 | IPrompt_v3_type_persona>;
 }
 export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
-  const {
-    t,
-    isShow,
-    setIsShow,
-    thisPrompt_v3,
-    prompts_v3_user,
-    setPrompts_v3_user,
-    setIsShowModal_edit_persona,
-    editPrompt_v3_from: form,
-  } = props;
+  const { t, isShow, setIsShow, thisPrompt_v3, prompts_v3_user, setPrompts_v3_user, editPrompt_v3_from: form } = props;
 
   const closeModal = () => {
-    setIsShow(false);
+    setIsShow(false, null);
     form.setFieldsValue(null);
   };
 
@@ -123,7 +113,7 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
                   className="ml-2"
                   size="small"
                   onClick={() => {
-                    setIsShowModal_edit_persona(true);
+                    setIsShow(true, 'persona');
                   }}
                 >
                   {t.get('Edit') + t.get('persona')}

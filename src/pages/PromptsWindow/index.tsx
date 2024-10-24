@@ -15,7 +15,7 @@ import {
 import { Modal_createPrompt_v3 } from './components/Modal_createPrompt_v3';
 import { Modal_editPrompt_v3 } from './components/Modal_editPrompt_v3';
 import { LinkService } from '../../gpt-ai-flow-common/tools/3_unit/SLink';
-import { Drawer_createPersona } from './components/Drawer_createPersona';
+import { Drawer_createPersona } from './components/Drawer_create/Drawer_createPersona';
 import { useForm } from 'antd/es/form/Form';
 import { Drawer_editPersona } from './components/Drawer_editPersona';
 import {
@@ -29,6 +29,7 @@ import IStoreStorageFile, {
 import { useSelector } from 'react-redux';
 import { SLLM_v2_common } from '../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { IReduxRootState } from '../../store/reducer';
+import { Drawer_createTargetAudience } from './components/Drawer_create/Drawer_createTargetAudience';
 
 const { Search } = Input;
 
@@ -83,8 +84,12 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
     },
   });
 
-  const [isShowModal_create_persona, setIsShowModal_create_persona] = useState(false);
-  const [isShowModal_edit_persona, setIsShowModal_edit_persona] = useState(false);
+  const [isShowDrawer_create_persona, setIsShowDrawer_create_persona] = useState(false);
+  const [isShowDrawer_edit_persona, setIsShowDrawer_edit_persona] = useState(false);
+  const [isShowDrawer_create_targetAudience, setIsShowDrawer_create_targetAudience] = useState(false);
+  const [isShowDrawer_edit_targetAudience, setIsShowDrawer_edit_targetAudience] = useState(false);
+  const [isShowDrawer_create_background, setIsShowDrawer_create_background] = useState(false);
+  const [isShowDrawer_edit_background, setIsShowDrawer_edit_background] = useState(false);
 
   // useEffect(() => {
   //   // @DEPREACTED
@@ -234,50 +239,72 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         <Modal_createPrompt_v3
           t={t}
           isShow={isShowModal_create_prompt_v3}
-          setIsShow={(isShow: boolean) => {
-            setIsShowModal_create_persona(isShow);
-            setIsShowModal_create_prompt_v3(isShow);
+          setIsShow={(isShow: boolean, drawerName: string) => {
+            if (!isShow) {
+              setIsShowModal_create_prompt_v3(false);
+              setIsShowDrawer_create_persona(false);
+              setIsShowDrawer_create_targetAudience(false);
+              return;
+            }
+
+            setIsShowModal_create_prompt_v3(true);
+            if (drawerName === 'persona') setIsShowDrawer_create_persona(true);
+            if (drawerName === 'targetAudience') setIsShowDrawer_create_targetAudience(true);
           }}
           createPrompt_v3_form={createPrompt_v3_form}
           prompts_v3_user={prompts_v3_user}
           setPrompts_v3_user={setPrompts_v3_user}
-          // persona
-          setIsShowModal_create_persona={setIsShowModal_create_persona}
-        />
-        <Drawer_createPersona
-          t={t}
-          llmOptions={llmOptions}
-          isShow={isShowModal_create_persona}
-          setIsShow={setIsShowModal_create_persona}
-          // Prompts_v3
-          createPrompt_v3_form={createPrompt_v3_form}
-          webCase={webCase}
         />
 
         <Modal_editPrompt_v3
           t={t}
           isShow={isShowModal_edit_prompts_v3}
-          setIsShow={(isShow: boolean) => {
-            setIsShowModal_edit_persona(isShow);
-            setIsShowModal_edit_prompts_v3(isShow);
+          setIsShow={(isShow: boolean, drawerName: string) => {
+            if (!isShow) {
+              setIsShowModal_edit_prompts_v3(false);
+              setIsShowDrawer_edit_persona(false);
+              setIsShowDrawer_edit_targetAudience(false);
+              return;
+            }
+            setIsShowModal_edit_prompts_v3(true);
+            if (drawerName === 'persona') setIsShowDrawer_edit_persona(true);
+            if (drawerName === 'targetAudience') setIsShowDrawer_edit_targetAudience(true);
           }}
           editPrompt_v3_from={editPrompt_v3_from}
           thisPrompt_v3={prompts_v3_toEdit}
           prompts_v3_user={prompts_v3_user}
           setPrompts_v3_user={setPrompts_v3_user}
-          // persona
-          setIsShowModal_edit_persona={setIsShowModal_edit_persona}
         />
+
+        {/* === Drawers - start === */}
+        <Drawer_createPersona
+          t={t}
+          createPrompt_v3_form={createPrompt_v3_form}
+          isShow={isShowDrawer_create_persona}
+          setIsShow={setIsShowDrawer_create_persona}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+        <Drawer_createTargetAudience
+          t={t}
+          createPrompt_v3_form={createPrompt_v3_form}
+          isShow={isShowDrawer_create_targetAudience}
+          setIsShow={setIsShowDrawer_create_targetAudience}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+
         <Drawer_editPersona
           t={t}
           llmOptions={llmOptions}
-          isShow={isShowModal_edit_persona}
-          setIsShow={setIsShowModal_edit_persona}
+          isShow={isShowDrawer_edit_persona}
+          setIsShow={setIsShowDrawer_edit_persona}
           thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_persona}
           // Prompts_v3
           editPrompt_v3_from={editPrompt_v3_from}
           webCase={webCase}
         />
+        {/* === Drawers - end === */}
       </div>
     </div>
   );

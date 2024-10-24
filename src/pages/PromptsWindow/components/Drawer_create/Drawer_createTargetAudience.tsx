@@ -8,19 +8,19 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
-} from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
-import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
-import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
-import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
-import { EProMode_v4_tabPane_context_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
-import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
+} from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IPrompt_v3_type_targetAudience } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_targetAudience';
+import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import { EProMode_v4_tabPane_context_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 
-interface IDrawer_createPersona_input {
+interface IDrawer_createTargetAudience_input {
   t: IGetT_frontend_output;
-  createPrompt_v3_form: FormInstance<IPrompt_v3_type_persona>;
+  createPrompt_v3_form: FormInstance<IPrompt_v3_type_targetAudience>;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
   llmOptions: ILLMOptions;
@@ -31,7 +31,7 @@ interface IDrawer_createPersona_input {
     env: IConstantGptAiFlowHandler;
   };
 }
-export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
+export const Drawer_createTargetAudience = (props: IDrawer_createTargetAudience_input) => {
   const { t, createPrompt_v3_form, isShow, setIsShow, llmOptions, webCase } = props;
 
   const [form] = useForm();
@@ -43,34 +43,51 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     // form.setFieldsValue(null);
   };
 
-  const onFinish = async (values: IPrompt_v3_type_persona['metadata']) => {
+  const onFinish = async (values: IPrompt_v3_type_targetAudience['metadata']) => {
     console.log('Success:', values);
 
-    const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
-    if (!occupation && !coreValues && !uniqueSkill && !personalityTrait && !appearance && !additionalInfo) {
+    const {
+      demographics,
+      lifestyle,
+      coreValues,
+      challenges,
+      needs,
+      consumerBehavior,
+      scenarios,
+      emotions,
+      socialInfluence,
+      trends,
+      additionalInfo,
+    } = values;
+    if (
+      !demographics &&
+      !lifestyle &&
+      !coreValues &&
+      !challenges &&
+      !needs &&
+      !consumerBehavior &&
+      !scenarios &&
+      !emotions &&
+      !socialInfluence &&
+      !trends &&
+      !additionalInfo
+    ) {
       message.error(t.get('Please fill in at least one input field'));
       return;
     }
 
     setIsCalling(true);
 
-    const urlSlug = '/v1.0/post/langchain/chains/personaChain/';
+    const urlSlug = '/v1.0/post/langchain/chains/targetAudienceChain/';
     const response = await postProMode_v4_langchain_tabPane_chains_v2<{
-      personaData: IPrompt_v3_type_persona['metadata'];
+      targetAudienceData: IPrompt_v3_type_targetAudience['metadata'];
     }>(
       urlSlug,
       {
         ...getILangchain_for_type_langchain_request_v3_subV2_default<{
-          personaData: IPrompt_v3_type_persona['metadata'];
+          targetAudienceData: IPrompt_v3_type_targetAudience['metadata'];
         }>({
-          personaData: {
-            occupation,
-            coreValues,
-            uniqueSkill,
-            personalityTrait,
-            appearance,
-            additionalInfo,
-          },
+          targetAudienceData: values,
         }),
         llmOptions,
         contextType: EProMode_v4_tabPane_context_contextType.GENERAL,
@@ -86,7 +103,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
 
     const newValue = response.results;
 
-    const createPrompt_v3_drawer_values: IPrompt_v3_type_persona = createPrompt_v3_form.getFieldsValue();
+    const createPrompt_v3_drawer_values: IPrompt_v3_type_targetAudience = createPrompt_v3_form.getFieldsValue();
     const newPrompts_v3 = {
       ...createPrompt_v3_drawer_values,
       value: newValue, // Update IPrompt_v3.value
@@ -104,7 +121,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
   return (
     <div className="drawer_create_prompts_v3">
       <Drawer
-        title={t.get('Create') + t.get('persona')}
+        title={t.get('Create') + t.get('target audience')}
         open={isShow}
         onClose={() => {
           closeDrawer();
@@ -123,7 +140,16 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item label={t.get('Occupation')} name="occupation">
+          <Form.Item
+            label={t.get('Demographics')}
+            name="demographics"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item label={t.get('Lifestyle')} name="lifestyle" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
             <TextArea autoSize />
           </Form.Item>
 
@@ -131,25 +157,40 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
             <TextArea autoSize />
           </Form.Item>
 
+          <Form.Item label={t.get('Challenges')} name="challenges" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item label={t.get('Needs')} name="needs" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+            <TextArea autoSize />
+          </Form.Item>
+
           <Form.Item
-            label={t.get('Unique skills')}
-            name="uniqueSkill"
+            label={t.get('Consumer Behavior')}
+            name="consumerBehavior"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
           >
             <TextArea autoSize />
           </Form.Item>
 
+          <Form.Item label={t.get('Scenarios')} name="scenarios" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+            <TextArea autoSize />
+          </Form.Item>
+
+          <Form.Item label={t.get('Emotions')} name="emotions" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+            <TextArea autoSize />
+          </Form.Item>
+
           <Form.Item
-            label={t.get('Personality traits')}
-            name="personalityTrait"
+            label={t.get('Social Influence')}
+            name="socialInfluence"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
           >
             <TextArea autoSize />
           </Form.Item>
-
-          <Form.Item label={t.get('Appearance')} name="appearance" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
+          <Form.Item label={t.get('Trends')} name="trends" labelCol={{ span: 24 }} wrapperCol={{ span: 24 }}>
             <TextArea autoSize />
           </Form.Item>
 
