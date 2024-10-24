@@ -35,13 +35,20 @@ import {
   IPrompt_v3_type_targetAudience,
   IPrompt_v3_type_targetAudience_default,
 } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_targetAudience';
+import { Drawer_createBackground } from './components/Drawer_create/Drawer_createBackground';
+import { Drawer_editBackground } from './components/Drawer_edit/Drawer_editBackground';
+import {
+  IPrompt_v3_type_background,
+  IPrompt_v3_type_background_default,
+} from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_background';
+import { IPrompt_v3_types } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3';
 
 const { Search } = Input;
 
 interface IPromptsWindow_input {
   t: IGetT_frontend_output;
-  prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
-  setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
+  prompts_v3_user: IPrompt_v3_types[];
+  setPrompts_v3_user: Dispatch<SetStateAction<IPrompt_v3_types[]>>;
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
@@ -81,15 +88,15 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
   const [editPrompt_v3_from] = useForm();
 
   const [isShowModal_edit_prompts_v3, setIsShowModal_edit_prompts_v3] = useState<boolean>(false);
-  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<
-    IPrompt_v3 | IPrompt_v3_type_persona | IPrompt_v3_type_targetAudience | null
-  >({
+  const [prompts_v3_toEdit, setPrompts_v3_toEdit] = useState<IPrompt_v3_types | null>({
     ...IPrompts_v3_default,
     ...IPrompt_v3_IPersonaModel_default,
     ...IPrompt_v3_type_targetAudience_default,
+    ...IPrompt_v3_type_background_default,
     metadata: {
       ...IPrompt_v3_IPersonaModel_default.metadata,
       ...IPrompt_v3_type_targetAudience_default.metadata,
+      ...IPrompt_v3_type_background_default.metadata,
     },
   });
 
@@ -253,12 +260,14 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
               setIsShowModal_create_prompt_v3(false);
               setIsShowDrawer_create_persona(false);
               setIsShowDrawer_create_targetAudience(false);
+              setIsShowDrawer_create_background(false);
               return;
             }
 
             setIsShowModal_create_prompt_v3(true);
             if (drawerName === EPrompt_v3_category.CONTEXT_PERSONA) setIsShowDrawer_create_persona(true);
             if (drawerName === EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE) setIsShowDrawer_create_targetAudience(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_BACKGROUND) setIsShowDrawer_create_background(true);
           }}
           createPrompt_v3_form={createPrompt_v3_form}
           prompts_v3_user={prompts_v3_user}
@@ -273,11 +282,13 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
               setIsShowModal_edit_prompts_v3(false);
               setIsShowDrawer_edit_persona(false);
               setIsShowDrawer_edit_targetAudience(false);
+              setIsShowDrawer_create_background(false);
               return;
             }
             setIsShowModal_edit_prompts_v3(true);
             if (drawerName === EPrompt_v3_category.CONTEXT_PERSONA) setIsShowDrawer_edit_persona(true);
             if (drawerName === EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE) setIsShowDrawer_edit_targetAudience(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_BACKGROUND) setIsShowDrawer_create_background(true);
           }}
           editPrompt_v3_from={editPrompt_v3_from}
           thisPrompt_v3={prompts_v3_toEdit}
@@ -302,6 +313,14 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
           llmOptions={llmOptions}
           webCase={webCase}
         />
+        <Drawer_createBackground
+          t={t}
+          createPrompt_v3_form={createPrompt_v3_form}
+          isShow={isShowDrawer_create_background}
+          setIsShow={setIsShowDrawer_create_background}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
 
         <Drawer_editPersona
           t={t}
@@ -320,6 +339,16 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
           thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_targetAudience}
           isShow={isShowDrawer_edit_targetAudience}
           setIsShow={setIsShowDrawer_edit_targetAudience}
+          llmOptions={llmOptions}
+          webCase={webCase}
+        />
+        <Drawer_editBackground
+          t={t}
+          editPrompt_v3_from={editPrompt_v3_from}
+          // Prompts_v3
+          thisPrompt_v3={prompts_v3_toEdit as IPrompt_v3_type_background}
+          isShow={isShowDrawer_edit_background}
+          setIsShow={setIsShowDrawer_edit_background}
           llmOptions={llmOptions}
           webCase={webCase}
         />

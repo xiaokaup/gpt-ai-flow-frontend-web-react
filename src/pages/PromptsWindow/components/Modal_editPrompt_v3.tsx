@@ -6,15 +6,10 @@ import TextArea from 'antd/es/input/TextArea';
 
 import { EPrompt_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import {
-  IPrompt_v3_type_persona,
-  IPrompt_v3_IPersonaModel_default,
-} from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
-import { IPrompt_v3, IPrompt_v3_base_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
-import { IPrompt_v3_type_targetAudience } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_targetAudience';
-import { MetadataHiddenForm } from './Modal_createPrompt_v3';
-
-type IPrompt_v3_types = IPrompt_v3 | IPrompt_v3_type_persona | IPrompt_v3_type_targetAudience;
+import { IPrompt_v3_IPersonaModel_default } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
+import { IPrompt_v3_types } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3';
+import { IPrompt_v3_base_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
+import { MetadataHiddenForm } from '../MetadataHiddenForm';
 
 interface IModal_editPrompt_v3_input {
   t: IGetT_frontend_output;
