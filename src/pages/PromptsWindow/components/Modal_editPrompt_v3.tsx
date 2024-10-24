@@ -15,7 +15,7 @@ import { IPrompt_v3, IPrompt_v3_base_default } from '../../../gpt-ai-flow-common
 interface IModal_editPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
-  setIsShow: (isShow: boolean, drawerName: string) => void;
+  setIsShow: (isShow: boolean, drawerName: EPrompt_v3_category) => void;
   thisPrompt_v3: (IPrompt_v3 | IPrompt_v3_type_persona) | null;
   prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
   setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
@@ -113,10 +113,20 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
                   className="ml-2"
                   size="small"
                   onClick={() => {
-                    setIsShow(true, 'persona');
+                    setIsShow(true, EPrompt_v3_category.CONTEXT_PERSONA);
                   }}
                 >
                   {t.get('Edit') + t.get('persona')}
+                </Button>
+                <Button
+                  type="primary"
+                  className="ml-2"
+                  size="small"
+                  onClick={() => {
+                    setIsShow(true, EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE);
+                  }}
+                >
+                  {t.get('Edit') + t.get('target audience')}
                 </Button>
               </div>
             }
@@ -142,6 +152,9 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
               })} */}
               <Select.Option value={EPrompt_v3_category.CONTEXT_PERSONA}>
                 {t.get(EPrompt_v3_category.CONTEXT_PERSONA)}
+              </Select.Option>
+              <Select.Option value={EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE}>
+                {t.get(EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE)}
               </Select.Option>
             </Select>
           </Form.Item>

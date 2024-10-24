@@ -11,7 +11,7 @@ import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPr
 interface IModal_createPrompt_v3_input {
   t: IGetT_frontend_output;
   isShow: boolean;
-  setIsShow: (isShow: boolean, drawerName: string) => void;
+  setIsShow: (isShow: boolean, drawerName: EPrompt_v3_category) => void;
   prompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
   setPrompts_v3_user: Dispatch<SetStateAction<(IPrompt_v3 | IPrompt_v3_type_persona)[]>>;
   createPrompt_v3_form: FormInstance<IPrompt_v3 | IPrompt_v3_type_persona>;
@@ -108,7 +108,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
                   className="ml-2"
                   size="small"
                   onClick={() => {
-                    setIsShow(true, 'persona');
+                    setIsShow(true, EPrompt_v3_category.CONTEXT_PERSONA);
                   }}
                 >
                   {t.get('Create') + t.get('persona')}
@@ -118,7 +118,7 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
                   className="ml-2"
                   size="small"
                   onClick={() => {
-                    setIsShow(true, 'targetAudience');
+                    setIsShow(true, EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE);
                   }}
                 >
                   {t.get('Create') + t.get('target audience')}

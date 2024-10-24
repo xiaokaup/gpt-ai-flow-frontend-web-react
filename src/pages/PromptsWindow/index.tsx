@@ -239,7 +239,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         <Modal_createPrompt_v3
           t={t}
           isShow={isShowModal_create_prompt_v3}
-          setIsShow={(isShow: boolean, drawerName: string) => {
+          setIsShow={(isShow: boolean, drawerName: EPrompt_v3_category) => {
             if (!isShow) {
               setIsShowModal_create_prompt_v3(false);
               setIsShowDrawer_create_persona(false);
@@ -248,8 +248,8 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
             }
 
             setIsShowModal_create_prompt_v3(true);
-            if (drawerName === 'persona') setIsShowDrawer_create_persona(true);
-            if (drawerName === 'targetAudience') setIsShowDrawer_create_targetAudience(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_PERSONA) setIsShowDrawer_create_persona(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE) setIsShowDrawer_create_targetAudience(true);
           }}
           createPrompt_v3_form={createPrompt_v3_form}
           prompts_v3_user={prompts_v3_user}
@@ -259,7 +259,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
         <Modal_editPrompt_v3
           t={t}
           isShow={isShowModal_edit_prompts_v3}
-          setIsShow={(isShow: boolean, drawerName: string) => {
+          setIsShow={(isShow: boolean, drawerName: EPrompt_v3_category) => {
             if (!isShow) {
               setIsShowModal_edit_prompts_v3(false);
               setIsShowDrawer_edit_persona(false);
@@ -267,8 +267,8 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
               return;
             }
             setIsShowModal_edit_prompts_v3(true);
-            if (drawerName === 'persona') setIsShowDrawer_edit_persona(true);
-            if (drawerName === 'targetAudience') setIsShowDrawer_edit_targetAudience(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_PERSONA) setIsShowDrawer_edit_persona(true);
+            if (drawerName === EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE) setIsShowDrawer_edit_targetAudience(true);
           }}
           editPrompt_v3_from={editPrompt_v3_from}
           thisPrompt_v3={prompts_v3_toEdit}
