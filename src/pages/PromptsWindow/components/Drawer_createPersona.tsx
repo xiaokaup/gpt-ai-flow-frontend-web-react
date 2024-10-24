@@ -20,10 +20,10 @@ import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../..
 
 interface IDrawer_createPersona_input {
   t: IGetT_frontend_output;
-  llmOptions: ILLMOptions;
+  createPrompt_v3_form: FormInstance<IPrompt_v3_type_persona>;
   isShow: boolean;
   setIsShow: (isShow: boolean) => void;
-  createPrompt_v3_form: FormInstance<IPrompt_v3_type_persona>;
+  llmOptions: ILLMOptions;
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
@@ -32,7 +32,7 @@ interface IDrawer_createPersona_input {
   };
 }
 export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
-  const { t, llmOptions, isShow, setIsShow, createPrompt_v3_form, webCase } = props;
+  const { t, createPrompt_v3_form, isShow, setIsShow, llmOptions, webCase } = props;
 
   const [form] = useForm();
 
@@ -97,7 +97,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     setIsCalling(false);
   };
 
-  const onTableFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: any) => {
     console.log(t.get('Add failed'), ':', errorInfo);
   };
 
@@ -121,7 +121,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           size="small"
           autoComplete="off"
           onFinish={onFinish}
-          onFinishFailed={onTableFinishFailed}
+          onFinishFailed={onFinishFailed}
         >
           <Form.Item label={t.get('Occupation')} name="occupation">
             <TextArea autoSize />

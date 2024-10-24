@@ -101,7 +101,7 @@ export const Drawer_editPersona = (props: IDrawer_editPersona_input) => {
     setIsCalling(false);
   };
 
-  const onTableFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: any) => {
     console.log(t.get('Add failed'), ':', errorInfo);
   };
 
@@ -129,7 +129,7 @@ export const Drawer_editPersona = (props: IDrawer_editPersona_input) => {
             ...thisPrompt_v3.metadata,
           }}
           onFinish={onFinish}
-          onFinishFailed={onTableFinishFailed}
+          onFinishFailed={onFinishFailed}
         >
           <Form.Item label={t.get('Occupation')} name="occupation">
             <TextArea autoSize />
