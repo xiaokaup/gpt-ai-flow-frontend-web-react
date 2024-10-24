@@ -56,6 +56,7 @@ export const MetadataHiddenForm = (props: { t: IGetT_frontend_output }) => {
       >
         <TextArea autoSize />
       </Form.Item>
+
       {/* targetAudience */}
       <Form.Item
         className=""
@@ -142,6 +143,62 @@ export const MetadataHiddenForm = (props: { t: IGetT_frontend_output }) => {
         className=""
         label={t.get('Trends')}
         name={['metadata', 'trends']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Additional information')}
+        name={['metadata', 'additionalInfo']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+
+      {/* background */}
+      <Form.Item
+        className=""
+        label={t.get('Subject')}
+        name={['metadata', 'subject']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Date')}
+        name={['metadata', 'when']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Address')}
+        name={['metadata', 'where']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Event')}
+        name={['metadata', 'what']}
+        labelCol={{ span: 24 }}
+        wrapperCol={{ span: 24 }}
+      >
+        <TextArea autoSize />
+      </Form.Item>
+      <Form.Item
+        className=""
+        label={t.get('Background')}
+        name={['metadata', 'context']}
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
       >

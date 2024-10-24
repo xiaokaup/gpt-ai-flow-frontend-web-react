@@ -50,8 +50,8 @@ export const Drawer_editBackground = (props: IDrawer_editBackground_input) => {
   const onFinish = async (values: IPrompt_v3_type_background['metadata']) => {
     console.log('Success:', values);
 
-    const { subject, when, where, keyEvents, context, additionalInfo } = values;
-    if (!subject && !when && !where && !keyEvents && !context && !additionalInfo) {
+    const { subject, when, where, what, context, additionalInfo } = values;
+    if (!subject && !when && !where && !what && !context && !additionalInfo) {
       message.error(t.get('Please fill in at least one input field'));
       return;
     }
