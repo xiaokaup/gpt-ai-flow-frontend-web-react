@@ -43,7 +43,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
     // form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = async (values: IPrompt_v3_type_persona['metadata']) => {
+  const onFinish = async (values: IPrompt_v3_type_persona['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -86,27 +86,23 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
 
     const newValue = response.results;
 
-    const createPrompt_v3_modal_values: IPrompt_v3_type_persona = createPrompt_v3_form.getFieldsValue();
+    const createPrompt_v3_drawer_values: IPrompt_v3_type_persona = createPrompt_v3_form.getFieldsValue();
     const newPrompts_v3 = {
-      ...createPrompt_v3_modal_values,
+      ...createPrompt_v3_drawer_values,
       value: newValue, // Update IPrompt_v3.value
-      metadata: { ...createPrompt_v3_modal_values.metadata, ...values },
+      metadata: { ...createPrompt_v3_drawer_values.metadata, ...values },
     };
     createPrompt_v3_form.setFieldsValue(newPrompts_v3);
 
     setIsCalling(false);
   };
 
-  const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
+  const onTableFinishFailed = (errorInfo: any) => {
     console.log(t.get('Add failed'), ':', errorInfo);
   };
 
-  // useEffect(() => {
-  //   form.setFieldsValue(modalInitialValues);
-  // }, [form, modalInitialValues]);
-
   return (
-    <div className="modal_create_prompts_v3">
+    <div className="drawer_create_prompts_v3">
       <Drawer
         title={t.get('Create') + t.get('persona')}
         open={isShow}
@@ -124,8 +120,8 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           style={{ maxWidth: 600 }}
           size="small"
           autoComplete="off"
-          onFinish={onFinishInDrawer}
-          onFinishFailed={onTableFinishFailedInAiFlowModal}
+          onFinish={onFinish}
+          onFinishFailed={onTableFinishFailed}
         >
           <Form.Item label={t.get('Occupation')} name="occupation">
             <TextArea autoSize />

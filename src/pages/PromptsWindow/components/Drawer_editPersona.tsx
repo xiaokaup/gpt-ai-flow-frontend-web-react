@@ -21,7 +21,7 @@ import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../gpt-ai-flow
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 
-interface IModal_editPersona_input {
+interface IDrawer_editPersona_input {
   t: IGetT_frontend_output;
   llmOptions: ILLMOptions;
   isShow: boolean;
@@ -35,7 +35,7 @@ interface IModal_editPersona_input {
     env: IConstantGptAiFlowHandler;
   };
 }
-export const Drawer_editPersona = (props: IModal_editPersona_input) => {
+export const Drawer_editPersona = (props: IDrawer_editPersona_input) => {
   const { t, llmOptions, isShow, setIsShow, thisPrompt_v3, editPrompt_v3_from, webCase } = props;
 
   const [form] = useForm();
@@ -47,7 +47,7 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
     // form.setFieldsValue(null);
   };
 
-  const onFinishInDrawer = async (values: IPrompt_v3_type_persona['metadata']) => {
+  const onFinish = async (values: IPrompt_v3_type_persona['metadata']) => {
     console.log('Success:', values);
 
     const { occupation, coreValues, uniqueSkill, personalityTrait, appearance, additionalInfo } = values;
@@ -90,27 +90,23 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
 
     const newValue = response.results;
 
-    const createPrompt_v3_modal_values: IPrompt_v3_type_persona = editPrompt_v3_from.getFieldsValue();
+    const createPrompt_v3_drawer_values: IPrompt_v3_type_persona = editPrompt_v3_from.getFieldsValue();
     const newPrompts_v3 = {
-      ...createPrompt_v3_modal_values,
+      ...createPrompt_v3_drawer_values,
       value: newValue, // Update IPrompt_v3.value
-      metadata: { ...createPrompt_v3_modal_values.metadata, ...values },
+      metadata: { ...createPrompt_v3_drawer_values.metadata, ...values },
     };
     editPrompt_v3_from.setFieldsValue(newPrompts_v3);
 
     setIsCalling(false);
   };
 
-  const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
+  const onTableFinishFailed = (errorInfo: any) => {
     console.log(t.get('Add failed'), ':', errorInfo);
   };
 
-  // useEffect(() => {
-  //   form.setFieldsValue(thisPrompt_v3);
-  // }, [form, thisPrompt_v3]);
-
   return (
-    <div className="modal_create_prompts_v3">
+    <div className="drawer_create_prompts_v3">
       <Drawer
         open={isShow}
         title={t.get('Edit') + t.get('prompt')}
@@ -132,8 +128,8 @@ export const Drawer_editPersona = (props: IModal_editPersona_input) => {
             ...IPrompt_v3_IPersonaModel_default.metadata,
             ...thisPrompt_v3.metadata,
           }}
-          onFinish={onFinishInDrawer}
-          onFinishFailed={onTableFinishFailedInAiFlowModal}
+          onFinish={onFinish}
+          onFinishFailed={onTableFinishFailed}
         >
           <Form.Item label={t.get('Occupation')} name="occupation">
             <TextArea autoSize />
