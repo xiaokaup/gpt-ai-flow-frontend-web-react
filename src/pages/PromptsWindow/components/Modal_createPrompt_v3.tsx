@@ -160,6 +160,9 @@ export const Modal_createPrompt_v3 = (props: IModal_createPrompt_v3_input) => {
               <Select.Option value={EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE}>
                 {t.get(EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE)}
               </Select.Option>
+              <Select.Option value={EPrompt_v3_category.CONTEXT_BACKGROUND}>
+                {t.get(EPrompt_v3_category.CONTEXT_BACKGROUND)}
+              </Select.Option>
             </Select>
           </Form.Item>
           <Form.Item label={t.get('Tags')} name="tags">
