@@ -166,6 +166,9 @@ export const Modal_editPrompt_v3 = (props: IModal_editPrompt_v3_input) => {
               <Select.Option value={EPrompt_v3_category.CONTEXT_BACKGROUND}>
                 {t.get(EPrompt_v3_category.CONTEXT_BACKGROUND)}
               </Select.Option>
+              <Select.Option value={EPrompt_v3_category.CONTEXT_EXAMPLE}>
+                {t.get(EPrompt_v3_category.CONTEXT_EXAMPLE)}
+              </Select.Option>
             </Select>
           </Form.Item>
           <Form.Item label={t.get('Tags')} name="tags">
