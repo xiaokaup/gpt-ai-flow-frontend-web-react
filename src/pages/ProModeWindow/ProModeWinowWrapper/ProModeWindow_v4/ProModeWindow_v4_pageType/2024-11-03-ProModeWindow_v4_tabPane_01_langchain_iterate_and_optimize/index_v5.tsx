@@ -56,9 +56,21 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
+  const chatHistory_default = inputsCache_v2[contextSelected_uuid]?.['chatHistory']
+    ? JSON.parse(inputsCache_v2[contextSelected_uuid]?.['chatHistory'])
+    : [];
+  // console.log('chatHistory_default', chatHistory_default);
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
+    previousOutput: {
+      title:
+        chatHistory_default.length > 1 ? chatHistory_default[chatHistory_default.length - 2].previousOutput.title : '',
+      content:
+        chatHistory_default.length > 1
+          ? chatHistory_default[chatHistory_default.length - 2].previousOutput.content
+          : '',
+    },
     background: {
       ...ILangchainMessageExchange_default.background,
       ...inputsCache_v2[contextSelected_uuid],
@@ -67,14 +79,23 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
       ...ILangchainMessageExchange_default.adjust,
       ...inputsCache_v2[contextSelected_uuid],
     },
+    currentOutput: {
+      title:
+        chatHistory_default.length > 0 ? chatHistory_default[chatHistory_default.length - 1].currentOutput.title : '',
+      content:
+        chatHistory_default.length > 0 ? chatHistory_default[chatHistory_default.length - 1].currentOutput.content : '',
+    },
     createdAt: new Date(),
     role: EMessage_role.HUMAN,
     versionNum: 0,
   };
+  // console.log('messageExchangeData_default', messageExchangeData_default);
   const [messageExchangeData, setMessageExchangeData] =
     useState<ILangchainMessageExchange>(messageExchangeData_default);
-  const [currentVersionNum, setCurrentVersionNum] = useState<number>(0);
-  const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>([]);
+  const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>(chatHistory_default);
+  const [currentVersionNum, setCurrentVersionNum] = useState<number>(
+    chatHistory_default.length > 0 ? chatHistory_default.length - 1 : 0,
+  );
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
 
@@ -225,6 +246,13 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
           setMessageExchangeData(newMessageExchange_for_ai);
           setChatHistory(newChatHistory_for_ai);
           setCurrentVersionNum(newChatHistory_for_ai.length - 1);
+          setInputsCache_v2((prvState: IInputsCache_v2) => ({
+            ...prvState,
+            [contextSelected_uuid]: {
+              ...prvState[contextSelected_uuid],
+              chatHistory: JSON.stringify(newChatHistory_for_ai),
+            },
+          }));
 
           setIsCalling(false);
         },
