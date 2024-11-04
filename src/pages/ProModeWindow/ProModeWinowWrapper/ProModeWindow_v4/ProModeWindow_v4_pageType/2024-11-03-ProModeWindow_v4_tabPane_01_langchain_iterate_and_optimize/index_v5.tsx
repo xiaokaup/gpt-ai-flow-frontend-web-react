@@ -301,7 +301,17 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
   const onResetAll = () => {
     setChatHistory([]);
     setCurrentVersionNum(0);
-    setMessageExchangeData(messageExchangeData_default);
+    setMessageExchangeData({
+      ...messageExchangeData_default,
+      currentOutput: {
+        title: '',
+        content: '',
+      },
+      previousOutput: {
+        title: '',
+        content: '',
+      },
+    });
   };
 
   return (
