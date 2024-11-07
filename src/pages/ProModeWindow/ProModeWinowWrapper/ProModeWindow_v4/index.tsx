@@ -170,6 +170,7 @@ const getFilteredTabPanes_by_role = (
       EProMode_v4_tabPane_uuid.TAB_PANE_16_MATERIAL_FINDER,
       EProMode_v4_tabPane_uuid.TAB_PANE_17_STORY_TELL,
       EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT,
+      EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU_01_EXTRACT,
       EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
       EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU,
       EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
