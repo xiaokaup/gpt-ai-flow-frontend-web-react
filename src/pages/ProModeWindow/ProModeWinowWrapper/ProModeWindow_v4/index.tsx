@@ -163,16 +163,16 @@ const getFilteredTabPanes_by_role = (
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
-  if (roleModule === EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA) {
+  if (roleModule === EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU) {
     const module_uuids: EProMode_v4_tabPane_uuid[] = [
-      EProMode_v4_tabPane_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
+      // EProMode_v4_tabPane_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
       EProMode_v4_tabPane_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
-      EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_tabPane_uuid.TAB_PANE_05_WRITING_COMMENT,
+      EProMode_v4_tabPane_uuid.TAB_PANE_16_MATERIAL_FINDER,
       EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT,
       EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
       EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU,
-      EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY,
+      EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_tabPane_uuid.TAB_PANE_05_WRITING_COMMENT,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
