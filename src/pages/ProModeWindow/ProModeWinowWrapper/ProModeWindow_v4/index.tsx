@@ -163,7 +163,7 @@ const getFilteredTabPanes_by_role = (
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
-  if (roleModule === EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA) {
+  if (roleModule === EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU) {
     const module_uuids: EProMode_v4_tabPane_uuid[] = [
       // EProMode_v4_tabPane_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
       EProMode_v4_tabPane_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,

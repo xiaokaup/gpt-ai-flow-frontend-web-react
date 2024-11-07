@@ -1,11 +1,16 @@
+import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
+import { getT_with_i18next } from '../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
 import {
   EProMode_v4_tabPanes_role,
   EProMode_v4_tabPane_uuid,
+  EProMode_v4_tabPanes_role_labels,
 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
 import { docBaseUrl, webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
-export const getModules = (isHomePage: boolean, locale: string) => {
+export const getModules = (isHomePage: boolean, locale: ELocale) => {
+  // const t = getT_with_i18next(locale);
+
   const homePageModules_zh: IOneFeature[] = [
     {
       icon: '/img/icons/2024-05-24-img-18-content-writing.png',
@@ -686,7 +691,9 @@ export const getModules = (isHomePage: boolean, locale: string) => {
   return homePageModules_en;
 };
 
-export const getRoles = (isHomePage: boolean, locale: string) => {
+export const getRoles = (isHomePage: boolean, locale: ELocale) => {
+  const t = getT_with_i18next(locale);
+
   const homePageRoles_zh: IOneFeature[] = [];
   const homePageRoles_en: IOneFeature[] = [];
 
@@ -735,7 +742,9 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
     },
     {
       icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
-      proModeModuleName: '自媒体红人',
+      proModeModuleName: t.get(
+        EProMode_v4_tabPanes_role_labels[EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU],
+      ),
       featureText_1: (
         <>
           📱 <b>社交媒体的原住民</b>：熟悉各大平台,善于利用平台特性传播内容
@@ -751,8 +760,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
@@ -824,7 +833,9 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
     },
     {
       icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
-      proModeModuleName: 'Social Media Influencer',
+      proModeModuleName: t.get(
+        EProMode_v4_tabPanes_role_labels[EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU],
+      ),
       featureText_1: (
         <>
           📱 <b>Social Media Native</b>: Familiar with various platforms and skilled in leveraging platform features to
@@ -841,8 +852,8 @@ export const getRoles = (isHomePage: boolean, locale: string) => {
           📈 <b>Business Value Creator</b>: Converts traffic into business value, achieving content monetization
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
