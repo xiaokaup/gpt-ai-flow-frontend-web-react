@@ -145,7 +145,9 @@ const getFilteredTabPanes_by_role = (
       EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY,
       EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT,
     ];
-    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
   if (roleModule === EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER) {
@@ -156,7 +158,9 @@ const getFilteredTabPanes_by_role = (
       EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
       EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL,
     ];
-    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
   if (roleModule === EProMode_v4_tabPanes_role.ROLE_03_SOCIAL_MEDIA) {
@@ -170,7 +174,9 @@ const getFilteredTabPanes_by_role = (
       EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU,
       EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY,
     ];
-    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
   if (roleModule === EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER) {
@@ -179,7 +185,9 @@ const getFilteredTabPanes_by_role = (
       EProMode_v4_tabPane_uuid.TAB_PANE_09_SEO_CHAIN,
       EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT,
     ];
-    return proMode_v4_tabPanes.filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid));
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
   return proMode_v4_tabPanes;
