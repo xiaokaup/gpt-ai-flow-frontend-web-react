@@ -168,6 +168,7 @@ const getFilteredTabPanes_by_role = (
       // EProMode_v4_tabPane_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
       EProMode_v4_tabPane_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
       EProMode_v4_tabPane_uuid.TAB_PANE_16_MATERIAL_FINDER,
+      EProMode_v4_tabPane_uuid.TAB_PANE_17_STORY_TELL,
       EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT,
       EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
       EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU,
