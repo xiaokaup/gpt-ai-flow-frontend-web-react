@@ -64,6 +64,7 @@ import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interfac
 import { Drawer_prompt_v3_persona } from './Drawer_prompt_v3_persona';
 import { LastFocusedElementProvider } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 import { saveLocalAction } from '../../../../store/actions/localActions';
+import { ProModeWindow_v4_tabPane_05_CardGenerate } from './ProModeWindow_v4_pageType/2024-11-09-ProModeWindow_v4_tabPane_05_CardGenerate';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -171,9 +172,11 @@ const getFilteredTabPanes_by_role = (
       EProMode_v4_tabPane_uuid.TAB_PANE_17_STORY_TELL,
       EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT,
       EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU_01_EXTRACT,
+      EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY,
       EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
       EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU,
       EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_tabPane_uuid.TAB_PANE_18_TOOL_CARD_GENERATE,
       EProMode_v4_tabPane_uuid.TAB_PANE_05_WRITING_COMMENT,
     ];
     return proMode_v4_tabPanes
@@ -488,6 +491,10 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
                           {type === EProMode_v4_tabPane_context_mode.TOOL_IMAGE_CROP && (
                             <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
+                          )}
+
+                          {type === EProMode_v4_tabPane_context_mode.TOOL_CARD_GENERATE && (
+                            <ProModeWindow_v4_tabPane_05_CardGenerate t={t} />
                           )}
                         </Tabs.TabPane>
                       );
