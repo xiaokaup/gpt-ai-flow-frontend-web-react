@@ -27,7 +27,7 @@ export const ProModeWindow_v4_tabPane_05_CardGenerate = (props: IProModeWindow_v
         src={srcUrl}
         frameBorder="0"
         scrolling="no"
-        style={{ width: '100%', height: '100vh' }}
+        style={{ width: '100%', height: 1000 }}
         lang={t.currentLocale}
       ></iframe>
       {/* <iframe src="https://geekcard.app/" frameBorder="0" style={{ width: '100%', height: 800 }}></iframe> */}
