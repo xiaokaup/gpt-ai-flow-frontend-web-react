@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { ELocale } from '../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface IProModeWindow_v4_tabPane_05_CardGenerate {
@@ -6,11 +8,23 @@ interface IProModeWindow_v4_tabPane_05_CardGenerate {
 export const ProModeWindow_v4_tabPane_05_CardGenerate = (props: IProModeWindow_v4_tabPane_05_CardGenerate) => {
   const { t } = props;
 
+  const [srcUrl, setSrcUrl] = useState<string>('https://memocard.net/');
+
+  useEffect(() => {
+    if (t.currentLocale === ELocale.ZH) {
+      setSrcUrl('https://memocard.net/');
+    }
+
+    if (t.currentLocale === ELocale.EN) {
+      setSrcUrl('https://poet.so/');
+    }
+  }, []);
+
   return (
     <div>
       <iframe
         id="memoCard"
-        src="https://memocard.net/"
+        src={srcUrl}
         frameBorder="0"
         style={{ width: '100%', height: 1000 }}
         lang={t.currentLocale}
