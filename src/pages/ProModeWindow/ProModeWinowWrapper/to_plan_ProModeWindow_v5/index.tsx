@@ -56,7 +56,7 @@ export const ProModeWindow_v5 = (props: IProModeWindow_v5_input) => {
                 // onChange={onTabsChange}
                 // onEdit={onEditTabPanel}
               >
-                <Tabs.TabPane tab={'职场工作者'} key={'office-worker'} disabled={false}>
+                <Tabs.TabPane tab={'职场'} key={'office-worker'} disabled={false}>
                   <OfficerWorker />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab={'内容创作者'} key={'content-worker'} disabled={false}>

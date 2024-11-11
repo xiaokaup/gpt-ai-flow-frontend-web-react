@@ -700,7 +700,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
   const proModePageRoles_zh: IOneFeature[] = [
     {
       icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: '职场工作者',
+      proModeModuleName: '职场',
       featureText_1: (
         <>
           💼 <b>高效的职场精英</b>：善于管理时间,制定计划,并高质量完成工作
@@ -716,8 +716,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
@@ -788,7 +788,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
   const proModePageRoles_en: IOneFeature[] = [
     {
       icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: 'Office Worker',
+      proModeModuleName: 'Workplace',
       featureText_1: (
         <>
           💼 <b>Efficient Professional</b>: Skilled in time management, planning, and delivering high-quality work
@@ -806,8 +806,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           and skills
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',

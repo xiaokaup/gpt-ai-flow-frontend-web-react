@@ -9,7 +9,7 @@ const markdownResumeCode = `
 const mermaidChartCode = `
 flowchart LR
 subgraph "[角色背景]"
-  职场工作者 --> 宣传工作 & 行政工作 & 文书工作
+  职场 --> 宣传工作 & 行政工作 & 文书工作
 
   宣传工作 --> 邮件写作
   行政工作 --> 同事聊天 & 会议纪要整理

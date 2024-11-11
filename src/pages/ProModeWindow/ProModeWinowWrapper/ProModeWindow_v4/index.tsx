@@ -139,7 +139,7 @@ const getFilteredTabPanes_by_role = (
   roleModule: EProMode_v4_tabPanes_role,
   proMode_v4_tabPanes: IProMode_v4['tabPanes'],
 ) => {
-  if (roleModule === EProMode_v4_tabPanes_role.ROLE_01_OFFICE_WORKER) {
+  if (roleModule === EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE) {
     const module_uuids: EProMode_v4_tabPane_uuid[] = [
       EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION,
       EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS,
