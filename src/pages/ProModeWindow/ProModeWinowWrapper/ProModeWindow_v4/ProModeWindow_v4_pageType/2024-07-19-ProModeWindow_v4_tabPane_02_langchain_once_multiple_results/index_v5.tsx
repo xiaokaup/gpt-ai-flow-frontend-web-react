@@ -20,7 +20,7 @@ import { ELocale } from '../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
-import { EProMode_v4_tabPane_context_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import {
   IProMode_v4_tabPane_context,
@@ -41,7 +41,7 @@ interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
   creativityValue: number;
   contextSelected: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
-  // switchContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
+  // switchContextSelected_by_type: (newType: EProMode_v4_module_contextType) => void;
 }
 export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input,
@@ -56,8 +56,8 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [messageExchangeType, _] = useState<EProMode_v4_tabPane_context_contextType>(
-    contextType ?? EProMode_v4_tabPane_context_contextType.GENERAL,
+  const [messageExchangeType, _] = useState<EProMode_v4_module_contextType>(
+    contextType ?? EProMode_v4_module_contextType.GENERAL,
   );
   const messageExchangeData_default = {
     ...ILangchainMessageExchange_default,

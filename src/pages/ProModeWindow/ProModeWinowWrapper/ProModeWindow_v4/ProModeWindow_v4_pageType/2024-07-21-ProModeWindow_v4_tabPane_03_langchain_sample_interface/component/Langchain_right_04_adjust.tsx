@@ -4,7 +4,7 @@ import { AutoComplete, AutoCompleteProps, Form, Input, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { EProMode_v4_tabPane_context_contextType } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_module_contextType } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import {
   IProMode_v4_tabPane_context_for_type_langchain_formItems,
   IAdjust_for_type_langchain,
@@ -20,8 +20,8 @@ interface ILangchain_right_04_adjust_input {
   adjustSelected: IProMode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
   adjust: IAdjust_for_type_langchain;
   setAdjust: (newItem: IAdjust_for_type_langchain) => void;
-  contextSelected_type: EProMode_v4_tabPane_context_contextType;
-  switchContextSelected_by_type: (newItem: EProMode_v4_tabPane_context_contextType) => void;
+  contextSelected_type: EProMode_v4_module_contextType;
+  switchContextSelected_by_type: (newItem: EProMode_v4_module_contextType) => void;
 }
 export const Langchain_right_04_adjust = (props: ILangchain_right_04_adjust_input) => {
   const { t, isAdjustCall, adjustSelected, adjust, setAdjust } = props;

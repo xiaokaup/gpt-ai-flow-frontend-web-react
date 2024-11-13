@@ -15,7 +15,7 @@ import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-backend/IL
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt_v3_type_persona } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
-import { EProMode_v4_tabPane_context_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_module_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 
 interface IDrawer_createPersona_input {
@@ -73,7 +73,7 @@ export const Drawer_createPersona = (props: IDrawer_createPersona_input) => {
           },
         }),
         llmOptions,
-        contextType: EProMode_v4_tabPane_context_contextType.GENERAL,
+        contextType: EProMode_v4_module_contextType.GENERAL,
       },
       () => console.log('beforeSendRequestAsStreamFunc'),
       (wrtingResultText: string) => console.log('updateResultFromRequestAsStreamFunc', wrtingResultText),

@@ -15,9 +15,9 @@ import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from
 import { useCreativityValueContext } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IProMode_v4_tabPane } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
 import {
-  EProMode_v4_tabPane_context_contextType,
-  EProMode_v4_tabPane_context_mode,
-} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+  EProMode_v4_module_contextType,
+  EProMode_v4_module_mode,
+} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import {
   IProMode_v4_tabPane_context,
   IBackground_for_type_langchain,
@@ -51,8 +51,8 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   const creativityValue = useCreativityValueContext();
 
-  const [selectedContextType, setSelectedContextType] = useState<EProMode_v4_tabPane_context_contextType>(
-    context.length > 0 ? context[0].contextType : EProMode_v4_tabPane_context_contextType.GENERAL,
+  const [selectedContextType, setSelectedContextType] = useState<EProMode_v4_module_contextType>(
+    context.length > 0 ? context[0].contextType : EProMode_v4_module_contextType.GENERAL,
   );
   const [contextSelected, setContextSelected] = useState<IProMode_v4_tabPane_context<
     IBackground_for_type_langchain,
@@ -65,7 +65,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
   }
   const { mode } = contextSelected;
 
-  const switchContextSelected_by_type = (newType: EProMode_v4_tabPane_context_contextType) => {
+  const switchContextSelected_by_type = (newType: EProMode_v4_module_contextType) => {
     setSelectedContextType(newType);
     setContextSelected(context.find((item) => item.contextType === newType) ?? null);
   };
@@ -79,7 +79,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           style={{ width: 240 }}
           onChange={(value: string) => {
             console.log(`selected ${value}`);
-            switchContextSelected_by_type(value as EProMode_v4_tabPane_context_contextType);
+            switchContextSelected_by_type(value as EProMode_v4_module_contextType);
           }}
           options={context.map(
             (item: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
@@ -102,7 +102,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
                 className="ml-2"
                 onClick={() => {
                   switchContextSelected_by_type(
-                    EProMode_v4_tabPane_context_contextType.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT,
+                    EProMode_v4_module_contextType.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT,
                   );
                 }}
               >
@@ -120,7 +120,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
         )} */}
       </div>
       <div className="row tabPane_context_container">
-        {mode === EProMode_v4_tabPane_context_mode.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
+        {mode === EProMode_v4_module_mode.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
           <ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5
             creativityValue={creativityValue}
             contextSelected={contextSelected}
@@ -137,7 +137,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           />
         )}
 
-        {mode === EProMode_v4_tabPane_context_mode.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
+        {mode === EProMode_v4_module_mode.LANGCHAIN_02_CUSTOME_ONCE_MULTIPLE_RESUTLS && (
           <ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5
             creativityValue={creativityValue}
             contextSelected={contextSelected}
@@ -154,7 +154,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           />
         )}
 
-        {mode === EProMode_v4_tabPane_context_mode.LANGCHAIN_03_SIMPLE_INTERFACE && (
+        {mode === EProMode_v4_module_mode.LANGCHAIN_03_SIMPLE_INTERFACE && (
           <ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface
             creativityValue={creativityValue}
             contextSelected={contextSelected}

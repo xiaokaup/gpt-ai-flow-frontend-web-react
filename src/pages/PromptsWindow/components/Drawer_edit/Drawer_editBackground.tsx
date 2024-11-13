@@ -15,7 +15,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON, {
   IConstantGptAiFlowHandler,
 } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { EProMode_v4_tabPane_context_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_module_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
@@ -70,7 +70,7 @@ export const Drawer_editBackground = (props: IDrawer_editBackground_input) => {
           backgroundData: values,
         }),
         llmOptions,
-        contextType: EProMode_v4_tabPane_context_contextType.GENERAL,
+        contextType: EProMode_v4_module_contextType.GENERAL,
       },
       () => console.log('beforeSendRequestAsStreamFunc'),
       (wrtingResultText: string) => console.log('updateResultFromRequestAsStreamFunc', wrtingResultText),

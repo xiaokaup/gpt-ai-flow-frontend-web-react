@@ -47,11 +47,11 @@ import {
   IProMode_v4_tabPane,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
 import {
-  EProMode_v4_tabPanes_role,
-  EProMode_v4_tabPane_uuid,
-  EProMode_v4_tabPanes_role_labels,
-  EProMode_v4_tabPane_context_mode,
-} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+  EProMode_v4_role,
+  EProMode_v4_module_uuid,
+  EProMode_v4_role_labels,
+  EProMode_v4_module_mode,
+} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { IPromode_v4_tabPane_context_type_commandChain } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/01-chatChain/IProMode_v4_context_type_commandChain';
 import {
   IProMode_v4_tabPane_context,
@@ -135,60 +135,57 @@ const getCreationModeOptions = (t: IGetT_frontend_output) => {
   ];
 };
 
-const getFilteredTabPanes_by_role = (
-  roleModule: EProMode_v4_tabPanes_role,
-  proMode_v4_tabPanes: IProMode_v4['tabPanes'],
-) => {
-  if (roleModule === EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE) {
-    const module_uuids: EProMode_v4_tabPane_uuid[] = [
-      EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION,
-      EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS,
-      EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY,
-      EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT,
+const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_tabPanes: IProMode_v4['tabPanes']) => {
+  if (roleModule === EProMode_v4_role.ROLE_01_WORK_PLACE) {
+    const module_uuids: EProMode_v4_module_uuid[] = [
+      EProMode_v4_module_uuid.TAB_PANE_04_COMMUNICATION,
+      EProMode_v4_module_uuid.TAB_PANE_12_TRANSLATE_TOOLS,
+      EProMode_v4_module_uuid.TAB_PANE_14_SUMMARY,
+      EProMode_v4_module_uuid.TAB_PANE_15_MEETING_REPORT,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
-  if (roleModule === EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER) {
-    const module_uuids: EProMode_v4_tabPane_uuid[] = [
-      EProMode_v4_tabPane_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
-      EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING,
-      EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
-      EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL,
+  if (roleModule === EProMode_v4_role.ROLE_02_CONTENT_WORKER) {
+    const module_uuids: EProMode_v4_module_uuid[] = [
+      EProMode_v4_module_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
+      EProMode_v4_module_uuid.TAB_PANE_06_CONTENT_WRITING,
+      EProMode_v4_module_uuid.TAB_PANE_08_REWRITING_TOOLS,
+      EProMode_v4_module_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.TAB_PANE_13_OUTLINE_TOOL,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
-  if (roleModule === EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU) {
-    const module_uuids: EProMode_v4_tabPane_uuid[] = [
-      // EProMode_v4_tabPane_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
-      EProMode_v4_tabPane_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
-      EProMode_v4_tabPane_uuid.TAB_PANE_16_MATERIAL_FINDER,
-      EProMode_v4_tabPane_uuid.TAB_PANE_17_STORY_TELL,
-      EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT,
-      EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU_01_EXTRACT,
-      EProMode_v4_tabPane_uuid.TAB_PANE_18_TOOL_CARD_GENERATE,
-      EProMode_v4_tabPane_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY,
-      EProMode_v4_tabPane_uuid.TAB_PANE_08_REWRITING_TOOLS,
-      EProMode_v4_tabPane_uuid.TAB_PANE_05_WRITING_COMMENT,
-      EProMode_v4_tabPane_uuid.TAB_PANE_11_XIAO_HONG_SHU,
+  if (roleModule === EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU) {
+    const module_uuids: EProMode_v4_module_uuid[] = [
+      // EProMode_v4_module_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
+      EProMode_v4_module_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
+      EProMode_v4_module_uuid.TAB_PANE_16_MATERIAL_FINDER,
+      EProMode_v4_module_uuid.TAB_PANE_17_STORY_TELL,
+      EProMode_v4_module_uuid.TAB_PANE_07_WRITING_POST_AGENT,
+      EProMode_v4_module_uuid.TAB_PANE_19_EXTRACT_FOR_XIAO_HONG_SHU_PLATFORM,
+      EProMode_v4_module_uuid.TAB_PANE_18_TOOL_CARD_GENERATE,
+      EProMode_v4_module_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.TAB_PANE_14_SUMMARY,
+      EProMode_v4_module_uuid.TAB_PANE_08_REWRITING_TOOLS,
+      EProMode_v4_module_uuid.TAB_PANE_05_WRITING_COMMENT,
+      EProMode_v4_module_uuid.TAB_PANE_11_XIAO_HONG_SHU,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
-  if (roleModule === EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER) {
-    const module_uuids: EProMode_v4_tabPane_uuid[] = [
-      EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER,
-      EProMode_v4_tabPane_uuid.TAB_PANE_09_SEO_CHAIN,
-      EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT,
+  if (roleModule === EProMode_v4_role.ROLE_04_PRODUCT_MANAGER) {
+    const module_uuids: EProMode_v4_module_uuid[] = [
+      EProMode_v4_module_uuid.TAB_PANE_10_PRODUCT_MANAGER,
+      EProMode_v4_module_uuid.TAB_PANE_09_SEO_CHAIN,
+      EProMode_v4_module_uuid.TAB_PANE_15_MEETING_REPORT,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
@@ -214,10 +211,8 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
 
   const query = new URLSearchParams(useLocation().search);
   const roleModule = (
-    Object.values(EProMode_v4_tabPanes_role).includes(query.get('role') as EProMode_v4_tabPanes_role)
-      ? query.get('role')
-      : ''
-  ) as EProMode_v4_tabPanes_role;
+    Object.values(EProMode_v4_role).includes(query.get('role') as EProMode_v4_role) ? query.get('role') : ''
+  ) as EProMode_v4_role;
   const tabPaneDefault_uuid_from_query = query.get('tabPane_uuid');
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
@@ -340,12 +335,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               <div className="title flex items-center">
                 <a href="/app/proMode/features" className="text-slate-950 hover:text-slate-600">
                   <h3 className="m-0">
-                    {t.get(
-                      EProMode_v4_tabPanes_role_labels[roleModule]
-                        ? EProMode_v4_tabPanes_role_labels[roleModule]
-                        : 'ProMode',
-                    )}{' '}
-                    v4.0
+                    {t.get(EProMode_v4_role_labels[roleModule] ? EProMode_v4_role_labels[roleModule] : 'ProMode')} v4.0
                   </h3>
                 </a>
                 <Button
@@ -460,7 +450,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                       } = tabPane;
                       return (
                         <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
-                          {type === EProMode_v4_tabPane_context_mode.COMMAND_CHAIN_v3 && (
+                          {type === EProMode_v4_module_mode.COMMAND_CHAIN_v3 && (
                             <ProModeWindow_v4_tabPane_commandChain
                               t={t}
                               tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
@@ -489,11 +479,11 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                             />
                           )}
 
-                          {type === EProMode_v4_tabPane_context_mode.TOOL_IMAGE_CROP && (
+                          {type === EProMode_v4_module_mode.TOOL_IMAGE_CROP && (
                             <ProModeWindow_v4_tabPane_type_image_crop_v1 t={t} />
                           )}
 
-                          {type === EProMode_v4_tabPane_context_mode.TOOL_CARD_GENERATE && (
+                          {type === EProMode_v4_module_mode.TOOL_CARD_GENERATE && (
                             <ProModeWindow_v4_tabPane_05_CardGenerate t={t} />
                           )}
                         </Tabs.TabPane>

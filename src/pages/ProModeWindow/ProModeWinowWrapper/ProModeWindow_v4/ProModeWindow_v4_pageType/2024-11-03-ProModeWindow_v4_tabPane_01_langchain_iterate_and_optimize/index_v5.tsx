@@ -21,7 +21,7 @@ import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_cla
 
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
 import { IAdjust_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
-import { EProMode_v4_tabPane_context_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import {
   IProMode_v4_tabPane_context,
@@ -43,7 +43,7 @@ interface IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_
   // setContextSelected: React.Dispatch<
   //   React.SetStateAction<IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain> | null>
   // >;
-  switchContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
+  switchContextSelected_by_type: (newType: EProMode_v4_module_contextType) => void;
 }
 export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
   props: IProModeWindow_v4_tabPane_type_custome_langchain_iterate_and_optimize_v5_input,
