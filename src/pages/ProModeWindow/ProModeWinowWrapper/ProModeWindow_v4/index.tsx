@@ -136,7 +136,7 @@ const getCreationModeOptions = (t: IGetT_frontend_output) => {
 };
 
 const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_tabPanes: IProMode_v4['tabPanes']) => {
-  if (roleModule === EProMode_v4_role.ROLE_01_WORK_PLACE) {
+  if (roleModule === EProMode_v4_role.ROLE_01_WORKPLACE) {
     const module_uuids: EProMode_v4_module_uuid[] = [
       EProMode_v4_module_uuid.MODULE_04_COMMUNICATION,
       EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS,
@@ -148,7 +148,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
-  if (roleModule === EProMode_v4_role.ROLE_02_CONTENT_WORKER) {
+  if (roleModule === EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER) {
     const module_uuids: EProMode_v4_module_uuid[] = [
       EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING,
@@ -161,7 +161,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
-  if (roleModule === EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU) {
+  if (roleModule === EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM) {
     const module_uuids: EProMode_v4_module_uuid[] = [
       // EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMAND,
       EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,

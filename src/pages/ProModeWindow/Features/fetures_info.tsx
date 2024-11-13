@@ -716,8 +716,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
@@ -737,12 +737,12 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           🔍 <b>用户需求的洞察者</b>：深入了解受众需求,创造有价值的内容
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU]),
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
       featureText_1: (
         <>
           📱 <b>社交媒体的原住民</b>：熟悉各大平台,善于利用平台特性传播内容
@@ -758,8 +758,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
@@ -804,8 +804,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           and skills
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
@@ -826,12 +826,12 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           🔍 <b>User Needs Insights</b>: Deeply understands audience needs and creates valuable content
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU]),
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
       featureText_1: (
         <>
           📱 <b>Social Media Native</b>: Familiar with various platforms and skilled in leveraging platform features to
@@ -848,8 +848,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           📈 <b>Business Value Creator</b>: Converts traffic into business value, achieving content monetization
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
