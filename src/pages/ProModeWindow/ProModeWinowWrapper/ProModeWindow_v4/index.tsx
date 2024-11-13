@@ -138,10 +138,10 @@ const getCreationModeOptions = (t: IGetT_frontend_output) => {
 const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_tabPanes: IProMode_v4['tabPanes']) => {
   if (roleModule === EProMode_v4_role.ROLE_01_WORK_PLACE) {
     const module_uuids: EProMode_v4_module_uuid[] = [
-      EProMode_v4_module_uuid.TAB_PANE_04_COMMUNICATION,
-      EProMode_v4_module_uuid.TAB_PANE_12_TRANSLATE_TOOLS,
-      EProMode_v4_module_uuid.TAB_PANE_14_SUMMARY,
-      EProMode_v4_module_uuid.TAB_PANE_15_MEETING_REPORT,
+      EProMode_v4_module_uuid.MODULE_04_COMMUNICATION,
+      EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS,
+      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+      EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
@@ -150,11 +150,11 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
 
   if (roleModule === EProMode_v4_role.ROLE_02_CONTENT_WORKER) {
     const module_uuids: EProMode_v4_module_uuid[] = [
-      EProMode_v4_module_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
-      EProMode_v4_module_uuid.TAB_PANE_06_CONTENT_WRITING,
-      EProMode_v4_module_uuid.TAB_PANE_08_REWRITING_TOOLS,
-      EProMode_v4_module_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_module_uuid.TAB_PANE_13_OUTLINE_TOOL,
+      EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
+      EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING,
+      EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS,
+      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
@@ -163,18 +163,18 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
 
   if (roleModule === EProMode_v4_role.ROLE_05_PLATFORM_XIAOHONGSHU) {
     const module_uuids: EProMode_v4_module_uuid[] = [
-      // EProMode_v4_module_uuid.TAB_PANE_01_SELF_MEDIA_RECOMMAND,
-      EProMode_v4_module_uuid.TAB_PANE_02_TOPIC_FINDING_TOOL,
-      EProMode_v4_module_uuid.TAB_PANE_16_MATERIAL_FINDER,
-      EProMode_v4_module_uuid.TAB_PANE_17_STORY_TELL,
-      EProMode_v4_module_uuid.TAB_PANE_07_WRITING_POST_AGENT,
-      EProMode_v4_module_uuid.TAB_PANE_19_EXTRACT_FOR_XIAO_HONG_SHU_PLATFORM,
-      EProMode_v4_module_uuid.TAB_PANE_18_TOOL_CARD_GENERATE,
-      EProMode_v4_module_uuid.TAB_PANE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_module_uuid.TAB_PANE_14_SUMMARY,
-      EProMode_v4_module_uuid.TAB_PANE_08_REWRITING_TOOLS,
-      EProMode_v4_module_uuid.TAB_PANE_05_WRITING_COMMENT,
-      EProMode_v4_module_uuid.TAB_PANE_11_XIAO_HONG_SHU,
+      // EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMAND,
+      EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
+      EProMode_v4_module_uuid.MODULE_16_MATERIAL_FINDER,
+      EProMode_v4_module_uuid.MODULE_17_STORY_TELL,
+      EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT,
+      EProMode_v4_module_uuid.MODULE_19_EXTRACT_FOR_XIAOHONGSHU_PLATFORM,
+      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+      EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS,
+      EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT,
+      EProMode_v4_module_uuid.MODULE_11_XIAOHONGSHU,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
@@ -183,9 +183,9 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
 
   if (roleModule === EProMode_v4_role.ROLE_04_PRODUCT_MANAGER) {
     const module_uuids: EProMode_v4_module_uuid[] = [
-      EProMode_v4_module_uuid.TAB_PANE_10_PRODUCT_MANAGER,
-      EProMode_v4_module_uuid.TAB_PANE_09_SEO_CHAIN,
-      EProMode_v4_module_uuid.TAB_PANE_15_MEETING_REPORT,
+      EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER,
+      EProMode_v4_module_uuid.MODULE_09_SEO_CHAIN,
+      EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
