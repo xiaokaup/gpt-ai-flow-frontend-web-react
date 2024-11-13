@@ -471,7 +471,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       docOpenLink: isHomePage
         ? `${docBaseUrl}/docs/application-scenarios/overview`
         : `${docBaseUrl}/docs/application-scenarios/topic-expansion-for-content-creators`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
@@ -628,7 +628,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       docOpenLink: isHomePage
         ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
         : `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
