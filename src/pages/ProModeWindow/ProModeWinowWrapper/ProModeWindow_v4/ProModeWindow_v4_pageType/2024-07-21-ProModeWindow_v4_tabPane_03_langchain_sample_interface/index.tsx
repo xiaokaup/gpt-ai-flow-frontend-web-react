@@ -30,7 +30,7 @@ import { Langchain_left_03_context_description } from './component/Langchain_lef
 import { Langchain_right_02_uploader } from './component/Langchain_right_02_uploader';
 import { Langchain_right_01_xiaohongshu_shareUrl } from './component/Langchain_right_01_xiaohongshu_shareUrl';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
-import { EProMode_v4_tabPane_context_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
@@ -53,7 +53,7 @@ interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   // setContextSelected: React.Dispatch<
   //   React.SetStateAction<IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain> | null>
   // >;
-  switchContextSelected_by_type: (newType: EProMode_v4_tabPane_context_contextType) => void;
+  switchContextSelected_by_type: (newType: EProMode_v4_module_contextType) => void;
 }
 export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = (
   props: ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input,

@@ -1,10 +1,10 @@
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { getT_with_i18next } from '../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
 import {
-  EProMode_v4_tabPanes_role,
-  EProMode_v4_tabPane_uuid,
-  EProMode_v4_tabPanes_role_labels,
-} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+  EProMode_v4_role,
+  EProMode_v4_module_uuid,
+  EProMode_v4_role_labels,
+} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { docBaseUrl, webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
@@ -74,8 +74,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📊 <b>生成结构化摘要</b>，便于复习和分享
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_14_SUMMARY}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_14_SUMMARY}`,
     },
     {
       icon: '/img/icons/2024-10-18-img-34-meeting-table.png',
@@ -95,8 +95,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📅 <b>生成清晰的会议纪要</b>，便于后续追踪和执行
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT}`,
     },
     {
       icon: '/img/icons/2024-10-18-img-31-outline.png',
@@ -116,8 +116,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📝 <b>一键展开大纲为文章</b>，提高写作效率
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
     },
     {
       icon: '/img/icons/2024-06-30-img-25-seo.png',
@@ -248,8 +248,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📊 <b>Generate structured abstracts</b>, facilitating review and sharing
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_14_SUMMARY}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_14_SUMMARY}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_14_SUMMARY}`,
     },
     {
       icon: '/img/icons/2024-10-18-img-34-meeting-table.png',
@@ -269,8 +269,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📅 <b>Generate clear meeting minutes</b>, facilitating subsequent tracking and execution
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_15_MEETING_REPORT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT}`,
     },
     {
       icon: '/img/icons/2024-10-18-img-31-outline.png',
@@ -290,8 +290,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📝 <b>Expand outline into article with one click</b>, improving writing efficiency
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_13_OUTLINE_TOOL}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
     },
     {
       icon: '/img/icons/2024-06-30-img-25-seo.png',
@@ -380,8 +380,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📚 <b>Professional terminology database support</b>, providing industry-specific precise translations
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS}`,
     },
     {
       icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
@@ -471,7 +471,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       docOpenLink: isHomePage
         ? `${docBaseUrl}/docs/application-scenarios/overview`
         : `${docBaseUrl}/docs/application-scenarios/topic-expansion-for-content-creators`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
@@ -539,8 +539,8 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
           📚 <b>专业术语库支持</b>，提供行业精准翻译
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_12_TRANSLATE_TOOLS}`,
+      docOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS}`,
     },
     {
       icon: '/img/icons/2023-09-22-img-7-fountain-pen.png',
@@ -628,7 +628,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       docOpenLink: isHomePage
         ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
         : `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=topicFindingToolChain`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
@@ -716,53 +716,93 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
-      icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
-      proModeModuleName: '内容工作者',
+      icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
+      proModeModuleName: '领英平台',
       featureText_1: (
         <>
-          ✒️ <b>创意无限的内容创造者</b>：擅长创作引人入胜、独具一格的内容
+          🌟 <b>个人品牌塑造助手</b>：AI 分析行业趋势，为您量身定制吸引recruiter的专业简介
         </>
       ),
       featureText_2: (
         <>
-          🎥 <b>多媒体制作专家</b>：熟练掌握图文、音视频等多种内容形式
+          🤖 <b>智能人脉拓展策略师</b>：AI 生成个性化社交邀请，提高接受率，快速扩展职业圈
         </>
       ),
       featureText_3: (
         <>
-          🔍 <b>用户需求的洞察者</b>：深入了解受众需求,创造有价值的内容
+          📈 <b>行业洞察内容生成器</b>：一键生成有深度的行业分析文章，树立您的专业权威形象
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
-      icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
-      proModeModuleName: t.get(
-        EProMode_v4_tabPanes_role_labels[EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU],
-      ),
+      icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
       featureText_1: (
         <>
-          📱 <b>社交媒体的原住民</b>：熟悉各大平台,善于利用平台特性传播内容
+          🚀 <b>爆款文案生成器</b>：利用 AI 分析热门趋势，秒出吸睛标题和正文，提升笔记转化率
         </>
       ),
       featureText_2: (
         <>
-          🎤 <b>个人品牌的缔造者</b>：通过独特的内容和风格,建立个人品牌影响力
+          🎯 <b>智能标签优化器</b>：AI 自动推荐高效标签组合，让您的内容精准触达目标受众
         </>
       ),
       featureText_3: (
         <>
-          📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
+          💡 <b>创意灵感激发器</b>：AI 助手提供无限创意点子，告别内容创作瓶颈，保持持续输出
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     },
+    // {
+    //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
+    //   proModeModuleName: '内容工作者',
+    //   featureText_1: (
+    //     <>
+    //       ✒️ <b>创意无限的内容创造者</b>：擅长创作引人入胜、独具一格的内容
+    //     </>
+    //   ),
+    //   featureText_2: (
+    //     <>
+    //       🎥 <b>多媒体制作专家</b>：熟练掌握图文、音视频等多种内容形式
+    //     </>
+    //   ),
+    //   featureText_3: (
+    //     <>
+    //       🔍 <b>用户需求的洞察者</b>：深入了解受众需求,创造有价值的内容
+    //     </>
+    //   ),
+    //   docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+    //   webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+    // },
+    // {
+    //   icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
+    //   proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
+    //   featureText_1: (
+    //     <>
+    //       📱 <b>社交媒体的原住民</b>：熟悉各大平台,善于利用平台特性传播内容
+    //     </>
+    //   ),
+    //   featureText_2: (
+    //     <>
+    //       🎤 <b>个人品牌的缔造者</b>：通过独特的内容和风格,建立个人品牌影响力
+    //     </>
+    //   ),
+    //   featureText_3: (
+    //     <>
+    //       📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
+    //     </>
+    //   ),
+    //   docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+    //   webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+    // },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
       proModeModuleName: '产品经理',
@@ -781,8 +821,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
   ];
   const proModePageRoles_en: IOneFeature[] = [
@@ -806,55 +846,101 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           and skills
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_01_WORK_PLACE}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
-      icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
-      proModeModuleName: 'Content Creator',
+      icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]),
       featureText_1: (
         <>
-          ✒️ <b>Creative Content Producer</b>: Skilled in creating engaging and unique content
+          🌟 <b>Personal Brand Architect</b>: AI analyzes industry trends to craft a tailored professional profile that
+          attracts recruiters
         </>
       ),
       featureText_2: (
         <>
-          🎥 <b>Multimedia Production Expert</b>: Proficient in various content formats, including text, images, audio,
-          and video
+          🤖 <b>Intelligent Networking Strategist</b>: Generate personalized connection requests with AI, increasing
+          acceptance rates and rapidly expanding your professional circle
         </>
       ),
       featureText_3: (
         <>
-          🔍 <b>User Needs Insights</b>: Deeply understands audience needs and creates valuable content
+          📈 <b>Industry Insight Content Creator</b>: One-click generation of in-depth industry analysis articles,
+          establishing your authority in your field
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_06_CONTENT_WRITING}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
-      icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
-      proModeModuleName: t.get(
-        EProMode_v4_tabPanes_role_labels[EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU],
-      ),
+      icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
       featureText_1: (
         <>
-          📱 <b>Social Media Native</b>: Familiar with various platforms and skilled in leveraging platform features to
-          spread content
+          🚀 <b>Viral Content Generator</b>: Leverage AI to analyze trending topics and instantly create eye-catching
+          titles and posts, boosting your note conversion rates
         </>
       ),
       featureText_2: (
         <>
-          🎤 <b>Personal Brand Builder</b>: Establishes personal brand influence through unique content and style
+          🎯 <b>Smart Hashtag Optimizer</b>: AI-recommended high-performance hashtag combinations to ensure your content
+          reaches the right audience
         </>
       ),
       featureText_3: (
         <>
-          📈 <b>Business Value Creator</b>: Converts traffic into business value, achieving content monetization
+          💡 <b>Creative Inspiration Engine</b>: AI assistant provides endless creative ideas, helping you overcome
+          content blocks and maintain consistent output
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_05_PLATFORM_XIAOHONGSHU}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     },
+    // {
+    //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
+    //   proModeModuleName: 'Content Creator',
+    //   featureText_1: (
+    //     <>
+    //       ✒️ <b>Creative Content Producer</b>: Skilled in creating engaging and unique content
+    //     </>
+    //   ),
+    //   featureText_2: (
+    //     <>
+    //       🎥 <b>Multimedia Production Expert</b>: Proficient in various content formats, including text, images, audio,
+    //       and video
+    //     </>
+    //   ),
+    //   featureText_3: (
+    //     <>
+    //       🔍 <b>User Needs Insights</b>: Deeply understands audience needs and creates valuable content
+    //     </>
+    //   ),
+    //   docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+    //   webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
+    // },
+    // {
+    //   icon: '/img/icons/2024-10-05-img-29-social-media-influencer.png',
+    //   proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
+    //   featureText_1: (
+    //     <>
+    //       📱 <b>Social Media Native</b>: Familiar with various platforms and skilled in leveraging platform features to
+    //       spread content
+    //     </>
+    //   ),
+    //   featureText_2: (
+    //     <>
+    //       🎤 <b>Personal Brand Builder</b>: Establishes personal brand influence through unique content and style
+    //     </>
+    //   ),
+    //   featureText_3: (
+    //     <>
+    //       📈 <b>Business Value Creator</b>: Converts traffic into business value, achieving content monetization
+    //     </>
+    //   ),
+    //   docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+    //   webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+    // },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
       proModeModuleName: 'Product Manager',
@@ -874,8 +960,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           🚀 <b>Product Growth Driver</b>: Develops product roadmaps and drives product iteration and optimization
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_tabPanes_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_tabPane_uuid.TAB_PANE_10_PRODUCT_MANAGER}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
   ];
 

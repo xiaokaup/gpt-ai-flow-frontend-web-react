@@ -1,12 +1,12 @@
 import { Button } from 'antd';
 
-import { EProMode_v4_tabPane_context_contextType } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_tabPane';
+import { EProMode_v4_module_contextType } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { ILangchainMessageExchange } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 
 interface IProMode_v4_Debug_input {
   chatHistory: ILangchainMessageExchange[];
   currentVersionNum: number;
-  contextType: EProMode_v4_tabPane_context_contextType;
+  contextType: EProMode_v4_module_contextType;
   messageExchangeData: ILangchainMessageExchange;
 }
 
