@@ -192,6 +192,15 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
+  if (roleModule === EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM) {
+    const module_uuids: EProMode_v4_module_uuid[] = [
+      EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM,
+    ];
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
+  }
+
   return proMode_v4_tabPanes;
 };
 
