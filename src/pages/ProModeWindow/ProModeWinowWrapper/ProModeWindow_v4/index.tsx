@@ -199,6 +199,8 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       EProMode_v4_module_uuid.MODULE_22_STORY_TELL_FOR_LINKEDIN_PLATFORM,
 
       EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
