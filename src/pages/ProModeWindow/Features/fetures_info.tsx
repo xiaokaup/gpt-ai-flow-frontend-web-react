@@ -758,8 +758,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           💡 <b>创意灵感激发器</b>：AI 助手提供无限创意点子，告别内容创作瓶颈，保持持续输出
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     // {
     //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
@@ -894,8 +894,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
           content blocks and maintain consistent output
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     // {
     //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
