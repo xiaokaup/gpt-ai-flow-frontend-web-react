@@ -167,7 +167,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_16_MATERIAL_FINDER_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_17_STORY_TELL_FOR_XIAOHONGSHU_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT,
+      EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_19_EXTRACT_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
       EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
@@ -197,7 +197,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_21_MATERIAL_FINDER_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_22_STORY_TELL_FOR_LINKEDIN_PLATFORM,
-
+      EProMode_v4_module_uuid.MODULE_23_WRITING_POST_AGENT_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
       EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
       EProMode_v4_module_uuid.MODULE_14_SUMMARY,
