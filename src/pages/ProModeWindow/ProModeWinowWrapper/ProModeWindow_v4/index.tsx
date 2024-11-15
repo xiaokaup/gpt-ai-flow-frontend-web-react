@@ -166,7 +166,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       // EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMAND,
       EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_16_MATERIAL_FINDER_FOR_XIAOHONGSHU_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_17_STORY_TELL,
+      EProMode_v4_module_uuid.MODULE_17_STORY_TELL_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT,
       EProMode_v4_module_uuid.MODULE_19_EXTRACT_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
@@ -196,6 +196,9 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
     const module_uuids: EProMode_v4_module_uuid[] = [
       EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_21_MATERIAL_FINDER_FOR_LINKEDIN_PLATFORM,
+      EProMode_v4_module_uuid.MODULE_22_STORY_TELL_FOR_LINKEDIN_PLATFORM,
+
+      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
