@@ -16,16 +16,16 @@ export const ToolsEditionAnnounce = (props: IToolsVersionAnnounce) => {
         感谢您选择<b>工具版</b>，您的选择让我们能够继续追求更高的技术创新和服务升级！
         <br />
         <br />
-        <p>工具版的特点: </p>
+        <p>工具版的特点:</p>
         <ul>
           <li>
-            <b>高级AI对话功能</b>：享受更复杂的对话和更精细的用户交互。
+            <b>人物角色设定系统</b>：能够自定义和管理不同的人物角色配置。
           </li>
           <li>
-            <b>无限使用次数</b>：放心大胆地使用，无需担心使用限制。
+            <b>自备大模型密匙</b>：可以自由绑定并使用自己的大模型密匙，增加使用的灵活性和安全性。
           </li>
           <li>
-            <b>专业模式全面支持</b>：根据具体需求定制功能，满足您的各种专业需求。
+            <b>所有AI工作流模块可无限次使用</b>：包括职场、小红书平台、领英平台和产品经理等多种场景。
           </li>
         </ul>
         <br />
@@ -67,14 +67,15 @@ export const ToolsEditionAnnounce = (props: IToolsVersionAnnounce) => {
       <p>Features of the Tools version: </p>
       <ul>
         <li>
-          <b>Advanced AI dialogue capabilities</b>: Enjoy more complex conversations and more refined user interactions.
+          <b>Character Role Setting System</b>: Able to customize and manage different character role configurations.
         </li>
         <li>
-          <b>Unlimited usage</b>: Use freely without worrying about usage limits.
+          <b>Self-provided Large Model Key</b>: Can freely bind and use your own large model key, increasing flexibility
+          and security of use.
         </li>
         <li>
-          <b>Comprehensive support for professional modes</b>: Customize features based on specific needs to meet your
-          various professional demands.
+          <b>Unlimited Use of All AI Workflow Modules</b>: Including various scenarios such as workplace, Xiaohongshu
+          platform, LinkedIn platform, and product manager.
         </li>
       </ul>
       <br />

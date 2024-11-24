@@ -15,16 +15,20 @@ export const LifetimeToolsEditionAnnounce = (props: ILifetimeVersionAnnounce) =>
         感谢您选择<b>终身版</b>，成为我们产品的长期伙伴和支持者！这表明您不仅投资于软件，更是对我们创新旅程的信任。
         <br />
         <br />
-        <p>终身版的特点: </p>
+        <p>终身版的特点:</p>
         <ul>
           <li>
-            <b>一次购买，终身享受</b>：我们承诺提供持续的功能更新和完善，保证软件随时间进化。
+            <b>人设系统</b>：享有全面的人设配置功能，满足多样化的个性化需求。
           </li>
           <li>
-            <b>持续的功能更新</b>：您将免费获得所有未来的功能增强和升级。
+            <b>自备大模型密匙</b>：可以自由绑定并使用自己的大模型密匙，增加使用的灵活性和安全性。
           </li>
           <li>
-            <b>专属客户支持</b>：享受个性化的支持和服务，确保您的需求得到优先响应。
+            <b>所有 AI 工作流模块无限使用次数</b>：无论是职场、
+            小红书平台、领英平台还是产品经理模块，您都可以无限次使用，充分发挥软件的强大功能。
+          </li>
+          <li>
+            <b>一次购买，终身使用</b>：只需一次性购买，即可终身享受所有功能，无需担心额外费用。
           </li>
         </ul>
         <br />
@@ -56,24 +60,33 @@ export const LifetimeToolsEditionAnnounce = (props: ILifetimeVersionAnnounce) =>
   // ELocale.EN
   return (
     <div className="lifetimeVersion lifetimeVersion_en row" style={{ marginTop: '2rem' }}>
-      {/* Dear users,
+      Dear users,
       <br />
       <br />
-      Thank you for choosing the <b>Lifetime version</b> and becoming a long-term partner and supporter of our product! This shows your investment not only in our software but in our journey of innovation.
+      Thank you for choosing the <b>Lifetime version</b> and becoming a long-term partner and supporter of our product!
+      This shows your investment not only in our software but in our journey of innovation.
       <br />
       <br />
       <p>Features of the Lifetime version: </p>
       <ul>
         <li>
-          <b>One-time purchase, lifetime enjoyment</b>: We commit to continuous functionality updates and improvements, ensuring the software evolves over time.
+          <b>Character Setting System</b>: Enjoy comprehensive character configuration features to meet diverse
+          personalized needs.
         </li>
         <li>
-          <b>Continuous feature updates</b>: You will receive all future enhancements and upgrades at no additional cost.
+          <b>Own Large Model Key</b>: Freely bind and use your own large model key, increasing flexibility and security.
         </li>
         <li>
-          <b>Exclusive customer support</b>: Enjoy personalized support and service, ensuring your needs are prioritized.
+          <b>Unlimited Use of All AI Workflow Modules</b>: Whether it's workplace, Xiaohongshu platform, LinkedIn
+          platform, or product manager module, you can use it unlimitedly to fully utilize the powerful features of the
+          software.
         </li>
-      </ul> */}
+        <li>
+          <b>One-time Purchase, Lifetime Use</b>: Only a one-time purchase is required to enjoy all features for life
+          without worrying about additional costs.
+        </li>
+      </ul>
+      <br />
       <b>We encourage you to share any needs with us, and we are willing to provide the necessary support.</b>
       You are our angel investor, and your opinions and needs are crucial to us. Please feel free to contact us at{' '}
       <a href="mailto:hello@gptaiflow.com" style={{ color: '#1677ff', cursor: 'pointer' }}>
