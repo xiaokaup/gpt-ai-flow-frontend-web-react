@@ -114,8 +114,8 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
               href="javascript:void(0)"
               className={
                 tabSelected === 'Tool'
-                  ? 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-white bg-emerald-500 rounded-full text-white tablink whitespace-nowrap'
-                  : 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-emerald-500 tab-active:bg-emerald-500 tab-active:rounded-full tab-active:text-white tablink whitespace-nowrap'
+                  ? 'hidden inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-white bg-emerald-500 rounded-full text-white tablink whitespace-nowrap'
+                  : 'hidden inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-emerald-500 tab-active:bg-emerald-500 tab-active:rounded-full tab-active:text-white tablink whitespace-nowrap'
               }
               onClick={() => setTabSelected('Tool')}
             >
