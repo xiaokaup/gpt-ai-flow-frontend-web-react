@@ -164,9 +164,25 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                       >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      <span className="ml-3 ">
-                        {t.getHTML('Pay for What You Use: Fixed monthly fee plus additional charges for excess usage')}
-                      </span>
+                      <span className="ml-3 ">{pricingLocaleDict[locale]['人设系统']}</span>
+                    </li>
+                    <li className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span className="ml-3 ">{pricingLocaleDict[locale]['官方提供大模型支持']}</span>
                     </li>
                     <li className="flex">
                       <svg
@@ -185,9 +201,11 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                       <span className="ml-3 ">
-                        {t.getHTML(
-                          'Includes All Benefits of the Tool Edition: Unlimited usage and comprehensive professional support',
-                        )}
+                        {
+                          pricingLocaleDict[locale][
+                            '所有 AI 工作流模块无限使用次数 (职场、小红书平台、领英平台、产品经理)'
+                          ]
+                        }
                       </span>
                     </li>
                     <li className="flex">
@@ -206,9 +224,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                       >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      <span className="ml-3 ">
-                        {t.getHTML('Official Large Model Support: Access to the latest AI large models')}
-                      </span>
+                      <span className="ml-3 ">{pricingLocaleDict[locale]['使用多少支付多少']}</span>
                     </li>
                     <li className="flex">
                       <svg
@@ -226,9 +242,7 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
                       >
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      <span className="ml-3 ">
-                        {t.getHTML('Continuous Updates Guaranteed: Ensures ongoing product and technology upgrades')}
-                      </span>
+                      <span className="ml-3 ">{pricingLocaleDict[locale]['定制化需求模块支持']}</span>
                     </li>
                   </ul>
                 </div>
