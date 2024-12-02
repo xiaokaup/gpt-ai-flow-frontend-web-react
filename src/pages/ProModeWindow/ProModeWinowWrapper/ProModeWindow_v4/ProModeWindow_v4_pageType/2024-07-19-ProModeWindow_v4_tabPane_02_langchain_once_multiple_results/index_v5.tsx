@@ -137,6 +137,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
       productItem_type: to_deprecate_EProductItemDB_type.PRO_MODE_SERVICE,
       llmOptions: {
         llmName,
+        llmImageName: null,
         llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
         llmTemperature: creativityValue,
       },

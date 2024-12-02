@@ -382,6 +382,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           {
             llmOptions: {
               llmName,
+              llmImageName: null,
               llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, { openAIApiKey, anthropicApiKey, googleApiKey }),
               llmTemperature: creativityValue,
             },
