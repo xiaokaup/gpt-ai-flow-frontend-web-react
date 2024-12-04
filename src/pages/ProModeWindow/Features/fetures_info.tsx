@@ -707,17 +707,17 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: '脸书平台',
       featureText_1: (
         <>
-          xxxxxxxxxxxx 🌟 <b>个人品牌塑造助手</b>：AI 分析行业趋势，为您量身定制吸引recruiter的专业简介
+          📝 <b>引人入胜的状态更新生成器</b>：AI助手创作吸引眼球的短文，提高粉丝互动率
         </>
       ),
       featureText_2: (
         <>
-          🤖 <b>智能人脉拓展策略师</b>：AI 生成个性化社交邀请，提高接受率，快速扩展职业圈
+          🎭 <b>多样化内容风格调教师</b>：根据不同场景，生成正式、幽默或励志等多种风格的帖子
         </>
       ),
       featureText_3: (
         <>
-          📈 <b>行业洞察内容生成器</b>：一键生成有深度的行业分析文章，树立您的专业权威形象
+          💡 <b>话题讨论引导者</b>：AI生成富有洞察力的问题和观点，激发粉丝参与度和讨论
         </>
       ),
       docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
@@ -728,17 +728,17 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: 'X (Twitter) 平台',
       featureText_1: (
         <>
-          xxxxxxxxxxxx 🚀 <b>爆款文案生成器</b>：利用 AI 分析热门趋势，秒出吸睛标题和正文，提升笔记转化率
+          ⚡ <b>简洁有力推文生成器</b>：AI助手创作符合280字符限制的精炼推文，传递核心信息
         </>
       ),
       featureText_2: (
         <>
-          🎯 <b>智能标签优化器</b>：AI 自动推荐高效标签组合，让您的内容精准触达目标受众
+          🔗 <b>话题标签建议器</b>：为您的推文智能推荐相关标签，提高内容可发现性
         </>
       ),
       featureText_3: (
         <>
-          💡 <b>创意灵感激发器</b>：AI 助手提供无限创意点子，告别内容创作瓶颈，保持持续输出
+          🗣️ <b>对话式推文创作助手</b>：生成引人入胜的推文串，讲述完整故事或观点
         </>
       ),
       docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
