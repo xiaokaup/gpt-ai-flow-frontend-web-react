@@ -14,6 +14,7 @@ import {
   IFormItem,
 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { useLastFocusedElement } from '../../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
+import { ESocialPlatform_moduleName } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
 
 const { TextArea } = Input;
 
@@ -23,7 +24,7 @@ export const Langchain_adjust = (props: {
   adjustSelected: IProMode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
   adjust: IAdjust_for_type_langchain;
   setAdjust: (newItem: IAdjust_for_type_langchain) => void;
-  contextSelected_type: EProMode_v4_module_contextType;
+  contextSelected_type: EProMode_v4_module_contextType | ESocialPlatform_moduleName;
   switchContextSelected_by_type: (newItem: EProMode_v4_module_contextType) => void;
 }) => {
   const {

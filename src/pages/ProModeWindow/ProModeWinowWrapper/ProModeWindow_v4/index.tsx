@@ -65,6 +65,10 @@ import { Drawer_prompt_v3_persona } from './Drawer_prompt_v3_persona';
 import { LastFocusedElementProvider } from '../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
 import { saveLocalAction } from '../../../../store/actions/localActions';
 import { ProModeWindow_v4_tabPane_05_CardGenerate } from './ProModeWindow_v4_pageType/2024-11-09-ProModeWindow_v4_tabPane_05_CardGenerate';
+import {
+  ESocialPlatform_moduleName,
+  ESocialPlatform_platformName,
+} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -137,7 +141,7 @@ const getCreationModeOptions = (t: IGetT_frontend_output) => {
 
 const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_tabPanes: IProMode_v4['tabPanes']) => {
   if (roleModule === EProMode_v4_role.ROLE_01_WORKPLACE) {
-    const module_uuids: EProMode_v4_module_uuid[] = [
+    const module_uuids: Array<EProMode_v4_module_uuid | string> = [
       EProMode_v4_module_uuid.MODULE_04_COMMUNICATION,
       EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS,
       EProMode_v4_module_uuid.MODULE_14_SUMMARY,
@@ -149,7 +153,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
   }
 
   if (roleModule === EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER) {
-    const module_uuids: EProMode_v4_module_uuid[] = [
+    const module_uuids: Array<EProMode_v4_module_uuid | string> = [
       EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING,
       EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS,
@@ -162,7 +166,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
   }
 
   if (roleModule === EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM) {
-    const module_uuids: EProMode_v4_module_uuid[] = [
+    const module_uuids: Array<EProMode_v4_module_uuid | string> = [
       // EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMAND,
       EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_16_MATERIAL_FINDER_FOR_XIAOHONGSHU_PLATFORM,
@@ -182,7 +186,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
   }
 
   if (roleModule === EProMode_v4_role.ROLE_04_PRODUCT_MANAGER) {
-    const module_uuids: EProMode_v4_module_uuid[] = [
+    const module_uuids: Array<EProMode_v4_module_uuid | string> = [
       EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER,
       EProMode_v4_module_uuid.MODULE_09_SEO_CHAIN,
       EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT,
@@ -193,11 +197,41 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
   }
 
   if (roleModule === EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM) {
-    const module_uuids: EProMode_v4_module_uuid[] = [
+    const module_uuids: Array<EProMode_v4_module_uuid | string> = [
       EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_21_MATERIAL_FINDER_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_22_STORY_TELL_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_23_WRITING_POST_AGENT_FOR_LINKEDIN_PLATFORM,
+      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+    ];
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
+  }
+
+  if (roleModule === EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM) {
+    const module_uuids: Array<EProMode_v4_module_uuid | string> = [
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+    ];
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
+  }
+
+  if (roleModule === EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER) {
+    const module_uuids: Array<EProMode_v4_module_uuid | string> = [
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
       EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
       EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
       EProMode_v4_module_uuid.MODULE_14_SUMMARY,

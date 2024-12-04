@@ -437,6 +437,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           {
             llmOptions: {
               llmName: proModeModalValue,
+              llmImageName: null,
               llmSecret: SLLM_v2_common.getApiKey_by_llmName(proModeModalValue, llmOption_secrets),
               llmTemperature: creativityValue,
             },

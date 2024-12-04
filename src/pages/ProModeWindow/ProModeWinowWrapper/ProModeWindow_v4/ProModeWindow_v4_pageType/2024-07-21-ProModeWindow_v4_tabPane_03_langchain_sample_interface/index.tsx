@@ -85,6 +85,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     const newRequestBody: ILangchain_for_type_langchain_request_v4_simpleInterface = {
       llmOptions: {
         llmName,
+        llmImageName: null,
         llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
         llmTemperature: creativityValue,
       },
