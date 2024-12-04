@@ -36,6 +36,7 @@ import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
+import { ESocialPlatform_moduleName } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -56,7 +57,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [messageExchangeType, _] = useState<EProMode_v4_module_contextType>(
+  const [messageExchangeType, _] = useState<EProMode_v4_module_contextType | ESocialPlatform_moduleName>(
     contextType ?? EProMode_v4_module_contextType.GENERAL,
   );
   const messageExchangeData_default = {
