@@ -703,25 +703,25 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
-      icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
-      proModeModuleName: '脸书平台',
+      icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
+      proModeModuleName: '领英平台',
       featureText_1: (
         <>
-          📝 <b>引人入胜的状态更新生成器</b>：AI助手创作吸引眼球的短文，提高粉丝互动率
+          🌟 <b>个人品牌塑造助手</b>：AI 分析行业趋势，为您量身定制吸引recruiter的专业简介
         </>
       ),
       featureText_2: (
         <>
-          🎭 <b>多样化内容风格调教师</b>：根据不同场景，生成正式、幽默或励志等多种风格的帖子
+          🤖 <b>智能人脉拓展策略师</b>：AI 生成个性化社交邀请，提高接受率，快速扩展职业圈
         </>
       ),
       featureText_3: (
         <>
-          💡 <b>话题讨论引导者</b>：AI生成富有洞察力的问题和观点，激发粉丝参与度和讨论
+          📈 <b>行业洞察内容生成器</b>：一键生成有深度的行业分析文章，树立您的专业权威形象
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
@@ -745,25 +745,25 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
-      icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
-      proModeModuleName: '领英平台',
+      icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
+      proModeModuleName: '脸书平台',
       featureText_1: (
         <>
-          🌟 <b>个人品牌塑造助手</b>：AI 分析行业趋势，为您量身定制吸引recruiter的专业简介
+          📝 <b>引人入胜的状态更新生成器</b>：AI助手创作吸引眼球的短文，提高粉丝互动率
         </>
       ),
       featureText_2: (
         <>
-          🤖 <b>智能人脉拓展策略师</b>：AI 生成个性化社交邀请，提高接受率，快速扩展职业圈
+          🎭 <b>多样化内容风格调教师</b>：根据不同场景，生成正式、幽默或励志等多种风格的帖子
         </>
       ),
       featureText_3: (
         <>
-          📈 <b>行业洞察内容生成器</b>：一键生成有深度的行业分析文章，树立您的专业权威形象
+          💡 <b>话题讨论引导者</b>：AI生成富有洞察力的问题和观点，激发粉丝参与度和讨论
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
@@ -873,28 +873,28 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
-      icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
-      proModeModuleName: 'Facebook Platform',
+      icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]),
       featureText_1: (
         <>
-          📝 <b>Engaging Status Update Generator</b>: AI assistant creates eye-catching short posts to increase fan
-          engagement
+          🌟 <b>Personal Brand Architect</b>: AI analyzes industry trends to craft a tailored professional profile that
+          attracts recruiters
         </>
       ),
       featureText_2: (
         <>
-          🎭 <b>Diverse Content Style Tutor</b>: Generate posts in various styles such as formal, humorous, or
-          inspirational based on different scenarios
+          🤖 <b>Intelligent Networking Strategist</b>: Generate personalized connection requests with AI, increasing
+          acceptance rates and rapidly expanding your professional circle
         </>
       ),
       featureText_3: (
         <>
-          💡 <b>Topic Discussion Guide</b>: AI generates insightful questions and viewpoints to stimulate fan
-          participation and discussion
+          📈 <b>Industry Insight Content Creator</b>: One-click generation of in-depth industry analysis articles,
+          establishing your authority in your field
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
@@ -921,28 +921,28 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
-      icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]),
+      icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
+      proModeModuleName: 'Facebook Platform',
       featureText_1: (
         <>
-          🌟 <b>Personal Brand Architect</b>: AI analyzes industry trends to craft a tailored professional profile that
-          attracts recruiters
+          📝 <b>Engaging Status Update Generator</b>: AI assistant creates eye-catching short posts to increase fan
+          engagement
         </>
       ),
       featureText_2: (
         <>
-          🤖 <b>Intelligent Networking Strategist</b>: Generate personalized connection requests with AI, increasing
-          acceptance rates and rapidly expanding your professional circle
+          🎭 <b>Diverse Content Style Tutor</b>: Generate posts in various styles such as formal, humorous, or
+          inspirational based on different scenarios
         </>
       ),
       featureText_3: (
         <>
-          📈 <b>Industry Insight Content Creator</b>: One-click generation of in-depth industry analysis articles,
-          establishing your authority in your field
+          💡 <b>Topic Discussion Guide</b>: AI generates insightful questions and viewpoints to stimulate fan
+          participation and discussion
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
