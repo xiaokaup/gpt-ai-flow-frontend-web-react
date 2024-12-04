@@ -725,7 +725,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
-      proModeModuleName: 'X (Twitter) 平台',
+      proModeModuleName: 'X (推特) 平台',
       featureText_1: (
         <>
           ⚡ <b>简洁有力推文生成器</b>：AI助手创作符合280字符限制的精炼推文，传递核心信息
@@ -873,27 +873,52 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
-      icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: 'Workplace',
+      icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
+      proModeModuleName: 'Facebook Platform',
       featureText_1: (
         <>
-          💼 <b>Efficient Professional</b>: Skilled in time management, planning, and delivering high-quality work
+          📝 <b>Engaging Status Update Generator</b>: AI assistant creates eye-catching short posts to increase fan
+          engagement
         </>
       ),
       featureText_2: (
         <>
-          🤝 <b>Communication and Coordination Expert</b>: Maintains good communication with colleagues and superiors,
-          promoting team collaboration
+          🎭 <b>Diverse Content Style Tutor</b>: Generate posts in various styles such as formal, humorous, or
+          inspirational based on different scenarios
         </>
       ),
       featureText_3: (
         <>
-          📈 <b>Keen Industry Insights</b>: Stays up-to-date with industry trends, continuously learning new knowledge
-          and skills
+          💡 <b>Topic Discussion Guide</b>: AI generates insightful questions and viewpoints to stimulate fan
+          participation and discussion
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+    },
+    {
+      icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
+      proModeModuleName: 'X (Twitter) Platform',
+      featureText_1: (
+        <>
+          ⚡ <b>Concise and Powerful Tweet Generator</b>: AI assistant creates refined tweets within the 280-character
+          limit, delivering core messages
+        </>
+      ),
+      featureText_2: (
+        <>
+          🔗 <b>Hashtag Recommender</b>: Intelligently suggests relevant hashtags for your tweets to improve content
+          discoverability
+        </>
+      ),
+      featureText_3: (
+        <>
+          🗣️ <b>Conversational Tweet Creation Assistant</b>: Generate engaging tweet threads to tell complete stories or
+          express viewpoints
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
@@ -942,6 +967,29 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       ),
       docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+    },
+    {
+      icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
+      proModeModuleName: 'Workplace',
+      featureText_1: (
+        <>
+          💼 <b>Efficient Professional</b>: Skilled in time management, planning, and delivering high-quality work
+        </>
+      ),
+      featureText_2: (
+        <>
+          🤝 <b>Communication and Coordination Expert</b>: Maintains good communication with colleagues and superiors,
+          promoting team collaboration
+        </>
+      ),
+      featureText_3: (
+        <>
+          📈 <b>Keen Industry Insights</b>: Stays up-to-date with industry trends, continuously learning new knowledge
+          and skills
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     // {
     //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
