@@ -23,6 +23,7 @@ import {
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
@@ -51,9 +52,9 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   const creativityValue = useCreativityValueContext();
 
-  const [selectedContextType, setSelectedContextType] = useState<EProMode_v4_module_contextType>(
-    context.length > 0 ? context[0].contextType : EProMode_v4_module_contextType.GENERAL,
-  );
+  const [selectedContextType, setSelectedContextType] = useState<
+    EProMode_v4_module_contextType | ESocialPlatform_moduleName
+  >(context.length > 0 ? context[0].contextType : EProMode_v4_module_contextType.GENERAL);
   const [contextSelected, setContextSelected] = useState<IProMode_v4_tabPane_context<
     IBackground_for_type_langchain,
     IAdjust_for_type_langchain

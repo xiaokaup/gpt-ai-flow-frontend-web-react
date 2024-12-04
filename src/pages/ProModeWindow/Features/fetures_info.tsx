@@ -5,6 +5,10 @@ import {
   EProMode_v4_module_uuid,
   EProMode_v4_role_labels,
 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import {
+  ESocialPlatform_moduleName,
+  ESocialPlatform_platformName,
+} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
 import { docBaseUrl, webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
@@ -699,25 +703,46 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
-      icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: '职场',
+      icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
+      proModeModuleName: '脸书平台',
       featureText_1: (
         <>
-          💼 <b>高效的职场精英</b>：善于管理时间,制定计划,并高质量完成工作
+          📝 <b>引人入胜的状态更新生成器</b>：AI助手创作吸引眼球的短文，提高粉丝互动率
         </>
       ),
       featureText_2: (
         <>
-          🤝 <b>沟通协调能手</b>：与同事和上级保持良好沟通,促进团队协作
+          🎭 <b>多样化内容风格调教师</b>：根据不同场景，生成正式、幽默或励志等多种风格的帖子
         </>
       ),
       featureText_3: (
         <>
-          📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
+          💡 <b>话题讨论引导者</b>：AI生成富有洞察力的问题和观点，激发粉丝参与度和讨论
         </>
       ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+    },
+    {
+      icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
+      proModeModuleName: 'X (Twitter) 平台',
+      featureText_1: (
+        <>
+          ⚡ <b>简洁有力推文生成器</b>：AI助手创作符合280字符限制的精炼推文，传递核心信息
+        </>
+      ),
+      featureText_2: (
+        <>
+          🔗 <b>话题标签建议器</b>：为您的推文智能推荐相关标签，提高内容可发现性
+        </>
+      ),
+      featureText_3: (
+        <>
+          🗣️ <b>对话式推文创作助手</b>：生成引人入胜的推文串，讲述完整故事或观点
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
@@ -760,6 +785,27 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       ),
       docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+    },
+    {
+      icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
+      proModeModuleName: '职场',
+      featureText_1: (
+        <>
+          💼 <b>高效的职场精英</b>：善于管理时间,制定计划,并高质量完成工作
+        </>
+      ),
+      featureText_2: (
+        <>
+          🤝 <b>沟通协调能手</b>：与同事和上级保持良好沟通,促进团队协作
+        </>
+      ),
+      featureText_3: (
+        <>
+          📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     // {
     //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',

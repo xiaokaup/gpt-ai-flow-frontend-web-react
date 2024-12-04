@@ -55,6 +55,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
         chatMode: {
           chatModeStatus: localFromStore.chatMode?.chatModeStatus,
           model_type: chatModeModelType,
+          model_image_type: null,
         },
         proMode: {
           model_type: proModeModelType,
