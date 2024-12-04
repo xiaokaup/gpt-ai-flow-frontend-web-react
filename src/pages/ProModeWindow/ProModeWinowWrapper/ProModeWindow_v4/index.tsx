@@ -223,6 +223,36 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
       .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
   }
 
+  if (roleModule === EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM) {
+    const module_uuids: string[] = [
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
+      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+    ];
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
+  }
+
+  if (roleModule === EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER) {
+    const module_uuids: string[] = [
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
+      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+    ];
+    return proMode_v4_tabPanes
+      .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
+      .sort((a, b) => module_uuids.indexOf(a.uuid) - module_uuids.indexOf(b.uuid));
+  }
+
   return proMode_v4_tabPanes;
 };
 
