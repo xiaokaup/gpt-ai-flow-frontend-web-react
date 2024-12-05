@@ -8,7 +8,7 @@ import {
 import {
   ESocialPlatform_moduleName,
   ESocialPlatform_platformName,
-} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
+} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 import { docBaseUrl, webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
@@ -807,6 +807,28 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
+    {
+      icon: '/img/icons/2024-10-05-img-30-product-manager.png',
+      proModeModuleName: '产品经理',
+      featureText_1: (
+        <>
+          🔍 <b>用户需求的探索者</b>：深入了解用户痛点,挖掘产品机会
+        </>
+      ),
+      featureText_2: (
+        <>
+          🧩 <b>产品方案的设计师</b>：设计满足用户需求、具备市场竞争力的产品方案
+        </>
+      ),
+      featureText_3: (
+        <>
+          🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+    },
+    // === 以下角色已废弃 ===
     // {
     //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
     //   proModeModuleName: '内容工作者',
@@ -849,27 +871,6 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     //   docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     //   webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     // },
-    {
-      icon: '/img/icons/2024-10-05-img-30-product-manager.png',
-      proModeModuleName: '产品经理',
-      featureText_1: (
-        <>
-          🔍 <b>用户需求的探索者</b>：深入了解用户痛点,挖掘产品机会
-        </>
-      ),
-      featureText_2: (
-        <>
-          🧩 <b>产品方案的设计师</b>：设计满足用户需求、具备市场竞争力的产品方案
-        </>
-      ),
-      featureText_3: (
-        <>
-          🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-    },
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
@@ -991,6 +992,29 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
       docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
+    {
+      icon: '/img/icons/2024-10-05-img-30-product-manager.png',
+      proModeModuleName: 'Product Manager',
+      featureText_1: (
+        <>
+          🔍 <b>User Needs Explorer</b>: Deeply understands user pain points and identifies product opportunities
+        </>
+      ),
+      featureText_2: (
+        <>
+          🧩 <b>Product Solution Designer</b>: Designs product solutions that meet user needs and have market
+          competitiveness
+        </>
+      ),
+      featureText_3: (
+        <>
+          🚀 <b>Product Growth Driver</b>: Develops product roadmaps and drives product iteration and optimization
+        </>
+      ),
+      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+    },
+    // === Deprecated roles ===
     // {
     //   icon: '/img/icons/2024-10-05-img-28-content-worker-writer.png',
     //   proModeModuleName: 'Content Creator',
@@ -1035,28 +1059,6 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     //   docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     //   webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
     // },
-    {
-      icon: '/img/icons/2024-10-05-img-30-product-manager.png',
-      proModeModuleName: 'Product Manager',
-      featureText_1: (
-        <>
-          🔍 <b>User Needs Explorer</b>: Deeply understands user pain points and identifies product opportunities
-        </>
-      ),
-      featureText_2: (
-        <>
-          🧩 <b>Product Solution Designer</b>: Designs product solutions that meet user needs and have market
-          competitiveness
-        </>
-      ),
-      featureText_3: (
-        <>
-          🚀 <b>Product Growth Driver</b>: Develops product roadmaps and drives product iteration and optimization
-        </>
-      ),
-      docOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-    },
   ];
 
   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars

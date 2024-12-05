@@ -23,7 +23,7 @@ import {
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
-import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
+import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
