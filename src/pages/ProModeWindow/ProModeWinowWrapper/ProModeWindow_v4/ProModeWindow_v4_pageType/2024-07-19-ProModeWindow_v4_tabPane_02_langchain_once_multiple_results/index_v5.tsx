@@ -36,7 +36,7 @@ import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
-import { ESocialPlatform_moduleName } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
+import { ESocialPlatform_moduleName } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
