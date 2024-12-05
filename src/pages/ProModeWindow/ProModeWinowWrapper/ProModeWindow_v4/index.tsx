@@ -68,7 +68,7 @@ import { ProModeWindow_v4_tabPane_05_CardGenerate } from './ProModeWindow_v4_pag
 import {
   ESocialPlatform_moduleName,
   ESocialPlatform_platformName,
-} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/enum-socialPlatofrm';
+} from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
