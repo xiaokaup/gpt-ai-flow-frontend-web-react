@@ -31,6 +31,7 @@ import { IReduxRootState } from './store/reducer';
 import { updateSpecificUserDB } from './store/actions/userActions';
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
+import { ProModeWindow_v5 } from './pages/ProModeWindow/ProModeWinowWrapper/to_plan_ProModeWindow_v5';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -338,6 +339,21 @@ export const AppRoutes = () => {
                   stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
                 >
                   <ProModeWindowFeatures locale={locale} />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+        </Route>
+        <Route path="beta">
+          <Route
+            path="features"
+            element={
+              <div className="App">
+                <AppLayoutCenter
+                  isAuthenticated={isAuthenticated}
+                  stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+                >
+                  <ProModeWindow_v5 t={t} locale={locale} />
                 </AppLayoutCenter>
               </div>
             }
