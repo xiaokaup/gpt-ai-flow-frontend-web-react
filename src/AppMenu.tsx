@@ -118,6 +118,12 @@ export const AppMenu = (props: {
         <Link to="/app/news">{t.get('Top News')}</Link>
       </Menu.Item>
 
+      <Menu.Item key="Go Shop Door">
+        <Link to="https://www.goshopdoor.com/" target="__blank">
+          {`goshopdoor.com ${t.get('Free e-commerce portal tool')}`}
+        </Link>
+      </Menu.Item>
+
       <Menu.Item key="switch-language">
         <Dropdown menu={{ items }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
