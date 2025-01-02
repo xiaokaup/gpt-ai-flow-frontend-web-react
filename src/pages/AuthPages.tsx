@@ -37,6 +37,7 @@ export const AuthPage = (props: IAuthPage_input) => {
   const accessToken = query.get('accessToken');
   const openAIApiKey = query.get('openAIApiKey');
   const anthropicApiKey = query.get('anthropicApiKey');
+  const moonshotApiKey = query.get('moonshotApiKey');
   const googleApiKey = query.get('googleApiKey');
   const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.OPENAI_GPT_3_5_TURBO;
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
@@ -61,12 +62,14 @@ export const AuthPage = (props: IAuthPage_input) => {
       newLocalSettingsFromStore.apiKeys = {
         openAIApiKey: '',
         anthropicApiKey: '',
+        moonshotApiKey: '',
         googleApiKey: '',
       };
     }
 
     newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey?.trim();
     newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys.moonshotApiKey = moonshotApiKey?.trim();
     newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey?.trim();
 
     if (proMode_llm_name) {
@@ -87,7 +90,7 @@ export const AuthPage = (props: IAuthPage_input) => {
       navigate('/app/proMode/features');
     }
 
-    window.location.reload();
+    window.location.reload(); // @Prod
   };
 
   useEffect(() => {
