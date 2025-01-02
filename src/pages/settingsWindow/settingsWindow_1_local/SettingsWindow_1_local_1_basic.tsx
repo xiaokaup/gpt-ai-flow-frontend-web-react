@@ -146,7 +146,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
               {anthropicApiKey && <span className="ml-1 ">({anthropicApiKey?.slice(-6).toLowerCase()})</span>}
             </div>
 
-            <div className="moonshotApiKey flex items-center">
+            <div className="moonshotApiKey flex items-center hidden">
               <Form.Item
                 className="m-0"
                 name="moonshotApiKey"
@@ -171,6 +171,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             </div>
 
             {/* GoogleAPIKey */}
+
             <div className="block_alert_info pt-2">
               <Alert
                 type="info"
