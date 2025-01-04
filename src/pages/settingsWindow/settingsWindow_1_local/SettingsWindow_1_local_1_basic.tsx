@@ -34,6 +34,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
 
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
   const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
+  const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys?.moonshotApiKey);
 
   const [chatModeModelType] = useState<ELLM_name>(
     localFromStore.chatMode?.model_type ?? ELLM_name.OPENAI_GPT_3_5_TURBO,
@@ -50,6 +51,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
         apiKeys: {
           openAIApiKey: openAIApiKey?.trim(),
           anthropicApiKey: anthropicApiKey?.trim(),
+          moonshotApiKey: moonshotApiKey?.trim(),
           googleApiKey: '', // @DEV
         },
         chatMode: {
@@ -80,6 +82,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           initialValues={{
             openAIApiKey,
             anthropicApiKey,
+            moonshotApiKey,
           }}
         >
           <div className={isModelEdition ? 'row block_apiKeys hidden' : 'row block_apiKeys'}>
@@ -142,7 +145,33 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
               </Form.Item>
               {anthropicApiKey && <span className="ml-1 ">({anthropicApiKey?.slice(-6).toLowerCase()})</span>}
             </div>
+
+            <div className="moonshotApiKey flex items-center hidden">
+              <Form.Item
+                className="m-0"
+                name="moonshotApiKey"
+                label={
+                  <>
+                    Moonshot API key
+                    {/* <InfoCircleOutlined className="px-1" /> */}
+                  </>
+                }
+                style={{ width: 300 }}
+              >
+                <Input
+                  type="password"
+                  size="small"
+                  value={moonshotApiKey}
+                  onChange={(event) => {
+                    setMoonshotApiKey(event.target.value);
+                  }}
+                />
+              </Form.Item>
+              {moonshotApiKey && <span className="ml-1 ">({moonshotApiKey?.slice(-6).toLowerCase()})</span>}
+            </div>
+
             {/* GoogleAPIKey */}
+
             <div className="block_alert_info pt-2">
               <Alert
                 type="info"
@@ -192,7 +221,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             console.log('search:', value);
           }}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-          options={SLLM_v2_common.getAllLLM_selectOptions(t)}
+          options={SLLM_v2_common.getAllLLM_selectOptions_for_web(t)}
           style={{
             width: 200,
           }}
