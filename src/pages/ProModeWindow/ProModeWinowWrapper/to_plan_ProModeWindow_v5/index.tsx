@@ -24,7 +24,7 @@ export const ProModeWindow_v5 = (props: IProModeWindow_v5_input) => {
   const { t, locale } = props;
 
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
-  const [llmName, setLLMName] = useState<ELLM_name>(ELLM_name.CLAUDE_3_haiku);
+  const [llmName, setLLMName] = useState<ELLM_name>(ELLM_name.ANTHROPIC_CLAUDE_3_5_HAIKU);
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
