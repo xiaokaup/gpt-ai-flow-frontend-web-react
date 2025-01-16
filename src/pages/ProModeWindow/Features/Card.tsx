@@ -38,7 +38,7 @@ export const Card_with_click = (props: ICard_with_click) => {
                 alt="icon-image"
               />
             </div>
-            <h5 className="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
+            <h5 className="text-lg font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
               {proModeModuleName}
             </h5>
           </div>

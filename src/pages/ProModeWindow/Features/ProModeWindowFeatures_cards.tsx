@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Input } from 'antd';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
-import { Card_with_click } from './Card';
 import { webAppUrl, docBaseUrl } from './constant';
 import { IOneFeature } from './interface';
 import { getRoles, getModules } from './constant_fetures';
+import { Card_with_click } from './Card';
 
 const { Search } = Input;
 
