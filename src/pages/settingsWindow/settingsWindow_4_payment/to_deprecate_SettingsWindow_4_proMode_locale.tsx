@@ -2,8 +2,8 @@ import '../../../../styles/global.css';
 import '../../../../styles/layout.scss';
 
 import { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
+import copyToClipboard from 'copy-to-clipboard';
 
 import { Button, Tag, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
@@ -68,18 +68,18 @@ export const to_deprecate_SettingsWindow_4_proMode_locale = (props: SettingsWind
       <div className="row subscirption">
         <div className="row">
           {t.get('Email')}: {userEmail}
-          <CopyToClipboard
-            text={userEmail}
-            onCopy={() => {
+          <CopyOutlined
+            style={{ fontSize: 16, marginLeft: '0.4rem' }}
+            onClick={() => {
+              copyToClipboard(userEmail);
+
               message.success({
                 content: <span>{t.get('Copy successful')} !</span>,
                 key: 'copy',
                 duration: 3,
               });
             }}
-          >
-            <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-          </CopyToClipboard>
+          />
         </div>
 
         {/* === Models Edition - start === */}

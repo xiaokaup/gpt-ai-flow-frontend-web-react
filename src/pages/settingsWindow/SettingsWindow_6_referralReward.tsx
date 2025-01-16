@@ -1,7 +1,7 @@
 import '../../../styles/global.css';
 
 import { useEffect, useState } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import copyToClipboard from 'copy-to-clipboard';
 
 import { Button, Tag, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
@@ -100,18 +100,19 @@ const SettingsWindow_6_referralReward_login = (props: ISettingsWindow_6_referral
                     <Tag color="red">{t.get('expired')}</Tag>
                   </span>
                 )}
-                <CopyToClipboard
-                  text={openLink}
-                  onCopy={() => {
+
+                <CopyOutlined
+                  style={{ fontSize: 16, marginLeft: '0.4rem' }}
+                  onClick={() => {
+                    copyToClipboard(openLink);
+
                     message.success({
                       content: <span>{t.get('Copy successful')} !</span>,
                       key: 'copy',
                       duration: 3,
                     });
                   }}
-                >
-                  <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-                </CopyToClipboard>
+                />
               </div>
             </div>
           );

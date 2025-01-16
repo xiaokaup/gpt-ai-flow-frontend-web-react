@@ -3,8 +3,8 @@
 
 // // import paymentPageDemo from '../../../../../../assets/presentation/2023-11-08-img-2-Add-default-payment-method.png';
 
-// import  { useEffect, useState } from 'react';
-// import CopyToClipboard from 'react-copy-to-clipboard';
+// import { useEffect, useState } from 'react';
+// import copyToClipboard from 'copy-to-clipboard';
 
 // import { Alert, Button, Tag, message } from 'antd';
 // import { CopyOutlined } from '@ant-design/icons';
@@ -71,7 +71,7 @@
 //     const stripeCustomer = await TBackendStripeFile.createStripeCustomer(
 //       userId.toString(),
 //       userAccessToken,
-//       CONSTANTS_GPT_AI_FLOW_COMMON
+//       CONSTANTS_GPT_AI_FLOW_COMMON,
 //     );
 //     const { id: stripeCustomerId } = stripeCustomer;
 //     const results = await TBackendSubscription_v2File.startATrialSubscription_v2ForEUR(
@@ -79,7 +79,7 @@
 //       stripeCustomerId,
 //       subscriptionVersion,
 //       userAccessToken,
-//       CONSTANTS_GPT_AI_FLOW_COMMON
+//       CONSTANTS_GPT_AI_FLOW_COMMON,
 //     );
 
 //     message.success(t.get('Free trial is now open'));
@@ -92,7 +92,7 @@
 //     const billingSessionResults = await TBackendStripeFile.createStripeBillingPortal(
 //       userId.toString(),
 //       userAccessToken,
-//       CONSTANTS_GPT_AI_FLOW_COMMON
+//       CONSTANTS_GPT_AI_FLOW_COMMON,
 //     );
 
 //     if (billingSessionResults?.status === 'error') {
@@ -112,18 +112,18 @@
 //             </div>
 //             <div>
 //               {t.get('Email')}: {userEmail}
-//               <CopyToClipboard
-//                 text={userEmail}
-//                 onCopy={() => {
+//               <CopyOutlined
+//                 style={{ fontSize: 16, marginLeft: '0.4rem' }}
+//                 onClick={() => {
+//                   copyToClipboard(userEmail);
+
 //                   message.success({
 //                     content: <span>{t.get('Copy successful')} !</span>,
 //                     key: 'copy',
 //                     duration: 3,
 //                   });
 //                 }}
-//               >
-//                 <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-//               </CopyToClipboard>
+//               />
 //             </div>
 //           </div>
 //           <div className="row" style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
@@ -154,7 +154,7 @@
 //               message={
 //                 <span>
 //                   {t.get(
-//                     'Please refresh the page or restart the software after the payment has been made or a single successful payment has been made'
+//                     'Please refresh the page or restart the software after the payment has been made or a single successful payment has been made',
 //                   )}
 //                 </span>
 //               }
@@ -175,18 +175,18 @@
 //             <div className="row subscription_en">
 //               <div className="row">
 //                 {t.get('Email')}: {userEmail}
-//                 <CopyToClipboard
-//                   text={userEmail}
-//                   onCopy={() => {
+//                 <CopyOutlined
+//                   style={{ fontSize: 16, marginLeft: '0.4rem' }}
+//                   onClick={() => {
+//                     copyToClipboard(userEmail);
+
 //                     message.success({
 //                       content: <span>{t.get('Copy successful')} !</span>,
 //                       key: 'copy',
 //                       duration: 3,
 //                     });
 //                   }}
-//                 >
-//                   <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-//                 </CopyToClipboard>
+//                 />
 //               </div>
 //               <div className="row">
 //                 <Button

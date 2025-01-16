@@ -1,4 +1,4 @@
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copyToClipboard from 'copy-to-clipboard';
 
 import { Button, message, Tag } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
@@ -57,18 +57,18 @@ export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow
     <div className="oneSubscription">
       <div className="row">
         {t.get('Email')}: {userEmail}
-        <CopyToClipboard
-          text={userEmail}
-          onCopy={() => {
+        <CopyOutlined
+          style={{ fontSize: 16, marginLeft: '0.4rem' }}
+          onClick={() => {
+            copyToClipboard(userEmail);
+
             message.success({
               content: <span>{t.get('Copy successful')} !</span>,
               key: 'copy',
               duration: 3,
             });
           }}
-        >
-          <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-        </CopyToClipboard>
+        />
       </div>
 
       <div className="row">
