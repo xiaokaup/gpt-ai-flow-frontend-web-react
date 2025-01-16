@@ -33,7 +33,7 @@ export const ProModeWindow_v5 = (props: IProModeWindow_v5_input) => {
         style={{ position: 'relative', overflow: 'auto', margin: '1rem auto' }}
       >
         <div className="top_block">
-          <div className="horizontalScrollingBanner">
+          <div className="horizontalScrollingBanner hidden">
             <HorizontalScrollingBanner
               webCase={{
                 t,

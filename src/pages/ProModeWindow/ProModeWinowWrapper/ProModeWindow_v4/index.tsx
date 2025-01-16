@@ -467,7 +467,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
               </div>
             </div>
 
-            <div className="horizontalScrollingBanner">
+            <div className="horizontalScrollingBanner hidden">
               <HorizontalScrollingBanner
                 webCase={{
                   t,
@@ -478,7 +478,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
             </div>
           </div>
 
-          <div className="row !mt-0 bottom_block_tabs">
+          <div className="row bottom_block_tabs">
             <Prompt_v3_persona_Provider value={prompt_v3_persona}>
               <ProModeModelValueProvider value={llmName}>
                 <CreativityValueProvider value={creativityValue}>
