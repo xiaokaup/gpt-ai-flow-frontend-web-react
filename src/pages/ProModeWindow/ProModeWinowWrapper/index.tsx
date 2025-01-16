@@ -16,11 +16,10 @@ interface IProModeWindow_warpper {
 export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
   const { t, locale } = props.webCase;
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  console.log('searchParams', searchParams);
+  const [searchParams] = useSearchParams();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [version, setVersion] = useState<string>('v4');
+  const [version, setVersion] = useState<string>(searchParams.get('version') ?? 'v4');
 
   return (
     <div className="w-full">
