@@ -114,9 +114,9 @@ export const AppMenu = (props: {
         </>
       )}
 
-      <Menu.Item key="news">
+      {/* <Menu.Item key="news">
         <Link to="/app/news">{t.get('Top News')}</Link>
-      </Menu.Item>
+      </Menu.Item> */}
 
       <Menu.Item key="Go Shop Door">
         <Link to="https://www.goshopdoor.com/" target="__blank">
