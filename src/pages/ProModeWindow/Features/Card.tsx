@@ -32,7 +32,7 @@ export const Card_with_click = (props: ICard_with_click) => {
             <div className="block_icon_image">
               <img
                 src={imgBaseUrl + icon}
-                className="w-12"
+                className="w-12 rounded-sm"
                 // width="512"
                 // height="512"
                 alt="icon-image"
