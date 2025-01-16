@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Input } from 'antd';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
-import { Card_with_click } from './Card_with_click';
-import { Card_without_click } from './Card_without_click';
+import { Card_with_click } from './Card';
 import { webAppUrl, docBaseUrl } from './constant';
 import { IOneFeature } from './interface';
 import { getRoles, getModules } from './constant_fetures';
@@ -104,11 +103,6 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         }
       >
         {featuresFiltered.map((item) => {
-          const { webAppOpenLink: openLink } = item;
-
-          if (!openLink || (openLink && openLink === '#'))
-            return <Card_without_click key={item.proModeModuleName} item={item} imgBaseUrl={docBaseUrl} />;
-
           return (
             <Card_with_click
               key={item.proModeModuleName}

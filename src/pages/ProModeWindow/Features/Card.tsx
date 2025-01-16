@@ -14,28 +14,34 @@ export const Card_with_click = (props: ICard_with_click) => {
     item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3, webAppOpenLink: openLink },
   } = props;
 
+  const hideOpenUrl = false;
+
   return (
     <div className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
       <a className="!no-underline" href={openLink.startsWith('/') ? baseUrl + openLink : openLink}>
-        <div className="relative space-y-8 py-12 p-8">
-          <img
-            src={imgBaseUrl + icon}
-            className="w-12"
-            // width="512"
-            // height="512"
-            alt="icon-image"
-          />
-
-          <div className="space-y-2">
+        <div className="relative p-4">
+          <div className="flex items-center space-x-4">
+            <div className="block_icon_image">
+              <img
+                src={imgBaseUrl + icon}
+                className="w-12"
+                // width="512"
+                // height="512"
+                alt="icon-image"
+              />
+            </div>
             <h5 className="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-secondary">
               {proModeModuleName}
             </h5>
-            <p className="text-gray-600 dark:text-gray-300">{featureText_1}</p>
-            <p className="text-gray-600 dark:text-gray-300">{featureText_2}</p>
-            <p className="text-gray-600 dark:text-gray-300">{featureText_3}</p>
           </div>
-          {openLink && openLink !== '#' && (
-            <div className="hidden flex items-center justify-between group-hover:text-secondary">
+
+          <div className="blog_description">
+            <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_1}</p>
+            <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_2}</p>
+            <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_3}</p>
+          </div>
+          {hideOpenUrl && openLink && openLink !== '#' && (
+            <div className="flex items-center justify-between group-hover:text-secondary mt-2">
               <span className="text-sm">
                 {locale === 'en' && <>Learn More</>}
                 {locale === 'zh' && <>了解更多</>}
