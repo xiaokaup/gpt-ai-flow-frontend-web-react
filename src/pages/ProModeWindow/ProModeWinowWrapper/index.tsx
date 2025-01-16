@@ -5,6 +5,7 @@ import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 
 import ProModeWindow_v4 from './ProModeWindow_v4';
 import ProModeWindow_v3 from './to_deprecate_ProModeWindow_v3';
+import { useSearchParams } from 'react-router-dom';
 
 interface IProModeWindow_warpper {
   webCase: {
@@ -15,8 +16,10 @@ interface IProModeWindow_warpper {
 export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
   const { t, locale } = props.webCase;
 
+  const [searchParams] = useSearchParams();
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [version, setVersion] = useState<string>('v4');
+  const [version, setVersion] = useState<string>(searchParams.get('version') ?? 'v4');
 
   return (
     <div className="w-full">

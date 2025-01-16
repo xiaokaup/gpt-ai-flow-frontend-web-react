@@ -80,9 +80,9 @@ export const AppMenu = (props: {
       className="flex justify-center"
       // defaultSelectedKeys={['1']}
     >
-      <Menu.Item key="official-website">
+      {/* <Menu.Item key="official-website">
         <Link to={'https://www.gptaiflow.com' + baseUrl}>{t.get('Official website')}</Link>
-      </Menu.Item>
+      </Menu.Item> */}
 
       <Menu.Item key="proMode-doc">
         <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/overview`}>
@@ -114,13 +114,13 @@ export const AppMenu = (props: {
         </>
       )}
 
-      <Menu.Item key="news">
+      {/* <Menu.Item key="news">
         <Link to="/app/news">{t.get('Top News')}</Link>
-      </Menu.Item>
+      </Menu.Item> */}
 
       <Menu.Item key="Go Shop Door">
         <Link to="https://www.goshopdoor.com/" target="__blank">
-          {`goshopdoor.com ${t.get('Free e-commerce portal tool')}`}
+          {`${t.get('Free e-commerce portal tool')}`}
         </Link>
       </Menu.Item>
 
