@@ -24,7 +24,7 @@ export const ProModeWindow_warpper = (props: IProModeWindow_warpper) => {
 
   return (
     <div className="w-full">
-      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', top: '.5rem' }}>
+      <div className="text-center mt-2 hidden">
         <Select
           defaultValue={version}
           onChange={(value) => setVersion(value)}
