@@ -120,7 +120,7 @@ export const AppMenu = (props: {
 
       <Menu.Item key="Go Shop Door">
         <Link to="https://www.goshopdoor.com/" target="__blank">
-          {`goshopdoor.com ${t.get('Free e-commerce portal tool')}`}
+          {`${t.get('Free e-commerce portal tool')}`}
         </Link>
       </Menu.Item>
 
