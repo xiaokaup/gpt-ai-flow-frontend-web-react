@@ -5,7 +5,7 @@ import { Card_with_click } from './Card_with_click';
 import { Card_without_click } from './Card_without_click';
 import { webAppUrl, docBaseUrl } from './constant';
 import { IOneFeature } from './interface';
-import { getRoles, getModules } from './fetures_info';
+import { getRoles, getModules } from './constant_fetures';
 
 const { Search } = Input;
 
