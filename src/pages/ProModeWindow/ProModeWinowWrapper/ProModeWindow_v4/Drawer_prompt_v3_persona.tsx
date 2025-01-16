@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import copyToClipboard from 'copy-to-clipboard';
 
 import { Button, Card, Drawer, message, Tag } from 'antd';
 
@@ -67,9 +67,11 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
             title={name}
             extra={
               <>
-                <CopyToClipboard
-                  text={value}
-                  onCopy={() => {
+                <Button
+                  type="link"
+                  onClick={() => {
+                    copyToClipboard(value);
+
                     message.success({
                       content: <span>{t.get('Copy successful')} !</span>,
                       key: 'copy',
@@ -77,8 +79,8 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
                     });
                   }}
                 >
-                  <Button type="link">{t.get('Copy')}</Button>
-                </CopyToClipboard>
+                  {t.get('Copy')}
+                </Button>
 
                 <Button
                   type="link"
