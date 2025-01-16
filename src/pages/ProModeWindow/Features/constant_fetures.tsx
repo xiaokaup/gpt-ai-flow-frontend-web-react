@@ -705,126 +705,46 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     {
       icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
       proModeModuleName: '领英平台',
-      featureText_1: (
-        <>
-          🌟 <b>个人品牌塑造助手</b>：AI 分析行业趋势，为您量身定制吸引recruiter的专业简介
-        </>
-      ),
-      featureText_2: (
-        <>
-          🤖 <b>智能人脉拓展策略师</b>：AI 生成个性化社交邀请，提高接受率，快速扩展职业圈
-        </>
-      ),
-      featureText_3: (
-        <>
-          📈 <b>行业洞察内容生成器</b>：一键生成有深度的行业分析文章，树立您的专业权威形象
-        </>
-      ),
+      description:
+        '打造专业形象、拓展人脉、分享干货，一站式提升你的职场影响力。智能生成个性化简介和社交话术，轻松获得行业洞察，让你在LinkedIn脱颖而出。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
       proModeModuleName: 'X (推特) 平台',
-      featureText_1: (
-        <>
-          ⚡ <b>简洁有力推文生成器</b>：AI助手创作符合280字符限制的精炼推文，传递核心信息
-        </>
-      ),
-      featureText_2: (
-        <>
-          🔗 <b>话题标签建议器</b>：为您的推文智能推荐相关标签，提高内容可发现性
-        </>
-      ),
-      featureText_3: (
-        <>
-          🗣️ <b>对话式推文创作助手</b>：生成引人入胜的推文串，讲述完整故事或观点
-        </>
-      ),
+      description:
+        '一键生成精简推文，智能匹配话题标签，轻松创作连续推文。帮你打造吸引眼球的内容，让更多人发现你的精彩分享。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
       proModeModuleName: '脸书平台',
-      featureText_1: (
-        <>
-          📝 <b>引人入胜的状态更新生成器</b>：AI助手创作吸引眼球的短文，提高粉丝互动率
-        </>
-      ),
-      featureText_2: (
-        <>
-          🎭 <b>多样化内容风格调教师</b>：根据不同场景，生成正式、幽默或励志等多种风格的帖子
-        </>
-      ),
-      featureText_3: (
-        <>
-          💡 <b>话题讨论引导者</b>：AI生成富有洞察力的问题和观点，激发粉丝参与度和讨论
-        </>
-      ),
+      description:
+        '一键生成吸引眼球的社交动态！智能匹配多种写作风格，轻松创作正式、幽默、励志的内容。还能自动生成有趣话题，让你的粉丝爱上互动和讨论。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
       proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
-      featureText_1: (
-        <>
-          🚀 <b>爆款文案生成器</b>：利用 AI 分析热门趋势，秒出吸睛标题和正文，提升笔记转化率
-        </>
-      ),
-      featureText_2: (
-        <>
-          🎯 <b>智能标签优化器</b>：AI 自动推荐高效标签组合，让您的内容精准触达目标受众
-        </>
-      ),
-      featureText_3: (
-        <>
-          💡 <b>创意灵感激发器</b>：AI 助手提供无限创意点子，告别内容创作瓶颈，保持持续输出
-        </>
-      ),
+      description:
+        '一键生成吸引眼球的标题和文案，自动匹配热门标签，获取源源不断的创意灵感。让创作更轻松，让内容更出彩，让传播更高效。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
       proModeModuleName: '职场',
-      featureText_1: (
-        <>
-          💼 <b>高效的职场精英</b>：善于管理时间,制定计划,并高质量完成工作
-        </>
-      ),
-      featureText_2: (
-        <>
-          🤝 <b>沟通协调能手</b>：与同事和上级保持良好沟通,促进团队协作
-        </>
-      ),
-      featureText_3: (
-        <>
-          📈 <b>敏锐的行业洞察者</b>：紧跟行业动态,不断学习新知识和技能
-        </>
-      ),
+      description: '专业高效地完成工作任务，擅长团队协作与沟通，持续关注行业趋势并不断提升自我',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
       proModeModuleName: '产品经理',
-      featureText_1: (
-        <>
-          🔍 <b>用户需求的探索者</b>：深入了解用户痛点,挖掘产品机会
-        </>
-      ),
-      featureText_2: (
-        <>
-          🧩 <b>产品方案的设计师</b>：设计满足用户需求、具备市场竞争力的产品方案
-        </>
-      ),
-      featureText_3: (
-        <>
-          🚀 <b>产品成长的推动者</b>：制定产品路线图,推动产品迭代与优化
-        </>
-      ),
+      description: '专注倾听用户需求，为您打造简单易用的产品体验。从调研规划到设计优化，每一步都为解决产品问题而努力。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
@@ -876,141 +796,47 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     {
       icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
       proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]),
-      featureText_1: (
-        <>
-          🌟 <b>Personal Brand Architect</b>: AI analyzes industry trends to craft a tailored professional profile that
-          attracts recruiters
-        </>
-      ),
-      featureText_2: (
-        <>
-          🤖 <b>Intelligent Networking Strategist</b>: Generate personalized connection requests with AI, increasing
-          acceptance rates and rapidly expanding your professional circle
-        </>
-      ),
-      featureText_3: (
-        <>
-          📈 <b>Industry Insight Content Creator</b>: One-click generation of in-depth industry analysis articles,
-          establishing your authority in your field
-        </>
-      ),
+      description:
+        'Connect & grow faster: Create expert profiles, smart networking messages & pro content that gets noticed.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
       proModeModuleName: 'X (Twitter) Platform',
-      featureText_1: (
-        <>
-          ⚡ <b>Concise and Powerful Tweet Generator</b>: AI assistant creates refined tweets within the 280-character
-          limit, delivering core messages
-        </>
-      ),
-      featureText_2: (
-        <>
-          🔗 <b>Hashtag Recommender</b>: Intelligently suggests relevant hashtags for your tweets to improve content
-          discoverability
-        </>
-      ),
-      featureText_3: (
-        <>
-          🗣️ <b>Conversational Tweet Creation Assistant</b>: Generate engaging tweet threads to tell complete stories or
-          express viewpoints
-        </>
-      ),
+      description: 'Create sharp tweets, get smart hashtag suggestions, and craft engaging threads easily.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
       proModeModuleName: 'Facebook Platform',
-      featureText_1: (
-        <>
-          📝 <b>Engaging Status Update Generator</b>: AI assistant creates eye-catching short posts to increase fan
-          engagement
-        </>
-      ),
-      featureText_2: (
-        <>
-          🎭 <b>Diverse Content Style Tutor</b>: Generate posts in various styles such as formal, humorous, or
-          inspirational based on different scenarios
-        </>
-      ),
-      featureText_3: (
-        <>
-          💡 <b>Topic Discussion Guide</b>: AI generates insightful questions and viewpoints to stimulate fan
-          participation and discussion
-        </>
-      ),
+      description:
+        'Share updates that spark joy! Create fun posts, start conversations, and connect with fans in your own style.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
       proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
-      featureText_1: (
-        <>
-          🚀 <b>Viral Content Generator</b>: Leverage AI to analyze trending topics and instantly create eye-catching
-          titles and posts, boosting your note conversion rates
-        </>
-      ),
-      featureText_2: (
-        <>
-          🎯 <b>Smart Hashtag Optimizer</b>: AI-recommended high-performance hashtag combinations to ensure your content
-          reaches the right audience
-        </>
-      ),
-      featureText_3: (
-        <>
-          💡 <b>Creative Inspiration Engine</b>: AI assistant provides endless creative ideas, helping you overcome
-          content blocks and maintain consistent output
-        </>
-      ),
+      description:
+        'Create trending posts instantly with catchy titles, perfect hashtags, and fresh content ideas that get noticed to grow your social media.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
       proModeModuleName: 'Workplace',
-      featureText_1: (
-        <>
-          💼 <b>Efficient Professional</b>: Skilled in time management, planning, and delivering high-quality work
-        </>
-      ),
-      featureText_2: (
-        <>
-          🤝 <b>Communication and Coordination Expert</b>: Maintains good communication with colleagues and superiors,
-          promoting team collaboration
-        </>
-      ),
-      featureText_3: (
-        <>
-          📈 <b>Keen Industry Insights</b>: Stays up-to-date with industry trends, continuously learning new knowledge
-          and skills
-        </>
-      ),
+      description:
+        'Plan, deliver, and grow with your team. We help you manage projects and stay on top of industry trends.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
       proModeModuleName: 'Product Manager',
-      featureText_1: (
-        <>
-          🔍 <b>User Needs Explorer</b>: Deeply understands user pain points and identifies product opportunities
-        </>
-      ),
-      featureText_2: (
-        <>
-          🧩 <b>Product Solution Designer</b>: Designs product solutions that meet user needs and have market
-          competitiveness
-        </>
-      ),
-      featureText_3: (
-        <>
-          🚀 <b>Product Growth Driver</b>: Develops product roadmaps and drives product iteration and optimization
-        </>
-      ),
+      description:
+        'Find what you need, get smart solutions, and watch your product grow with our step-by-step guidance.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },

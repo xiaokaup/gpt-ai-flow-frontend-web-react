@@ -33,7 +33,6 @@
     "mermaid": "^11.3.0",
     "node-fetch": "2.7.0",
     "react": "^17.0.1",
-    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^17.0.1",
     "react-image-crop": "^11.0.5",
     "react-intl": "^6.4.5",

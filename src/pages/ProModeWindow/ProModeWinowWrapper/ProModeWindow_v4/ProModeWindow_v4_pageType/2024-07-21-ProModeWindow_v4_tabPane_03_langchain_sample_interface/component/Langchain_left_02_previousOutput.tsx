@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import copyToClipboard from 'copy-to-clipboard';
 
 import { Button, Form, Input, message } from 'antd';
 import { EditOutlined, EyeOutlined, EyeInvisibleOutlined, CopyOutlined } from '@ant-design/icons';
@@ -47,18 +47,18 @@ export const Langchain_left_02_previousOutput = (props: ILangchain_left_02_previ
           <EyeInvisibleOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsShow(true)} />
         )}
 
-        <CopyToClipboard
-          text={previousOutput.content}
-          onCopy={() => {
+        <CopyOutlined
+          style={{ fontSize: 16, marginLeft: '0.4rem' }}
+          onClick={() => {
+            copyToClipboard(previousOutput.content);
+
             message.success({
               content: <span>{t.get('Copy successful')} !</span>,
               key: 'copy',
               duration: 3,
             });
           }}
-        >
-          <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-        </CopyToClipboard>
+        />
       </div>
 
       {isShow && isEditing && (

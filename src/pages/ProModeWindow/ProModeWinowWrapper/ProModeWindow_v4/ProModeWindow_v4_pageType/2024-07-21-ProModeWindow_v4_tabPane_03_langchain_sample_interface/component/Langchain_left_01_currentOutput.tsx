@@ -2,7 +2,7 @@ import iconCleanRight from '../../../../../../../../assets/icons-customize/icon-
 
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import copyToClipboard from 'copy-to-clipboard';
 
 import { Button, Form, Input, Tooltip, message } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
@@ -54,18 +54,18 @@ export const Langchain_left_01_currentOutput = (props: ILangchain_left_01_curren
 
           <EditOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsEditing(!isEditing)} />
 
-          <CopyToClipboard
-            text={currentOutput.content}
-            onCopy={() => {
+          <CopyOutlined
+            style={{ fontSize: 16, marginLeft: '0.4rem' }}
+            onClick={() => {
+              copyToClipboard(currentOutput.content);
+
               message.success({
                 content: <span>{t.get('Copy successful')} !</span>,
                 key: 'copy',
                 duration: 3,
               });
             }}
-          >
-            <CopyOutlined style={{ fontSize: 16, marginLeft: '0.4rem' }} />
-          </CopyToClipboard>
+          />
         </div>
 
         <div className="column_2">

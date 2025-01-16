@@ -46,7 +46,7 @@ export const NewsPage = (props: INewsPageProps) => {
 
   return (
     <div className="drag-region" style={{ width: '100%' }}>
-      <div className="horizontalScrollingBanner">
+      <div className="horizontalScrollingBanner hidden">
         <HorizontalScrollingBanner
           webCase={{
             t,
