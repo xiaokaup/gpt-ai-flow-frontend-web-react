@@ -25,7 +25,7 @@ export const Card_with_click = (props: ICard_with_click) => {
   const hideOpenUrl = false;
 
   return (
-    <div className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
+    <div className="max-w-[300px] min-w-[200px] relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
       <a className="!no-underline" href={openLink.startsWith('/') ? baseUrl + openLink : openLink}>
         <div className="relative p-4">
           <div className="flex items-center space-x-4">
