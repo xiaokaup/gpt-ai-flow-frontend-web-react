@@ -11,7 +11,15 @@ export const Card_with_click = (props: ICard_with_click) => {
     locale,
     baseUrl,
     imgBaseUrl,
-    item: { icon, proModeModuleName, featureText_1, featureText_2, featureText_3, webAppOpenLink: openLink },
+    item: {
+      icon,
+      proModeModuleName,
+      featureText_1,
+      featureText_2,
+      featureText_3,
+      description,
+      webAppOpenLink: openLink,
+    },
   } = props;
 
   const hideOpenUrl = false;
@@ -39,6 +47,7 @@ export const Card_with_click = (props: ICard_with_click) => {
             <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_1}</p>
             <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_2}</p>
             <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_3}</p>
+            <p className="m-0 text-gray-600 dark:text-gray-300">{description}</p>
           </div>
           {hideOpenUrl && openLink && openLink !== '#' && (
             <div className="flex items-center justify-between group-hover:text-secondary mt-2">
