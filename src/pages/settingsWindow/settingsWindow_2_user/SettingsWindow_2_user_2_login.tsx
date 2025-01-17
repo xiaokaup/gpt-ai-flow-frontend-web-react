@@ -137,12 +137,16 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                 alt="icon-little-red-book"
               />
               <div className="flex flex-col space-y-2">
-                <span className="text-2xl font-bold ml-4">Join the Chinese Social Media Revolution</span>
-                <span className="text-xl ml-4">Create, Connect, and Grow Your Presence on Little Red Book</span>
+                <span className="text-2xl font-bold ml-4">
+                  {t.get('Join the Little Red Book record beautiful life')}
+                </span>
+                <span className="text-xl ml-4">
+                  {t.get('Create, Connect, and Grow Your Presence on Little Red Book')}
+                </span>
               </div>
             </div>
             <p style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}>
-              Join 1000+ users discovering authentic Chinese social experiences
+              {t.get('Join 1000+ users discovering real Chinese social experiences')}
             </p>
           </div>
         )}
