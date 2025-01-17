@@ -35,6 +35,9 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   const query = new URLSearchParams(location.search);
   const caller = query.get('app');
   const isCallerElectron = caller === 'electron';
+  const from = query.get('from');
+  const hasFromQuery = !!from;
+  const isFromLittleRedBook = from === 'littleRedBook';
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserData_default;
@@ -104,7 +107,25 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       }}
     >
       <div className="row">
-        <h2>{t.get('Login')}</h2>
+        {!hasFromQuery && <h2>{t.get('Login')}</h2>}
+        {hasFromQuery && isFromLittleRedBook && (
+          <div className="mt-4 mb-8">
+            <div className="flex items-center">
+              <img
+                className="w-16 rounded-sm"
+                src="https://www.gptaiflow.tech//img/icons/2024-11-13-img-36-logo-xiaoHongShu.png"
+                alt="icon-little-red-book"
+              />
+              <div className="flex flex-col space-y-2">
+                <span className="text-2xl font-bold ml-4">Join the Chinese Social Media Revolution</span>
+                <span className="text-xl ml-4">Create, Connect, and Grow Your Presence on Little Red Book</span>
+              </div>
+            </div>
+            <p style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}>
+              Join 1000+ users discovering authentic Chinese social experiences
+            </p>
+          </div>
+        )}
       </div>
       <div className="row google_login flex justify-center">
         <GoogleLogin
@@ -152,7 +173,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
       {(!caller || (caller && !isCallerElectron)) && (
         <>
           <hr className="my-8" />
-          <div className="row block_email_and_password">
+          <div className="row block_email_and_password flex justify-center">
             <Form
               name="normal_login"
               className="login-form"
@@ -191,29 +212,41 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               </Form.Item>
 
               <Form.Item>
-                <div>
-                  <Button className="login_button login_button_with_password_provider" type="primary" htmlType="submit">
-                    {t.get('Login')}
-                  </Button>
-                  <span style={{ marginLeft: 20 }}>
+                <div className="block_buttons">
+                  <div className="block_buttons_login_and_sign_up">
                     <Button
-                      type="default"
+                      className="login_button login_button_with_password_provider"
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      {t.get('Login')}
+                    </Button>
+                    <span style={{ marginLeft: 20 }}>
+                      <Button
+                        type="default"
+                        onClick={() => {
+                          if (!hasFromQuery) {
+                            navigate('/app/signUp');
+                          }
+                          if (hasFromQuery && isFromLittleRedBook) {
+                            navigate(`/app/signUp?from=${from}`);
+                          }
+                        }}
+                      >
+                        {t.get('Sign Up')}
+                      </Button>
+                    </span>
+                  </div>
+                  <div className="block_buttons_forgetPassword mt-2">
+                    <span
+                      style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
                       onClick={() => {
-                        navigate('/app/signUp');
+                        navigate('/app/forgetPassword');
                       }}
                     >
-                      {t.get('Sign Up')}
-                    </Button>
-                  </span>
-                  <br />
-                  <span
-                    style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}
-                    onClick={() => {
-                      navigate('/app/forgetPassword');
-                    }}
-                  >
-                    {t.get('Forget password')}
-                  </span>
+                      {t.get('Forget password')}
+                    </span>
+                  </div>
                 </div>
               </Form.Item>
             </Form>
