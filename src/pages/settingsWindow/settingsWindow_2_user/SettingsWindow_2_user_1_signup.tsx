@@ -42,6 +42,9 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
 
   const query = new URLSearchParams(useLocation().search);
   const uniqueCodeFromUrl = query.get('uniqueCode');
+  const from = query.get('from');
+  const hasFromQuery = !!from;
+  const isFromLittleRedBook = from === 'littleRedBook';
 
   const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserData_default;
@@ -96,7 +99,12 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
       }
 
       message.success(t.get('User created successfully'));
-      navigate('/app/login');
+      if (!hasFromQuery) {
+        navigate('/app/login');
+      }
+      if (hasFromQuery && isFromLittleRedBook) {
+        navigate(`/app/login?from=${from}`);
+      }
     } catch (error: Error | any) {
       message.error({
         content: <span>{error.message}</span>,
@@ -124,9 +132,27 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
       }}
     >
       <div className="row">
-        <h2>{t.get('Sign Up')}</h2>
+        {!hasFromQuery && <h2>{t.get('Sign Up')}</h2>}
+        {hasFromQuery && isFromLittleRedBook && (
+          <div className="mt-4 mb-8">
+            <div className="flex items-center">
+              <img
+                className="w-16 rounded-sm"
+                src="https://www.gptaiflow.tech//img/icons/2024-11-13-img-36-logo-xiaoHongShu.png"
+                alt="icon-little-red-book"
+              />
+              <div className="flex flex-col space-y-2">
+                <span className="text-2xl font-bold ml-4">Join the Chinese Social Media Revolution</span>
+                <span className="text-xl ml-4">Create, Connect, and Grow Your Presence on Little Red Book</span>
+              </div>
+            </div>
+            <p style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}>
+              Join 1000+ users discovering authentic Chinese social experiences
+            </p>
+          </div>
+        )}
       </div>
-      <div className="row">
+      <div className="row flex justify-center">
         <Form
           name="basic"
           initialValues={{ uniqueCode: uniqueCodeFromUrl }}
@@ -144,7 +170,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
               { type: 'email', message: t.get('Please enter in the correct format') },
             ]}
           >
-            <Input prefix={<MailOutlined />} placeholder={'邮件'} />
+            <Input prefix={<MailOutlined />} placeholder={t.get('Email')} />
           </Form.Item>
 
           <Form.Item
@@ -187,7 +213,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
             <Input.Password prefix={<LockOutlined />} placeholder={t.get('Confirm password')} />
           </Form.Item>
 
-          <Form.Item name="uniqueCode">
+          <Form.Item name="uniqueCode" className="hidden">
             <Input
               prefix={<TeamOutlined />}
               placeholder={`${t.get('Invitation code')} (${t.get('Optional')})`}
@@ -209,7 +235,12 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
                 <Button
                   type="default"
                   onClick={() => {
-                    navigate('/app/login');
+                    if (!hasFromQuery) {
+                      navigate('/app/login');
+                    }
+                    if (hasFromQuery && isFromLittleRedBook) {
+                      navigate(`/app/login?from=${from}`);
+                    }
                   }}
                 >
                   {t.get('Return')}
