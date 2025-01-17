@@ -177,98 +177,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     <>
       {contextSelected && (
         <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
-          <Splitter.Panel
-            className="column"
-            style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}
-            collapsible
-          >
-            <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
-              {chatHistory.length > 0 && (
-                <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                  <LeftOutlined
-                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                    onClick={() => {
-                      if (chatHistory.length === 0) return;
-                      if (isCalling) return;
-
-                      setCurrentVersionNum((prvState) => {
-                        if (prvState === 0) return prvState;
-                        return prvState - 1;
-                      });
-                    }}
-                  />
-
-                  <div className="row">
-                    {t.get('Version')}: {currentVersionNum + 1}
-                  </div>
-
-                  <RightOutlined
-                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                    onClick={() => {
-                      if (currentVersionNum === chatHistory.length) return;
-                      if (isCalling) return;
-
-                      setCurrentVersionNum((prvState) => {
-                        if (prvState === chatHistory.length - 1) return prvState;
-                        return prvState + 1;
-                      });
-                    }}
-                  />
-                </div>
-              )}
-              {/* <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-              {currentVersionNum === 0 && chatHistory.length === 0 && <div className="row">{t.get('No version')}</div>}
-            </div> */}
-            </div>
-
-            <div className="row currentOutput">
-              <Langchain_left_01_currentOutput
-                t={t}
-                title={contextSelected.currentOutput.title ?? t.get('Post')}
-                currentOutput={
-                  chatHistory.length > 0 && currentVersionNum >= 0
-                    ? chatHistory[currentVersionNum]
-                    : IMessage_for_simpleInterface_default
-                }
-                setCurrentOutput={(newItem: IMessage_for_simpleInterface) => {
-                  const newChatHistory = chatHistory.slice(0, chatHistory.length - 1);
-                  newChatHistory.push(newItem);
-                  setChatHistory(newChatHistory);
-                }}
-                onResetAll={onResetAll}
-              />
-            </div>
-
-            <div className="row previousOutput">
-              <Langchain_left_02_previousOutput
-                t={t}
-                previousOutput={
-                  chatHistory.length > 1 && currentVersionNum >= 1
-                    ? chatHistory[currentVersionNum - 1]
-                    : IMessage_for_simpleInterface_default
-                }
-                setPreviousOutput={(newItem: IMessage) => {
-                  const newChatHistory = chatHistory.slice(0, chatHistory.length - 2);
-                  const lastChatHistory = chatHistory[chatHistory.length - 1];
-                  newChatHistory.push(newItem);
-                  newChatHistory.push(lastChatHistory);
-                  setChatHistory(newChatHistory);
-                }}
-              />
-            </div>
-
-            {contextSelected.description && (
-              <div className="row description">
-                <Langchain_left_03_context_description t={t} description={contextSelected.description} />
-              </div>
-            )}
-          </Splitter.Panel>
-
-          <Splitter.Panel
-            className="column m-0"
-            style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
-            collapsible
-          >
+          <Splitter.Panel className="column !pr-5" style={{ flex: '1 1 40%' }} collapsible>
             <div className="row title">
               <h1>{t.get('Content Creation')}</h1>
             </div>
@@ -381,6 +290,89 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
                 {isCalling && <LoadingOutlined style={{ fontSize: 18, marginLeft: '0.4rem' }} />}
               </div>
             </div>
+          </Splitter.Panel>
+
+          <Splitter.Panel className="column !pl-5" style={{ position: 'relative', flex: '1 1 60%' }} collapsible>
+            <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
+              {chatHistory.length > 0 && (
+                <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                  <LeftOutlined
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (chatHistory.length === 0) return;
+                      if (isCalling) return;
+
+                      setCurrentVersionNum((prvState) => {
+                        if (prvState === 0) return prvState;
+                        return prvState - 1;
+                      });
+                    }}
+                  />
+
+                  <div className="row">
+                    {t.get('Version')}: {currentVersionNum + 1}
+                  </div>
+
+                  <RightOutlined
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (currentVersionNum === chatHistory.length) return;
+                      if (isCalling) return;
+
+                      setCurrentVersionNum((prvState) => {
+                        if (prvState === chatHistory.length - 1) return prvState;
+                        return prvState + 1;
+                      });
+                    }}
+                  />
+                </div>
+              )}
+              {/* <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+              {currentVersionNum === 0 && chatHistory.length === 0 && <div className="row">{t.get('No version')}</div>}
+            </div> */}
+            </div>
+
+            <div className="row currentOutput">
+              <Langchain_left_01_currentOutput
+                t={t}
+                title={contextSelected.currentOutput.title ?? t.get('Post')}
+                currentOutput={
+                  chatHistory.length > 0 && currentVersionNum >= 0
+                    ? chatHistory[currentVersionNum]
+                    : IMessage_for_simpleInterface_default
+                }
+                setCurrentOutput={(newItem: IMessage_for_simpleInterface) => {
+                  const newChatHistory = chatHistory.slice(0, chatHistory.length - 1);
+                  newChatHistory.push(newItem);
+                  setChatHistory(newChatHistory);
+                }}
+                onResetAll={onResetAll}
+              />
+            </div>
+
+            <div className="row previousOutput">
+              <Langchain_left_02_previousOutput
+                t={t}
+                previousOutput={
+                  chatHistory.length > 1 && currentVersionNum >= 1
+                    ? chatHistory[currentVersionNum - 1]
+                    : IMessage_for_simpleInterface_default
+                }
+                setPreviousOutput={(newItem: IMessage) => {
+                  const newChatHistory = chatHistory.slice(0, chatHistory.length - 2);
+                  const lastChatHistory = chatHistory[chatHistory.length - 1];
+                  newChatHistory.push(newItem);
+                  newChatHistory.push(lastChatHistory);
+                  setChatHistory(newChatHistory);
+                }}
+              />
+            </div>
+
+            {contextSelected.description && (
+              <div className="row description">
+                <Langchain_left_03_context_description t={t} description={contextSelected.description} />
+              </div>
+            )}
           </Splitter.Panel>
         </Splitter>
       )}
