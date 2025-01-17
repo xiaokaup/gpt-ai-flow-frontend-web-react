@@ -39,7 +39,7 @@ export const AuthPage = (props: IAuthPage_input) => {
   const anthropicApiKey = query.get('anthropicApiKey');
   const moonshotApiKey = query.get('moonshotApiKey');
   const googleApiKey = query.get('googleApiKey');
-  const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.OPENAI_GPT_3_5_TURBO;
+  const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.DEFAULT;
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
   const redirect = query.get('redirect');
 

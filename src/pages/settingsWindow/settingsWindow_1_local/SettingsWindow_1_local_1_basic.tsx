@@ -36,11 +36,9 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
   const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys?.moonshotApiKey);
 
-  const [chatModeModelType] = useState<ELLM_name>(
-    localFromStore.chatMode?.model_type ?? ELLM_name.OPENAI_GPT_3_5_TURBO,
-  );
+  const [chatModeModelType] = useState<ELLM_name>(localFromStore.chatMode?.model_type ?? ELLM_name.DEFAULT);
   const [proModeModelType, setProModeModelType] = useState<ELLM_name>(
-    localFromStore.proMode?.model_type ?? ELLM_name.OPENAI_GPT_3_5_TURBO,
+    localFromStore.proMode?.model_type ?? ELLM_name.DEFAULT,
   );
 
   const onSaveLocalSettings = () => {
