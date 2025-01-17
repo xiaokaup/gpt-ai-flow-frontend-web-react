@@ -144,7 +144,7 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
               { type: 'email', message: t.get('Please enter in the correct format') },
             ]}
           >
-            <Input prefix={<MailOutlined />} placeholder={'邮件'} />
+            <Input prefix={<MailOutlined />} placeholder={t.get('Email')} />
           </Form.Item>
 
           <Form.Item
