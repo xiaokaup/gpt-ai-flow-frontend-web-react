@@ -500,6 +500,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                       return (
                         <Tabs.TabPane tab={tabPane.name} key={tabPane.uuid} disabled={tabPane.isDisabled}>
                           {type === EProMode_v4_module_mode.COMMAND_CHAIN_v3 && (
+                            // proMode_v3
                             <ProModeWindow_v4_tabPane_commandChain
                               t={t}
                               tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
@@ -508,6 +509,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           )}
 
                           {versionNum == 2 && (
+                            // proMode_v4
                             <ProModeWindow_v4_wrapper
                               t={t}
                               tabPane={
