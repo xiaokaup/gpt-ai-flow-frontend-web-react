@@ -704,7 +704,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
   const proModePageRoles_zh: IOneFeature[] = [
     {
       icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
-      proModeModuleName: '领英平台',
+      proModeModuleName: '领英平台 AI 助手',
       description:
         '打造专业形象、拓展人脉、分享干货，一站式提升你的职场影响力。智能生成个性化简介和社交话术，轻松获得行业洞察，让你在LinkedIn脱颖而出。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
@@ -712,7 +712,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
-      proModeModuleName: 'X (推特) 平台',
+      proModeModuleName: 'X (推特) 平台 AI 助手',
       description:
         '一键生成精简推文，智能匹配话题标签，轻松创作连续推文。帮你打造吸引眼球的内容，让更多人发现你的精彩分享。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
@@ -720,7 +720,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
-      proModeModuleName: '脸书平台',
+      proModeModuleName: '脸书平台 AI 助手',
       description:
         '一键生成吸引眼球的社交动态！智能匹配多种写作风格，轻松创作正式、幽默、励志的内容。还能自动生成有趣话题，让你的粉丝爱上互动和讨论。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
@@ -728,7 +728,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI 助手',
       description:
         '一键生成吸引眼球的标题和文案，自动匹配热门标签，获取源源不断的创意灵感。让创作更轻松，让内容更出彩，让传播更高效。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
@@ -736,14 +736,14 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: '职场',
+      proModeModuleName: '职场 AI 助手',
       description: '专业高效地完成工作任务，擅长团队协作与沟通，持续关注行业趋势并不断提升自我',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
-      proModeModuleName: '产品经理',
+      proModeModuleName: '产品经理 AI 助手',
       description: '专注倾听用户需求，为您打造简单易用的产品体验。从调研规划到设计优化，每一步都为解决产品问题而努力。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
@@ -795,7 +795,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
   const proModePageRoles_en: IOneFeature[] = [
     {
       icon: '/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]),
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]) + ' AI Assistant',
       description:
         'Connect & grow faster: Create expert profiles, smart networking messages & pro content that gets noticed.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
@@ -803,14 +803,14 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-12-04-img-39-logo-twitter.jpg',
-      proModeModuleName: 'X (Twitter) Platform',
+      proModeModuleName: 'X (Twitter) Platform AI Assistant',
       description: 'Create sharp tweets, get smart hashtag suggestions, and craft engaging threads easily.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       icon: '/img/icons/2024-12-04-img-38-logo-facebook.png',
-      proModeModuleName: 'Facebook Platform',
+      proModeModuleName: 'Facebook Platform AI Assistant',
       description:
         'Share updates that spark joy! Create fun posts, start conversations, and connect with fans in your own style.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
@@ -818,7 +818,8 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
+      proModeModuleName:
+        t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI Assistant',
       description:
         'Create trending posts instantly with catchy titles, perfect hashtags, and fresh content ideas that get noticed to grow your social media.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
@@ -826,7 +827,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: 'Workplace',
+      proModeModuleName: 'Workplace AI Assistant',
       description:
         'Plan, deliver, and grow with your team. We help you manage projects and stay on top of industry trends.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
@@ -834,7 +835,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     },
     {
       icon: '/img/icons/2024-10-05-img-30-product-manager.png',
-      proModeModuleName: 'Product Manager',
+      proModeModuleName: 'Product Manager AI Assistant',
       description:
         'Find what you need, get smart solutions, and watch your product grow with our step-by-step guidance.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,

@@ -291,7 +291,6 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
               </div>
             </div>
           </Splitter.Panel>
-
           <Splitter.Panel className="column !pl-5" size="60%" style={{ position: 'relative' }} collapsible>
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
               {chatHistory.length > 0 && (
