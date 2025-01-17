@@ -319,7 +319,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
     <>
       {contextSelected && (
         <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
-          <Splitter.Panel className="column m-0 !pr-5" style={{ flex: '1 1 40%' }} collapsible>
+          <Splitter.Panel className="column !pr-5" style={{ flex: '1 1 40%' }} collapsible>
             <div className="row adjust">
               <Langchain_adjust
                 t={t}
