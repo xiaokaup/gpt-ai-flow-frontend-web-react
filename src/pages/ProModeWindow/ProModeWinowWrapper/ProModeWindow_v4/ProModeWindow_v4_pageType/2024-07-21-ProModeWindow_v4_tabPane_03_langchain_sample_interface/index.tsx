@@ -177,7 +177,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
     <>
       {contextSelected && (
         <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
-          <Splitter.Panel className="column !pr-5" style={{ flex: '1 1 40%' }} collapsible>
+          <Splitter.Panel className="column !pr-5" size="40%" collapsible>
             <div className="row title">
               <h1>{t.get('Content Creation')}</h1>
             </div>
@@ -292,7 +292,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
             </div>
           </Splitter.Panel>
 
-          <Splitter.Panel className="column !pl-5" style={{ position: 'relative', flex: '1 1 60%' }} collapsible>
+          <Splitter.Panel className="column !pl-5" size="60%" style={{ position: 'relative' }} collapsible>
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
               {chatHistory.length > 0 && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>

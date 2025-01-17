@@ -322,7 +322,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
     <>
       {contextSelected && (
         <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
-          <Splitter.Panel className="column !pr-5" style={{ flex: '1 1 40%' }} collapsible>
+          <Splitter.Panel className="column !pr-5" size="40%" collapsible>
             <div className="row adjust">
               <Langchain_adjust
                 t={t}
@@ -419,7 +419,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
             </div>
           </Splitter.Panel>
 
-          <Splitter.Panel className="column !pl-5" style={{ position: 'relative', flex: '1 1 60%' }} collapsible>
+          <Splitter.Panel className="column !pl-5" size="60%" style={{ position: 'relative' }} collapsible>
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
               {chatHistory.length > 0 && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
