@@ -73,7 +73,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   return (
     <div className="tabPane_wrapper_context_container">
-      <div className="row" style={{ paddingLeft: '1rem' }}>
+      <div className="row">
         <Select
           defaultValue={contextSelected?.contextType}
           value={selectedContextType}
