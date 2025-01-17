@@ -2,7 +2,7 @@ import '../../../styles/global.css';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
@@ -21,6 +21,27 @@ import {
   to_deprecate_IUserData_default as IUserData_default,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+
+const getSuccessLoginRedirectUrl = (
+  navigate: NavigateFunction,
+  hasFromQuery: boolean,
+  isFromLittleRedBook: boolean,
+) => {
+  if (!hasFromQuery) {
+    navigate('/app/proMode/features');
+    window.location.reload();
+    return;
+  }
+  if (hasFromQuery && isFromLittleRedBook) {
+    navigate(
+      `/app/proMode?version=v4&role=xiaoHongShu-platform&tabPane_uuid=writingPostAgent%20-%20xiaoHongShu%20platform`,
+    );
+    window.location.reload();
+    return;
+  }
+
+  window.location.reload();
+};
 
 interface ISettingsWindow_2_user_2_login_input {
   t: IGetT_frontend_output;
@@ -53,7 +74,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/app/proMode/features');
+      getSuccessLoginRedirectUrl(navigate, hasFromQuery, isFromLittleRedBook);
     }
   }, [isAuthenticated, navigate]);
 
@@ -78,8 +99,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
       await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-      navigate('/app/proMode/features');
-      window.location.reload();
+      getSuccessLoginRedirectUrl(navigate, hasFromQuery, isFromLittleRedBook);
     } catch (error: any) {
       message.error({
         content: error?.message,
@@ -162,8 +182,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
             await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-            navigate('/app/proMode/features');
-            window.location.reload();
+            getSuccessLoginRedirectUrl(navigate, hasFromQuery, isFromLittleRedBook);
           }}
           onError={() => {
             console.log('Login Failed');
