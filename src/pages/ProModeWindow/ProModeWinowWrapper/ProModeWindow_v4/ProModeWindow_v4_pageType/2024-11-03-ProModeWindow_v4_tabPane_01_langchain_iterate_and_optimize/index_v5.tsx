@@ -1,6 +1,6 @@
 import '../../index.scss';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button, message, Splitter } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -315,11 +315,39 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
     });
   };
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isLargeScreen = windowWidth > 1000;
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       {contextSelected && (
-        <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
-          <Splitter.Panel className="column !pr-5" size="40%" collapsible>
+        <Splitter
+          layout={isLargeScreen ? 'horizontal' : 'vertical'}
+          className="row row_contextSelected"
+          style={{ display: 'flex' }}
+        >
+          <Splitter.Panel
+            className="column"
+            size="40%"
+            style={
+              isLargeScreen
+                ? {
+                    paddingRight: '1.25rem',
+                  }
+                : {
+                    overflow: 'unset',
+                    // paddingRight: 0,
+                    paddingBottom: '1.25rem',
+                  }
+            }
+            collapsible
+          >
             <div className="row adjust">
               <Langchain_adjust
                 t={t}
@@ -416,7 +444,21 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
             </div>
           </Splitter.Panel>
 
-          <Splitter.Panel className="column !pl-5" size="60%" style={{ position: 'relative' }} collapsible>
+          <Splitter.Panel
+            className="column"
+            size="60%"
+            style={
+              isLargeScreen
+                ? { position: 'relative', paddingLeft: '1.25rem' }
+                : {
+                    position: 'relative',
+                    overflow: 'unset',
+                    // paddingLeft: 0,
+                    paddingTop: '1.25rem',
+                  }
+            }
+            collapsible
+          >
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
               {chatHistory.length > 0 && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
