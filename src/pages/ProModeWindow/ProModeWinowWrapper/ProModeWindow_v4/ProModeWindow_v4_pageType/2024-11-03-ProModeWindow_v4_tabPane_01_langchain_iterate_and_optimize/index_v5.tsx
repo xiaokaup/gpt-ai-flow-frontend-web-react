@@ -319,108 +319,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
     <>
       {contextSelected && (
         <Splitter className="row row_contextSelected" style={{ display: 'flex' }}>
-          <Splitter.Panel
-            className="column"
-            style={{ position: 'relative', flex: '1 1 55%', paddingRight: '1rem' }}
-            collapsible
-          >
-            <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
-              {chatHistory.length > 0 && (
-                <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                  <LeftOutlined
-                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                    onClick={() => {
-                      if (currentVersionNum === 1) return;
-                      if (isCalling) return;
-                      const writingPostDataBeforeRollback = { ...messageExchangeData };
-                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
-                        writingPostDataBeforeRollback;
-
-                      const previousVersion = currentVersionNum - 2;
-                      const messageExchangeDataRollBack =
-                        chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData;
-
-                      setMessageExchangeData({
-                        ...messageExchangeDataRollBack,
-                        adjust: adjustBeforeRollBack,
-                        background: backgroundBeforeRollBack,
-                      });
-                      setCurrentVersionNum(previousVersion);
-                    }}
-                  />
-
-                  <div className="row">
-                    {t.get('Version')}: {Math.floor(currentVersionNum / 2) + 1}
-                  </div>
-
-                  <RightOutlined
-                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                    onClick={() => {
-                      if (currentVersionNum === chatHistory.length - 1) return;
-                      if (isCalling) return;
-                      const writingPostDataBeforeRollback = { ...messageExchangeData };
-                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
-                        writingPostDataBeforeRollback;
-
-                      const nextVersion = currentVersionNum + 2;
-                      const messageExchangeDataRollBack =
-                        chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData;
-
-                      setMessageExchangeData({
-                        ...messageExchangeDataRollBack,
-                        adjust: adjustBeforeRollBack,
-                        background: backgroundBeforeRollBack,
-                      });
-                      setCurrentVersionNum(nextVersion);
-                    }}
-                  />
-                </div>
-              )}
-              {/* <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-              {currentVersionNum === 0 && chatHistory.length === 0 && <div className="row">{t.get('No version')}</div>}
-            </div> */}
-            </div>
-
-            <div className="row currentOuput">
-              <Langchain_currentOutput
-                t={t}
-                title={contextSelected.currentOutput.title ?? t.get('Post')}
-                currentOutput={currentOutput}
-                setCurrentOutput={(newItem: IMessage) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
-                    currentOutput: newItem,
-                  });
-                }}
-                onResetAll={onResetAll}
-              />
-            </div>
-
-            <div className="row previousOutput">
-              <Langchain_previousOutput
-                t={t}
-                previousOutput={previousOutput}
-                setPreviousOutput={(newItem: IMessage) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
-                    previousOutput: newItem,
-                  });
-                }}
-              />
-            </div>
-
-            {contextSelected.description && (
-              <div className="row description">
-                <Langchain_context_description t={t} description={contextSelected.description} />
-              </div>
-            )}
-          </Splitter.Panel>
-
-          <Splitter.Panel
-            className="column m-0"
-            style={{ flex: '1 1 45%', borderLeft: '1px solid #d9d9d9', paddingLeft: '1.2rem' }}
-            collapsible
-          >
+          <Splitter.Panel className="column m-0 !pr-5" style={{ flex: '1 1 40%' }} collapsible>
             <div className="row adjust">
               <Langchain_adjust
                 t={t}
@@ -515,6 +414,99 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                 </Button>
               </div>
             </div>
+          </Splitter.Panel>
+
+          <Splitter.Panel className="column !pl-5" style={{ position: 'relative', flex: '1 1 60%' }} collapsible>
+            <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
+              {chatHistory.length > 0 && (
+                <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                  <LeftOutlined
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (currentVersionNum === 1) return;
+                      if (isCalling) return;
+                      const writingPostDataBeforeRollback = { ...messageExchangeData };
+                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
+                        writingPostDataBeforeRollback;
+
+                      const previousVersion = currentVersionNum - 2;
+                      const messageExchangeDataRollBack =
+                        chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData;
+
+                      setMessageExchangeData({
+                        ...messageExchangeDataRollBack,
+                        adjust: adjustBeforeRollBack,
+                        background: backgroundBeforeRollBack,
+                      });
+                      setCurrentVersionNum(previousVersion);
+                    }}
+                  />
+
+                  <div className="row">
+                    {t.get('Version')}: {Math.floor(currentVersionNum / 2) + 1}
+                  </div>
+
+                  <RightOutlined
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (currentVersionNum === chatHistory.length - 1) return;
+                      if (isCalling) return;
+                      const writingPostDataBeforeRollback = { ...messageExchangeData };
+                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
+                        writingPostDataBeforeRollback;
+
+                      const nextVersion = currentVersionNum + 2;
+                      const messageExchangeDataRollBack =
+                        chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData;
+
+                      setMessageExchangeData({
+                        ...messageExchangeDataRollBack,
+                        adjust: adjustBeforeRollBack,
+                        background: backgroundBeforeRollBack,
+                      });
+                      setCurrentVersionNum(nextVersion);
+                    }}
+                  />
+                </div>
+              )}
+              {/* <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+              {currentVersionNum === 0 && chatHistory.length === 0 && <div className="row">{t.get('No version')}</div>}
+            </div> */}
+            </div>
+
+            <div className="row currentOuput">
+              <Langchain_currentOutput
+                t={t}
+                title={contextSelected.currentOutput.title ?? t.get('Post')}
+                currentOutput={currentOutput}
+                setCurrentOutput={(newItem: IMessage) => {
+                  setMessageExchangeData({
+                    ...messageExchangeData,
+                    currentOutput: newItem,
+                  });
+                }}
+                onResetAll={onResetAll}
+              />
+            </div>
+
+            <div className="row previousOutput">
+              <Langchain_previousOutput
+                t={t}
+                previousOutput={previousOutput}
+                setPreviousOutput={(newItem: IMessage) => {
+                  setMessageExchangeData({
+                    ...messageExchangeData,
+                    previousOutput: newItem,
+                  });
+                }}
+              />
+            </div>
+
+            {contextSelected.description && (
+              <div className="row description">
+                <Langchain_context_description t={t} description={contextSelected.description} />
+              </div>
+            )}
           </Splitter.Panel>
         </Splitter>
       )}

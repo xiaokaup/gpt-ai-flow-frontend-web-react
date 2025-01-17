@@ -365,7 +365,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
             // style={{ display: 'flex', justifyContent: 'space-between' }}
           >
             <div
-              className="block_creativity_value_slider"
+              className="block_creativity_value_slider gap-2"
               style={{
                 display: 'flex',
                 flexWrap: 'wrap',
