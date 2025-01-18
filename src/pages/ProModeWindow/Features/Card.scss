@@ -1,4 +1,6 @@
 #block_card_container {
+    border: 2px solid #f1f1f1;
+
     &:hover {
         transform: translatey(-3px);
         border: 1px solid #7a46fc;
