@@ -12,7 +12,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
 
   const t = getT_with_i18next(locale);
 
-  const [proMode_showForm, setProMode_showForm] = useState<string>('role');
+  const [proMode_showForm, setProMode_showForm] = useState<'both' | 'role' | 'module'>('both');
   // const [proMode_showForm, setProMode_showForm] = useState<string>('module');
 
   return (
@@ -60,7 +60,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
           </>
         )}
       </div>
-      <div className="select_for_role_or_module flex justify-center">
+      <div className="select_for_role_or_module flex justify-center hidden">
         <Radio.Group
           size="large"
           options={[
@@ -82,7 +82,11 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
           buttonStyle="solid"
         />
       </div>
-      <ProModeWindowFeatures_cards locale={locale} features_type={proMode_showForm} isShowMoreCard={false} />
+
+      <ProModeWindowFeatures_cards
+        locale={locale}
+        // features_type={proMode_showForm}
+      />
     </div>
   );
 };
