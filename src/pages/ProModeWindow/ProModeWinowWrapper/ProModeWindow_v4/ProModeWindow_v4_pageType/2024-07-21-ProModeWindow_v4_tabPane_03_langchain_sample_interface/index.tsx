@@ -192,7 +192,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
         >
           <Splitter.Panel
             className="column"
-            defaultSize="40%"
+            defaultSize="35%"
             style={
               isLargeScreen
                 ? {
@@ -320,7 +320,7 @@ export const ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface = 
 
           <Splitter.Panel
             className="column"
-            defaultSize="60%"
+            defaultSize="65%"
             style={
               isLargeScreen
                 ? { position: 'relative', paddingLeft: '1.25rem' }
