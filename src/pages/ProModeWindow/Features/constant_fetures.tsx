@@ -20,9 +20,7 @@ export const getModules = (locale: ELocale) => {
       icon: '/img/icons/2024-05-24-img-18-content-writing.png',
       proModeModuleName: '写帖子神器',
       description: '一键生成帖子草稿，智能打磨内容，随时查看历史版本，让发帖更轻松高效。',
-      docOpenLink: isHomePage
-        ? `/app/proMode/features`
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/social-media-post-creator`,
+      docOpenLink: `${docBaseUrl}/${locale}/docs/application-scenarios/social-media-post-creator`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
@@ -71,9 +69,7 @@ export const getModules = (locale: ELocale) => {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
       proModeModuleName: '帖子重写',
       description: '一键获得四种全新写法：快速改写帖子，按需调整细节，打造完美版本。',
-      docOpenLink: isHomePage
-        ? `/app/proMode/features`
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/post-rewriting-tool`,
+      docOpenLink: `${docBaseUrl}/${locale}/docs/application-scenarios/post-rewriting-tool`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS}`,
     },
   ];
@@ -83,9 +79,7 @@ export const getModules = (locale: ELocale) => {
       icon: '/img/icons/2024-05-24-img-18-content-writing.png',
       proModeModuleName: 'Post Writing Wizard',
       description: 'Write better posts faster: Get themes, create drafts & polish content with easy editing history.',
-      docOpenLink: isHomePage
-        ? '/app/proMode/features'
-        : `${docBaseUrl}/docs/application-scenarios/social-media-post-creator`,
+      docOpenLink: `${docBaseUrl}/docs/application-scenarios/social-media-post-creator`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
@@ -135,9 +129,7 @@ export const getModules = (locale: ELocale) => {
       icon: '/img/icons/2024-05-24-img-19-rubber.png',
       proModeModuleName: 'Post Rewriting',
       description: 'Transform your posts: Get 4 fresh versions instantly, then customize each to fit your needs.',
-      docOpenLink: isHomePage
-        ? '/app/proMode/features'
-        : `${docBaseUrl}/docs/application-scenarios/post-rewriting-tool`,
+      docOpenLink: `${docBaseUrl}/docs/application-scenarios/post-rewriting-tool`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS}`,
     },
   ];
@@ -167,18 +159,14 @@ export const getModules = (locale: ELocale) => {
       icon: '/img/icons/2024-05-24-img-20-recommend.png',
       proModeModuleName: 'Self-Media Type Recommendation',
       description: 'Find your perfect content niche: Match your interests with audience needs & get a success roadmap.',
-      docOpenLink: isHomePage
-        ? '/app/proMode/features'
-        : `${docBaseUrl}/docs/application-scenarios/self-media-type-recommendation`,
+      docOpenLink: `${docBaseUrl}/docs/application-scenarios/self-media-type-recommendation`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMEND}`,
     },
     {
       icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
       proModeModuleName: 'Topic Expansion',
       description: 'Plan your blog content: Get personalized topics, outlines & research guides in one place.',
-      docOpenLink: isHomePage
-        ? '/app/proMode/features'
-        : `${docBaseUrl}/docs/application-scenarios/topic-expansion-for-content-creators`,
+      docOpenLink: `${docBaseUrl}/docs/application-scenarios/topic-expansion-for-content-creators`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
@@ -194,6 +182,25 @@ export const getModules = (locale: ELocale) => {
       description: 'Write thoughtful comments: Analyze topics, customize responses & refine your message step by step.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT}`,
+    },
+    {
+      icon: '/img/icons/2025-01-18-personalized-target-audience-512x512.png',
+      proModeModuleName: 'Personalized AI Module',
+      description:
+        'Tell us about your needs! Take a quick survey to get a customized AI Module that perfectly matches your workflow and goals.',
+      docOpenLink: 'https://forms.gle/rnn7x9NWnk5koeHa6',
+      webAppOpenLink: 'https://forms.gle/rnn7x9NWnk5koeHa6',
+      // 可以添加一些视觉突出的元素
+      // highlight: {
+      //   badge: 'NEW',
+      //   backgroundColor: '#f0f7ff',
+      //   border: '2px dashed #1677ff',
+      // },
+      // 可以添加激励信息
+      // incentive: {
+      //   text: 'Get 7-day premium access after completing the survey!',
+      //   icon: '🎁',
+      // },
     },
   ];
   const proModePageModules_zh: IOneFeature[] = [
@@ -222,27 +229,21 @@ export const getModules = (locale: ELocale) => {
       icon: '/img/icons/2024-05-24-img-20-recommend.png',
       proModeModuleName: '自媒体类型推荐',
       description: '发现最适合你的自媒体方向：基于兴趣和市场，打造专属成功路线图。',
-      docOpenLink: isHomePage
-        ? '/app/proMode/features'
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/self-media-type-recommendation`,
+      docOpenLink: `${docBaseUrl}/${locale}/docs/application-scenarios/self-media-type-recommendation`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMEND}`,
     },
     {
       icon: '/img/icons/2024-05-24-img-21-chat-balloons.png',
       proModeModuleName: '话题拓展',
       description: '打造精准话题库：定制专属内容方向，获取详细建议和实用资源一站搞定。',
-      docOpenLink: isHomePage
-        ? '/app/proMode/features'
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
+      docOpenLink: `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
       icon: '/img/icons/2024-05-24-img-22-screenshot.png',
       proModeModuleName: '图片尺寸调整',
       description: '一键调整照片尺寸，完美适配各大社交平台，快速裁剪不用愁。',
-      docOpenLink: isHomePage
-        ? '/app/proMode/features'
-        : `${docBaseUrl}/${locale}/docs/application-scenarios/tool-for-image-resizing-social-media`,
+      docOpenLink: `${docBaseUrl}/${locale}/docs/application-scenarios/tool-for-image-resizing-social-media`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP}`,
     },
     {
@@ -251,6 +252,24 @@ export const getModules = (locale: ELocale) => {
       description: '轻松写好评论：分析原文重点，定制合适内容，逐步打磨完美表达。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT}`,
+    },
+    {
+      icon: '/img/icons/2025-01-18-personalized-target-audience-512x512.png',
+      proModeModuleName: '专属定制 AI 模块',
+      description: '告诉我们您的需求！只需完成一份简单问卷，即可获得完全匹配您工作流程和目标的定制化 AI 模块。',
+      docOpenLink: 'https://wj.qq.com/s2/13154598/1770/',
+      webAppOpenLink: 'https://wj.qq.com/s2/13154598/1770/',
+      // 视觉突出元素
+      // highlight: {
+      //   badge: '新功能',
+      //   backgroundColor: '#f0f7ff',
+      //   border: '2px dashed #1677ff',
+      // },
+      // 激励信息
+      // incentive: {
+      //   text: '完成问卷即可获得 7 天高级版体验！',
+      //   icon: '🎁',
+      // },
     },
   ];
 
@@ -313,6 +332,24 @@ export const getRoles = (locale: ELocale) => {
       description: '专注倾听用户需求，为您打造简单易用的产品体验。从调研规划到设计优化，每一步都为解决产品问题而努力。',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+    },
+    {
+      icon: '/img/icons/2025-01-18-personalized-target-audience-512x512.png',
+      proModeModuleName: '专属定制 AI 助手',
+      description: '告诉我们您的需求！只需完成一份简单问卷，即可获得完全匹配您工作流程和目标的定制化 AI 助手。',
+      docOpenLink: 'https://wj.qq.com/s2/13154598/1770/',
+      webAppOpenLink: 'https://wj.qq.com/s2/13154598/1770/',
+      // 视觉突出元素
+      // highlight: {
+      //   badge: '新功能',
+      //   backgroundColor: '#f0f7ff',
+      //   border: '2px dashed #1677ff',
+      // },
+      // 激励信息
+      // incentive: {
+      //   text: '完成问卷即可获得 7 天高级版体验！',
+      //   icon: '🎁',
+      // },
     },
     // === 以下角色已废弃 ===
     // {
@@ -406,6 +443,25 @@ export const getRoles = (locale: ELocale) => {
         'Find what you need, get smart solutions, and watch your product grow with our step-by-step guidance.',
       docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+    },
+    {
+      icon: '/img/icons/2025-01-18-personalized-target-audience-512x512.png',
+      proModeModuleName: 'Personalized AI Assistant',
+      description:
+        'Tell us about your needs! Take a quick survey to get a customized AI assistant that perfectly matches your workflow and goals.',
+      docOpenLink: 'https://forms.gle/rnn7x9NWnk5koeHa6',
+      webAppOpenLink: 'https://forms.gle/rnn7x9NWnk5koeHa6',
+      // 可以添加一些视觉突出的元素
+      // highlight: {
+      //   badge: 'NEW',
+      //   backgroundColor: '#f0f7ff',
+      //   border: '2px dashed #1677ff',
+      // },
+      // 可以添加激励信息
+      // incentive: {
+      //   text: 'Get 7-day premium access after completing the survey!',
+      //   icon: '🎁',
+      // },
     },
     // === Deprecated roles ===
     // {
