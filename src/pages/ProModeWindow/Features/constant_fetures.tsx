@@ -467,21 +467,7 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     {
       icon: '/img/icons/2024-07-15-img-3-freelancer.png',
       proModeModuleName: '自由职业者',
-      featureText_1: (
-        <>
-          🎨 <b>全能的创意专家</b>：涉猎广泛,能够提供多元化的创意服务
-        </>
-      ),
-      featureText_2: (
-        <>
-          ⏰ <b>灵活的时间管理大师</b>：自由安排工作时间,兼顾工作与生活
-        </>
-      ),
-      featureText_3: (
-        <>
-          💼 <b>独立自主的个体经营者</b>：自己就是老板,掌控职业发展方向
-        </>
-      ),
+      description: '做自己的老板：发挥创意特长，自由安排时间，掌控职业发展。',
       docOpenLink: '/app/proMode?tabPane_uuid=freelancerProfile',
       webAppOpenLink: '/app/proMode?tabPane_uuid=freelancerProfile',
     },
