@@ -82,7 +82,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
 
   return (
     <>
-      <div className="search mt-8 px-10 flex justify-between">
+      <div className="search my-4 px-10 flex justify-between">
         {locale === ELocale.ZH && <p>请选择专业模块，并开始使用:</p>}
         {locale === ELocale.EN && <p>Please select a professional module and begin using it:</p>}
 
