@@ -12,7 +12,7 @@ import {
 import { docBaseUrl, webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
-export const getModules = (isHomePage: boolean, locale: ELocale) => {
+export const getModules = (locale: ELocale) => {
   // const t = getT_with_i18next(locale);
 
   const homePageModules_zh: IOneFeature[] = [
@@ -254,22 +254,14 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
     },
   ];
 
-  if (!isHomePage) {
-    if (locale === 'zh') {
-      return [...homePageModules_zh, ...proModePageModules_zh];
-    }
-
-    return [...homePageModules_en, ...proModePageModules_en];
-  }
-
   if (locale === 'zh') {
-    return homePageModules_zh;
+    return [...homePageModules_zh, ...proModePageModules_zh];
   }
 
-  return homePageModules_en;
+  return [...homePageModules_en, ...proModePageModules_en];
 };
 
-export const getRoles = (isHomePage: boolean, locale: ELocale) => {
+export const getRoles = (locale: ELocale) => {
   const t = getT_with_i18next(locale);
 
   const homePageRoles_zh: IOneFeature[] = [];
@@ -488,17 +480,9 @@ export const getRoles = (isHomePage: boolean, locale: ELocale) => {
     // 创业者
   ];
 
-  if (!isHomePage) {
-    if (locale === 'zh') {
-      return [...homePageRoles_zh, ...proModePageRoles_zh];
-    }
-
-    return [...homePageRoles_en, ...proModePageRoles_en];
-  }
-
   if (locale === 'zh') {
-    return homePageRoles_zh;
+    return [...homePageRoles_zh, ...proModePageRoles_zh];
   }
 
-  return homePageRoles_en;
+  return [...homePageRoles_en, ...proModePageRoles_en];
 };

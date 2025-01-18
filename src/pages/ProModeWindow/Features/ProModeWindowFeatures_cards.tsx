@@ -11,15 +11,13 @@ import { Card_with_click } from './Card';
 
 const { Search } = Input;
 
-const isHomePage = false;
-
 const getFeatures = (features_type: string, locale: ELocale) => {
   if (features_type === 'module') {
-    return getModules(isHomePage, locale);
+    return getModules(locale);
   }
 
   // 'role'
-  return getRoles(isHomePage, locale);
+  return getRoles(locale);
 };
 
 interface IProModeWindowFeatures_module_input {
