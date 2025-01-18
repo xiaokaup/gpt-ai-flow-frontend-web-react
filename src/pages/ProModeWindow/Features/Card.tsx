@@ -1,3 +1,5 @@
+import './Card.scss';
+
 import { IOneFeature } from './interface';
 
 interface ICard_with_click {
@@ -11,21 +13,16 @@ export const Card_with_click = (props: ICard_with_click) => {
     locale,
     baseUrl,
     imgBaseUrl,
-    item: {
-      icon,
-      proModeModuleName,
-      featureText_1,
-      featureText_2,
-      featureText_3,
-      description,
-      webAppOpenLink: openLink,
-    },
+    item: { icon, proModeModuleName, description, webAppOpenLink: openLink },
   } = props;
 
   const hideOpenUrl = false;
 
   return (
-    <div className="max-w-[300px] min-w-[200px] relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10">
+    <div
+      id="block_card_container"
+      className="relative max-w-[300px] min-w-[200px] bg-white rounded dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-gray-600/10"
+    >
       <a className="!no-underline" href={openLink.startsWith('/') ? baseUrl + openLink : openLink}>
         <div className="relative p-4">
           <div className="flex items-center space-x-4">
@@ -44,9 +41,6 @@ export const Card_with_click = (props: ICard_with_click) => {
           </div>
 
           <div className="blog_description">
-            <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_1}</p>
-            <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_2}</p>
-            <p className="m-0 text-gray-600 dark:text-gray-300">{featureText_3}</p>
             <p className="m-0 text-gray-600 dark:text-gray-300">{description}</p>
           </div>
           {hideOpenUrl && openLink && openLink !== '#' && (
