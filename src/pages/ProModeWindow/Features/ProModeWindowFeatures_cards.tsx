@@ -58,9 +58,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
 
     results += item.proModeModuleName + ' ';
 
-    results += _getTextFrom_IOneFeature_featureTextItem(item.featureText_1) + ' ';
-    results += _getTextFrom_IOneFeature_featureTextItem(item.featureText_2) + ' ';
-    results += _getTextFrom_IOneFeature_featureTextItem(item.featureText_3) + ' ';
+    results += _getTextFrom_IOneFeature_featureTextItem(item.description) + ' ';
 
     return results;
   };
