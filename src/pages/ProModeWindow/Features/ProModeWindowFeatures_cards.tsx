@@ -107,7 +107,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
       </div>
 
       <div className="xl:px-20">
-        <div className="text-xl font-bold px-5">{t.get('Role')}</div>
+        <div className="text-xl font-bold px-5 mb-4">{t.get('Role')}</div>
         <div className="flex flex-wrap justify-center gap-4 xl:justify-start">
           {roleFeaturesFiltered.map((item) => {
             return (
@@ -124,7 +124,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
       </div>
 
       <div className="mt-20 xl:px-20">
-        <div className="text-xl font-bold px-5">{t.get('Module')}</div>
+        <div className="text-xl font-bold px-5 mb-4">{t.get('Module')}</div>
         <div className="flex flex-wrap justify-center gap-4 xl:justify-start">
           {moduleFeaturesFiltered.map((item) => {
             return (

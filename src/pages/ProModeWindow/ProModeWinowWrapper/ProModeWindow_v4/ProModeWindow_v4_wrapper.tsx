@@ -73,7 +73,35 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   return (
     <div className="tabPane_wrapper_context_container">
-      <div className="row">
+      <div className="row flex gap-x-4 overflow-x-auto no-scrollbar">
+        {context.map(
+          (item: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>) => {
+            const { label, contextType } = item;
+            return (
+              <div
+                id={`${contextType}: ${label}`}
+                className={`context-card flex min-w-[240px] rounded px-4 py-2 cursor-pointer border border-solid ${selectedContextType === contextType ? 'border-[#7a46fc]' : 'border-gray-300'} hover:border-[#7a46fc]`}
+                onClick={() => {
+                  switchContextSelected_by_type(contextType as EProMode_v4_module_contextType);
+                }}
+              >
+                <div className="context-card-left-column">
+                  <img
+                    className="w-12 h-12 hidden"
+                    src="https://cos.kuaijingai.com/upload/work_ai/20230610/64840e7707e0333299.png"
+                    alt="icon-contextSelection"
+                  />
+                </div>
+                <div className="context-card-right-column">
+                  <div className="context-card-title">{label}</div>
+                  <div className="context-card-description hidden">description</div>
+                </div>
+              </div>
+            );
+          },
+        )}
+      </div>
+      <div className="row block_select hidden">
         <Select
           defaultValue={contextSelected?.contextType}
           value={selectedContextType}
