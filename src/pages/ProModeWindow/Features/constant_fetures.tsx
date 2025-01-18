@@ -21,7 +21,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: '写帖子神器',
       description: '一键生成帖子草稿，智能打磨内容，随时查看历史版本，让发帖更轻松高效。',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        ? `/app/proMode/features`
         : `${docBaseUrl}/${locale}/docs/application-scenarios/social-media-post-creator`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
@@ -72,7 +72,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: '帖子重写',
       description: '一键获得四种全新写法：快速改写帖子，按需调整细节，打造完美版本。',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        ? `/app/proMode/features`
         : `${docBaseUrl}/${locale}/docs/application-scenarios/post-rewriting-tool`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS}`,
     },
@@ -84,7 +84,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: 'Post Writing Wizard',
       description: 'Write better posts faster: Get themes, create drafts & polish content with easy editing history.',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        ? '/app/proMode/features'
         : `${docBaseUrl}/docs/application-scenarios/social-media-post-creator`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
@@ -136,7 +136,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: 'Post Rewriting',
       description: 'Transform your posts: Get 4 fresh versions instantly, then customize each to fit your needs.',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        ? '/app/proMode/features'
         : `${docBaseUrl}/docs/application-scenarios/post-rewriting-tool`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS}`,
     },
@@ -168,7 +168,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: 'Self-Media Type Recommendation',
       description: 'Find your perfect content niche: Match your interests with audience needs & get a success roadmap.',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        ? '/app/proMode/features'
         : `${docBaseUrl}/docs/application-scenarios/self-media-type-recommendation`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMEND}`,
     },
@@ -177,7 +177,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: 'Topic Expansion',
       description: 'Plan your blog content: Get personalized topics, outlines & research guides in one place.',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/docs/application-scenarios/overview`
+        ? '/app/proMode/features'
         : `${docBaseUrl}/docs/application-scenarios/topic-expansion-for-content-creators`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
@@ -223,7 +223,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: '自媒体类型推荐',
       description: '发现最适合你的自媒体方向：基于兴趣和市场，打造专属成功路线图。',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        ? '/app/proMode/features'
         : `${docBaseUrl}/${locale}/docs/application-scenarios/self-media-type-recommendation`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMEND}`,
     },
@@ -232,7 +232,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: '话题拓展',
       description: '打造精准话题库：定制专属内容方向，获取详细建议和实用资源一站搞定。',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        ? '/app/proMode/features'
         : `${docBaseUrl}/${locale}/docs/application-scenarios/topic-expansion-for-content-creators`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
@@ -241,7 +241,7 @@ export const getModules = (isHomePage: boolean, locale: ELocale) => {
       proModeModuleName: '图片尺寸调整',
       description: '一键调整照片尺寸，完美适配各大社交平台，快速裁剪不用愁。',
       docOpenLink: isHomePage
-        ? `${docBaseUrl}/${locale}/docs/application-scenarios/overview`
+        ? '/app/proMode/features'
         : `${docBaseUrl}/${locale}/docs/application-scenarios/tool-for-image-resizing-social-media`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP}`,
     },
