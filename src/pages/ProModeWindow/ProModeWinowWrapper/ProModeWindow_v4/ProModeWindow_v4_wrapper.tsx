@@ -73,8 +73,9 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
 
   return (
     <div className="tabPane_wrapper_context_container">
+      <div className="row bg-slate-100">card row</div>
+
       <div className="row">
-        {/* bg-slate-100 */}
         <Select
           defaultValue={contextSelected?.contextType}
           value={selectedContextType}
