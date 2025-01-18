@@ -394,7 +394,7 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
             </div>
 
             <div className="row buttons">
-              <div className="row operation">
+              <div className="row operation space-x-4 space-y-4">
                 {buttons.map((item: IPromode_v4_tabPane_context_button) => {
                   const { operation, isHidden } = item;
                   if (!isHidden && operation === EButton_operation.GENERATE) {
@@ -422,7 +422,6 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                         onClick={() => {
                           onRegenerateMessage();
                         }}
-                        style={{ marginLeft: '1rem' }}
                         disabled={isCalling || currentVersionNum < 2}
                       >
                         {t.get('Regenerate')}
@@ -436,7 +435,6 @@ export const ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 = (
                     requestController.abort();
                     setIsCalling(false);
                   }}
-                  style={{ marginLeft: '1rem' }}
                 >
                   {t.get('Stop')}
                 </Button>
