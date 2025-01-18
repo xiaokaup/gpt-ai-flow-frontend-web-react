@@ -350,6 +350,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   }, [init]);
 
   const onTabsChange = (key: string) => {
+    console.log('set tab key: ', key);
     setActiveTabPanelKey(key);
   };
 
