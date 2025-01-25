@@ -75,7 +75,7 @@ export const Langchain_previousOutput = (props: {
             </Form.Item> */}
 
             <Form.Item name="content" className="relative watermark">
-              <TextArea autoSize className="pb-4" />
+              <TextArea autoSize className="pb-6" />
             </Form.Item>
 
             <Form.Item>
