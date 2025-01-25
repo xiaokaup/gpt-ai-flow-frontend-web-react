@@ -1,5 +1,5 @@
 .proModeContainer {
-  position: 'relative';
+  position: "relative";
   overflow: auto;
   padding: 10px;
   max-width: unset;
@@ -10,10 +10,9 @@
 
   .row.row_contextSelected {
     display: flex;
-    
+
     @media screen and (max-width: 594px) {
-        flex-wrap: wrap;
+      flex-wrap: wrap;
     }
   }
-
 }
