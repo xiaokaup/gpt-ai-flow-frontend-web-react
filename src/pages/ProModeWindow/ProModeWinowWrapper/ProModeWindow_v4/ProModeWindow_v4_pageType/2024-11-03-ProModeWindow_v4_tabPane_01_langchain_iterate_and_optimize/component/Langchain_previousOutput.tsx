@@ -61,7 +61,7 @@ export const Langchain_previousOutput = (props: {
       </div>
 
       {isShow && isEditing && (
-        <div className="row editing  p-[1rem]">
+        <div className="row editing p-[1rem]">
           <Form form={form} initialValues={previousOutput} onFinish={onFinish}>
             {/* <Form.Item name="title" label="Title">
               <Input
