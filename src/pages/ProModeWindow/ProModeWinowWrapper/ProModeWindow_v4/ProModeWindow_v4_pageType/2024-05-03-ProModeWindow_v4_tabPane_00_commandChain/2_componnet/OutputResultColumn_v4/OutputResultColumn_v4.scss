@@ -4,11 +4,11 @@
 }
 
 .output_block_with_watermarker::before {
-  content: 'Powered by GPT AI Flow';
+  content: "Powered by GPT AI Flow";
   position: absolute;
-  bottom: -6px; /* Position the watermark at the bottom of the parent element */
-  left: 50%;
-  transform: translateX(-50%); /* Center the watermark horizontally */
   font-size: 12px; /* Adjust the font size */
   color: rgba(128, 128, 128, 0.4); /* Use gray color for the watermark */
+  left: 50%; /* Center the watermark horizontally */
+  transform: translateX(-50%); /* Center the watermark horizontally */
+  bottom: -6px; /* Position the watermark at the bottom of the parent element */
 }

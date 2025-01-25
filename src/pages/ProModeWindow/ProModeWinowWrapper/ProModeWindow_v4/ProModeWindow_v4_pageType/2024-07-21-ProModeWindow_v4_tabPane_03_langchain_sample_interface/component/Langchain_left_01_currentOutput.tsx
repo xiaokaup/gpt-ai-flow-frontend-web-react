@@ -96,7 +96,7 @@ export const Langchain_left_01_currentOutput = (props: ILangchain_left_01_curren
         </div>
       </div>
       {isEditing && (
-        <div className="row editing" style={{ padding: '1rem' }}>
+        <div className="row editing p-[1rem]">
           <Form form={form} initialValues={currentOutput} onFinish={onFinish}>
             {/* <Form.Item name="title" label="Title">
               <Input
@@ -109,8 +109,8 @@ export const Langchain_left_01_currentOutput = (props: ILangchain_left_01_curren
               />
             </Form.Item> */}
 
-            <Form.Item name="content">
-              <TextArea autoSize />
+            <Form.Item name="content" className="relative watermark">
+              <TextArea autoSize className="pb-6" />
             </Form.Item>
 
             <Form.Item>
@@ -132,7 +132,7 @@ export const Langchain_left_01_currentOutput = (props: ILangchain_left_01_curren
       )}
       {!isEditing && currentOutput.content && (
         <div
-          className="row view"
+          className="row view relative watermark"
           style={{
             userSelect: 'text',
             border: '1px solid #d9d9d9',

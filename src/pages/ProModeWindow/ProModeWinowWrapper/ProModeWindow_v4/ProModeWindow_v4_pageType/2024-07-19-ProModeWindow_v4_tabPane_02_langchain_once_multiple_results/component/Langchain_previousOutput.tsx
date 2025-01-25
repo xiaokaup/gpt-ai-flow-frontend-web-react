@@ -61,7 +61,7 @@ export const Langchain_previousOutput = (props: {
       </div>
 
       {isShow && isEditing && (
-        <div className="row editing" style={{ padding: '1rem' }}>
+        <div className="row editing p-[1rem]">
           <Form form={form} initialValues={previousOutput} onFinish={onFinish}>
             {/* <Form.Item name="title" label="Title">
               <Input
@@ -74,8 +74,8 @@ export const Langchain_previousOutput = (props: {
               />
             </Form.Item> */}
 
-            <Form.Item name="content">
-              <TextArea autoSize />
+            <Form.Item name="content" className="relative watermark">
+              <TextArea autoSize className="pb-6" />
             </Form.Item>
 
             <Form.Item>
@@ -98,7 +98,7 @@ export const Langchain_previousOutput = (props: {
 
       {isShow && !isEditing && previousOutput.content && (
         <div
-          className="row view"
+          className="row view relative watermark"
           style={{
             userSelect: 'text',
             border: '1px solid #d9d9d9',
