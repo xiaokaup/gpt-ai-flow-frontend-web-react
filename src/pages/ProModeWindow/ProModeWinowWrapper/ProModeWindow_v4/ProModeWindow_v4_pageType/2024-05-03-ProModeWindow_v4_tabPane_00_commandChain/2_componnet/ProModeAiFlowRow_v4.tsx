@@ -79,7 +79,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
     apiKeys,
     proMode: { model_type },
   } = localDataFromStorage;
-  const { openAIApiKey, anthropicApiKey, moonshotApiKey, googleApiKey } = apiKeys ?? {};
+  const { openAIApiKey, anthropicApiKey, moonshotApiKey, deepSeekApiKey, googleApiKey } = apiKeys ?? {};
 
   if (!userAccessToken) {
     return (
@@ -387,6 +387,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
                 openAIApiKey,
                 anthropicApiKey,
                 moonshotApiKey,
+                deepSeekApiKey,
                 googleApiKey,
               }),
               llmTemperature: creativityValue,
