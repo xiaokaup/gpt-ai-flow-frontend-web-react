@@ -38,6 +38,7 @@ export const AuthPage = (props: IAuthPage_input) => {
   const openAIApiKey = query.get('openAIApiKey');
   const anthropicApiKey = query.get('anthropicApiKey');
   const moonshotApiKey = query.get('moonshotApiKey');
+  const deepSeekApiKey = query.get('deepSeekApiKey');
   const googleApiKey = query.get('googleApiKey');
   const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.DEFAULT;
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
@@ -63,6 +64,7 @@ export const AuthPage = (props: IAuthPage_input) => {
         openAIApiKey: '',
         anthropicApiKey: '',
         moonshotApiKey: '',
+        deepSeekApiKey: '',
         googleApiKey: '',
       };
     }
@@ -70,6 +72,7 @@ export const AuthPage = (props: IAuthPage_input) => {
     newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey?.trim();
     newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey?.trim();
     newLocalSettingsFromStore.apiKeys.moonshotApiKey = moonshotApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys.deepSeekApiKey = deepSeekApiKey?.trim();
     newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey?.trim();
 
     if (proMode_llm_name) {

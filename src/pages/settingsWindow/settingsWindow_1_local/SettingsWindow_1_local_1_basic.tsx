@@ -35,6 +35,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
   const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
   const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys?.moonshotApiKey);
+  const [deepSeekApiKey, setDeepSeekApiKey] = useState<string>(localFromStore?.apiKeys?.deepSeekApiKey);
 
   const [chatModeModelType] = useState<ELLM_name>(localFromStore.chatMode?.model_type ?? ELLM_name.DEFAULT);
   const [proModeModelType, setProModeModelType] = useState<ELLM_name>(
@@ -50,6 +51,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           openAIApiKey: openAIApiKey?.trim(),
           anthropicApiKey: anthropicApiKey?.trim(),
           moonshotApiKey: moonshotApiKey?.trim(),
+          deepSeekApiKey: deepSeekApiKey?.trim(),
           googleApiKey: '', // @DEV
         },
         chatMode: {
@@ -81,6 +83,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             openAIApiKey,
             anthropicApiKey,
             moonshotApiKey,
+            deepSeekApiKey,
           }}
         >
           <div className={isModelEdition ? 'row block_apiKeys hidden' : 'row block_apiKeys'}>
@@ -166,6 +169,30 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
                 />
               </Form.Item>
               {moonshotApiKey && <span className="ml-1 ">({moonshotApiKey?.slice(-6).toLowerCase()})</span>}
+            </div>
+
+            <div className="deepSeekApiKey flex items-center hidden">
+              <Form.Item
+                className="m-0"
+                name="deepSeekApiKey"
+                label={
+                  <>
+                    Deepseek API key
+                    {/* <InfoCircleOutlined className="px-1" /> */}
+                  </>
+                }
+                style={{ width: 300 }}
+              >
+                <Input
+                  type="password"
+                  size="small"
+                  value={deepSeekApiKey}
+                  onChange={(event) => {
+                    setDeepSeekApiKey(event.target.value);
+                  }}
+                />
+              </Form.Item>
+              {deepSeekApiKey && <span className="ml-1 ">({deepSeekApiKey?.slice(-6).toLowerCase()})</span>}
             </div>
 
             {/* GoogleAPIKey */}
