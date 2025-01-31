@@ -32,11 +32,11 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
 
   return (
     <div className="row subContainer">
-      <div className="row flex justify-between items-center pr-2">
+      <div className="row flex flex-start items-center pr-2">
         <div className="col_1">
           <h1>{title}</h1>
         </div>
-        <div className="col_2">
+        <div className="col_2 ml-4">
           <Tooltip title={t.get('Reset all')}>
             <img
               id="reset-messages-history-button"

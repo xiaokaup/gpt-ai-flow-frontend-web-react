@@ -16,10 +16,7 @@ import {
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
-import {
-  IInputsCache_v2,
-  IInputsCache_v2_contextSelected_value_default,
-} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IInputsCache_v2_contextSelected_value_default } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
   IProMode_v4_tabPane_context,
@@ -207,6 +204,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
         chatMessages,
       },
     };
+    setCurrentVersionNum(chatMessages.length);
     setInputsCache_v2(newInputCache_v2);
   }, [background_v2, adjust_v2, chatMessages.length]);
 
