@@ -10,21 +10,21 @@ import {
   IChatMessage_default,
 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
 import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { Langchain_context_description } from './component/Langchain_context_description';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
-import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import {
+  IInputsCache_v2,
+  IInputsCache_v2_contextSelected_value_default,
+} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
   IProMode_v4_tabPane_context,
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
-  IBackground_type_langchain_default,
-  IAdjust_type_langchain_default,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
@@ -35,6 +35,8 @@ import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper'
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
 import { ProModePage_Background } from '../component/ProModePage_Background';
+import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { ProMode_debug_v4_subVersion_2 } from '../ProMode_debug_v4_subVersion_2';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -56,31 +58,26 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const chatHistory_default = inputsCache_v2[contextSelected_uuid]?.['chatHistory']
-    ? JSON.parse(inputsCache_v2[contextSelected_uuid]?.['chatHistory'])
-    : [];
+  const {
+    background: background_from_cache,
+    adjust: adjust_from_cache,
+    chatMessages: chatMessages_from_cache,
+  } = { ...IInputsCache_v2_contextSelected_value_default, ...inputsCache_v2[contextSelected_uuid] };
 
-  const [currentVersionNum, setCurrentVersionNum] = useState<number>(
-    chatHistory_default.length > 0 ? chatHistory_default.length - 1 : 0,
-  );
+  // console.log('chatMessages_from_cache', chatMessages_from_cache);
+
   const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
-    { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
+    ...chatMessages_from_cache,
+    // { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
-  const [background_v2, setBackground_v2] = useState<IBackground_for_type_langchain>({
-    ...IBackground_type_langchain_default,
-    ...chatMessages[chatMessages.length - 1].background,
-    ...inputsCache_v2[contextSelected_uuid],
-  });
-  const [adjust_v2, setAdjust_v2] = useState<IAdjust_for_type_langchain>({
-    ...IAdjust_type_langchain_default,
-    ...chatMessages[chatMessages.length - 1].adjust,
-    ...inputsCache_v2[contextSelected_uuid],
-  });
+  const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
+  const hasChatMessages = chatMessages.length > 0;
+  const [background_v2, setBackground_v2] = useState<IBackground_for_type_langchain>(background_from_cache);
+  const [adjust_v2, setAdjust_v2] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
 
   const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
     setIsCalling(true);
 
-    // console.log('paraMessageExchangeData', paraMessageExchangeData);
     const newRequestController = new AbortController();
     setRequestController(newRequestController);
     const { signal } = newRequestController;
@@ -94,28 +91,35 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       llmTemperature: creativityValue,
     };
 
-    const lastMessage: IChatMessage =
-      chatMessagesBeforeImprove_copy.length > 0
-        ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 1]
-        : IChatMessage_default;
+    // const lastMessage: IChatMessage =
+    //   chatMessagesBeforeImprove_copy.length > 0
+    //     ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 1]
+    //     : IChatMessage_default;
     // const secondLastMessage = chatMessagesBeforeImprove_copy.length > 1 ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 2] : IChatMessage_default;
-    const { adjust, background } = lastMessage;
-    const bodyData: IProMode_module_request_v4_subVersion_2 = {
-      contextType,
-      llmOptions,
-      background,
-      adjust,
-      chatMessages,
-    };
 
-    const newChatMessages = [...chatMessagesBeforeImprove_copy, { ...IChatMessage_default, adjust, background }];
+    let newChatMessage: IChatMessage = {
+      ...IChatMessage_default,
+      adjust: adjust_v2,
+      background: background_v2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
     setChatMessages(newChatMessages);
-    setCurrentVersionNum(newChatMessages.length - 1);
+    setCurrentVersionNum(newChatMessages.length);
 
     if (!urlSlug) {
       message.error('urlSlug is empty');
       return;
     }
+
+    const bodyData: IProMode_module_request_v4_subVersion_2 = {
+      contextType,
+      llmOptions,
+      background: background_v2,
+      adjust: adjust_v2,
+      chatMessages: newChatMessages,
+    };
 
     TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
       urlSlug,
@@ -125,30 +129,33 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
         console.log('beforeSendRequestFunc');
       },
       (writingResultText: string) => {
-        // console.log('updateResultFromRequestFunc', writingResultText);
-        setChatMessages((prvState: IChatMessage[]) => {
-          const newChatMessages = [...prvState];
-          newChatMessages[newChatMessages.length - 1].content = writingResultText;
-          return newChatMessages;
-        });
+        console.log('updateResultFromRequestFunc', writingResultText);
+        newChatMessage = {
+          ...newChatMessage,
+          content: writingResultText,
+          updatedAt: new Date(),
+        };
+        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        setChatMessages(newChatMessages);
       },
       (resultText: string) => {
-        // console.log('AfterRequestFunc', resultText);
+        console.log('AfterRequestFunc', resultText);
+        newChatMessage = {
+          ...newChatMessage,
+          content: resultText,
+          updatedAt: new Date(),
+        };
+        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        setChatMessages(newChatMessages);
+        setCurrentVersionNum(newChatMessages.length);
 
-        setChatMessages((prvState: IChatMessage[]) => {
-          const newChatMessages = [...prvState];
-          newChatMessages[newChatMessages.length - 1].content = resultText;
-          return newChatMessages;
-        });
-        setCurrentVersionNum(chatMessages.length - 1);
-
-        setInputsCache_v2((prvState: IInputsCache_v2) => ({
-          ...prvState,
+        setInputsCache_v2({
+          ...inputsCache_v2,
           [contextSelected_uuid]: {
-            ...prvState[contextSelected_uuid],
-            chatHistory: JSON.stringify(chatMessages),
+            ...inputsCache_v2[contextSelected_uuid],
+            chatMessages: newChatMessages,
           },
-        }));
+        });
 
         setIsCalling(false);
       },
@@ -158,6 +165,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
       signal,
     ).catch((error: Error) => {
+      console.log('error', error);
       if (error.name === 'AbortError') {
         console.log('Fetch request was aborted');
       } else {
@@ -166,16 +174,16 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       }
       // Recover the chat history if the request fails or is aborted
       setChatMessages(chatMessagesBeforeImprove_copy);
-      setCurrentVersionNum(chatMessagesBeforeImprove_copy.length - 1);
+      setCurrentVersionNum(chatMessagesBeforeImprove_copy.length);
     });
   };
 
   const onRegenerateMessage = () => {
     setIsCalling(true);
 
-    const newChatMessages = chatMessages.length > 0 ? chatMessages.slice(0, -1) : [];
+    const newChatMessages = hasChatMessages ? chatMessages.slice(0, -1) : [];
     onImproveMessage(newChatMessages)();
-    setCurrentVersionNum(newChatMessages.length - 1);
+    setCurrentVersionNum(newChatMessages.length);
   };
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -186,6 +194,21 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    // console.log('background_v2', background_v2);
+    // console.log('adjust_v2', adjust_v2);
+    const newInputCache_v2 = {
+      ...inputsCache_v2,
+      [contextSelected_uuid]: {
+        ...inputsCache_v2[contextSelected_uuid],
+        background: background_v2,
+        adjust: adjust_v2,
+        chatMessages,
+      },
+    };
+    setInputsCache_v2(newInputCache_v2);
+  }, [background_v2, adjust_v2, chatMessages.length]);
 
   return (
     <>
@@ -245,7 +268,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                         onClick={() => {
                           onImproveMessage(chatMessages)();
                         }}
-                        disabled={isCalling || chatMessages.length === 0}
+                        disabled={isCalling}
                       >
                         {t.get('Generate')}
                       </Button>
@@ -258,7 +281,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                         onClick={() => {
                           onRegenerateMessage();
                         }}
-                        disabled={isCalling || currentVersionNum < 2}
+                        disabled={isCalling || chatMessages.length === 0}
                       >
                         {t.get('Regenerate')}
                       </Button>
@@ -294,32 +317,29 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             collapsible
           >
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
-              {chatMessages.length > 0 && (
-                <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+              {hasChatMessages && (
+                <div className="row pr-2" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                   <LeftOutlined
+                    className={`${currentVersionNum <= 1 ? 'hidden' : ''}`}
                     style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                     onClick={() => {
-                      if (chatMessages.length > 0) return;
                       if (isCalling) return;
 
-                      const newChatMessages = chatMessages.slice(0, -1);
-                      setCurrentVersionNum(newChatMessages.length - 1);
+                      setCurrentVersionNum(currentVersionNum - 1);
                     }}
                   />
 
                   <div className="row">
-                    {t.get('Version')}: {Math.floor(currentVersionNum / 2) + 1}
+                    {t.get('Version')}: {currentVersionNum}
                   </div>
 
                   <RightOutlined
+                    className={`${currentVersionNum >= chatMessages.length ? 'hidden' : ''}`}
                     style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                     onClick={() => {
-                      if (currentVersionNum === chatMessages.length - 1) return;
                       if (isCalling) return;
 
-                      const newVersion =
-                        currentVersionNum + 1 < chatMessages.length ? currentVersionNum + 1 : chatMessages.length - 1;
-                      setCurrentVersionNum(newVersion);
+                      setCurrentVersionNum(currentVersionNum + 1);
                     }}
                   />
                 </div>
@@ -330,7 +350,12 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             </div>
 
             <div className="row component_chatMessages">
-              <ProModePage_ChatMessages t={t} chatMessages={chatMessages} setChatMessages={setChatMessages} />
+              <ProModePage_ChatMessages
+                t={t}
+                currentVersionNum={currentVersionNum}
+                chatMessages={chatMessages}
+                setChatMessages={setChatMessages}
+              />
             </div>
 
             {contextSelected.description && (
@@ -341,12 +366,14 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
           </Splitter.Panel>
         </Splitter>
       )}
-      {/* <ProMode_v4_Debug
-        chatHistory={chatHistory}
-        currentVersionNum={currentVersionNum}
+      <ProMode_debug_v4_subVersion_2
         contextType={contextType}
-        messageExchangeData={messageExchangeData}
-      /> */}
+        background={background_v2}
+        adjust={adjust_v2}
+        chatMessages={chatMessages}
+        currentVersionNum={currentVersionNum}
+        inputsCache_v2={inputsCache_v2}
+      />
     </>
   );
 };

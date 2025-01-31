@@ -14,30 +14,61 @@ import TextArea from 'antd/es/input/TextArea';
 
 interface ProModePage_ChatMessages_input {
   t: IGetT_frontend_output;
+  currentVersionNum: number;
   chatMessages: IChatMessage[];
   setChatMessages: Dispatch<SetStateAction<IChatMessage[]>>;
 }
 
 export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) => {
-  const { t, chatMessages, setChatMessages } = props;
+  const { t, currentVersionNum, chatMessages, setChatMessages } = props;
+
+  const chatMessages_to_show = [
+    ...chatMessages.slice(currentVersionNum > 1 ? currentVersionNum - 2 : 0, currentVersionNum),
+  ].sort((a: IChatMessage, b: IChatMessage) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
 
   const title = t.get('Chat Messages');
 
   const [form] = Form.useForm();
 
-  const onResetAll = () => {
-    setChatMessages([]);
-  };
-
   return (
     <div className="row subContainer">
-      <h1>{title}</h1>
-      {chatMessages.map((oneChatMessage: IChatMessage, oneChatMessage_index: number) => {
+      <div className="row flex justify-between items-center pr-2">
+        <div className="col_1">
+          <h1>{title}</h1>
+        </div>
+        <div className="col_2">
+          <Tooltip title={t.get('Reset all')}>
+            <img
+              id="reset-messages-history-button"
+              src={iconCleanRight}
+              alt="reset messages history"
+              className="button resetMessagesHistoryButton"
+              style={{
+                fontSize: 18,
+                width: 30,
+                border: '1px solid #d9d9d9',
+                borderRadius: '.25rem',
+                padding: 4,
+                cursor: 'pointer',
+
+                marginTop: 8,
+
+                flex: '0 1 auto',
+              }}
+              onClick={() => {
+                setChatMessages([]);
+                form.resetFields();
+              }}
+            />
+          </Tooltip>
+        </div>
+      </div>
+      {chatMessages_to_show.map((oneChatMessage: IChatMessage, oneChatMessage_index: number) => {
         const { isEdit, content } = oneChatMessage;
 
         return (
           <div
-            className="block_chatMessages_container"
+            className={`block_chatMessages_container ${oneChatMessage_index > 0 ? 'mt-4' : ''}`}
             style={{
               userSelect: 'text',
               border: '1px solid #d9d9d9',
@@ -87,32 +118,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
                 />
               </div>
 
-              <div className="column_2">
-                <Tooltip title={t.get('Reset all')}>
-                  <img
-                    id="reset-messages-history-button"
-                    src={iconCleanRight}
-                    alt="reset messages history"
-                    className="button resetMessagesHistoryButton"
-                    style={{
-                      fontSize: 18,
-                      width: 30,
-                      border: '1px solid #d9d9d9',
-                      borderRadius: '.25rem',
-                      padding: 4,
-                      cursor: 'pointer',
-
-                      marginTop: 8,
-
-                      flex: '0 1 auto',
-                    }}
-                    onClick={() => {
-                      onResetAll();
-                      form.resetFields();
-                    }}
-                  />
-                </Tooltip>
-              </div>
+              <div className="column_2"></div>
             </div>
             <div className="block_chatMessages">
               {!isEdit && content && (
