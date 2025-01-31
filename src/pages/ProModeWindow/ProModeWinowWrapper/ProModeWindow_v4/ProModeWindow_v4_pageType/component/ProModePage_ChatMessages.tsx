@@ -122,7 +122,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
             </div>
             <div className="block_chatMessages">
               {!isEdit && content && (
-                <div className="row view relative watermark">
+                <div className="row view relative watermark-20px">
                   <ReactMarkdown>{content}</ReactMarkdown>
                 </div>
               )}
@@ -146,7 +146,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
               />
             </Form.Item> */}
 
-                    <Form.Item name="content" className="relative watermark">
+                    <Form.Item name="content" className="relative watermark-0px">
                       <TextArea autoSize className="pb-6" />
                     </Form.Item>
 
