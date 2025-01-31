@@ -5,11 +5,7 @@ import { useEffect, useState } from 'react';
 import { Button, message, Splitter } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-import { IMessage, IMessage_default } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
-import { Langchain_previousOutput } from './component/Langchain_previousOutput';
-import { Langchain_currentOutput } from './component/Langchain_currentOutput';
-import { Langchain_adjust } from './component/Langchain_adjust';
-import { Langchain_background } from './component/Langchain_background';
+import { IMessage_default } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { EMessage_role } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
 import { to_deprecate_EProductItemDB_type } from '../../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EProductItemDB';
 import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
@@ -20,7 +16,6 @@ import { Langchain_context_description } from './component/Langchain_context_des
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
-import { IAdjust_IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import {
@@ -30,11 +25,19 @@ import {
   ILangchainMessageExchange_default,
   ILangchainMessageExchange,
   IFormItem,
+  IBackground_type_langchain_default,
+  IAdjust_type_langchain_default,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
+
+import { IChatMessage, IChatMessage_default } from '../component/interface';
+import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
+import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { ProModePage_Background } from '../component/ProModePage_Background';
+import { ProMode_Adjust } from '../component/ProMode_Adjust';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -59,8 +62,9 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   const chatHistory_default = inputsCache_v2[contextSelected_uuid]?.['chatHistory']
     ? JSON.parse(inputsCache_v2[contextSelected_uuid]?.['chatHistory'])
     : [];
+  console.log('chatHistory_default', chatHistory_default);
   // console.log('chatHistory_default', chatHistory_default);
-  const messageExchangeData_default = {
+  const messageExchangeData_default: ILangchainMessageExchange = {
     ...ILangchainMessageExchange_default,
     // background: defaultBackgtound,
     previousOutput: {
@@ -90,14 +94,26 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     versionNum: 0,
   };
   // console.log('messageExchangeData_default', messageExchangeData_default);
-  const [messageExchangeData, setMessageExchangeData] =
+  const [messageExchangeData_deprecated, setMessageExchangeData_deprecated] =
     useState<ILangchainMessageExchange>(messageExchangeData_default);
-  const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>(chatHistory_default);
+  const [chatHistory_langchain, setChatHistory_langchain] = useState<ILangchainMessageExchange[]>(chatHistory_default);
+
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(
     chatHistory_default.length > 0 ? chatHistory_default.length - 1 : 0,
   );
-
-  const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
+  const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
+    { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
+  ]);
+  const [background_v2, setBackground_v2] = useState<IBackground_for_type_langchain>({
+    ...IBackground_type_langchain_default,
+    ...chatMessages[chatMessages.length - 1].background,
+    ...inputsCache_v2[contextSelected_uuid],
+  });
+  const [adjust_v2, setAdjust_v2] = useState<IAdjust_for_type_langchain>({
+    ...IAdjust_type_langchain_default,
+    ...chatMessages[chatMessages.length - 1].adjust,
+    ...inputsCache_v2[contextSelected_uuid],
+  });
 
   const filterBackendAndAjdust_before_buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
     const filtedAdjust = contextSelected.adjust.formItems.reduce(
@@ -152,7 +168,10 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
         llmTemperature: creativityValue,
       },
       type: contextType,
-      prevMessageExchange: chatHistory.length > 0 ? chatHistory[chatHistory.length - 1] : paraMessageExchangeData,
+      prevMessageExchange:
+        chatHistory_langchain.length > 0
+          ? chatHistory_langchain[chatHistory_langchain.length - 1]
+          : paraMessageExchangeData,
       currentMessageExchange: newMessageExchangeData_for_human,
     };
 
@@ -179,8 +198,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       const newMessageExchange_for_human = bodyData.currentMessageExchange;
       const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
       const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];
-      setMessageExchangeData(newMessageExchange_for_human);
-      setChatHistory(newChatHistory_for_human);
+      setMessageExchangeData_deprecated(newMessageExchange_for_human);
+      setChatHistory_langchain(newChatHistory_for_human);
       setCurrentVersionNum(newChatHistory_for_human.length - 1);
 
       if (!urlSlug) {
@@ -197,7 +216,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
         },
         (writingResultText: string) => {
           // console.log('updateResultFromRequestFunc', writingResultText);
-          setMessageExchangeData({
+          setMessageExchangeData_deprecated({
             ...newMessageExchange_for_human,
             currentOutput: {
               title: '',
@@ -244,8 +263,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             });
           }
           const newChatHistory_for_ai = [...newChatHistory_for_human, newMessageExchange_for_ai];
-          setMessageExchangeData(newMessageExchange_for_ai);
-          setChatHistory(newChatHistory_for_ai);
+          setMessageExchangeData_deprecated(newMessageExchange_for_ai);
+          setChatHistory_langchain(newChatHistory_for_ai);
           setCurrentVersionNum(newChatHistory_for_ai.length - 1);
           setInputsCache_v2((prvState: IInputsCache_v2) => ({
             ...prvState,
@@ -270,7 +289,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
           message.error(error.message);
         }
         // Recover the chat history if the request fails or is aborted
-        setChatHistory(chatHistoryBeforeImprove);
+        setChatHistory_langchain(chatHistoryBeforeImprove);
         setCurrentVersionNum(chatHistoryBeforeImprove.length - 1);
       });
     };
@@ -278,12 +297,12 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   const onRegenerateMessage = () => {
     setIsCalling(true);
 
-    const writingPostDataBeforeRollback = { ...messageExchangeData };
+    const writingPostDataBeforeRollback = { ...messageExchangeData_deprecated };
 
     if (currentVersionNum < 2) return;
 
     const rollBackVersionNum = currentVersionNum - 2;
-    const newChatHistory = chatHistory.slice(0, rollBackVersionNum + 1);
+    const newChatHistory = chatHistory_langchain.slice(0, rollBackVersionNum + 1);
 
     const basedWritingPostData = newChatHistory[newChatHistory.length - 1];
     const newWritingPostData = {
@@ -292,27 +311,11 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       adjust: writingPostDataBeforeRollback.adjust,
     };
 
-    setChatHistory(newChatHistory);
+    setChatHistory_langchain(newChatHistory);
     setCurrentVersionNum(newChatHistory.length - 1);
-    setMessageExchangeData(newWritingPostData);
+    setMessageExchangeData_deprecated(newWritingPostData);
 
     onImproveMessage(newChatHistory, newWritingPostData)();
-  };
-
-  const onResetAll = () => {
-    setChatHistory([]);
-    setCurrentVersionNum(0);
-    setMessageExchangeData({
-      ...messageExchangeData_default,
-      currentOutput: {
-        title: '',
-        content: '',
-      },
-      previousOutput: {
-        title: '',
-        content: '',
-      },
-    });
   };
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -349,47 +352,25 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             collapsible
           >
             <div className="row adjust">
-              <Langchain_adjust
+              <ProMode_Adjust
                 t={t}
-                isAdjustCall={currentVersionNum > 0}
+                canRegenerate={currentVersionNum > 0}
                 adjustSelected={contextSelected.adjust}
-                adjust={adjust}
-                setAdjust={(newItem: IAdjust_IMessage) => {
-                  setMessageExchangeData((prvState: ILangchainMessageExchange) => ({
-                    ...prvState,
-                    adjust: newItem,
-                  }));
-                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
-                    ...prvState,
-                    [contextSelected_uuid]: {
-                      ...prvState[contextSelected_uuid],
-                      ...newItem,
-                    },
-                  }));
-                }}
+                adjust={adjust_v2}
+                setAdjust={setAdjust_v2}
                 contextSelected_type={contextSelected.contextType}
                 switchContextSelected_by_type={switchContextSelected_by_type}
               />
             </div>
 
+            {console.log('contextSelected.background', contextSelected.background)}
+
             <div className="row background">
-              <Langchain_background
+              <ProModePage_Background
                 t={t}
                 backgroundSelected={contextSelected.background}
-                background={background}
-                setBackground={(newItem: IBackground_for_type_langchain) => {
-                  setMessageExchangeData((prvState: ILangchainMessageExchange) => ({
-                    ...prvState,
-                    background: newItem,
-                  }));
-                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
-                    ...prvState,
-                    [contextSelected_uuid]: {
-                      ...prvState[contextSelected_uuid],
-                      ...newItem,
-                    },
-                  }));
-                }}
+                background={background_v2}
+                setBackground={setBackground_v2}
               />
             </div>
 
@@ -402,12 +383,12 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                       <Button
                         type="primary"
                         onClick={() => {
-                          onImproveMessage(chatHistory, messageExchangeData)();
+                          onImproveMessage(chatHistory_langchain, messageExchangeData_deprecated)();
                         }}
                         disabled={
                           isCalling ||
-                          (chatHistory.length > 0
-                            ? currentVersionNum !== chatHistory[chatHistory.length - 1].versionNum
+                          (chatHistory_langchain.length > 0
+                            ? currentVersionNum !== chatHistory_langchain[chatHistory_langchain.length - 1].versionNum
                             : false)
                         }
                       >
@@ -458,22 +439,23 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             collapsible
           >
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
-              {chatHistory.length > 0 && (
+              {chatHistory_langchain.length > 0 && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                   <LeftOutlined
                     style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                     onClick={() => {
                       if (currentVersionNum === 1) return;
                       if (isCalling) return;
-                      const writingPostDataBeforeRollback = { ...messageExchangeData };
+                      const writingPostDataBeforeRollback = { ...messageExchangeData_deprecated };
                       const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
                         writingPostDataBeforeRollback;
 
                       const previousVersion = currentVersionNum - 2;
                       const messageExchangeDataRollBack =
-                        chatHistory.find((item) => item.versionNum === previousVersion) ?? messageExchangeData;
+                        chatHistory_langchain.find((item) => item.versionNum === previousVersion) ??
+                        messageExchangeData_deprecated;
 
-                      setMessageExchangeData({
+                      setMessageExchangeData_deprecated({
                         ...messageExchangeDataRollBack,
                         adjust: adjustBeforeRollBack,
                         background: backgroundBeforeRollBack,
@@ -489,17 +471,18 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                   <RightOutlined
                     style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                     onClick={() => {
-                      if (currentVersionNum === chatHistory.length - 1) return;
+                      if (currentVersionNum === chatHistory_langchain.length - 1) return;
                       if (isCalling) return;
-                      const writingPostDataBeforeRollback = { ...messageExchangeData };
+                      const writingPostDataBeforeRollback = { ...messageExchangeData_deprecated };
                       const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
                         writingPostDataBeforeRollback;
 
                       const nextVersion = currentVersionNum + 2;
                       const messageExchangeDataRollBack =
-                        chatHistory.find((item) => item.versionNum === nextVersion) ?? messageExchangeData;
+                        chatHistory_langchain.find((item) => item.versionNum === nextVersion) ??
+                        messageExchangeData_deprecated;
 
-                      setMessageExchangeData({
+                      setMessageExchangeData_deprecated({
                         ...messageExchangeDataRollBack,
                         adjust: adjustBeforeRollBack,
                         background: backgroundBeforeRollBack,
@@ -514,32 +497,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             </div> */}
             </div>
 
-            <div className="row currentOuput">
-              <Langchain_currentOutput
-                t={t}
-                title={contextSelected.currentOutput.title ?? t.get('Post')}
-                currentOutput={currentOutput}
-                setCurrentOutput={(newItem: IMessage) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
-                    currentOutput: newItem,
-                  });
-                }}
-                onResetAll={onResetAll}
-              />
-            </div>
-
-            <div className="row previousOutput">
-              <Langchain_previousOutput
-                t={t}
-                previousOutput={previousOutput}
-                setPreviousOutput={(newItem: IMessage) => {
-                  setMessageExchangeData({
-                    ...messageExchangeData,
-                    previousOutput: newItem,
-                  });
-                }}
-              />
+            <div className="row component_chatMessages">
+              <ProModePage_ChatMessages t={t} chatMessages={chatMessages} setChatMessages={setChatMessages} />
             </div>
 
             {contextSelected.description && (

@@ -11,7 +11,6 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 
 import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results-deprecated/index_v5';
 import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/deprecated/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface-deprecated';
-import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-11-03-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize-deprecated/index_v5';
 import { useCreativityValueContext } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IProMode_v4_tabPane } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
 import {
@@ -24,6 +23,7 @@ import {
   IAdjust_for_type_langchain,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
+import { ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2025-01-31-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/index_v5';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
@@ -150,7 +150,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
       </div>
       <div className="row tabPane_context_container">
         {mode === EProMode_v4_module_mode.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
-          <ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5
+          <ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize
             creativityValue={creativityValue}
             contextSelected={contextSelected}
             switchContextSelected_by_type={switchContextSelected_by_type}
