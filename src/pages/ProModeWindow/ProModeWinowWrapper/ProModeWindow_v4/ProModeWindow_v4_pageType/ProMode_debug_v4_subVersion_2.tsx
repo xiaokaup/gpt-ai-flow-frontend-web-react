@@ -22,7 +22,7 @@ export const ProMode_debug_v4_subVersion_2 = (props: IProMode_debug_v4_subVersio
   const { contextType, background, adjust, chatMessages, currentVersionNum, inputsCache_v2 } = props;
 
   return (
-    <>
+    <div className="hidden">
       <div className="row @DEV">
         <Button
           type="primary"
@@ -61,6 +61,6 @@ export const ProMode_debug_v4_subVersion_2 = (props: IProMode_debug_v4_subVersio
           <code>{JSON.stringify(chatMessages, null, 2)}</code>
         </pre>
       </div>
-    </>
+    </div>
   );
 };
