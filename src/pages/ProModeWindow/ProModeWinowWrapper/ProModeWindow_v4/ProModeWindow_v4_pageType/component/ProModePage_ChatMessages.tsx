@@ -11,24 +11,36 @@ import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 import { IChatMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import TextArea from 'antd/es/input/TextArea';
+import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 interface ProModePage_ChatMessages_input {
   t: IGetT_frontend_output;
   currentVersionNum: number;
   chatMessages: IChatMessage[];
   setChatMessages: Dispatch<SetStateAction<IChatMessage[]>>;
+
+  contextSelected_uuid: string;
+  inputsCache_v2: IInputsCache_v2;
+  setInputsCache_v2: React.Dispatch<React.SetStateAction<IInputsCache_v2>>;
 }
 
 export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) => {
-  const { t, currentVersionNum, chatMessages, setChatMessages } = props;
+  const {
+    t,
+    currentVersionNum,
+    chatMessages,
+    setChatMessages,
+    // cache
+    contextSelected_uuid,
+    inputsCache_v2,
+    setInputsCache_v2,
+  } = props;
 
   const chatMessages_to_show = [
     ...chatMessages.slice(currentVersionNum > 1 ? currentVersionNum - 2 : 0, currentVersionNum),
   ].sort((a: IChatMessage, b: IChatMessage) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
 
   const title = t.get('Chat Messages');
-
-  const [form] = Form.useForm();
 
   return (
     <div className="row subContainer">
@@ -57,17 +69,52 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
               }}
               onClick={() => {
                 setChatMessages([]);
-                form.resetFields();
               }}
             />
           </Tooltip>
         </div>
       </div>
       {chatMessages_to_show.map((oneChatMessage: IChatMessage, oneChatMessage_index: number) => {
-        const { isEdit, content } = oneChatMessage;
+        const { uuid, isEdit, content } = oneChatMessage;
+
+        const switchEdit = (paraOneChatMessage: IChatMessage) => {
+          const newChatMessages = [...chatMessages].map((item: IChatMessage) => {
+            if (paraOneChatMessage.content === item.content) {
+              return {
+                ...item,
+                isEdit: !item.isEdit,
+              };
+            }
+            return item;
+          });
+          setChatMessages(newChatMessages);
+        };
+
+        const onFinish = (paraOneChatMessage: IChatMessage, content: string) => {
+          const newChatMessages = [...chatMessages].map((item: IChatMessage) => {
+            if (paraOneChatMessage.content === item.content) {
+              return {
+                ...item,
+                isEdit: !item.isEdit,
+                content: content,
+              };
+            }
+            return item;
+          });
+          setChatMessages(newChatMessages);
+
+          setInputsCache_v2({
+            ...inputsCache_v2,
+            [contextSelected_uuid]: {
+              ...inputsCache_v2[contextSelected_uuid],
+              chatMessages: newChatMessages,
+            },
+          });
+        };
 
         return (
           <div
+            key={uuid}
             className={`block_chatMessages_container ${oneChatMessage_index > 0 ? 'mt-4' : ''}`}
             style={{
               userSelect: 'text',
@@ -90,17 +137,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
                 <EditOutlined
                   style={{ fontSize: 18, marginLeft: '.4rem' }}
                   onClick={() => {
-                    setChatMessages(
-                      chatMessages.map((oneChatMessage: IChatMessage, item_index: number) => {
-                        if (item_index === oneChatMessage_index) {
-                          return {
-                            ...oneChatMessage,
-                            isEdit: !oneChatMessage.isEdit,
-                          };
-                        }
-                        return oneChatMessage;
-                      }),
-                    );
+                    switchEdit(oneChatMessage);
                   }}
                 />
 
@@ -120,7 +157,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
 
               <div className="column_2"></div>
             </div>
-            <div className="block_chatMessages">
+            <div className="block_chatMessages mt-4">
               {!isEdit && content && (
                 <div className="row view relative watermark-20px">
                   <ReactMarkdown>{content}</ReactMarkdown>
@@ -129,10 +166,9 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
               {isEdit && (
                 <div className="row editing">
                   <Form
-                    form={form}
                     initialValues={{ content }}
-                    onFinish={(values) => {
-                      values.content;
+                    onFinish={(values: any) => {
+                      onFinish(oneChatMessage, values.content);
                     }}
                   >
                     {/* <Form.Item name="title" label="Title">
@@ -157,17 +193,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
                       <Button
                         type="default"
                         onClick={() => {
-                          setChatMessages(
-                            chatMessages.map((oneChatMessage: IChatMessage, item_index: number) => {
-                              if (item_index === oneChatMessage_index) {
-                                return {
-                                  ...oneChatMessage,
-                                  isEdit: !oneChatMessage.isEdit,
-                                };
-                              }
-                              return oneChatMessage;
-                            }),
-                          );
+                          switchEdit(oneChatMessage);
                         }}
                         style={{ marginLeft: '1rem' }}
                       >

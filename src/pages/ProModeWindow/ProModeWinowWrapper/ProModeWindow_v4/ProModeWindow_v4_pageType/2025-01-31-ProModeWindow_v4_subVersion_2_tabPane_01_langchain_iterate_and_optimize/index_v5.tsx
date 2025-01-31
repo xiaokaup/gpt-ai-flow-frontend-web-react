@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { Button, message, Splitter } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   IChatMessage,
   IChatMessage_default,
@@ -32,7 +34,6 @@ import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper'
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
 import { ProModePage_Background } from '../component/ProModePage_Background';
-import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { ProMode_debug_v4_subVersion_2 } from '../ProMode_debug_v4_subVersion_2';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize_input
@@ -96,6 +97,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
 
     let newChatMessage: IChatMessage = {
       ...IChatMessage_default,
+      uuid: uuidv4(),
       adjust: adjust_v2,
       background: background_v2,
       createdAt: new Date(),
@@ -193,8 +195,6 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   }, []);
 
   useEffect(() => {
-    // console.log('background_v2', background_v2);
-    // console.log('adjust_v2', adjust_v2);
     const newInputCache_v2 = {
       ...inputsCache_v2,
       [contextSelected_uuid]: {
@@ -243,8 +243,6 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                 switchContextSelected_by_type={switchContextSelected_by_type}
               />
             </div>
-
-            {console.log('contextSelected.background', contextSelected.background)}
 
             <div className="row background">
               <ProModePage_Background
@@ -353,6 +351,10 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                 currentVersionNum={currentVersionNum}
                 chatMessages={chatMessages}
                 setChatMessages={setChatMessages}
+                // cache
+                contextSelected_uuid={contextSelected_uuid}
+                inputsCache_v2={inputsCache_v2}
+                setInputsCache_v2={setInputsCache_v2}
               />
             </div>
 
