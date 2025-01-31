@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface ILangchain_left_03_context_description_input {
   t: IGetT_frontend_output;

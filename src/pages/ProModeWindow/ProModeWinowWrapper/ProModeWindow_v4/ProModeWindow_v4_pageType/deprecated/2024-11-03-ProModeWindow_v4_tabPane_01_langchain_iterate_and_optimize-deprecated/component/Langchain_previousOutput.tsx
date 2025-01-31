@@ -5,8 +5,8 @@ import copyToClipboard from 'copy-to-clipboard';
 import { Button, Form, Input, message } from 'antd';
 import { EditOutlined, EyeOutlined, EyeInvisibleOutlined, CopyOutlined } from '@ant-design/icons';
 
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IMessage } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 
 const { TextArea } = Input;
 

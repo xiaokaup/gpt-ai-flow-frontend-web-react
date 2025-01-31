@@ -1,13 +1,13 @@
-import iconSuccessful from '../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
-import iconWrong from '../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
+import iconSuccessful from '../../../../../../../../../assets/icons-customize/icon-status-successful/icon-status-successful-512x512.png';
+import iconWrong from '../../../../../../../../../assets/icons-customize/icon-status-wrong/icon-status-wrong-512x512.png';
 
 import { useState } from 'react';
 import { Form, Input, Tooltip } from 'antd';
-import TBackendPuppeteerFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendPuppeteer';
-import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { IAdjust_IMessage_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import TBackendPuppeteerFile from '../../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendPuppeteer';
+import { ELocale } from '../../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { IAdjust_IMessage_v2 } from '../../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 const { Search, TextArea } = Input;
 

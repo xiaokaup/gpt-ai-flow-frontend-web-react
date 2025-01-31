@@ -9,9 +9,9 @@ import {
 import { ILLMOption_secrets } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-11-03-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize-deprecated/index_v5';
-import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results-deprecated/index_v5';
-import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface-deprecated';
+import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results-deprecated/index_v5';
+import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/deprecated/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface-deprecated';
+import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-11-03-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize-deprecated/index_v5';
 import { useCreativityValueContext } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IProMode_v4_tabPane } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
 import {

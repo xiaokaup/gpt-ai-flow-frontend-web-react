@@ -1,50 +1,50 @@
-import '../../index.scss';
+import '../../../index.scss';
 
 import { useEffect, useState } from 'react';
 
 import { Button, message, Splitter, UploadFile } from 'antd';
 import { LeftOutlined, RightOutlined, LoadingOutlined } from '@ant-design/icons';
 
-import { IMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_left_02_previousOutput } from './component/Langchain_left_02_previousOutput';
 import { Langchain_left_01_currentOutput } from './component/Langchain_left_01_currentOutput';
 import { Langchain_right_04_adjust } from './component/Langchain_right_04_adjust';
 import { Langchain_right_03_background } from './component/Langchain_right_03_background';
-import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { IInputsCache_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import {
   IAdjust_IMessage_v2,
   IAdjust_IMessage_v2_default,
-} from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import {
   IBackground_v2,
   IBackground_v2_default,
-} from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
-import { removeAllEmptyValues } from '../../../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
+} from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
+import { removeAllEmptyValues } from '../../../../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
 
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
+import { IProModeWindow_v4_wrapper_input } from '../../../ProModeWindow_v4_wrapper';
 
 import { Langchain_left_03_context_description } from './component/Langchain_left_03_context_description';
 import { Langchain_right_02_uploader } from './component/Langchain_right_02_uploader';
 import { Langchain_right_01_xiaohongshu_shareUrl } from './component/Langchain_right_01_xiaohongshu_shareUrl';
-import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
-import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+import { EProMode_v4_module_contextType } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
-} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
+} from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
 import {
   IMessage_for_simpleInterface,
   ILangchain_for_type_langchain_request_v4_simpleInterface,
   IMessage_for_simpleInterface_default,
-} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
+} from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
 import {
   IProMode_v4_tabPane_context,
   IBackground_for_type_langchain,
   IAdjust_for_type_langchain,
-} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+} from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 
 interface ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {

@@ -1,4 +1,4 @@
-import iconCleanRight from '../../../../../../../../assets/icons-customize/icon-clean-right/icon-clean-right-24x24.png';
+import iconCleanRight from '../../../../../../../../../assets/icons-customize/icon-clean-right/icon-clean-right-24x24.png';
 
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -7,8 +7,8 @@ import copyToClipboard from 'copy-to-clipboard';
 import { Button, Form, Input, Tooltip, message } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IMessage_for_simpleInterface } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IMessage_for_simpleInterface } from '../../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
 
 const { TextArea } = Input;
 

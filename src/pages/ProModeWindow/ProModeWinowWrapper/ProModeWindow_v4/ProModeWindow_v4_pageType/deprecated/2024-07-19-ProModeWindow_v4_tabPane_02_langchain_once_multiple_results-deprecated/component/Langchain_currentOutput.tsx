@@ -1,4 +1,4 @@
-import iconCleanRight from '../../../../../../../../assets/icons-customize/icon-clean-right/icon-clean-right-24x24.png';
+import iconCleanRight from '../../../../../../../../../assets/icons-customize/icon-clean-right/icon-clean-right-24x24.png';
 
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -7,8 +7,8 @@ import copyToClipboard from 'copy-to-clipboard';
 import { Button, Form, Input, Tooltip, message } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IMessage } from '../../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 
 const { TextArea } = Input;
 

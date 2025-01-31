@@ -1,27 +1,27 @@
-import '../../index.scss';
+import '../../../index.scss';
 
 import { useEffect, useState } from 'react';
 
 import { Button, message, Splitter } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-import { IMessage, IMessage_default } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IMessage, IMessage_default } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
 import { Langchain_previousOutput } from './component/Langchain_previousOutput';
 import { Langchain_currentOutput } from './component/Langchain_currentOutput';
 import { Langchain_adjust } from './component/Langchain_adjust';
 import { Langchain_background } from './component/Langchain_background';
-import { EMessage_role } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
-import { to_deprecate_EProductItemDB_type } from '../../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EProductItemDB';
-import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { ELocale } from '../../../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+import { EMessage_role } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
+import { to_deprecate_EProductItemDB_type } from '../../../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EProductItemDB';
+import TBackendLangchainFile from '../../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { IInputsCache_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
-import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
-import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { IProModeWindow_v4_wrapper_input } from '../../../ProModeWindow_v4_wrapper';
+import { EProMode_v4_module_contextType } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import {
   IProMode_v4_tabPane_context,
   IBackground_for_type_langchain,
@@ -30,13 +30,13 @@ import {
   IAdjust_type_langchain_default,
   ILangchainMessageExchange,
   IFormItem,
-} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
-import { IAdjust_morePostsChain } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
+} from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { IAdjust_morePostsChain } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/02-once-multiple-results/2024-07-03-rewritingTools/2024-05-13-IProMode_v4_morePostsChain';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
-} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
-import { ESocialPlatform_moduleName } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
+} from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
+import { ESocialPlatform_moduleName } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 
 interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {

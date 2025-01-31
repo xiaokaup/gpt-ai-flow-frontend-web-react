@@ -5,16 +5,17 @@ import copyToClipboard from 'copy-to-clipboard';
 import { Button, Form, Input, message } from 'antd';
 import { EditOutlined, EyeOutlined, EyeInvisibleOutlined, CopyOutlined } from '@ant-design/icons';
 
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
+import { IGetT_frontend_output } from '../../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { IMessage_for_simpleInterface } from '../../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v4_simpleInterface';
 
 const { TextArea } = Input;
 
-export const Langchain_previousOutput = (props: {
+interface ILangchain_left_02_previousOutput_input {
   t: IGetT_frontend_output;
-  previousOutput: IMessage;
-  setPreviousOutput: (newItem: IMessage) => void;
-}) => {
+  previousOutput: IMessage_for_simpleInterface;
+  setPreviousOutput: (newItem: IMessage_for_simpleInterface) => void;
+}
+export const Langchain_left_02_previousOutput = (props: ILangchain_left_02_previousOutput_input) => {
   const { t, previousOutput: previousOutputFromProps, setPreviousOutput } = props;
 
   const previousOutput = useMemo(() => previousOutputFromProps, [previousOutputFromProps]);
@@ -27,7 +28,7 @@ export const Langchain_previousOutput = (props: {
     form.setFieldsValue(previousOutput);
   }, [previousOutput, form]);
 
-  const onFinish = (values: IMessage) => {
+  const onFinish = (values: IMessage_for_simpleInterface) => {
     setPreviousOutput({
       ...previousOutput,
       ...values,
