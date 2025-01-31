@@ -17,8 +17,10 @@ import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
-import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
-import { IInputsCache_v2_contextSelected_value_default } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import {
+  IInputsCache_v3_contextSelected_value_default,
+  IInputsCache_v3,
+} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
   IProMode_v4_tabPane_context,
@@ -28,30 +30,34 @@ import {
 import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
-
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
+import { ELLM_name } from '../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
 import { ProModePage_Background } from '../component/ProModePage_Background';
 import { ProMode_debug_v4_subVersion_2 } from '../ProMode_debug_v4_subVersion_2';
 
-interface IProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize_input
-  extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
+interface IProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize_input {
+  t: IGetT_frontend_output;
+  userAccessToken: string;
+  llmOption_secrets: ILLMOption_secrets;
+  llmName: ELLM_name;
   creativityValue: number;
   contextSelected: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
-  // setContextSelected: React.Dispatch<
-  //   React.SetStateAction<IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain> | null>
-  // >;
   switchContextSelected_by_type: (newType: EProMode_v4_module_contextType) => void;
+  inputsCache_v3: IInputsCache_v3;
+  setInputsCache_v3: React.Dispatch<React.SetStateAction<IInputsCache_v3>>;
 }
 export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize = (
   props: IProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize_input,
 ) => {
   const { creativityValue, contextSelected, switchContextSelected_by_type } = props;
   const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
-  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache_v2, setInputsCache_v2 } = props;
-  inputsCache_v2.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
+  const { t, userAccessToken, llmOption_secrets, llmName, inputsCache_v3, setInputsCache_v3 } = props;
+  inputsCache_v3.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
@@ -60,7 +66,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     background: background_from_cache,
     adjust: adjust_from_cache,
     chatMessages: chatMessages_from_cache,
-  } = { ...IInputsCache_v2_contextSelected_value_default, ...inputsCache_v2[contextSelected_uuid] };
+  } = { ...IInputsCache_v3_contextSelected_value_default, ...inputsCache_v3[contextSelected_uuid] };
 
   // console.log('chatMessages_from_cache', chatMessages_from_cache);
 
@@ -70,8 +76,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
-  const [background_v2, setBackground_v2] = useState<IBackground_for_type_langchain>(background_from_cache);
-  const [adjust_v2, setAdjust_v2] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
+  const [background_v3, setBackground_v3] = useState<IBackground_for_type_langchain>(background_from_cache);
+  const [adjust_v3, setAdjust_v3] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
 
   const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
     setIsCalling(true);
@@ -98,8 +104,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     let newChatMessage: IChatMessage = {
       ...IChatMessage_default,
       uuid: uuidv4(),
-      adjust: adjust_v2,
-      background: background_v2,
+      adjust: adjust_v3,
+      background: background_v3,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -115,8 +121,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     const bodyData: IProMode_module_request_v4_subVersion_2 = {
       contextType,
       llmOptions,
-      background: background_v2,
-      adjust: adjust_v2,
+      background: background_v3,
+      adjust: adjust_v3,
       chatMessages: newChatMessages,
     };
 
@@ -148,10 +154,10 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
         setChatMessages(newChatMessages);
         setCurrentVersionNum(newChatMessages.length);
 
-        setInputsCache_v2({
-          ...inputsCache_v2,
+        setInputsCache_v3({
+          ...inputsCache_v3,
           [contextSelected_uuid]: {
-            ...inputsCache_v2[contextSelected_uuid],
+            ...inputsCache_v3[contextSelected_uuid],
             chatMessages: newChatMessages,
           },
         });
@@ -195,18 +201,18 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   }, []);
 
   useEffect(() => {
-    const newInputCache_v2 = {
-      ...inputsCache_v2,
+    const newInputCache_v3 = {
+      ...inputsCache_v3,
       [contextSelected_uuid]: {
-        ...inputsCache_v2[contextSelected_uuid],
-        background: background_v2,
-        adjust: adjust_v2,
+        ...inputsCache_v3[contextSelected_uuid],
+        background: background_v3,
+        adjust: adjust_v3,
         chatMessages,
       },
     };
     setCurrentVersionNum(chatMessages.length);
-    setInputsCache_v2(newInputCache_v2);
-  }, [background_v2, adjust_v2, chatMessages.length]);
+    setInputsCache_v3(newInputCache_v3);
+  }, [background_v3, adjust_v3, chatMessages.length]);
 
   return (
     <>
@@ -237,8 +243,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                 t={t}
                 canRegenerate={currentVersionNum > 0}
                 adjustSelected={contextSelected.adjust}
-                adjust={adjust_v2}
-                setAdjust={setAdjust_v2}
+                adjust={adjust_v3}
+                setAdjust={setAdjust_v3}
                 contextSelected_type={contextSelected.contextType}
                 switchContextSelected_by_type={switchContextSelected_by_type}
               />
@@ -248,8 +254,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
               <ProModePage_Background
                 t={t}
                 backgroundSelected={contextSelected.background}
-                background={background_v2}
-                setBackground={setBackground_v2}
+                background={background_v3}
+                setBackground={setBackground_v3}
               />
             </div>
 
@@ -353,8 +359,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                 setChatMessages={setChatMessages}
                 // cache
                 contextSelected_uuid={contextSelected_uuid}
-                inputsCache_v2={inputsCache_v2}
-                setInputsCache_v2={setInputsCache_v2}
+                inputsCache_v3={inputsCache_v3}
+                setInputsCache_v3={setInputsCache_v3}
               />
             </div>
 
@@ -368,11 +374,11 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       )}
       <ProMode_debug_v4_subVersion_2
         contextType={contextType}
-        background={background_v2}
-        adjust={adjust_v2}
+        background={background_v3}
+        adjust={adjust_v3}
         chatMessages={chatMessages}
         currentVersionNum={currentVersionNum}
-        inputsCache_v2={inputsCache_v2}
+        inputsCache_v3={inputsCache_v3}
       />
     </>
   );

@@ -11,7 +11,7 @@ import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 import { IChatMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import TextArea from 'antd/es/input/TextArea';
-import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IInputsCache_v3 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 
 interface ProModePage_ChatMessages_input {
   t: IGetT_frontend_output;
@@ -20,8 +20,8 @@ interface ProModePage_ChatMessages_input {
   setChatMessages: Dispatch<SetStateAction<IChatMessage[]>>;
 
   contextSelected_uuid: string;
-  inputsCache_v2: IInputsCache_v2;
-  setInputsCache_v2: React.Dispatch<React.SetStateAction<IInputsCache_v2>>;
+  inputsCache_v3: IInputsCache_v3;
+  setInputsCache_v3: React.Dispatch<React.SetStateAction<IInputsCache_v3>>;
 }
 
 export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) => {
@@ -32,8 +32,8 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
     setChatMessages,
     // cache
     contextSelected_uuid,
-    inputsCache_v2,
-    setInputsCache_v2,
+    inputsCache_v3,
+    setInputsCache_v3,
   } = props;
 
   const chatMessages_to_show = [
@@ -103,10 +103,10 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
           });
           setChatMessages(newChatMessages);
 
-          setInputsCache_v2({
-            ...inputsCache_v2,
+          setInputsCache_v3({
+            ...inputsCache_v3,
             [contextSelected_uuid]: {
-              ...inputsCache_v2[contextSelected_uuid],
+              ...inputsCache_v3[contextSelected_uuid],
               chatMessages: newChatMessages,
             },
           });
