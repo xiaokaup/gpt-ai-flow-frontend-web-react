@@ -8,7 +8,7 @@ import copyToClipboard from 'copy-to-clipboard';
 import { Button, Form, message, Tooltip } from 'antd';
 import { EditOutlined, CopyOutlined } from '@ant-design/icons';
 
-import { IChatMessage } from './interface';
+import { IChatMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import TextArea from 'antd/es/input/TextArea';
 

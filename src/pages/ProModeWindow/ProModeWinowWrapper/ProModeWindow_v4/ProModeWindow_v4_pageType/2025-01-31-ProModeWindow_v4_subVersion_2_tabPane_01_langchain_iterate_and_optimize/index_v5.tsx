@@ -5,39 +5,36 @@ import { useEffect, useState } from 'react';
 import { Button, message, Splitter } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
-import { IMessage_default } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
-import { EMessage_role } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage_role';
-import { to_deprecate_EProductItemDB_type } from '../../../../../../gpt-ai-flow-common/enum-database/to_deprecate_EProductItemDB';
-import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { Langchain_context_description } from './component/Langchain_context_description';
-import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
-
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
-import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
-import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import {
-  IProMode_v4_tabPane_context,
-  IBackground_for_type_langchain,
-  IAdjust_for_type_langchain,
-  ILangchainMessageExchange_default,
-  ILangchainMessageExchange,
-  IFormItem,
-  IBackground_type_langchain_default,
-  IAdjust_type_langchain_default,
-} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+  IChatMessage,
+  IChatMessage_default,
+} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
+import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { Langchain_context_description } from './component/Langchain_context_description';
 import {
   IPromode_v4_tabPane_context_button,
   EButton_operation,
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
+import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import {
+  IProMode_v4_tabPane_context,
+  IBackground_for_type_langchain,
+  IAdjust_for_type_langchain,
+  IBackground_type_langchain_default,
+  IAdjust_type_langchain_default,
+} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 
-import { IChatMessage, IChatMessage_default } from '../component/interface';
-import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
-import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import { ProModePage_Background } from '../component/ProModePage_Background';
+import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
+
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
+import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
+import { ProModePage_Background } from '../component/ProModePage_Background';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -62,41 +59,6 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   const chatHistory_default = inputsCache_v2[contextSelected_uuid]?.['chatHistory']
     ? JSON.parse(inputsCache_v2[contextSelected_uuid]?.['chatHistory'])
     : [];
-  console.log('chatHistory_default', chatHistory_default);
-  // console.log('chatHistory_default', chatHistory_default);
-  const messageExchangeData_default: ILangchainMessageExchange = {
-    ...ILangchainMessageExchange_default,
-    // background: defaultBackgtound,
-    previousOutput: {
-      title:
-        chatHistory_default.length > 1 ? chatHistory_default[chatHistory_default.length - 2].previousOutput.title : '',
-      content:
-        chatHistory_default.length > 1
-          ? chatHistory_default[chatHistory_default.length - 2].previousOutput.content
-          : '',
-    },
-    background: {
-      ...ILangchainMessageExchange_default.background,
-      ...inputsCache_v2[contextSelected_uuid],
-    },
-    adjust: {
-      ...ILangchainMessageExchange_default.adjust,
-      ...inputsCache_v2[contextSelected_uuid],
-    },
-    currentOutput: {
-      title:
-        chatHistory_default.length > 0 ? chatHistory_default[chatHistory_default.length - 1].currentOutput.title : '',
-      content:
-        chatHistory_default.length > 0 ? chatHistory_default[chatHistory_default.length - 1].currentOutput.content : '',
-    },
-    createdAt: new Date(),
-    role: EMessage_role.HUMAN,
-    versionNum: 0,
-  };
-  // console.log('messageExchangeData_default', messageExchangeData_default);
-  const [messageExchangeData_deprecated, setMessageExchangeData_deprecated] =
-    useState<ILangchainMessageExchange>(messageExchangeData_default);
-  const [chatHistory_langchain, setChatHistory_langchain] = useState<ILangchainMessageExchange[]>(chatHistory_default);
 
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(
     chatHistory_default.length > 0 ? chatHistory_default.length - 1 : 0,
@@ -115,207 +77,105 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     ...inputsCache_v2[contextSelected_uuid],
   });
 
-  const filterBackendAndAjdust_before_buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
-    const filtedAdjust = contextSelected.adjust.formItems.reduce(
-      (acc, currentFormItem: IFormItem<IAdjust_for_type_langchain>) => {
-        if (paraMessageExchangeData.adjust[currentFormItem.name]) {
-          acc[currentFormItem.name] = paraMessageExchangeData.adjust[currentFormItem.name];
-        }
-        return acc;
-      },
-      {} as IAdjust_for_type_langchain,
-    );
+  const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
+    setIsCalling(true);
 
-    const filtedBackground = contextSelected.background.formItems.reduce(
-      (acc, currentFormItem: IFormItem<IBackground_for_type_langchain>) => {
-        if (paraMessageExchangeData.background[currentFormItem.name]) {
-          acc[currentFormItem.name] = paraMessageExchangeData.background[currentFormItem.name];
-        }
-        return acc;
-      },
-      {} as IBackground_for_type_langchain,
-    );
+    // console.log('paraMessageExchangeData', paraMessageExchangeData);
+    const newRequestController = new AbortController();
+    setRequestController(newRequestController);
+    const { signal } = newRequestController;
 
-    const filteredParaMessageExchangeData = {
-      ...paraMessageExchangeData,
-      adjust: filtedAdjust,
-      background: filtedBackground,
-    };
-    // console.log('filteredParaMessageExchangeData', filteredParaMessageExchangeData);
-    return filteredParaMessageExchangeData;
-  };
+    const chatMessagesBeforeImprove_copy = [...chatMessagesBeforeImprove];
 
-  const buildHumanMessage = (paraMessageExchangeData: ILangchainMessageExchange) => {
-    const newVersionNum =
-      paraMessageExchangeData.versionNum && paraMessageExchangeData.versionNum > 0
-        ? paraMessageExchangeData.versionNum + 1
-        : 0;
-    const newMessageExchangeData_for_human = {
-      ...paraMessageExchangeData,
-      previousOutput: paraMessageExchangeData.currentOutput,
-      currentOutput: IMessage_default,
-      updatedAt: new Date(),
-      versionNum: newVersionNum,
-      role: EMessage_role.HUMAN,
+    const llmOptions = {
+      llmName,
+      llmImageName: null,
+      llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
+      llmTemperature: creativityValue,
     };
 
-    const newHumanRequest: to_deprecate_ILangchain_for_type_langchain_request_v3 = {
-      productItem_type: to_deprecate_EProductItemDB_type.PRO_MODE_SERVICE,
-      llmOptions: {
-        llmName,
-        llmImageName: null,
-        llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
-        llmTemperature: creativityValue,
-      },
-      type: contextType,
-      prevMessageExchange:
-        chatHistory_langchain.length > 0
-          ? chatHistory_langchain[chatHistory_langchain.length - 1]
-          : paraMessageExchangeData,
-      currentMessageExchange: newMessageExchangeData_for_human,
+    const lastMessage: IChatMessage =
+      chatMessagesBeforeImprove_copy.length > 0
+        ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 1]
+        : IChatMessage_default;
+    // const secondLastMessage = chatMessagesBeforeImprove_copy.length > 1 ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 2] : IChatMessage_default;
+    const { adjust, background } = lastMessage;
+    const bodyData: IProMode_module_request_v4_subVersion_2 = {
+      contextType,
+      llmOptions,
+      background,
+      adjust,
+      chatMessages,
     };
 
-    // console.log('buildHumanMessage newHumanRequest', newHumanRequest);
+    const newChatMessages = [...chatMessagesBeforeImprove_copy, { ...IChatMessage_default, adjust, background }];
+    setChatMessages(newChatMessages);
+    setCurrentVersionNum(newChatMessages.length - 1);
 
-    return newHumanRequest;
-  };
+    if (!urlSlug) {
+      message.error('urlSlug is empty');
+      return;
+    }
 
-  const onImproveMessage =
-    (chatHistoryBeforeImprove: ILangchainMessageExchange[], paraMessageExchangeData: ILangchainMessageExchange) =>
-    async () => {
-      setIsCalling(true);
+    TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
+      urlSlug,
+      bodyData,
+      () => {
+        setIsCalling(true);
+        console.log('beforeSendRequestFunc');
+      },
+      (writingResultText: string) => {
+        // console.log('updateResultFromRequestFunc', writingResultText);
+        setChatMessages((prvState: IChatMessage[]) => {
+          const newChatMessages = [...prvState];
+          newChatMessages[newChatMessages.length - 1].content = writingResultText;
+          return newChatMessages;
+        });
+      },
+      (resultText: string) => {
+        // console.log('AfterRequestFunc', resultText);
 
-      // console.log('paraMessageExchangeData', paraMessageExchangeData);
-      const newRequestController = new AbortController();
-      setRequestController(newRequestController);
-      const { signal } = newRequestController;
+        setChatMessages((prvState: IChatMessage[]) => {
+          const newChatMessages = [...prvState];
+          newChatMessages[newChatMessages.length - 1].content = resultText;
+          return newChatMessages;
+        });
+        setCurrentVersionNum(chatMessages.length - 1);
 
-      // 取最新的 ai message, 生成一个 human message，添加到历史，增加 currentVersionNum
-      const filteredParaMessageExchangeData = filterBackendAndAjdust_before_buildHumanMessage(paraMessageExchangeData);
-      const bodyData: to_deprecate_ILangchain_for_type_langchain_request_v3 = buildHumanMessage(
-        filteredParaMessageExchangeData,
-      );
-      const newMessageExchange_for_human = bodyData.currentMessageExchange;
-      const newMessageExchange_versionNum_for_human = bodyData.currentMessageExchange.versionNum;
-      const newChatHistory_for_human = [...chatHistoryBeforeImprove, newMessageExchange_for_human];
-      setMessageExchangeData_deprecated(newMessageExchange_for_human);
-      setChatHistory_langchain(newChatHistory_for_human);
-      setCurrentVersionNum(newChatHistory_for_human.length - 1);
+        setInputsCache_v2((prvState: IInputsCache_v2) => ({
+          ...prvState,
+          [contextSelected_uuid]: {
+            ...prvState[contextSelected_uuid],
+            chatHistory: JSON.stringify(chatMessages),
+          },
+        }));
 
-      if (!urlSlug) {
-        message.error('urlSlug is empty');
-        return;
+        setIsCalling(false);
+      },
+      userAccessToken,
+      t.currentLocale,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+      TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+      signal,
+    ).catch((error: Error) => {
+      if (error.name === 'AbortError') {
+        console.log('Fetch request was aborted');
+      } else {
+        console.error('Fetch request failed:', error);
+        message.error(error.message);
       }
-
-      TBackendLangchainFile.postProMode_v4_langchain_tabPane_chains(
-        urlSlug,
-        bodyData,
-        () => {
-          setIsCalling(true);
-          console.log('beforeSendRequestFunc');
-        },
-        (writingResultText: string) => {
-          // console.log('updateResultFromRequestFunc', writingResultText);
-          setMessageExchangeData_deprecated({
-            ...newMessageExchange_for_human,
-            currentOutput: {
-              title: '',
-              content: writingResultText,
-            },
-          });
-        },
-        (resultText: string) => {
-          // console.log('AfterRequestFunc', resultText);
-
-          const newMessageExchange_versionNum_for_ai = (newMessageExchange_versionNum_for_human ?? 0) + 1;
-          const newMessageExchange_for_ai = {
-            ...newMessageExchange_for_human,
-            currentOutput: {
-              title: '',
-              content: resultText,
-            },
-            updatedAt: new Date(),
-            versionNum: newMessageExchange_versionNum_for_ai,
-            role: EMessage_role.AI,
-          };
-          if (contextType.includes('agent') || contextType.includes('beta') || contextType.includes('BETA')) {
-            console.log("I'm in beta mode, so I'm not going to update the chat history.");
-            const response = JSON.parse(resultText);
-            const { results } = response;
-            const { messages } = results;
-            // console.log('results', results);
-            // console.log('messages', messages);
-            newMessageExchange_for_ai.currentOutput.content = '';
-            messages.forEach((item, index: number) => {
-              if (index % 2 === 0) {
-                if (index !== 0) {
-                  newMessageExchange_for_ai.currentOutput.content += '\n\n---\n\n';
-                }
-                newMessageExchange_for_ai.currentOutput.content += `## ${t.get('Writing post')}\n`;
-                newMessageExchange_for_ai.currentOutput.content += item.kwargs.content;
-              }
-              if (index % 2 === 1) {
-                newMessageExchange_for_ai.currentOutput.content += '\n\n---\n\n';
-                newMessageExchange_for_ai.currentOutput.content += `## ${t.get('Review post')}\n`;
-                const newContent = item.kwargs.content.replace('FINAL ANSWER', '');
-                newMessageExchange_for_ai.currentOutput.content += newContent;
-              }
-            });
-          }
-          const newChatHistory_for_ai = [...newChatHistory_for_human, newMessageExchange_for_ai];
-          setMessageExchangeData_deprecated(newMessageExchange_for_ai);
-          setChatHistory_langchain(newChatHistory_for_ai);
-          setCurrentVersionNum(newChatHistory_for_ai.length - 1);
-          setInputsCache_v2((prvState: IInputsCache_v2) => ({
-            ...prvState,
-            [contextSelected_uuid]: {
-              ...prvState[contextSelected_uuid],
-              chatHistory: JSON.stringify(newChatHistory_for_ai),
-            },
-          }));
-
-          setIsCalling(false);
-        },
-        userAccessToken,
-        t.currentLocale,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-        signal,
-      ).catch((error: Error) => {
-        if (error.name === 'AbortError') {
-          console.log('Fetch request was aborted');
-        } else {
-          console.error('Fetch request failed:', error);
-          message.error(error.message);
-        }
-        // Recover the chat history if the request fails or is aborted
-        setChatHistory_langchain(chatHistoryBeforeImprove);
-        setCurrentVersionNum(chatHistoryBeforeImprove.length - 1);
-      });
-    };
+      // Recover the chat history if the request fails or is aborted
+      setChatMessages(chatMessagesBeforeImprove_copy);
+      setCurrentVersionNum(chatMessagesBeforeImprove_copy.length - 1);
+    });
+  };
 
   const onRegenerateMessage = () => {
     setIsCalling(true);
 
-    const writingPostDataBeforeRollback = { ...messageExchangeData_deprecated };
-
-    if (currentVersionNum < 2) return;
-
-    const rollBackVersionNum = currentVersionNum - 2;
-    const newChatHistory = chatHistory_langchain.slice(0, rollBackVersionNum + 1);
-
-    const basedWritingPostData = newChatHistory[newChatHistory.length - 1];
-    const newWritingPostData = {
-      ...basedWritingPostData,
-      background: writingPostDataBeforeRollback.background,
-      adjust: writingPostDataBeforeRollback.adjust,
-    };
-
-    setChatHistory_langchain(newChatHistory);
-    setCurrentVersionNum(newChatHistory.length - 1);
-    setMessageExchangeData_deprecated(newWritingPostData);
-
-    onImproveMessage(newChatHistory, newWritingPostData)();
+    const newChatMessages = chatMessages.length > 0 ? chatMessages.slice(0, -1) : [];
+    onImproveMessage(newChatMessages)();
+    setCurrentVersionNum(newChatMessages.length - 1);
   };
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -383,14 +243,9 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                       <Button
                         type="primary"
                         onClick={() => {
-                          onImproveMessage(chatHistory_langchain, messageExchangeData_deprecated)();
+                          onImproveMessage(chatMessages)();
                         }}
-                        disabled={
-                          isCalling ||
-                          (chatHistory_langchain.length > 0
-                            ? currentVersionNum !== chatHistory_langchain[chatHistory_langchain.length - 1].versionNum
-                            : false)
-                        }
+                        disabled={isCalling || chatMessages.length === 0}
                       >
                         {t.get('Generate')}
                       </Button>
@@ -439,28 +294,16 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             collapsible
           >
             <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
-              {chatHistory_langchain.length > 0 && (
+              {chatMessages.length > 0 && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                   <LeftOutlined
                     style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                     onClick={() => {
-                      if (currentVersionNum === 1) return;
+                      if (chatMessages.length > 0) return;
                       if (isCalling) return;
-                      const writingPostDataBeforeRollback = { ...messageExchangeData_deprecated };
-                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
-                        writingPostDataBeforeRollback;
 
-                      const previousVersion = currentVersionNum - 2;
-                      const messageExchangeDataRollBack =
-                        chatHistory_langchain.find((item) => item.versionNum === previousVersion) ??
-                        messageExchangeData_deprecated;
-
-                      setMessageExchangeData_deprecated({
-                        ...messageExchangeDataRollBack,
-                        adjust: adjustBeforeRollBack,
-                        background: backgroundBeforeRollBack,
-                      });
-                      setCurrentVersionNum(previousVersion);
+                      const newChatMessages = chatMessages.slice(0, -1);
+                      setCurrentVersionNum(newChatMessages.length - 1);
                     }}
                   />
 
@@ -471,23 +314,12 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                   <RightOutlined
                     style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
                     onClick={() => {
-                      if (currentVersionNum === chatHistory_langchain.length - 1) return;
+                      if (currentVersionNum === chatMessages.length - 1) return;
                       if (isCalling) return;
-                      const writingPostDataBeforeRollback = { ...messageExchangeData_deprecated };
-                      const { adjust: adjustBeforeRollBack, background: backgroundBeforeRollBack } =
-                        writingPostDataBeforeRollback;
 
-                      const nextVersion = currentVersionNum + 2;
-                      const messageExchangeDataRollBack =
-                        chatHistory_langchain.find((item) => item.versionNum === nextVersion) ??
-                        messageExchangeData_deprecated;
-
-                      setMessageExchangeData_deprecated({
-                        ...messageExchangeDataRollBack,
-                        adjust: adjustBeforeRollBack,
-                        background: backgroundBeforeRollBack,
-                      });
-                      setCurrentVersionNum(nextVersion);
+                      const newVersion =
+                        currentVersionNum + 1 < chatMessages.length ? currentVersionNum + 1 : chatMessages.length - 1;
+                      setCurrentVersionNum(newVersion);
                     }}
                   />
                 </div>
