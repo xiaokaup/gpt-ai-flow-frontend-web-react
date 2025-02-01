@@ -2,8 +2,8 @@ import '../../index.scss';
 
 import { useEffect, useState } from 'react';
 
-import { Button, message, Splitter } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Button, Form, InputNumber, message, Splitter } from 'antd';
+import { LeftOutlined, RightOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -53,6 +53,9 @@ import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interfa
 import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
+import { ProModePage_Background } from '../component/ProModePage_Background';
+import { ProMode_Adjust } from '../component/ProMode_Adjust';
+import { ProMode_debug_v4_subVersion_2 } from '../ProMode_debug_v4_subVersion_2';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
@@ -70,7 +73,7 @@ interface IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_resu
 export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results = (
   props: IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input,
 ) => {
-  const { creativityValue, contextSelected } = props;
+  const { creativityValue, contextSelected, switchContextSelected_by_type } = props;
   const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
   const { currentOutput: currentOuputFromContextSelected } = contextSelected;
   const {
@@ -96,7 +99,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
 
   const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
     ...chatMessages_from_cache,
-    { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
+    // { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   console.log('currentVersionNum', currentVersionNum);
@@ -133,7 +136,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       ? parseInt(inputsCache_v2[contextSelected_uuid].currentOutputNums, 10)
       : 1, // IAdjust_morePostsChain
   );
-  const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([]);
+  const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([...chatMessages_from_cache]);
 
   // const { currentOutput, previousOutput } = messageExchangeData;
 
@@ -268,7 +271,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
           console.log('beforeSendRequestFunc');
         },
         (writingResultText: string) => {
-          // console.log('writingResultText', writingResultText);
+          console.log('writingResultText', writingResultText);
           promiseResults[index_num] = {
             ...promiseResults[index_num],
             role: EAIFlowRole.ASSISTANT,
@@ -285,7 +288,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
           // });
         },
         (resultText: string) => {
-          // console.log('AfterRequestFunc', resultText);
+          console.log('AfterRequestFunc', resultText);
 
           promiseResults[index_num] = {
             ...promiseResults[index_num],
@@ -367,6 +370,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       setIsCalling(false);
     });
     Promise.all(promiseList).then(() => {
+      setChatMessages(promiseResults);
       setIsCalling(false);
     });
   };
@@ -443,47 +447,34 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
             collapsible
           >
             <div className="row adjust">
-              <Langchain_adjust
+              <ProMode_Adjust
                 t={t}
-                isAdjustCall={currentVersionNum > 0}
+                canRegenerate={currentVersionNum > 0}
                 adjustSelected={contextSelected.adjust}
-                adjust={adjust as IAdjust_morePostsChain}
-                setAdjust={(newItem: IAdjust_morePostsChain) => {
-                  setMessages_outputs_num(newItem.currentOutputNums);
-                  setMessageExchangeData((prevState: ILangchainMessageExchange) => ({
-                    ...prevState,
-                    adjust: newItem,
-                  }));
-                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
-                    ...prvState,
-                    [contextSelected_uuid]: {
-                      ...prvState[contextSelected_uuid],
-                      ...newItem,
-                      currentOutputNums: newItem?.currentOutputNums?.toString(), // Convert currentOutputNums to string
-                    },
-                  }));
-                }}
+                adjust={adjust}
+                setAdjust={setAdjust}
+                contextSelected_type={contextSelected.contextType}
+                switchContextSelected_by_type={switchContextSelected_by_type}
               />
             </div>
 
+            <div className="row messages_output_num">
+              <Form.Item label={t.get('Number of outputs')}>
+                <InputNumber
+                  value={messages_for_outputs_num}
+                  onChange={(value: number) => {
+                    setMessages_outputs_num(value);
+                  }}
+                />
+              </Form.Item>
+            </div>
+
             <div className="row background">
-              <Langchain_background
+              <ProModePage_Background
                 t={t}
                 backgroundSelected={contextSelected.background}
                 background={background}
-                setBackground={(newItem: IBackground_for_type_langchain) => {
-                  setMessageExchangeData((prevState: ILangchainMessageExchange) => ({
-                    ...prevState,
-                    background: newItem,
-                  }));
-                  setInputsCache_v2((prvState: IInputsCache_v2) => ({
-                    ...prvState,
-                    [contextSelected_uuid]: {
-                      ...prvState[contextSelected_uuid],
-                      ...newItem,
-                    },
-                  }));
-                }}
+                setBackground={setBackground}
               />
             </div>
 
@@ -595,7 +586,21 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
             </div> */}
             </div>
 
-            <div className="row component_chatMessages">
+            {/* @TODO */}
+            <div className="row component_chatMessages_outputs">
+              <ProModePage_ChatMessages
+                t={t}
+                currentVersionNum={currentVersionNum}
+                chatMessages={messages_outputs}
+                setChatMessages={setMessages_outputs}
+                // cache
+                contextSelected_uuid={contextSelected_uuid}
+                inputsCache_v3={inputsCache_v3}
+                setInputsCache_v3={setInputsCache_v3}
+              />
+            </div>
+
+            <div className="row component_chatMessages_history">
               <ProModePage_ChatMessages
                 t={t}
                 currentVersionNum={currentVersionNum}
@@ -607,42 +612,18 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
                 setInputsCache_v3={setInputsCache_v3}
               />
             </div>
-
-            {/* @TODO */}
-            {isCalling &&
-              messages_outputs.map((item: IChatMessage, index: number) => {
-                const { content } = item;
-                return (
-                  <div className="row currentOuput" key={index}>
-                    {/* <Langchain_currentOutput
-                      t={t}
-                      title={
-                        contextSelected.currentOutput.title
-                          ? `${contextSelected.currentOutput.title} ${index + 1}`
-                          : t.get('Post')
-                      }
-                      currentOutput={item}
-                      setCurrentOutput={(newItem: IMessage) => {
-                        setMessageExchangeData({
-                          ...messageExchangeData,
-                          currentOutput: newItem,
-                        });
-                      }}
-                      onResetAll={onResetAll}
-                    /> */}
-                    <p>{content}</p>
-                  </div>
-                );
-              })}
           </Splitter.Panel>
         </Splitter>
       )}
-      {/* <ProMode_v4_Debug
-        chatHistory={chatHistory}
-        currentVersionNum={currentVersionNum}
+      <ProMode_debug_v4_subVersion_2
         contextType={contextType}
-        messageExchangeData={messageExchangeData}
-      /> */}
+        background={background}
+        adjust={adjust}
+        chatMessages={chatMessages}
+        messages_outputs={messages_outputs}
+        currentVersionNum={currentVersionNum}
+        inputsCache_v3={inputsCache_v3}
+      />
     </>
   );
 };
