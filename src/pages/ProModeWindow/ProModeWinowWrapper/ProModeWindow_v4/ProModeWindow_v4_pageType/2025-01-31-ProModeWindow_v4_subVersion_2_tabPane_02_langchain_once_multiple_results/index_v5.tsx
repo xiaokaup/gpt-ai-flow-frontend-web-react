@@ -107,6 +107,12 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
     const promiseList = []; // @FEAT: for multiple outputs results
     const promiseResults: IChatMessage[] = []; // @FEAT: for multiple outputs results
 
+    if (!messagesOutputs_num) {
+      message.error(t.get('Number of outputs is empty'));
+      setIsCalling(false);
+      return;
+    }
+
     // @FEAT: for multiple outputs results
     for (let index_num = 0; index_num < messagesOutputs_num; index_num++) {
       promiseResults[index_num] = { ...IChatMessage_default, role: EAIFlowRole.ASSISTANT, content: '' }; // @FEAT: for multiple outputs results

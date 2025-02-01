@@ -174,6 +174,12 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
       const promiseList = [];
       const promiseResults: IMessage[] = [];
 
+      if (!messages_outputs_num) {
+        message.error(t.get('Number of outputs is empty'));
+        setIsCalling(false);
+        return;
+      }
+
       for (let index_num = 0; index_num < messages_outputs_num; index_num++) {
         if (!urlSlug) {
           message.error('urlSlug is empty');
