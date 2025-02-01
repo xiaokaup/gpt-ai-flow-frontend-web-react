@@ -2,7 +2,7 @@ import '../../../index.scss';
 
 import { useEffect, useState } from 'react';
 
-import { Button, message, Splitter } from 'antd';
+import { Button, Form, InputNumber, message, Splitter } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { IMessage, IMessage_default } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IMessage';
@@ -81,11 +81,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
   const [chatHistory, setChatHistory] = useState<ILangchainMessageExchange[]>([]);
 
   // Manage multiple outputs results
-  const [messages_for_outputs_num, setMessages_outputs_num] = useState<number>(
-    inputsCache_v2[contextSelected_uuid]?.currentOutputNums
-      ? parseInt(inputsCache_v2[contextSelected_uuid].currentOutputNums, 10)
-      : 1, // IAdjust_morePostsChain
-  );
+  const [messages_outputs_num, setMessages_outputs_num] = useState<number>(1);
   const [messages_outputs, setMessages_outputs] = useState<IMessage[]>([]);
 
   const { currentOutput, previousOutput, background, adjust } = messageExchangeData;
@@ -178,7 +174,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
       const promiseList = [];
       const promiseResults: IMessage[] = [];
 
-      for (let index_num = 0; index_num < messages_for_outputs_num; index_num++) {
+      for (let index_num = 0; index_num < messages_outputs_num; index_num++) {
         if (!urlSlug) {
           message.error('urlSlug is empty');
           continue;
@@ -358,7 +354,6 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
                 adjustSelected={contextSelected.adjust}
                 adjust={adjust as IAdjust_morePostsChain}
                 setAdjust={(newItem: IAdjust_morePostsChain) => {
-                  setMessages_outputs_num(newItem.currentOutputNums);
                   setMessageExchangeData((prevState: ILangchainMessageExchange) => ({
                     ...prevState,
                     adjust: newItem,
@@ -368,11 +363,23 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
                     [contextSelected_uuid]: {
                       ...prvState[contextSelected_uuid],
                       ...newItem,
-                      currentOutputNums: newItem?.currentOutputNums?.toString(), // Convert currentOutputNums to string
                     },
                   }));
                 }}
               />
+            </div>
+
+            <div className="row messages_output_num">
+              <Form.Item label={t.get('Number of outputs')}>
+                <InputNumber
+                  max={10}
+                  name="messages_outputs_num"
+                  value={messages_outputs_num}
+                  onChange={(value: number) => {
+                    setMessages_outputs_num(value);
+                  }}
+                />
+              </Form.Item>
             </div>
 
             <div className="row background">
