@@ -19,7 +19,7 @@ import { IInputsCache_v2 } from '../../../../../../gpt-ai-flow-common/interface-
 import { ELocale } from '../../../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
+import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_wrapper_v4';
 import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import {
@@ -38,14 +38,14 @@ import {
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
 import { ESocialPlatform_moduleName } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 
-interface IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input
+interface IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input
   extends Omit<IProModeWindow_v4_wrapper_input, 'tabPane'> {
   creativityValue: number;
   contextSelected: IProMode_v4_tabPane_context<IBackground_for_type_langchain, IAdjust_for_type_langchain>;
   // switchContextSelected_by_type: (newType: EProMode_v4_module_contextType) => void;
 }
-export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
-  props: IProModeWindow_v4_tabPane_type_custome_langchain_once_multiple_results_v5_input,
+export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results = (
+  props: IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input,
 ) => {
   const { creativityValue, contextSelected } = props;
   const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;

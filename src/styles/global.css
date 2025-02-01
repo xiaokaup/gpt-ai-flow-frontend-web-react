@@ -44,6 +44,28 @@ pre {
   bottom: -2px;
   z-index: 10;
 }
+.watermark-20px::before {
+  content: 'Powered by GPT AI Flow';
+  position: absolute;
+  font-size: 12px; /* Adjust the font size */
+  color: rgba(128, 128, 128, 0.4); /* Use gray color for the watermark */
+  left: 50%; /* Center the watermark horizontally */
+  transform: translateX(-50%); /* Center the watermark horizontally */
+  /* Position the watermark at the bottom of the parent element */
+  bottom: -20px;
+  z-index: 10;
+}
+.watermark-0px::before {
+  content: 'Powered by GPT AI Flow';
+  position: absolute;
+  font-size: 12px; /* Adjust the font size */
+  color: rgba(128, 128, 128, 0.4); /* Use gray color for the watermark */
+  left: 50%; /* Center the watermark horizontally */
+  transform: translateX(-50%); /* Center the watermark horizontally */
+  /* Position the watermark at the bottom of the parent element */
+  bottom: 0px;
+  z-index: 10;
+}
 
 /* Add ƒor antd - start */
 .ant-form-inline .ant-form-item-row {

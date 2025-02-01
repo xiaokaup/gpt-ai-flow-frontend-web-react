@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Select, message } from 'antd';
 
 import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import {
   to_deprecate_IInputsCache,
   IInputsCache_v2,
+  IInputsCache_v3,
 } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ILLMOption_secrets } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/2024-11-03-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize/index_v5';
-import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results/index_v5';
-import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface';
+import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results-deprecated/index_v5';
+import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/deprecated/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface-deprecated';
 import { useCreativityValueContext } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IProMode_v4_tabPane } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
 import {
@@ -24,6 +24,7 @@ import {
   IAdjust_for_type_langchain,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
+import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-11-03-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize-deprecated/index_v5';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
@@ -32,9 +33,11 @@ export interface IProModeWindow_v4_wrapper_input {
   llmOption_secrets: ILLMOption_secrets;
   llmName: ELLM_name;
   inputsCache: to_deprecate_IInputsCache;
-  setInputsCache: React.Dispatch<React.SetStateAction<to_deprecate_IInputsCache>>;
+  setInputsCache: Dispatch<SetStateAction<to_deprecate_IInputsCache>>;
   inputsCache_v2: IInputsCache_v2;
-  setInputsCache_v2: React.Dispatch<React.SetStateAction<IInputsCache_v2>>;
+  setInputsCache_v2: Dispatch<SetStateAction<IInputsCache_v2>>;
+  inputsCache_v3: IInputsCache_v3;
+  setInputsCache_v3: Dispatch<SetStateAction<IInputsCache_v3>>;
 }
 export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input) => {
   const {
@@ -47,6 +50,8 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
     setInputsCache,
     inputsCache_v2,
     setInputsCache_v2,
+    inputsCache_v3,
+    setInputsCache_v3,
   } = props;
   const { context } = tabPane;
 
@@ -159,10 +164,12 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache} // @DEPRECATED
-            setInputsCache={setInputsCache} // @DEPRECATED
+            inputsCache={inputsCache}
+            setInputsCache={setInputsCache}
             inputsCache_v2={inputsCache_v2}
             setInputsCache_v2={setInputsCache_v2}
+            inputsCache_v3={inputsCache_v3}
+            setInputsCache_v3={setInputsCache_v3}
           />
         )}
 
@@ -180,6 +187,8 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             setInputsCache={setInputsCache} // @DEPRECATED
             inputsCache_v2={inputsCache_v2}
             setInputsCache_v2={setInputsCache_v2}
+            inputsCache_v3={inputsCache_v3}
+            setInputsCache_v3={setInputsCache_v3}
           />
         )}
 
@@ -197,6 +206,8 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             setInputsCache={setInputsCache} // @DEPRECATED
             inputsCache_v2={inputsCache_v2}
             setInputsCache_v2={setInputsCache_v2}
+            inputsCache_v3={inputsCache_v3}
+            setInputsCache_v3={setInputsCache_v3}
           />
         )}
       </div>
