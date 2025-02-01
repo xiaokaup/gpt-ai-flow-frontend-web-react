@@ -270,7 +270,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                         onClick={() => {
                           onImproveMessage(chatMessages)();
                         }}
-                        disabled={isCalling}
+                        disabled={isCalling || currentVersionNum < chatMessages.length}
                       >
                         {t.get('Generate')}
                       </Button>
