@@ -35,6 +35,7 @@ import IInputsCacheFile, {
   to_deprecate_IInputsCache,
   IInputsCache_v2,
   IInputsCache_v3,
+  IInputsCache_v3_default,
 } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ProModeModelValueProvider } from '../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_00_commandChain';
@@ -112,7 +113,7 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
     },
   });
   const { inputsCache_v3, setInputsCache_v3 } = useInputsCache_v3({
-    inputsCache_v3FromStorage: inputsCacheFromStorage as unknown as IInputsCache_v3,
+    inputsCache_v3FromStorage: (inputsCacheFromStorage as unknown as IInputsCache_v3) || IInputsCache_v3_default,
     onInputsCache_v3Change: (newItem: IInputsCache_v3) => {
       dispatch<any>(updateInputsCache(newItem));
     },
