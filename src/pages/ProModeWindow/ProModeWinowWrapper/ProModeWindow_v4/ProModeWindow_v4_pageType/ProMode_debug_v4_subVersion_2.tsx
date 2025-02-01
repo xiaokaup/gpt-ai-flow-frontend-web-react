@@ -14,16 +14,17 @@ interface IProMode_debug_v4_subVersion_2_input {
   background: IBackground_for_type_langchain;
   adjust: IAdjust_for_type_langchain;
   chatMessages: IChatMessage[];
+  messages_outputs: IChatMessage[];
   currentVersionNum: number;
   inputsCache_v3: IInputsCache_v3;
 }
 
 export const ProMode_debug_v4_subVersion_2 = (props: IProMode_debug_v4_subVersion_2_input) => {
-  const { contextType, background, adjust, chatMessages, currentVersionNum, inputsCache_v3 } = props;
+  const { contextType, background, adjust, chatMessages, messages_outputs, currentVersionNum, inputsCache_v3 } = props;
 
   return (
-    <div className="hidden">
-      <div className="row @DEV">
+    <div>
+      <div className="row mt-8 @DEV">
         <Button
           type="primary"
           onClick={() => {
@@ -58,7 +59,11 @@ export const ProMode_debug_v4_subVersion_2 = (props: IProMode_debug_v4_subVersio
         <pre>
           currentVersionNum: {currentVersionNum}
           <br />
+          chatMessages:
           <code>{JSON.stringify(chatMessages, null, 2)}</code>
+          <br />
+          messages_outputs:
+          <code>{JSON.stringify(messages_outputs, null, 2)}</code>
         </pre>
       </div>
     </div>

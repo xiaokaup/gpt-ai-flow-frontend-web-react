@@ -69,7 +69,8 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
                 flex: '0 1 auto',
               }}
               onClick={() => {
-                setChatMessages([]);
+                const newChatMessages = [];
+                setChatMessages(newChatMessages);
               }}
             />
           </Tooltip>
