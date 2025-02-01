@@ -81,7 +81,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
     // Object.keys(inputsCache_v3).includes(contextSelected_uuid)
     //   ? inputsCache_v3[contextSelected_uuid]?.messagesOutputs_num
     //   : IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
-    1,
+    IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
   );
   const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([]);
 
