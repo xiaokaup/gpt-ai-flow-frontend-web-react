@@ -82,7 +82,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       ? inputsCache_v3[contextSelected_uuid]?.messagesOutputs_num
       : IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
   );
-  const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([...chatMessages_from_cache]);
+  const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([]);
 
   const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
     setMessages_outputs([]); // @FEAT: for multiple outputs results
