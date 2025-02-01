@@ -36,10 +36,9 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
     setInputsCache_v3,
   } = props;
 
-  const chatMessages_to_show = [
-    // ...chatMessages.slice(currentVersionNum > 1 ? currentVersionNum - 2 : 0, currentVersionNum),
-    ...chatMessages,
-  ].sort((a: IChatMessage, b: IChatMessage) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  const chatMessages_to_show = chatMessages.sort(
+    (a: IChatMessage, b: IChatMessage) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
 
   const title = t.get('Chat Messages');
 

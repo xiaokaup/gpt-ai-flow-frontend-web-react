@@ -285,7 +285,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
             }
             collapsible
           >
-            <div className="block_versionNum hidden" style={{ position: 'absolute', right: 0 }}>
+            <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
               {hasChatMessages && (
                 <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                   <LeftOutlined
@@ -319,7 +319,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
               <ProModePage_ChatMessages
                 t={t}
                 currentVersionNum={currentVersionNum}
-                chatMessages={chatMessages}
+                chatMessages={chatMessages.slice(0, currentVersionNum)}
                 setChatMessages={setChatMessages}
                 // cache
                 contextSelected_uuid={contextSelected_uuid}

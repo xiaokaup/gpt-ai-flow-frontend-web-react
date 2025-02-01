@@ -351,7 +351,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
               <ProModePage_ChatMessages
                 t={t}
                 currentVersionNum={currentVersionNum}
-                chatMessages={chatMessages}
+                chatMessages={chatMessages.slice(0, currentVersionNum)}
                 setChatMessages={setChatMessages}
                 // cache
                 contextSelected_uuid={contextSelected_uuid}
