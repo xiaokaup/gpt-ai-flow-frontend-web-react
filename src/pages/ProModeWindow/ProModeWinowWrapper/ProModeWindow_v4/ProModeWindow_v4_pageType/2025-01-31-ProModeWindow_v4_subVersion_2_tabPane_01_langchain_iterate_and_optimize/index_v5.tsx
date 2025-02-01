@@ -67,8 +67,6 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     chatMessages: chatMessages_from_cache,
   } = { ...IInputsCache_v3_contextSelected_value_default, ...inputsCache_v3[contextSelected_uuid] };
 
-  // console.log('chatMessages_from_cache', chatMessages_from_cache);
-
   const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
     ...chatMessages_from_cache,
     // { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
@@ -169,7 +167,6 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
       signal,
     ).catch((error: Error) => {
-      console.log('error', error);
       if (error.name === 'AbortError') {
         console.log('Fetch request was aborted');
       } else {
@@ -303,7 +300,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
           </Splitter.Panel>
 
           <Splitter.Panel
-            className="column"
+            className="column component_chatMessages_history_container"
             defaultSize="65%"
             style={
               isLargeScreen

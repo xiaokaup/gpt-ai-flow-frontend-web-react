@@ -2,8 +2,8 @@ import '../../index.scss';
 
 import { useEffect, useState } from 'react';
 
-import { Button, Form, InputNumber, message, Splitter } from 'antd';
-// import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Button, message, Splitter } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -33,11 +33,11 @@ import {
   IChatMessage_default,
 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
 import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
-import { EAIFlowRole } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { ProModePage_Background } from '../component/ProModePage_Background';
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
+import { Langchain_context_description } from '../2025-01-31-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/component/Langchain_context_description';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
@@ -72,25 +72,13 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
     // { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
-  // const hasChatMessages = chatMessages.length > 0;
+  const hasChatMessages = chatMessages.length > 0;
   const [background, setBackground] = useState<IBackground_for_type_langchain>(background_from_cache);
   const [adjust, setAdjust] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
 
-  // Manage multiple outputs results
-  const [messagesOutputs_num, setMessagesOutputs_num] = useState<number>(
-    1,
-    // Object.keys(inputsCache_v3).includes(contextSelected_uuid)
-    //   ? inputsCache_v3[contextSelected_uuid]?.messagesOutputs_num
-    //   : IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
-  );
-  const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([]);
-
   const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
-    setMessages_outputs([]); // @FEAT: for multiple outputs results
-
     setIsCalling(true);
 
-    // console.log('paraMessageExchangeData', paraMessageExchangeData);
     const newRequestController = new AbortController();
     setRequestController(newRequestController);
     const { signal } = newRequestController;
@@ -104,113 +92,82 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       llmTemperature: creativityValue,
     };
 
-    const promiseList = []; // @FEAT: for multiple outputs results
-    const promiseResults: IChatMessage[] = []; // @FEAT: for multiple outputs results
+    let newChatMessage: IChatMessage = {
+      ...IChatMessage_default,
+      uuid: uuidv4(),
+      adjust,
+      background,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
 
-    if (!messagesOutputs_num) {
-      message.error(t.get('Number of outputs is empty'));
-      setIsCalling(false);
+    if (!urlSlug) {
+      message.error('urlSlug is empty');
       return;
     }
 
-    // @FEAT: for multiple outputs results
-    for (let index_num = 0; index_num < messagesOutputs_num; index_num++) {
-      promiseResults[index_num] = { ...IChatMessage_default, role: EAIFlowRole.ASSISTANT, content: '' }; // @FEAT: for multiple outputs results
+    const bodyData: IProMode_module_request_v4_subVersion_2 = {
+      contextType,
+      llmOptions,
+      background,
+      adjust,
+      chatMessages: newChatMessages,
+    };
 
-      const newChatMessage: IChatMessage = {
-        ...IChatMessage_default,
-        uuid: uuidv4(),
-        adjust,
-        background,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-      const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+    TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
+      urlSlug,
+      bodyData,
+      () => {
+        setIsCalling(true);
+        console.log('beforeSendRequestFunc');
+      },
+      (writingResultText: string) => {
+        console.log('updateResultFromRequestFunc', writingResultText);
+        newChatMessage = {
+          ...newChatMessage,
+          content: writingResultText,
+          updatedAt: new Date(),
+        };
+        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        setChatMessages(newChatMessages);
+      },
+      (resultText: string) => {
+        console.log('AfterRequestFunc', resultText);
+        newChatMessage = {
+          ...newChatMessage,
+          content: resultText,
+          updatedAt: new Date(),
+        };
+        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        setChatMessages(newChatMessages);
+        setCurrentVersionNum(newChatMessages.length);
 
-      if (!urlSlug) {
-        message.error('urlSlug is empty');
-        continue;
+        setInputsCache_v3({
+          ...inputsCache_v3,
+          [contextSelected_uuid]: {
+            ...inputsCache_v3[contextSelected_uuid],
+            chatMessages: newChatMessages,
+          },
+        });
+
+        setIsCalling(false);
+      },
+      userAccessToken,
+      t.currentLocale,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+      TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+      signal,
+    ).catch((error: Error) => {
+      if (error.name === 'AbortError') {
+        console.log('Fetch request was aborted');
+      } else {
+        console.error('Fetch request failed:', error);
+        message.error(error.message);
       }
-
-      const bodyData: IProMode_module_request_v4_subVersion_2 = {
-        contextType,
-        llmOptions,
-        background,
-        adjust,
-        chatMessages: newChatMessages,
-      };
-
-      const promiseInstance = TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
-        urlSlug,
-        bodyData,
-        () => {
-          setIsCalling(true);
-          console.log('beforeSendRequestFunc');
-        },
-        (writingResultText: string) => {
-          // console.log('writingResultText', writingResultText);
-
-          promiseResults[index_num] = {
-            ...promiseResults[index_num],
-            role: EAIFlowRole.ASSISTANT,
-            content: writingResultText,
-          }; // @FEAT: for multiple outputs results, for Promise.all
-          setMessages_outputs(promiseResults); // / @FEAT: for multiple outputs results, for UI display
-        },
-        (resultText: string) => {
-          // console.log('AfterRequestFunc', resultText);
-
-          promiseResults[index_num] = {
-            ...promiseResults[index_num],
-            role: EAIFlowRole.ASSISTANT,
-            content: resultText,
-          }; // @FEAT: for multiple outputs results, for Promise.all
-          setMessages_outputs(promiseResults); // / @FEAT: for multiple outputs results, for UI display
-        },
-        userAccessToken,
-        t.currentLocale,
-        CONSTANTS_GPT_AI_FLOW_COMMON,
-        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
-        signal,
-      ).catch((error: Error) => {
-        if (error.name === 'AbortError') {
-          console.log('Fetch request was aborted');
-        } else {
-          console.error('Fetch request failed:', error);
-          message.error(error.message);
-        }
-        // Recover the chat history if the request fails or is aborted
-        setChatMessages(chatMessagesBeforeImprove_copy);
-        setCurrentVersionNum(chatMessagesBeforeImprove_copy.length);
-      });
-
-      promiseList.push(promiseInstance);
-    }
-
-    Promise.all(promiseList).then(() => {
-      const mergedResult = promiseResults
-        .map((item: IChatMessage, index: number) => `## ${`${t.get('Post')} ${index + 1}`}\n\n ${item.content}`)
-        .join('\n\n');
-
-      const newChatMessages: IChatMessage[] = [
-        {
-          ...IChatMessage_default,
-          role: EAIFlowRole.ASSISTANT,
-          content: mergedResult,
-        },
-        ...chatMessages,
-      ];
-      setChatMessages(newChatMessages);
-      setCurrentVersionNum(newChatMessages.length);
-      setInputsCache_v3({
-        ...inputsCache_v3,
-        [contextSelected_uuid]: {
-          ...inputsCache_v3[contextSelected_uuid],
-          chatMessages: newChatMessages,
-        },
-      });
-
-      setIsCalling(false);
+      // Recover the chat history if the request fails or is aborted
+      setChatMessages(chatMessagesBeforeImprove_copy);
+      setCurrentVersionNum(chatMessagesBeforeImprove_copy.length);
     });
   };
 
@@ -273,26 +230,6 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
               />
             </div>
 
-            <div className="row messages_output_num hidden">
-              <Form.Item label={t.get('Number of outputs')}>
-                <InputNumber
-                  max={4}
-                  name="messages_outputs_num"
-                  value={messagesOutputs_num}
-                  onChange={(value: number) => {
-                    setMessagesOutputs_num(value);
-                    setInputsCache_v3({
-                      ...inputsCache_v3,
-                      [contextSelected_uuid]: {
-                        ...inputsCache_v3[contextSelected_uuid],
-                        messagesOutputs_num: value,
-                      },
-                    });
-                  }}
-                />
-              </Form.Item>
-            </div>
-
             <div className="row background">
               <ProModePage_Background
                 t={t}
@@ -334,7 +271,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
           </Splitter.Panel>
 
           <Splitter.Panel
-            className="column"
+            className="column component_chatMessages_history_container"
             defaultSize="65%"
             style={
               isLargeScreen
@@ -348,49 +285,37 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
             }
             collapsible
           >
-            <div className="row component_chatMessages_outputs">
-              <ProModePage_ChatMessages
-                t={t}
-                currentVersionNum={currentVersionNum}
-                chatMessages={messages_outputs}
-                setChatMessages={setMessages_outputs}
-                // cache
-                contextSelected_uuid={contextSelected_uuid}
-                inputsCache_v3={inputsCache_v3}
-                setInputsCache_v3={setInputsCache_v3}
-              />
+            <div className="block_versionNum hidden" style={{ position: 'absolute', right: 0 }}>
+              {hasChatMessages && (
+                <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                  <LeftOutlined
+                    className={`${currentVersionNum <= 1 ? 'hidden' : ''}`}
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (isCalling) return;
+
+                      setCurrentVersionNum(currentVersionNum - 1);
+                    }}
+                  />
+
+                  <div className="row">
+                    {t.get('Version')}: {currentVersionNum}
+                  </div>
+
+                  <RightOutlined
+                    className={`${currentVersionNum >= chatMessages.length ? 'hidden' : ''}`}
+                    style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                    onClick={() => {
+                      if (isCalling) return;
+
+                      setCurrentVersionNum(currentVersionNum + 1);
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
-            {/* <div className="row component_chatMessages_history">
-              <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
-                {hasChatMessages && (
-                  <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <LeftOutlined
-                      className={`${currentVersionNum <= 1 ? 'hidden' : ''}`}
-                      style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                      onClick={() => {
-                        if (isCalling) return;
-
-                        setCurrentVersionNum(currentVersionNum - 1);
-                      }}
-                    />
-
-                    <div className="row">
-                      {t.get('Version')}: {currentVersionNum}
-                    </div>
-
-                    <RightOutlined
-                      className={`${currentVersionNum >= chatMessages.length ? 'hidden' : ''}`}
-                      style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
-                      onClick={() => {
-                        if (isCalling) return;
-
-                        setCurrentVersionNum(currentVersionNum + 1);
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
+            <div className="row component_chatMessages">
               <ProModePage_ChatMessages
                 t={t}
                 currentVersionNum={currentVersionNum}
@@ -401,7 +326,12 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
                 inputsCache_v3={inputsCache_v3}
                 setInputsCache_v3={setInputsCache_v3}
               />
-            </div> */}
+            </div>
+            {contextSelected.description && (
+              <div className="row description">
+                <Langchain_context_description t={t} description={contextSelected.description} />
+              </div>
+            )}
           </Splitter.Panel>
         </Splitter>
       )}
