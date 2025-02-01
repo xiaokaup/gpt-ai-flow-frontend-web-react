@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import copyToClipboard from 'copy-to-clipboard';
 
 import { Button, Form, message, Tooltip } from 'antd';
-import { EditOutlined, CopyOutlined } from '@ant-design/icons';
+import { EyeOutlined, EyeInvisibleOutlined, EditOutlined, CopyOutlined } from '@ant-design/icons';
 
 import { IChatMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -76,7 +76,20 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
         </div>
       </div>
       {chatMessages_to_show.map((oneChatMessage: IChatMessage, oneChatMessage_index: number) => {
-        const { uuid, isEdit, content } = oneChatMessage;
+        const { uuid, isEdit, isShow, content } = oneChatMessage;
+
+        const switchShow = (paraOneChatMessage: IChatMessage) => {
+          const newChatMessages = [...chatMessages].map((item: IChatMessage) => {
+            if (paraOneChatMessage.content === item.content) {
+              return {
+                ...item,
+                isShow: !item.isShow,
+              };
+            }
+            return item;
+          });
+          setChatMessages(newChatMessages);
+        };
 
         const switchEdit = (paraOneChatMessage: IChatMessage) => {
           const newChatMessages = [...chatMessages].map((item: IChatMessage) => {
@@ -136,14 +149,15 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
             >
               <div className="column_1" style={{ display: 'flex' }}>
                 <EditOutlined
-                  style={{ fontSize: 18, marginLeft: '.4rem' }}
+                  style={{ fontSize: 18 }}
                   onClick={() => {
                     switchEdit(oneChatMessage);
                   }}
                 />
 
                 <CopyOutlined
-                  style={{ fontSize: 16, marginLeft: '0.4rem' }}
+                  className="ml-2"
+                  style={{ fontSize: 16 }}
                   onClick={() => {
                     copyToClipboard(content);
 
@@ -154,17 +168,29 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
                     });
                   }}
                 />
+
+                {isShow && (
+                  <EyeOutlined className="ml-2" style={{ fontSize: 18 }} onClick={() => switchShow(oneChatMessage)} />
+                )}
+
+                {!isShow && (
+                  <EyeInvisibleOutlined
+                    className="ml-2"
+                    style={{ fontSize: 18 }}
+                    onClick={() => switchShow(oneChatMessage)}
+                  />
+                )}
               </div>
 
               <div className="column_2"></div>
             </div>
             <div className="block_chatMessages mt-4">
-              {!isEdit && content && (
+              {isShow && !isEdit && content && (
                 <div className="row view relative watermark-20px">
                   <ReactMarkdown>{content}</ReactMarkdown>
                 </div>
               )}
-              {isEdit && (
+              {isShow && isEdit && (
                 <div className="row editing">
                   <Form
                     initialValues={{ content }}
