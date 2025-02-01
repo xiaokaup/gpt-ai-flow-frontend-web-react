@@ -378,7 +378,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
             <div className="row messages_output_num">
               <Form.Item label={t.get('Number of outputs')}>
                 <InputNumber
-                  max={10}
+                  max={4}
                   name="messages_outputs_num"
                   value={messages_outputs_num}
                   onChange={(value: number) => {
