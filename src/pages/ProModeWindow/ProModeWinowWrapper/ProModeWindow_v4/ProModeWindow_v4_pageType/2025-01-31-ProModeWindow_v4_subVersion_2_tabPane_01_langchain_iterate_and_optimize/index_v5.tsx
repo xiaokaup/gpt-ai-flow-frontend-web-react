@@ -76,8 +76,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
-  const [background_v3, setBackground_v3] = useState<IBackground_for_type_langchain>(background_from_cache);
-  const [adjust_v3, setAdjust_v3] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
+  const [background, setBackground] = useState<IBackground_for_type_langchain>(background_from_cache);
+  const [adjust, setAdjust] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
 
   const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
     setIsCalling(true);
@@ -104,8 +104,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     let newChatMessage: IChatMessage = {
       ...IChatMessage_default,
       uuid: uuidv4(),
-      adjust: adjust_v3,
-      background: background_v3,
+      adjust,
+      background,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -121,8 +121,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     const bodyData: IProMode_module_request_v4_subVersion_2 = {
       contextType,
       llmOptions,
-      background: background_v3,
-      adjust: adjust_v3,
+      background,
+      adjust,
       chatMessages: newChatMessages,
     };
 
@@ -205,14 +205,14 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       ...inputsCache_v3,
       [contextSelected_uuid]: {
         ...inputsCache_v3[contextSelected_uuid],
-        background: background_v3,
-        adjust: adjust_v3,
+        background,
+        adjust,
         chatMessages,
       },
     };
     setCurrentVersionNum(chatMessages.length);
     setInputsCache_v3(newInputCache_v3);
-  }, [background_v3, adjust_v3, chatMessages.length]);
+  }, [background, adjust, chatMessages.length]);
 
   return (
     <>
@@ -243,8 +243,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                 t={t}
                 canRegenerate={currentVersionNum > 0}
                 adjustSelected={contextSelected.adjust}
-                adjust={adjust_v3}
-                setAdjust={setAdjust_v3}
+                adjust={adjust}
+                setAdjust={setAdjust}
                 contextSelected_type={contextSelected.contextType}
                 switchContextSelected_by_type={switchContextSelected_by_type}
               />
@@ -254,8 +254,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
               <ProModePage_Background
                 t={t}
                 backgroundSelected={contextSelected.background}
-                background={background_v3}
-                setBackground={setBackground_v3}
+                background={background}
+                setBackground={setBackground}
               />
             </div>
 
@@ -374,8 +374,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       )}
       <ProMode_debug_v4_subVersion_2
         contextType={contextType}
-        background={background_v3}
-        adjust={adjust_v3}
+        background={background}
+        adjust={adjust}
         chatMessages={chatMessages}
         currentVersionNum={currentVersionNum}
         inputsCache_v3={inputsCache_v3}
