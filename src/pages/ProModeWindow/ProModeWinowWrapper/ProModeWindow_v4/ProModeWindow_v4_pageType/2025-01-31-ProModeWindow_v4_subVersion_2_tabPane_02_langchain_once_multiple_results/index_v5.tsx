@@ -78,10 +78,10 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
 
   // Manage multiple outputs results
   const [messagesOutputs_num, setMessagesOutputs_num] = useState<number>(
-    Object.keys(inputsCache_v3).includes(contextSelected_uuid)
-      ? inputsCache_v3[contextSelected_uuid]?.messagesOutputs_num
-      : IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
-    // IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
+    1,
+    // Object.keys(inputsCache_v3).includes(contextSelected_uuid)
+    //   ? inputsCache_v3[contextSelected_uuid]?.messagesOutputs_num
+    //   : IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
   );
   const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([]);
 
@@ -273,7 +273,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
               />
             </div>
 
-            <div className="row messages_output_num">
+            <div className="row messages_output_num hidden">
               <Form.Item label={t.get('Number of outputs')}>
                 <InputNumber
                   max={4}

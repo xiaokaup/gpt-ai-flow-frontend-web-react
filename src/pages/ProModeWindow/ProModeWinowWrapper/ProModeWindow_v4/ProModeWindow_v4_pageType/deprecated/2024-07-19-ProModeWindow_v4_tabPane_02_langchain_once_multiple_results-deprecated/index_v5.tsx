@@ -375,7 +375,7 @@ export const ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 = (
               />
             </div>
 
-            <div className="row messages_output_num">
+            <div className="row messages_output_num hidden">
               <Form.Item label={t.get('Number of outputs')}>
                 <InputNumber
                   max={4}
