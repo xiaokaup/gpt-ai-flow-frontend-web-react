@@ -19,7 +19,7 @@ import { IInputsCache_v2 } from '../../../../../../../gpt-ai-flow-common/interfa
 import { Langchain_context_description } from './component/Langchain_context_description';
 import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
-import { IProModeWindow_v4_wrapper_input } from '../../../ProModeWindow_v4_wrapper';
+import { IProModeWindow_v4_wrapper_input } from '../../../ProModeWindow_wrapper_v4';
 import { IAdjust_IMessage } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IAdjust';
 import { EProMode_v4_module_contextType } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { to_deprecate_ILangchain_for_type_langchain_request_v3 } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';

@@ -39,7 +39,7 @@ import IInputsCacheFile, {
 import { ProModeModelValueProvider } from '../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { ProModeWindow_v4_tabPane_commandChain } from './ProModeWindow_v4_pageType/2024-05-03-ProModeWindow_v4_tabPane_00_commandChain';
 import { ProModeWindow_v4_tabPane_type_image_crop_v1 } from './ProModeWindow_v4_pageType/2024-05-22-ProModeWindow_v4_tabPane_04_tool_image_crop';
-import { ProModeWindow_v4_wrapper } from './ProModeWindow_v4_wrapper';
+import { ProModeWindow_v4_wrapper } from './ProModeWindow_wrapper_v4';
 import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
 import { useInputsCache_v2 } from '../../../../gpt-ai-flow-common/hooks/useInputsCache_v2';
 import {
@@ -71,6 +71,7 @@ import {
   ESocialPlatform_platformName,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 import { useInputsCache_v3 } from '../../../../gpt-ai-flow-common/hooks/useInputsCache_v3';
+import { ProModeWindow_wrapper_v4_subVersion_2 } from './ProModeWindow_wrapper_v4_subVersion_2';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -534,6 +535,29 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                           {versionNum == 2 && (
                             // proMode_v4
                             <ProModeWindow_v4_wrapper
+                              t={t}
+                              tabPane={
+                                tabPane as IProMode_v4_tabPane<
+                                  IProMode_v4_tabPane_context<
+                                    IBackground_for_type_langchain,
+                                    IAdjust_for_type_langchain
+                                  >
+                                >
+                              }
+                              userAccessToken={userAccessToken}
+                              llmOption_secrets={llmOption_secrets}
+                              llmName={llmName}
+                              inputsCache={inputsCache}
+                              setInputsCache={setInputsCache}
+                              inputsCache_v2={inputsCache_v2}
+                              setInputsCache_v2={setInputsCache_v2}
+                              inputsCache_v3={inputsCache_v3}
+                              setInputsCache_v3={setInputsCache_v3}
+                            />
+                          )}
+                          {versionNum == 3 && (
+                            // proMode_v4
+                            <ProModeWindow_wrapper_v4_subVersion_2
                               t={t}
                               tabPane={
                                 tabPane as IProMode_v4_tabPane<

@@ -24,7 +24,7 @@ import {
   IAdjust_for_type_langchain,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
-import { ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2025-01-31-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/index_v5';
+import { ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-11-03-ProModeWindow_v4_tabPane_01_langchain_iterate_and_optimize-deprecated/index_v5';
 
 export interface IProModeWindow_v4_wrapper_input {
   t: IGetT_frontend_output;
@@ -155,7 +155,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
       </div>
       <div className="row tabPane_context_container">
         {mode === EProMode_v4_module_mode.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
-          <ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize
+          <ProModeWindow_v4_tabPane_langchain_01_iterate_and_optimize_v5
             creativityValue={creativityValue}
             contextSelected={contextSelected}
             switchContextSelected_by_type={switchContextSelected_by_type}
@@ -164,6 +164,10 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
+            inputsCache={inputsCache}
+            setInputsCache={setInputsCache}
+            inputsCache_v2={inputsCache_v2}
+            setInputsCache_v2={setInputsCache_v2}
             inputsCache_v3={inputsCache_v3}
             setInputsCache_v3={setInputsCache_v3}
           />

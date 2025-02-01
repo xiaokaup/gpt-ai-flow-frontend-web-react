@@ -24,7 +24,7 @@ import {
 } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IMessageExchange/IBackground';
 import { removeAllEmptyValues } from '../../../../../../gpt-ai-flow-common/tools/4_base/TEmpty';
 
-import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_v4_wrapper';
+import { IProModeWindow_v4_wrapper_input } from '../../ProModeWindow_wrapper_v4';
 
 import { Langchain_left_03_context_description } from './component/Langchain_left_03_context_description';
 import { Langchain_right_02_uploader } from './component/Langchain_right_02_uploader';
