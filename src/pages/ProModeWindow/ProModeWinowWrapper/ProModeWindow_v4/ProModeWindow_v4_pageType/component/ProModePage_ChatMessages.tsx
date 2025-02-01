@@ -90,6 +90,13 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
             return item;
           });
           setChatMessages(newChatMessages);
+          setInputsCache_v3({
+            ...inputsCache_v3,
+            [contextSelected_uuid]: {
+              ...inputsCache_v3[contextSelected_uuid],
+              chatMessages: newChatMessages,
+            },
+          });
         };
 
         const switchEdit = (paraOneChatMessage: IChatMessage) => {
@@ -103,6 +110,13 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
             return item;
           });
           setChatMessages(newChatMessages);
+          setInputsCache_v3({
+            ...inputsCache_v3,
+            [contextSelected_uuid]: {
+              ...inputsCache_v3[contextSelected_uuid],
+              chatMessages: newChatMessages,
+            },
+          });
         };
 
         const onFinish = (paraOneChatMessage: IChatMessage, content: string) => {
