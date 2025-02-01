@@ -186,7 +186,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
   const onRegenerateMessage = () => {
     setIsCalling(true);
 
-    const newChatMessages = hasChatMessages ? chatMessages.slice(0, -1) : [];
+    const newChatMessages = hasChatMessages ? chatMessages.slice(0, currentVersionNum - 1) : [];
     onImproveMessage(newChatMessages)();
     setCurrentVersionNum(newChatMessages.length);
   };
