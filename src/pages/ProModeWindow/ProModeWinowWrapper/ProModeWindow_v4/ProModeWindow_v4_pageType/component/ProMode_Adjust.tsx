@@ -1,40 +1,40 @@
-import expressionIcon from '../../../../../../../../assets/icons-customize/2024-06-15-icon-communication-expression/megaphone.png';
-import responseIcon from '../../../../../../../../assets/icons-customize/2024-06-15-communication-response/text-notification.png';
+import expressionIcon from '../../../../../../../assets/icons-customize/2024-06-15-icon-communication-expression/megaphone.png';
+import responseIcon from '../../../../../../../assets/icons-customize/2024-06-15-communication-response/text-notification.png';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-import { AutoComplete, AutoCompleteProps, DatePicker, Form, Input, InputNumber, Tooltip } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { AutoCompleteProps, Tooltip, InputNumber, Input, AutoComplete, DatePicker, Form } from 'antd';
 
-import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { EProMode_v4_module_contextType } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import {
-  IProMode_v4_tabPane_context_for_type_langchain_formItems,
   IAdjust_for_type_langchain,
   IFormItem,
-} from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
-import { useLastFocusedElement } from '../../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
-import { ESocialPlatform_moduleName } from '../../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
+  IProMode_v4_tabPane_context_for_type_langchain_formItems,
+} from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
+import { useLastFocusedElement } from '../../../../../../gpt-ai-flow-common/contexts/LastFocusedElementContext';
+import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import { ESocialPlatform_moduleName } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 
-const { TextArea } = Input;
-
-export const Langchain_adjust = (props: {
+interface IProMode_Adjust_input {
   t: IGetT_frontend_output;
-  isAdjustCall: boolean;
+  canRegenerate: boolean;
   adjustSelected: IProMode_v4_tabPane_context_for_type_langchain_formItems<IAdjust_for_type_langchain>;
   adjust: IAdjust_for_type_langchain;
-  setAdjust: (newItem: IAdjust_for_type_langchain) => void;
+  setAdjust: Dispatch<SetStateAction<IAdjust_for_type_langchain>>;
   contextSelected_type: EProMode_v4_module_contextType | ESocialPlatform_moduleName;
   switchContextSelected_by_type: (newItem: EProMode_v4_module_contextType) => void;
-}) => {
+}
+export const ProMode_Adjust = (props: IProMode_Adjust_input) => {
   const {
     t,
-    isAdjustCall,
-    adjustSelected,
+    canRegenerate,
+    adjustSelected: selectedAdjustFormInfo,
     adjust,
     setAdjust,
     contextSelected_type,
-    switchContextSelected_by_type: switchContextSelected_by_type,
+    switchContextSelected_by_type,
   } = props;
 
   const { setLastFocusedElement } = useLastFocusedElement();
@@ -99,7 +99,7 @@ export const Langchain_adjust = (props: {
       </div>
       <div className="row">
         <Form form={form} initialValues={adjust}>
-          {adjustSelected.formItems.map((item: IFormItem<IAdjust_for_type_langchain>) => {
+          {selectedAdjustFormInfo.formItems.map((item: IFormItem<IAdjust_for_type_langchain>) => {
             const {
               componentType,
               label,
@@ -230,7 +230,7 @@ export const Langchain_adjust = (props: {
                         }}
                       >
                         <TextArea
-                          disabled={isDisabledWhenAdjustCall && isAdjustCall}
+                          disabled={isDisabledWhenAdjustCall && canRegenerate}
                           autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                           onFocus={() => {
                             setLastFocusedElement({ form, name, element: 'TextArea', updateItems: setAdjust });
@@ -247,7 +247,7 @@ export const Langchain_adjust = (props: {
                     )}
                     {!(autoCompleteOptions && autoCompleteOptions.length > 0) && (
                       <TextArea
-                        disabled={isDisabledWhenAdjustCall && isAdjustCall}
+                        disabled={isDisabledWhenAdjustCall && canRegenerate}
                         autoSize={{ minRows: isAutoSize_minRows ?? 1 }}
                         onFocus={() => {
                           setLastFocusedElement({ form, name, element: 'TextArea', updateItems: setAdjust });
@@ -302,48 +302,48 @@ export const Langchain_adjust = (props: {
           })}
 
           {/* <Form.Item name="title" label={t.get('Title')}>
-            <Input
-              onFocus={() => {
-                setLastFocusedElement({ form, name, element: 'Input',updateItems: setAdjust });
-              }}
-              onChange={(event) => {
-                setAdjust({
-                  ...adjust,
-                  title: event.target.value,
-                });
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item name="content" label={t.get('Content')}>
-            <TextArea
-              autoSize
-              onFocus={() => {
-                setLastFocusedElement({ form, name, element: 'TextArea',updateItems: setAdjust });
-              }}
-              onChange={(event) => {
-                setAdjust({
-                  ...adjust,
-                  content: event.target.value,
-                });
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item name="feedback" label={t.get('Input')}>
-            <TextArea
-              autoSize={{ minRows: 4 }}
-              onFocus={() => {
-                setLastFocusedElement({ form, name, element: 'TextArea',updateItems: setAdjust });
-              }}
-              onChange={(event) => {
-                setAdjust({
-                  ...adjust,
-                  feedback: event.target.value,
-                });
-              }}
-            />
-          </Form.Item> */}
+                <Input
+                  onFocus={() => {
+                    setLastFocusedElement({ form, name, element: 'Input',updateItems: setAdjust });
+                  }}
+                  onChange={(event) => {
+                    setAdjust({
+                      ...adjust,
+                      title: event.target.value,
+                    });
+                  }}
+                />
+              </Form.Item>
+    
+              <Form.Item name="content" label={t.get('Content')}>
+                <TextArea
+                  autoSize
+                  onFocus={() => {
+                    setLastFocusedElement({ form, name, element: 'TextArea',updateItems: setAdjust });
+                  }}
+                  onChange={(event) => {
+                    setAdjust({
+                      ...adjust,
+                      content: event.target.value,
+                    });
+                  }}
+                />
+              </Form.Item>
+    
+              <Form.Item name="feedback" label={t.get('Input')}>
+                <TextArea
+                  autoSize={{ minRows: 4 }}
+                  onFocus={() => {
+                    setLastFocusedElement({ form, name, element: 'TextArea',updateItems: setAdjust });
+                  }}
+                  onChange={(event) => {
+                    setAdjust({
+                      ...adjust,
+                      feedback: event.target.value,
+                    });
+                  }}
+                />
+              </Form.Item> */}
         </Form>
       </div>
     </div>
