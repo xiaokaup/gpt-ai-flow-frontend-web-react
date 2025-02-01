@@ -3,7 +3,7 @@ import '../../index.scss';
 import { useEffect, useState } from 'react';
 
 import { Button, Form, InputNumber, message, Splitter } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+// import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -38,7 +38,6 @@ import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages'
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { ProModePage_Background } from '../component/ProModePage_Background';
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
-import { ProMode_debug_v4_subVersion_2 } from '../ProMode_debug_v4_subVersion_2';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
@@ -73,16 +72,15 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
     // { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
-  // console.log('currentVersionNum', currentVersionNum);
-  const hasChatMessages = chatMessages.length > 0;
+  // const hasChatMessages = chatMessages.length > 0;
   const [background, setBackground] = useState<IBackground_for_type_langchain>(background_from_cache);
   const [adjust, setAdjust] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
 
   // Manage multiple outputs results
   const [messagesOutputs_num, setMessagesOutputs_num] = useState<number>(
-    inputsCache_v3[contextSelected_uuid].messagesOutputs_num
-      ? inputsCache_v3[contextSelected_uuid].messagesOutputs_num
-      : 1, // IAdjust_morePostsChain
+    Object.keys(inputsCache_v3).includes(contextSelected_uuid)
+      ? inputsCache_v3[contextSelected_uuid]?.messagesOutputs_num
+      : IInputsCache_v3_contextSelected_value_default.messagesOutputs_num,
   );
   const [messages_outputs, setMessages_outputs] = useState<IChatMessage[]>([...chatMessages_from_cache]);
 

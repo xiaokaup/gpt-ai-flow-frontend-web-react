@@ -180,10 +180,6 @@ export const ProModeWindow_wrapper_v4_subVersion_2 = (props: IProModeWindow_wrap
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache={inputsCache} // @DEPRECATED
-            setInputsCache={setInputsCache} // @DEPRECATED
-            inputsCache_v2={inputsCache_v2}
-            setInputsCache_v2={setInputsCache_v2}
             inputsCache_v3={inputsCache_v3}
             setInputsCache_v3={setInputsCache_v3}
           />
