@@ -24,6 +24,7 @@ import {
 import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 import { ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2025-02-02-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/index_v5';
 import { ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2025-02-02-ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results/index_v5';
+import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/deprecated/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface-deprecated';
 
 export interface IProModeWindow_wrapper_v4_subVersion_2_input {
   t: IGetT_frontend_output;
@@ -39,7 +40,19 @@ export interface IProModeWindow_wrapper_v4_subVersion_2_input {
   setInputsCache_v3: Dispatch<SetStateAction<IInputsCache_v3>>;
 }
 export const ProModeWindow_wrapper_v4_subVersion_2 = (props: IProModeWindow_wrapper_v4_subVersion_2_input) => {
-  const { t, tabPane, userAccessToken, llmOption_secrets, llmName, inputsCache_v3, setInputsCache_v3 } = props;
+  const {
+    t,
+    tabPane,
+    userAccessToken,
+    llmOption_secrets,
+    llmName,
+    inputsCache,
+    setInputsCache,
+    inputsCache_v2,
+    setInputsCache_v2,
+    inputsCache_v3,
+    setInputsCache_v3,
+  } = props;
   const { context } = tabPane;
 
   const creativityValue = useCreativityValueContext();
@@ -138,6 +151,25 @@ export const ProModeWindow_wrapper_v4_subVersion_2 = (props: IProModeWindow_wrap
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
+            inputsCache_v3={inputsCache_v3}
+            setInputsCache_v3={setInputsCache_v3}
+          />
+        )}
+
+        {mode === EProMode_v4_module_mode.LANGCHAIN_03_SIMPLE_INTERFACE_DEPRECATED && (
+          <ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface
+            creativityValue={creativityValue}
+            contextSelected={contextSelected}
+            switchContextSelected_by_type={switchContextSelected_by_type}
+            // IProModeWindow_v4_wrapper_input
+            t={t}
+            userAccessToken={userAccessToken}
+            llmOption_secrets={llmOption_secrets}
+            llmName={llmName}
+            inputsCache={inputsCache} // @DEPRECATED
+            setInputsCache={setInputsCache} // @DEPRECATED
+            inputsCache_v2={inputsCache_v2}
+            setInputsCache_v2={setInputsCache_v2}
             inputsCache_v3={inputsCache_v3}
             setInputsCache_v3={setInputsCache_v3}
           />
