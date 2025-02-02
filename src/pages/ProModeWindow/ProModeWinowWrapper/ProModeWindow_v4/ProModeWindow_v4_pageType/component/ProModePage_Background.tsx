@@ -68,14 +68,16 @@ export const ProModePage_Background = (props: IProModePage_Background_input) => 
     <div className="row subContainer">
       <div className="block_title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="left" style={{ display: 'flex' }}>
-          {isShow && (
-            <>
-              <h1>{t.get('Background')}</h1>
-              <Tooltip title={t.get('Hide {text}', { text: t.get('Background') })}>
-                <EyeOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsShow(false)} />
-              </Tooltip>
-            </>
-          )}
+          <div className="block_title hidden">
+            {isShow && (
+              <>
+                <h1>{t.get('Background')}</h1>
+                <Tooltip title={t.get('Hide {text}', { text: t.get('Background') })}>
+                  <EyeOutlined style={{ fontSize: 18, marginLeft: '.4rem' }} onClick={() => setIsShow(false)} />
+                </Tooltip>
+              </>
+            )}
+          </div>
 
           {!isShow && (
             <>

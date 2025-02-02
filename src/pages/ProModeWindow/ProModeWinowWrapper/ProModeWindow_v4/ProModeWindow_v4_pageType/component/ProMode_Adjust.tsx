@@ -48,7 +48,9 @@ export const ProMode_Adjust = (props: IProMode_Adjust_input) => {
   return (
     <div className="row subContainer">
       <div className="row flex items-center">
-        <h1>{t.get('Content adjust')}</h1>
+        <div className="block_title hidden">
+          <h1>{t.get('Content adjust')}</h1>
+        </div>
 
         <div className="row icons_button">
           {contextSelected_type === EProMode_v4_module_contextType.EXPRESS && (

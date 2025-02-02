@@ -234,6 +234,19 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
             }
             collapsible
           >
+            <div className="block_title">
+              <h2>{t.get('Creation')}</h2>
+            </div>
+
+            <div className="row background">
+              <ProModePage_Background
+                t={t}
+                backgroundSelected={contextSelected.background}
+                background={background}
+                setBackground={setBackground}
+              />
+            </div>
+
             <div className="row adjust">
               <ProMode_Adjust
                 t={t}
@@ -243,15 +256,6 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                 setAdjust={setAdjust}
                 contextSelected_type={contextSelected.contextType}
                 switchContextSelected_by_type={switchContextSelected_by_type}
-              />
-            </div>
-
-            <div className="row background">
-              <ProModePage_Background
-                t={t}
-                backgroundSelected={contextSelected.background}
-                background={background}
-                setBackground={setBackground}
               />
             </div>
 
