@@ -192,7 +192,7 @@ export const ProModeWindow_v4_wrapper = (props: IProModeWindow_v4_wrapper_input)
           />
         )}
 
-        {mode === EProMode_v4_module_mode.LANGCHAIN_03_SIMPLE_INTERFACE && (
+        {mode === EProMode_v4_module_mode.LANGCHAIN_03_SIMPLE_INTERFACE_DEPRECATED && (
           <ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface
             creativityValue={creativityValue}
             contextSelected={contextSelected}

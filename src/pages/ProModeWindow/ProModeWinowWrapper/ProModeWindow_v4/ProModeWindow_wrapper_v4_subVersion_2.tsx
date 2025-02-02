@@ -10,8 +10,6 @@ import {
 import { ILLMOption_secrets } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-// import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results-deprecated/index_v5';
-import { ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface } from './ProModeWindow_v4_pageType/deprecated/2024-07-21-ProModeWindow_v4_tabPane_03_langchain_sample_interface-deprecated';
 import { useCreativityValueContext } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { IProMode_v4_tabPane } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4';
 import {
@@ -24,8 +22,8 @@ import {
   IAdjust_for_type_langchain,
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import { ESocialPlatform_moduleName } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
-import { ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2025-01-31-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/index_v5';
-import { ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2025-01-31-ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results/index_v5';
+import { ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize } from './ProModeWindow_v4_pageType/2025-02-02-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/index_v5';
+import { ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results } from './ProModeWindow_v4_pageType/2025-02-02-ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results/index_v5';
 
 export interface IProModeWindow_wrapper_v4_subVersion_2_input {
   t: IGetT_frontend_output;
@@ -41,19 +39,7 @@ export interface IProModeWindow_wrapper_v4_subVersion_2_input {
   setInputsCache_v3: Dispatch<SetStateAction<IInputsCache_v3>>;
 }
 export const ProModeWindow_wrapper_v4_subVersion_2 = (props: IProModeWindow_wrapper_v4_subVersion_2_input) => {
-  const {
-    t,
-    tabPane,
-    userAccessToken,
-    llmOption_secrets,
-    llmName,
-    inputsCache,
-    setInputsCache,
-    inputsCache_v2,
-    setInputsCache_v2,
-    inputsCache_v3,
-    setInputsCache_v3,
-  } = props;
+  const { t, tabPane, userAccessToken, llmOption_secrets, llmName, inputsCache_v3, setInputsCache_v3 } = props;
   const { context } = tabPane;
 
   const creativityValue = useCreativityValueContext();
@@ -125,34 +111,6 @@ export const ProModeWindow_wrapper_v4_subVersion_2 = (props: IProModeWindow_wrap
             },
           )}
         />
-        {/* {uuid === 'writingPostAgent' && (
-          <>
-            {!(
-              selectedContextType.includes('agent') ||
-              selectedContextType.includes('beta') ||
-              selectedContextType.includes('BETA')
-            ) && (
-              <Button
-                type="primary"
-                className="ml-2"
-                onClick={() => {
-                  switchContextSelected_by_type(
-                    EProMode_v4_module_contextType.BETA_WRITING_POST_AGENT_AND_REVIEW_POST_AGENT,
-                  );
-                }}
-              >
-                {t.get('Writing and Review Workflow')}
-              </Button>
-            )}
-            {(selectedContextType.includes('agent') ||
-              selectedContextType.includes('beta') ||
-              selectedContextType.includes('BETA')) && (
-              <Tag color="#108ee9" className="ml-2">
-                Beta
-              </Tag>
-            )}
-          </>
-        )} */}
       </div>
       <div className="row tabPane_context_container">
         {mode === EProMode_v4_module_mode.LANGCHAIN_01_CUSTOME_ITERATE_AND_OPTIMIZE && (
@@ -180,25 +138,6 @@ export const ProModeWindow_wrapper_v4_subVersion_2 = (props: IProModeWindow_wrap
             userAccessToken={userAccessToken}
             llmOption_secrets={llmOption_secrets}
             llmName={llmName}
-            inputsCache_v3={inputsCache_v3}
-            setInputsCache_v3={setInputsCache_v3}
-          />
-        )}
-
-        {mode === EProMode_v4_module_mode.LANGCHAIN_03_SIMPLE_INTERFACE && (
-          <ProModeWindow_v4_tabPane_langchain_03_langchain_sample_interface
-            creativityValue={creativityValue}
-            contextSelected={contextSelected}
-            switchContextSelected_by_type={switchContextSelected_by_type}
-            // IProModeWindow_v4_wrapper_input
-            t={t}
-            userAccessToken={userAccessToken}
-            llmOption_secrets={llmOption_secrets}
-            llmName={llmName}
-            inputsCache={inputsCache} // @DEPRECATED
-            setInputsCache={setInputsCache} // @DEPRECATED
-            inputsCache_v2={inputsCache_v2}
-            setInputsCache_v2={setInputsCache_v2}
             inputsCache_v3={inputsCache_v3}
             setInputsCache_v3={setInputsCache_v3}
           />

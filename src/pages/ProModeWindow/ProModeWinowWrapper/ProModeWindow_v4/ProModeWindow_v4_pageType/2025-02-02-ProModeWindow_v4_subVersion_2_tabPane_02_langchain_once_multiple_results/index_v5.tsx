@@ -37,7 +37,7 @@ import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages'
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { ProModePage_Background } from '../component/ProModePage_Background';
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
-import { Langchain_context_description } from '../2025-01-31-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/component/Langchain_context_description';
+import { Langchain_context_description } from '../2025-02-02-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/component/Langchain_context_description';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
