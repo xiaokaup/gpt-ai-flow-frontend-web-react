@@ -171,7 +171,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
               {moonshotApiKey && <span className="ml-1 ">({moonshotApiKey?.slice(-6).toLowerCase()})</span>}
             </div>
 
-            <div className="deepSeekApiKey flex items-center hidden">
+            <div className="deepSeekApiKey flex items-center">
               <Form.Item
                 className="m-0"
                 name="deepSeekApiKey"
