@@ -29,9 +29,9 @@ import {
 import { ELLM_name } from '../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
-  IChatMessage,
-  IChatMessage_default,
-} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
+  IAIChatMessage,
+  IAIChatMessage_default,
+} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
 import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
@@ -67,16 +67,16 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
     chatMessages: chatMessages_from_cache,
   } = { ...IInputsCache_v3_contextSelected_value_default, ...inputsCache_v3[contextSelected_uuid] };
 
-  const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
+  const [chatMessages, setChatMessages] = useState<IAIChatMessage[]>([
     ...chatMessages_from_cache,
-    // { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
+    // { ...IAIChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
   const [background, setBackground] = useState<IBackground_for_type_langchain>(background_from_cache);
   const [adjust, setAdjust] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
 
-  const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
+  const onImproveMessage = (chatMessagesBeforeImprove: IAIChatMessage[]) => async () => {
     setIsCalling(true);
 
     const newRequestController = new AbortController();
@@ -92,15 +92,15 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       llmTemperature: creativityValue,
     };
 
-    let newChatMessage: IChatMessage = {
-      ...IChatMessage_default,
+    let newChatMessage: IAIChatMessage = {
+      ...IAIChatMessage_default,
       uuid: uuidv4(),
       adjust,
       background,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+    const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
 
     if (!urlSlug) {
       message.error('urlSlug is empty');
@@ -129,7 +129,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
           content: writingResultText,
           updatedAt: new Date(),
         };
-        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
         setChatMessages(newChatMessages);
       },
       (resultText: string) => {
@@ -139,7 +139,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
           content: resultText,
           updatedAt: new Date(),
         };
-        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
         setChatMessages(newChatMessages);
         setCurrentVersionNum(newChatMessages.length);
 

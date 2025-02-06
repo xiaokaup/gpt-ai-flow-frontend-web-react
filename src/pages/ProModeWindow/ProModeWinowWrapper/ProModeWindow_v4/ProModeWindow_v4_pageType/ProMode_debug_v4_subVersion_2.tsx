@@ -5,7 +5,7 @@ import {
   IAdjust_for_type_langchain,
   IBackground_for_type_langchain,
 } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
-import { IChatMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
+import { IAIChatMessage } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
 import { IInputsCache_v3 } from '../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { ESocialPlatform_moduleName } from '../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 
@@ -13,8 +13,8 @@ interface IProMode_debug_v4_subVersion_2_input {
   contextType: EProMode_v4_module_contextType | ESocialPlatform_moduleName;
   background: IBackground_for_type_langchain;
   adjust: IAdjust_for_type_langchain;
-  chatMessages: IChatMessage[];
-  messages_outputs: IChatMessage[];
+  chatMessages: IAIChatMessage[];
+  messages_outputs: IAIChatMessage[];
   currentVersionNum: number;
   inputsCache_v3: IInputsCache_v3;
 }
