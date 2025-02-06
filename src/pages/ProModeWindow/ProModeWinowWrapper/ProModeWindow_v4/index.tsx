@@ -486,7 +486,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                   filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
                   options={SLLM_v2_common.getAllLLM_selectOptions_for_web(t)}
                   style={{
-                    width: 180,
+                    width: 260,
                   }}
                 />
               </div>
