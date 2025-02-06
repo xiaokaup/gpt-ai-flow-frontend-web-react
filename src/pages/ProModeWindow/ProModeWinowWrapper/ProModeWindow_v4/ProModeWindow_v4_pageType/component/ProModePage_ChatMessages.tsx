@@ -8,16 +8,16 @@ import copyToClipboard from 'copy-to-clipboard';
 import { Button, Form, message, Tooltip } from 'antd';
 import { EyeOutlined, EyeInvisibleOutlined, EditOutlined, CopyOutlined } from '@ant-design/icons';
 
-import { IChatMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import TextArea from 'antd/es/input/TextArea';
 import { IInputsCache_v3 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { IAIChatMessage } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
 
 interface ProModePage_ChatMessages_input {
   t: IGetT_frontend_output;
   currentVersionNum: number;
-  chatMessages: IChatMessage[];
-  setChatMessages: Dispatch<SetStateAction<IChatMessage[]>>;
+  chatMessages: IAIChatMessage[];
+  setChatMessages: Dispatch<SetStateAction<IAIChatMessage[]>>;
 
   contextSelected_uuid: string;
   inputsCache_v3: IInputsCache_v3;
@@ -37,7 +37,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
   } = props;
 
   const chatMessages_to_show = chatMessages.sort(
-    (a: IChatMessage, b: IChatMessage) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    (a: IAIChatMessage, b: IAIChatMessage) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
   );
 
   const title = t.get('Chat Messages');
@@ -75,11 +75,11 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
           </Tooltip>
         </div>
       </div>
-      {chatMessages_to_show.map((oneChatMessage: IChatMessage, oneChatMessage_index: number) => {
+      {chatMessages_to_show.map((oneChatMessage: IAIChatMessage, oneChatMessage_index: number) => {
         const { uuid, isEdit, isShow, content } = oneChatMessage;
 
-        const switchShow = (paraOneChatMessage: IChatMessage) => {
-          const newChatMessages = [...chatMessages].map((item: IChatMessage) => {
+        const switchShow = (paraOneChatMessage: IAIChatMessage) => {
+          const newChatMessages = [...chatMessages].map((item: IAIChatMessage) => {
             if (paraOneChatMessage.content === item.content) {
               return {
                 ...item,
@@ -98,8 +98,8 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
           });
         };
 
-        const switchEdit = (paraOneChatMessage: IChatMessage) => {
-          const newChatMessages = [...chatMessages].map((item: IChatMessage) => {
+        const switchEdit = (paraOneChatMessage: IAIChatMessage) => {
+          const newChatMessages = [...chatMessages].map((item: IAIChatMessage) => {
             if (paraOneChatMessage.content === item.content) {
               return {
                 ...item,
@@ -118,8 +118,8 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
           });
         };
 
-        const onFinish = (paraOneChatMessage: IChatMessage, content: string) => {
-          const newChatMessages = [...chatMessages].map((item: IChatMessage) => {
+        const onFinish = (paraOneChatMessage: IAIChatMessage, content: string) => {
+          const newChatMessages = [...chatMessages].map((item: IAIChatMessage) => {
             if (paraOneChatMessage.content === item.content) {
               return {
                 ...item,

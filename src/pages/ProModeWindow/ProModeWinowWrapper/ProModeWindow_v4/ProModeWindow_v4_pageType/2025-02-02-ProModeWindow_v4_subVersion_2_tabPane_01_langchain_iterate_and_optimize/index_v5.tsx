@@ -8,9 +8,9 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  IChatMessage,
-  IChatMessage_default,
-} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IChatMessage';
+  IAIChatMessage,
+  IAIChatMessage_default,
+} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
 import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { Langchain_context_description } from './component/Langchain_context_description';
 import {
@@ -67,16 +67,16 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     chatMessages: chatMessages_from_cache,
   } = { ...IInputsCache_v3_contextSelected_value_default, ...inputsCache_v3[contextSelected_uuid] };
 
-  const [chatMessages, setChatMessages] = useState<IChatMessage[]>([
+  const [chatMessages, setChatMessages] = useState<IAIChatMessage[]>([
     ...chatMessages_from_cache,
-    // { ...IChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
+    // { ...IAIChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
   const [background, setBackground] = useState<IBackground_for_type_langchain>(background_from_cache);
   const [adjust, setAdjust] = useState<IAdjust_for_type_langchain>(adjust_from_cache);
 
-  const onImproveMessage = (chatMessagesBeforeImprove: IChatMessage[]) => async () => {
+  const onImproveMessage = (chatMessagesBeforeImprove: IAIChatMessage[]) => async () => {
     setIsCalling(true);
 
     const newRequestController = new AbortController();
@@ -95,18 +95,18 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
     // const lastMessage: IChatMessage =
     //   chatMessagesBeforeImprove_copy.length > 0
     //     ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 1]
-    //     : IChatMessage_default;
-    // const secondLastMessage = chatMessagesBeforeImprove_copy.length > 1 ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 2] : IChatMessage_default;
+    //     : IAIChatMessage_default;
+    // const secondLastMessage = chatMessagesBeforeImprove_copy.length > 1 ? chatMessagesBeforeImprove_copy[chatMessagesBeforeImprove_copy.length - 2] : IAIChatMessage_default;
 
-    let newChatMessage: IChatMessage = {
-      ...IChatMessage_default,
+    let newChatMessage: IAIChatMessage = {
+      ...IAIChatMessage_default,
       uuid: uuidv4(),
       adjust,
       background,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+    const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
     setChatMessages(newChatMessages);
     setCurrentVersionNum(newChatMessages.length);
 
@@ -137,7 +137,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
           content: writingResultText,
           updatedAt: new Date(),
         };
-        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
         setChatMessages(newChatMessages);
       },
       (resultText: string) => {
@@ -147,7 +147,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
           content: resultText,
           updatedAt: new Date(),
         };
-        const newChatMessages: IChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+        const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
         setChatMessages(newChatMessages);
         setCurrentVersionNum(newChatMessages.length);
 
