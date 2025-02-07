@@ -35,7 +35,7 @@ export const Drawer_prompt_v3_persona = (props: IDrawer_prompt_v3_persona_input)
       title={`${t.get('Persona panel')} (${t.get('beta')})`}
       open={isShow}
       onClose={onClose}
-      placement="left"
+      placement="right"
       mask={false}
       extra={
         <>
