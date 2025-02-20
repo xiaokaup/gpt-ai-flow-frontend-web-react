@@ -79,7 +79,6 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
     apiKeys,
     proMode: { model_type },
   } = localDataFromStorage;
-  const { openAIApiKey, anthropicApiKey, moonshotApiKey, deepSeekApiKey, googleApiKey } = apiKeys ?? {};
 
   if (!userAccessToken) {
     return (
@@ -383,13 +382,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
             llmOptions: {
               llmName,
               llmImageName: null,
-              llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, {
-                openAIApiKey,
-                anthropicApiKey,
-                moonshotApiKey,
-                deepSeekApiKey,
-                googleApiKey,
-              }),
+              llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, apiKeys),
               llmTemperature: creativityValue,
             },
             history: [systemPrompt, ...chatHistory],
