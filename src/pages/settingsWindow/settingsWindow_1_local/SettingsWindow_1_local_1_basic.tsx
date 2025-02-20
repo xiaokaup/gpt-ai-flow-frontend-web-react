@@ -36,6 +36,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
   const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
   const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys?.moonshotApiKey);
   const [deepSeekApiKey, setDeepSeekApiKey] = useState<string>(localFromStore?.apiKeys?.deepSeekApiKey);
+  const [siliconFlowApiKey, setSiliconFlowApiKey] = useState<string>(localFromStore?.apiKeys?.siliconFlowApiKey);
 
   const [chatModeModelType] = useState<ELLM_name>(localFromStore.chatMode?.model_type ?? ELLM_name.DEFAULT);
   const [proModeModelType, setProModeModelType] = useState<ELLM_name>(
@@ -52,7 +53,8 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           anthropicApiKey: anthropicApiKey?.trim(),
           moonshotApiKey: moonshotApiKey?.trim(),
           deepSeekApiKey: deepSeekApiKey?.trim(),
-          googleApiKey: '', // @DEV
+          siliconFlowApiKey: siliconFlowApiKey?.trim(),
+          googleApiKey: '', // @TODO
         },
         chatMode: {
           chatModeStatus: localFromStore.chatMode?.chatModeStatus,
@@ -84,6 +86,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
             anthropicApiKey,
             moonshotApiKey,
             deepSeekApiKey,
+            siliconFlowApiKey,
           }}
         >
           <div className={isModelEdition ? 'row block_apiKeys hidden' : 'row block_apiKeys'}>
@@ -193,6 +196,30 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
                 />
               </Form.Item>
               {deepSeekApiKey && <span className="ml-1 ">({deepSeekApiKey?.slice(-6).toLowerCase()})</span>}
+            </div>
+
+            <div className="siliconFlowApiKey flex items-center">
+              <Form.Item
+                className="m-0"
+                name="siliconFlowApiKey"
+                label={
+                  <>
+                    SiliconFlow API key
+                    {/* <InfoCircleOutlined className="px-1" /> */}
+                  </>
+                }
+                style={{ width: 300 }}
+              >
+                <Input
+                  type="password"
+                  size="small"
+                  value={siliconFlowApiKey}
+                  onChange={(event) => {
+                    setSiliconFlowApiKey(event.target.value);
+                  }}
+                />
+              </Form.Item>
+              {siliconFlowApiKey && <span className="ml-1 ">({siliconFlowApiKey?.slice(-6).toLowerCase()})</span>}
             </div>
 
             {/* GoogleAPIKey */}
