@@ -20,7 +20,6 @@ import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocal
 import { useCreativityValueContext } from '../../../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import TBackendUserInputFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
-import { LangchainRetrivalService } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
 import { IBuildOpenAIPrompts_ouput } from '../../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELangchainRetrievalDocType } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
@@ -40,6 +39,7 @@ import { IProMode_v4_tabPane_example } from '../../../../../../../gpt-ai-flow-co
 
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
+import { LangchainRetrivalService } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval-to-deprecate';
 
 const { TextArea } = Input;
 

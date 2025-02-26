@@ -35,7 +35,6 @@ import EInputTypeDBFile, {
 } from '../../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
 import { useProModeModelValueProviderContext } from '../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { LangchainRetrivalService } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval';
 import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import TCryptoJSFile from '../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
@@ -53,6 +52,7 @@ import { IPrompt } from '../../../../../../gpt-ai-flow-common/interface-app/3_un
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 import { ELLM_name } from '../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+import { LangchainRetrivalService } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval-to-deprecate';
 
 const { TextArea } = Input;
 
