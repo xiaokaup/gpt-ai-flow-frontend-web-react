@@ -10,7 +10,6 @@ import { CopyOutlined } from '@ant-design/icons';
 
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import ITokenDBFile from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { to_deprecate_IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import TBackendStripeFile from '../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
@@ -18,20 +17,21 @@ import { EStripe_currency, EStripePrice_nickname } from '../../../gpt-ai-flow-co
 import { to_deprecate_IProductItemDB_with_expiredAt_and_blance as IProductItemDB_with_expiredAt_and_blance } from '../../../gpt-ai-flow-common/interface-database/IProductItemDB';
 
 import { SettingWIndow_4_proMode_recharge_form } from './to_deprecate_SettingWIndow_4_proMode_recharge_form';
+import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 
 interface SettingsWindow_4_proMode_locale_input {
   t: IGetT_frontend_output;
   locale: ELocale;
-  userData: to_deprecate_IUserData;
+  userDB: IUserDB;
   productItem: IProductItemDB_with_expiredAt_and_blance;
 }
 export const to_deprecate_SettingsWindow_4_proMode_locale = (props: SettingsWindow_4_proMode_locale_input) => {
-  const { t, locale, userData, productItem } = props;
+  const { t, locale, userDB, productItem } = props;
   const {
     id: userId,
     email: userEmail,
     Token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
-  } = userData;
+  } = userDB;
 
   if (!userId || !userAccessToken) {
     return (

@@ -19,17 +19,12 @@ import IStoreStorageFile, {
   IStoreStorage_settings_local,
 } from '../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { to_deprecate_useInputsCache } from '../../../../gpt-ai-flow-common/hooks/to_deprecate_useInputsCache';
 import { SLLM_v2_common } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { getProMode_v4_from_backend } from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendProMode_v4';
-import {
-  to_deprecate_IUserData as IUserData,
-  to_deprecate_IUserData_default as IUserData_default,
-} from '../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { CreativityValueProvider } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import IInputsCacheFile, {
   to_deprecate_IInputsCache,
@@ -73,6 +68,8 @@ import {
 } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 import { useInputsCache_v3 } from '../../../../gpt-ai-flow-common/hooks/useInputsCache_v3';
 import { ProModeWindow_wrapper_v4_subVersion_2 } from './ProModeWindow_wrapper_v4_subVersion_2';
+import { IUserDB, IUserDB_default } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { useUserDB } from '../../../../gpt-ai-flow-common/hooks/useUserDB';
 
 interface IProModeWindow_input {
   t: IGetT_frontend_output;
@@ -84,16 +81,16 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
   const { t, locale } = props;
 
   // === Stripe subscription - start ===
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
+  const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDB_default;
   });
 
-  const { userData } = useUserData({
-    userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {
-      dispatch<any>(updateSpecificUserDB(newUserData_without_token));
+  const { userDB } = useUserDB({
+    userDBFromStorage,
+    onUserDBChange: (newUserDB_without_token: IUserDB) => {
+      dispatch<any>(updateSpecificUserDB(newUserDB_without_token));
     },
-    locale: t.currentLocale,
+    t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
@@ -119,7 +116,7 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
     },
   });
 
-  const { id: userId } = userData;
+  const { id: userId } = userDB;
 
   return (
     <>
@@ -127,7 +124,7 @@ const ProModeWindow_v4 = (props: IProModeWindow_input) => {
         <ProModeWindow_v4_login
           t={t}
           locale={locale}
-          userData={userData}
+          userDB={userDB}
           inputsCache={inputsCache}
           setInputsCache={setInputsCache}
           inputsCache_v2={inputsCache_v2}
@@ -259,7 +256,7 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
 interface IProModeWindow_v4_login {
   t: IGetT_frontend_output;
   locale: ELocale;
-  userData: IUserData;
+  userDB: IUserDB;
   inputsCache: to_deprecate_IInputsCache;
   setInputsCache: React.Dispatch<React.SetStateAction<to_deprecate_IInputsCache>>;
   inputsCache_v2: IInputsCache_v2;
@@ -271,7 +268,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
   const {
     t,
     locale,
-    userData,
+    userDB,
     inputsCache,
     setInputsCache,
     inputsCache_v2,
@@ -296,7 +293,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
     proMode: { model_type: llmName_from_store },
   } = localFromStore;
 
-  const { Token: { accessToken: userAccessToken } = {} } = userData;
+  const { Token: { accessToken: userAccessToken } = {} } = userDB;
 
   if (!userAccessToken) {
     return (
@@ -529,7 +526,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                             <ProModeWindow_v4_tabPane_commandChain
                               t={t}
                               tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
-                              webCase={{ userData, localDataFromStorage: localFromStore }}
+                              webCase={{ userDB: userDB, localDataFromStorage: localFromStore }}
                             />
                           )}
 

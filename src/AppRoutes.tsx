@@ -1,13 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
-import { useUserData } from './gpt-ai-flow-common/hooks/useUserData';
 import { getT } from './gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from './gpt-ai-flow-common/config/constantGptAiFlow';
-import {
-  to_deprecate_IUserData as IUserData,
-  to_deprecate_IUserData_default as IUserData_default,
-} from './gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import IStoreStorageFile, {
   IStoreStorage_settings_local,
 } from './gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
@@ -32,12 +27,14 @@ import { updateSpecificUserDB } from './store/actions/userActions';
 
 import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { ProModeWindow_v5 } from './pages/ProModeWindow/ProModeWinowWrapper/to_plan_ProModeWindow_v5';
+import { IUserDB, IUserDB_default } from './gpt-ai-flow-common/interface-database/IUserDB';
+import { useUserDB } from './gpt-ai-flow-common/hooks/useUserDB';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
 
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
+  const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDB_default;
   });
   const localSettingsFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
@@ -45,16 +42,16 @@ export const AppRoutes = () => {
   const { locale } = localSettingsFromStore;
   const t = getT(locale);
 
-  const { userData, isAuthenticated } = useUserData({
-    userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: IUserData) => {
-      dispatch(updateSpecificUserDB(newUserData_without_token) as any);
+  const { userDB, isAuthenticated } = useUserDB({
+    userDBFromStorage,
+    onUserDBChange: (newUserDB_without_token: IUserDB) => {
+      dispatch(updateSpecificUserDB(newUserDB_without_token) as any);
     },
-    locale,
+    t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const { Token: { accessToken } = ITokenDB_default } = userData;
+  const { Token: { accessToken } = ITokenDB_default } = userDB;
 
   const { stripePriceNicknames_from_allSbuscriptions, isModelEdition } = useStripePriceNicknames_for_allSubscriptions({
     accessToken,
@@ -114,7 +111,7 @@ export const AppRoutes = () => {
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
+                <SettingsWindow_2_user_4_changePassword t={t} userDB={userDB} isAuthenticated={isAuthenticated} />
               </AppLayoutCenter>
             </div>
           }
@@ -191,7 +188,7 @@ export const AppRoutes = () => {
               >
                 <SettingsWindow
                   t={t}
-                  userData={userData}
+                  userDB={userDB}
                   isAuthenticated={isAuthenticated}
                   isModelEdition={isModelEdition}
                 />
@@ -298,7 +295,7 @@ export const AppRoutes = () => {
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <SettingsWindow_2_user_4_changePassword t={t} userData={userData} isAuthenticated={isAuthenticated} />
+                <SettingsWindow_2_user_4_changePassword t={t} userDB={userDB} isAuthenticated={isAuthenticated} />
               </AppLayoutCenter>
             </div>
           }
@@ -376,7 +373,7 @@ export const AppRoutes = () => {
               >
                 <SettingsWindow
                   t={t}
-                  userData={userData}
+                  userDB={userDB}
                   isAuthenticated={isAuthenticated}
                   isModelEdition={isModelEdition}
                 />
@@ -426,7 +423,7 @@ export const AppRoutes = () => {
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <PromptsWindowWrapper
-                  userDB={userData}
+                  userDB={userDB}
                   webCase={{
                     t,
                     locale,

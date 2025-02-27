@@ -5,8 +5,6 @@ import { ELocale } from '../../gpt-ai-flow-common/enum-app/ELocale';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import TBackendAuthFile from '../../gpt-ai-flow-common/tools/3_unit/TBackendAuth';
 
-import { to_deprecate_IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
-
 // type MyAction = {
 //   type: string;
 //   payload?: any;
@@ -76,7 +74,7 @@ export const authRegisterByEmailAndPasswordAction_v0 =
   };
 
 export const UPDATTE_SPECIFIC_USER_DB = 'UPDATTE_SPECIFIC_USER_DB';
-export const updateSpecificUserDB = (newUser: to_deprecate_IUserData | IUserDB) => async (dispatch: any) => {
+export const updateSpecificUserDB = (newUser: IUserDB) => async (dispatch: any) => {
   dispatch({ type: UPDATTE_SPECIFIC_USER_DB, payload: newUser });
 };
 

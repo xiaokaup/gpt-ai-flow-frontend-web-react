@@ -5,7 +5,6 @@ import { Button } from 'antd';
 
 import { IReduxRootState } from '../../store/reducer';
 
-import { to_deprecate_IUserData as IUserData } from '../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   IStoreStorage_settings_local,
@@ -17,18 +16,19 @@ import { SettingsWindow_7_about } from './SettingsWindow_7_about';
 import { SettingsWindow_1_local } from './settingsWindow_1_local';
 import { SettingsWindow_2_user_3_info } from './settingsWindow_2_user/SettingsWindow_2_user_3_info';
 import { SettingsWindow_4_payment } from './settingsWindow_4_payment';
+import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 // import { SettingsWindow_6_referralReward } from './SettingsWindow_6_referralReward';
 
 interface ISettingsWindow_input {
   t: IGetT_frontend_output;
-  userData: IUserData;
+  userDB: IUserDB;
   isAuthenticated: boolean;
   isModelEdition: boolean;
 }
 export const SettingsWindow = (props: ISettingsWindow_input) => {
-  const { t, userData: userDB, isAuthenticated, isModelEdition } = props;
+  const { t, userDB, isAuthenticated, isModelEdition } = props;
   // console.log('userDB', userDB);
-  // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = userData;
+  // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = IUserDB;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorage_settings_local_default;
@@ -81,7 +81,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
         </Button>
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_2_user_3_info t={t} userData={userDB} isAuthenticated={isAuthenticated} />
+        <SettingsWindow_2_user_3_info t={t} userDB={userDB} isAuthenticated={isAuthenticated} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_1_local t={t} isModelEdition={isModelEdition} />

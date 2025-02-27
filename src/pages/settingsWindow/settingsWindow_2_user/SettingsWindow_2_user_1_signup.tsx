@@ -15,12 +15,8 @@ import {
 
 import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import {
-  to_deprecate_IUserData as IUserData,
-  to_deprecate_IUserData_default as IUserData_default,
-} from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
+import { useUserDB } from '../../../gpt-ai-flow-common/hooks/useUserDB';
 
 interface IUserRegisterForm {
   email: string;
@@ -46,15 +42,15 @@ export const SettingsWindow_2_user_1_signup = (props: ISettingsWindow_2_user_1_s
   const hasFromQuery = !!from;
   const isFromLittleRedBook = from === 'littleRedBook';
 
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
+  const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDB_default;
   });
 
-  const { isAuthenticated } = useUserData({
-    userDataFromStorage,
+  const { isAuthenticated } = useUserDB({
+    userDBFromStorage,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onUserDataChange: (newUserData_without_token: IUserData) => {},
-    locale: t.currentLocale,
+    onUserDBChange: (_newUserDB_without_token: IUserDB) => {},
+    t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 

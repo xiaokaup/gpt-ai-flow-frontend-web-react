@@ -27,7 +27,6 @@ import { IStoreStorage_settings_local } from '../../../../../../../gpt-ai-flow-c
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IAIFlow_v2 } from '../../../../../../../gpt-ai-flow-common/interface-app/2_component/IAIFlow_v2';
 import TCryptoJSFile from '../../../../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { to_deprecate_IUserData as IUserData } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IPrompt } from '../../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { ELLM_name } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { SLLM_v2_common } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
@@ -40,6 +39,8 @@ import { IProMode_v4_tabPane_example } from '../../../../../../../gpt-ai-flow-co
 import { InstructionInputColumn_v4 } from './InstructionInputColumn_v4';
 import { OutputResultColumn_v4 } from './OutputResultColumn_v4/OutputResultColumn_v4';
 import { LangchainRetrivalService } from '../../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval-to-deprecate';
+import { IUserDB } from '../../../../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { ITokenDB_default } from '../../../../../../../gpt-ai-flow-common/interface-database/ITokenDB';
 
 const { TextArea } = Input;
 
@@ -53,7 +54,7 @@ interface ProModeAIFlowRow_v4_input {
   contextStageSelected_outputIndicator: IAIFlow_v2[];
   aiCommandsSettings: IAICommands_v4_new[];
   webCase: {
-    userData: IUserData;
+    userDB: IUserDB;
     localDataFromStorage: IStoreStorage_settings_local;
   };
 }
@@ -72,8 +73,8 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
     aiCommandsSettings,
     webCase,
   } = props;
-  const { userData, localDataFromStorage } = webCase;
-  const { id: userId, Token: { accessToken: userAccessToken } = {} } = userData;
+  const { userDB, localDataFromStorage } = webCase;
+  const { id: userId, Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
   const {
     locale,
     apiKeys,

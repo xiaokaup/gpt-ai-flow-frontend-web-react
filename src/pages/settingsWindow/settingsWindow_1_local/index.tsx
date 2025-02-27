@@ -6,14 +6,11 @@ import { Tabs, TabsProps } from 'antd';
 import { IReduxRootState } from '../../../store/reducer';
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { SettingsWindow_1_local_basic } from './SettingsWindow_1_local_1_basic';
-import {
-  to_deprecate_IUserData as IUserData,
-  to_deprecate_IUserData_default as IUserData_default,
-} from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
+import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { useUserDB } from '../../../gpt-ai-flow-common/hooks/useUserDB';
 
 enum ESettingsWindow_1_local_tabKey {
   BASIC = 'basic',
@@ -27,17 +24,17 @@ interface ISettingsWindow_1_local_input {
 export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => {
   const { t, isModelEdition } = props;
 
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
+  const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDB_default;
   });
 
-  const { userData } = useUserData({
-    userDataFromStorage,
-    onUserDataChange: () => {},
-    locale: t.currentLocale,
+  const { userDB } = useUserDB({
+    userDBFromStorage,
+    onUserDBChange: () => {},
+    t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId } = userData;
+  const { id: userId } = userDB;
 
   if (!userId) {
     return (

@@ -13,11 +13,11 @@ import {
   IStoreStorage_settings_local_default,
 } from '../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { getUser } from '../gpt-ai-flow-common/tools/3_unit/TBackendUser';
-import { to_deprecate_IUserData as IUserData } from '../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IGetT_frontend_output } from '../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../gpt-ai-flow-common/enum-app/ELocale';
 import { ELLM_name } from '../gpt-ai-flow-common/enum-backend/ELLM';
+import { IUserDB } from '../gpt-ai-flow-common/interface-database/IUserDB';
 
 interface IAuthPage_input {
   t: IGetT_frontend_output;
@@ -46,9 +46,9 @@ export const AuthPage = (props: IAuthPage_input) => {
   const redirect = query.get('redirect');
 
   const init = async () => {
-    const userDataFound: IUserData = await getUser(userId, accessToken, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
+    const userDBFound: IUserDB = await getUser(userId, accessToken, t.currentLocale, CONSTANTS_GPT_AI_FLOW_COMMON);
 
-    if (!userDataFound) {
+    if (!userDBFound) {
       message.error(
         t.get(
           "Dear user, you must log in to your account to enjoy all the features of this software.\n\nIf you have already logged in but are still experiencing some issues, don't worry, try restarting the software to see if that helps.",
@@ -85,7 +85,7 @@ export const AuthPage = (props: IAuthPage_input) => {
       newLocalSettingsFromStore.locale = locale;
     }
 
-    dispatch({ type: USER_LOGIN, payload: userDataFound });
+    dispatch({ type: USER_LOGIN, payload: userDBFound });
     dispatch<IStoreStorage_settings_local | any>(saveLocalAction(newLocalSettingsFromStore));
 
     await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay

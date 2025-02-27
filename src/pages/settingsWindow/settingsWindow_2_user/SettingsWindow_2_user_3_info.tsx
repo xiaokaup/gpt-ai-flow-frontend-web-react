@@ -8,15 +8,15 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userLogoutAction } from '../../../store/actions/userActions';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { to_deprecate_IUserData as IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
+import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 
 interface ISettingsWindow_2_user_3_info_input {
   t: IGetT_frontend_output;
-  userData: IUserData;
+  userDB: IUserDB;
   isAuthenticated: boolean;
 }
 export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_info_input) => {
-  const { t, userData, isAuthenticated } = props;
+  const { t, userDB, isAuthenticated } = props;
 
   const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
   return (
     <div className="row">
       {/* <div>
-        <pre>{JSON.stringify(userData, null, 2)}</pre>
+        <pre>{JSON.stringify(userDB, null, 2)}</pre>
       </div> */}
 
       <div className="row block_user_info">
@@ -45,18 +45,18 @@ export const SettingsWindow_2_user_3_info = (props: ISettingsWindow_2_user_3_inf
           {/* <Descriptions.Item label={t('Account type')}>
             {internalRoles?.join(',') ?? 'User'}
           </Descriptions.Item> */}
-          <Descriptions.Item label={t.get('First Name')}>{userData.firstName}</Descriptions.Item>
-          <Descriptions.Item label={t.get('Last Name')}>{userData.lastName}</Descriptions.Item>
-          <Descriptions.Item label={t.get('Display Name')}>{userData.displayName}</Descriptions.Item>
-          <Descriptions.Item label={t.get('Email')}>{userData.email}</Descriptions.Item>
-          {/* {(userData.roles ?? []).length > 0 && (
+          <Descriptions.Item label={t.get('First Name')}>{userDB.firstName}</Descriptions.Item>
+          <Descriptions.Item label={t.get('Last Name')}>{userDB.lastName}</Descriptions.Item>
+          <Descriptions.Item label={t.get('Display Name')}>{userDB.displayName}</Descriptions.Item>
+          <Descriptions.Item label={t.get('Email')}>{userDB.email}</Descriptions.Item>
+          {/* {(userDB.roles ?? []).length > 0 && (
             <Descriptions.Item label={t.get('Role')} span={3}>
-              {(userData.roles ?? []).join(', ')}
+              {(userDB.roles ?? []).join(', ')}
             </Descriptions.Item>
           )}
-          {(userData.serviceCategories ?? []).length > 0 && (
+          {(userDB.serviceCategories ?? []).length > 0 && (
             <Descriptions.Item label={t.get('Service Type')} span={3}>
-              {(userData.serviceCategories ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
+              {(userDB.serviceCategories ?? []).map((item) => item.replace(/-build-in/g, '')).join(', ')}
             </Descriptions.Item>
           )} */}
         </Descriptions>

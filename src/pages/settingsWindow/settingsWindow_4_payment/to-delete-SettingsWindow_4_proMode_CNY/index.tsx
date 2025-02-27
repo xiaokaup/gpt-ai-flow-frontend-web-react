@@ -7,7 +7,7 @@
 
 // import { Alert, Button, Tag, message } from 'antd';
 
-// import { IUserData } from '../../../../../gpt-ai-flow-common/interface-app/IUserData';
+// import { IUserDB } from '../../../../../gpt-ai-flow-common/interface-app/IUserDB';
 // import { ECurrencySymbol } from '../../../../../gpt-ai-flow-common/tools/TStripeConstant';
 // import { ERegionDB_code } from '../../../../../gpt-ai-flow-common/enum-database/ERegionDB';
 // import { ESubscriptionVersion } from '../../../../../gpt-ai-flow-common/enum-app/ESubscription';
@@ -23,16 +23,16 @@
 
 // interface SettingsWindow_4_proMode_CNY_input {
 //   t: IGetT_output;
-//   userData: IUserData;
+//   userDB: IUserDB;
 //   useSubscription_v2DataOutput: IUseSubscriptionDB_v2Data_output;
 // }
 // export const SettingsWindow_4_proMode_CNY = (props: SettingsWindow_4_proMode_CNY_input) => {
-//   const { t, userData, useSubscription_v2DataOutput } = props;
+//   const { t, userDB, useSubscription_v2DataOutput } = props;
 //   const {
 //     id: userId,
 //     email: userEmail,
 //     token: { accessToken: userAccessToken } = ITokenDBFile.ITokenDB_default,
-//   } = userData;
+//   } = userDB;
 
 //   if (!userId) {
 //     return <>{t.get('Please register a user and log in first')}</>;

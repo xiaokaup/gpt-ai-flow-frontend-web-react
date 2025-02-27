@@ -15,12 +15,7 @@ import { to_deprecate_useProModeSetDataUI } from './to_deprecate_useProModeSetDa
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { CreativityValueProvider } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { ProModeModelValueProvider } from '../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import { useUserData } from '../../../../gpt-ai-flow-common/hooks/useUserData';
 import { EServiceCategoryDB_name } from '../../../../gpt-ai-flow-common/enum-database/to_deprecate_EServiceCategoryDB';
-import {
-  to_deprecate_IUserData,
-  to_deprecate_IUserData_default,
-} from '../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 
 import IStoreStorageFile, {
   IStoreStorage_settings_local,
@@ -31,6 +26,8 @@ import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvid
 import { ITabPanel } from './proModeWindowType';
 import { SLLM_v2_common } from '../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
+import { IUserDB, IUserDB_default } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { useUserDB } from '../../../../gpt-ai-flow-common/hooks/useUserDB';
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
@@ -46,8 +43,8 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
 
   // === Stripe subscription - start ===
-  const userDataFromStorage: to_deprecate_IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? to_deprecate_IUserData_default;
+  const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDB_default;
   });
   const localDataFromStorage: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
@@ -56,16 +53,16 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
     proMode: { model_type },
   } = localDataFromStorage;
 
-  const { userData } = useUserData({
-    userDataFromStorage,
-    onUserDataChange: (newUserData_without_token: to_deprecate_IUserData) => {
-      dispatch(updateSpecificUserDB(newUserData_without_token) as any);
+  const { userDB } = useUserDB({
+    userDBFromStorage,
+    onUserDBChange: (newUserDB_without_token: IUserDB) => {
+      dispatch(updateSpecificUserDB(newUserDB_without_token) as any);
     },
-    locale: t.currentLocale,
+    t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
 
-  const { id: userId, serviceCategories = [], isBetaUser } = userData;
+  const { id: userId } = userDB;
 
   if (!userId) {
     dispatch(userLogoutAction() as any);
@@ -88,8 +85,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
   // === ProMode Data - start ===
   const { defaultTabPanels } = to_deprecate_useProModeSetDataUI({
     t,
-    userDataFromStorage: userData,
-    serviceCategories,
+    userDBFromStorage: userDB,
   });
   // === ProMode Data - end ===
 
@@ -303,7 +299,7 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
           </div>
         </div>
 
-        {!isFreeVersion && !isBetaUser && (
+        {!isFreeVersion && (
           <div className="row">
             <Alert
               message={

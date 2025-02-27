@@ -24,7 +24,6 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../../gpt-ai-flow-common/c
 import IStoreStorageFile, {
   IStoreStorage_settings_local,
 } from '../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
-import { useUserData } from '../../../../../../gpt-ai-flow-common/hooks/useUserData';
 import { useLocalSettings } from '../../../../../../gpt-ai-flow-common/hooks/useLocalSettings';
 import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import TBackendUserInputFile from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
@@ -44,15 +43,13 @@ import {
   IAICommandsResults_v4,
   IAICommands_v4,
 } from '../../../../../../gpt-ai-flow-common/interface-app/2_component/IProMode/IProModeAICommands';
-import {
-  to_deprecate_IUserData as IUserData,
-  to_deprecate_IUserData_default as IUserData_default,
-} from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IPrompt } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { IProMode_v3_onePromode_oneContext_oneStage_examples } from '../../../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_onePromode_oneContext_oneStage_examples';
 import { ELLM_name } from '../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { LangchainRetrivalService } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLangchainRetrieval-to-deprecate';
+import { IUserDB, IUserDB_default } from '../../../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { useUserDB } from '../../../../../../gpt-ai-flow-common/hooks/useUserDB';
 
 const { TextArea } = Input;
 
@@ -96,18 +93,18 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
   });
   const { locale, apiKeys: llmOption_secrets } = localSettings;
 
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
+  const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDB_default;
   });
 
-  const { userData } = useUserData({
-    userDataFromStorage,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onUserDataChange: (_newUserData_without_token: IUserData) => {},
-    locale,
+  const { userDB } = useUserDB({
+    userDBFromStorage,
+    // eslint-disable-next-line @typescript-eslint/no-unused-varsk
+    onUserDBChange: (_newUserDB_without_token: IUserDB) => {},
+    t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId, Token: userToken } = userData;
+  const { id: userId, Token: userToken } = userDB;
   const userAccessToken = userToken?.accessToken;
 
   if (!userAccessToken) {

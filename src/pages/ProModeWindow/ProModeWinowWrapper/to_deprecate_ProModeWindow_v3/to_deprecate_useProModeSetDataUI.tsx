@@ -6,8 +6,6 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 import { EServiceCategoryDB_name } from '../../../../gpt-ai-flow-common/enum-database/to_deprecate_EServiceCategoryDB';
 import IProMode_v3File, { IProMode_v3 } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3';
 import { IProMode_v3_oneProMode } from '../../../../gpt-ai-flow-common/interface-backend/IProMode_v3/IProMode_v3_oneProMode';
-import { to_deprecate_IUserData as IUserData } from '../../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
-import { to_deprecate_useProModeSetData } from '../../../../gpt-ai-flow-common/hooks/to_deprecate_useProModeSetData';
 import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
 
 import { IReduxRootState } from '../../../../store/reducer/index';
@@ -73,22 +71,19 @@ import {
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ITabPanel } from './proModeWindowType';
+import { IUserDB } from '../../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { useProModeSetData_to_deprecated } from '../../../../gpt-ai-flow-common/hooks/to_deprecate_useProModeSetData';
 
 interface useProModeSetDataUI_input {
   t: IGetT_frontend_output;
-  userDataFromStorage: IUserData;
-  serviceCategories: string[];
+  userDBFromStorage: IUserDB;
 }
 export const to_deprecate_useProModeSetDataUI = (props: useProModeSetDataUI_input) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const {
-    t,
-    userDataFromStorage,
-    // serviceCategories
-  } = props;
+  const { t, userDBFromStorage } = props;
 
   const encryptedProModeSetFromStore = useSelector((state: IReduxRootState) => state.proModeSet);
 
@@ -98,8 +93,8 @@ export const to_deprecate_useProModeSetDataUI = (props: useProModeSetDataUI_inpu
       CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
     ) ?? IProMode_v3File.IProMode_v3_default;
 
-  const { proModeSetData } = to_deprecate_useProModeSetData({
-    userDataFromStorage,
+  const { proModeSetData } = useProModeSetData_to_deprecated({
+    userDBFromStorage,
     proModeSetData: proModeSetFromStorage,
     onProModeSetDataChange: (newPromodeSetData: Omit<IProMode_v3, EServiceCategoryDB_name.DEFAULT>) => {
       dispatch(updateProModeDataAction(newPromodeSetData) as any);

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Button, Form, Input, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
-import { to_deprecate_IUserData as IUserData } from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
+import { IUserDB } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import {
@@ -17,11 +17,11 @@ import {
 
 interface SettingsWindow_2_user_4_changePassword_input {
   t: IGetT_frontend_output;
-  userData: IUserData;
+  userDB: IUserDB;
   isAuthenticated: boolean;
 }
 export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_user_4_changePassword_input) => {
-  const { t, userData, isAuthenticated } = props;
+  const { t, userDB, isAuthenticated } = props;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,16 +36,16 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
     // console.log('Success:', values);
 
     try {
-      const userAndTokenData: IUserData = await dispatch(
+      const userDB_with_Token: IUserDB = await dispatch(
         authLoginByEmailAndPasswordAction(
-          userData.email,
+          userDB.email,
           values.password,
           t.currentLocale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
         ) as any,
       );
 
-      if (!userAndTokenData || !userAndTokenData.id || !userAndTokenData.token) {
+      if (!userDB_with_Token || !userDB_with_Token.id || !userDB_with_Token.Token) {
         message.error(t.get('There were some problems, please log in again and try once more'));
         return;
       }
@@ -53,9 +53,9 @@ export const SettingsWindow_2_user_4_changePassword = (props: SettingsWindow_2_u
       await dispatch(
         userUpdateUserPasswordActionAction_v1(
           t,
-          userAndTokenData.id,
+          userDB_with_Token.id,
           values.newPassword,
-          userAndTokenData.token.accessToken,
+          userDB_with_Token.Token.accessToken,
           t.currentLocale,
           CONSTANTS_GPT_AI_FLOW_COMMON,
         ) as any,

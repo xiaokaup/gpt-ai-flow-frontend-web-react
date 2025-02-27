@@ -11,6 +11,16 @@ module.exports = {
     ],
 
     '@typescript-eslint/no-explicit-any': 'warn',
+
+    'object-shorthand': ['error', 'always'],
+    'no-useless-rename': [
+      'error',
+      {
+        ignoreDestructuring: false,
+        ignoreImport: false,
+        ignoreExport: false,
+      },
+    ],
   },
   plugins: [
     '@typescript-eslint',

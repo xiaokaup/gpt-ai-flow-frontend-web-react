@@ -9,22 +9,20 @@ import { IReduxRootState } from '../../../store/reducer';
 
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { useUserData } from '../../../gpt-ai-flow-common/hooks/useUserData';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { EStripeCheckoutSessionPaymentMode, EStripePrice_nickname } from '../../../gpt-ai-flow-common/enum-app/EStripe';
 import TBackendStripeFile from '../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
-import {
-  to_deprecate_IUserData as IUserData,
-  to_deprecate_IUserData_default as IUserData_default,
-} from '../../../gpt-ai-flow-common/interface-app/3_unit/to_deprecate_IUserData';
 import { IStripePriceItem } from '../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
 import { ToolsEditionAnnounce } from './ToolsEditionAnnounce';
 import { LifetimeToolsEditionAnnounce } from './LifetimeToolsEditionAnnounce';
 import { SettingsWindow_4_payment_subscriptionInfo } from './SettingsWindow_4_payment_subscriptionInfo';
 import { pricingLocaleDict } from './pricingLocale';
+import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
+import { ITokenDB_default } from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
+import { useUserDB } from '../../../gpt-ai-flow-common/hooks/useUserDB';
 
 interface ISettingsWindow_4_payment_freeEdition_input {
   t: IGetT_frontend_output;
@@ -488,13 +486,13 @@ const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_payment_f
 interface ISettingsWindow_4_payment_login_input {
   t: IGetT_frontend_output;
   localeForSettingsWindow: ELocale;
-  userData: IUserData;
+  userDB: IUserDB;
   dispatch: any;
 }
 const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_input) => {
-  const { t, localeForSettingsWindow, userData } = props;
+  const { t, localeForSettingsWindow, userDB } = props;
 
-  const { id: userId, email: userEmail, Token: { accessToken: userAccessToken } = {} } = userData;
+  const { id: userId, email: userEmail, Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
 
   if (!userAccessToken) {
     return (
@@ -651,18 +649,18 @@ export const SettingsWindow_4_payment = (props: ISettingsWindow_4_proMode) => {
 
   const { t, localeForSettingsWindow } = props;
 
-  const userDataFromStorage: IUserData = useSelector((state: IReduxRootState) => {
-    return state.user ?? IUserData_default;
+  const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
+    return state.user ?? IUserDB_default;
   });
 
-  const { userData } = useUserData({
-    userDataFromStorage,
+  const { userDB } = useUserDB({
+    userDBFromStorage,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onUserDataChange: (_newUserData_without_token: IUserData) => {},
-    locale: t.currentLocale,
+    onUserDBChange: (_newUserB_without_token: IUserDB) => {},
+    t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId } = userData;
+  const { id: userId } = userDB;
 
   return (
     <>
@@ -670,7 +668,7 @@ export const SettingsWindow_4_payment = (props: ISettingsWindow_4_proMode) => {
         <SettingsWindow_4_payment_login
           t={t}
           localeForSettingsWindow={localeForSettingsWindow}
-          userData={userData}
+          userDB={userDB}
           dispatch={dispatch}
         />
       )}
