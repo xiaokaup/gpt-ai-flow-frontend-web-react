@@ -215,10 +215,10 @@ const ProModeWindow_v3 = (props: ProModeWindow_v3_input) => {
                   return;
                 }
 
-                if (!serviceCategories.includes(selectedProdMode)) {
-                  message.error(t.get("You don't have permission to use this panel"));
-                  return;
-                }
+                // if (!serviceCategories.includes(selectedProdMode)) {
+                //   message.error(t.get("You don't have permission to use this panel"));
+                //   return;
+                // }
 
                 addTabPanel(selectedProdMode);
               }}
