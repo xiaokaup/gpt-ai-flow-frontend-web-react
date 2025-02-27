@@ -19,7 +19,7 @@ import { EProMode_v4_module_contextType } from '../../../../gpt-ai-flow-common/P
 import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
 import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 
 interface IDrawer_editBackground_input {
   t: IGetT_frontend_output;

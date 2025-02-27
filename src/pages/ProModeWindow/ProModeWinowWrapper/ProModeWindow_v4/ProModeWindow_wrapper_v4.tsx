@@ -7,7 +7,7 @@ import {
   IInputsCache_v2,
   IInputsCache_v3,
 } from '../../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
-import { ILLMOption_secrets } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import { ILLMOption_secrets } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 import { ProModeWindow_v4_tabPane_langchain_02_once_multiple_results_v5 } from './ProModeWindow_v4_pageType/deprecated/2024-07-19-ProModeWindow_v4_tabPane_02_langchain_once_multiple_results-deprecated/index_v5';

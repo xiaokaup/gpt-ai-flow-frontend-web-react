@@ -22,7 +22,6 @@ import {
   IPrompt_v3_type_persona,
   IPrompt_v3_IPersonaModel_default,
 } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
-import { ILLMOptions, ILLMOptions_v2_default } from '../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import IStoreStorageFile, {
   IStoreStorage_settings_local,
 } from '../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
@@ -42,6 +41,7 @@ import {
   IPrompt_v3_type_background_default,
 } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_background';
 import { IPrompt_v3_types } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3';
+import { ILLMOptions, ILLMOptions_v2_default } from '../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 
 const { Search } = Input;
 

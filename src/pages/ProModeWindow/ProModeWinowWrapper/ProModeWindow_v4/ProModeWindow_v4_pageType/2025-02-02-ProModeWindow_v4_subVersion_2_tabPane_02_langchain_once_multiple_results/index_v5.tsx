@@ -32,7 +32,7 @@ import {
   IAIChatMessage,
   IAIChatMessage_default,
 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
-import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { ProModePage_Background } from '../component/ProModePage_Background';

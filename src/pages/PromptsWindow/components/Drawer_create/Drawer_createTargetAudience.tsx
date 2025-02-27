@@ -11,12 +11,12 @@ import CONSTANTS_GPT_AI_FLOW_COMMON, {
 } from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt_v3_type_targetAudience } from '../../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_targetAudience';
 import { postProMode_v4_langchain_tabPane_chains_v2 } from '../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import { EProMode_v4_module_contextType } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { getILangchain_for_type_langchain_request_v3_subV2_default } from '../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/ILangchain_type_request_v3';
+import { ILLMOptions } from '../../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 
 interface IDrawer_createTargetAudience_input {
   t: IGetT_frontend_output;

@@ -32,7 +32,7 @@ import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-co
 import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { ELLM_name } from '../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-backend/ILLMOptions';
+import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 import { SLLM_v2_common } from '../../../../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
