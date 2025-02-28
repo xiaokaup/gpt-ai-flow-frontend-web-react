@@ -29,7 +29,7 @@ import {
 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain';
 import TBackendLangchainFile from '../../../../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import { EProMode_v4_module_contextType } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
-import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
+import { IProMode_module_request_v4_subVersion_2_for_web } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { ELLM_name } from '../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
@@ -115,7 +115,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       return;
     }
 
-    const bodyData: IProMode_module_request_v4_subVersion_2 = {
+    const bodyData: IProMode_module_request_v4_subVersion_2_for_web = {
       contextType,
       llmOptions,
       background,

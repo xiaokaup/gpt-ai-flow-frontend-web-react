@@ -34,7 +34,7 @@ import {
 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
 import { ILLMOption_secrets } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 import { ProModePage_ChatMessages } from '../component/ProModePage_ChatMessages';
-import { IProMode_module_request_v4_subVersion_2 } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
+import { IProMode_module_request_v4_subVersion_2_for_web } from '../../../../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { ProModePage_Background } from '../component/ProModePage_Background';
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
 import { Langchain_context_description } from '../2025-02-02-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/component/Langchain_context_description';
@@ -107,7 +107,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       return;
     }
 
-    const bodyData: IProMode_module_request_v4_subVersion_2 = {
+    const bodyData: IProMode_module_request_v4_subVersion_2_for_web = {
       contextType,
       llmOptions,
       background,
