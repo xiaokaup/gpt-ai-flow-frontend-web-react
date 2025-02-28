@@ -127,8 +127,11 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       urlSlug,
       bodyData,
       () => {
-        setIsCalling(true);
+        console.log('afterReceiveResponseFunc');
+      },
+      () => {
         console.log('beforeSendRequestFunc');
+        setIsCalling(true);
       },
       (writingResultText: string) => {
         console.log('updateResultFromRequestFunc', writingResultText);
