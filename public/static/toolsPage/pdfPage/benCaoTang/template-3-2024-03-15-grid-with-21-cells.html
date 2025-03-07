@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>21 Grid Layout</title>
+        <style>
+            @page {
+                size: 210mm 297mm;
+                margin: 0;
+            }
+
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+
+                background-color: #fff;
+            }
+
+            .grid-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(7, 1fr);
+                width: 210mm;
+                height: 297mm;
+                box-sizing: border-box;
+                page-break-after: always;
+            }
+
+            .grid-item {
+                border: 1px solid #fff;
+                background-image: url('https://digitechjoy-microservice-serverless-api.s3.amazonaws.com/public/bencaotang/sticker-image.png');
+                background-size: cover;
+                background-position: center;
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="grid-container">
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+            <div class="grid-item" alt="item"></div>
+        </div>
+    </body>
+</html>

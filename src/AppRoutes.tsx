@@ -29,6 +29,7 @@ import { AppLayout, AppLayoutCenter } from './AppLayout';
 import { ProModeWindow_v5 } from './pages/ProModeWindow/ProModeWinowWrapper/to_plan_ProModeWindow_v5';
 import { IUserDB, IUserDB_default } from './gpt-ai-flow-common/interface-database/IUserDB';
 import { useUserDB } from './gpt-ai-flow-common/hooks/useUserDB';
+import BEN_CAO_TANG_PAGE from './pages/ToolsPage/pdfPage/benCaoTang';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -351,6 +352,21 @@ export const AppRoutes = () => {
                   stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
                 >
                   <ProModeWindow_v5 t={t} locale={locale} />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+        </Route>
+        <Route path="tools">
+          <Route
+            path="benCaoTang"
+            element={
+              <div className="App">
+                <AppLayoutCenter
+                  isAuthenticated={isAuthenticated}
+                  stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+                >
+                  <BEN_CAO_TANG_PAGE />
                 </AppLayoutCenter>
               </div>
             }
