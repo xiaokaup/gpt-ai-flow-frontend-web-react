@@ -406,8 +406,9 @@ export const VisualizationPage = () => {
 
   return (
     <div>
+      {/* <div style={{ resize: 'both', overflow: 'auto', backgroundColor: 'lightcoral' }}>Resize me!</div> */}
       <h1 id="draggable" draggable="true" style={{ zIndex: 10, padding: 10 }}>
-        <span contentEditable="true">demo</span>
+        <span contentEditable="true">Demo</span>
       </h1>
       <div id="demo-container" />
     </div>
