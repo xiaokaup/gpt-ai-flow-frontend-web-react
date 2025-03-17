@@ -1,5 +1,5 @@
 import ReactMarkdown from 'react-markdown';
-import { MermaidComponent } from '../../components/Mermaid';
+import { MermaidComponent } from '../../../ProModeWindow/ProModeWinowWrapper/components/Mermaid';
 
 const markdownResumeCode = `
 ## 功能总结
