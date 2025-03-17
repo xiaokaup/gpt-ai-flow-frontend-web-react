@@ -268,6 +268,8 @@ export function createMarketData(marketData, style) {
     // 添加图表渲染逻辑，使用setTimeout确保DOM已经准备好
     setTimeout(() => {
       // 渲染US电商市场份额图表
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       const usCtx = document.getElementById('usEcommerceChart').getContext('2d');
       new Chart(usCtx, {
         type: 'doughnut',
@@ -284,12 +286,16 @@ export function createMarketData(marketData, style) {
           ],
         },
         options: {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           cutoutPercentage: 70,
           legend: { display: false },
         },
       });
 
       // 渲染全球移动购物市场份额图表
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       const globalCtx = document.getElementById('globalMobileChart').getContext('2d');
       new Chart(globalCtx, {
         type: 'doughnut',
@@ -306,6 +312,8 @@ export function createMarketData(marketData, style) {
           ],
         },
         options: {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           cutoutPercentage: 70,
           legend: { display: false },
         },
