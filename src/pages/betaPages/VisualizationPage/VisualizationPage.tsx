@@ -137,6 +137,7 @@ body {
   font-size: 0.9rem;
 }`;
 
+// eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
 const css_v2 = `/* 通用样式 */
 body {
   font-family: 'Montserrat', sans-serif;
