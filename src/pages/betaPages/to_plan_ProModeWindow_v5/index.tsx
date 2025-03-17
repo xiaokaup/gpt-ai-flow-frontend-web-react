@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Tabs } from 'antd';
 
-import { CreativityValueProvider } from '../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
-import { ProModeModelValueProvider } from '../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
-import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
-import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { ELLM_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
-import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { CreativityValueProvider } from '../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
+import { ProModeModelValueProvider } from '../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
+import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { ELLM_name } from '../../../gpt-ai-flow-common/enum-backend/ELLM';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 
-import { HorizontalScrollingBanner } from '../components/HorizontalScrollingBanner';
+import { HorizontalScrollingBanner } from '../../ProModeWindow/ProModeWinowWrapper/components/HorizontalScrollingBanner';
 
 import ReactFlowDemo from './features/01-ReactFlow';
 import { WordCloudDemo } from './features/02-WordCloud';
