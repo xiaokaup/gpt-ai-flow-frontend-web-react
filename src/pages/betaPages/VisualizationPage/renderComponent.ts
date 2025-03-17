@@ -1,3 +1,5 @@
+import { Chart } from 'chart.js';
+
 // ==================== 公司概览组件 ====================
 export function createHeader(companyData, style) {
   if (style === 'gradient') {
