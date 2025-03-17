@@ -1235,6 +1235,11 @@
     tslib "2"
     typescript "5"
 
+"@google/generative-ai@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@google/generative-ai/-/generative-ai-0.21.0.tgz#a5011aab9e6082e706937b26ef23445933fa0d15"
+  integrity sha512-7XhUbtnlkSEZK15kN3t+tzIMxsbKm/dSkKBFalj+20NvPKe1kBY7mR2P7vuijEn+f06z5+A8bVGKO0v39cr6Wg==
+
 "@humanwhocodes/config-array@^0.13.0":
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.13.0.tgz#fb907624df3256d04b9aa2df50d7aa97ec648748"
@@ -1369,6 +1374,14 @@
     uuid "^10.0.0"
     zod "^3.22.4"
     zod-to-json-schema "^3.22.3"
+
+"@langchain/google-genai@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@langchain/google-genai/-/google-genai-0.1.11.tgz#1782a5d642cc0010a9016c9c64a95e126c808123"
+  integrity sha512-puNFwgW+yY3nI358R4wjG7EsCiCIMH0UaIMGcK/GF44opAlf6pBY9iql4CLVrUto1XBI3EETZuNZ9nOhzpnfgQ==
+  dependencies:
+    "@google/generative-ai" "^0.21.0"
+    zod-to-json-schema "^3.22.4"
 
 "@langchain/openai@>=0.1.0 <0.3.0", "@langchain/openai@>=0.2.0 <0.3.0":
   version "0.2.11"
@@ -9652,6 +9665,7 @@ string-convert@^0.2.0:
   integrity sha512-u/1tdPl4yQnPBjnVrmdLo9gtuLvELKsAoRapekWggdiQNvvvum+jYF329d84NAa660KQw7pB2n36KrIKVoXa3A==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
