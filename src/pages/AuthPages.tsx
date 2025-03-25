@@ -68,6 +68,7 @@ export const AuthPage = (props: IAuthPage_input) => {
         deepSeekApiKey: '',
         siliconFlowApiKey: '',
         googleApiKey: '',
+        tavilyApiKey: '',
       };
     }
 
