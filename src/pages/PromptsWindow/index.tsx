@@ -41,7 +41,7 @@ import {
   IPrompt_v3_type_background_default,
 } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_background';
 import { IPrompt_v3_types } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3';
-import { ILLMOptions, ILLMOptions_v2_default } from '../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
+import { ILLMOptions, ILLMOptions_default } from '../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 
 const { Search } = Input;
 
@@ -68,7 +68,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
   } = localDataFromStorage;
 
   const llmOptions: ILLMOptions = {
-    ...ILLMOptions_v2_default,
+    ...ILLMOptions_default,
     llmName: llmName_from_store,
     llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName_from_store, llmOption_secrets),
   };

@@ -55,6 +55,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           deepSeekApiKey: deepSeekApiKey?.trim(),
           siliconFlowApiKey: siliconFlowApiKey?.trim(),
           googleApiKey: '', // @TODO
+          tavilyApiKey: '', // @TODO
         },
         chatMode: {
           chatModeStatus: localFromStore.chatMode?.chatModeStatus,
