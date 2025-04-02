@@ -37,6 +37,8 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
 
   const [openAIApiKey] = useState(localFromStore?.apiKeys_v2?.llm?.openAIApiKey);
   const [anthropicApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm.anthropicApiKey);
+  const [deepSeekApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm.deepSeekApiKey);
+  const [siliconFlowApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm.siliconFlowApiKey);
 
   const containerStyle = {
     marginTop: 12,
@@ -60,6 +62,8 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
             let desktopAppUrl = `gpt-ai-flow-app://id=${userDB.id}&accessToken=${userDB.Token?.accessToken}`;
             desktopAppUrl += `&openAIApiKey=${openAIApiKey}`;
             desktopAppUrl += `&anthropicApiKey=${anthropicApiKey}`;
+            desktopAppUrl += `&deepSeekApiKey=${deepSeekApiKey}`;
+            desktopAppUrl += `&siliconFlowApiKey=${siliconFlowApiKey}`;
             link.href = desktopAppUrl;
             document.body.appendChild(link);
             link.click();
