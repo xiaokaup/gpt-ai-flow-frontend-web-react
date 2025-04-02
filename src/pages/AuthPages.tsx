@@ -18,6 +18,8 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../gpt-ai-flow-common/config/constantG
 import { ELocale } from '../gpt-ai-flow-common/enum-app/ELocale';
 import { ELLM_name } from '../gpt-ai-flow-common/enum-backend/ELLM';
 import { IUserDB } from '../gpt-ai-flow-common/interface-database/IUserDB';
+import { IToolOption_secrets_default } from '../gpt-ai-flow-common/interface-app/3_unit/ITools';
+import { ILLMOption_secrets_default } from '../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 
 interface IAuthPage_input {
   t: IGetT_frontend_output;
@@ -41,6 +43,7 @@ export const AuthPage = (props: IAuthPage_input) => {
   const deepSeekApiKey = query.get('deepSeekApiKey');
   const siliconFlowApiKey = query.get('siliconFlowApiKey');
   const googleApiKey = query.get('googleApiKey');
+  const tavilyApiKey = query.get('tavilyApiKey');
   const proMode_llm_name = (query.get('proMode_llm_name') as ELLM_name) ?? ELLM_name.DEFAULT;
   const locale = (query.get('locale') as ELocale) ?? ELocale.DEFAULT;
   const redirect = query.get('redirect');
@@ -60,24 +63,22 @@ export const AuthPage = (props: IAuthPage_input) => {
     const newLocalSettingsFromStore = { ...localSettingsFromStore };
 
     // Init apiKeys in store
-    if (!newLocalSettingsFromStore.apiKeys) {
-      newLocalSettingsFromStore.apiKeys = {
-        openAIApiKey: '',
-        anthropicApiKey: '',
-        moonshotApiKey: '',
-        deepSeekApiKey: '',
-        siliconFlowApiKey: '',
-        googleApiKey: '',
-        tavilyApiKey: '',
+    if (!newLocalSettingsFromStore?.apiKeys_v2) {
+      newLocalSettingsFromStore.apiKeys_v2 = {
+        llm: ILLMOption_secrets_default,
+        tool: IToolOption_secrets_default,
       };
     }
 
-    newLocalSettingsFromStore.apiKeys.openAIApiKey = openAIApiKey?.trim();
-    newLocalSettingsFromStore.apiKeys.anthropicApiKey = anthropicApiKey?.trim();
-    newLocalSettingsFromStore.apiKeys.moonshotApiKey = moonshotApiKey?.trim();
-    newLocalSettingsFromStore.apiKeys.deepSeekApiKey = deepSeekApiKey?.trim();
-    newLocalSettingsFromStore.apiKeys.siliconFlowApiKey = siliconFlowApiKey?.trim();
-    newLocalSettingsFromStore.apiKeys.googleApiKey = googleApiKey?.trim();
+    // Model
+    newLocalSettingsFromStore.apiKeys_v2.llm.openAIApiKey = openAIApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys_v2.llm.anthropicApiKey = anthropicApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys_v2.llm.moonshotApiKey = moonshotApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys_v2.llm.deepSeekApiKey = deepSeekApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys_v2.llm.siliconFlowApiKey = siliconFlowApiKey?.trim();
+    newLocalSettingsFromStore.apiKeys_v2.llm.googleApiKey = googleApiKey?.trim();
+    // Tool
+    newLocalSettingsFromStore.apiKeys_v2.tool.tavilyApiKey = tavilyApiKey?.trim();
 
     if (proMode_llm_name) {
       newLocalSettingsFromStore.proMode.model_type = proMode_llm_name;

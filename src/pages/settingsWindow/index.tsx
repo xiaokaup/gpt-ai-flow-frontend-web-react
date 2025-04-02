@@ -35,8 +35,8 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
   });
   const { locale } = localFromStore;
 
-  const [openAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
-  const [anthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
+  const [openAIApiKey] = useState(localFromStore?.apiKeys_v2?.llm?.openAIApiKey);
+  const [anthropicApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm.anthropicApiKey);
 
   const containerStyle = {
     marginTop: 12,

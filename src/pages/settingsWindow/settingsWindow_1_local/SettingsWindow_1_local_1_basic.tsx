@@ -34,11 +34,13 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     return state.local ?? IStoreStorage_settings_local_default;
   });
 
-  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
-  const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
-  const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys?.moonshotApiKey);
-  const [deepSeekApiKey, setDeepSeekApiKey] = useState<string>(localFromStore?.apiKeys?.deepSeekApiKey);
-  const [siliconFlowApiKey, setSiliconFlowApiKey] = useState<string>(localFromStore?.apiKeys?.siliconFlowApiKey);
+  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys_v2?.llm?.openAIApiKey);
+  const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm?.anthropicApiKey);
+  const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm?.moonshotApiKey);
+  const [deepSeekApiKey, setDeepSeekApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm?.deepSeekApiKey);
+  const [siliconFlowApiKey, setSiliconFlowApiKey] = useState<string>(
+    localFromStore?.apiKeys_v2?.llm?.siliconFlowApiKey,
+  );
 
   const [chatModeModelType] = useState<ELLM_name>(localFromStore.chatMode?.model_type ?? ELLM_name.DEFAULT);
   const [proModeModelType, setProModeModelType] = useState<ELLM_name>(
