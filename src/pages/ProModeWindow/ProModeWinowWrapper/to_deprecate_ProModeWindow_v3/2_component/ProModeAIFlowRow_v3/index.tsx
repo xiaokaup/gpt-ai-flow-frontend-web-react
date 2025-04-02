@@ -432,14 +432,15 @@ ${t.get('Original content')}: """${exampleText}"""`,
       } else {
         /* const reponseResult: IChatGPTStreamResponse_output = */ await TBackendLangchainFile.postLangchainChatChain(
           {
+            history: [systemPrompt, ...chatHistory],
+            input: inputPrompt.content,
             llmOptions: {
               llmName: proModeModalValue,
               llmImageName: null,
               llmSecret: SLLM_v2_common.getApiKey_by_llmName(proModeModalValue, llmOption_secrets),
               llmTemperature: creativityValue,
             },
-            history: [systemPrompt, ...chatHistory],
-            input: inputPrompt.content,
+            toolOptions: undefined,
           },
           afterReceiveResponseFunc,
           beforeHandleStreamFunc,

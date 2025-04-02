@@ -113,6 +113,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       background,
       adjust,
       chatMessages: newChatMessages,
+      toolOptions: undefined,
     };
 
     TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
