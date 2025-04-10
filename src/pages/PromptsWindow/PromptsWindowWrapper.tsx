@@ -5,7 +5,7 @@ import { updateUserPrompts_v3 } from '../../store/actions/prompts_v3Actions';
 import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 import { IPrompt_v3 } from '../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { ITokenDB_default } from '../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { usePrompts_v3_user_v2 } from '../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2';
+import { usePrompts_v3_user_v2_deprecated } from '../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
@@ -33,7 +33,7 @@ export const PromptsWindowWrapper = (props: IPromptsWindowWrapper_input) => {
     return state.prompts_v3.user;
   });
 
-  const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user_v2({
+  const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user_v2_deprecated({
     prompts_v3_userFromStorage,
     onChangePrompts_v3_user: (newPrompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[]) => {
       dispatch<any>(updateUserPrompts_v3(newPrompts_v3_user));

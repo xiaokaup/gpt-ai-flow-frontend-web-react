@@ -18,6 +18,8 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { SLLM_v2_common } from '../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../gpt-ai-flow-common/enum-backend/ELLM';
+import { ILLMOption_secrets_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
+import { IToolOption_secrets_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
@@ -32,11 +34,13 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     return state.local ?? IStoreStorage_settings_local_default;
   });
 
-  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys?.openAIApiKey);
-  const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys?.anthropicApiKey);
-  const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys?.moonshotApiKey);
-  const [deepSeekApiKey, setDeepSeekApiKey] = useState<string>(localFromStore?.apiKeys?.deepSeekApiKey);
-  const [siliconFlowApiKey, setSiliconFlowApiKey] = useState<string>(localFromStore?.apiKeys?.siliconFlowApiKey);
+  const [openAIApiKey, setOpenAIApiKey] = useState(localFromStore?.apiKeys_v2?.llm?.openAIApiKey);
+  const [anthropicApiKey, setAnthropicApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm?.anthropicApiKey);
+  const [moonshotApiKey, setMoonshotApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm?.moonshotApiKey);
+  const [deepSeekApiKey, setDeepSeekApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm?.deepSeekApiKey);
+  const [siliconFlowApiKey, setSiliconFlowApiKey] = useState<string>(
+    localFromStore?.apiKeys_v2?.llm?.siliconFlowApiKey,
+  );
 
   const [chatModeModelType] = useState<ELLM_name>(localFromStore.chatMode?.model_type ?? ELLM_name.DEFAULT);
   const [proModeModelType, setProModeModelType] = useState<ELLM_name>(
@@ -47,15 +51,10 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     dispatch<IStoreStorage_settings_local | any>(
       saveLocalAction({
         ...localFromStore,
-        openAIApiKey: openAIApiKey?.trim(),
-        apiKeys: {
-          openAIApiKey: openAIApiKey?.trim(),
-          anthropicApiKey: anthropicApiKey?.trim(),
-          moonshotApiKey: moonshotApiKey?.trim(),
-          deepSeekApiKey: deepSeekApiKey?.trim(),
-          siliconFlowApiKey: siliconFlowApiKey?.trim(),
-          googleApiKey: '', // @TODO
-          tavilyApiKey: '', // @TODO
+        apiKeys: { ...ILLMOption_secrets_default, ...IToolOption_secrets_default },
+        apiKeys_v2: {
+          llm: ILLMOption_secrets_default,
+          tool: IToolOption_secrets_default,
         },
         chatMode: {
           chatModeStatus: localFromStore.chatMode?.chatModeStatus,
