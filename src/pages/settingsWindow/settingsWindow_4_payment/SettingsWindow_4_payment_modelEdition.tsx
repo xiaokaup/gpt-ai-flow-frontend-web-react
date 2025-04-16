@@ -81,7 +81,7 @@ export const SettingsWindow_4_payment_modelEdition = (props: ISettingsWindow_4_p
           {t.get('My Subscription')}
         </Button>
         <Button
-          className="ml-4"
+          className="ml-4 hidden"
           onClick={() => {
             console.log('change subscriptions');
           }}
