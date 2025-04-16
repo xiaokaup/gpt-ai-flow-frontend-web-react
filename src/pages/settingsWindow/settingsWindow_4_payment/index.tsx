@@ -16,8 +16,7 @@ import TBackendStripeFile from '../../../gpt-ai-flow-common/tools/3_unit/TBacken
 
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 import { IStripePriceItem } from '../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
-import { ToolsEditionAnnounce } from './ToolsEditionAnnounce';
-import { LifetimeToolsEditionAnnounce } from './LifetimeToolsEditionAnnounce';
+import { ModelSubscriptionAnnounce } from './ModelSubscriptionAnnounce';
 import { SettingsWindow_4_payment_subscriptionInfo } from './SettingsWindow_4_payment_subscriptionInfo';
 import { pricingLocaleDict } from './pricingLocale';
 import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
@@ -568,45 +567,10 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
         const { status } = oneSubscription;
         const expiredAt = new Date(oneSubscription.current_period_end * 1000);
+        // console.log('itemPriceNicknames', itemPriceNicknames);
 
         return (
           <>
-            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_TOOLS) && (
-              <>
-                <SettingsWindow_4_payment_subscriptionInfo
-                  subscriptionName={EStripePrice_nickname.STARTAI_TOOLS}
-                  t={t}
-                  userId={userId}
-                  userEmail={userEmail}
-                  userAccessToken={userAccessToken}
-                  locale={localeForSettingsWindow}
-                  subscriptionStauts={status}
-                  isShowExpired={true}
-                  expiredAt={expiredAt}
-                />
-                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-                <ToolsEditionAnnounce locale={t.currentLocale} />
-              </>
-            )}
-
-            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_LIFETIME_TOOLS) && (
-              <>
-                <SettingsWindow_4_payment_subscriptionInfo
-                  subscriptionName={EStripePrice_nickname.STARTAI_LIFETIME_TOOLS}
-                  t={t}
-                  userId={userId}
-                  userEmail={userEmail}
-                  userAccessToken={userAccessToken}
-                  locale={localeForSettingsWindow}
-                  subscriptionStauts={status}
-                  isShowExpired={false}
-                  expiredAt={expiredAt}
-                />
-                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
-              </>
-            )}
-
             {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL) && (
               <>
                 <SettingsWindow_4_payment_subscriptionInfo
@@ -621,7 +585,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                   expiredAt={expiredAt}
                 />
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-                <LifetimeToolsEditionAnnounce locale={t.currentLocale} />
+                <ModelSubscriptionAnnounce locale={t.currentLocale} />
               </>
             )}
           </>

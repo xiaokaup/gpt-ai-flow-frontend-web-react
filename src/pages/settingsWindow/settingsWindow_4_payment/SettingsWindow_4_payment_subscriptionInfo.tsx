@@ -80,6 +80,14 @@ export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow
         >
           {t.get('My Subscription')}
         </Button>
+        <Button
+          className="ml-4"
+          onClick={() => {
+            console.log('change subscriptions');
+          }}
+        >
+          修改模块
+        </Button>
       </div>
 
       <div className="row">
