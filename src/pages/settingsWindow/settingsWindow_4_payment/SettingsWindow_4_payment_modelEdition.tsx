@@ -12,7 +12,7 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/con
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { getT_with_i18next } from '../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
 
-interface ISettingsWindow_4_payment_subscriptionInfo {
+interface ISettingsWindow_4_payment_modelEdition {
   subscriptionName: EStripePrice_nickname;
   t: IGetT_frontend_output;
   userId: number;
@@ -23,7 +23,7 @@ interface ISettingsWindow_4_payment_subscriptionInfo {
   isShowExpired: boolean;
   expiredAt: Date;
 }
-export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow_4_payment_subscriptionInfo) => {
+export const SettingsWindow_4_payment_modelEdition = (props: ISettingsWindow_4_payment_modelEdition) => {
   const {
     subscriptionName,
     t,
@@ -79,6 +79,14 @@ export const SettingsWindow_4_payment_subscriptionInfo = (props: ISettingsWindow
           }}
         >
           {t.get('My Subscription')}
+        </Button>
+        <Button
+          className="ml-4 hidden"
+          onClick={() => {
+            console.log('change subscriptions');
+          }}
+        >
+          修改模块
         </Button>
       </div>
 

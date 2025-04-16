@@ -4,11 +4,12 @@ export const pricingLocaleDict: Record<ELocale, { [key: string]: string }> = {
   [ELocale.EN]: {
     免费使用桌面软件所有功能: 'Use all features of desktop software for free',
     自备大模型密钥: 'Bring your own large model key',
-    官方提供大模型支持: 'Official model support',
+    官方提供大模型支持: 'Official model support (OpenAI, Anthropic Claude, DeepSeek etc.)',
     人设系统: 'Character system',
     '无 AI 工作流支持': 'No AI workflow support',
-    '所有 AI 工作流模块无限使用次数 (职场、小红书平台、领英平台、产品经理)':
-      'Unlimited usage of all AI workflow modules (Workplace, social platform, LinkedIn platform, Product Manager)',
+    '初期免费使用 AI 工作流支持': 'Free AI workflow support in the early stage',
+    '所有 AI 工作流模块无限使用次数':
+      'Unlimited usage of all AI workflow modules (Little Red Book, LinkedIn, X (Twitter), Facebook etc.)',
     使用多少支付多少: 'Pay as you use',
     定制化需求模块支持: 'Custom demand module support',
     '一次购买，终身使用': 'One-time purchase, lifetime use',
@@ -16,11 +17,11 @@ export const pricingLocaleDict: Record<ELocale, { [key: string]: string }> = {
   [ELocale.ZH]: {
     免费使用桌面软件所有功能: ' 免费使用桌面软件所有功能',
     自备大模型密钥: ' 自备大模型密钥',
-    官方提供大模型支持: ' 官方提供大模型支持',
+    官方提供大模型支持: ' 官方提供大模型支持 (OpenAI, Anthropic Claude, DeepSeek 等)',
     人设系统: ' 人设系统',
     '无 AI 工作流支持': '无 AI 工作流支持',
-    '所有 AI 工作流模块无限使用次数 (职场、小红书平台、领英平台、产品经理)':
-      '所有 AI 工作流模块无限使用次数 (职场、小红书平台、领英平台、产品经理)',
+    '初期免费使用 AI 工作流支持': '初期免费使用 AI 工作流支持',
+    '所有 AI 工作流模块无限使用次数': '所有 AI 工作流模块无限使用次数 (小红书、领英、推特、脸书等)',
     使用多少支付多少: '使用多少支付多少',
     定制化需求模块支持: '定制化需求模块支持',
     '一次购买，终身使用': '一次购买，终身使用',
