@@ -81,6 +81,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   if (!stripePrices_for_locales) return <>{t.get('loading')}...</>;
 
+  // console.log('activeSubscriptions', activeSubscriptions);
+
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
       {/* 0 subscirption -> Free Edition */}
@@ -99,7 +101,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
         </>
       )}
 
-      {/* Tools Edition, Lifetime Tools Edition, Model Edition */}
+      {/* Model Edition */}
       {activeSubscriptions.map((oneSubscription: Stripe.Subscription) => {
         const itemPriceNicknames = oneSubscription.items.data.reduce((acc: string[], item: Stripe.SubscriptionItem) => {
           if (acc.includes(item.price.nickname)) return acc;
@@ -110,27 +112,25 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
         const expiredAt = new Date(oneSubscription.current_period_end * 1000);
         // console.log('itemPriceNicknames', itemPriceNicknames);
 
-        return (
-          <>
-            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL) && (
-              <>
-                <SettingsWindow_4_payment_modelEdition
-                  subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
-                  t={t}
-                  userId={userId}
-                  userEmail={userEmail}
-                  userAccessToken={userAccessToken}
-                  locale={localeForSettingsWindow}
-                  subscriptionStauts={status}
-                  isShowExpired={true}
-                  expiredAt={expiredAt}
-                />
-                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-                <ModelSubscriptionAnnounce locale={t.currentLocale} />
-              </>
-            )}
-          </>
-        );
+        if (itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL)) {
+          return (
+            <>
+              <SettingsWindow_4_payment_modelEdition
+                subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
+                t={t}
+                userId={userId}
+                userEmail={userEmail}
+                userAccessToken={userAccessToken}
+                locale={localeForSettingsWindow}
+                subscriptionStauts={status}
+                isShowExpired={true}
+                expiredAt={expiredAt}
+              />
+              <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              <ModelSubscriptionAnnounce locale={t.currentLocale} />
+            </>
+          );
+        }
       })}
     </div>
   );
