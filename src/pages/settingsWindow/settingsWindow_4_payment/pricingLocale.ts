@@ -13,6 +13,20 @@ export const pricingLocaleDict: Record<ELocale, { [key: string]: string }> = {
     使用多少支付多少: 'Pay as you use',
     定制化需求模块支持: 'Custom demand module support',
     '一次购买，终身使用': 'One-time purchase, lifetime use',
+
+    // Duty Genie
+    关税精灵: 'Tariff Genie - Intelligent Tariff Query and Tracking Tool',
+    '你希望获得专业的关税查询服务，并享受全面的通关资讯支持':
+      'You want to receive professional tariff query services and enjoy comprehensive customs clearance information support',
+    关税精灵_功能:
+      'Tariff Genie is an efficient and convenient tariff query and recommendation tool that helps you quickly obtain accurate tariff information and optimize cross-border trade costs.',
+    关税精灵_功能_1_key: 'HTS Tariff Query',
+    关税精灵_功能_1_value: 'Directly retrieve corresponding tariff rates through HTS codes',
+    关税精灵_功能_2_key: 'Intelligent HTS Recommendation',
+    关税精灵_功能_2_value: 'Input product information, automatically recommend the most matching HTS codes and tariffs',
+    关税精灵_功能_3_key: 'China-US Tariff Tracking',
+    关税精灵_功能_3_value:
+      'Monitor tariff changes on routes from China to the United States in real-time, and obtain the latest policies promptly',
   },
   [ELocale.ZH]: {
     免费使用桌面软件所有功能: ' 免费使用桌面软件所有功能',
@@ -25,5 +39,16 @@ export const pricingLocaleDict: Record<ELocale, { [key: string]: string }> = {
     使用多少支付多少: '使用多少支付多少',
     定制化需求模块支持: '定制化需求模块支持',
     '一次购买，终身使用': '一次购买，终身使用',
+
+    // Duty Genie
+    关税精灵: '关税精灵 - 智能关税查询与追踪工具',
+    '你希望获得专业的关税查询服务，并享受全面的通关资讯支持': '你希望获得专业的关税查询服务，并享受全面的通关资讯支持',
+    关税精灵_功能: '关税精灵是一款高效便捷的关税查询与推荐工具，帮助您快速获取准确的关税信息，优化跨境贸易成本。',
+    关税精灵_功能_1_key: 'HTS 关税查询',
+    关税精灵_功能_1_value: '通过 HTS 编码直接检索对应关税税率',
+    关税精灵_功能_2_key: '智能 HTS 推荐',
+    关税精灵_功能_2_value: '输入产品信息, 自动推荐最匹配的HTS编码及关税',
+    关税精灵_功能_3_key: '中美关税追踪',
+    关税精灵_功能_3_value: '实时监控中国到美国路线的关税变动，及时获取最新政策',
   },
 };

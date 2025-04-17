@@ -16,7 +16,7 @@ import TBackendStripeFile from '../../../gpt-ai-flow-common/tools/3_unit/TBacken
 
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 import { IStripePriceItem } from '../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
-import { ModelSubscriptionAnnounce } from './ModelSubscriptionAnnounce';
+import { ModelEditionAnnounce } from './ModelEditionAnnounce';
 import { SettingsWindow_4_payment_modelEdition } from './SettingsWindow_4_payment_modelEdition';
 import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { ITokenDB_default } from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
@@ -34,15 +34,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   const { id: userId, email: userEmail, Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
 
-  if (!userAccessToken) {
-    return (
-      <div>
-        <div>{t.get('Please register a user and log in first')}</div>
-        <Link to="/app/logout">{t.get('Logout')}</Link>
-      </div>
-    );
-  }
-
   const [locale_for_currency, setLocale_for_currency] = useState<ELocale>(localeForSettingsWindow);
 
   const [activeSubscriptions, setActiveSubscriptions] = useState<Stripe.Subscription[]>([]);
@@ -56,7 +47,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
         paraLocale,
         CONSTANTS_GPT_AI_FLOW_COMMON,
       );
-    console.log('activeSubscriptions', activeSubscriptionsFound);
+
     if (activeSubscriptionsFound instanceof Error) {
       const error = activeSubscriptionsFound;
       message.error(error.message);
@@ -81,8 +72,12 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   if (!stripePrices_for_locales) return <>{t.get('loading')}...</>;
 
+  console.log('activeSubscriptions', activeSubscriptions);
+
+  console.log('locale_for_currency', locale_for_currency);
+
   return (
-    <div id="subscription" className="container" style={{ padding: '.4rem' }}>
+    <div id="subscription" className="container space-y-8" style={{ padding: '.4rem' }}>
       {/* 0 subscirption -> Free Edition */}
       {activeSubscriptions.length === 0 && (
         <>
@@ -99,48 +94,47 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
         </>
       )}
 
-      {/* Tools Edition, Lifetime Tools Edition, Model Edition */}
+      {/* Model Edition */}
       {activeSubscriptions.map((oneSubscription: Stripe.Subscription) => {
         const itemPriceNicknames = oneSubscription.items.data.reduce((acc: string[], item: Stripe.SubscriptionItem) => {
           if (acc.includes(item.price.nickname)) return acc;
           return [...acc, item.price.nickname];
         }, []);
 
-        const { status } = oneSubscription;
-        const expiredAt = new Date(oneSubscription.current_period_end * 1000);
-        // console.log('itemPriceNicknames', itemPriceNicknames);
-
         return (
           <>
             {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL) && (
-              <>
+              <div>
                 <SettingsWindow_4_payment_modelEdition
                   subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
+                  oneSubscription={oneSubscription}
                   t={t}
                   userId={userId}
                   userEmail={userEmail}
                   userAccessToken={userAccessToken}
                   locale={localeForSettingsWindow}
-                  subscriptionStauts={status}
-                  isShowExpired={true}
-                  expiredAt={expiredAt}
+                />
+                <ModelEditionAnnounce locale={t.currentLocale} />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              </div>
+            )}
+            {itemPriceNicknames.includes(EStripePrice_nickname.MODULE_DUTY_GENIE) && (
+              <div>
+                <SettingsWindow_4_payment_modelEdition
+                  subscriptionName={EStripePrice_nickname.MODULE_DUTY_GENIE}
+                  oneSubscription={oneSubscription}
+                  t={t}
+                  userId={userId}
+                  userEmail={userEmail}
+                  userAccessToken={userAccessToken}
+                  locale={localeForSettingsWindow}
                 />
                 <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-                <ModelSubscriptionAnnounce locale={t.currentLocale} />
-              </>
+              </div>
             )}
           </>
         );
       })}
-    </div>
-  );
-};
-
-const SettingsWindow_4_proMode_logout = (props: { t: IGetT_frontend_output }) => {
-  const { t } = props;
-  return (
-    <div id="settingsWindowContainer-subscription-logout" className="container" style={{ padding: '.4rem' }}>
-      {t.get('Please register a user and log in first')}
     </div>
   );
 };
@@ -165,19 +159,31 @@ export const SettingsWindow_4_payment = (props: ISettingsWindow_4_proMode) => {
     t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId } = userDB;
+  const { id: userId, Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
+
+  if (!userId) {
+    return (
+      <div id="settingsWindowContainer-subscription-logout" className="container" style={{ padding: '.4rem' }}>
+        {t.get('Please register a user and log in first')}
+      </div>
+    );
+  }
+
+  if (!userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
+      </div>
+    );
+  }
 
   return (
-    <>
-      {userId && (
-        <SettingsWindow_4_payment_login
-          t={t}
-          localeForSettingsWindow={localeForSettingsWindow}
-          userDB={userDB}
-          dispatch={dispatch}
-        />
-      )}
-      {!userId && <SettingsWindow_4_proMode_logout t={t} />}
-    </>
+    <SettingsWindow_4_payment_login
+      t={t}
+      localeForSettingsWindow={localeForSettingsWindow}
+      userDB={userDB}
+      dispatch={dispatch}
+    />
   );
 };
