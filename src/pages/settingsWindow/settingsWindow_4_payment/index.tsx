@@ -99,8 +99,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           return [...acc, item.price.nickname];
         }, []);
 
-        const { status } = oneSubscription;
-        const expiredAt = new Date(oneSubscription.current_period_end * 1000);
         // console.log('itemPriceNicknames', itemPriceNicknames);
 
         if (itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL)) {
@@ -108,14 +106,12 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
             <>
               <SettingsWindow_4_payment_modelEdition
                 subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
+                oneSubscription={oneSubscription}
                 t={t}
                 userId={userId}
                 userEmail={userEmail}
                 userAccessToken={userAccessToken}
                 locale={localeForSettingsWindow}
-                subscriptionStauts={status}
-                isShowExpired={true}
-                expiredAt={expiredAt}
               />
               <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
               <ModelSubscriptionAnnounce locale={t.currentLocale} />

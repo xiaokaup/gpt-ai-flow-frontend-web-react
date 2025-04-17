@@ -14,27 +14,27 @@ import { getT_with_i18next } from '../../../gpt-ai-flow-common/i18nProvider/loca
 
 interface ISettingsWindow_4_payment_modelEdition {
   subscriptionName: EStripePrice_nickname;
+  oneSubscription: Stripe.Subscription;
   t: IGetT_frontend_output;
   userId: number;
   userEmail: string;
   userAccessToken: string;
   locale: ELocale;
-  subscriptionStauts: Stripe.Subscription.Status;
-  isShowExpired: boolean;
-  expiredAt: Date;
 }
 export const SettingsWindow_4_payment_modelEdition = (props: ISettingsWindow_4_payment_modelEdition) => {
   const {
     subscriptionName,
+    oneSubscription,
+
     t,
     userId,
     userEmail,
     userAccessToken,
     locale,
-    subscriptionStauts: status,
-    isShowExpired,
-    expiredAt,
   } = props;
+  const { status, current_period_end } = oneSubscription;
+  const expiredAt = new Date(current_period_end * 1000);
+
   const t_with_i18next = getT_with_i18next(t.currentLocale);
   const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
 
@@ -102,18 +102,16 @@ export const SettingsWindow_4_payment_modelEdition = (props: ISettingsWindow_4_p
         )}
       </div>
 
-      {isShowExpired && (
-        <div className="row">
-          {t.get('Subscription Expiry Date')}:{' '}
-          <span>
-            <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
+      <div className="row">
+        {t.get('Subscription Expiry Date')}:{' '}
+        <span>
+          <span className="column">{expiredAt && new Date(expiredAt)?.toISOString().split('T')[0]}</span>
 
-            <span className="column">
-              {isExpired ? <Tag color="#f50">{t.get('Expired')}</Tag> : <Tag color="#2db7f5">{t.get('Valid')}</Tag>}
-            </span>
+          <span className="column">
+            {isExpired ? <Tag color="#f50">{t.get('Expired')}</Tag> : <Tag color="#2db7f5">{t.get('Valid')}</Tag>}
           </span>
-        </div>
-      )}
+        </span>
+      </div>
     </div>
   );
 };
