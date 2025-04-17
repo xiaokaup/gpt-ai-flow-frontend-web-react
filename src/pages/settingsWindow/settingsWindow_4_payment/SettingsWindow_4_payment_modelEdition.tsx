@@ -17,6 +17,7 @@ import { SettingsWindow_4_payment_modelEdition_editMode } from './SettingsWindow
 interface ISettingsWindow_4_payment_modelEdition {
   subscriptionName: EStripePrice_nickname;
   oneSubscription: Stripe.Subscription;
+
   t: IGetT_frontend_output;
   userId: number;
   userEmail: string;
@@ -119,12 +120,13 @@ export const SettingsWindow_4_payment_modelEdition = (props: ISettingsWindow_4_p
         </div>
       </div>
 
-      <div className="edit_mode mt-4">
+      <div className="edit_mode mt-12">
         {isEdit && (
           <SettingsWindow_4_payment_modelEdition_editMode
             t={t}
             oneSubscription={oneSubscription}
             userAccessToken={userAccessToken}
+            setIsEdit={setIsEdit}
           />
         )}
       </div>

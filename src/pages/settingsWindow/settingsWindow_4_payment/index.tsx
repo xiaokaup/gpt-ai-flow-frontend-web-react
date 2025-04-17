@@ -101,8 +101,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           return [...acc, item.price.nickname];
         }, []);
 
-        // console.log('itemPriceNicknames', itemPriceNicknames);
-
         if (itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL)) {
           return (
             <>

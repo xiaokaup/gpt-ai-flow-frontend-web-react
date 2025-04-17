@@ -1,10 +1,16 @@
 import './SelectableCardList.css';
-import { Typography, Row, Col, Card } from 'antd';
-import { useState } from 'react';
+
+import { Dispatch, SetStateAction, useState } from 'react';
+import { Typography, Row, Col, Card, Button } from 'antd';
+import Stripe from 'stripe';
+
 import { EStripe_currency, EStripePrice_nickname } from '../../../../gpt-ai-flow-common/enum-app/EStripe';
 import { IGetT_frontend_output } from '../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { pricingLocaleDict } from '../pricingLocale';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import TStripeConstantFile_v3File from '../../../../gpt-ai-flow-common/tools/TStripeConstant_v3';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TBackendStripeFile from '../../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 
 const { Text } = Typography;
 
@@ -184,30 +190,42 @@ const CardContent_dutyEdition = (props: ICardContent_modelEdition_input) => {
 
 interface ISelectableCardList_input {
   t: IGetT_frontend_output;
-  subscriptionCurrency: EStripe_currency;
+  userAccessToken: string;
+  oneSubscription: Stripe.Subscription;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
 }
 export const SelectableCardList = (props: ISelectableCardList_input) => {
-  const { t, subscriptionCurrency } = props;
+  const { t, userAccessToken, oneSubscription, setIsEdit } = props;
   const locale = t.currentLocale;
 
-  // 存储选中的卡片信息
-  const [selectedItems, setSelectedItems] = useState([]);
-  console.log('selectedItems', selectedItems);
+  const { id: subscriptionId, currency: subscriptionCurrency } = oneSubscription;
+
+  const priceSign_of_totalPrices = subscriptionCurrency === EStripe_currency.CNY ? '¥' : '$';
+
+  const stripePrices_locale = subscriptionCurrency === EStripe_currency.CNY ? ELocale.ZH : ELocale.EN;
+  const stripePrices_with_locale = TStripeConstantFile_v3File.getStripePrices(CONSTANTS_GPT_AI_FLOW_COMMON.IS_PROD)[
+    stripePrices_locale
+  ];
 
   // 卡片数据
-  const cardData = {
+  const cardData: Record<
+    EStripe_currency,
+    { id: string; title: string; priceSign: string; price: string; prices: { price: string }[] }[]
+  > = {
     [EStripe_currency.USD]: [
       {
         id: EStripePrice_nickname.STARTAI_MODEL,
         title: t.get('Model_version'),
         priceSign: '$',
         price: '0.95',
+        prices: stripePrices_with_locale[EStripePrice_nickname.STARTAI_MODEL],
       },
       {
         id: EStripePrice_nickname.MODULE_DUTY_GENIE,
         title: t.get(EStripePrice_nickname.MODULE_DUTY_GENIE),
         priceSign: '$',
         price: '9.95',
+        prices: stripePrices_with_locale[EStripePrice_nickname.MODULE_DUTY_GENIE],
       },
     ],
     [EStripe_currency.CNY]: [
@@ -216,40 +234,66 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
         title: t.get('Model_version'),
         priceSign: '¥',
         price: '6.95',
+        prices: stripePrices_with_locale[EStripePrice_nickname.STARTAI_MODEL],
       },
       {
         id: EStripePrice_nickname.MODULE_DUTY_GENIE,
         title: t.get(EStripePrice_nickname.MODULE_DUTY_GENIE),
         priceSign: '¥',
         price: '69.95',
+        prices: stripePrices_with_locale[EStripePrice_nickname.MODULE_DUTY_GENIE],
       },
     ],
   };
 
+  // 存储选中的卡片信息
+  const [selectedModuleItems, setSelectedModuleItems] = useState(
+    cardData[subscriptionCurrency].filter((item) => item.id === EStripePrice_nickname.STARTAI_MODEL),
+  );
+
   // 处理卡片点击事件
   const handleCardClick = (item) => {
     // 检查该卡片是否已被选中
-    const isSelected = selectedItems.some((selected) => selected.id === item.id);
+    const isSelected = selectedModuleItems.some((selected) => selected.id === item.id);
 
     if (isSelected) {
       // 如果已选中，则移除
-      setSelectedItems(selectedItems.filter((selected) => selected.id !== item.id));
+      setSelectedModuleItems(selectedModuleItems.filter((selected) => selected.id !== item.id));
     } else {
       // 如果未选中，则添加
-      setSelectedItems([...selectedItems, { id: item.id, price: item.price }]);
+      setSelectedModuleItems([...selectedModuleItems, item]);
     }
   };
 
   // 检查卡片是否被选中
   const isCardSelected = (id) => {
-    return selectedItems.some((item) => item.id === id);
+    return selectedModuleItems.some((item) => item.id === id);
   };
 
   // 计算总价
-  const totalPrice = selectedItems.reduce((sum, item) => sum + parseFloat(item.price), 0).toFixed(2);
+  const totalPrice = selectedModuleItems.reduce((sum, item) => sum + parseFloat(item.price), 0).toFixed(2);
+
+  const putOneStripeSubscription = () => {
+    const newStripePrices = selectedModuleItems
+      .reduce((allPrices, item) => {
+        return [...allPrices, ...item.prices];
+      }, [])
+      .map((item) => item.price);
+
+    TBackendStripeFile.putOneStripeSubscription_from_backend(
+      {
+        subscriptionId,
+        oldStripeItems: oneSubscription.items.data.map((item: Stripe.SubscriptionItem) => item.id),
+        newStripePrices,
+      },
+      userAccessToken,
+      t.currentLocale,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+    );
+  };
 
   return (
-    <div className=" card-list-container">
+    <div className="card-list-container">
       <Row gutter={16}>
         {cardData[subscriptionCurrency].map((card) => {
           const { id, priceSign, price } = card;
@@ -279,18 +323,44 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
       </Row>
 
       <div className="selected-summary">
-        <h3>Selected Items: {selectedItems.length}</h3>
+        <h3>
+          {t.get('Selected modules')}: {selectedModuleItems.length}
+        </h3>
         <ul>
-          {selectedItems.map((item) => {
+          {selectedModuleItems.map((item) => {
             const cardInfo = cardData[subscriptionCurrency].find((card) => card.id === item.id);
             return (
               <li key={item.id}>
-                {cardInfo.title}: ${item.price}
+                {cardInfo.title}: {item.priceSign}
+                {item.price}
               </li>
             );
           })}
         </ul>
-        <Text strong>Total Price: ${totalPrice}</Text>
+        <Text strong>
+          {t.get('Total Price')}: {priceSign_of_totalPrices}
+          {totalPrice}
+        </Text>
+        <div className="row">
+          <Button
+            type="primary"
+            className="mt-4"
+            onClick={() => {
+              putOneStripeSubscription();
+            }}
+          >
+            {t.get('Submit')}
+          </Button>
+
+          <Button
+            className="ml-4"
+            onClick={() => {
+              setIsEdit(false);
+            }}
+          >
+            {t.get('Cancel')}
+          </Button>
+        </div>
       </div>
     </div>
   );
