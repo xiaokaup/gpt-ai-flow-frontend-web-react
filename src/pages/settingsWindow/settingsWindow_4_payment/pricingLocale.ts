@@ -15,7 +15,18 @@ export const pricingLocaleDict: Record<ELocale, { [key: string]: string }> = {
     '一次购买，终身使用': 'One-time purchase, lifetime use',
 
     // Duty Genie
-    关税精灵: '',
+    关税精灵: 'Tariff Genie - Intelligent Tariff Query and Tracking Tool',
+    '你希望获得专业的关税查询服务，并享受全面的通关资讯支持':
+      'You want to receive professional tariff query services and enjoy comprehensive customs clearance information support',
+    关税精灵_功能:
+      'Tariff Genie is an efficient and convenient tariff query and recommendation tool that helps you quickly obtain accurate tariff information and optimize cross-border trade costs.',
+    关税精灵_功能_1_key: 'HTS Tariff Query',
+    关税精灵_功能_1_value: 'Directly retrieve corresponding tariff rates through HTS codes',
+    关税精灵_功能_2_key: 'Intelligent HTS Recommendation',
+    关税精灵_功能_2_value: 'Input product information, automatically recommend the most matching HTS codes and tariffs',
+    关税精灵_功能_3_key: 'China-US Tariff Tracking',
+    关税精灵_功能_3_value:
+      'Monitor tariff changes on routes from China to the United States in real-time, and obtain the latest policies promptly',
   },
   [ELocale.ZH]: {
     免费使用桌面软件所有功能: ' 免费使用桌面软件所有功能',
