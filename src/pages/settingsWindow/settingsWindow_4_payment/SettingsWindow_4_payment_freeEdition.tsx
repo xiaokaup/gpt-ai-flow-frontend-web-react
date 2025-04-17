@@ -449,7 +449,7 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
               {/* 模块: 关税精灵 */}
               <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col w-1/2 m-auto">
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold ">{t.get('Duty Genie')}</h3>
+                  <h3 className="text-xl font-semibold ">{pricingLocaleDict[locale]['关税精灵']}</h3>
                   <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide  transform -translate-y-1/2">
                     {t.get('Most popular')}
                   </p>
