@@ -14,8 +14,6 @@ export const SettingsWindow_4_payment_modelEdition_editMode = (
 ) => {
   const { t, userAccessToken, oneSubscription, setIsEdit } = props;
 
-  console.log('oneSubscription', oneSubscription);
-
   return (
     <div className="row">
       <SelectableCardList

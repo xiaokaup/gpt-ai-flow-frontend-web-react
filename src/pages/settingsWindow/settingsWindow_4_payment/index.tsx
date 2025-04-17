@@ -47,7 +47,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
         paraLocale,
         CONSTANTS_GPT_AI_FLOW_COMMON,
       );
-    console.log('activeSubscriptions', activeSubscriptionsFound);
+
     if (activeSubscriptionsFound instanceof Error) {
       const error = activeSubscriptionsFound;
       message.error(error.message);
