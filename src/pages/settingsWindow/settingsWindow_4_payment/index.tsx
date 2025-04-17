@@ -34,15 +34,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   const { id: userId, email: userEmail, Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
 
-  if (!userAccessToken) {
-    return (
-      <div>
-        <div>{t.get('Please register a user and log in first')}</div>
-        <Link to="/app/logout">{t.get('Logout')}</Link>
-      </div>
-    );
-  }
-
   const [locale_for_currency, setLocale_for_currency] = useState<ELocale>(localeForSettingsWindow);
 
   const [activeSubscriptions, setActiveSubscriptions] = useState<Stripe.Subscription[]>([]);
@@ -136,15 +127,6 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
   );
 };
 
-const SettingsWindow_4_proMode_logout = (props: { t: IGetT_frontend_output }) => {
-  const { t } = props;
-  return (
-    <div id="settingsWindowContainer-subscription-logout" className="container" style={{ padding: '.4rem' }}>
-      {t.get('Please register a user and log in first')}
-    </div>
-  );
-};
-
 interface ISettingsWindow_4_proMode {
   t: IGetT_frontend_output;
   localeForSettingsWindow: ELocale;
@@ -165,19 +147,31 @@ export const SettingsWindow_4_payment = (props: ISettingsWindow_4_proMode) => {
     t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
   });
-  const { id: userId } = userDB;
+  const { id: userId, Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
+
+  if (!userId) {
+    return (
+      <div id="settingsWindowContainer-subscription-logout" className="container" style={{ padding: '.4rem' }}>
+        {t.get('Please register a user and log in first')}
+      </div>
+    );
+  }
+
+  if (!userAccessToken) {
+    return (
+      <div>
+        <div>{t.get('Please register a user and log in first')}</div>
+        <Link to="/app/logout">{t.get('Logout')}</Link>
+      </div>
+    );
+  }
 
   return (
-    <>
-      {userId && (
-        <SettingsWindow_4_payment_login
-          t={t}
-          localeForSettingsWindow={localeForSettingsWindow}
-          userDB={userDB}
-          dispatch={dispatch}
-        />
-      )}
-      {!userId && <SettingsWindow_4_proMode_logout t={t} />}
-    </>
+    <SettingsWindow_4_payment_login
+      t={t}
+      localeForSettingsWindow={localeForSettingsWindow}
+      userDB={userDB}
+      dispatch={dispatch}
+    />
   );
 };
