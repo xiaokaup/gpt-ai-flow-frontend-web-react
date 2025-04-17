@@ -104,6 +104,19 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
               {t.get('Tools_version')}
               {/* <span>({t.get('Requires your own OpenAI key')})</span> */}
             </a>
+
+            <a
+              href="javascript:void(0)"
+              className={
+                tabSelected === 'Module'
+                  ? 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-white bg-emerald-500 rounded-full text-white tablink whitespace-nowrap'
+                  : 'inline-block w-1/2 text-balance text-center transition-all duration-500 rounded-full text-gray-400 font-semibold py-3 px-3 lg:px-11 hover:text-emerald-500 tab-active:bg-emerald-500 tab-active:rounded-full tab-active:text-white tablink whitespace-nowrap'
+              }
+              onClick={() => setTabSelected('Module')}
+            >
+              {t.get('Module_version')}
+              {/* <span>({t.get('Requires your own OpenAI key')})</span> */}
+            </a>
           </div>
         </div>
 
@@ -427,6 +440,108 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
                   }}
                 >
                   {t.get('Get started')}
+                </button>
+              </div>
+            </div>
+          )}
+          {tabSelected === 'Module' && (
+            <div className="pricing-table paricing-table-model !mt-12 container space-y-12 md:space-y-0 md:grid md:grid-cols-1 md:gap-x-8">
+              {/* 模块: 关税精灵 */}
+              <div className="relative p-8  border border-gray-200 rounded-2xl shadow-sm flex flex-col w-1/2 m-auto">
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold ">{t.get('Duty Genie')}</h3>
+                  <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide  transform -translate-y-1/2">
+                    {t.get('Most popular')}
+                  </p>
+                  <p className="mt-4 flex items-baseline ">
+                    <span className="text-5xl font-extrabold tracking-tight">
+                      {locale_for_currency === ELocale.EN ? '$9.95' : '￥69.95'}
+                    </span>
+                    <span className="ml-1 text-xl font-semibold">/{t.get('month')}</span>
+                  </p>
+                  <p className="mt-6 ">
+                    {pricingLocaleDict[locale]['你希望获得专业的关税查询服务，并享受全面的通关资讯支持']}
+                  </p>
+                  <ul role="list" className="mt-6 space-y-6">
+                    <li className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span className="ml-3 ">
+                        <b>{pricingLocaleDict[locale]['关税精灵_功能_1_key']}</b>:{' '}
+                        {pricingLocaleDict[locale]['关税精灵_功能_1_value']}
+                      </span>
+                    </li>
+                    <li className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span className="ml-3 ">
+                        <b>{pricingLocaleDict[locale]['关税精灵_功能_2_key']}</b>:{' '}
+                        {pricingLocaleDict[locale]['关税精灵_功能_2_value']}
+                      </span>
+                    </li>
+                    <li className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
+                        aria-hidden="true"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span className="ml-3 ">
+                        <b>{pricingLocaleDict[locale]['关税精灵_功能_3_key']}</b>:{' '}
+                        {pricingLocaleDict[locale]['关税精灵_功能_3_value']}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <button
+                  type="button"
+                  className="bg-emerald-500 text-white  hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
+                  onClick={() => {
+                    createAndOpenStripeCheckoutSession_v3(
+                      stripePrice[EStripePrice_nickname.MODULE_DUTY_GENIE],
+                      EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                      {
+                        trial_period_days: 0,
+                      },
+                    );
+                  }}
+                >
+                  {t.get('Start Trial')}
                 </button>
               </div>
             </div>
