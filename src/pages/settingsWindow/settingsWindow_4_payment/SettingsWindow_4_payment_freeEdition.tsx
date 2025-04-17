@@ -536,7 +536,7 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
                       stripePrice[EStripePrice_nickname.MODULE_DUTY_GENIE],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                       {
-                        trial_period_days: 7,
+                        trial_period_days: 0,
                       },
                     );
                   }}
