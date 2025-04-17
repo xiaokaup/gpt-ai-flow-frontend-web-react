@@ -41,7 +41,7 @@ export const SettingsWindow_4_payment_modelEdition = (props: ISettingsWindow_4_p
   const t_with_i18next = getT_with_i18next(t.currentLocale);
   const isExpired = expiredAt ? new Date(expiredAt) < new Date() : false;
 
-  const [isEdit, setIsEdit] = useState<boolean>(true);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const createAndOpenStripeBillingSession = async () => {
     const billingSessionResults = await TBackendStripeFile.createStripeBillingPortal(

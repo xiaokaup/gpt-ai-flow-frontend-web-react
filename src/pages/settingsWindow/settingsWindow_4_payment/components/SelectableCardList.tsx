@@ -1,6 +1,6 @@
 import './SelectableCardList.css';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Typography, Row, Col, Card, Button } from 'antd';
 import Stripe from 'stripe';
 
@@ -198,6 +198,11 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
   const { t, userAccessToken, oneSubscription, setIsEdit } = props;
   const locale = t.currentLocale;
 
+  const itemPriceNicknames = oneSubscription.items.data.reduce((acc: string[], item: Stripe.SubscriptionItem) => {
+    if (acc.includes(item.price.nickname)) return acc;
+    return [...acc, item.price.nickname];
+  }, []);
+
   const { id: subscriptionId, currency: subscriptionCurrency } = oneSubscription;
 
   const priceSign_of_totalPrices = subscriptionCurrency === EStripe_currency.CNY ? '¥' : '$';
@@ -247,9 +252,26 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
   };
 
   // 存储选中的卡片信息
-  const [selectedModuleItems, setSelectedModuleItems] = useState(
-    cardData[subscriptionCurrency].filter((item) => item.id === EStripePrice_nickname.STARTAI_MODEL),
-  );
+  const [selectedModuleItems, setSelectedModuleItems] = useState([]);
+
+  const init = () => {
+    const selectedModuleItems_default = [];
+    if (itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL)) {
+      const newItem = cardData[subscriptionCurrency].find((item) => item.id === EStripePrice_nickname.STARTAI_MODEL);
+      selectedModuleItems_default.push(newItem);
+    }
+    if (itemPriceNicknames.includes(EStripePrice_nickname.MODULE_DUTY_GENIE)) {
+      const newItem = cardData[subscriptionCurrency].find(
+        (item) => item.id === EStripePrice_nickname.MODULE_DUTY_GENIE,
+      );
+      selectedModuleItems_default.push(newItem);
+    }
+    setSelectedModuleItems(selectedModuleItems_default);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   // 处理卡片点击事件
   const handleCardClick = (item) => {
@@ -273,14 +295,14 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
   // 计算总价
   const totalPrice = selectedModuleItems.reduce((sum, item) => sum + parseFloat(item.price), 0).toFixed(2);
 
-  const putOneStripeSubscription = () => {
+  const putOneStripeSubscription = async () => {
     const newStripePrices = selectedModuleItems
       .reduce((allPrices, item) => {
         return [...allPrices, ...item.prices];
       }, [])
       .map((item) => item.price);
 
-    TBackendStripeFile.putOneStripeSubscription_from_backend(
+    await TBackendStripeFile.putOneStripeSubscription_from_backend(
       {
         subscriptionId,
         oldStripeItems: oneSubscription.items.data.map((item: Stripe.SubscriptionItem) => item.id),
@@ -291,7 +313,10 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
 
-    setIsEdit(false);
+    setTimeout(() => {
+      setIsEdit(false);
+      window.location.reload();
+    }, 200);
   };
 
   return (

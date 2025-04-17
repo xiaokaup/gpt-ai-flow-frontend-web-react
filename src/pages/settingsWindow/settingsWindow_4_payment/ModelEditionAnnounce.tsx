@@ -8,7 +8,7 @@ export const ModelEditionAnnounce = (props: ILifetimeVersionAnnounce) => {
 
   if (locale === ELocale.ZH) {
     return (
-      <div className="lifetimeVersion lifetimeVersion_zh row" style={{ marginTop: '2rem' }}>
+      <div>
         亲爱的用户，
         <br />
         <br />
@@ -61,7 +61,7 @@ export const ModelEditionAnnounce = (props: ILifetimeVersionAnnounce) => {
 
   // ELocale.EN
   return (
-    <div className="lifetimeVersion lifetimeVersion_en row" style={{ marginTop: '2rem' }}>
+    <div>
       Dear users,
       <br />
       <br />

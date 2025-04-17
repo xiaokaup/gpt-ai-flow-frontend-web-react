@@ -77,7 +77,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
   console.log('locale_for_currency', locale_for_currency);
 
   return (
-    <div id="subscription" className="container" style={{ padding: '.4rem' }}>
+    <div id="subscription" className="container space-y-8" style={{ padding: '.4rem' }}>
       {/* 0 subscirption -> Free Edition */}
       {activeSubscriptions.length === 0 && (
         <>
@@ -101,41 +101,39 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
           return [...acc, item.price.nickname];
         }, []);
 
-        if (itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL)) {
-          return (
-            <>
-              <SettingsWindow_4_payment_modelEdition
-                subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
-                oneSubscription={oneSubscription}
-                t={t}
-                userId={userId}
-                userEmail={userEmail}
-                userAccessToken={userAccessToken}
-                locale={localeForSettingsWindow}
-              />
-              <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-              <ModelEditionAnnounce locale={t.currentLocale} />
-            </>
-          );
-        }
-
-        if (itemPriceNicknames.includes(EStripePrice_nickname.MODULE_DUTY_GENIE)) {
-          return (
-            <>
-              <SettingsWindow_4_payment_modelEdition
-                subscriptionName={EStripePrice_nickname.MODULE_DUTY_GENIE}
-                oneSubscription={oneSubscription}
-                t={t}
-                userId={userId}
-                userEmail={userEmail}
-                userAccessToken={userAccessToken}
-                locale={localeForSettingsWindow}
-              />
-              <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-              <ModelEditionAnnounce locale={t.currentLocale} />
-            </>
-          );
-        }
+        return (
+          <>
+            {itemPriceNicknames.includes(EStripePrice_nickname.STARTAI_MODEL) && (
+              <div>
+                <SettingsWindow_4_payment_modelEdition
+                  subscriptionName={EStripePrice_nickname.STARTAI_MODEL}
+                  oneSubscription={oneSubscription}
+                  t={t}
+                  userId={userId}
+                  userEmail={userEmail}
+                  userAccessToken={userAccessToken}
+                  locale={localeForSettingsWindow}
+                />
+                <ModelEditionAnnounce locale={t.currentLocale} />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              </div>
+            )}
+            {itemPriceNicknames.includes(EStripePrice_nickname.MODULE_DUTY_GENIE) && (
+              <div>
+                <SettingsWindow_4_payment_modelEdition
+                  subscriptionName={EStripePrice_nickname.MODULE_DUTY_GENIE}
+                  oneSubscription={oneSubscription}
+                  t={t}
+                  userId={userId}
+                  userEmail={userEmail}
+                  userAccessToken={userAccessToken}
+                  locale={localeForSettingsWindow}
+                />
+                <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              </div>
+            )}
+          </>
+        );
       })}
     </div>
   );
