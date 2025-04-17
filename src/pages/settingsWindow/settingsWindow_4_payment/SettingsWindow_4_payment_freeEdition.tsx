@@ -31,7 +31,6 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
       trial_period_days?: number;
     },
   ) => {
-    console.log('subscriptionData', subscriptionData);
     const checkoutSessionResults = await TBackendStripeFile.createStripeCheckoutSession_v3(
       {
         userId,
