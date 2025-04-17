@@ -290,6 +290,8 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
       t.currentLocale,
       CONSTANTS_GPT_AI_FLOW_COMMON,
     );
+
+    setIsEdit(false);
   };
 
   return (

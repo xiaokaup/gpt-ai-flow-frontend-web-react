@@ -16,7 +16,7 @@ import TBackendStripeFile from '../../../gpt-ai-flow-common/tools/3_unit/TBacken
 
 import { FreeVersionAnnounce } from './FreeVersionAnnounce';
 import { IStripePriceItem } from '../../../gpt-ai-flow-common/interface-app/3_unit/IStripe_v2';
-import { ModelSubscriptionAnnounce } from './ModelSubscriptionAnnounce';
+import { ModelEditionAnnounce } from './ModelEditionAnnounce';
 import { SettingsWindow_4_payment_modelEdition } from './SettingsWindow_4_payment_modelEdition';
 import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { ITokenDB_default } from '../../../gpt-ai-flow-common/interface-database/ITokenDB';
@@ -114,7 +114,25 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
                 locale={localeForSettingsWindow}
               />
               <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
-              <ModelSubscriptionAnnounce locale={t.currentLocale} />
+              <ModelEditionAnnounce locale={t.currentLocale} />
+            </>
+          );
+        }
+
+        if (itemPriceNicknames.includes(EStripePrice_nickname.MODULE_DUTY_GENIE)) {
+          return (
+            <>
+              <SettingsWindow_4_payment_modelEdition
+                subscriptionName={EStripePrice_nickname.MODULE_DUTY_GENIE}
+                oneSubscription={oneSubscription}
+                t={t}
+                userId={userId}
+                userEmail={userEmail}
+                userAccessToken={userAccessToken}
+                locale={localeForSettingsWindow}
+              />
+              <hr style={{ marginTop: '1rem', marginBottom: '1rem' }} />
+              <ModelEditionAnnounce locale={t.currentLocale} />
             </>
           );
         }
