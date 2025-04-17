@@ -115,7 +115,6 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
               onClick={() => setTabSelected('Module')}
             >
               {t.get('Module_version')}
-              {/* <span>({t.get('Requires your own OpenAI key')})</span> */}
             </a>
           </div>
         </div>
@@ -536,7 +535,7 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
                       stripePrice[EStripePrice_nickname.MODULE_DUTY_GENIE],
                       EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
                       {
-                        trial_period_days: 0,
+                        // trial_period_days: 0,
                       },
                     );
                   }}
