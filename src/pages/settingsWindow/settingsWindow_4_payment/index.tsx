@@ -74,6 +74,8 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   console.log('activeSubscriptions', activeSubscriptions);
 
+  console.log('locale_for_currency', locale_for_currency);
+
   return (
     <div id="subscription" className="container" style={{ padding: '.4rem' }}>
       {/* 0 subscirption -> Free Edition */}

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import TBackendStripeFile from '../../../gpt-ai-flow-common/tools/3_unit/TBackendStripe';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { Button } from 'antd';
+import { SelectableCardList } from './components/SelectableCardList';
+import { EStripe_currency } from '../../../gpt-ai-flow-common/enum-app/EStripe';
 
 interface ISettingsWindow_4_payment_modelEdition_editMode_input {
   t: IGetT_frontend_output;
@@ -17,7 +19,7 @@ export const SettingsWindow_4_payment_modelEdition_editMode = (
 
   console.log('oneSubscription', oneSubscription);
 
-  const { id: subscriptionId } = oneSubscription;
+  const { id: subscriptionId, currency: subscriptionCurrency } = oneSubscription;
 
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
 
@@ -36,9 +38,10 @@ export const SettingsWindow_4_payment_modelEdition_editMode = (
 
   return (
     <div className="row">
-      <div>SettingsWindow_4_payment_modelEdition_editMode</div>
+      <SelectableCardList t={t} subscriptionCurrency={subscriptionCurrency as EStripe_currency} />
       <Button
         type="primary"
+        className="mt-4"
         onClick={() => {
           putOneStripeSubscription();
         }}

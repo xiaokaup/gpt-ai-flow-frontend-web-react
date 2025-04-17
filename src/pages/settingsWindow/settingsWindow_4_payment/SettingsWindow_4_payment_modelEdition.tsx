@@ -58,7 +58,7 @@ export const SettingsWindow_4_payment_modelEdition = (props: ISettingsWindow_4_p
   };
 
   return (
-    <div className="oneSubscription">
+    <div className="SettingsWindow_4_payment_modelEdition_container">
       <div className="view_mode">
         <div className="row">
           {t.get('Email')}: {userEmail}
