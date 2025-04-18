@@ -6,7 +6,7 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('basic');
 
-  const { mfnRateList } = result;
+  const { mfnRateList = [] } = result;
   const isMFNRate = !!mfnRateList.find((item) => item.agreement === 'CN');
 
   const toggleExpand = () => {
