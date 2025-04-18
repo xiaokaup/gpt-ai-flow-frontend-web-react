@@ -29,7 +29,7 @@ const HTSResultCard = ({ result }) => {
       <div className="result-card-header" onClick={toggleExpand}>
         <div className="header-main-info">
           <span className="hts-code">{result.htsCode}</span>
-          <span className={`tariff-badge ${getTariffStatusClass()}`}>
+          <span className={`tariff-badge ${getTariffStatusClass()} relative right-10`}>
             {result.section301Tariff ? `301关税: ${result.section301Tariff}` : '无301关税'}
           </span>
         </div>

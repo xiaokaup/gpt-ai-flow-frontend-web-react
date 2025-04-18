@@ -111,6 +111,16 @@ const HTSQueryModule = () => {
 9506910030"
                 rows={5}
               />
+              <div>
+                <p>用于测试:</p>
+                <p>
+                  8471300100
+                  <br />
+                  6104430000
+                  <br />
+                  9506910030
+                </p>
+              </div>
             </div>
 
             {error && <div className="error-message">{error}</div>}
