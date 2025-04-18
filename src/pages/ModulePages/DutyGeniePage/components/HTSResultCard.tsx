@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import './HTSResultCard.css';
+import { IHTSCodeItem } from '../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
 
-const HTSResultCard = ({ result }) => {
+const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('basic');
+
+  const { mfnRateList } = result;
+  const isMFNRate = !!mfnRateList.find((item) => item.agreement === 'CN');
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -118,15 +122,21 @@ const HTSResultCard = ({ result }) => {
                 </div>
 
                 <div className="total-rate-box">
-                  <div className="total-rate-title">中国输美实际关税总计:</div>
-                  <div className="total-rate-value">
-                    {formatRate(
-                      (
-                        parseFloat(result.mfnRate === 'Free' ? '0' : result.mfnRate || '0') +
-                        parseFloat(result.section301Tariff === 'Free' ? '0' : result.section301Tariff || '0')
-                      ).toFixed(1),
-                    )}
+                  <div className="total-rate-title">
+                    中国输美实际关税总计
+                    {isMFNRate && <span>(最惠国税率 + 301条款)</span>}
+                    {!isMFNRate && <span>(一般税率 + 301条款)</span>}:
                   </div>
+                  {isMFNRate && (
+                    <div className="total-rate-value">
+                      {formatRate((parseFloat(result.mfnRate) + parseFloat(result.section301Tariff)).toFixed(1))}
+                    </div>
+                  )}
+                  {!isMFNRate && (
+                    <div className="total-rate-value">
+                      {formatRate((parseFloat(result.generalRate) + parseFloat(result.section301Tariff)).toFixed(1))}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
