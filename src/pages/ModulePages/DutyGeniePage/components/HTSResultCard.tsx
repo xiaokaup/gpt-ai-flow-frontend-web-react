@@ -129,12 +129,22 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
                   </div>
                   {!isMFNRate && (
                     <div className="total-rate-value">
-                      {formatRate((parseFloat(result.generalRate) + parseFloat(result.section301Tariff)).toFixed(1))}
+                      {formatRate(
+                        (
+                          parseFloat(result.generalRate === 'Free' ? '0' : result.generalRate) +
+                          parseFloat(result.section301Tariff)
+                        ).toFixed(1),
+                      )}
                     </div>
                   )}
                   {isMFNRate && (
                     <div className="total-rate-value">
-                      {formatRate((parseFloat(result.mfnRate) + parseFloat(result.section301Tariff)).toFixed(1))}
+                      {formatRate(
+                        (
+                          parseFloat(result.mfnRate === 'Free' ? '0' : result.mfnRate) +
+                          parseFloat(result.section301Tariff)
+                        ).toFixed(1),
+                      )}
                     </div>
                   )}
                 </div>
