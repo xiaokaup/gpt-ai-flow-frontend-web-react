@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { searchHtsCodes } from '../services/htsService';
 import HTSResultCard from './HTSResultCard';
 import './HTSQueryModule.css';
+import { IHTSCodeItem } from '../interface';
 
 const HTSQueryModule = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -38,7 +39,7 @@ const HTSQueryModule = () => {
       }
 
       // 调用 API 查询服务
-      const results = await searchHtsCodes(htsCodes);
+      const results: IHTSCodeItem[] = await searchHtsCodes(htsCodes);
       setSearchResults(results);
 
       // 更新最近搜索记录

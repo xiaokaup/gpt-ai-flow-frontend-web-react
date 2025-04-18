@@ -1,6 +1,8 @@
 // 模拟 HTS 查询 API 服务
 // 实际项目中应替换为真实的 API 调用
 
+import { IHTSCodeItem_from_source } from '../interface';
+
 // 模拟数据库
 const htsDatabase = {
   8471300100: {
@@ -117,7 +119,23 @@ const htsDatabase = {
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // 搜索HTS编码
-export const searchHtsCodes = async (htsCodes) => {
+export const searchHtsCodes = async (htsCodes: string[]) => {
+  console.log('htsCodes:', htsCodes);
+
+  const queryPromises = htsCodes.map((htsCode: string) => {
+    const queryUrl = `https://tarrif-rules.vercel.app/api/hts-rules/${htsCode}`;
+    console.log('queryUrl:', queryUrl);
+    return fetch(queryUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res.json());
+  });
+
+  const results_queries: IHTSCodeItem_from_source[] = await Promise.all(queryPromises);
+  console.log('results_queries:', results_queries);
+
   // 模拟API延迟
   await delay(1500);
 
