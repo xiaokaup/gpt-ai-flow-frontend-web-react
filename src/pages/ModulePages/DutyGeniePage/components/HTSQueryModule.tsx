@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { searchHtsCodes } from '../services/htsService';
 import HTSResultCard from './HTSResultCard';
 import './HTSQueryModule.css';
-import { IHTSCodeItem } from '../interface';
+import { IHTSCodeItem } from '../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
+import { IDutyGeniePage_input } from '..';
 
-const HTSQueryModule = () => {
+const HTSQueryModule = (props: IDutyGeniePage_input) => {
+  const { t, userAccessToken } = props;
+
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +42,8 @@ const HTSQueryModule = () => {
       }
 
       // 调用 API 查询服务
-      const results: IHTSCodeItem[] = await searchHtsCodes(htsCodes);
+      const results: IHTSCodeItem[] = await searchHtsCodes(htsCodes, userAccessToken, t.currentLocale);
+      console.log('results from searchHtsCodes', results);
       setSearchResults(results);
 
       // 更新最近搜索记录
