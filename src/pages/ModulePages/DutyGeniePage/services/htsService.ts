@@ -157,6 +157,8 @@ export const searchHtsCodes = async (htsCodes: string[], userAccessToken: string
   // });
   // === @DEPRECATED-old - end ===
 
+  // console.log('results from searchHtsCodes:', results);
+
   return results || []; // @TOFIX:  do we really need `|| []`
 };
 
