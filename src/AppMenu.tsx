@@ -48,7 +48,7 @@ export const AppMenu = (props: {
     }, 200);
   };
 
-  const items: MenuProps['items'] = [
+  const languageMenuItems: MenuProps['items'] = [
     {
       key: 'en',
       label: (
@@ -125,7 +125,7 @@ export const AppMenu = (props: {
       </Menu.Item>
 
       <Menu.Item key="switch-language">
-        <Dropdown menu={{ items }}>
+        <Dropdown menu={{ items: languageMenuItems }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
             {t.get(locale)}&nbsp;🌐&nbsp;
             <DownOutlined style={{ position: 'relative', top: 1 }} />
