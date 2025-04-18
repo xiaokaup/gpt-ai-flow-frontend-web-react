@@ -31,6 +31,7 @@ import { IUserDB, IUserDB_default } from './gpt-ai-flow-common/interface-databas
 import { useUserDB } from './gpt-ai-flow-common/hooks/useUserDB';
 import BEN_CAO_TANG_PAGE from './pages/ToolsPage/pdfPage/benCaoTang';
 import { VisualizationPage } from './pages/betaPages/VisualizationPage/VisualizationPage';
+import { DutyGeniePage } from './pages/ModulePages/DutyGeniePage';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -347,7 +348,7 @@ export const AppRoutes = () => {
           <Route
             path="features"
             element={
-              <div className="App">
+              <div className="App h-full">
                 <AppLayoutCenter
                   isAuthenticated={isAuthenticated}
                   stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
@@ -371,11 +372,26 @@ export const AppRoutes = () => {
             }
           />
         </Route>
+        <Route path="modules">
+          <Route
+            path="dutygenie"
+            element={
+              <div className="App">
+                <AppLayoutCenter
+                  isAuthenticated={isAuthenticated}
+                  stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+                >
+                  <DutyGeniePage />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+        </Route>
         <Route path="tools">
           <Route
             path="benCaoTang"
             element={
-              <div className="App">
+              <div className="App h-full">
                 <AppLayoutCenter
                   isAuthenticated={isAuthenticated}
                   stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
