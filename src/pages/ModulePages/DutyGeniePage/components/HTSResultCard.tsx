@@ -38,27 +38,19 @@ const HTSResultCard = ({ result }) => {
             ? `${result.description.substring(0, 100)}...`
             : result.description}
         </div>
-        <button className="expand-button">
-          {expanded ? '收起' : '展开'}
-        </button>
+        <button className="expand-button">{expanded ? '收起' : '展开'}</button>
       </div>
 
       {expanded && (
         <div className="result-card-details">
           <div className="tabs">
-            <button 
-              className={`tab ${activeTab === 'basic' ? 'active' : ''}`}
-              onClick={() => setActiveTab('basic')}
-            >
+            <button className={`tab ${activeTab === 'basic' ? 'active' : ''}`} onClick={() => setActiveTab('basic')}>
               基本信息
             </button>
-            <button 
-              className={`tab ${activeTab === 'rates' ? 'active' : ''}`}
-              onClick={() => setActiveTab('rates')}
-            >
+            <button className={`tab ${activeTab === 'rates' ? 'active' : ''}`} onClick={() => setActiveTab('rates')}>
               详细税率
             </button>
-            <button 
+            <button
               className={`tab ${activeTab === 'history' ? 'active' : ''}`}
               onClick={() => setActiveTab('history')}
             >
@@ -115,21 +107,21 @@ const HTSResultCard = ({ result }) => {
                     <div className="rates-cell">{formatRate(result.section301Tariff)}</div>
                     <div className="rates-cell">中国</div>
                   </div>
-                  {result.specialPrograms && result.specialPrograms.map((program, index) => (
-                    <div className="rates-row" key={index}>
-                      <div className="rates-cell">{program.name}</div>
-                      <div className="rates-cell">{formatRate(program.rate)}</div>
-                      <div className="rates-cell">{program.countries}</div>
-                    </div>
-                  ))}
+                  {result.specialPrograms &&
+                    result.specialPrograms.map((program, index) => (
+                      <div className="rates-row" key={index}>
+                        <div className="rates-cell">{program.name}</div>
+                        <div className="rates-cell">{formatRate(program.rate)}</div>
+                        <div className="rates-cell">{program.countries}</div>
+                      </div>
+                    ))}
                 </div>
-                
+
                 <div className="total-rate-box">
                   <div className="total-rate-title">中国输美实际关税总计:</div>
                   <div className="total-rate-value">
                     {formatRate(
-                      (parseFloat(result.mfnRate || '0') + 
-                      parseFloat(result.section301Tariff || '0')).toFixed(1)
+                      (parseFloat(result.mfnRate || '0') + parseFloat(result.section301Tariff || '0')).toFixed(1),
                     )}
                   </div>
                 </div>
@@ -167,16 +159,16 @@ const HTSResultCard = ({ result }) => {
           </div>
 
           <div className="card-actions">
-          <button className="action-button save-button">
+            <button className="action-button save-button">
               <i className="icon-bookmark"></i> 收藏
             </button>
             <button className="action-button export-button">
               <i className="icon-download"></i> 导出PDF
             </button>
-            <a 
-              href={`https://hts.usitc.gov/?query=${result.htsCode}`} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={`https://hts.usitc.gov/?query=${result.htsCode}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="action-button source-button"
             >
               <i className="icon-external-link"></i> 查看来源
