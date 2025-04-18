@@ -381,7 +381,7 @@ export const AppRoutes = () => {
                   isAuthenticated={isAuthenticated}
                   stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
                 >
-                  <DutyGeniePage />
+                  <DutyGeniePage t={t} userAccessToken={accessToken} />
                 </AppLayoutCenter>
               </div>
             }

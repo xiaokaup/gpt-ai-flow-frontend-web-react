@@ -1,6 +1,11 @@
 // 模拟 HTS 查询 API 服务
 // 实际项目中应替换为真实的 API 调用
 
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { queryHtsCodes_for_dutyGenie_from_backend } from '../../../../gpt-ai-flow-common/Module_v5/TBackendExternalSource';
+import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
+import { IHTSCodeItem } from '../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
+
 // 模拟数据库
 const htsDatabase = {
   8471300100: {
@@ -117,31 +122,42 @@ const htsDatabase = {
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // 搜索HTS编码
-export const searchHtsCodes = async (htsCodes) => {
-  // 模拟API延迟
-  await delay(1500);
+export const searchHtsCodes = async (htsCodes: string[], userAccessToken: string, locale: ELocale) => {
+  // console.log('htsCodes:', htsCodes);
 
-  // 查询结果
-  const results = htsCodes.map((code) => {
-    // 检查是否存在于数据库
-    if (htsDatabase[code]) {
-      return htsDatabase[code];
-    }
+  const results: IHTSCodeItem[] = await queryHtsCodes_for_dutyGenie_from_backend(
+    htsCodes,
+    userAccessToken,
+    locale,
+    CONSTANTS_GPT_AI_FLOW_COMMON,
+  );
 
-    // 如果不存在，返回一个基本结构但标记为"未找到"
-    return {
-      htsCode: code,
-      description: '未找到该HTS编码的信息',
-      chapter: 'N/A',
-      effectiveDate: 'N/A',
-      generalRate: 'N/A',
-      mfnRate: 'N/A',
-      section301Tariff: 'N/A',
-      notFound: true,
-    };
-  });
+  // === @DEPRECATED-old - start ===
+  // // 模拟API延迟
+  // await delay(1500);
 
-  return results;
+  // // 查询结果
+  // const results = htsCodes.map((code) => {
+  //   // 检查是否存在于数据库
+  //   if (htsDatabase[code]) {
+  //     return htsDatabase[code];
+  //   }
+
+  //   // 如果不存在，返回一个基本结构但标记为"未找到"
+  //   return {
+  //     htsCode: code,
+  //     description: '未找到该HTS编码的信息',
+  //     chapter: 'N/A',
+  //     effectiveDate: 'N/A',
+  //     generalRate: 'N/A',
+  //     mfnRate: 'N/A',
+  //     section301Tariff: 'N/A',
+  //     notFound: true,
+  //   };
+  // });
+  // === @DEPRECATED-old - end ===
+
+  return results || []; // @TOFIX:  do we really need `|| []`
 };
 
 // 获取HTS编码详情
