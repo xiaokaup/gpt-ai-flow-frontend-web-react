@@ -123,7 +123,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // 搜索HTS编码
 export const searchHtsCodes = async (htsCodes: string[], userAccessToken: string, locale: ELocale) => {
-  console.log('htsCodes:', htsCodes);
+  // console.log('htsCodes:', htsCodes);
 
   const results: IHTSCodeItem[] = await queryHtsCodes_for_dutyGenie_from_backend(
     htsCodes,

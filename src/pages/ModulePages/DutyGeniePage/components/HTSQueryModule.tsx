@@ -43,7 +43,7 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
 
       // 调用 API 查询服务
       const results: IHTSCodeItem[] = await searchHtsCodes(htsCodes, userAccessToken, t.currentLocale);
-      console.log('results from searchHtsCodes', results);
+      // console.log('results from searchHtsCodes', results);
       setSearchResults(results);
 
       // 更新最近搜索记录
