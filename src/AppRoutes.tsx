@@ -376,7 +376,7 @@ export const AppRoutes = () => {
           <Route
             path="dutygenie"
             element={
-              <div className="App h-full">
+              <div className="App">
                 <AppLayoutCenter
                   isAuthenticated={isAuthenticated}
                   stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
