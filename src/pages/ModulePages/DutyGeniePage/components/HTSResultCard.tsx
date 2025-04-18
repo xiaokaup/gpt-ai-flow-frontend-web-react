@@ -121,7 +121,10 @@ const HTSResultCard = ({ result }) => {
                   <div className="total-rate-title">中国输美实际关税总计:</div>
                   <div className="total-rate-value">
                     {formatRate(
-                      (parseFloat(result.mfnRate || '0') + parseFloat(result.section301Tariff || '0')).toFixed(1),
+                      (
+                        parseFloat(result.mfnRate === 'Free' ? '0' : result.mfnRate || '0') +
+                        parseFloat(result.section301Tariff === 'Free' ? '0' : result.section301Tariff || '0')
+                      ).toFixed(1),
                     )}
                   </div>
                 </div>
