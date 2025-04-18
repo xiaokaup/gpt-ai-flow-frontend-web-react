@@ -124,17 +124,17 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
                 <div className="total-rate-box">
                   <div className="total-rate-title">
                     中国输美实际关税总计
-                    {isMFNRate && <span>(最惠国税率 + 301条款)</span>}
-                    {!isMFNRate && <span>(一般税率 + 301条款)</span>}:
+                    {!isMFNRate && <span>(一般税率 + 301条款)</span>}
+                    {isMFNRate && <span>(最惠国税率 + 301条款)</span>}:
                   </div>
-                  {isMFNRate && (
-                    <div className="total-rate-value">
-                      {formatRate((parseFloat(result.mfnRate) + parseFloat(result.section301Tariff)).toFixed(1))}
-                    </div>
-                  )}
                   {!isMFNRate && (
                     <div className="total-rate-value">
                       {formatRate((parseFloat(result.generalRate) + parseFloat(result.section301Tariff)).toFixed(1))}
+                    </div>
+                  )}
+                  {isMFNRate && (
+                    <div className="total-rate-value">
+                      {formatRate((parseFloat(result.mfnRate) + parseFloat(result.section301Tariff)).toFixed(1))}
                     </div>
                   )}
                 </div>
