@@ -176,7 +176,7 @@ export const AppMenu = (props: {
                   alt="image"
                   className="w-[36px] h-[36px] mr-2"
                 />
-                <span className="font-bold text-green-600">{t.get('Model_version')}</span>
+                <span className="font-bold text-green-600">{t.get('Model Edition')}</span>
               </div>
             )}
           </a>
