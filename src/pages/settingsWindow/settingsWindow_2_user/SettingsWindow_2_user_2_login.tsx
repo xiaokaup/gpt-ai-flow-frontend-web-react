@@ -55,6 +55,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
   const from = query.get('from');
   const hasFromQuery = !!from;
   const isFromLittleRedBook = from === 'littleRedBook';
+  const isFromDutyGenie = from === 'dutyGenie';
 
   const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDB_default;
@@ -129,7 +130,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
             <div className="flex items-center">
               <img
                 className="w-16 rounded-sm"
-                src="https://www.gptaiflow.tech//img/icons/2024-11-13-img-36-logo-xiaoHongShu.png"
+                src="https://www.gptaiflow.tech/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png"
                 alt="icon-little-red-book"
               />
               <div className="flex flex-col space-y-2">
@@ -142,6 +143,28 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
               </div>
             </div>
             <p style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}>
+              {t.get('Join 1000+ users discovering real Chinese social experiences')}
+            </p>
+          </div>
+        )}
+        {hasFromQuery && isFromDutyGenie && (
+          <div className="mt-4 mb-8">
+            <div className="flex items-center">
+              <img
+                className="w-16 rounded-sm"
+                src="https://www.gptaiflow.tech/pages/module-pages/duty-genie/2025-04-17-img-1-logo-taxes.png"
+                alt="icon-duty-genie"
+              />
+              <div className="flex flex-col space-y-2">
+                <span className="text-2xl font-bold ml-4">
+                  {t.get('Join the Little Red Book record beautiful life')}
+                </span>
+                <span className="text-xl ml-4">
+                  {t.get('Create, Connect, and Grow Your Presence on Little Red Book')}
+                </span>
+              </div>
+            </div>
+            <p className="text-center" style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}>
               {t.get('Join 1000+ users discovering real Chinese social experiences')}
             </p>
           </div>
@@ -247,7 +270,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                           if (!hasFromQuery) {
                             navigate('/app/signUp');
                           }
-                          if (hasFromQuery && isFromLittleRedBook) {
+                          if (hasFromQuery) {
                             navigate(`/app/signUp?from=${from}`);
                           }
                         }}
