@@ -78,7 +78,7 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
         </div>
 
         {/* <!--Switch--> */}
-        <div className="tabs mt-12">
+        <div className="tabs mt-12 !hidden">
           <div className="flex justify-center items-center bg-gray-100 rounded-full p-1.5 max-w-lg mx-auto">
             <a
               href="javascript:void(0)"
@@ -121,126 +121,130 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
 
         {/* <!--Pricing table--> */}
         <div className="pricing-table-container">
-          <div className="pricing-table paricing-table-model !mt-12 container space-y-12 md:space-y-0 md:grid md:grid-cols-1 md:gap-x-8">
-            {/* 享受工具版所有权益，使用多少付多少，官方大模型支持 */}
-            <div className="relative p-8 border border-gray-200 rounded-2xl shadow-sm flex flex-col w-1/2 m-auto">
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold">{t.get('Model_version')}</h3>
-                <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide transform -translate-y-1/2">
-                  {t.get('Most popular')}
-                </p>
-                <p className="mt-4 flex items-baseline">
-                  <span className="text-5xl font-extrabold tracking-tight">
-                    {locale_for_currency === ELocale.EN ? '$0.95' : '￥6.95'}
-                  </span>
-                  <span className="ml-1 text-xl font-semibold">/{t.get('month')}</span>
-                  &nbsp;
-                  <span className="text-2xl"> + {t.get('Excess usage fees')}</span>
-                </p>
-                <p className="mt-6">
-                  {t.get('You want to use official large model support and enjoy a flexible pay-as-you-go plan')}
-                </p>
-                <ul role="list" className="mt-6 space-y-6">
-                  {[
-                    pricingLocaleDict[locale]['人设系统'],
-                    pricingLocaleDict[locale]['官方提供大模型支持'],
-                    pricingLocaleDict[locale]['所有 AI 工作流模块无限使用次数'],
-                    pricingLocaleDict[locale]['使用多少支付多少'],
-                    pricingLocaleDict[locale]['定制化需求模块支持'],
-                  ].map((item, index) => (
-                    <li className="flex" key={index}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+          <div className="pricing-table paricing-table-model !mt-12 container">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* 享受工具版所有权益，使用多少付多少，官方大模型支持 */}
+              <div className="relative p-6 border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold">{t.get('Model_version')}</h3>
+                  <p className="absolute top-0 py-1.5 px-4 bg-emerald-500 text-white rounded-full text-xs font-semibold uppercase tracking-wide transform -translate-y-1/2">
+                    {t.get('Most popular')}
+                  </p>
+                  <p className="mt-4 flex items-baseline flex-wrap">
+                    <span className="text-4xl font-extrabold tracking-tight">
+                      {locale_for_currency === ELocale.EN ? '$0.95' : '￥6.95'}
+                    </span>
+                    <span className="ml-1 text-lg font-semibold">/{t.get('month')}</span>
+                    &nbsp;
+                    <span className="text-lg"> + {t.get('Excess usage fees')}</span>
+                  </p>
+                  <p className="mt-4 text-sm">
+                    {t.get('You want to use official large model support and enjoy a flexible pay-as-you-go plan')}
+                  </p>
+                  <ul role="list" className="mt-4 space-y-3">
+                    {[
+                      pricingLocaleDict[locale]['人设系统'],
+                      pricingLocaleDict[locale]['官方提供大模型支持'],
+                      pricingLocaleDict[locale]['所有 AI 工作流模块无限使用次数'],
+                      pricingLocaleDict[locale]['使用多少支付多少'],
+                      pricingLocaleDict[locale]['定制化需求模块支持'],
+                    ].map((item, index) => (
+                      <li className="flex" key={index}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="flex-shrink-0 w-5 h-5 text-emerald-500"
+                          aria-hidden="true"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span className="ml-2 text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button
+                  type="button"
+                  className="bg-emerald-500 text-white hover:bg-emerald-600 mt-6 block w-full py-2 px-4 border border-transparent rounded-md text-center font-medium"
+                  onClick={() => {
+                    createAndOpenStripeCheckoutSession_v3(
+                      stripePrice[EStripePrice_nickname.STARTAI_MODEL],
+                      EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                      {
+                        trial_period_days: 7,
+                      },
+                    );
+                  }}
+                >
+                  {t.get('Start Trial')}
+                </button>
               </div>
-              <button
-                type="button"
-                className="bg-emerald-500 text-white hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
-                onClick={() => {
-                  createAndOpenStripeCheckoutSession_v3(
-                    stripePrice[EStripePrice_nickname.STARTAI_MODEL],
-                    EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
-                    {
-                      trial_period_days: 7,
-                    },
-                  );
-                }}
-              >
-                {t.get('Start Trial')}
-              </button>
-            </div>
 
-            {/* 模块: 关税精灵 */}
-            <div className="relative p-8 border border-gray-200 rounded-2xl shadow-sm flex flex-col w-1/2 m-auto">
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold">{pricingLocaleDict[locale]['关税精灵']}</h3>
-                <p className="mt-4 flex items-baseline">
-                  <span className="text-5xl font-extrabold tracking-tight">
-                    {locale_for_currency === ELocale.EN ? '$9.95' : '￥69.95'}
-                  </span>
-                  <span className="ml-1 text-xl font-semibold">/{t.get('month')}</span>
-                </p>
-                <p className="mt-6">
-                  {pricingLocaleDict[locale]['你希望获得专业的关税查询服务，并享受全面的通关资讯支持']}
-                </p>
-                <ul role="list" className="mt-6 space-y-6">
-                  {[
-                    { key: '关税精灵_功能_1_key', value: '关税精灵_功能_1_value' },
-                    { key: '关税精灵_功能_2_key', value: '关税精灵_功能_2_value' },
-                    { key: '关税精灵_功能_3_key', value: '关税精灵_功能_3_value' },
-                  ].map((item, index) => (
-                    <li className="flex" key={index}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 w-6 h-6 text-emerald-500"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span className="ml-3">
-                        <b>{pricingLocaleDict[locale][item.key]}</b>: {pricingLocaleDict[locale][item.value]}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+              {/* 模块: 关税精灵 */}
+              <div className="relative p-6 border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold">{pricingLocaleDict[locale]['关税精灵']}</h3>
+                  <p className="mt-4 flex items-baseline">
+                    <span className="text-4xl font-extrabold tracking-tight">
+                      {locale_for_currency === ELocale.EN ? '$9.95' : '￥69.95'}
+                    </span>
+                    <span className="ml-1 text-lg font-semibold">/{t.get('month')}</span>
+                  </p>
+                  <p className="mt-4 text-sm">
+                    {pricingLocaleDict[locale]['你希望获得专业的关税查询服务，并享受全面的通关资讯支持']}
+                  </p>
+                  <ul role="list" className="mt-4 space-y-3">
+                    {[
+                      { key: '关税精灵_功能_1_key', value: '关税精灵_功能_1_value' },
+                      { key: '关税精灵_功能_2_key', value: '关税精灵_功能_2_value' },
+                      { key: '关税精灵_功能_3_key', value: '关税精灵_功能_3_value' },
+                    ].map((item, index) => (
+                      <li className="flex" key={index}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="flex-shrink-0 w-5 h-5 text-emerald-500"
+                          aria-hidden="true"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span className="ml-2 text-sm">
+                          <b>{pricingLocaleDict[locale][item.key]}</b>: {pricingLocaleDict[locale][item.value]}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button
+                  type="button"
+                  className="bg-emerald-500 text-white hover:bg-emerald-600 mt-6 block w-full py-2 px-4 border border-transparent rounded-md text-center font-medium"
+                  onClick={() => {
+                    createAndOpenStripeCheckoutSession_v3(
+                      stripePrice[EStripePrice_nickname.MODULE_DUTY_GENIE],
+                      EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
+                      {},
+                    );
+                  }}
+                >
+                  {t.get('Start Trial')}
+                </button>
               </div>
-              <button
-                type="button"
-                className="bg-emerald-500 text-white hover:bg-emerald-600 mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium"
-                onClick={() => {
-                  createAndOpenStripeCheckoutSession_v3(
-                    stripePrice[EStripePrice_nickname.MODULE_DUTY_GENIE],
-                    EStripeCheckoutSessionPaymentMode.SUBSCRIPTION,
-                    {},
-                  );
-                }}
-              >
-                {t.get('Start Trial')}
-              </button>
+
+              {/* 这里可以添加更多卡片 */}
             </div>
           </div>
 
