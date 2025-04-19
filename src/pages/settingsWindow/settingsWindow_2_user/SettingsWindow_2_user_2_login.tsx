@@ -18,20 +18,21 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import { IUserDB, IUserDB_default } from '../../../gpt-ai-flow-common/interface-database/IUserDB';
 import { useUserDB } from '../../../gpt-ai-flow-common/hooks/useUserDB';
 
-const getSuccessLoginRedirectUrl = (
-  navigate: NavigateFunction,
-  hasFromQuery: boolean,
-  isFromLittleRedBook: boolean,
-) => {
+const getSuccessLoginRedirectUrl = (navigate: NavigateFunction, hasFromQuery: boolean, from: string) => {
   if (!hasFromQuery) {
     navigate('/app/proMode/features');
     window.location.reload();
     return;
   }
-  if (hasFromQuery && isFromLittleRedBook) {
+  if (hasFromQuery && from === 'littleRedBook') {
     navigate(
       `/app/proMode?version=v4&role=xiaoHongShu-platform&tabPane_uuid=writingPostAgent%20-%20xiaoHongShu%20platform`,
     );
+    window.location.reload();
+    return;
+  }
+  if (hasFromQuery && from === 'dutyGenie') {
+    navigate(`/app/modules/dutyGenie`);
     window.location.reload();
     return;
   }
@@ -71,7 +72,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
   useEffect(() => {
     if (isAuthenticated) {
-      getSuccessLoginRedirectUrl(navigate, hasFromQuery, isFromLittleRedBook);
+      getSuccessLoginRedirectUrl(navigate, hasFromQuery, from);
     }
   }, [isAuthenticated, navigate]);
 
@@ -96,7 +97,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
       await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-      getSuccessLoginRedirectUrl(navigate, hasFromQuery, isFromLittleRedBook);
+      getSuccessLoginRedirectUrl(navigate, hasFromQuery, from);
     } catch (error: any) {
       message.error({
         content: error?.message,
@@ -201,7 +202,7 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
 
             await new Promise((resolve) => setTimeout(resolve, 200)); // add a delay
 
-            getSuccessLoginRedirectUrl(navigate, hasFromQuery, isFromLittleRedBook);
+            getSuccessLoginRedirectUrl(navigate, hasFromQuery, from);
           }}
           onError={() => {
             console.log('Login Failed');
