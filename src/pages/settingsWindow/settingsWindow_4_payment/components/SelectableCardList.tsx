@@ -227,7 +227,7 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
       },
       {
         id: EStripePrice_nickname.MODULE_DUTY_GENIE,
-        title: t.get(EStripePrice_nickname.MODULE_DUTY_GENIE),
+        title: t.get('Tariff Genie Module - Intelligent Tariff Query and Tracking Tool'),
         priceSign: '$',
         price: '9.95',
         prices: stripePrices_with_locale[EStripePrice_nickname.MODULE_DUTY_GENIE],
@@ -243,7 +243,7 @@ export const SelectableCardList = (props: ISelectableCardList_input) => {
       },
       {
         id: EStripePrice_nickname.MODULE_DUTY_GENIE,
-        title: t.get(EStripePrice_nickname.MODULE_DUTY_GENIE),
+        title: t.get('Tariff Genie Module - Intelligent Tariff Query and Tracking Tool'),
         priceSign: '¥',
         price: '69.95',
         prices: stripePrices_with_locale[EStripePrice_nickname.MODULE_DUTY_GENIE],
