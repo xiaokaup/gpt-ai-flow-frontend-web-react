@@ -156,16 +156,12 @@ export const SettingsWindow_2_user_2_login = (props: ISettingsWindow_2_user_2_lo
                 alt="icon-duty-genie"
               />
               <div className="flex flex-col space-y-2">
-                <span className="text-2xl font-bold ml-4">
-                  {t.get('Join the Little Red Book record beautiful life')}
-                </span>
-                <span className="text-xl ml-4">
-                  {t.get('Create, Connect, and Grow Your Presence on Little Red Book')}
-                </span>
+                <span className="text-2xl font-bold ml-4">{t.get('Unlock Smart Customs with Duty Genie')}</span>
+                <span className="text-xl ml-4">{t.get('Navigate, Save, and Master Global Tariffs Like a Pro')}</span>
               </div>
             </div>
             <p className="text-center" style={{ marginLeft: 4, color: '#7C7C7C', cursor: 'pointer' }}>
-              {t.get('Join 1000+ users discovering real Chinese social experiences')}
+              {t.get('Join 10,000+ savvy shoppers optimizing their international purchases')}
             </p>
           </div>
         )}
