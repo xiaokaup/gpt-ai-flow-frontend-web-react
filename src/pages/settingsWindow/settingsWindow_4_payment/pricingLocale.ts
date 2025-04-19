@@ -15,7 +15,7 @@ export const pricingLocaleDict: Record<ELocale, { [key: string]: string }> = {
     '一次购买，终身使用': 'One-time purchase, lifetime use',
 
     // Duty Genie
-    关税精灵: 'Tariff Genie - Intelligent Tariff Query and Tracking Tool',
+    关税精灵: 'Tariff Genie Module - Intelligent Tariff Query and Tracking Tool',
     '你希望获得专业的关税查询服务，并享受全面的通关资讯支持':
       'You want to receive professional tariff query services and enjoy comprehensive customs clearance information support',
     关税精灵_功能:
@@ -41,7 +41,7 @@ export const pricingLocaleDict: Record<ELocale, { [key: string]: string }> = {
     '一次购买，终身使用': '一次购买，终身使用',
 
     // Duty Genie
-    关税精灵: '关税精灵 - 智能关税查询与追踪工具',
+    关税精灵: '关税精灵模块 - 智能关税查询与追踪工具',
     '你希望获得专业的关税查询服务，并享受全面的通关资讯支持': '你希望获得专业的关税查询服务，并享受全面的通关资讯支持',
     关税精灵_功能: '关税精灵是一款高效便捷的关税查询与推荐工具，帮助您快速获取准确的关税信息，优化跨境贸易成本。',
     关税精灵_功能_1_key: 'HTS 关税查询',
