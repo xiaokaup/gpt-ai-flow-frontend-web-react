@@ -118,6 +118,10 @@ export const AppMenu = (props: {
         </Link>
       </Menu.Item>
 
+      <Menu.Item key="moduel-dutyGenie">
+        <Link to="/app/modules/dutygenie">{t.get('Duty Genie')} (beta)</Link>
+      </Menu.Item>
+
       <Menu.Item key="Go Shop Door">
         <Link to="https://www.goshopdoor.com/" target="__blank">
           {`${t.get('Free e-commerce portal tool')}`}
