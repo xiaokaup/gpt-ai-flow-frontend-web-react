@@ -1,6 +1,7 @@
 import HTSQueryModule from './subPages/HTSQuery/HTSQueryModule';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { Tabs, TabsProps } from 'antd';
+import DutyGenieChat from './subPages/DutyGenieChat/DutyGenieChat';
 
 export interface IDutyGeniePage_input {
   t: IGetT_frontend_output;
@@ -18,6 +19,11 @@ export const DutyGeniePage = (props: IDutyGeniePage_input) => {
       key: 'HTSQueryModule',
       label: 'HTS 关税查询',
       children: <HTSQueryModule t={t} userAccessToken={userAccessToken} />,
+    },
+    {
+      key: 'DutyGenieChat',
+      label: '关税精灵 HTS 关税查询报告',
+      children: <DutyGenieChat />,
     },
   ];
 
