@@ -182,14 +182,14 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
           </div>
 
           <div className="card-actions">
-            <button className="action-button save-button">
+            <button className="action-button save-button !hidden">
               <i className="icon-bookmark"></i> 收藏
             </button>
             <button className="action-button export-button">
               <i className="icon-download"></i> 导出PDF
             </button>
             <a
-              href={`https://hts.usitc.gov/?query=${result.htsCode}`}
+              href={`https://hts.usitc.gov/search?query=${result.htsCode}`}
               target="_blank"
               rel="noopener noreferrer"
               className="action-button source-button"
