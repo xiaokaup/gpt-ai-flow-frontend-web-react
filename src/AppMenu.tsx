@@ -113,13 +113,11 @@ export const AppMenu = (props: {
       </Menu.Item> */}
 
       <Menu.Item key="proMode-doc">
-        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/summary`}>
-          {t.get('Doc')}
-        </Link>
+        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-modules/summary`}>{t.get('Doc')}</Link>
       </Menu.Item>
 
       <Menu.Item key="moduel-dutyGenie">
-        <Link to="/app/modules/dutygenie">{t.get('Duty Genie')} (beta)</Link>
+        <Link to="/app/modules/dutygenie">{t.get('Duty Genie')}</Link>
       </Menu.Item>
 
       <Menu.Item key="Go Shop Door">
