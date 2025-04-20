@@ -1,5 +1,6 @@
-import HTSQueryModule from './components/HTSQueryModule';
+import HTSQueryModule from './components/HTSQeury/HTSQueryModule';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import { Tabs, TabsProps } from 'antd';
 
 export interface IDutyGeniePage_input {
   t: IGetT_frontend_output;
@@ -8,9 +9,21 @@ export interface IDutyGeniePage_input {
 export const DutyGeniePage = (props: IDutyGeniePage_input) => {
   const { t, userAccessToken } = props;
 
+  const onChange = (key: string) => {
+    console.log(key);
+  };
+
+  const items: TabsProps['items'] = [
+    {
+      key: 'HTSQueryModule',
+      label: 'HTS 关税查询',
+      children: <HTSQueryModule t={t} userAccessToken={userAccessToken} />,
+    },
+  ];
+
   return (
-    <div>
-      <HTSQueryModule t={t} userAccessToken={userAccessToken} />
+    <div className="py-10">
+      <Tabs defaultActiveKey="HTSQueryModule" items={items} onChange={onChange} />
     </div>
   );
 };

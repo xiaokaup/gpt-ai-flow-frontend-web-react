@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { searchHtsCodes } from '../services/htsService';
+import { searchHtsCodes } from '../../services/htsService';
 import HTSResultCard from './HTSResultCard';
-import './HTSQeury/HTSQueryModule.css';
-import { IHTSCodeItem } from '../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
-import { IDutyGeniePage_input } from '..';
+import './HTSQueryModule.css';
+import { IHTSCodeItem } from '../../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
+import { IDutyGeniePage_input } from '../..';
 
 const HTSQueryModule = (props: IDutyGeniePage_input) => {
   const { t, userAccessToken } = props;
