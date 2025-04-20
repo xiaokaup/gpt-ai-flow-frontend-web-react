@@ -5,6 +5,9 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/
 import { queryHtsCodes_for_dutyGenie_from_backend } from '../../../../gpt-ai-flow-common/Module_v5/TBackendExternalSource_for_dutyGenie';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { IHTSCodeItem } from '../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
+import TCryptoJSFile from '../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { EModule_name } from '../../../../gpt-ai-flow-common/enum-app/EModule';
+import { ELLM_name, ELLM_IMAGE_name } from '../../../../gpt-ai-flow-common/enum-backend/ELLM';
 
 // 模拟数据库
 const htsDatabase = {
@@ -125,11 +128,18 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export const searchHtsCodes = async (htsCodes: string[], userAccessToken: string, locale: ELocale) => {
   // console.log('htsCodes:', htsCodes);
 
+  const llmOptions = {
+    llmName: ELLM_name.DEEPSEEK_V3,
+    llmImageName: ELLM_IMAGE_name.DEFAULT,
+    llmSecret: '',
+    llmTemperature: 0,
+  };
   const results: IHTSCodeItem[] = await queryHtsCodes_for_dutyGenie_from_backend(
-    htsCodes,
+    { htsCodes, llmOptions, contextType: EModule_name.DUTY_GENIE_01_CHECK_HTS_CODE },
     userAccessToken,
     locale,
     CONSTANTS_GPT_AI_FLOW_COMMON,
+    TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
   );
 
   // === @DEPRECATED-old - start ===
