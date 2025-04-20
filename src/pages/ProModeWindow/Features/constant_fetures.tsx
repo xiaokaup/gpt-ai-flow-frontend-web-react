@@ -9,7 +9,7 @@ import {
   ESocialPlatform_moduleName,
   ESocialPlatform_platformName,
 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
-import { docBaseUrl, webAppUrl } from './constant';
+import { webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
 export const getModules = (locale: ELocale) => {
