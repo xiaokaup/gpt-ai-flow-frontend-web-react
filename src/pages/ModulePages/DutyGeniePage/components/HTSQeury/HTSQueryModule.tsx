@@ -1,7 +1,7 @@
+import './HTSQeury/HTSQueryModule.css';
 import { useState } from 'react';
 import { searchHtsCodes } from '../../services/htsService';
 import HTSResultCard from './HTSResultCard';
-import './HTSQueryModule.css';
 import { IHTSCodeItem } from '../../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
 import { IDutyGeniePage_input } from '../..';
 
