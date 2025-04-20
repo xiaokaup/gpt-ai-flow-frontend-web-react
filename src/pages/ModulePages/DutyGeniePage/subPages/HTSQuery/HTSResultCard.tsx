@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import './HTSResultCard.css';
+import { useState } from 'react';
 import { IHTSCodeItem } from '../../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
 
 const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {

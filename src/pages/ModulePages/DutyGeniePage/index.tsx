@@ -1,4 +1,4 @@
-import HTSQueryModule from './components/HTSQeury/HTSQueryModule';
+import HTSQueryModule from './subPages/HTSQuery/HTSQueryModule';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { Tabs, TabsProps } from 'antd';
 
