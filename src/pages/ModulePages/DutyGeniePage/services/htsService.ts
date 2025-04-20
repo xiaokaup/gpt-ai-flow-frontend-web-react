@@ -2,7 +2,7 @@
 // 实际项目中应替换为真实的 API 调用
 
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../gpt-ai-flow-common/config/constantGptAiFlow';
-import { queryHtsCodes_for_dutyGenie_from_backend } from '../../../../gpt-ai-flow-common/Module_v5/TBackendExternalSource';
+import { queryHtsCodes_for_dutyGenie_from_backend } from '../../../../gpt-ai-flow-common/Module_v5/TBackendExternalSource_for_dutyGenie';
 import { ELocale } from '../../../../gpt-ai-flow-common/enum-app/ELocale';
 import { IHTSCodeItem } from '../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
 

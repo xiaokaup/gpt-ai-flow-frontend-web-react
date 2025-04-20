@@ -23,7 +23,7 @@ export const DutyGeniePage = (props: IDutyGeniePage_input) => {
     {
       key: 'DutyGenieChat',
       label: '关税精灵 HTS 关税查询报告',
-      children: <DutyGenieChat />,
+      children: <DutyGenieChat t={t} userAccessToken={userAccessToken} />,
     },
   ];
 

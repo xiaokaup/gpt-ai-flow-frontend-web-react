@@ -1,7 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
 import './DutyGenieChat.css';
+import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { queryHtsCode_searchModule_for_dutyGenie_from_backend } from '../../../../../gpt-ai-flow-common/Module_v5/TBackendExternalSource_for_dutyGenie';
+import { IDutyGeniePage_input } from '../..';
+import TCryptoJSFile from '../../../../../gpt-ai-flow-common/tools/TCrypto-web';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { ELLM_IMAGE_name, ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
+import { EModule_name } from '../../../../../gpt-ai-flow-common/enum-app/EModule';
+import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
 
-function DutyGenieChat() {
+function DutyGenieChat(props: IDutyGeniePage_input) {
+  const { t, userAccessToken } = props;
+
   const [messages, setMessages] = useState([
     { text: '你好！我是 关税精灵，你想要获得哪个 HTS 关税的查询结果？', sender: 'bot' },
   ]);
@@ -31,11 +41,27 @@ function DutyGenieChat() {
     try {
       // 这里应该是调用实际的 AI API
       // 模拟 API 调用延迟
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // 模拟 AI 回复
+      const llmOptions = {
+        llmName: ELLM_name.DEEPSEEK_V3,
+        llmImageName: ELLM_IMAGE_name.DEFAULT,
+        llmSecret: '',
+        llmTemperature: 0,
+      };
+      const data = { input: userMessage.text, llmOptions, contextType: EModule_name.DUTY_GENIE_01_CHECK_HTS_CODE };
+      const restuts_report = await queryHtsCode_searchModule_for_dutyGenie_from_backend(
+        data,
+        userAccessToken,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+      );
+      console.log('restuts_report', restuts_report);
+
+      // AI 回复消息
       const botResponse = {
-        text: `我收到了你的消息: "${inputText}"。这是一个模拟回复。`,
+        text: restuts_report,
         sender: 'bot',
       };
 
@@ -59,13 +85,17 @@ function DutyGenieChat() {
   return (
     <div className="chatbot-container">
       <div className="chatbot-header">
-        <h2>关税精灵 (单次 HTS 关税查询报告)</h2>
+        <h2>
+          关税精灵 (单次 HTS 关税查询报告)
+          {t.currentLocale === ELocale.ZH && <>🇨🇳</>}
+          {t.currentLocale === ELocale.EN && <>🇺🇸</>}
+        </h2>
       </div>
 
       <div className="messages-container">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}>
-            {message.text}
+            <ReactMarkdown>{message.text}</ReactMarkdown>
           </div>
         ))}
         {isLoading && (
