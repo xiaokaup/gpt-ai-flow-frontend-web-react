@@ -1,5 +1,4 @@
-import './DutyGenieChat.css';
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { queryHtsCode_searchModule_for_dutyGenie_from_backend } from '../../../../../gpt-ai-flow-common/Module_v5/TBackendExternalSource_for_dutyGenie';
 import { IDutyGeniePage_input } from '../..';
@@ -8,8 +7,19 @@ import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../../../gpt-ai-flow-common/conf
 import { ELLM_IMAGE_name, ELLM_name } from '../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { EModule_name } from '../../../../../gpt-ai-flow-common/enum-app/EModule';
 import { ELocale } from '../../../../../gpt-ai-flow-common/enum-app/ELocale';
+import './DutyGenieChat.css';
 
-function DutyGenieChat(props: IDutyGeniePage_input) {
+const RobotLogo = () => {
+  return (
+    <img
+      src="https://www.gptaiflow.tech/pages/module-pages/duty-genie/2025-04-17-img-1-logo-taxes.png"
+      alt="logo-taxes"
+      width={30}
+    />
+  );
+};
+
+const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
   const { t, userAccessToken } = props;
 
   const [messages, setMessages] = useState([
@@ -17,7 +27,8 @@ function DutyGenieChat(props: IDutyGeniePage_input) {
   ]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // 自动滚动到最新消息
   const scrollToBottom = () => {
@@ -27,6 +38,14 @@ function DutyGenieChat(props: IDutyGeniePage_input) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // 自动调整文本区域高度
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 150)}px`;
+    }
+  }, [inputText]);
 
   // 处理发送消息
   const handleSendMessage = async () => {
@@ -39,17 +58,18 @@ function DutyGenieChat(props: IDutyGeniePage_input) {
     setIsLoading(true);
 
     try {
-      // 这里应该是调用实际的 AI API
-      // 模拟 API 调用延迟
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
-
       const llmOptions = {
         llmName: ELLM_name.DEEPSEEK_V3,
         llmImageName: ELLM_IMAGE_name.DEFAULT,
         llmSecret: '',
         llmTemperature: 0,
       };
-      const data = { input: userMessage.text, llmOptions, contextType: EModule_name.DUTY_GENIE_01_CHECK_HTS_CODE };
+      const data = {
+        input: userMessage.text,
+        llmOptions,
+        contextType: EModule_name.DUTY_GENIE_01_CHECK_HTS_CODE,
+      };
+
       const restuts_report = await queryHtsCode_searchModule_for_dutyGenie_from_backend(
         data,
         userAccessToken,
@@ -75,7 +95,7 @@ function DutyGenieChat(props: IDutyGeniePage_input) {
   };
 
   // 处理按下 Enter 键
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
@@ -83,47 +103,84 @@ function DutyGenieChat(props: IDutyGeniePage_input) {
   };
 
   return (
-    <div className="chatbot-container">
-      <div className="chatbot-header">
-        <h2>
-          关税精灵 (单次 HTS 关税查询报告)
-          {t.currentLocale === ELocale.ZH && <>🇨🇳</>}
-          {t.currentLocale === ELocale.EN && <>🇺🇸</>}
-        </h2>
+    <div className="duty-genie-chat">
+      <div className="chat-header">
+        <h1>
+          关税精灵
+          <span className="subtitle">单次 HTS 关税查询报告</span>
+          {t.currentLocale === ELocale.ZH && <span className="locale-flag">🇨🇳</span>}
+          {t.currentLocale === ELocale.EN && <span className="locale-flag">🇺🇸</span>}
+        </h1>
       </div>
 
-      <div className="messages-container">
-        {messages.map((message, index) => (
-          <div key={index} className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}>
-            <ReactMarkdown>{message.text}</ReactMarkdown>
-          </div>
-        ))}
-        {isLoading && (
-          <div className="message bot-message loading">
-            <div className="loading-dots">
-              <span>.</span>
-              <span>.</span>
-              <span>.</span>
+      <div className="chat-container">
+        <div className="messages-area">
+          {messages.map((message, index) => (
+            <div key={index} className={`message-wrapper ${message.sender}`}>
+              {message.sender === 'user' && <div className="avatar">👤</div>}
+              <div className="message-content">
+                <ReactMarkdown>{message.text}</ReactMarkdown>
+              </div>
+              {message.sender === 'bot' && (
+                <div className="avatar">
+                  <RobotLogo />
+                </div>
+              )}
             </div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
+          ))}
+          {isLoading && (
+            <div className="message-wrapper bot">
+              <div className="message-content loading">
+                <div className="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <div className="avatar">
+                <RobotLogo />
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
 
-      <div className="input-container">
-        <textarea
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="输入消息..."
-          rows={1}
-        />
-        <button onClick={handleSendMessage} disabled={isLoading || inputText.trim() === ''}>
-          发送
-        </button>
+        <div className="input-area">
+          <div className="input-container">
+            <textarea
+              ref={textareaRef}
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="输入 HTS 代码或产品描述..."
+              rows={1}
+            />
+            <button className="send-button" onClick={handleSendMessage} disabled={isLoading || inputText.trim() === ''}>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M22 2L11 13"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M22 2L15 22L11 13L2 9L22 2Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="input-footer">
+            <span>按 Enter 发送，Shift+Enter 换行</span>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default DutyGenieChat;
