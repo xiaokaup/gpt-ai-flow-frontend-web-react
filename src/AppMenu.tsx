@@ -113,7 +113,7 @@ export const AppMenu = (props: {
       </Menu.Item> */}
 
       <Menu.Item key="proMode-doc">
-        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/social-media-post-creator`}>
+        <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-scenarios/summary`}>
           {t.get('Doc')}
         </Link>
       </Menu.Item>

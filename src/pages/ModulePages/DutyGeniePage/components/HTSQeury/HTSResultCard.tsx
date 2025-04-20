@@ -185,7 +185,7 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
             <button className="action-button save-button !hidden">
               <i className="icon-bookmark"></i> 收藏
             </button>
-            <button className="action-button export-button">
+            <button className="action-button export-button !hidden">
               <i className="icon-download"></i> 导出PDF
             </button>
             <a
