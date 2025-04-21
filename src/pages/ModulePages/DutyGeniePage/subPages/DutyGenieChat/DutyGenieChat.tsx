@@ -77,7 +77,7 @@ const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
         CONSTANTS_GPT_AI_FLOW_COMMON,
         TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
       );
-      console.log('restuts_report', restuts_report);
+      // console.log('restuts_report', restuts_report);
 
       // AI 回复消息
       const botResponse = {
@@ -88,7 +88,10 @@ const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
       setMessages((prevMessages) => [...prevMessages, botResponse]);
     } catch (error) {
       console.error('Error getting response from AI:', error);
-      setMessages((prevMessages) => [...prevMessages, { text: '抱歉，发生了错误，请稍后再试。', sender: 'bot' }]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: t.get('抱歉，发生了错误，请稍后再试。'), sender: 'bot' },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -96,6 +99,7 @@ const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
 
   // 处理按下 Enter 键
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isLoading) return;
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
@@ -106,8 +110,8 @@ const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
     <div className="duty-genie-chat">
       <div className="chat-header">
         <h1>
-          关税精灵
-          <span className="subtitle">单次 HTS 关税查询报告</span>
+          {t.get('Duty Genie')}
+          <span className="subtitle">{t.get('单次 HTS 关税查询报告')}</span>
           {t.currentLocale === ELocale.ZH && <span className="locale-flag">🇨🇳</span>}
           {t.currentLocale === ELocale.EN && <span className="locale-flag">🇺🇸</span>}
         </h1>
@@ -151,8 +155,9 @@ const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
               ref={textareaRef}
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="输入 HTS 代码或产品描述..."
+              onKeyDown={handleKeyPress}
+              // onKeyPress={handleKeyPress}
+              placeholder={t.get('输入 HTS 代码或产品描述...')}
               rows={1}
             />
             <button className="send-button" onClick={handleSendMessage} disabled={isLoading || inputText.trim() === ''}>
@@ -175,7 +180,7 @@ const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
             </button>
           </div>
           <div className="input-footer">
-            <span>按 Enter 发送，Shift+Enter 换行</span>
+            <span>{t.get('按 Enter 发送，Shift+Enter 换行')}</span>
           </div>
         </div>
       </div>

@@ -29,7 +29,12 @@ export const DutyGeniePage = (props: IDutyGeniePage_input) => {
 
   return (
     <div className="p-10 w-full">
-      <Tabs defaultActiveKey="HTSQueryModule" items={items} onChange={onChange} />
+      <Tabs
+        defaultActiveKey="HTSQueryModule"
+        // defaultActiveKey="DutyGenieChat"
+        items={items}
+        onChange={onChange}
+      />
     </div>
   );
 };
