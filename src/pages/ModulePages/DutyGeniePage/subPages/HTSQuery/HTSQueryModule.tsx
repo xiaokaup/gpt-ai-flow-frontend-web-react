@@ -117,7 +117,7 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
 9506910030`}
                 rows={5}
               />
-              <div className="">
+              <div className="hidden">
                 <p>用于测试:</p>
                 <p>
                   8471300100
