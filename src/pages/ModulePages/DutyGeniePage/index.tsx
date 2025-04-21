@@ -17,12 +17,12 @@ export const DutyGeniePage = (props: IDutyGeniePage_input) => {
   const items: TabsProps['items'] = [
     {
       key: 'HTSQueryModule',
-      label: 'HTS 关税查询',
+      label: t.get('HTS 关税查询'),
       children: <HTSQueryModule t={t} userAccessToken={userAccessToken} />,
     },
     {
       key: 'DutyGenieChat',
-      label: '关税精灵 HTS 关税查询报告',
+      label: t.get('关税精灵 HTS 关税查询报告'),
       children: <DutyGenieChat t={t} userAccessToken={userAccessToken} />,
     },
   ];

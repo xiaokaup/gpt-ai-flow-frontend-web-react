@@ -23,7 +23,7 @@ const DutyGenieChat: React.FC<IDutyGeniePage_input> = (props) => {
   const { t, userAccessToken } = props;
 
   const [messages, setMessages] = useState([
-    { text: '你好！我是 关税精灵，你想要获得哪个 HTS 关税的查询结果？', sender: 'bot' },
+    { text: t.get('你好！我是关税精灵。你想查询哪个 HTS 关税？'), sender: 'bot' },
   ]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);

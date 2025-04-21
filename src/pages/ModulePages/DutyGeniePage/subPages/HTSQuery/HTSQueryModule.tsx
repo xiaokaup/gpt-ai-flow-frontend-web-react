@@ -19,7 +19,7 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
     e.preventDefault();
 
     if (!searchInput.trim()) {
-      setError('请输入至少一个 HTS 编码');
+      setError(t.get('请输入至少一个 HTS 编码'));
       return;
     }
 
@@ -36,7 +36,7 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
       // 验证 HTS 编码格式
       const invalidCodes = htsCodes.filter((code) => !/^\d{4,10}$/.test(code));
       if (invalidCodes.length > 0) {
-        setError(`以下编码格式不正确: ${invalidCodes.join(', ')}`);
+        setError(`${t.get('以下编码格式不正确')}: ${invalidCodes.join(', ')}`);
         setIsLoading(false);
         return;
       }
@@ -51,7 +51,7 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
       setRecentSearches(updatedRecentSearches);
       localStorage.setItem('recentHtsSearches', JSON.stringify(updatedRecentSearches));
     } catch (err) {
-      setError('查询失败，请稍后重试: ' + err.message);
+      setError(t.get('查询失败，请稍后重试') + ': ' + err.message);
     } finally {
       setIsLoading(false);
     }
@@ -93,10 +93,11 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
   return (
     <div className="hts-query-container">
       <div className="hts-query-header">
-        <h2>HTS 关税查询</h2>
+        <h2>{t.get('HTS 关税查询')}</h2>
         <p className="hts-query-description">
-          查询美国海关关税编码(HTS)的详细信息，包括基本税率、最惠国税率和301条款加征关税等。
-          支持批量查询，每行输入一个HTS编码。
+          {t.get(
+            '查询美国海关关税编码(HTS)的详细信息，包括基本税率、最惠国税率和301条款加征关税等。支持批量查询，每行输入一个HTS编码。',
+          )}
         </p>
       </div>
 
@@ -104,19 +105,19 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
         <div className="hts-search-panel">
           <form onSubmit={handleSearch}>
             <div className="search-input-container">
-              <label htmlFor="htsSearch">HTS 编码查询 (每行一个编码)</label>
+              <label htmlFor="htsSearch">{t.get('HTS 编码查询 (每行一个编码)')}</label>
               <textarea
                 id="htsSearch"
                 className="hts-search-input"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="输入HTS编码，例如：
+                placeholder={`${t.get('输入HTS编码，例如：')}
 8471300100
 6104430000
-9506910030"
+9506910030`}
                 rows={5}
               />
-              <div className="hidden">
+              <div className="">
                 <p>用于测试:</p>
                 <p>
                   8471300100
@@ -148,16 +149,16 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
 
             <div className="search-actions">
               <button type="submit" className="search-button" disabled={isLoading}>
-                {isLoading ? '查询中...' : '查询关税'}
+                {isLoading ? t.get('查询中...') : t.get('查询关税')}
               </button>
 
               {searchResults.length > 0 && (
                 <>
                   <button type="button" className="clear-button" onClick={clearResults}>
-                    清空结果
+                    {t.get('清空结果')}
                   </button>
                   <button type="button" className="export-button" onClick={exportToCSV}>
-                    导出CSV
+                    {t.get('导出 CSV')}
                   </button>
                 </>
               )}
@@ -166,7 +167,7 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
 
           {recentSearches.length > 0 && (
             <div className="recent-searches">
-              <h3>最近搜索</h3>
+              <h3>{t.get('最近搜索')}</h3>
               <div className="recent-search-tags">
                 {recentSearches.map((code) => (
                   <span key={code} className="search-tag" onClick={() => addFromRecentSearch(code)}>
@@ -182,25 +183,27 @@ const HTSQueryModule = (props: IDutyGeniePage_input) => {
           {isLoading ? (
             <div className="loading-spinner">
               <div className="spinner"></div>
-              <p>正在查询关税信息...</p>
+              <p>{t.get('正在查询关税信息...')}</p>
             </div>
           ) : searchResults.length > 0 ? (
             <>
-              <h3>查询结果 ({searchResults.length})</h3>
+              <h3>
+                {t.get('查询结果')} ({searchResults.length})
+              </h3>
               <div className="results-list">
                 {searchResults.map((result) => (
-                  <HTSResultCard key={result.htsCode} result={result} />
+                  <HTSResultCard key={result.htsCode} t={t} result={result} />
                 ))}
               </div>
             </>
           ) : (
             <div className="no-results">
-              <p>请输入HTS编码开始查询</p>
+              <p>{t.get('请输入 HTS 编码开始查询')}</p>
               <ul className="search-tips">
-                <li>支持8-10位HTS编码</li>
-                <li>可同时查询多个编码（每行一个）</li>
-                <li>查询结果可导出为CSV文件</li>
-                <li>支持查看历史税率变化</li>
+                <li>{t.get('支持 8-10 位 HTS 编码')}</li>
+                <li>{t.get('可同时查询多个编码（每行一个）')}</li>
+                <li>{t.get('查询结果可导出为 CSV 文件')}</li>
+                <li>{t.get('支持查看历史税率变化')}</li>
               </ul>
             </div>
           )}

@@ -1,8 +1,9 @@
 import './HTSResultCard.css';
 import { useState } from 'react';
 import { IHTSCodeItem } from '../../../../../gpt-ai-flow-common/interface-app/5_external/IExternalResources_for_app';
+import { IGetT_frontend_output } from '../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
-const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
+const HTSResultCard = ({ t, result }: { t: IGetT_frontend_output; result: IHTSCodeItem }) => {
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('basic');
 
@@ -33,8 +34,10 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
       <div className="result-card-header" onClick={toggleExpand}>
         <div className="header-main-info">
           <span className="hts-code">{result.htsCode}</span>
-          <span className={`tariff-badge ${getTariffStatusClass()} relative right-10`}>
-            {result.section301Tariff ? `301关税: ${result.section301Tariff}` : '无301关税'}
+          <span
+            className={`tariff-badge ${getTariffStatusClass()} relative ${t.currentLocale === 'zh' ? 'right-10' : 'right-16'}`}
+          >
+            {result.section301Tariff ? `${t.get('301 关税')}: ${result.section301Tariff}` : t.get('无 301 关税')}
           </span>
         </div>
         <div className="header-description">
@@ -42,23 +45,23 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
             ? `${result.description.substring(0, 100)}...`
             : result.description}
         </div>
-        <button className="expand-button">{expanded ? '收起' : '展开'}</button>
+        <button className="expand-button">{expanded ? t.get('收起') : t.get('展开')}</button>
       </div>
 
       {expanded && (
         <div className="result-card-details">
           <div className="tabs">
             <button className={`tab ${activeTab === 'basic' ? 'active' : ''}`} onClick={() => setActiveTab('basic')}>
-              基本信息
+              {t.get('基本信息')}
             </button>
             <button className={`tab ${activeTab === 'rates' ? 'active' : ''}`} onClick={() => setActiveTab('rates')}>
-              详细税率
+              {t.get('详细税率')}
             </button>
             <button
               className={`tab ${activeTab === 'history' ? 'active' : ''}`}
               onClick={() => setActiveTab('history')}
             >
-              历史变更
+              {t.get('历史变更')}
             </button>
           </div>
 
@@ -66,23 +69,23 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
             {activeTab === 'basic' && (
               <div className="basic-info">
                 <div className="info-row">
-                  <span className="info-label">HTS编码:</span>
+                  <span className="info-label">{t.get('HTS 编码')}:</span>
                   <span className="info-value">{result.htsCode}</span>
                 </div>
                 <div className="info-row">
-                  <span className="info-label">商品描述:</span>
+                  <span className="info-label">{t.get('商品描述')}:</span>
                   <span className="info-value">{result.description}</span>
                 </div>
                 <div className="info-row">
-                  <span className="info-label">章节:</span>
+                  <span className="info-label">{t.get('章节')}:</span>
                   <span className="info-value">{result.chapter}</span>
                 </div>
                 <div className="info-row">
-                  <span className="info-label">生效日期:</span>
+                  <span className="info-label">{t.get('生效日期')}:</span>
                   <span className="info-value">{result.effectiveDate}</span>
                 </div>
                 <div className="info-row">
-                  <span className="info-label">单位:</span>
+                  <span className="info-label">{t.get('单位')}:</span>
                   <span className="info-value">{result.unit || 'N/A'}</span>
                 </div>
               </div>
@@ -92,24 +95,24 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
               <div className="rates-info">
                 <div className="rates-table">
                   <div className="rates-row header">
-                    <div className="rates-cell">税率类型</div>
-                    <div className="rates-cell">税率</div>
-                    <div className="rates-cell">适用国家/地区</div>
+                    <div className="rates-cell">{t.get('税率类型')}</div>
+                    <div className="rates-cell">{t.get('税率')}</div>
+                    <div className="rates-cell">{t.get('适用国家/地区')}</div>
                   </div>
                   <div className="rates-row">
-                    <div className="rates-cell">一般税率</div>
+                    <div className="rates-cell">{t.get('一般税率')}</div>
                     <div className="rates-cell">{formatRate(result.generalRate)}</div>
-                    <div className="rates-cell">非最惠国待遇国家</div>
+                    <div className="rates-cell">{t.get('非最惠国待遇国家')}</div>
                   </div>
                   <div className="rates-row">
-                    <div className="rates-cell">最惠国税率</div>
+                    <div className="rates-cell">{t.get('最惠国税率')}</div>
                     <div className="rates-cell">{formatRate(result.mfnRate)}</div>
-                    <div className="rates-cell">WTO成员国</div>
+                    <div className="rates-cell">{t.get('WTO 成员国')}</div>
                   </div>
                   <div className="rates-row">
-                    <div className="rates-cell">301条款加征</div>
+                    <div className="rates-cell">{t.get('301条款加征')}</div>
                     <div className="rates-cell">{formatRate(result.section301Tariff)}</div>
-                    <div className="rates-cell">中国</div>
+                    <div className="rates-cell">{t.get('中国')}</div>
                   </div>
                   {result.specialPrograms &&
                     result.specialPrograms.map((program, index) => (
@@ -123,9 +126,9 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
 
                 <div className="total-rate-box">
                   <div className="total-rate-title">
-                    中国输美实际关税总计
-                    {!isMFNRate && <span>(一般税率 + 301条款)</span>}
-                    {isMFNRate && <span>(最惠国税率 + 301条款)</span>}:
+                    {t.get('中国输美实际关税总计')}
+                    {!isMFNRate && <span>({t.get('一般税率 + 301 条款')})</span>}
+                    {isMFNRate && <span>({t.get('最惠国税率 + 301 条款')})</span>}:
                   </div>
                   {!isMFNRate && (
                     <div className="total-rate-value">
@@ -174,7 +177,7 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
                   </div>
                 ) : (
                   <div className="no-history">
-                    <p>暂无历史变更记录</p>
+                    <p>{t.get('暂无历史变更记录')}</p>
                   </div>
                 )}
               </div>
@@ -194,7 +197,7 @@ const HTSResultCard = ({ result }: { result: IHTSCodeItem }) => {
               rel="noopener noreferrer"
               className="action-button source-button"
             >
-              <i className="icon-external-link"></i> 查看来源
+              <i className="icon-external-link"></i> {t.get('查看来源')}
             </a>
           </div>
         </div>

@@ -142,33 +142,6 @@ export const searchHtsCodes = async (htsCodes: string[], userAccessToken: string
     TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
   );
 
-  // === @DEPRECATED-old - start ===
-  // // 模拟API延迟
-  // await delay(1500);
-
-  // // 查询结果
-  // const results = htsCodes.map((code) => {
-  //   // 检查是否存在于数据库
-  //   if (htsDatabase[code]) {
-  //     return htsDatabase[code];
-  //   }
-
-  //   // 如果不存在，返回一个基本结构但标记为"未找到"
-  //   return {
-  //     htsCode: code,
-  //     description: '未找到该HTS编码的信息',
-  //     chapter: 'N/A',
-  //     effectiveDate: 'N/A',
-  //     generalRate: 'N/A',
-  //     mfnRate: 'N/A',
-  //     section301Tariff: 'N/A',
-  //     notFound: true,
-  //   };
-  // });
-  // === @DEPRECATED-old - end ===
-
-  // console.log('results from searchHtsCodes:', results);
-
   return results || []; // @TOFIX:  do we really need `|| []`
 };
 
