@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { Button } from 'antd';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
 import {
@@ -47,6 +48,21 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const [prompts_v3_for_promptsFactory, setPrompts_v3_for_promptsFactory] = useState<IPrompt_v3_for_promptsFactory[]>(
     prompts_v3_for_promptsFactory_deafult,
   );
+  const [activeId, setActiveId] = useState(null);
+  const [activePrompt, setActivePrompt] = useState(null);
+
+  const handleDragStart = (event: DragEndEvent) => {
+    const { active } = event;
+    setActiveId(active.id);
+
+    console.log('handleDragStart setActiveId', active);
+
+    // 如果是卡片拖拽（跨状态块）
+    if (active.data?.current?.type === 'status-block-card') {
+      setActivePrompt(active.data.current.prompt);
+      console.log('handleDragStart setActivePrompt', active.data.current.prompt);
+    }
+  };
 
   function handleDragEnd(event: DragEndEvent): void {
     const { active, over } = event;
@@ -54,22 +70,63 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     console.log('active', active);
     console.log('over', over);
 
-    if (!over) return;
+    if (!over) {
+      setActiveId(null);
+      setActivePrompt(null);
+      return;
+    }
 
-    const cardTitle = active.id as IPrompt_v3_for_promptsFactory['title'];
-    const newStatus = over.id as IPrompt_v3_for_promptsFactory['status'];
+    // 处理卡片排序（同一状态块内）
+    if (active.data?.current?.prompt?.status === over.data?.current?.prompt?.status) {
+      console.log('hit same status block');
+      if (active.id !== over.id) {
+        setPrompts_v3_for_promptsFactory((items) => {
+          const oldIndex = items.findIndex((item) => item.title === active.id);
+          const newIndex = items.findIndex((item) => item.title === over.id);
 
-    setPrompts_v3_for_promptsFactory(() => {
-      return prompts_v3_for_promptsFactory.map((onePrompt) => {
-        return onePrompt.title === cardTitle
-          ? {
-              ...onePrompt,
-              status: newStatus,
+          const newItems = [...items];
+          const [movedItem] = newItems.splice(oldIndex, 1);
+          newItems.splice(newIndex, 0, movedItem);
+
+          return newItems;
+        });
+      }
+    }
+
+    // 处理卡片拖拽（跨状态块）
+    if (
+      over.data?.current?.type === 'status-block' ||
+      active.data?.current?.prompt?.status !== over.data?.current?.prompt?.status
+    ) {
+      console.log('hit cross status block');
+      const currentStatus = active.data?.current?.prompt?.status;
+      const currentTitle = active.data?.current?.prompt?.title;
+      const targetStatus = over.data?.current?.type === 'status-block' ? over?.id : over.data?.current?.prompt?.status;
+
+      console.log('currentStatus', currentStatus);
+      console.log('targetStatus', targetStatus);
+
+      // 使用延迟更新状态，让动画完成
+      setTimeout(() => {
+        setPrompts_v3_for_promptsFactory((items) => {
+          return items.map((item) => {
+            if (item.title === currentTitle) {
+              return { ...item, status: targetStatus };
             }
-          : onePrompt;
-      });
-    });
+            return item;
+          });
+        });
+      }, 0);
+    }
+
+    setActiveId(null);
+    setActivePrompt(null);
   }
+
+  const handleDragCancel = () => {
+    setActiveId(null);
+    setActivePrompt(null);
+  };
 
   return (
     <div className="container p-10 w-full">
@@ -95,7 +152,14 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           </Button>
         </div>
         <div className="flex">
-          <DndContext onDragEnd={handleDragEnd}>
+          <DndContext
+            sensors={useSensors(useSensor(PointerSensor))}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDragCancel={handleDragCancel}
+            modifiers={[restrictToWindowEdges]}
+          >
             <div className="flex flex-col gap-8 mt-4 pr-2">
               {/* {!parent ? draggable : null}
           {!parent ? draggable_2 : null}
@@ -115,7 +179,11 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
             </div>
           </DndContext>
 
-          <div className="mt-4 pl-2">right panel</div>
+          <div className="mt-4 pl-2">
+            right panel
+            <div>activeId: {activeId}</div>
+            <div>activePrompt: {activePrompt}</div>
+          </div>
         </div>
       </div>
     </div>
