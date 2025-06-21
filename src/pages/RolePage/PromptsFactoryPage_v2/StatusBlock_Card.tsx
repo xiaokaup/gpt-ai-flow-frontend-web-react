@@ -13,11 +13,9 @@ export const StatusBlcok_Card = (props: IStatusBlcok_Card) => {
     id,
   });
 
-  const style = transform
-    ? {
-        transform: CSS.Translate.toString(transform),
-      }
-    : undefined;
+  const style = {
+    transform: CSS.Transform.toString(transform),
+  };
 
   return (
     <div
