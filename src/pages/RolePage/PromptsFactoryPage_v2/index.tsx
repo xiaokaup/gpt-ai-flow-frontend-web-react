@@ -67,24 +67,23 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     const targetStatus = over.data?.current?.type === 'status-block' ? over?.id : over.data?.current?.prompt?.status;
 
     // 处理卡片排序（同一状态块内）
-    if (currentStatus === targetStatus) {
+    if (currentStatus === targetStatus && active.id !== over.id) {
       console.log('hit same status block');
-      if (active.id !== over.id) {
-        setPrompts_v3_for_promptsFactory((items) => {
-          const oldIndex = items.findIndex((item) => item.title === active.id);
-          const newIndex = items.findIndex((item) => item.title === over.id);
 
-          const newItems = [...items];
-          const [movedItem] = newItems.splice(oldIndex, 1);
-          newItems.splice(newIndex, 0, movedItem);
+      setPrompts_v3_for_promptsFactory((items) => {
+        const oldIndex = items.findIndex((item) => item.title === active.id);
+        const newIndex = items.findIndex((item) => item.title === over.id);
 
-          return newItems;
-        });
-      }
+        const newItems = [...items];
+        const [movedItem] = newItems.splice(oldIndex, 1);
+        newItems.splice(newIndex, 0, movedItem);
+
+        return newItems;
+      });
     }
 
     // 处理卡片拖拽（跨状态块）
-    if (over.data?.current?.type === 'status-block' || currentStatus !== targetStatus) {
+    else if (over.data?.current?.type === 'status-block' || currentStatus !== targetStatus) {
       console.log('hit cross status block');
 
       const currentTitle = active.data?.current?.prompt?.title;
@@ -127,7 +126,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           <DndContext
             sensors={useSensors(useSensor(PointerSensor))}
             collisionDetection={closestCenter}
-            onDragOver={handleDragEnd}
+            // onDragOver={handleDragEnd}
             onDragEnd={handleDragEnd}
           >
             <div className="flex flex-col gap-8 mt-4 pr-2">
@@ -149,7 +148,10 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
             </div>
           </DndContext>
 
-          <div className="mt-4 pl-2">right panel</div>
+          <div className="mt-4 pl-2">
+            right panel
+            <pre>{JSON.stringify(prompts_v3_for_promptsFactory, null, 2)}</pre>
+          </div>
         </div>
       </div>
     </div>
