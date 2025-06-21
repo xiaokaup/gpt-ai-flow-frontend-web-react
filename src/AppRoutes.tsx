@@ -374,6 +374,26 @@ export const AppRoutes = () => {
         </Route>
         <Route path="modules">
           <Route
+            path="prompts-factory"
+            element={
+              <div className="App">
+                <AppLayoutCenter
+                  isAuthenticated={isAuthenticated}
+                  stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+                >
+                  <PromptsWindowWrapper
+                    userDB={userDB}
+                    webCase={{
+                      t,
+                      locale,
+                      env: CONSTANTS_GPT_AI_FLOW_COMMON,
+                    }}
+                  />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+          <Route
             path="dutygenie"
             element={
               <div className="App">
@@ -456,26 +476,6 @@ export const AppRoutes = () => {
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
                 <LogoutPage t={t} />
-              </AppLayoutCenter>
-            </div>
-          }
-        />
-        <Route
-          path="prompts-factory"
-          element={
-            <div className="App">
-              <AppLayoutCenter
-                isAuthenticated={isAuthenticated}
-                stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
-              >
-                <PromptsWindowWrapper
-                  userDB={userDB}
-                  webCase={{
-                    t,
-                    locale,
-                    env: CONSTANTS_GPT_AI_FLOW_COMMON,
-                  }}
-                />
               </AppLayoutCenter>
             </div>
           }
