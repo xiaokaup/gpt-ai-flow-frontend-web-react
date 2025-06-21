@@ -1,4 +1,6 @@
+import { useDroppable } from '@dnd-kit/core';
 import { IPrompt_v3_for_promptsFactory } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
+import { StatusBlcok_Card } from './StatusBlock_Card';
 
 export interface IPrompts_v3_for_promptsFactory_status {
   id: string;
@@ -11,20 +13,18 @@ interface IStatusBlock {
 }
 export const StatusBlock = (props: IStatusBlock) => {
   const { block, prompts_v3_for_promptsFactory_filtered } = props;
-  const { title } = block;
+  const { id, title } = block;
+
+  const { setNodeRef } = useDroppable({
+    id,
+  });
 
   return (
-    <div className="flex w-80 flex-col rounded-lg bg-neutral-600 p-4 shadow-md">
+    <div ref={setNodeRef} className="flex w-80 flex-col rounded-lg bg-neutral-600 p-4 shadow-md">
       <h2 className="mb-4 font-semibold text-neutral-100">{title}</h2>
       <div className="flex flex-1 flex-col gap-4">
         {prompts_v3_for_promptsFactory_filtered.map((onePrompt) => (
-          <div
-            key={onePrompt.title}
-            className="flex items-center justify-between rounded-lg bg-neutral-700 p-2 hover:bg-neutral-500"
-          >
-            <span className="text-neutral-100">{onePrompt.title}</span>
-            <span className="text-sm text-neutral-400">{onePrompt.status}</span>
-          </div>
+          <StatusBlcok_Card onePrompt={onePrompt} />
         ))}
       </div>
     </div>
