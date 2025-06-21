@@ -461,7 +461,7 @@ export const AppRoutes = () => {
           }
         />
         <Route
-          path="persona"
+          path="prompts-factory"
           element={
             <div className="App">
               <AppLayoutCenter
