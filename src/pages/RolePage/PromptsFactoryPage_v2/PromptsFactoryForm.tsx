@@ -1,6 +1,6 @@
 import { Input, Button, Select, Form, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { useForm } from 'antd/es/form/Form';
+import { FormInstance } from 'antd/es/form/Form';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
   EPrompt_v3_for_promptsFactory_type,
@@ -10,15 +10,14 @@ import { Dispatch } from 'react';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
+  form: FormInstance<any>;
   prompt: IPrompt_v3_for_promptsFactory;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
   prompts_v3_elements: IPrompt_v3_for_promptsFactory[];
   setPrompts_v3_elements: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory[]>>;
 }
 export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
-  const { t, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
-
-  const [form] = useForm();
+  const { t, form, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
 
   const onFinishInModal = (values: IPrompt_v3_for_promptsFactory) => {
     console.log('Success:', values);

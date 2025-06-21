@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Button } from 'antd';
+import { useForm } from 'antd/es/form/Form';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
 import {
   EPrompt_v3_for_promptsFactory_type,
@@ -25,6 +26,7 @@ export interface IPromptsFactoryPage {
 export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const { t } = props;
 
+  const [form] = useForm();
   const dispatch = useDispatch();
 
   // const prompts_v3_userFromStorage: (IPrompt_v3 | IPrompt_v3_type_persona)[] = useSelector((state: IReduxRootState) => {
@@ -184,6 +186,8 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     prompts_v3_for_promptsFactory_filtered={prompts_v3_elements.filter(
                       (item) => item.status === statusItem.id,
                     )}
+                    form={form}
+                    setShowForm={setShowForm}
                   />
                 );
               })}
@@ -197,6 +201,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                 <div className="showForm_block">
                   <PromptsFactoryForm
                     t={t}
+                    form={form}
                     prompt={showForm_data}
                     setShowForm={setShowForm}
                     prompts_v3_elements={prompts_v3_elements}
