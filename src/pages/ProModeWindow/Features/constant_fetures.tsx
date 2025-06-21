@@ -334,6 +334,20 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
     {
+      iconUrl: '/static/icons/2025-06-21-img-5-duty.png',
+      proModeModuleName: '关税精灵',
+      description: '精准查询 HTS 关税编码，快速生成关税报告，助您轻松应对跨境贸易合规需求。',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
+    },
+    {
+      iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
+      proModeModuleName: `${t.get('Free e-commerce portal tool')} (超级早期构建)`,
+      description: '一个让你会 excel 就能创建自己的电商展示门户的轻量级方案',
+      // docOpenLink: ``,
+      webAppOpenLink: `https://www.goshopdoor.com/`,
+    },
+    {
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: '专属定制 AI 助手',
       description: '告诉我们您的需求！只需完成一份简单问卷，即可获得完全匹配您工作流程和目标的定制化 AI 助手。',
@@ -443,6 +457,22 @@ export const getRoles = (locale: ELocale) => {
         'Find what you need, get smart solutions, and watch your product grow with our step-by-step guidance.',
       // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+    },
+    {
+      iconUrl: '/static/icons/2025-06-21-img-5-duty.png',
+      proModeModuleName: 'Duty Genie',
+      description:
+        'Accurate HTS code lookup, quick tariff report generation, helping you easily meet cross-border trade compliance needs.',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
+    },
+    {
+      iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
+      proModeModuleName: `${t.get('Free e-commerce portal tool')} (Super Early Build)`,
+      description:
+        'A lightweight solution that allows you to create your own e-commerce showcase portal with just Excel skills.',
+      // docOpenLink: ``,
+      webAppOpenLink: `https://www.goshopdoor.com/`,
     },
     {
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',

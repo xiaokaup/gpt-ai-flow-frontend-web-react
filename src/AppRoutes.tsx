@@ -31,7 +31,7 @@ import { IUserDB, IUserDB_default } from './gpt-ai-flow-common/interface-databas
 import { useUserDB } from './gpt-ai-flow-common/hooks/useUserDB';
 import BEN_CAO_TANG_PAGE from './pages/ToolsPage/pdfPage/benCaoTang';
 import { VisualizationPage } from './pages/betaPages/VisualizationPage/VisualizationPage';
-import { DutyGeniePage } from './pages/ModulePages/DutyGeniePage';
+import { DutyGeniePage } from './pages/RolePage/DutyGeniePage';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();

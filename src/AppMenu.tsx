@@ -116,16 +116,6 @@ export const AppMenu = (props: {
         <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-modules/summary`}>{t.get('Doc')}</Link>
       </Menu.Item>
 
-      <Menu.Item key="moduel-dutyGenie">
-        <Link to="/app/modules/dutygenie">{t.get('Duty Genie')}</Link>
-      </Menu.Item>
-
-      <Menu.Item key="Go Shop Door">
-        <Link to="https://www.goshopdoor.com/" target="__blank">
-          {`${t.get('Free e-commerce portal tool')}`}
-        </Link>
-      </Menu.Item>
-
       <Menu.Item key="switch-language">
         <Dropdown menu={{ items: languageMenuItems }}>
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
