@@ -36,7 +36,7 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
       <div className="flex justify-between items-center">
         <h3 className="font-medium text-neutral-100">{title}</h3>
       </div>
-      <p className="mt-2 text-sm text-neutral-400">{content}</p>
+      <p className="mt-2 text-sm text-neutral-400 max-h-[200px] overflow-auto">{content}</p>
     </div>
   );
 };

@@ -14,6 +14,7 @@ import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-a
 import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { updateUserPrompts_v3 } from '../../../store/actions/prompts_v3Actions';
 import { IReduxRootState } from '../../../store/reducer';
+import { EPrompt_v3_type } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
@@ -35,30 +36,26 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     },
   });
 
-  const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = [
-    {
-      ...IPrompt_v3_for_promptsFactory_default,
-      title: 'context',
-      type: EPrompt_v3_for_promptsFactory_type.CONTEXT,
-      status: 'ready',
-      tags: ['background', 'setting'],
+  const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = prompts_v3_user.map(
+    (item: IPrompt_v3 | IPrompt_v3_type_persona) => {
+      let newType = IPrompt_v3_for_promptsFactory_default.type;
+      if (item.type === EPrompt_v3_type.PERSONA_MODEL) {
+        newType = EPrompt_v3_for_promptsFactory_type.SUBJECT;
+      } else if (item.type === EPrompt_v3_type.PROMPT) {
+        newType = EPrompt_v3_for_promptsFactory_type.PROMPT;
+      }
+
+      return {
+        ...IPrompt_v3_for_promptsFactory_default,
+        type: newType,
+        title: item.name,
+        content: item.value,
+        status: 'ready' as const,
+        tags: item.tags || [],
+      };
     },
-    {
-      ...IPrompt_v3_for_promptsFactory_default,
-      title: 'context-2',
-      type: EPrompt_v3_for_promptsFactory_type.CONTEXT,
-      status: 'ready',
-      tags: ['background', 'setting'],
-    },
-    {
-      ...IPrompt_v3_for_promptsFactory_default,
-      title:
-        '你是一位25-35岁的职场白领，每天朝九晚五工作，晚上有闲暇空间。你渴望拥有自己的事业，但面临着如何开始、如何起步、如何积累的挑战，同时也有尝试自媒体的想法。你急需找到一个能够帮助你完成起步阶段的工具。在日常生活中，你习惯记录自己的兴趣爱好。',
-      type: EPrompt_v3_for_promptsFactory_type.CONTEXT,
-      status: 'ready',
-      tags: ['background', 'setting'],
-    },
-  ];
+  );
+
   const prompts_v3_for_promptsFactory_status: IPrompts_v3_for_promptsFactory_status[] = [
     {
       id: 'selected',
@@ -167,10 +164,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
             </div>
           </DndContext>
 
-          <div className="mt-4 pl-2">
-            right panel
-            <pre>{JSON.stringify(prompts_v3_for_promptsFactory, null, 2)}</pre>
-          </div>
+          <div className="mt-4 pl-2">right panel</div>
         </div>
       </div>
     </div>
