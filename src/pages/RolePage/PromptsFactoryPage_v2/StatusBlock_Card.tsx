@@ -33,25 +33,29 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
   return (
     <div
       ref={setNodeRef}
-      {...listeners}
-      {...attributes}
       key={title}
-      className="cursor-grab rounded-lg bg-neutral-700 px-2 shadow-sm hover:shadow-md"
+      className="rounded-lg bg-neutral-700 px-2 shadow-sm hover:shadow-md"
       style={style}
     >
       <div className="flex justify-between items-center">
-        <div className="w-full flex justify-between items-center">
-          <h3 className="font-medium text-neutral-100">{title}</h3>
-          <div className="font-medium text-neutral-100">
-            <EditOutlined
-              className="cursor-pointer p-2"
-              onClick={() => {
-                console.log('Click edit icon for prompt:', onePrompt);
-                form.setFieldsValue(onePrompt);
-                setShowForm(true);
-              }}
-            />
+        <div className="flex items-center">
+          <div className="cursor-grab cursor-grab p-2 mr-2 text-neutral-400 hover:text-neutral-200">
+            <svg {...listeners} {...attributes} width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M4 4h2v2H4V4zm0 6h2v2H4v-2zm0-3h2v2H4V7zm5-3h2v2H9V4zm0 6h2v2H9v-2zm0-3h2v2H9V7z" />
+            </svg>
           </div>
+          <h3 className="font-medium text-neutral-100">{title}</h3>
+        </div>
+
+        <div className="font-medium text-neutral-100">
+          <EditOutlined
+            className="cursor-pointer p-2"
+            onClick={() => {
+              console.log('Click edit icon for prompt:', onePrompt);
+              form.setFieldsValue(onePrompt);
+              setShowForm(true);
+            }}
+          />
         </div>
       </div>
       {view === 'advanced' && <p className="mt-2 text-sm text-neutral-400 max-h-[200px] overflow-auto">{content}</p>}
