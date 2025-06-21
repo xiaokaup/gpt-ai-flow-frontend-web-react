@@ -16,10 +16,17 @@ export interface IPromptsFactoryPage {
 export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const { t } = props;
 
-  const prompts_v3_for_promptsFactory_deafult: IPrompt_v3_for_promptsFactory[] = [
+  const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = [
     {
       ...IPrompt_v3_for_promptsFactory_default,
       title: 'context',
+      type: EPrompt_v3_for_promptsFactory_type.CONTEXT,
+      status: 'ready',
+      tags: ['background', 'setting'],
+    },
+    {
+      ...IPrompt_v3_for_promptsFactory_default,
+      title: 'context-2',
       type: EPrompt_v3_for_promptsFactory_type.CONTEXT,
       status: 'ready',
       tags: ['background', 'setting'],
@@ -45,7 +52,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   ];
 
   const [prompts_v3_for_promptsFactory, setPrompts_v3_for_promptsFactory] = useState<IPrompt_v3_for_promptsFactory[]>(
-    prompts_v3_for_promptsFactory_deafult,
+    prompts_v3_for_promptsFactory_default,
   );
 
   function handleDragEnd(event: DragEndEvent): void {
