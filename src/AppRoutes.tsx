@@ -32,6 +32,7 @@ import { useUserDB } from './gpt-ai-flow-common/hooks/useUserDB';
 import BEN_CAO_TANG_PAGE from './pages/ToolsPage/pdfPage/benCaoTang';
 import { VisualizationPage } from './pages/betaPages/VisualizationPage/VisualizationPage';
 import { DutyGeniePage } from './pages/RolePage/DutyGeniePage';
+import { PromptsFactoryPage_v2 } from './pages/RolePage/PromptsFactoryPage_v2';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -389,6 +390,19 @@ export const AppRoutes = () => {
                       env: CONSTANTS_GPT_AI_FLOW_COMMON,
                     }}
                   />
+                </AppLayoutCenter>
+              </div>
+            }
+          />
+          <Route
+            path="prompts-factory-v2"
+            element={
+              <div className="App">
+                <AppLayoutCenter
+                  isAuthenticated={isAuthenticated}
+                  stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+                >
+                  <PromptsFactoryPage_v2 t={t} userAccessToken={accessToken} />
                 </AppLayoutCenter>
               </div>
             }
