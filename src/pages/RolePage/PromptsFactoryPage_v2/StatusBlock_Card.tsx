@@ -1,4 +1,5 @@
 import { useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import { IPrompt_v3_for_promptsFactory } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
 
 interface IStatusBlcok_Card {
@@ -14,7 +15,7 @@ export const StatusBlcok_Card = (props: IStatusBlcok_Card) => {
 
   const style = transform
     ? {
-        transform: `translate(${transform.x}px, ${transform.y}px)`,
+        transform: CSS.Translate.toString(transform),
       }
     : undefined;
 
