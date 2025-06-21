@@ -28,7 +28,7 @@ import { useLocalSettings } from '../../../../../../gpt-ai-flow-common/hooks/use
 import { EAIFlowRole, EAIFlow_type } from '../../../../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import TBackendUserInputFile from '../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
 import { ELangchainRetrievalDocType } from '../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
-import { IBuildOpenAIPrompts_ouput } from '../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
+import { IBuildOpenAIPrompts_output } from '../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import EInputTypeDBFile, {
   EInputTypeDB_typeName,
 } from '../../../../../../gpt-ai-flow-common/enum-database/EInputTypeDB';
@@ -99,7 +99,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
 
   const { userDB } = useUserDB({
     userDBFromStorage,
-    // eslint-disable-next-line @typescript-eslint/no-unused-varsk
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onUserDBChange: (_newUserDB_without_token: IUserDB) => {},
     t,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
@@ -252,7 +252,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
     index: number,
     paraAICommandsList: IAICommands_v4[],
     paraAICommandsReultsList: IAICommandsResults_v4[],
-  ): IBuildOpenAIPrompts_ouput => {
+  ): IBuildOpenAIPrompts_output => {
     const systemPrompt: IPrompt = {
       role: EAIFlowRole.SYSTEM,
       content: contextHandled,
@@ -303,6 +303,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           role: EAIFlowRole.USER,
           content: finalResquestContent.trim(),
         },
+        ragCollectionSearchResults: [], // @Where-Desktop
       };
     }
     // === buildOpenAIPrompts - first command - end ===
@@ -362,6 +363,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
         role: EAIFlowRole.USER,
         content: finalResquestContent.trim(),
       },
+      ragCollectionSearchResults: [], // @Where-Desktop
     };
   };
   const getOneInstructionAiFlowResult = async (
@@ -374,7 +376,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
 
       const { signal } = requestController;
 
-      const promptsResults: IBuildOpenAIPrompts_ouput = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
+      const promptsResults: IBuildOpenAIPrompts_output = buildOpenAIPrompts(index, aiCommands, aiComandsResults);
       // console.log('promptsResults', promptsResults);
       const { systemPrompt, chatHistory, inputPrompt } = promptsResults;
       const langchainRetrievalDocType = LangchainRetrivalService.getRetrievalTypeByContextValue(systemPrompt.content);

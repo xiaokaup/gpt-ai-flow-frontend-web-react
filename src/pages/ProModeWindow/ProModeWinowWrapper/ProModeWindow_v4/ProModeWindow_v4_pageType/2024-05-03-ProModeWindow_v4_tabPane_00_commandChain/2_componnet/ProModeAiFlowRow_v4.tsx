@@ -20,7 +20,7 @@ import { ELocale } from '../../../../../../../gpt-ai-flow-common/enum-app/ELocal
 import { useCreativityValueContext } from '../../../../../../../gpt-ai-flow-common/contexts/CreativityValueProviderContext';
 import { useProModeModelValueProviderContext } from '../../../../../../../gpt-ai-flow-common/contexts/ProModeModelValueProviderContext';
 import TBackendUserInputFile from '../../../../../../../gpt-ai-flow-common/tools/3_unit/TBackendUserInput';
-import { IBuildOpenAIPrompts_ouput } from '../../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
+import { IBuildOpenAIPrompts_output } from '../../../../../../../gpt-ai-flow-common/interface-backend/to_deprecate_IBackendOpenAI';
 import { IGetT_frontend_output } from '../../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELangchainRetrievalDocType } from '../../../../../../../gpt-ai-flow-common/enum-backend/ELangchain';
 import { IStoreStorage_settings_local } from '../../../../../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
@@ -230,7 +230,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
     index: number,
     paraAICommandsList: IAICommands_v4_new[],
     paraAICommandsReultsList: IAICommands_v4_new_resultRow[],
-  ): IBuildOpenAIPrompts_ouput => {
+  ): IBuildOpenAIPrompts_output => {
     const systemPrompt: IPrompt = {
       role: EAIFlowRole.SYSTEM,
       content: globalContext,
@@ -281,6 +281,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
           role: EAIFlowRole.USER,
           content: finalResquestContent.trim(),
         },
+        ragCollectionSearchResults: [], // @Where-Desktop
       };
     }
     // === buildOpenAIPrompts - first command - end ===
@@ -314,6 +315,7 @@ ${t.get('Original content')}: """${exampleText}"""`,
         role: EAIFlowRole.USER,
         content: finalResquestContent.trim(),
       },
+      ragCollectionSearchResults: [], // @Where-Desktop
     };
     // === buildOpenAIPrompts - for the rest commands - end ===
   };
