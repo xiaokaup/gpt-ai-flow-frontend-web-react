@@ -72,65 +72,6 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     }
   };
 
-  function handleDragOver(event: DragOverEvent): void {
-    const { active, over } = event;
-
-    console.log('active', active);
-    console.log('over', over);
-
-    if (!over) {
-      setActiveId(null);
-      setActivePrompt(null);
-      return;
-    }
-
-    // 处理卡片排序（同一状态块内）
-    if (active.data?.current?.prompt?.status === over.data?.current?.prompt?.status) {
-      console.log('hit same status block');
-      if (active.id !== over.id) {
-        setPrompts_v3_for_promptsFactory((items) => {
-          const oldIndex = items.findIndex((item) => item.title === active.id);
-          const newIndex = items.findIndex((item) => item.title === over.id);
-
-          const newItems = [...items];
-          const [movedItem] = newItems.splice(oldIndex, 1);
-          newItems.splice(newIndex, 0, movedItem);
-
-          return newItems;
-        });
-      }
-    }
-
-    // 处理卡片拖拽（跨状态块）
-    if (
-      over.data?.current?.type === 'status-block' ||
-      active.data?.current?.prompt?.status !== over.data?.current?.prompt?.status
-    ) {
-      console.log('hit cross status block');
-      const currentStatus = active.data?.current?.prompt?.status;
-      const currentTitle = active.data?.current?.prompt?.title;
-      const targetStatus = over.data?.current?.type === 'status-block' ? over?.id : over.data?.current?.prompt?.status;
-
-      console.log('currentStatus', currentStatus);
-      console.log('targetStatus', targetStatus);
-
-      // 使用延迟更新状态，让动画完成
-      setTimeout(() => {
-        setPrompts_v3_for_promptsFactory((items) => {
-          return items.map((item) => {
-            if (item.title === currentTitle) {
-              return { ...item, status: targetStatus };
-            }
-            return item;
-          });
-        });
-      }, 0);
-    }
-
-    setActiveId(null);
-    setActivePrompt(null);
-  }
-
   function handleDragEnd(event: DragEndEvent): void {
     const { active, over } = event;
 
@@ -223,7 +164,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
             sensors={useSensors(useSensor(PointerSensor))}
             collisionDetection={closestCenter}
             onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
+            onDragOver={handleDragEnd}
             onDragEnd={handleDragEnd}
             onDragCancel={handleDragCancel}
             modifiers={[restrictToWindowEdges]}
