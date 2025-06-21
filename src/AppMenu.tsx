@@ -96,7 +96,7 @@ export const AppMenu = (props: {
             <Link to="/app/info">{t.get('User')}</Link>
           </Menu.Item>
           <Menu.Item key="prompts-factory">
-            <Link to="/app/prompts-factory">{t.get('Prompts Factory')}</Link>
+            <Link to="/app/modules/prompts-factory">{t.get('Prompts Factory')}</Link>
           </Menu.Item>
           <Menu.Item key="4">
             <Link to="/app/proMode/features">{t.get('ProMode')}</Link>
