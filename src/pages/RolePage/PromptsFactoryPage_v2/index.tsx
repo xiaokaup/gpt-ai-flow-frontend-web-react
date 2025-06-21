@@ -15,7 +15,7 @@ import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPr
 import { updateUserPrompts_v3 } from '../../../store/actions/prompts_v3Actions';
 import { IReduxRootState } from '../../../store/reducer';
 import { EPrompt_v3_type } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
-import { PromptsFactoryForm_v2 } from './PromptsFactoryForm_v2';
+import { PromptsFactoryForm } from './PromptsFactoryForm';
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
@@ -159,7 +159,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           <div>
             {showForm && (
               <div className="showForm_block">
-                <PromptsFactoryForm_v2 t={t} prompt={showForm_data} />
+                <PromptsFactoryForm t={t} prompt={showForm_data} />
               </div>
             )}
 

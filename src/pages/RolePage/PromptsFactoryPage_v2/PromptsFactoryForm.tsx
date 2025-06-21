@@ -10,7 +10,7 @@ interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
   prompt: IPrompt_v3_for_promptsFactory;
 }
-export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
+export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
   const { t, prompt } = props;
 
   const [form] = useForm();
