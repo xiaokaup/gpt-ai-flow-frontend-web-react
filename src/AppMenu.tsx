@@ -95,11 +95,11 @@ export const AppMenu = (props: {
           <Menu.Item key="3">
             <Link to="/app/info">{t.get('User')}</Link>
           </Menu.Item>
+          <Menu.Item key="prompts-factory">
+            <Link to="/app/prompts-factory">{t.get('Prompts Factory')}</Link>
+          </Menu.Item>
           <Menu.Item key="4">
             <Link to="/app/proMode/features">{t.get('ProMode')}</Link>
-          </Menu.Item>
-          <Menu.Item key="persona">
-            <Link to="/app/persona">{t.get('Persona system')}</Link>
           </Menu.Item>
         </>
       )}
@@ -114,16 +114,6 @@ export const AppMenu = (props: {
 
       <Menu.Item key="proMode-doc">
         <Link to={'https://www.gptaiflow.com' + `${baseUrl}/docs/application-modules/summary`}>{t.get('Doc')}</Link>
-      </Menu.Item>
-
-      <Menu.Item key="moduel-dutyGenie">
-        <Link to="/app/modules/dutygenie">{t.get('Duty Genie')}</Link>
-      </Menu.Item>
-
-      <Menu.Item key="Go Shop Door">
-        <Link to="https://www.goshopdoor.com/" target="__blank">
-          {`${t.get('Free e-commerce portal tool')}`}
-        </Link>
       </Menu.Item>
 
       <Menu.Item key="switch-language">

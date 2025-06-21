@@ -4,7 +4,7 @@ import { Input } from 'antd';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { getT } from '../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory';
 
-import { webAppUrl, docBaseUrl } from './constant';
+import { webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 import { getRoles, getModules } from './constant_fetures';
 import { Card_with_click } from './Card';
@@ -108,15 +108,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         <div className="text-xl font-bold px-5 mb-4">{t.get('Role')}</div>
         <div className="flex flex-wrap justify-center gap-4 xl:justify-start">
           {roleFeaturesFiltered.map((item) => {
-            return (
-              <Card_with_click
-                key={item.proModeModuleName}
-                item={item}
-                locale={locale}
-                baseUrl={webAppUrl}
-                imgBaseUrl={docBaseUrl}
-              />
-            );
+            return <Card_with_click key={item.proModeModuleName} item={item} locale={locale} baseUrl={webAppUrl} />;
           })}
         </div>
       </div>
@@ -125,15 +117,7 @@ export const ProModeWindowFeatures_cards = (props: IProModeWindowFeatures_module
         <div className="text-xl font-bold px-5 mb-4">{t.get('Module')}</div>
         <div className="flex flex-wrap justify-center gap-4 xl:justify-start">
           {moduleFeaturesFiltered.map((item) => {
-            return (
-              <Card_with_click
-                key={item.proModeModuleName}
-                item={item}
-                locale={locale}
-                baseUrl={webAppUrl}
-                imgBaseUrl={docBaseUrl}
-              />
-            );
+            return <Card_with_click key={item.proModeModuleName} item={item} locale={locale} baseUrl={webAppUrl} />;
           })}
         </div>
       </div>

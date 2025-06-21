@@ -5,15 +5,13 @@ import { IOneFeature } from './interface';
 interface ICard_with_click {
   locale: string;
   baseUrl: string;
-  imgBaseUrl: string;
   item: IOneFeature;
 }
 export const Card_with_click = (props: ICard_with_click) => {
   const {
     locale,
     baseUrl,
-    imgBaseUrl,
-    item: { icon, proModeModuleName, description, webAppOpenLink: openLink },
+    item: { iconUrl, proModeModuleName, description, webAppOpenLink: openLink },
   } = props;
 
   const hideOpenUrl = false;
@@ -28,7 +26,7 @@ export const Card_with_click = (props: ICard_with_click) => {
           <div className="flex items-center space-x-4">
             <div className="block_icon_image">
               <img
-                src={imgBaseUrl + icon}
+                src={iconUrl}
                 className="w-12 rounded-sm"
                 // width="512"
                 // height="512"

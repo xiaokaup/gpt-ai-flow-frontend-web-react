@@ -1,5 +1,5 @@
 export interface IOneFeature {
-  icon: string;
+  iconUrl: string;
   proModeModuleName: string;
   description: string;
   // docOpenLink: string;
