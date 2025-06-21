@@ -12,10 +12,11 @@ interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
   prompt: IPrompt_v3_for_promptsFactory;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
-  // setShowForm_data: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory | null>>;
+  prompts_v3_elements: IPrompt_v3_for_promptsFactory[];
+  setPrompts_v3_elements: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory[]>>;
 }
 export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
-  const { t, setShowForm, prompt } = props;
+  const { t, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
 
   const [form] = useForm();
 
@@ -29,26 +30,23 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
       return;
     }
 
-    // if (!category || category?.length === 0) {
-    //   message.error(t.get('Please enter your {text}', { text: t.get('Category') }));
-    //   return;
-    // }
-    // if (prompts_v3_user.find((prompt) => prompt.name === name)) {
-    //   message.error(t.get('The prompt name already exists'));
-    //   return;
-    // }
+    const findPrompt = prompts_v3_elements.find(
+      (prompt: IPrompt_v3_for_promptsFactory) => prompt.title === values.title,
+    );
+    if (findPrompt) {
+      message.error(t.get('The prompt name already exists'));
+      return;
+    }
 
-    // const newItem: IPrompt_v3_type_persona = values;
+    const newItem: IPrompt_v3_for_promptsFactory = values;
 
-    // const newPrompts_v3_user = [newItem, ...prompts_v3_user];
+    const newPrompts_v3_elements = [newItem, ...prompts_v3_elements];
 
-    // setPrompts_v3_user(newPrompts_v3_user);
-    // // window.electron.ipcRenderer.sendMessage('ipc-refresh-all-prompts_v3-in-mainWindow', newPrompts_v3_user);
+    setPrompts_v3_elements(newPrompts_v3_elements);
 
-    // form.resetFields();
-    // closeModal();
+    setShowForm(false);
 
-    // message.success(t.get('The prompt has been added to My prompts'));
+    message.success(t.get('The prompt has been added to My prompts'));
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {

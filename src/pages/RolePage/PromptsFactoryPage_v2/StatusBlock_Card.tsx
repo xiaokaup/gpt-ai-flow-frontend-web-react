@@ -8,7 +8,7 @@ interface IStatusBlock_Card {
 }
 export const StatusBlock_Card = (props: IStatusBlock_Card) => {
   const { view, onePrompt } = props;
-  const { title: id, title, content } = onePrompt;
+  const { title: id, title: title, content } = onePrompt;
 
   // 使用 useSortable 处理排序
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({

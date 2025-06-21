@@ -27,19 +27,19 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
 
   const dispatch = useDispatch();
 
-  const prompts_v3_userFromStorage: (IPrompt_v3 | IPrompt_v3_type_persona)[] = useSelector((state: IReduxRootState) => {
-    return state.prompts_v3.user;
-  });
+  // const prompts_v3_userFromStorage: (IPrompt_v3 | IPrompt_v3_type_persona)[] = useSelector((state: IReduxRootState) => {
+  //   return state.prompts_v3.user;
+  // });
   const prompts_v3_elementsFromStorage: IPrompt_v3_for_promptsFactory[] = useSelector((state: IReduxRootState) => {
     return state.prompts_v3.elements;
   });
 
-  const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user_v2_for_web({
-    prompts_v3_userFromStorage,
-    onChangePrompts_v3_user: (newPrompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[]) => {
-      dispatch<any>(updateUserPrompts_v3(newPrompts_v3_user));
-    },
-  });
+  // const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user_v2_for_web({
+  //   prompts_v3_userFromStorage,
+  //   onChangePrompts_v3_user: (newPrompts_v3_user: (IPrompt_v3 | IPrompt_v3_type_persona)[]) => {
+  //     dispatch<any>(updateUserPrompts_v3(newPrompts_v3_user));
+  //   },
+  // });
   const { prompts_v3_elements, setPrompts_v3_elements } = usePrompts_v3_elements_v2_for_web({
     prompts_v3_elementsFromStorage,
     onChangePrompts_v3_elements: (newPrompts_v3_elements: IPrompt_v3_for_promptsFactory[]) => {
@@ -48,25 +48,25 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   });
   console.log('prompts_v3_elements', prompts_v3_elements);
 
-  const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = prompts_v3_user.map(
-    (item: IPrompt_v3 | IPrompt_v3_type_persona) => {
-      let newType = IPrompt_v3_for_promptsFactory_default.type;
-      if (item.type === EPrompt_v3_type.PERSONA_MODEL) {
-        newType = EPrompt_v3_for_promptsFactory_type.SUBJECT;
-      } else if (item.type === EPrompt_v3_type.PROMPT) {
-        newType = EPrompt_v3_for_promptsFactory_type.INSTRUCTION;
-      }
+  // const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = prompts_v3_user.map(
+  //   (item: IPrompt_v3 | IPrompt_v3_type_persona) => {
+  //     let newType = IPrompt_v3_for_promptsFactory_default.type;
+  //     if (item.type === EPrompt_v3_type.PERSONA_MODEL) {
+  //       newType = EPrompt_v3_for_promptsFactory_type.SUBJECT;
+  //     } else if (item.type === EPrompt_v3_type.PROMPT) {
+  //       newType = EPrompt_v3_for_promptsFactory_type.INSTRUCTION;
+  //     }
 
-      return {
-        ...IPrompt_v3_for_promptsFactory_default,
-        type: newType,
-        title: item.name,
-        content: item.value,
-        status: 'ready' as const,
-        tags: item.tags || [],
-      };
-    },
-  );
+  //     return {
+  //       ...IPrompt_v3_for_promptsFactory_default,
+  //       type: newType,
+  //       title: item.name,
+  //       content: item.value,
+  //       status: 'ready' as const,
+  //       tags: item.tags || [],
+  //     };
+  //   },
+  // );
   const prompts_v3_for_promptsFactory_status: IPrompts_v3_for_promptsFactory_status[] = [
     {
       id: 'selected',
@@ -78,9 +78,9 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     },
   ];
 
-  const [prompts_v3_for_promptsFactory, setPrompts_v3_for_promptsFactory] = useState<IPrompt_v3_for_promptsFactory[]>(
-    prompts_v3_for_promptsFactory_default,
-  );
+  const [prompts_v3_for_promptsFactory, setPrompts_v3_for_promptsFactory] = useState<IPrompt_v3_for_promptsFactory[]>([
+    ...prompts_v3_elements,
+  ]);
   const [view, setView] = useState<'simple' | 'advanced'>('simple');
   const [showForm, setShowForm] = useState<boolean>(true);
   const [showForm_data, setShowForm_data] = useState<IPrompt_v3_for_promptsFactory>(
@@ -199,7 +199,13 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
             <div>
               {showForm && (
                 <div className="showForm_block">
-                  <PromptsFactoryForm t={t} prompt={showForm_data} setShowForm={setShowForm} />
+                  <PromptsFactoryForm
+                    t={t}
+                    prompt={showForm_data}
+                    setShowForm={setShowForm}
+                    prompts_v3_elements={prompts_v3_elements}
+                    setPrompts_v3_elements={setPrompts_v3_elements}
+                  />
                 </div>
               )}
             </div>
