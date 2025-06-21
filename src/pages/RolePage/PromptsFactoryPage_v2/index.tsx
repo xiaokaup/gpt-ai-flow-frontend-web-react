@@ -15,6 +15,7 @@ import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPr
 import { updateUserPrompts_v3 } from '../../../store/actions/prompts_v3Actions';
 import { IReduxRootState } from '../../../store/reducer';
 import { EPrompt_v3_type } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
+import { PromptsFactoryForm_v2 } from './PromptsFactoryForm_v2';
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
@@ -70,6 +71,10 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     prompts_v3_for_promptsFactory_default,
   );
   const [view, setView] = useState<'simple' | 'advanced'>('simple');
+  const [showForm, setShowForm] = useState<boolean>(true);
+  const [showForm_data, setShowForm_data] = useState<IPrompt_v3_for_promptsFactory>(
+    IPrompt_v3_for_promptsFactory_default,
+  );
 
   function handleDragEnd(event: DragEndEvent): void {
     const { active, over } = event;
@@ -122,7 +127,6 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
         <div className="block_buttons">
           <Button
             onClick={() => {
-              console.log('view');
               if (view === 'simple') {
                 setView('advanced');
                 return;
@@ -135,7 +139,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           <Button
             className="ml-[1rem]"
             onClick={() => {
-              console.log('create');
+              setShowForm(!showForm);
             }}
           >
             Create
@@ -152,31 +156,39 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           </Button>
         </div>
         <div className="flex">
-          <DndContext
-            sensors={useSensors(useSensor(PointerSensor))}
-            collisionDetection={closestCenter}
-            onDragOver={handleDragEnd}
-            onDragEnd={handleDragEnd}
-          >
-            <div className="flex flex-col gap-8 mt-4 pr-2">
-              {/* {!parent ? draggable : null}
+          <div>
+            {showForm && (
+              <div className="showForm_block">
+                <PromptsFactoryForm_v2 t={t} prompt={showForm_data} />
+              </div>
+            )}
+
+            <DndContext
+              sensors={useSensors(useSensor(PointerSensor))}
+              collisionDetection={closestCenter}
+              onDragOver={handleDragEnd}
+              onDragEnd={handleDragEnd}
+            >
+              <div className="flex flex-col gap-8 mt-4 pr-2">
+                {/* {!parent ? draggable : null}
           {!parent ? draggable_2 : null}
           <Droppable id="droppable">{parent === 'droppable' ? draggable : 'Drop here'}</Droppable> */}
 
-              {prompts_v3_for_promptsFactory_status.map((statusItem) => {
-                return (
-                  <StatusBlock
-                    key={statusItem.id}
-                    view={view}
-                    block={statusItem}
-                    prompts_v3_for_promptsFactory_filtered={prompts_v3_for_promptsFactory.filter(
-                      (item) => item.status === statusItem.id,
-                    )}
-                  />
-                );
-              })}
-            </div>
-          </DndContext>
+                {prompts_v3_for_promptsFactory_status.map((statusItem) => {
+                  return (
+                    <StatusBlock
+                      key={statusItem.id}
+                      view={view}
+                      block={statusItem}
+                      prompts_v3_for_promptsFactory_filtered={prompts_v3_for_promptsFactory.filter(
+                        (item) => item.status === statusItem.id,
+                      )}
+                    />
+                  );
+                })}
+              </div>
+            </DndContext>
+          </div>
 
           <div className="mt-4 pl-2">right panel</div>
         </div>
