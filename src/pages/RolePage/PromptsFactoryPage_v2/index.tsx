@@ -46,7 +46,6 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
       dispatch<any>(udpatePrompts_v3_elements(newPrompts_v3_elements));
     },
   });
-  console.log('prompts_v3_elements', prompts_v3_elements);
 
   // const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = prompts_v3_user.map(
   //   (item: IPrompt_v3 | IPrompt_v3_type_persona) => {
@@ -78,16 +77,13 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     },
   ];
 
-  const [prompts_v3_for_promptsFactory, setPrompts_v3_for_promptsFactory] = useState<IPrompt_v3_for_promptsFactory[]>([
-    ...prompts_v3_elements,
-  ]);
   const [view, setView] = useState<'simple' | 'advanced'>('simple');
   const [showForm, setShowForm] = useState<boolean>(true);
   const [showForm_data, setShowForm_data] = useState<IPrompt_v3_for_promptsFactory>(
     IPrompt_v3_for_promptsFactory_default,
   );
 
-  function handleDragEnd(event: DragEndEvent): void {
+  const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
 
     console.log('active', active);
@@ -102,7 +98,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     if (currentStatus === targetStatus && active.id !== over.id) {
       console.log('hit same status block');
 
-      setPrompts_v3_for_promptsFactory((items) => {
+      setPrompts_v3_elements((items) => {
         const oldIndex = items.findIndex((item) => item.title === active.id);
         const newIndex = items.findIndex((item) => item.title === over.id);
 
@@ -120,7 +116,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
 
       const currentTitle = active.data?.current?.prompt?.title;
 
-      setPrompts_v3_for_promptsFactory((items) => {
+      setPrompts_v3_elements((items) => {
         return items.map((item) => {
           if (item.title === currentTitle) {
             return { ...item, status: targetStatus };
@@ -129,7 +125,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
         });
       });
     }
-  }
+  };
 
   return (
     <div className="container p-10 w-full">
@@ -185,7 +181,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     key={statusItem.id}
                     view={view}
                     block={statusItem}
-                    prompts_v3_for_promptsFactory_filtered={prompts_v3_for_promptsFactory.filter(
+                    prompts_v3_for_promptsFactory_filtered={prompts_v3_elements.filter(
                       (item) => item.status === statusItem.id,
                     )}
                   />
@@ -205,8 +201,6 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     setShowForm={setShowForm}
                     prompts_v3_elements={prompts_v3_elements}
                     setPrompts_v3_elements={setPrompts_v3_elements}
-                    prompts_v3_for_promptsFactory={prompts_v3_for_promptsFactory}
-                    setPrompts_v3_for_promptsFactory={setPrompts_v3_for_promptsFactory}
                   />
                 </div>
               )}
