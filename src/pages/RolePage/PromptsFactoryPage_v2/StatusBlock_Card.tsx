@@ -13,7 +13,7 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
     data: {
-      type: 'card',
+      type: 'status-block-card',
       prompt: onePrompt,
     },
   });

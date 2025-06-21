@@ -20,7 +20,6 @@ export const StatusBlock = (props: IStatusBlock) => {
     id,
     data: {
       type: 'status-block',
-      block,
     },
   });
 
