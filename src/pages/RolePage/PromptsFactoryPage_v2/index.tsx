@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Button } from 'antd';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
 import {
@@ -16,10 +16,17 @@ export interface IPromptsFactoryPage {
 export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const { t } = props;
 
-  const prompts_v3_for_promptsFactory_deafult: IPrompt_v3_for_promptsFactory[] = [
+  const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = [
     {
       ...IPrompt_v3_for_promptsFactory_default,
       title: 'context',
+      type: EPrompt_v3_for_promptsFactory_type.CONTEXT,
+      status: 'ready',
+      tags: ['background', 'setting'],
+    },
+    {
+      ...IPrompt_v3_for_promptsFactory_default,
+      title: 'context-2',
       type: EPrompt_v3_for_promptsFactory_type.CONTEXT,
       status: 'ready',
       tags: ['background', 'setting'],
@@ -45,7 +52,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   ];
 
   const [prompts_v3_for_promptsFactory, setPrompts_v3_for_promptsFactory] = useState<IPrompt_v3_for_promptsFactory[]>(
-    prompts_v3_for_promptsFactory_deafult,
+    prompts_v3_for_promptsFactory_default,
   );
 
   function handleDragEnd(event: DragEndEvent): void {
@@ -56,19 +63,48 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
 
     if (!over) return;
 
-    const cardTitle = active.id as IPrompt_v3_for_promptsFactory['title'];
-    const newStatus = over.id as IPrompt_v3_for_promptsFactory['status'];
+    // 处理卡片排序（同一状态块内）
+    if (active.data?.current?.prompt?.status === over.data?.current?.prompt?.status) {
+      console.log('hit same status block');
+      if (active.id !== over.id) {
+        setPrompts_v3_for_promptsFactory((items) => {
+          const oldIndex = items.findIndex((item) => item.title === active.id);
+          const newIndex = items.findIndex((item) => item.title === over.id);
 
-    setPrompts_v3_for_promptsFactory(() => {
-      return prompts_v3_for_promptsFactory.map((onePrompt) => {
-        return onePrompt.title === cardTitle
-          ? {
-              ...onePrompt,
-              status: newStatus,
+          const newItems = [...items];
+          const [movedItem] = newItems.splice(oldIndex, 1);
+          newItems.splice(newIndex, 0, movedItem);
+
+          return newItems;
+        });
+      }
+    }
+
+    // 处理卡片拖拽（跨状态块）
+    if (
+      over.data?.current?.type === 'status-block' ||
+      active.data?.current?.prompt?.status !== over.data?.current?.prompt?.status
+    ) {
+      console.log('hit cross status block');
+      const currentStatus = active.data?.current?.prompt?.status;
+      const currentTitle = active.data?.current?.prompt?.title;
+      const targetStatus = over.data?.current?.type === 'status-block' ? over?.id : over.data?.current?.prompt?.status;
+
+      console.log('currentStatus', currentStatus);
+      console.log('targetStatus', targetStatus);
+
+      // 使用延迟更新状态，让动画完成
+      setTimeout(() => {
+        setPrompts_v3_for_promptsFactory((items) => {
+          return items.map((item) => {
+            if (item.title === currentTitle) {
+              return { ...item, status: targetStatus };
             }
-          : onePrompt;
-      });
-    });
+            return item;
+          });
+        });
+      }, 0);
+    }
   }
 
   return (
@@ -95,7 +131,12 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           </Button>
         </div>
         <div className="flex">
-          <DndContext onDragEnd={handleDragEnd}>
+          <DndContext
+            sensors={useSensors(useSensor(PointerSensor))}
+            collisionDetection={closestCenter}
+            onDragOver={handleDragEnd}
+            onDragEnd={handleDragEnd}
+          >
             <div className="flex flex-col gap-8 mt-4 pr-2">
               {/* {!parent ? draggable : null}
           {!parent ? draggable_2 : null}
