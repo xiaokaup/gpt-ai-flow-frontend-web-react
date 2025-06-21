@@ -42,7 +42,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
       if (item.type === EPrompt_v3_type.PERSONA_MODEL) {
         newType = EPrompt_v3_for_promptsFactory_type.SUBJECT;
       } else if (item.type === EPrompt_v3_type.PROMPT) {
-        newType = EPrompt_v3_for_promptsFactory_type.PROMPT;
+        newType = EPrompt_v3_for_promptsFactory_type.INSTRUCTION;
       }
 
       return {
@@ -55,7 +55,6 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
       };
     },
   );
-
   const prompts_v3_for_promptsFactory_status: IPrompts_v3_for_promptsFactory_status[] = [
     {
       id: 'selected',
@@ -70,6 +69,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const [prompts_v3_for_promptsFactory, setPrompts_v3_for_promptsFactory] = useState<IPrompt_v3_for_promptsFactory[]>(
     prompts_v3_for_promptsFactory_default,
   );
+  const [view, setView] = useState<'simple' | 'advanced'>('simple');
 
   function handleDragEnd(event: DragEndEvent): void {
     const { active, over } = event;
@@ -121,21 +121,34 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
       <div className="factory_container">
         <div className="block_buttons">
           <Button
-            type="primary"
             onClick={() => {
-              console.log('generate');
+              console.log('view');
+              if (view === 'simple') {
+                setView('advanced');
+                return;
+              }
+              setView('simple');
             }}
           >
-            Generate
+            View
           </Button>
           <Button
-            type="primary"
             className="ml-[1rem]"
             onClick={() => {
               console.log('create');
             }}
           >
             Create
+          </Button>
+
+          <Button
+            type="primary"
+            className="ml-[1rem]"
+            onClick={() => {
+              console.log('generate');
+            }}
+          >
+            Generate
           </Button>
         </div>
         <div className="flex">
@@ -154,6 +167,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                 return (
                   <StatusBlock
                     key={statusItem.id}
+                    view={view}
                     block={statusItem}
                     prompts_v3_for_promptsFactory_filtered={prompts_v3_for_promptsFactory.filter(
                       (item) => item.status === statusItem.id,

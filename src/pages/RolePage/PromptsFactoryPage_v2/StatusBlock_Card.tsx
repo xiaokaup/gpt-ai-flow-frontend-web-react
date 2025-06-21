@@ -3,10 +3,11 @@ import { IPrompt_v3_for_promptsFactory } from '../../../gpt-ai-flow-common/inter
 import { useSortable } from '@dnd-kit/sortable';
 
 interface IStatusBlock_Card {
+  view: 'simple' | 'advanced';
   onePrompt: IPrompt_v3_for_promptsFactory;
 }
 export const StatusBlock_Card = (props: IStatusBlock_Card) => {
-  const { onePrompt } = props;
+  const { view, onePrompt } = props;
   const { title: id, title, content } = onePrompt;
 
   // 使用 useSortable 处理排序
@@ -30,13 +31,13 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
       {...listeners}
       {...attributes}
       key={title}
-      className="cursor-grab rounded-lg bg-neutral-700 p-4 shadow-sm hover:shadow-md"
+      className="cursor-grab rounded-lg bg-neutral-700 px-2 shadow-sm hover:shadow-md"
       style={style}
     >
       <div className="flex justify-between items-center">
         <h3 className="font-medium text-neutral-100">{title}</h3>
       </div>
-      <p className="mt-2 text-sm text-neutral-400 max-h-[200px] overflow-auto">{content}</p>
+      {view === 'advanced' && <p className="mt-2 text-sm text-neutral-400 max-h-[200px] overflow-auto">{content}</p>}
     </div>
   );
 };

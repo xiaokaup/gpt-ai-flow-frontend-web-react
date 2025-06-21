@@ -9,11 +9,12 @@ export interface IPrompts_v3_for_promptsFactory_status {
 }
 
 interface IStatusBlock {
+  view: 'simple' | 'advanced';
   block: IPrompts_v3_for_promptsFactory_status;
   prompts_v3_for_promptsFactory_filtered: IPrompt_v3_for_promptsFactory[];
 }
 export const StatusBlock = (props: IStatusBlock) => {
-  const { block, prompts_v3_for_promptsFactory_filtered } = props;
+  const { view, block, prompts_v3_for_promptsFactory_filtered } = props;
   const { id, title } = block;
 
   const { setNodeRef } = useDroppable({
@@ -32,7 +33,7 @@ export const StatusBlock = (props: IStatusBlock) => {
       <div ref={setNodeRef} className="flex flex-1 flex-col gap-4">
         <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
           {prompts_v3_for_promptsFactory_filtered.map((onePrompt) => (
-            <StatusBlock_Card key={onePrompt.title} onePrompt={onePrompt} />
+            <StatusBlock_Card key={onePrompt.title} view={view} onePrompt={onePrompt} />
           ))}
         </SortableContext>
       </div>
