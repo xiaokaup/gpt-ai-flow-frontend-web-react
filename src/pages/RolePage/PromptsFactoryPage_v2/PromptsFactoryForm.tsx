@@ -1,24 +1,33 @@
-import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { IPrompt_v3_for_promptsFactory } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
-import { Input, Button, Select, Form } from 'antd';
+import { Input, Button, Select, Form, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { EPrompt_v3_category } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
-import { MetadataHiddenForm } from '../../PromptsWindow/MetadataHiddenForm';
 import { useForm } from 'antd/es/form/Form';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
+import {
+  EPrompt_v3_for_promptsFactory_type,
+  IPrompt_v3_for_promptsFactory,
+} from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
+import { Dispatch } from 'react';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
   prompt: IPrompt_v3_for_promptsFactory;
+  setShowForm: Dispatch<React.SetStateAction<boolean>>;
+  // setShowForm_data: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory | null>>;
 }
 export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
-  const { t, prompt } = props;
+  const { t, setShowForm, prompt } = props;
 
   const [form] = useForm();
 
-  const onFinishInModal = (values: IPromptsFactoryForm) => {
+  const onFinishInModal = (values: IPrompt_v3_for_promptsFactory) => {
     console.log('Success:', values);
 
-    // const { name, category } = values;
+    const { type } = values;
+
+    if (!type) {
+      message.error(t.get('Please enter your {text}', { text: t.get('Type') }));
+      return;
+    }
 
     // if (!category || category?.length === 0) {
     //   message.error(t.get('Please enter your {text}', { text: t.get('Category') }));
@@ -51,18 +60,81 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
       <Form
         form={form}
         layout="vertical"
-        name="basic"
+        name="PromptsFactoryForm"
+        initialValues={prompt}
         // labelCol={{ span: 8 }}
         // wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        size="small"
+        // style={{ maxWidth: 600 }}
         autoComplete="off"
         onFinish={onFinishInModal}
         onFinishFailed={onTableFinishFailedInAiFlowModal}
       >
         <Form.Item
+          className="hidden"
+          label={t.get('Role')}
+          name="role"
+          rules={[
+            {
+              required: true,
+              message: t.getHTML('Please enter your {text}', {
+                text: t.get('Role'),
+              }),
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item label={t.get('Type')} name="type">
+          <Select>
+            {/* {getEPrompts_v3_category_for_select_options().map((oneSelectValue: string) => {
+                return <Select.Option value={oneSelectValue}>{t.get(oneSelectValue)}</Select.Option>;
+              })} */}
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.CONTEXT}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.CONTEXT)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.SUBJECT}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.SUBJECT)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.METHOD}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.METHOD)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.AUDIENCE}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.AUDIENCE)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.OBJECTIVE}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.OBJECTIVE)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.DURATION}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.DURATION)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.STYLE}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.STYLE)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.TONE}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.TONE)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.RULE}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.RULE)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.INSTRUCTION}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.INSTRUCTION)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.OUTPUT}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.OUTPUT)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.EXAMPLE}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.EXAMPLE)}
+            </Select.Option>
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.OTHER}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.OTHER)}
+            </Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
           label={t.get('Name')}
-          name="name"
+          name="title"
           rules={[
             {
               required: true,
@@ -76,47 +148,13 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
         </Form.Item>
 
         <Form.Item
-          label={
-            <div>
-              <span>{t.get('Value')} </span>
-              <Button
-                type="primary"
-                className="ml-2"
-                size="small"
-                onClick={() => {
-                  //   setIsShow(true, EPrompt_v3_category.CONTEXT_PERSONA);
-                }}
-              >
-                {t.get('Create') + t.get('persona')}
-              </Button>
-              <Button
-                type="primary"
-                className="ml-2"
-                size="small"
-                onClick={() => {
-                  //   setIsShow(true, EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE);
-                }}
-              >
-                {t.get('Create') + t.get('target audience')}
-              </Button>
-              <Button
-                type="primary"
-                className="ml-2"
-                size="small"
-                onClick={() => {
-                  //   setIsShow(true, EPrompt_v3_category.CONTEXT_BACKGROUND);
-                }}
-              >
-                {t.get('Create') + t.get('background')}
-              </Button>
-            </div>
-          }
-          name="value"
+          label={t.get('Content')}
+          name="content"
           rules={[
             {
               required: true,
               message: t.getHTML('Please enter your {text}', {
-                text: t.get('Value'),
+                text: t.get('Content'),
               }),
             },
           ]}
@@ -125,41 +163,37 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
         >
           <TextArea autoSize />
         </Form.Item>
-        <Form.Item label={t.get('Category')} name="category">
-          <Select mode="multiple">
-            {/* {getEPrompts_v3_category_for_select_options().map((oneSelectValue: string) => {
-                return <Select.Option value={oneSelectValue}>{t.get(oneSelectValue)}</Select.Option>;
-              })} */}
-            <Select.Option value={EPrompt_v3_category.CONTEXT_PERSONA}>
-              {t.get(EPrompt_v3_category.CONTEXT_PERSONA)}
-            </Select.Option>
-            <Select.Option value={EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE}>
-              {t.get(EPrompt_v3_category.CONTEXT_TARGET_AUDIENCE)}
-            </Select.Option>
-            <Select.Option value={EPrompt_v3_category.CONTEXT_BACKGROUND}>
-              {t.get(EPrompt_v3_category.CONTEXT_BACKGROUND)}
-            </Select.Option>
-            <Select.Option value={EPrompt_v3_category.CONTEXT_EXAMPLE}>
-              {t.get(EPrompt_v3_category.CONTEXT_EXAMPLE)}
-            </Select.Option>
-          </Select>
+
+        <Form.Item
+          className="hidden"
+          label={t.get('Status')}
+          name="status"
+          rules={[
+            {
+              required: true,
+              message: t.getHTML('Please enter your {text}', {
+                text: t.get('Status'),
+              }),
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
+
         <Form.Item label={t.get('Tags')} name="tags">
           <Select mode="tags" />
         </Form.Item>
-
-        <MetadataHiddenForm t={t} />
 
         <Form.Item
         // wrapperCol={{ offset: 8, span: 16 }}
         >
           <Button type="primary" htmlType="submit">
-            {t.get('Create')}
+            {t.get('Submit')}
           </Button>
           <Button
             style={{ marginLeft: 10 }}
             onClick={() => {
-              console.log('cancel click');
+              setShowForm(false);
             }}
           >
             {t.get('Cancel')}

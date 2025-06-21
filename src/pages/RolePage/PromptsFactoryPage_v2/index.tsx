@@ -9,13 +9,14 @@ import {
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { useDispatch, useSelector } from 'react-redux';
-import { usePrompts_v3_user_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2';
+import { usePrompts_v3_user_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2_for_web';
 import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
-import { updateUserPrompts_v3 } from '../../../store/actions/prompts_v3Actions';
+import { udpatePrompts_v3_elements, updateUserPrompts_v3 } from '../../../store/actions/prompts_v3Actions';
 import { IReduxRootState } from '../../../store/reducer';
 import { EPrompt_v3_type } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
-import { PromptsFactoryForm } from './PromptsFactoryForm';
+import { PromptsFactoryForm } from './promptsFactoryForm';
+import { usePrompts_v3_elements_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_elements_v2_for_web';
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
@@ -29,6 +30,9 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const prompts_v3_userFromStorage: (IPrompt_v3 | IPrompt_v3_type_persona)[] = useSelector((state: IReduxRootState) => {
     return state.prompts_v3.user;
   });
+  const prompts_v3_elementsFromStorage: IPrompt_v3_for_promptsFactory[] = useSelector((state: IReduxRootState) => {
+    return state.prompts_v3.elements;
+  });
 
   const { prompts_v3_user, setPrompts_v3_user } = usePrompts_v3_user_v2_for_web({
     prompts_v3_userFromStorage,
@@ -36,6 +40,13 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
       dispatch<any>(updateUserPrompts_v3(newPrompts_v3_user));
     },
   });
+  const { prompts_v3_elements, setPrompts_v3_elements } = usePrompts_v3_elements_v2_for_web({
+    prompts_v3_elementsFromStorage,
+    onChangePrompts_v3_elements: (newPrompts_v3_elements: IPrompt_v3_for_promptsFactory[]) => {
+      dispatch<any>(udpatePrompts_v3_elements(newPrompts_v3_elements));
+    },
+  });
+  console.log('prompts_v3_elements', prompts_v3_elements);
 
   const prompts_v3_for_promptsFactory_default: IPrompt_v3_for_promptsFactory[] = prompts_v3_user.map(
     (item: IPrompt_v3 | IPrompt_v3_type_persona) => {
@@ -139,6 +150,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           <Button
             className="ml-[1rem]"
             onClick={() => {
+              setShowForm_data(IPrompt_v3_for_promptsFactory_default);
               setShowForm(!showForm);
             }}
           >
@@ -156,41 +168,42 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           </Button>
         </div>
         <div className="flex">
-          <div>
-            {showForm && (
-              <div className="showForm_block">
-                <PromptsFactoryForm t={t} prompt={showForm_data} />
-              </div>
-            )}
-
-            <DndContext
-              sensors={useSensors(useSensor(PointerSensor))}
-              collisionDetection={closestCenter}
-              onDragOver={handleDragEnd}
-              onDragEnd={handleDragEnd}
-            >
-              <div className="flex flex-col gap-8 mt-4 pr-2">
-                {/* {!parent ? draggable : null}
+          <DndContext
+            sensors={useSensors(useSensor(PointerSensor))}
+            collisionDetection={closestCenter}
+            onDragOver={handleDragEnd}
+            onDragEnd={handleDragEnd}
+          >
+            <div className="flex flex-col gap-8 mt-4 pr-2">
+              {/* {!parent ? draggable : null}
           {!parent ? draggable_2 : null}
           <Droppable id="droppable">{parent === 'droppable' ? draggable : 'Drop here'}</Droppable> */}
 
-                {prompts_v3_for_promptsFactory_status.map((statusItem) => {
-                  return (
-                    <StatusBlock
-                      key={statusItem.id}
-                      view={view}
-                      block={statusItem}
-                      prompts_v3_for_promptsFactory_filtered={prompts_v3_for_promptsFactory.filter(
-                        (item) => item.status === statusItem.id,
-                      )}
-                    />
-                  );
-                })}
-              </div>
-            </DndContext>
-          </div>
+              {prompts_v3_for_promptsFactory_status.map((statusItem) => {
+                return (
+                  <StatusBlock
+                    key={statusItem.id}
+                    view={view}
+                    block={statusItem}
+                    prompts_v3_for_promptsFactory_filtered={prompts_v3_for_promptsFactory.filter(
+                      (item) => item.status === statusItem.id,
+                    )}
+                  />
+                );
+              })}
+            </div>
+          </DndContext>
 
-          <div className="mt-4 pl-2">right panel</div>
+          <div className="mt-4 pl-2 flex-1">
+            right panel
+            <div>
+              {showForm && (
+                <div className="showForm_block">
+                  <PromptsFactoryForm t={t} prompt={showForm_data} setShowForm={setShowForm} />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
