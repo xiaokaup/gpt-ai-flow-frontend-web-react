@@ -8,21 +8,10 @@ export interface IPromptsFactoryPage {
 export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const { t } = props;
 
-  const items: TabsProps['items'] = [
-    {
-      label: 'a',
-      key: 'a',
-      disabled: false,
-      children: 'hello',
-    },
-  ];
-
   return (
     <div className="container p-10 w-full">
       <h1>{`${t.get('Prompts Factory')} 🏭`}</h1>
-      <div className="factory_container">
-        <Tabs defaultActiveKey="1" tabPosition={'left'} style={{ height: 500 }} items={items} />
-      </div>
+      <div className="factory_container">container</div>
     </div>
   );
 };
