@@ -14,9 +14,12 @@ interface IPromptsFactoryForm {
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
   prompts_v3_elements: IPrompt_v3_for_promptsFactory[];
   setPrompts_v3_elements: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory[]>>;
+  prompts_v3_for_promptsFactory: IPrompt_v3_for_promptsFactory[];
+  setPrompts_v3_for_promptsFactory: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory[]>>;
 }
 export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
-  const { t, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
+  const { t, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements, setPrompts_v3_for_promptsFactory } =
+    props;
 
   const [form] = useForm();
 
@@ -43,6 +46,7 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
     const newPrompts_v3_elements = [newItem, ...prompts_v3_elements];
 
     setPrompts_v3_elements(newPrompts_v3_elements);
+    setPrompts_v3_for_promptsFactory(newPrompts_v3_elements);
 
     setShowForm(false);
 

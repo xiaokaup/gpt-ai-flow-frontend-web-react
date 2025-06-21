@@ -205,6 +205,8 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     setShowForm={setShowForm}
                     prompts_v3_elements={prompts_v3_elements}
                     setPrompts_v3_elements={setPrompts_v3_elements}
+                    prompts_v3_for_promptsFactory={prompts_v3_for_promptsFactory}
+                    setPrompts_v3_for_promptsFactory={setPrompts_v3_for_promptsFactory}
                   />
                 </div>
               )}
