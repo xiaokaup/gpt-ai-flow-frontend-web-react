@@ -51,7 +51,7 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
             className="cursor-pointer p-2"
             onClick={() => {
               setFormTitle(t.get('Edit'));
-              form.setFieldsValue(onePrompt);
+              form.setFieldsValue({ ...onePrompt, oldTitle: onePrompt.title });
               setShowForm_data(onePrompt);
               setShowForm(true);
             }}

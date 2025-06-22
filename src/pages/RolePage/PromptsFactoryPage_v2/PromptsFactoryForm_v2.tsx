@@ -21,7 +21,7 @@ interface IPromptsFactoryForm {
 export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
   const { t, form, formTitle, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
 
-  const onFinishInModal = (values: IPrompt_v3_for_promptsFactory) => {
+  const onFinishInModal = (values: IPrompt_v3_for_promptsFactory & { oldTitle: string }) => {
     console.log('Success:', values);
 
     const { type } = values;
@@ -47,14 +47,16 @@ export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
       setShowForm(false);
       message.success(t.get('The prompt has been added to My prompts'));
     } else if (formTitle === t.get('Edit')) {
-      const findPrompt = prompts_v3_elements.find((item: IPrompt_v3_for_promptsFactory) => item.title === values.title);
+      const findPrompt = prompts_v3_elements.find(
+        (item: IPrompt_v3_for_promptsFactory) => item.title === values.oldTitle,
+      );
       if (!findPrompt) {
         message.error(t.get("The prompt name doesn't exist"));
         return;
       }
 
       const newPrompts_v3_elements = prompts_v3_elements.map((item: IPrompt_v3_for_promptsFactory) => {
-        if (item.title === values.title) {
+        if (item.title === values.oldTitle) {
           return { ...item, ...values };
         }
         return item;
@@ -148,21 +150,10 @@ export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
           </Select>
         </Form.Item>
 
-        <Form.Item
-          className="hidden"
-          label={t.get('Name')}
-          name="oldTitle"
-          rules={[
-            {
-              required: true,
-              message: t.getHTML('Please enter your {text}', {
-                text: t.get('Name'),
-              }),
-            },
-          ]}
-        >
+        <Form.Item className="hidden" label={t.get('Name')} name="oldTitle">
           <Input />
         </Form.Item>
+
         <Form.Item
           label={t.get('Name')}
           name="title"
