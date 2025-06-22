@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Button } from 'antd';
 import { useForm } from 'antd/es/form/Form';
@@ -18,13 +19,37 @@ import { updatePrompts_v3_elements } from '../../../store/actions/prompts_v3Acti
 import { IReduxRootState } from '../../../store/reducer';
 import { usePrompts_v3_elements_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_elements_v2_for_web';
 import { PromptsFactoryForm_v2 } from './PromptsFactoryForm_v2';
+import TBackendLangchainFile from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { EProMode_v4_module_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import { SLLM_v2_common } from '../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
+import { ELLM_name } from '../../../gpt-ai-flow-common/enum-backend/ELLM';
+import IStoreStorageFile, {
+  IStoreStorage_settings_local,
+} from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
+import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
+import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
+import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
   userAccessToken: string;
 }
 export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
-  const { t } = props;
+  const { t, userAccessToken } = props;
+
+  const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
+    return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
+  });
+  const {
+    apiKeys: llmOption_secrets,
+    proMode: { model_type: llmName_from_store },
+  } = localFromStore;
+
+  const [creativityValue] = useState<number>(0.8);
+  const [llmName] = useState<ELLM_name>(llmName_from_store);
 
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -86,6 +111,12 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const [showForm_data, setShowForm_data] = useState<IPrompt_v3_for_promptsFactory>(
     IPrompt_v3_for_promptsFactory_default,
   );
+
+  const [requestController, setRequestController] = useState<AbortController>(new AbortController());
+  const [isCalling, setIsCalling] = useState<boolean>(false);
+
+  const [result_text, setResult_text] = useState<string>('');
+  const [results, setRestuls] = useState<IPrompt[]>([]);
 
   const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
@@ -161,11 +192,72 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           <Button
             type="primary"
             className="ml-[1rem]"
+            disabled={isCalling}
             onClick={() => {
               const prompts_v3_elements_selected: IPrompt_v3_for_promptsFactory[] = prompts_v3_elements.filter(
                 (item) => item.status === 'selected',
               );
               console.log('Generate prompts_v3_elements_selected', prompts_v3_elements_selected);
+
+              const newRequestController = new AbortController();
+              setRequestController(newRequestController);
+              const { signal } = newRequestController;
+
+              const llmOptions = {
+                llmName,
+                llmImageName: null,
+                llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
+                llmTemperature: creativityValue,
+              };
+
+              const urlSlug = '/v1.0/post/langchain/chains/generatePrompt_v3/';
+              const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
+                contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
+                history: [],
+                input: JSON.stringify(prompts_v3_elements_selected),
+                llmOptions,
+                toolOptions: IToolOptions_default,
+              };
+              console.log('urlSlug', urlSlug);
+              console.log('bodyData', bodyData);
+
+              TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
+                urlSlug,
+                bodyData,
+                () => {
+                  console.log('afterReceiveResponseFunc');
+                },
+                () => {
+                  console.log('beforeSendRequestFunc');
+                  setIsCalling(true);
+                },
+                (writingResultText: string) => {
+                  console.log('updateResultFromRequestFunc', writingResultText);
+                  setResult_text(writingResultText);
+                },
+                (resultText: string) => {
+                  console.log('AfterRequestFunc', resultText);
+                  setResult_text('');
+                  setRestuls((prevResults) => [
+                    {
+                      ...IPrompt_default,
+                      role: EAIFlowRole.ASSISTANT,
+                      content: resultText,
+                      versionDate: new Date().toISOString(),
+                      versionNum: prevResults.length + 1,
+                    },
+                    ...prevResults,
+                  ]);
+                  setIsCalling(false);
+                },
+                userAccessToken,
+                t.currentLocale,
+                CONSTANTS_GPT_AI_FLOW_COMMON,
+                TCryptoJSFile.encrypt_v2(
+                  CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
+                ),
+                signal,
+              );
             }}
           >
             {t.get('Generate')}
@@ -195,6 +287,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     )}
                     form={form}
                     setFormTitle={setFormTitle}
+                    showForm={showForm}
                     setShowForm={setShowForm}
                     setShowForm_data={setShowForm_data}
                   />
@@ -204,7 +297,6 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           </DndContext>
 
           <div className="mt-4 pl-2 flex-1">
-            right panel
             <div>
               {showForm && (
                 <div className="showForm_block">
@@ -218,6 +310,26 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     prompts_v3_elements={prompts_v3_elements}
                     setPrompts_v3_elements={setPrompts_v3_elements}
                   />
+                </div>
+              )}
+            </div>
+
+            <div className="results_block">
+              {result_text && (
+                <div className="results_text">
+                  <ReactMarkdown>{result_text}</ReactMarkdown>
+                </div>
+              )}
+              {results.length > 0 && (
+                <div className="results_list">
+                  {results.map((result, index) => (
+                    <>
+                      <hr />
+                      <div key={index} className="result_item">
+                        <ReactMarkdown>{result.content}</ReactMarkdown>
+                      </div>
+                    </>
+                  ))}
                 </div>
               )}
             </div>

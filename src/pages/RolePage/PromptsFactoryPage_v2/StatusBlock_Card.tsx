@@ -12,11 +12,12 @@ interface IStatusBlock_Card {
   onePrompt: IPrompt_v3_for_promptsFactory;
   form: FormInstance<any>;
   setFormTitle: Dispatch<React.SetStateAction<string>>;
+  showForm: boolean;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
   setShowForm_data: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory>>;
 }
 export const StatusBlock_Card = (props: IStatusBlock_Card) => {
-  const { t, view, onePrompt, form, setFormTitle, setShowForm, setShowForm_data } = props;
+  const { t, view, onePrompt, form, setFormTitle, showForm, setShowForm, setShowForm_data } = props;
   const { title: id, type, title, content, tags = [] } = onePrompt;
 
   // 使用 useSortable 处理排序
@@ -53,7 +54,7 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
               setFormTitle(t.get('Edit'));
               form.setFieldsValue({ ...onePrompt, oldTitle: onePrompt.title });
               setShowForm_data(onePrompt);
-              setShowForm(true);
+              setShowForm(!showForm);
             }}
           />
           <div className="cursor-grab cursor-grab p-2 mr-2 text-neutral-400 hover:text-neutral-200">

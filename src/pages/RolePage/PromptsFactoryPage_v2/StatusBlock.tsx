@@ -18,12 +18,22 @@ interface IStatusBlock {
   prompts_v3_for_promptsFactory_filtered: IPrompt_v3_for_promptsFactory[];
   form: FormInstance<any>;
   setFormTitle: Dispatch<React.SetStateAction<string>>;
+  showForm: boolean;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
   setShowForm_data: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory>>;
 }
 export const StatusBlock = (props: IStatusBlock) => {
-  const { t, view, block, prompts_v3_for_promptsFactory_filtered, form, setFormTitle, setShowForm, setShowForm_data } =
-    props;
+  const {
+    t,
+    view,
+    block,
+    prompts_v3_for_promptsFactory_filtered,
+    form,
+    setFormTitle,
+    showForm,
+    setShowForm,
+    setShowForm_data,
+  } = props;
   const { id, title } = block;
 
   const { setNodeRef } = useDroppable({
@@ -49,6 +59,7 @@ export const StatusBlock = (props: IStatusBlock) => {
               onePrompt={onePrompt}
               form={form}
               setFormTitle={setFormTitle}
+              showForm={showForm}
               setShowForm={setShowForm}
               setShowForm_data={setShowForm_data}
             />
