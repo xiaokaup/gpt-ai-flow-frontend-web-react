@@ -288,6 +288,36 @@ export const getRoles = (locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
+      iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
+      proModeModuleName: '提示解析器',
+      description:
+        '智能解析和优化您的提示词，提升AI互动质量。轻松转换复杂指令为结构化提示，让您的AI对话更精准、更高效。',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
+    },
+    {
+      iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
+      proModeModuleName: '提示工厂',
+      description:
+        '专业打造高质量AI提示词，为各类场景定制最佳指令模板。从创意写作到数据分析，帮您构建精准有效的AI沟通桥梁。',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/modules/prompts-factory`,
+    },
+    {
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
+      proModeModuleName: '职场 AI 助手',
+      description: '专业高效地完成工作任务，擅长团队协作与沟通，持续关注行业趋势并不断提升自我',
+      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+    },
+    {
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-30-product-manager.png',
+      proModeModuleName: '产品经理 AI 助手',
+      description: '专注倾听用户需求，为您打造简单易用的产品体验。从调研规划到设计优化，每一步都为解决产品问题而努力。',
+      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+    },
+    {
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
       proModeModuleName: '领英平台 AI 助手',
       description:
@@ -318,20 +348,6 @@ export const getRoles = (locale: ELocale) => {
         '一键生成吸引眼球的标题和文案，自动匹配热门标签，获取源源不断的创意灵感。让创作更轻松，让内容更出彩，让传播更高效。',
       // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
-    },
-    {
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: '职场 AI 助手',
-      description: '专业高效地完成工作任务，擅长团队协作与沟通，持续关注行业趋势并不断提升自我',
-      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-    },
-    {
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-30-product-manager.png',
-      proModeModuleName: '产品经理 AI 助手',
-      description: '专注倾听用户需求，为您打造简单易用的产品体验。从调研规划到设计优化，每一步都为解决产品问题而努力。',
-      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
     {
       iconUrl: '/static/icons/2025-06-21-img-5-duty.png',
@@ -411,6 +427,38 @@ export const getRoles = (locale: ELocale) => {
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
+      iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
+      proModeModuleName: 'Prompt Parser',
+      description:
+        'Intelligently parse and optimize your prompts to enhance AI interaction quality. Easily convert complex instructions into structured prompts, making your AI conversations more precise and efficient.',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
+    },
+    {
+      iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
+      proModeModuleName: 'Prompt Factory',
+      description:
+        'Professionally create high-quality AI prompts, customizing optimal instruction templates for various scenarios. From creative writing to data analysis, helping you build precise and effective AI communication bridges.',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/modules/prompts-factory`,
+    },
+    {
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
+      proModeModuleName: 'Workplace AI Assistant',
+      description:
+        'Plan, deliver, and grow with your team. We help you manage projects and stay on top of industry trends.',
+      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
+    },
+    {
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-30-product-manager.png',
+      proModeModuleName: 'Product Manager AI Assistant',
+      description:
+        'Find what you need, get smart solutions, and watch your product grow with our step-by-step guidance.',
+      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
+    },
+    {
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
       proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]) + ' AI Assistant',
       description:
@@ -441,22 +489,6 @@ export const getRoles = (locale: ELocale) => {
         'Create trending posts instantly with catchy titles, perfect hashtags, and fresh content ideas that get noticed to grow your social media.',
       // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
-    },
-    {
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
-      proModeModuleName: 'Workplace AI Assistant',
-      description:
-        'Plan, deliver, and grow with your team. We help you manage projects and stay on top of industry trends.',
-      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
-    },
-    {
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-30-product-manager.png',
-      proModeModuleName: 'Product Manager AI Assistant',
-      description:
-        'Find what you need, get smart solutions, and watch your product grow with our step-by-step guidance.',
-      // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
     {
       iconUrl: '/static/icons/2025-06-21-img-5-duty.png',
