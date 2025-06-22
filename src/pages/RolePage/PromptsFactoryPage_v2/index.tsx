@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
@@ -194,74 +194,92 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
             className="ml-[1rem]"
             disabled={isCalling}
             onClick={() => {
-              const prompts_v3_elements_selected: IPrompt_v3_for_promptsFactory[] = prompts_v3_elements.filter(
-                (item) => item.status === 'selected',
-              );
-              console.log('Generate prompts_v3_elements_selected', prompts_v3_elements_selected);
+              try {
+                setIsCalling(true);
 
-              const newRequestController = new AbortController();
-              setRequestController(newRequestController);
-              const { signal } = newRequestController;
+                const prompts_v3_elements_selected: IPrompt_v3_for_promptsFactory[] = prompts_v3_elements.filter(
+                  (item) => item.status === 'selected',
+                );
+                console.log('Generate prompts_v3_elements_selected', prompts_v3_elements_selected);
 
-              const llmOptions = {
-                llmName,
-                llmImageName: null,
-                llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
-                llmTemperature: creativityValue,
-              };
+                const newRequestController = new AbortController();
+                setRequestController(newRequestController);
+                const { signal } = newRequestController;
 
-              const urlSlug = '/v1.0/post/langchain/chains/generatePrompt_v3/';
-              const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
-                contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
-                history: [],
-                input: JSON.stringify(prompts_v3_elements_selected),
-                llmOptions,
-                toolOptions: IToolOptions_default,
-              };
-              console.log('urlSlug', urlSlug);
-              console.log('bodyData', bodyData);
+                const llmOptions = {
+                  llmName,
+                  llmImageName: null,
+                  llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
+                  llmTemperature: creativityValue,
+                };
 
-              TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
-                urlSlug,
-                bodyData,
-                () => {
-                  console.log('afterReceiveResponseFunc');
-                },
-                () => {
-                  console.log('beforeSendRequestFunc');
-                  setIsCalling(true);
-                },
-                (writingResultText: string) => {
-                  console.log('updateResultFromRequestFunc', writingResultText);
-                  setResult_text(writingResultText);
-                },
-                (resultText: string) => {
-                  console.log('AfterRequestFunc', resultText);
-                  setResult_text('');
-                  setRestuls((prevResults) => [
-                    {
-                      ...IPrompt_default,
-                      role: EAIFlowRole.ASSISTANT,
-                      content: resultText,
-                      versionDate: new Date().toISOString(),
-                      versionNum: prevResults.length + 1,
-                    },
-                    ...prevResults,
-                  ]);
-                  setIsCalling(false);
-                },
-                userAccessToken,
-                t.currentLocale,
-                CONSTANTS_GPT_AI_FLOW_COMMON,
-                TCryptoJSFile.encrypt_v2(
-                  CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
-                ),
-                signal,
-              );
+                const urlSlug = '/v1.0/post/langchain/chains/generatePrompt_v3/';
+                const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
+                  contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
+                  history: [],
+                  input: JSON.stringify(prompts_v3_elements_selected),
+                  llmOptions,
+                  toolOptions: IToolOptions_default,
+                };
+                console.log('urlSlug', urlSlug);
+                console.log('bodyData', bodyData);
+
+                TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
+                  urlSlug,
+                  bodyData,
+                  () => {
+                    console.log('afterReceiveResponseFunc');
+                  },
+                  () => {
+                    console.log('beforeSendRequestFunc');
+                  },
+                  (writingResultText: string) => {
+                    console.log('updateResultFromRequestFunc', writingResultText);
+                    setResult_text(writingResultText);
+                  },
+                  (resultText: string) => {
+                    console.log('AfterRequestFunc', resultText);
+                    setResult_text('');
+                    setRestuls((prevResults) => [
+                      {
+                        ...IPrompt_default,
+                        role: EAIFlowRole.ASSISTANT,
+                        content: resultText,
+                        versionDate: new Date().toISOString(),
+                        versionNum: prevResults.length + 1,
+                      },
+                      ...prevResults,
+                    ]);
+                    setIsCalling(false);
+                  },
+                  userAccessToken,
+                  t.currentLocale,
+                  CONSTANTS_GPT_AI_FLOW_COMMON,
+                  TCryptoJSFile.encrypt_v2(
+                    CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
+                  ),
+                  signal,
+                );
+              } catch (error) {
+                console.error('Error during request:', error);
+                setIsCalling(false);
+                message.error(error instanceof Error ? error.message : String(error));
+              }
             }}
           >
             {t.get('Generate')}
           </Button>
+
+          {isCalling && (
+            <Button
+              className="ml-[1rem]"
+              onClick={() => {
+                requestController.abort();
+              }}
+            >
+              {t.get('Stop')}
+            </Button>
+          )}
         </div>
         <div className="flex">
           <DndContext
