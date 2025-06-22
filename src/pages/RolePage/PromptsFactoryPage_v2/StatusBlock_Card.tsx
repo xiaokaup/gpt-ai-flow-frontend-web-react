@@ -13,9 +13,10 @@ interface IStatusBlock_Card {
   form: FormInstance<any>;
   setFormTitle: Dispatch<React.SetStateAction<string>>;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
+  setShowForm_data: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory>>;
 }
 export const StatusBlock_Card = (props: IStatusBlock_Card) => {
-  const { t, view, onePrompt, form, setFormTitle, setShowForm } = props;
+  const { t, view, onePrompt, form, setFormTitle, setShowForm, setShowForm_data } = props;
   const { title: id, title, content } = onePrompt;
 
   // 使用 useSortable 处理排序
@@ -51,6 +52,7 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
             onClick={() => {
               setFormTitle(t.get('Edit'));
               form.setFieldsValue(onePrompt);
+              setShowForm_data(onePrompt);
               setShowForm(true);
             }}
           />

@@ -5,19 +5,21 @@ import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/
 import {
   EPrompt_v3_for_promptsFactory_type,
   IPrompt_v3_for_promptsFactory,
+  IPrompt_v3_for_promptsFactory_default,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
 import { Dispatch } from 'react';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
   form: FormInstance<any>;
-  prompt: IPrompt_v3_for_promptsFactory;
+  formTitle: string;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
+  prompt: IPrompt_v3_for_promptsFactory;
   prompts_v3_elements: IPrompt_v3_for_promptsFactory[];
   setPrompts_v3_elements: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory[]>>;
 }
-export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
-  const { t, form, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
+export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
+  const { t, form, formTitle, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
 
   const onFinishInModal = (values: IPrompt_v3_for_promptsFactory) => {
     console.log('Success:', values);
@@ -29,23 +31,40 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
       return;
     }
 
-    const findPrompt = prompts_v3_elements.find(
-      (prompt: IPrompt_v3_for_promptsFactory) => prompt.title === values.title,
-    );
-    if (findPrompt) {
-      message.error(t.get('The prompt name already exists'));
-      return;
+    if (formTitle === t.get('Create')) {
+      const findPrompt = prompts_v3_elements.find((item: IPrompt_v3_for_promptsFactory) => item.title === values.title);
+      if (findPrompt) {
+        message.error(t.get('The prompt name already exists'));
+        return;
+      }
+
+      const newItem: IPrompt_v3_for_promptsFactory = values;
+
+      const newPrompts_v3_elements = [newItem, ...prompts_v3_elements];
+
+      setPrompts_v3_elements(newPrompts_v3_elements);
+
+      setShowForm(false);
+      message.success(t.get('The prompt has been added to My prompts'));
+    } else if (formTitle === t.get('Edit')) {
+      const findPrompt = prompts_v3_elements.find((item: IPrompt_v3_for_promptsFactory) => item.title === values.title);
+      if (!findPrompt) {
+        message.error(t.get("The prompt name doesn't exist"));
+        return;
+      }
+
+      const newPrompts_v3_elements = prompts_v3_elements.map((item: IPrompt_v3_for_promptsFactory) => {
+        if (item.title === values.title) {
+          return { ...item, ...values };
+        }
+        return item;
+      });
+
+      setPrompts_v3_elements(newPrompts_v3_elements);
+
+      setShowForm(false);
+      message.success(t.get('The prompt has been updated'));
     }
-
-    const newItem: IPrompt_v3_for_promptsFactory = values;
-
-    const newPrompts_v3_elements = [newItem, ...prompts_v3_elements];
-
-    setPrompts_v3_elements(newPrompts_v3_elements);
-
-    setShowForm(false);
-
-    message.success(t.get('The prompt has been added to My prompts'));
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -58,7 +77,7 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
         form={form}
         layout="vertical"
         name="PromptsFactoryForm"
-        initialValues={prompt}
+        initialValues={{ ...prompt, oldTitle: prompt.title }}
         // labelCol={{ span: 8 }}
         // wrapperCol={{ span: 16 }}
         // style={{ maxWidth: 600 }}
@@ -130,6 +149,21 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
         </Form.Item>
 
         <Form.Item
+          className="hidden"
+          label={t.get('Name')}
+          name="oldTitle"
+          rules={[
+            {
+              required: true,
+              message: t.getHTML('Please enter your {text}', {
+                text: t.get('Name'),
+              }),
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           label={t.get('Name')}
           name="title"
           rules={[
@@ -184,17 +218,51 @@ export const PromptsFactoryForm = (props: IPromptsFactoryForm) => {
         <Form.Item
         // wrapperCol={{ offset: 8, span: 16 }}
         >
-          <Button type="primary" htmlType="submit">
-            {t.get('Submit')}
-          </Button>
-          <Button
-            style={{ marginLeft: 10 }}
-            onClick={() => {
-              setShowForm(false);
-            }}
-          >
-            {t.get('Cancel')}
-          </Button>
+          <div className="flex justify-between items-center">
+            <div>
+              <Button type="primary" htmlType="submit">
+                {t.get('Submit')}
+              </Button>
+              <Button
+                className="ml-[1rem]"
+                onClick={() => {
+                  setShowForm(false);
+                }}
+              >
+                {t.get('Cancel')}
+              </Button>
+            </div>
+
+            <div>
+              <Button
+                className="ml-[1rem]"
+                onClick={() => {
+                  form.setFieldsValue(IPrompt_v3_for_promptsFactory_default);
+                }}
+              >
+                {t.get('Reset')}
+              </Button>
+              {formTitle === t.get('Edit') && (
+                <Button
+                  danger
+                  className="ml-[1rem]"
+                  onClick={() => {
+                    const newPrompts_v3_elements = prompts_v3_elements.filter(
+                      (item: IPrompt_v3_for_promptsFactory) => item.title !== prompt.title,
+                    );
+                    console.log('newPrompts_v3_elements', newPrompts_v3_elements);
+
+                    setPrompts_v3_elements(newPrompts_v3_elements);
+
+                    setShowForm(false);
+                    message.success(t.get('The prompt has been deleted'));
+                  }}
+                >
+                  {t.get('Delete')}
+                </Button>
+              )}
+            </div>
+          </div>
         </Form.Item>
       </Form>
     </div>

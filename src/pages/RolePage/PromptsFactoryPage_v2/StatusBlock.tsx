@@ -19,9 +19,11 @@ interface IStatusBlock {
   form: FormInstance<any>;
   setFormTitle: Dispatch<React.SetStateAction<string>>;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
+  setShowForm_data: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory>>;
 }
 export const StatusBlock = (props: IStatusBlock) => {
-  const { t, view, block, prompts_v3_for_promptsFactory_filtered, form, setFormTitle, setShowForm } = props;
+  const { t, view, block, prompts_v3_for_promptsFactory_filtered, form, setFormTitle, setShowForm, setShowForm_data } =
+    props;
   const { id, title } = block;
 
   const { setNodeRef } = useDroppable({
@@ -48,6 +50,7 @@ export const StatusBlock = (props: IStatusBlock) => {
               form={form}
               setFormTitle={setFormTitle}
               setShowForm={setShowForm}
+              setShowForm_data={setShowForm_data}
             />
           ))}
         </SortableContext>

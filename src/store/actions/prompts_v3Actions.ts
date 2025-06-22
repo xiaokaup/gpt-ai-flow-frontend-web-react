@@ -10,6 +10,6 @@ export const updateUserPrompts_v3 =
   };
 
 export const UPDATE_PROMPTS_V3_ELEMENTS = 'UPDATE_PROMPTS_V3_ELEMENTS';
-export const udpatePrompts_v3_elements = (newItem: IPrompt_v3_for_promptsFactory[]) => async (dispatch: Dispatch) => {
+export const updatePrompts_v3_elements = (newItem: IPrompt_v3_for_promptsFactory[]) => async (dispatch: Dispatch) => {
   dispatch({ type: UPDATE_PROMPTS_V3_ELEMENTS, payload: newItem });
 };

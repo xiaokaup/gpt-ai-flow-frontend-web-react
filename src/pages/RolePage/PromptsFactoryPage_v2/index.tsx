@@ -2,22 +2,22 @@ import { useState } from 'react';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Button } from 'antd';
 import { useForm } from 'antd/es/form/Form';
+import { useDispatch, useSelector } from 'react-redux';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
 import {
-  EPrompt_v3_for_promptsFactory_type,
+  // EPrompt_v3_for_promptsFactory_type,
   IPrompt_v3_for_promptsFactory,
   IPrompt_v3_for_promptsFactory_default,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-import { useDispatch, useSelector } from 'react-redux';
-import { usePrompts_v3_user_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2_for_web';
-import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
-import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
-import { udpatePrompts_v3_elements, updateUserPrompts_v3 } from '../../../store/actions/prompts_v3Actions';
+// import { EPrompt_v3_type } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
+// import { usePrompts_v3_user_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2_for_web';
+// import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
+// import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
+import { updatePrompts_v3_elements } from '../../../store/actions/prompts_v3Actions';
 import { IReduxRootState } from '../../../store/reducer';
-import { EPrompt_v3_type } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
-import { PromptsFactoryForm } from './promptsFactoryForm';
 import { usePrompts_v3_elements_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_elements_v2_for_web';
+import { PromptsFactoryForm_v2 } from './PromptsFactoryForm_v2';
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
@@ -45,7 +45,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const { prompts_v3_elements, setPrompts_v3_elements } = usePrompts_v3_elements_v2_for_web({
     prompts_v3_elementsFromStorage,
     onChangePrompts_v3_elements: (newPrompts_v3_elements: IPrompt_v3_for_promptsFactory[]) => {
-      dispatch<any>(udpatePrompts_v3_elements(newPrompts_v3_elements));
+      dispatch<any>(updatePrompts_v3_elements(newPrompts_v3_elements));
     },
   });
 
@@ -193,6 +193,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     form={form}
                     setFormTitle={setFormTitle}
                     setShowForm={setShowForm}
+                    setShowForm_data={setShowForm_data}
                   />
                 );
               })}
@@ -205,11 +206,12 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
               {showForm && (
                 <div className="showForm_block">
                   <h2>{formTitle}</h2>
-                  <PromptsFactoryForm
+                  <PromptsFactoryForm_v2
                     t={t}
                     form={form}
-                    prompt={showForm_data}
+                    formTitle={formTitle}
                     setShowForm={setShowForm}
+                    prompt={showForm_data}
                     prompts_v3_elements={prompts_v3_elements}
                     setPrompts_v3_elements={setPrompts_v3_elements}
                   />
