@@ -111,8 +111,8 @@ export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
             <Select.Option value={EPrompt_v3_for_promptsFactory_type.CONTEXT}>
               {t.get(EPrompt_v3_for_promptsFactory_type.CONTEXT)}
             </Select.Option>
-            <Select.Option value={EPrompt_v3_for_promptsFactory_type.SUBJECT}>
-              {t.get(EPrompt_v3_for_promptsFactory_type.SUBJECT)}
+            <Select.Option value={EPrompt_v3_for_promptsFactory_type.ROLE}>
+              {t.get(EPrompt_v3_for_promptsFactory_type.ROLE)}
             </Select.Option>
             <Select.Option value={EPrompt_v3_for_promptsFactory_type.METHOD}>
               {t.get(EPrompt_v3_for_promptsFactory_type.METHOD)}
