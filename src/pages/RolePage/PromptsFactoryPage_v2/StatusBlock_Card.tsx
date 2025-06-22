@@ -4,15 +4,18 @@ import { useSortable } from '@dnd-kit/sortable';
 import { EditOutlined } from '@ant-design/icons';
 import { FormInstance } from 'antd';
 import { IPrompt_v3_for_promptsFactory } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 interface IStatusBlock_Card {
+  t: IGetT_frontend_output;
   view: 'simple' | 'advanced';
   onePrompt: IPrompt_v3_for_promptsFactory;
   form: FormInstance<any>;
+  setFormTitle: Dispatch<React.SetStateAction<string>>;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
 }
 export const StatusBlock_Card = (props: IStatusBlock_Card) => {
-  const { view, onePrompt, form, setShowForm } = props;
+  const { t, view, onePrompt, form, setFormTitle, setShowForm } = props;
   const { title: id, title, content } = onePrompt;
 
   // 使用 useSortable 处理排序
@@ -51,7 +54,7 @@ export const StatusBlock_Card = (props: IStatusBlock_Card) => {
           <EditOutlined
             className="cursor-pointer p-2"
             onClick={() => {
-              console.log('Click edit icon for prompt:', onePrompt);
+              setFormTitle(t.get('Edit'));
               form.setFieldsValue(onePrompt);
               setShowForm(true);
             }}

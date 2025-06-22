@@ -4,6 +4,7 @@ import { StatusBlock_Card } from './StatusBlock_Card';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Dispatch } from 'react';
 import { FormInstance } from 'antd';
+import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
 export interface IPrompts_v3_for_promptsFactory_status {
   id: string;
@@ -11,14 +12,16 @@ export interface IPrompts_v3_for_promptsFactory_status {
 }
 
 interface IStatusBlock {
+  t: IGetT_frontend_output;
   view: 'simple' | 'advanced';
   block: IPrompts_v3_for_promptsFactory_status;
   prompts_v3_for_promptsFactory_filtered: IPrompt_v3_for_promptsFactory[];
   form: FormInstance<any>;
+  setFormTitle: Dispatch<React.SetStateAction<string>>;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
 }
 export const StatusBlock = (props: IStatusBlock) => {
-  const { view, block, prompts_v3_for_promptsFactory_filtered, form, setShowForm } = props;
+  const { t, view, block, prompts_v3_for_promptsFactory_filtered, form, setFormTitle, setShowForm } = props;
   const { id, title } = block;
 
   const { setNodeRef } = useDroppable({
@@ -38,10 +41,12 @@ export const StatusBlock = (props: IStatusBlock) => {
         <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
           {prompts_v3_for_promptsFactory_filtered.map((onePrompt) => (
             <StatusBlock_Card
+              t={t}
               key={onePrompt.title}
               view={view}
               onePrompt={onePrompt}
               form={form}
+              setFormTitle={setFormTitle}
               setShowForm={setShowForm}
             />
           ))}

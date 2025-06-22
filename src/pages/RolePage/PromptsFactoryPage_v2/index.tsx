@@ -80,6 +80,8 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   ];
 
   const [view, setView] = useState<'simple' | 'advanced'>('simple');
+
+  const [formTitle, setFormTitle] = useState<string>('');
   const [showForm, setShowForm] = useState<boolean>(true);
   const [showForm_data, setShowForm_data] = useState<IPrompt_v3_for_promptsFactory>(
     IPrompt_v3_for_promptsFactory_default,
@@ -148,6 +150,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           <Button
             className="ml-[1rem]"
             onClick={() => {
+              setFormTitle(t.get('Create'));
               setShowForm_data(IPrompt_v3_for_promptsFactory_default);
               setShowForm(!showForm);
             }}
@@ -181,12 +184,14 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                 return (
                   <StatusBlock
                     key={statusItem.id}
+                    t={t}
                     view={view}
                     block={statusItem}
                     prompts_v3_for_promptsFactory_filtered={prompts_v3_elements.filter(
                       (item) => item.status === statusItem.id,
                     )}
                     form={form}
+                    setFormTitle={setFormTitle}
                     setShowForm={setShowForm}
                   />
                 );
@@ -199,6 +204,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
             <div>
               {showForm && (
                 <div className="showForm_block">
+                  <h2>{formTitle}</h2>
                   <PromptsFactoryForm
                     t={t}
                     form={form}
