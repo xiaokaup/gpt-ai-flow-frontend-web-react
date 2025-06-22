@@ -111,10 +111,10 @@ export const AppMenu = (props: {
                 ] as MenuProps['items'],
               }}
             >
-              <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              <Link to="/app/modules/prompts-factory">
                 {t.get('Prompts Factory')}&nbsp;
                 <DownOutlined style={{ position: 'relative', top: 1 }} />
-              </a>
+              </Link>
             </Dropdown>
           </Menu.Item>
 
