@@ -101,20 +101,24 @@ export const AppMenu = (props: {
               menu={{
                 items: [
                   {
-                    key: 'my-prompts',
-                    label: <Link to="/app/modules/my-prompts">{t.get('My Prompts')}</Link>,
+                    key: 'prompts-parser',
+                    label: <Link to="/app/modules/prompts-parser">{t.get('Prompts Parser')}</Link>,
                   },
                   {
                     key: 'prompts-factory',
                     label: <Link to="/app/modules/prompts-factory">{t.get('Prompts Factory')}</Link>,
                   },
+                  {
+                    key: 'my-prompts',
+                    label: <Link to="/app/modules/my-prompts">{t.get('My Prompts')}</Link>,
+                  },
                 ] as MenuProps['items'],
               }}
             >
-              <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-                {t.get('Prompts Factory')}&nbsp;
+              <Link to="/app/modules/prompts-parser">
+                {t.get('Prompts Parser')}&nbsp;
                 <DownOutlined style={{ position: 'relative', top: 1 }} />
-              </a>
+              </Link>
             </Dropdown>
           </Menu.Item>
 

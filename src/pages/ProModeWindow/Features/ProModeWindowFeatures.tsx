@@ -41,21 +41,22 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
         {locale === ELocale.EN && (
           <>
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
-              Smart AI, Making Your Self-Media Marketing Easier
+              🌟 AI integration into life, simplicity at your fingertips.
             </h2>
             <p className="text-gray-600 dark:text-gray-300">
-              Our AI tools provide you with a powerful platform to automate content generation, analyze audience data,
-              and optimize your self-media strategy.
+              Our intelligent tools seamlessly integrate AI technology into your daily life, easily handling work,
+              study, or entertainment. From content creation to personal assistance, we simplify complex technology,
+              allowing everyone to enjoy the convenience brought by AI, making technology truly serve life.
             </p>
           </>
         )}
         {locale === ELocale.ZH && (
           <>
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
-              智能AI，让您的自媒体营销更轻松
+              🌟 AI 融入生活，简单由你掌握
             </h2>
             <p className="text-gray-600 dark:text-gray-300">
-              我们的AI工具为您提供了一个强大的平台，帮助您自动化内容生成、分析受众数据并优化您的自媒体战略。
+              我们的智能工具让AI技术无缝融入您的日常生活，无论是工作、学习还是娱乐，都能轻松应对。从内容创作到个人助理，我们简化复杂技术，让每个人都能享受AI带来的便利，让科技真正为生活服务。
             </p>
           </>
         )}

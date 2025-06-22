@@ -1,20 +1,14 @@
 import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, message } from 'antd';
+import { Button, Input, message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
 import {
-  // EPrompt_v3_for_promptsFactory_type,
   IPrompt_v3_for_promptsFactory,
   IPrompt_v3_for_promptsFactory_default,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
-// import { EPrompt_v3_type } from '../../../gpt-ai-flow-common/enum-app/EPrompt_v3';
-// import { usePrompts_v3_user_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2_for_web';
-// import { IPrompt_v3_type_persona } from '../../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
-// import { IPrompt_v3 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { updatePrompts_v3_elements } from '../../../store/actions/prompts_v3Actions';
 import { IReduxRootState } from '../../../store/reducer';
 import { usePrompts_v3_elements_v2_for_web } from '../../../gpt-ai-flow-common/hooks/usePrompts_v3_elements_v2_for_web';
@@ -30,15 +24,18 @@ import IStoreStorageFile, {
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
-import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IPrompt } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString';
 import { Link } from 'react-router-dom';
 
-export interface IPromptsFactoryPage {
+const { TextArea } = Input;
+
+export interface IPromptsParserPage {
   t: IGetT_frontend_output;
   userAccessToken: string;
 }
-export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
+export const PromptsParserPage = (props: IPromptsParserPage) => {
   const { t, userAccessToken } = props;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
@@ -96,16 +93,16 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   // );
   const prompts_v3_for_promptsFactory_status: IPrompts_v3_for_promptsFactory_status[] = [
     {
-      id: 'selected',
-      title: 'Selected',
-    },
-    {
       id: 'ready',
       title: 'Ready',
     },
+    {
+      id: 'parsed',
+      title: 'Parsed',
+    },
   ];
 
-  const [view, setView] = useState<'simple' | 'advanced'>('simple');
+  const [view, setView] = useState<'simple' | 'advanced'>('advanced');
 
   const [formTitle, setFormTitle] = useState<string>('');
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -116,8 +113,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [result_text, setResult_text] = useState<string>('');
-  const [results, setRestuls] = useState<IPrompt[]>([]);
+  const [input_textarea, setInput_textarea] = useState<string>('');
 
   const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
@@ -165,44 +161,17 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
 
   return (
     <div className="container p-10 w-full">
-      <h1>{`${t.get('Prompts Factory')} 🏭`}</h1>
-      <div className="factory_container">
-        <div className="block_buttons flex justify-between items-center">
+      <h1>{`${t.get('Prompts Parser')} 🔬`}</h1>
+      <div className="promtps_parser_container">
+        <div className="block_buttons flex justify-between items-center px-2">
           <div>
             <Button
-              onClick={() => {
-                if (view === 'simple') {
-                  setView('advanced');
-                  return;
-                }
-                setView('simple');
-              }}
-            >
-              {t.get('View')}
-            </Button>
-            <Button
-              className="ml-[1rem]"
-              onClick={() => {
-                setFormTitle(t.get('Create'));
-                setShowForm_data(IPrompt_v3_for_promptsFactory_default);
-                setShowForm(!showForm);
-              }}
-            >
-              {t.get('Create')}
-            </Button>
-
-            <Button
               type="primary"
-              className="ml-[1rem]"
               disabled={isCalling}
               onClick={() => {
+                console.log("click 'Parse' button");
                 try {
                   setIsCalling(true);
-
-                  const prompts_v3_elements_selected: IPrompt_v3_for_promptsFactory[] = prompts_v3_elements.filter(
-                    (item) => item.status === 'selected',
-                  );
-                  console.log('Generate prompts_v3_elements_selected', prompts_v3_elements_selected);
 
                   const newRequestController = new AbortController();
                   setRequestController(newRequestController);
@@ -215,11 +184,14 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     llmTemperature: creativityValue,
                   };
 
-                  const urlSlug = '/v1.0/post/langchain/chains/generatePrompt_v3/';
+                  const urlSlug = '/v1.0/post/langchain/chains/parsePrompt_v3/';
                   const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
                     contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
                     history: [],
-                    input: JSON.stringify(prompts_v3_elements_selected),
+                    input: JSON.stringify({
+                      role: EAIFlowRole.USER,
+                      content: input_textarea,
+                    } as IPrompt),
                     llmOptions,
                     toolOptions: IToolOptions_default,
                   };
@@ -237,21 +209,16 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                     },
                     (writingResultText: string) => {
                       console.log('updateResultFromRequestFunc', writingResultText);
-                      setResult_text(writingResultText);
                     },
                     (resultText: string) => {
                       console.log('AfterRequestFunc', resultText);
-                      setResult_text('');
-                      setRestuls((prevResults) => [
-                        {
-                          ...IPrompt_default,
-                          role: EAIFlowRole.ASSISTANT,
-                          content: resultText,
-                          versionDate: new Date().toISOString(),
-                          versionNum: prevResults.length + 1,
-                        },
-                        ...prevResults,
-                      ]);
+
+                      const newPrompts_v3_elements: IPrompt_v3_for_promptsFactory[] = extractJsonFromString(
+                        resultText,
+                      ).map((item) => ({ ...JSON.parse(item), status: 'parsed' as const }));
+
+                      setPrompts_v3_elements([...newPrompts_v3_elements, ...prompts_v3_elements]);
+
                       setIsCalling(false);
                     },
                     userAccessToken,
@@ -269,7 +236,20 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                 }
               }}
             >
-              {t.get('Generate')}
+              {t.get('Parse')}
+            </Button>
+
+            <Button
+              className="ml-[1rem]"
+              onClick={() => {
+                if (view === 'simple') {
+                  setView('advanced');
+                  return;
+                }
+                setView('simple');
+              }}
+            >
+              {t.get('View')}
             </Button>
 
             {isCalling && (
@@ -286,10 +266,58 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
           </div>
 
           <div>
-            <Link className="ml-[1rem]" to="/app/modules/prompts-parser">{`${t.get('Prompts Parser')}`}</Link>
+            <Button
+              className="ml-[1rem]"
+              onClick={() => {
+                const newPrompts_v3_elements = prompts_v3_elements.filter((item) => item.status !== 'parsed');
+                setPrompts_v3_elements(newPrompts_v3_elements);
+                message.success(t.get('Clean parsed elements'));
+              }}
+            >
+              {`${t.get('Clean parsed elements')}`}
+            </Button>
+
+            <Link className="ml-[1rem]" to="/app/modules/prompts-factory">{`${t.get('Prompts Factory')}`}</Link>
           </div>
         </div>
+
         <div className="flex">
+          <div className="mt-4 pl-2 flex-1 pr-2">
+            <div className="input_textarea_block">
+              <TextArea
+                name="input_textarea"
+                autoSize={{ minRows: 12 }}
+                value={input_textarea}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setInput_textarea(e.target.value);
+                }}
+              />
+              <div>
+                <label
+                  htmlFor="input_textarea"
+                  className="text-gray-500"
+                >{`${t.get('Please input your {text}', { text: t.get('Prompt') })} ☝️`}</label>
+              </div>
+            </div>
+
+            <div>
+              {showForm && (
+                <div className="showForm_block">
+                  <h2>{formTitle}</h2>
+                  <PromptsFactoryForm_v2
+                    t={t}
+                    form={form}
+                    formTitle={formTitle}
+                    setShowForm={setShowForm}
+                    prompt={showForm_data}
+                    prompts_v3_elements={prompts_v3_elements}
+                    setPrompts_v3_elements={setPrompts_v3_elements}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
           <DndContext
             sensors={useSensors(useSensor(PointerSensor))}
             collisionDetection={closestCenter}
@@ -321,45 +349,6 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
               })}
             </div>
           </DndContext>
-
-          <div className="mt-4 pl-2 flex-1">
-            <div>
-              {showForm && (
-                <div className="showForm_block">
-                  <h2>{formTitle}</h2>
-                  <PromptsFactoryForm_v2
-                    t={t}
-                    form={form}
-                    formTitle={formTitle}
-                    setShowForm={setShowForm}
-                    prompt={showForm_data}
-                    prompts_v3_elements={prompts_v3_elements}
-                    setPrompts_v3_elements={setPrompts_v3_elements}
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className="results_block">
-              {result_text && (
-                <div className="results_text">
-                  <ReactMarkdown>{result_text}</ReactMarkdown>
-                </div>
-              )}
-              {results.length > 0 && (
-                <div className="results_list">
-                  {results.map((result, index) => (
-                    <>
-                      <hr />
-                      <div key={index} className="result_item">
-                        <ReactMarkdown>{result.content}</ReactMarkdown>
-                      </div>
-                    </>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </div>
     </div>
