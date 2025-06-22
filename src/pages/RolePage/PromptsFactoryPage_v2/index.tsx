@@ -82,7 +82,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
   const [view, setView] = useState<'simple' | 'advanced'>('simple');
 
   const [formTitle, setFormTitle] = useState<string>('');
-  const [showForm, setShowForm] = useState<boolean>(true);
+  const [showForm, setShowForm] = useState<boolean>(false);
   const [showForm_data, setShowForm_data] = useState<IPrompt_v3_for_promptsFactory>(
     IPrompt_v3_for_promptsFactory_default,
   );
@@ -145,7 +145,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
               setView('simple');
             }}
           >
-            View
+            {t.get('View')}
           </Button>
           <Button
             className="ml-[1rem]"
@@ -155,17 +155,20 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
               setShowForm(!showForm);
             }}
           >
-            Create
+            {t.get('Create')}
           </Button>
 
           <Button
             type="primary"
             className="ml-[1rem]"
             onClick={() => {
-              console.log('generate');
+              const prompts_v3_elements_selected: IPrompt_v3_for_promptsFactory[] = prompts_v3_elements.filter(
+                (item) => item.status === 'selected',
+              );
+              console.log('Generate prompts_v3_elements_selected', prompts_v3_elements_selected);
             }}
           >
-            Generate
+            {t.get('Generate')}
           </Button>
         </div>
         <div className="flex">
