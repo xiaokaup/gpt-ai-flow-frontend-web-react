@@ -32,6 +32,7 @@ import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt
 import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
 import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { Link } from 'react-router-dom';
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
@@ -166,121 +167,127 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     <div className="container p-10 w-full">
       <h1>{`${t.get('Prompts Factory')} 🏭`}</h1>
       <div className="factory_container">
-        <div className="block_buttons">
-          <Button
-            onClick={() => {
-              if (view === 'simple') {
-                setView('advanced');
-                return;
-              }
-              setView('simple');
-            }}
-          >
-            {t.get('View')}
-          </Button>
-          <Button
-            className="ml-[1rem]"
-            onClick={() => {
-              setFormTitle(t.get('Create'));
-              setShowForm_data(IPrompt_v3_for_promptsFactory_default);
-              setShowForm(!showForm);
-            }}
-          >
-            {t.get('Create')}
-          </Button>
-
-          <Button
-            type="primary"
-            className="ml-[1rem]"
-            disabled={isCalling}
-            onClick={() => {
-              try {
-                setIsCalling(true);
-
-                const prompts_v3_elements_selected: IPrompt_v3_for_promptsFactory[] = prompts_v3_elements.filter(
-                  (item) => item.status === 'selected',
-                );
-                console.log('Generate prompts_v3_elements_selected', prompts_v3_elements_selected);
-
-                const newRequestController = new AbortController();
-                setRequestController(newRequestController);
-                const { signal } = newRequestController;
-
-                const llmOptions = {
-                  llmName,
-                  llmImageName: null,
-                  llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
-                  llmTemperature: creativityValue,
-                };
-
-                const urlSlug = '/v1.0/post/langchain/chains/generatePrompt_v3/';
-                const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
-                  contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
-                  history: [],
-                  input: JSON.stringify(prompts_v3_elements_selected),
-                  llmOptions,
-                  toolOptions: IToolOptions_default,
-                };
-                console.log('urlSlug', urlSlug);
-                console.log('bodyData', bodyData);
-
-                TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
-                  urlSlug,
-                  bodyData,
-                  () => {
-                    console.log('afterReceiveResponseFunc');
-                  },
-                  () => {
-                    console.log('beforeSendRequestFunc');
-                  },
-                  (writingResultText: string) => {
-                    console.log('updateResultFromRequestFunc', writingResultText);
-                    setResult_text(writingResultText);
-                  },
-                  (resultText: string) => {
-                    console.log('AfterRequestFunc', resultText);
-                    setResult_text('');
-                    setRestuls((prevResults) => [
-                      {
-                        ...IPrompt_default,
-                        role: EAIFlowRole.ASSISTANT,
-                        content: resultText,
-                        versionDate: new Date().toISOString(),
-                        versionNum: prevResults.length + 1,
-                      },
-                      ...prevResults,
-                    ]);
-                    setIsCalling(false);
-                  },
-                  userAccessToken,
-                  t.currentLocale,
-                  CONSTANTS_GPT_AI_FLOW_COMMON,
-                  TCryptoJSFile.encrypt_v2(
-                    CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
-                  ),
-                  signal,
-                );
-              } catch (error) {
-                console.error('Error during request:', error);
-                setIsCalling(false);
-                message.error(error instanceof Error ? error.message : String(error));
-              }
-            }}
-          >
-            {t.get('Generate')}
-          </Button>
-
-          {isCalling && (
+        <div className="block_buttons flex justify-between items-center">
+          <div>
+            <Button
+              onClick={() => {
+                if (view === 'simple') {
+                  setView('advanced');
+                  return;
+                }
+                setView('simple');
+              }}
+            >
+              {t.get('View')}
+            </Button>
             <Button
               className="ml-[1rem]"
               onClick={() => {
-                requestController.abort();
-                setIsCalling(false);
+                setFormTitle(t.get('Create'));
+                setShowForm_data(IPrompt_v3_for_promptsFactory_default);
+                setShowForm(!showForm);
               }}
             >
-              {t.get('Stop')}
+              {t.get('Create')}
             </Button>
-          )}
+
+            <Button
+              type="primary"
+              className="ml-[1rem]"
+              disabled={isCalling}
+              onClick={() => {
+                try {
+                  setIsCalling(true);
+
+                  const prompts_v3_elements_selected: IPrompt_v3_for_promptsFactory[] = prompts_v3_elements.filter(
+                    (item) => item.status === 'selected',
+                  );
+                  console.log('Generate prompts_v3_elements_selected', prompts_v3_elements_selected);
+
+                  const newRequestController = new AbortController();
+                  setRequestController(newRequestController);
+                  const { signal } = newRequestController;
+
+                  const llmOptions = {
+                    llmName,
+                    llmImageName: null,
+                    llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
+                    llmTemperature: creativityValue,
+                  };
+
+                  const urlSlug = '/v1.0/post/langchain/chains/generatePrompt_v3/';
+                  const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
+                    contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
+                    history: [],
+                    input: JSON.stringify(prompts_v3_elements_selected),
+                    llmOptions,
+                    toolOptions: IToolOptions_default,
+                  };
+                  // console.log('urlSlug', urlSlug);
+                  // console.log('bodyData', bodyData);
+
+                  TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
+                    urlSlug,
+                    bodyData,
+                    () => {
+                      console.log('afterReceiveResponseFunc');
+                    },
+                    () => {
+                      console.log('beforeSendRequestFunc');
+                    },
+                    (writingResultText: string) => {
+                      console.log('updateResultFromRequestFunc', writingResultText);
+                      setResult_text(writingResultText);
+                    },
+                    (resultText: string) => {
+                      console.log('AfterRequestFunc', resultText);
+                      setResult_text('');
+                      setRestuls((prevResults) => [
+                        {
+                          ...IPrompt_default,
+                          role: EAIFlowRole.ASSISTANT,
+                          content: resultText,
+                          versionDate: new Date().toISOString(),
+                          versionNum: prevResults.length + 1,
+                        },
+                        ...prevResults,
+                      ]);
+                      setIsCalling(false);
+                    },
+                    userAccessToken,
+                    t.currentLocale,
+                    CONSTANTS_GPT_AI_FLOW_COMMON,
+                    TCryptoJSFile.encrypt_v2(
+                      CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
+                    ),
+                    signal,
+                  );
+                } catch (error) {
+                  console.error('Error during request:', error);
+                  setIsCalling(false);
+                  message.error(error instanceof Error ? error.message : String(error));
+                }
+              }}
+            >
+              {t.get('Generate')}
+            </Button>
+
+            {isCalling && (
+              <Button
+                className="ml-[1rem]"
+                onClick={() => {
+                  requestController.abort();
+                  setIsCalling(false);
+                }}
+              >
+                {t.get('Stop')}
+              </Button>
+            )}
+          </div>
+
+          <div>
+            <Link className="ml-[1rem]" to="/app/modules/prompts-parser">{`${t.get('Prompts Parser')}`}</Link>
+          </div>
         </div>
         <div className="flex">
           <DndContext
