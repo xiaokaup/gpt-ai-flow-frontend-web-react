@@ -275,6 +275,7 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
               className="ml-[1rem]"
               onClick={() => {
                 requestController.abort();
+                setIsCalling(false);
               }}
             >
               {t.get('Stop')}
