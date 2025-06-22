@@ -48,7 +48,7 @@ export const StatusBlock = (props: IStatusBlock) => {
 
   return (
     <div className="flex w-80 flex-col rounded-lg bg-neutral-600 p-4 shadow-md">
-      <h2 className="mb-4 font-semibold text-neutral-100">{title}</h2>
+      <h2 className="mb-4 font-semibold text-neutral-100">{t.get(title)}</h2>
       <div ref={setNodeRef} className="flex flex-1 flex-col gap-4">
         <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
           {prompts_v3_for_promptsFactory_filtered.map((onePrompt) => (
