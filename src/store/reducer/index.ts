@@ -14,6 +14,7 @@ import { inputsCacheReducer } from './inputsCacheReducer';
 import { prompts_v3Reducer } from './prompts_v3Reducer';
 import { IPrompt_v3_type_persona } from '../../gpt-ai-flow-common/interface-app/2_component/IPrompt_v3/IPrompt_v3_type_persona';
 import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
+import { IPrompt_v3_for_promptsFactory } from '../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
 
 export interface IReduxRootState {
   counterInfo: ICounterReducerState;
@@ -25,6 +26,7 @@ export interface IReduxRootState {
   inputsCache: to_deprecate_IInputsCache | IInputsCache_v2;
   prompts_v3: {
     user: (IPrompt_v3 | IPrompt_v3_type_persona)[];
+    elements: IPrompt_v3_for_promptsFactory[];
   };
 }
 

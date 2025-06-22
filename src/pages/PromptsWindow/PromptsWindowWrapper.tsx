@@ -5,7 +5,7 @@ import { updateUserPrompts_v3 } from '../../store/actions/prompts_v3Actions';
 import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
 import { IPrompt_v3 } from '../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3';
 import { ITokenDB_default } from '../../gpt-ai-flow-common/interface-database/ITokenDB';
-import { usePrompts_v3_user_v2_for_web } from '../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2';
+import { usePrompts_v3_user_v2_for_web } from '../../gpt-ai-flow-common/hooks/usePrompts_v3_user_v2_for_web';
 import { IConstantGptAiFlowHandler } from '../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { IGetT_frontend_output } from '../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 
