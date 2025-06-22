@@ -102,11 +102,11 @@ export const AppMenu = (props: {
                 items: [
                   {
                     key: 'my-prompts',
-                    label: <Link to="/app/modules/prompts-factory">{t.get('My Prompts')}</Link>,
+                    label: <Link to="/app/modules/my-prompts">{t.get('My Prompts')}</Link>,
                   },
                   {
                     key: 'prompts-factory',
-                    label: <Link to="/app/modules/prompts-factory-v2">{t.get('Prompts Factory')}</Link>,
+                    label: <Link to="/app/modules/prompts-factory">{t.get('Prompts Factory')}</Link>,
                   },
                 ] as MenuProps['items'],
               }}
