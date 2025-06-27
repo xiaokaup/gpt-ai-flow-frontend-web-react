@@ -9,24 +9,114 @@ import {
   IPrompt_v3_for_promptsFactory_default,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
 import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
+import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
+import { EProMode_v4_module_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString';
+import TBackendLangchainFile from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
-  feedbackForm_data: IPrompt & { feedback?: string };
+  userAccessToken: string;
+  llmOptions: ILLMOptions;
+  feedbackForm_data: IPrompt;
   setFeedbackForm_data: Dispatch<React.SetStateAction<IPrompt & { feedback?: string }>>;
-
-  // setShowForm: Dispatch<React.SetStateAction<boolean>>;
-  // prompt: IPrompt_v3_for_promptsFactory;
 }
 export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
-  const { t, feedbackForm_data, setFeedbackForm_data } = props;
+  const { t, userAccessToken, llmOptions, feedbackForm_data, setFeedbackForm_data } = props;
 
   const [form] = useForm();
 
-  const [previousPrompt, setPreviousPrompt] = useState<IPrompt & { feedback?: string }>(IPrompt_default);
+  const [requestController, setRequestController] = useState<AbortController>(new AbortController());
+  const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const onFinishInModal = (values: IPrompt_v3_for_promptsFactory & { oldTitle: string }) => {
+  const [feedback, setFeedback] = useState<string>('');
+  const [previousPrompt, setPreviousPrompt] = useState<IPrompt>(IPrompt_default);
+
+  const onFinish = (values: IPrompt) => {
     console.log('Success:', values);
+
+    console.log("click 'rewrite' button");
+
+    if (!feedbackForm_data.content || feedbackForm_data.content.trim() === '') {
+      message.error(t.get('Please enter your {text}', { text: t.get('Prompt') }));
+      return;
+    }
+
+    try {
+      setIsCalling(true);
+
+      const newRequestController = new AbortController();
+      setRequestController(newRequestController);
+      const { signal } = newRequestController;
+
+      const urlSlug = '/v1.0/post/langchain/chains/rewritePrompt/';
+      const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
+        contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
+        history: [],
+        input: JSON.stringify({
+          prompt: {
+            role: EAIFlowRole.USER,
+            content: feedbackForm_data.content,
+          } as IPrompt,
+          feedback: feedback || '',
+          previousPrompt: previousPrompt.content || '',
+        }),
+        llmOptions,
+        toolOptions: IToolOptions_default,
+      };
+      // console.log('urlSlug', urlSlug);
+      // console.log('bodyData', bodyData);
+
+      TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
+        urlSlug,
+        bodyData,
+        () => {
+          console.log('afterReceiveResponseFunc');
+        },
+        () => {
+          console.log('beforeSendRequestFunc');
+        },
+        (writingResultText: string) => {
+          console.log('updateResultFromRequestFunc', writingResultText);
+        },
+        (resultText: string) => {
+          console.log('AfterRequestFunc', resultText);
+
+          setPreviousPrompt({
+            ...feedbackForm_data,
+            role: EAIFlowRole.ASSISTANT,
+            content: feedbackForm_data.content,
+          });
+
+          const newData = {
+            ...props.feedbackForm_data,
+            content: resultText,
+          };
+          setFeedbackForm_data(newData);
+          form.setFieldValue('content', resultText);
+
+          setIsCalling(false);
+        },
+        userAccessToken,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+        signal,
+      ).catch((error) => {
+        console.error('Error during request:', error);
+        setIsCalling(false);
+        message.error(error instanceof Error ? error.message : String(error));
+      });
+    } catch (error) {
+      console.error('Error during request:', error);
+      setIsCalling(false);
+      message.error(error instanceof Error ? error.message : String(error));
+    }
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -47,7 +137,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         // wrapperCol={{ span: 16 }}
         // style={{ maxWidth: 600 }}
         autoComplete="off"
-        onFinish={onFinishInModal}
+        onFinish={onFinish}
         onFinishFailed={onTableFinishFailedInAiFlowModal}
       >
         <Form.Item
@@ -68,7 +158,6 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
 
         <Form.Item
           // label={t.get('Content')}
-
           name="content"
           rules={[
             {
@@ -83,11 +172,14 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         >
           <TextArea
             autoSize={{ minRows: 12 }}
+            value={feedbackForm_data.content}
             onChange={(e) => {
-              setFeedbackForm_data({
+              const newData = {
                 ...props.feedbackForm_data,
                 content: e.target.value,
-              });
+              };
+              setFeedbackForm_data(newData);
+              form.setFieldValue('content', e.target.value); // Update form value
             }}
           />
           <div>
@@ -106,11 +198,10 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         >
           <TextArea
             autoSize={{ minRows: 2 }}
+            value={feedback}
             onChange={(e) => {
-              setFeedbackForm_data({
-                ...props.feedbackForm_data,
-                feedback: e.target.value,
-              });
+              setFeedback(e.target.value);
+              form.setFieldValue('feedback', e.target.value); // Update form value
             }}
           />
           <label
@@ -125,7 +216,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         >
           <div className="flex justify-between items-center">
             <div>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" disabled={isCalling}>
                 {t.get('Rewrite')}
               </Button>
             </div>
