@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch, useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { Input, Button, Select, Form, message } from 'antd';
 import { FormInstance, useForm } from 'antd/es/form/Form';
@@ -8,67 +8,115 @@ import {
   IPrompt_v3_for_promptsFactory,
   IPrompt_v3_for_promptsFactory_default,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
-import { IPrompt } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
+import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
+import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
+import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
+import { EProMode_v4_module_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString';
+import TBackendLangchainFile from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
-  feedbackForm_data: IPrompt & { feedback?: string };
+  userAccessToken: string;
+  llmOptions: ILLMOptions;
+  feedbackForm_data: IPrompt;
   setFeedbackForm_data: Dispatch<React.SetStateAction<IPrompt & { feedback?: string }>>;
-
-  // setShowForm: Dispatch<React.SetStateAction<boolean>>;
-  // prompt: IPrompt_v3_for_promptsFactory;
 }
 export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
-  const { t, feedbackForm_data, setFeedbackForm_data } = props;
+  const { t, userAccessToken, llmOptions, feedbackForm_data, setFeedbackForm_data } = props;
 
   const [form] = useForm();
 
-  const onFinishInModal = (values: IPrompt_v3_for_promptsFactory & { oldTitle: string }) => {
+  const [requestController, setRequestController] = useState<AbortController>(new AbortController());
+  const [isCalling, setIsCalling] = useState<boolean>(false);
+
+  const [feedback, setFeedback] = useState<string>('');
+  const [previousPrompt, setPreviousPrompt] = useState<IPrompt>(IPrompt_default);
+
+  const onFinish = (values: IPrompt) => {
     console.log('Success:', values);
 
-    // const { type } = values;
+    console.log("click 'rewrite' button");
 
-    // if (!type) {
-    //   message.error(t.get('Please enter your {text}', { text: t.get('Type') }));
-    //   return;
-    // }
+    if (!feedbackForm_data.content || feedbackForm_data.content.trim() === '') {
+      message.error(t.get('Please enter your {text}', { text: t.get('Prompt') }));
+      return;
+    }
 
-    // if (formTitle === t.get('Create')) {
-    //   const findPrompt = prompts_v3_elements.find((item: IPrompt_v3_for_promptsFactory) => item.title === values.title);
-    //   if (findPrompt) {
-    //     message.error(t.get('The prompt name already exists'));
-    //     return;
-    //   }
+    try {
+      setIsCalling(true);
 
-    //   const newItem: IPrompt_v3_for_promptsFactory = values;
+      const newRequestController = new AbortController();
+      setRequestController(newRequestController);
+      const { signal } = newRequestController;
 
-    //   const newPrompts_v3_elements = [newItem, ...prompts_v3_elements];
+      const urlSlug = '/v1.0/post/langchain/chains/rewritePrompt/';
+      const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
+        contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
+        history: [],
+        input: JSON.stringify({
+          prompt: {
+            role: EAIFlowRole.USER,
+            content: feedbackForm_data.content,
+          } as IPrompt,
+          feedback: feedback || '',
+          previousPrompt: previousPrompt.content || '',
+        }),
+        llmOptions,
+        toolOptions: IToolOptions_default,
+      };
+      // console.log('urlSlug', urlSlug);
+      // console.log('bodyData', bodyData);
 
-    //   setPrompts_v3_elements(newPrompts_v3_elements);
+      TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
+        urlSlug,
+        bodyData,
+        () => {
+          console.log('afterReceiveResponseFunc');
+        },
+        () => {
+          console.log('beforeSendRequestFunc');
+        },
+        (writingResultText: string) => {
+          console.log('updateResultFromRequestFunc', writingResultText);
+        },
+        (resultText: string) => {
+          console.log('AfterRequestFunc', resultText);
 
-    //   setShowForm(false);
-    //   message.success(t.get('The prompt has been added to My prompts'));
-    // } else if (formTitle === t.get('Edit')) {
-    //   const findPrompt = prompts_v3_elements.find(
-    //     (item: IPrompt_v3_for_promptsFactory) => item.title === values.oldTitle,
-    //   );
-    //   if (!findPrompt) {
-    //     message.error(t.get("The prompt name doesn't exist"));
-    //     return;
-    //   }
+          setPreviousPrompt({
+            ...feedbackForm_data,
+            role: EAIFlowRole.ASSISTANT,
+            content: feedbackForm_data.content,
+          });
 
-    //   const newPrompts_v3_elements = prompts_v3_elements.map((item: IPrompt_v3_for_promptsFactory) => {
-    //     if (item.title === values.oldTitle) {
-    //       return { ...item, ...values };
-    //     }
-    //     return item;
-    //   });
+          const newData = {
+            ...props.feedbackForm_data,
+            content: resultText,
+          };
+          setFeedbackForm_data(newData);
+          form.setFieldValue('content', resultText);
 
-    //   setPrompts_v3_elements(newPrompts_v3_elements);
-
-    //   setShowForm(false);
-    //   message.success(t.get('The prompt has been updated'));
-    // }
+          setIsCalling(false);
+        },
+        userAccessToken,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+        signal,
+      ).catch((error) => {
+        console.error('Error during request:', error);
+        setIsCalling(false);
+        message.error(error instanceof Error ? error.message : String(error));
+      });
+    } catch (error) {
+      console.error('Error during request:', error);
+      setIsCalling(false);
+      message.error(error instanceof Error ? error.message : String(error));
+    }
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -77,6 +125,9 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
 
   return (
     <div className="PromptsFactoryForm_container">
+      <div className="previous_prompt_block pb-2">
+        {previousPrompt.content && <TextArea disabled value={previousPrompt.content || 'ee'} />}
+      </div>
       <Form
         form={form}
         layout="vertical"
@@ -86,7 +137,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         // wrapperCol={{ span: 16 }}
         // style={{ maxWidth: 600 }}
         autoComplete="off"
-        onFinish={onFinishInModal}
+        onFinish={onFinish}
         onFinishFailed={onTableFinishFailedInAiFlowModal}
       >
         <Form.Item
@@ -107,13 +158,12 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
 
         <Form.Item
           // label={t.get('Content')}
-
           name="content"
           rules={[
             {
               required: true,
               message: t.getHTML('Please enter your {text}', {
-                text: t.get('Content'),
+                text: t.get('Prompt'),
               }),
             },
           ]}
@@ -122,11 +172,14 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         >
           <TextArea
             autoSize={{ minRows: 12 }}
+            value={feedbackForm_data.content}
             onChange={(e) => {
-              setFeedbackForm_data({
+              const newData = {
                 ...props.feedbackForm_data,
                 content: e.target.value,
-              });
+              };
+              setFeedbackForm_data(newData);
+              form.setFieldValue('content', e.target.value); // Update form value
             }}
           />
           <div>
@@ -140,25 +193,15 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         <Form.Item
           // label={t.get('Feedback')}
           name="feedback"
-          className="hidden"
-          rules={[
-            {
-              required: true,
-              message: t.getHTML('Please enter your {text}', {
-                text: t.get('Feedback'),
-              }),
-            },
-          ]}
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
         >
           <TextArea
             autoSize={{ minRows: 2 }}
+            value={feedback}
             onChange={(e) => {
-              setFeedbackForm_data({
-                ...props.feedbackForm_data,
-                feedback: e.target.value,
-              });
+              setFeedback(e.target.value);
+              form.setFieldValue('feedback', e.target.value); // Update form value
             }}
           />
           <label
@@ -168,32 +211,13 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         </Form.Item>
 
         <Form.Item
-          className="hidden"
-          // wrapperCol={{ offset: 8, span: 16 }}
+
+        // wrapperCol={{ offset: 8, span: 16 }}
         >
           <div className="flex justify-between items-center">
             <div>
-              <Button type="primary" htmlType="submit">
-                {t.get('Submit')}
-              </Button>
-              <Button
-                className="ml-[1rem]"
-                onClick={() => {
-                  // setShowForm(false);
-                }}
-              >
-                {t.get('Cancel')}
-              </Button>
-            </div>
-
-            <div>
-              <Button
-                className="ml-[1rem]"
-                onClick={() => {
-                  form.setFieldsValue(IPrompt_v3_for_promptsFactory_default);
-                }}
-              >
-                {t.get('Reset')}
+              <Button type="primary" htmlType="submit" disabled={isCalling}>
+                {t.get('Rewrite')}
               </Button>
             </div>
           </div>

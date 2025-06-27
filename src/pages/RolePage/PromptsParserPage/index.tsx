@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Button, message, Radio, RadioChangeEvent, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
@@ -30,6 +30,7 @@ import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString
 import { Link } from 'react-router-dom';
 import { PromptsFeedbackForm_v2 } from './PromptsFeedbackForm_v2';
 import { saveLocalAction } from '../../../store/actions/localActions';
+import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
 
 const getCreationModeOptions = (t: IGetT_frontend_output) => {
   return [
@@ -56,6 +57,15 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
 
   const [creativityValue, setCreativityValue] = useState<number>(0.8);
   const [llmName, setLLMName] = useState<ELLM_name>(llmName_from_store);
+
+  const llmOptions: ILLMOptions = useMemo(() => {
+    return {
+      llmName,
+      llmImageName: null,
+      llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
+      llmTemperature: creativityValue,
+    };
+  }, [llmName, llmOption_secrets, creativityValue]);
 
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -121,7 +131,7 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [feedbackForm_data, setFeedbackForm_data] = useState<IPrompt & { feedback?: string }>(IPrompt_default);
+  const [feedbackForm_data, setFeedbackForm_data] = useState<IPrompt>(IPrompt_default);
 
   const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
@@ -259,13 +269,6 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                   setRequestController(newRequestController);
                   const { signal } = newRequestController;
 
-                  const llmOptions = {
-                    llmName,
-                    llmImageName: null,
-                    llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
-                    llmTemperature: creativityValue,
-                  };
-
                   const urlSlug = '/v1.0/post/langchain/chains/parsePrompt_v3/';
                   const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
                     contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
@@ -325,19 +328,6 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
               {t.get('Parse')}
             </Button>
 
-            <Button
-              className="ml-[1rem]"
-              onClick={() => {
-                if (view === 'simple') {
-                  setView('advanced');
-                  return;
-                }
-                setView('simple');
-              }}
-            >
-              {t.get('View')}
-            </Button>
-
             {isCalling && (
               <Button
                 className="ml-[1rem]"
@@ -352,6 +342,18 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
           </div>
 
           <div>
+            <Button
+              onClick={() => {
+                if (view === 'simple') {
+                  setView('advanced');
+                  return;
+                }
+                setView('simple');
+              }}
+            >
+              {t.get('View')}
+            </Button>
+
             <Button
               className="ml-[1rem]"
               onClick={() => {
@@ -372,6 +374,8 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
             <div className="input_textarea_block_v2">
               <PromptsFeedbackForm_v2
                 t={t}
+                userAccessToken={userAccessToken}
+                llmOptions={llmOptions}
                 feedbackForm_data={feedbackForm_data}
                 setFeedbackForm_data={setFeedbackForm_data}
               />
