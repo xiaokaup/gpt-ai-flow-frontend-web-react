@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, Input, message } from 'antd';
+import { Button, Input, message, Radio, RadioChangeEvent, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
@@ -16,7 +16,10 @@ import { PromptsFactoryForm_v2 } from './PromptsFactoryForm_v2';
 import TBackendLangchainFile from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
-import { EProMode_v4_module_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import {
+  EProMode_v4_module_contextType,
+  EProMode_v4_role_labels,
+} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { SLLM_v2_common } from '../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../gpt-ai-flow-common/enum-backend/ELLM';
 import IStoreStorageFile, {
@@ -29,8 +32,17 @@ import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString';
 import { Link } from 'react-router-dom';
 import { PromptsFeedbackForm_v2 } from './PromptsFeedbackForm_v2';
+import { saveLocalAction } from '../../../store/actions/localActions';
 
 const { TextArea } = Input;
+
+const getCreationModeOptions = (t: IGetT_frontend_output) => {
+  return [
+    { label: t.get('Precise'), value: 0.6 },
+    { label: t.get('Balanced'), value: 0.8 },
+    { label: t.get('Creative'), value: 1 },
+  ];
+};
 
 export interface IPromptsParserPage {
   t: IGetT_frontend_output;
@@ -47,8 +59,8 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
     proMode: { model_type: llmName_from_store },
   } = localFromStore;
 
-  const [creativityValue] = useState<number>(0.8);
-  const [llmName] = useState<ELLM_name>(llmName_from_store);
+  const [creativityValue, setCreativityValue] = useState<number>(0.8);
+  const [llmName, setLLMName] = useState<ELLM_name>(llmName_from_store);
 
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -162,6 +174,96 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
 
   return (
     <div className="container p-10 w-full">
+      <div
+        className="row top_block"
+        // style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
+        <div
+          className="block_creativity_value_slider gap-2"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+
+            position: 'sticky',
+            top: 0,
+
+            backgroundColor: '#fff',
+            zIndex: 10,
+            borderBottom: '1px solid #E8E8E8',
+            paddingBottom: '.8rem',
+          }}
+        >
+          <div>
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
+
+            <Radio.Group
+              options={getCreationModeOptions(t)}
+              onChange={({ target: { value } }: RadioChangeEvent) => {
+                console.log('radio checked', value);
+                setCreativityValue(value);
+              }}
+              value={creativityValue}
+              optionType="button"
+              buttonStyle="solid"
+            />
+
+            {/* <Slider
+            min={0}
+            max={1.6}
+            step={0.1}
+            onChange={(newValue: number) => {
+              setCreativityValue(newValue);
+            }}
+            value={creativityValue}
+            marks={{
+              0: t.get('Precise'),
+              1.6: t.get('Creative'),
+            }}
+            style={{
+              position: 'relative',
+              top: 4,
+
+              width: 200,
+              marginLeft: '2rem',
+              marginRight: '2rem',
+            }}
+          /> */}
+          </div>
+          <div className="modelSwitch">
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
+
+            <Select
+              value={llmName}
+              showSearch
+              placeholder={t.get('Select Model')}
+              optionFilterProp="children"
+              onChange={(value: string) => {
+                console.log(`selected ${value}`);
+                setLLMName(value as ELLM_name);
+                dispatch<IStoreStorage_settings_local | any>(
+                  saveLocalAction({
+                    ...localFromStore,
+                    proMode: {
+                      ...localFromStore.proMode,
+                      model_type: value as ELLM_name,
+                    },
+                  }),
+                );
+              }}
+              onSearch={(value: string) => {
+                console.log('search:', value);
+              }}
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              options={SLLM_v2_common.getAllLLM_selectOptions_for_web(t)}
+              style={{
+                width: 450,
+              }}
+            />
+          </div>
+        </div>
+      </div>
       <h1>{`${t.get('Prompts Parser')} 🔬`}</h1>
       <div className="promtps_parser_container">
         <div className="block_buttons flex justify-between items-center px-2">
@@ -294,6 +396,14 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
 
         <div className="flex">
           <div className="mt-4 pl-2 flex-1 pr-2">
+            <div className="input_textarea_block_v2">
+              <PromptsFeedbackForm_v2
+                t={t}
+                feedbackForm_data={feedbackForm_data}
+                setFeedbackForm_data={setFeedbackForm_data}
+              />
+            </div>
+
             <div>
               {showForm && (
                 <div className="showForm_block">
@@ -309,34 +419,6 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                   />
                 </div>
               )}
-            </div>
-
-            {/* <div className="input_textarea_block">
-              <TextArea
-                name="input_textarea"
-                autoSize={{ minRows: 12 }}
-                value={feedbackForm_data.content || ''}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                  setFeedbackForm_data({
-                    ...feedbackForm_data,
-                    content: e.target.value,
-                  });
-                }}
-              />
-              <div>
-                <label
-                  htmlFor="input_textarea"
-                  className="text-gray-500"
-                >{`${t.get('Please input your {text}', { text: t.get('Prompt') })} ☝️`}</label>
-              </div>
-            </div> */}
-
-            <div className="input_textarea_block_v2">
-              <PromptsFeedbackForm_v2
-                t={t}
-                feedbackForm_data={feedbackForm_data}
-                setFeedbackForm_data={setFeedbackForm_data}
-              />
             </div>
           </div>
 
