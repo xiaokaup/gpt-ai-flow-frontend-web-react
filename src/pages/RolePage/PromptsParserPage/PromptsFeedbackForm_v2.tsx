@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch, useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import { Input, Button, Select, Form, message } from 'antd';
 import { FormInstance, useForm } from 'antd/es/form/Form';
@@ -8,7 +8,7 @@ import {
   IPrompt_v3_for_promptsFactory,
   IPrompt_v3_for_promptsFactory_default,
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt_v3_for_promptsFactory';
-import { IPrompt } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
@@ -23,52 +23,10 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
 
   const [form] = useForm();
 
+  const [previousPrompt, setPreviousPrompt] = useState<IPrompt & { feedback?: string }>(IPrompt_default);
+
   const onFinishInModal = (values: IPrompt_v3_for_promptsFactory & { oldTitle: string }) => {
     console.log('Success:', values);
-
-    // const { type } = values;
-
-    // if (!type) {
-    //   message.error(t.get('Please enter your {text}', { text: t.get('Type') }));
-    //   return;
-    // }
-
-    // if (formTitle === t.get('Create')) {
-    //   const findPrompt = prompts_v3_elements.find((item: IPrompt_v3_for_promptsFactory) => item.title === values.title);
-    //   if (findPrompt) {
-    //     message.error(t.get('The prompt name already exists'));
-    //     return;
-    //   }
-
-    //   const newItem: IPrompt_v3_for_promptsFactory = values;
-
-    //   const newPrompts_v3_elements = [newItem, ...prompts_v3_elements];
-
-    //   setPrompts_v3_elements(newPrompts_v3_elements);
-
-    //   setShowForm(false);
-    //   message.success(t.get('The prompt has been added to My prompts'));
-    // } else if (formTitle === t.get('Edit')) {
-    //   const findPrompt = prompts_v3_elements.find(
-    //     (item: IPrompt_v3_for_promptsFactory) => item.title === values.oldTitle,
-    //   );
-    //   if (!findPrompt) {
-    //     message.error(t.get("The prompt name doesn't exist"));
-    //     return;
-    //   }
-
-    //   const newPrompts_v3_elements = prompts_v3_elements.map((item: IPrompt_v3_for_promptsFactory) => {
-    //     if (item.title === values.oldTitle) {
-    //       return { ...item, ...values };
-    //     }
-    //     return item;
-    //   });
-
-    //   setPrompts_v3_elements(newPrompts_v3_elements);
-
-    //   setShowForm(false);
-    //   message.success(t.get('The prompt has been updated'));
-    // }
   };
 
   const onTableFinishFailedInAiFlowModal = (errorInfo: any) => {
@@ -77,6 +35,9 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
 
   return (
     <div className="PromptsFactoryForm_container">
+      <div className="previous_prompt_block pb-2">
+        {previousPrompt.content && <TextArea disabled value={previousPrompt.content || 'ee'} />}
+      </div>
       <Form
         form={form}
         layout="vertical"
@@ -113,7 +74,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
             {
               required: true,
               message: t.getHTML('Please enter your {text}', {
-                text: t.get('Content'),
+                text: t.get('Prompt'),
               }),
             },
           ]}
@@ -140,15 +101,6 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         <Form.Item
           // label={t.get('Feedback')}
           name="feedback"
-          className="hidden"
-          rules={[
-            {
-              required: true,
-              message: t.getHTML('Please enter your {text}', {
-                text: t.get('Feedback'),
-              }),
-            },
-          ]}
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
         >
@@ -168,32 +120,13 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         </Form.Item>
 
         <Form.Item
-          className="hidden"
-          // wrapperCol={{ offset: 8, span: 16 }}
+
+        // wrapperCol={{ offset: 8, span: 16 }}
         >
           <div className="flex justify-between items-center">
             <div>
               <Button type="primary" htmlType="submit">
-                {t.get('Submit')}
-              </Button>
-              <Button
-                className="ml-[1rem]"
-                onClick={() => {
-                  // setShowForm(false);
-                }}
-              >
-                {t.get('Cancel')}
-              </Button>
-            </div>
-
-            <div>
-              <Button
-                className="ml-[1rem]"
-                onClick={() => {
-                  form.setFieldsValue(IPrompt_v3_for_promptsFactory_default);
-                }}
-              >
-                {t.get('Reset')}
+                {t.get('Rewrite')}
               </Button>
             </div>
           </div>
