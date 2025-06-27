@@ -107,6 +107,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
 
         <Form.Item
           // label={t.get('Content')}
+
           name="content"
           rules={[
             {
@@ -139,6 +140,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         <Form.Item
           // label={t.get('Feedback')}
           name="feedback"
+          className="hidden"
           rules={[
             {
               required: true,
@@ -166,7 +168,8 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
         </Form.Item>
 
         <Form.Item
-        // wrapperCol={{ offset: 8, span: 16 }}
+          className="hidden"
+          // wrapperCol={{ offset: 8, span: 16 }}
         >
           <div className="flex justify-between items-center">
             <div>
