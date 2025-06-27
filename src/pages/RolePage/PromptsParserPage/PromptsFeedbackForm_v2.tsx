@@ -120,7 +120,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
   return (
     <div className="PromptsFactoryForm_container">
       <div className="previous_prompt_block pb-2">
-        {previousPrompt.content && <TextArea disabled value={previousPrompt.content || 'ee'} />}
+        {previousPrompt.content && <TextArea autoSize disabled value={previousPrompt.content} />}
       </div>
       <Form
         form={form}
@@ -208,12 +208,22 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
 
         // wrapperCol={{ offset: 8, span: 16 }}
         >
-          <div className="flex justify-between items-center">
-            <div>
-              <Button type="primary" htmlType="submit" disabled={isCalling}>
-                {t.get('Rewrite')}
+          <div>
+            <Button type="primary" htmlType="submit" disabled={isCalling}>
+              {t.get('Rewrite')}
+            </Button>
+
+            {isCalling && (
+              <Button
+                className="ml-[1rem]"
+                onClick={() => {
+                  requestController.abort();
+                  setIsCalling(false);
+                }}
+              >
+                {t.get('Stop')}
               </Button>
-            </div>
+            )}
           </div>
         </Form.Item>
       </Form>
