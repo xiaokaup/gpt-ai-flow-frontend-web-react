@@ -24,10 +24,11 @@ import IStoreStorageFile, {
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
-import { IPrompt } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString';
 import { Link } from 'react-router-dom';
+import { PromptsFeedbackForm_v2 } from './PromptsFeedbackForm_v2';
 
 const { TextArea } = Input;
 
@@ -113,7 +114,7 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [input_textarea, setInput_textarea] = useState<string>('');
+  const [feedbackForm_data, setFeedbackForm_data] = useState<IPrompt & { feedback?: string }>(IPrompt_default);
 
   const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
@@ -170,6 +171,12 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
               disabled={isCalling}
               onClick={() => {
                 console.log("click 'Parse' button");
+
+                if (!feedbackForm_data.content || feedbackForm_data.content.trim() === '') {
+                  message.error(t.get('Please enter your {text}', { text: t.get('Prompt') }));
+                  return;
+                }
+
                 try {
                   setIsCalling(true);
 
@@ -190,7 +197,7 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                     history: [],
                     input: JSON.stringify({
                       role: EAIFlowRole.USER,
-                      content: input_textarea,
+                      content: feedbackForm_data.content,
                     } as IPrompt),
                     llmOptions,
                     toolOptions: IToolOptions_default,
@@ -228,7 +235,11 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                       CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
                     ),
                     signal,
-                  );
+                  ).catch((error) => {
+                    console.error('Error during request:', error);
+                    setIsCalling(false);
+                    message.error(error instanceof Error ? error.message : String(error));
+                  });
                 } catch (error) {
                   console.error('Error during request:', error);
                   setIsCalling(false);
@@ -300,13 +311,16 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
               )}
             </div>
 
-            <div className="input_textarea_block">
+            {/* <div className="input_textarea_block">
               <TextArea
                 name="input_textarea"
                 autoSize={{ minRows: 12 }}
-                value={input_textarea}
+                value={feedbackForm_data.content || ''}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                  setInput_textarea(e.target.value);
+                  setFeedbackForm_data({
+                    ...feedbackForm_data,
+                    content: e.target.value,
+                  });
                 }}
               />
               <div>
@@ -315,6 +329,14 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                   className="text-gray-500"
                 >{`${t.get('Please input your {text}', { text: t.get('Prompt') })} ☝️`}</label>
               </div>
+            </div> */}
+
+            <div className="input_textarea_block_v2">
+              <PromptsFeedbackForm_v2
+                t={t}
+                feedbackForm_data={feedbackForm_data}
+                setFeedbackForm_data={setFeedbackForm_data}
+              />
             </div>
           </div>
 

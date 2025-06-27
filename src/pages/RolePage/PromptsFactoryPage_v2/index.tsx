@@ -261,7 +261,11 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                       CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
                     ),
                     signal,
-                  );
+                  ).catch((error) => {
+                    console.error('Error during request:', error);
+                    setIsCalling(false);
+                    message.error(error instanceof Error ? error.message : String(error));
+                  });
                 } catch (error) {
                   console.error('Error during request:', error);
                   setIsCalling(false);
