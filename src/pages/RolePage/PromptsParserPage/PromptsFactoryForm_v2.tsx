@@ -14,12 +14,12 @@ interface IPromptsFactoryForm {
   form: FormInstance<any>;
   formTitle: string;
   setShowForm: Dispatch<React.SetStateAction<boolean>>;
-  prompt: IPrompt_v3_for_promptsFactory;
+  showForm_data: IPrompt_v3_for_promptsFactory;
   prompts_v3_elements: IPrompt_v3_for_promptsFactory[];
   setPrompts_v3_elements: Dispatch<React.SetStateAction<IPrompt_v3_for_promptsFactory[]>>;
 }
 export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
-  const { t, form, formTitle, setShowForm, prompt, prompts_v3_elements, setPrompts_v3_elements } = props;
+  const { t, form, formTitle, setShowForm, showForm_data, prompts_v3_elements, setPrompts_v3_elements } = props;
 
   const onFinishInModal = (values: IPrompt_v3_for_promptsFactory & { oldTitle: string }) => {
     console.log('Success:', values);
@@ -79,7 +79,7 @@ export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
         form={form}
         layout="vertical"
         name="PromptsFactoryForm"
-        initialValues={{ ...prompt, oldTitle: prompt.title }}
+        initialValues={{ ...showForm_data, oldTitle: showForm_data.title }}
         // labelCol={{ span: 8 }}
         // wrapperCol={{ span: 16 }}
         // style={{ maxWidth: 600 }}
@@ -239,7 +239,7 @@ export const PromptsFactoryForm_v2 = (props: IPromptsFactoryForm) => {
                   className="ml-[1rem]"
                   onClick={() => {
                     const newPrompts_v3_elements = prompts_v3_elements.filter(
-                      (item: IPrompt_v3_for_promptsFactory) => item.title !== prompt.title,
+                      (item: IPrompt_v3_for_promptsFactory) => item.title !== showForm_data.title,
                     );
                     console.log('newPrompts_v3_elements', newPrompts_v3_elements);
 

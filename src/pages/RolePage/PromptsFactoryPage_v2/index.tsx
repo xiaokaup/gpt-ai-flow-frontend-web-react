@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, message } from 'antd';
+import { Button, message, Radio, RadioChangeEvent, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
@@ -33,6 +33,15 @@ import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/
 import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { Link } from 'react-router-dom';
+import { saveLocalAction } from '../../../store/actions/localActions';
+
+const getCreationModeOptions = (t: IGetT_frontend_output) => {
+  return [
+    { label: t.get('Precise'), value: 0.6 },
+    { label: t.get('Balanced'), value: 0.8 },
+    { label: t.get('Creative'), value: 1 },
+  ];
+};
 
 export interface IPromptsFactoryPage {
   t: IGetT_frontend_output;
@@ -49,8 +58,8 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
     proMode: { model_type: llmName_from_store },
   } = localFromStore;
 
-  const [creativityValue] = useState<number>(0.8);
-  const [llmName] = useState<ELLM_name>(llmName_from_store);
+  const [creativityValue, setCreativityValue] = useState<number>(0.8);
+  const [llmName, setLLMName] = useState<ELLM_name>(llmName_from_store);
 
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -165,6 +174,74 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
 
   return (
     <div className="container p-10 w-full">
+      <div
+        className="row top_block"
+        // style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
+        <div
+          className="block_creativity_value_slider gap-2"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+
+            position: 'sticky',
+            top: 0,
+
+            backgroundColor: '#fff',
+            zIndex: 10,
+            borderBottom: '1px solid #E8E8E8',
+            paddingBottom: '.8rem',
+          }}
+        >
+          <div>
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
+
+            <Radio.Group
+              options={getCreationModeOptions(t)}
+              onChange={({ target: { value } }: RadioChangeEvent) => {
+                console.log('radio checked', value);
+                setCreativityValue(value);
+              }}
+              value={creativityValue}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </div>
+          <div className="modelSwitch">
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
+
+            <Select
+              value={llmName}
+              showSearch
+              placeholder={t.get('Select Model')}
+              optionFilterProp="children"
+              onChange={(value: string) => {
+                console.log(`selected ${value}`);
+                setLLMName(value as ELLM_name);
+                dispatch<IStoreStorage_settings_local | any>(
+                  saveLocalAction({
+                    ...localFromStore,
+                    proMode: {
+                      ...localFromStore.proMode,
+                      model_type: value as ELLM_name,
+                    },
+                  }),
+                );
+              }}
+              onSearch={(value: string) => {
+                console.log('search:', value);
+              }}
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              options={SLLM_v2_common.getAllLLM_selectOptions_for_web(t)}
+              style={{
+                width: 450,
+              }}
+            />
+          </div>
+        </div>
+      </div>
       <h1>{`${t.get('Prompts Factory')} 🏭`}</h1>
       <div className="factory_container">
         <div className="block_buttons flex justify-between items-center">
@@ -261,7 +338,11 @@ export const PromptsFactoryPage_v2 = (props: IPromptsFactoryPage) => {
                       CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
                     ),
                     signal,
-                  );
+                  ).catch((error) => {
+                    console.error('Error during request:', error);
+                    setIsCalling(false);
+                    message.error(error instanceof Error ? error.message : String(error));
+                  });
                 } catch (error) {
                   console.error('Error during request:', error);
                   setIsCalling(false);

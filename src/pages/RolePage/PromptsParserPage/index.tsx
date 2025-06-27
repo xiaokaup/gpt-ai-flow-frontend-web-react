@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, Input, message } from 'antd';
+import { Button, message, Radio, RadioChangeEvent, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
@@ -24,12 +24,20 @@ import IStoreStorageFile, {
 } from '../../../gpt-ai-flow-common/interface-app/4_base/IStoreStorage';
 import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
-import { IPrompt } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString';
 import { Link } from 'react-router-dom';
+import { PromptsFeedbackForm_v2 } from './PromptsFeedbackForm_v2';
+import { saveLocalAction } from '../../../store/actions/localActions';
 
-const { TextArea } = Input;
+const getCreationModeOptions = (t: IGetT_frontend_output) => {
+  return [
+    { label: t.get('Precise'), value: 0.6 },
+    { label: t.get('Balanced'), value: 0.8 },
+    { label: t.get('Creative'), value: 1 },
+  ];
+};
 
 export interface IPromptsParserPage {
   t: IGetT_frontend_output;
@@ -46,8 +54,8 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
     proMode: { model_type: llmName_from_store },
   } = localFromStore;
 
-  const [creativityValue] = useState<number>(0.8);
-  const [llmName] = useState<ELLM_name>(llmName_from_store);
+  const [creativityValue, setCreativityValue] = useState<number>(0.8);
+  const [llmName, setLLMName] = useState<ELLM_name>(llmName_from_store);
 
   const [form] = useForm();
   const dispatch = useDispatch();
@@ -113,7 +121,7 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [input_textarea, setInput_textarea] = useState<string>('');
+  const [feedbackForm_data, setFeedbackForm_data] = useState<IPrompt & { feedback?: string }>(IPrompt_default);
 
   const handleDragEnd = (event: DragEndEvent): void => {
     const { active, over } = event;
@@ -161,6 +169,74 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
 
   return (
     <div className="container p-10 w-full">
+      <div
+        className="row top_block"
+        // style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
+        <div
+          className="block_creativity_value_slider gap-2"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+
+            position: 'sticky',
+            top: 0,
+
+            backgroundColor: '#fff',
+            zIndex: 10,
+            borderBottom: '1px solid #E8E8E8',
+            paddingBottom: '.8rem',
+          }}
+        >
+          <div>
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Creation mode')}:</span>
+
+            <Radio.Group
+              options={getCreationModeOptions(t)}
+              onChange={({ target: { value } }: RadioChangeEvent) => {
+                console.log('radio checked', value);
+                setCreativityValue(value);
+              }}
+              value={creativityValue}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </div>
+          <div className="modelSwitch">
+            <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
+
+            <Select
+              value={llmName}
+              showSearch
+              placeholder={t.get('Select Model')}
+              optionFilterProp="children"
+              onChange={(value: string) => {
+                console.log(`selected ${value}`);
+                setLLMName(value as ELLM_name);
+                dispatch<IStoreStorage_settings_local | any>(
+                  saveLocalAction({
+                    ...localFromStore,
+                    proMode: {
+                      ...localFromStore.proMode,
+                      model_type: value as ELLM_name,
+                    },
+                  }),
+                );
+              }}
+              onSearch={(value: string) => {
+                console.log('search:', value);
+              }}
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+              options={SLLM_v2_common.getAllLLM_selectOptions_for_web(t)}
+              style={{
+                width: 450,
+              }}
+            />
+          </div>
+        </div>
+      </div>
       <h1>{`${t.get('Prompts Parser')} 🔬`}</h1>
       <div className="promtps_parser_container">
         <div className="block_buttons flex justify-between items-center px-2">
@@ -170,6 +246,12 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
               disabled={isCalling}
               onClick={() => {
                 console.log("click 'Parse' button");
+
+                if (!feedbackForm_data.content || feedbackForm_data.content.trim() === '') {
+                  message.error(t.get('Please enter your {text}', { text: t.get('Prompt') }));
+                  return;
+                }
+
                 try {
                   setIsCalling(true);
 
@@ -190,7 +272,7 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                     history: [],
                     input: JSON.stringify({
                       role: EAIFlowRole.USER,
-                      content: input_textarea,
+                      content: feedbackForm_data.content,
                     } as IPrompt),
                     llmOptions,
                     toolOptions: IToolOptions_default,
@@ -228,7 +310,11 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                       CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string,
                     ),
                     signal,
-                  );
+                  ).catch((error) => {
+                    console.error('Error during request:', error);
+                    setIsCalling(false);
+                    message.error(error instanceof Error ? error.message : String(error));
+                  });
                 } catch (error) {
                   console.error('Error during request:', error);
                   setIsCalling(false);
@@ -283,21 +369,12 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
 
         <div className="flex">
           <div className="mt-4 pl-2 flex-1 pr-2">
-            <div className="input_textarea_block">
-              <TextArea
-                name="input_textarea"
-                autoSize={{ minRows: 12 }}
-                value={input_textarea}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                  setInput_textarea(e.target.value);
-                }}
+            <div className="input_textarea_block_v2">
+              <PromptsFeedbackForm_v2
+                t={t}
+                feedbackForm_data={feedbackForm_data}
+                setFeedbackForm_data={setFeedbackForm_data}
               />
-              <div>
-                <label
-                  htmlFor="input_textarea"
-                  className="text-gray-500"
-                >{`${t.get('Please input your {text}', { text: t.get('Prompt') })} ☝️`}</label>
-              </div>
             </div>
 
             <div>
@@ -309,7 +386,7 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                     form={form}
                     formTitle={formTitle}
                     setShowForm={setShowForm}
-                    prompt={showForm_data}
+                    showForm_data={showForm_data}
                     prompts_v3_elements={prompts_v3_elements}
                     setPrompts_v3_elements={setPrompts_v3_elements}
                   />

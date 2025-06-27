@@ -526,7 +526,7 @@ const ProModeWindow_v4_login = (props: IProModeWindow_v4_login) => {
                             <ProModeWindow_v4_tabPane_commandChain
                               t={t}
                               tabPane={tabPane as IProMode_v4_tabPane<IPromode_v4_tabPane_context_type_commandChain>}
-                              webCase={{ userDB: userDB, localDataFromStorage: localFromStore }}
+                              webCase={{ userDB, localDataFromStorage: localFromStore }}
                             />
                           )}
 
