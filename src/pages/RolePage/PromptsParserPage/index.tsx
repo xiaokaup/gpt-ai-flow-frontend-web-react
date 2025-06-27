@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, Input, message, Radio, RadioChangeEvent, Select } from 'antd';
+import { Button, message, Radio, RadioChangeEvent, Select } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { IPrompts_v3_for_promptsFactory_status, StatusBlock } from './StatusBlock';
@@ -16,10 +16,7 @@ import { PromptsFactoryForm_v2 } from './PromptsFactoryForm_v2';
 import TBackendLangchainFile from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
-import {
-  EProMode_v4_module_contextType,
-  EProMode_v4_role_labels,
-} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
+import { EProMode_v4_module_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import { SLLM_v2_common } from '../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { ELLM_name } from '../../../gpt-ai-flow-common/enum-backend/ELLM';
 import IStoreStorageFile, {
@@ -33,8 +30,6 @@ import { extractJsonFromString } from '../../../gpt-ai-flow-common/tools/TString
 import { Link } from 'react-router-dom';
 import { PromptsFeedbackForm_v2 } from './PromptsFeedbackForm_v2';
 import { saveLocalAction } from '../../../store/actions/localActions';
-
-const { TextArea } = Input;
 
 const getCreationModeOptions = (t: IGetT_frontend_output) => {
   return [
@@ -208,28 +203,6 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
               optionType="button"
               buttonStyle="solid"
             />
-
-            {/* <Slider
-            min={0}
-            max={1.6}
-            step={0.1}
-            onChange={(newValue: number) => {
-              setCreativityValue(newValue);
-            }}
-            value={creativityValue}
-            marks={{
-              0: t.get('Precise'),
-              1.6: t.get('Creative'),
-            }}
-            style={{
-              position: 'relative',
-              top: 4,
-
-              width: 200,
-              marginLeft: '2rem',
-              marginRight: '2rem',
-            }}
-          /> */}
           </div>
           <div className="modelSwitch">
             <span style={{ color: '#5D6370', marginRight: '1rem' }}>{t.get('Model')}:</span>
