@@ -283,6 +283,23 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
 
         <div className="flex">
           <div className="mt-4 pl-2 flex-1 pr-2">
+            <div>
+              {showForm && (
+                <div className="showForm_block">
+                  <h2>{formTitle}</h2>
+                  <PromptsFactoryForm_v2
+                    t={t}
+                    form={form}
+                    formTitle={formTitle}
+                    setShowForm={setShowForm}
+                    showForm_data={showForm_data}
+                    prompts_v3_elements={prompts_v3_elements}
+                    setPrompts_v3_elements={setPrompts_v3_elements}
+                  />
+                </div>
+              )}
+            </div>
+
             <div className="input_textarea_block">
               <TextArea
                 name="input_textarea"
@@ -298,23 +315,6 @@ export const PromptsParserPage = (props: IPromptsParserPage) => {
                   className="text-gray-500"
                 >{`${t.get('Please input your {text}', { text: t.get('Prompt') })} ☝️`}</label>
               </div>
-            </div>
-
-            <div>
-              {showForm && (
-                <div className="showForm_block">
-                  <h2>{formTitle}</h2>
-                  <PromptsFactoryForm_v2
-                    t={t}
-                    form={form}
-                    formTitle={formTitle}
-                    setShowForm={setShowForm}
-                    prompt={showForm_data}
-                    prompts_v3_elements={prompts_v3_elements}
-                    setPrompts_v3_elements={setPrompts_v3_elements}
-                  />
-                </div>
-              )}
             </div>
           </div>
 
