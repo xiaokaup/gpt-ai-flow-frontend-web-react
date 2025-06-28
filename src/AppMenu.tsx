@@ -92,8 +92,12 @@ export const AppMenu = (props: {
       )}
       {isAuthenticated && (
         <>
-          <Menu.Item key="3">
+          <Menu.Item key="user-profile">
             <Link to="/app/info">{t.get('User')}</Link>
+          </Menu.Item>
+
+          <Menu.Item key="proMode">
+            <Link to="/app/proMode/features">{t.get('ProMode')}</Link>
           </Menu.Item>
 
           <Menu.Item key="prompts-factory-group">
@@ -120,10 +124,6 @@ export const AppMenu = (props: {
                 <DownOutlined style={{ position: 'relative', top: 1 }} />
               </Link>
             </Dropdown>
-          </Menu.Item>
-
-          <Menu.Item key="4">
-            <Link to="/app/proMode/features">{t.get('ProMode')}</Link>
           </Menu.Item>
         </>
       )}
