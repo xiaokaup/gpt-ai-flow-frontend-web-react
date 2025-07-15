@@ -22,10 +22,9 @@ interface ISettingsWindow_input {
   t: IGetT_frontend_output;
   userDB: IUserDB;
   isAuthenticated: boolean;
-  isModelEdition: boolean;
 }
 export const SettingsWindow = (props: ISettingsWindow_input) => {
-  const { t, userDB, isAuthenticated, isModelEdition } = props;
+  const { t, userDB, isAuthenticated } = props;
   // console.log('userDB', userDB);
   // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = IUserDB;
 
@@ -87,7 +86,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
         <SettingsWindow_2_user_3_info t={t} userDB={userDB} isAuthenticated={isAuthenticated} />
       </div>
       <div style={containerStyle}>
-        <SettingsWindow_1_local t={t} isModelEdition={isModelEdition} />
+        <SettingsWindow_1_local t={t} />
       </div>
       <div style={containerStyle}>
         <SettingsWindow_4_payment t={t} localeForSettingsWindow={locale} />

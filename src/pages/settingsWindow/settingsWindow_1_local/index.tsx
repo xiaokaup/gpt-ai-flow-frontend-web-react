@@ -19,10 +19,9 @@ enum ESettingsWindow_1_local_tabKey {
 
 interface ISettingsWindow_1_local_input {
   t: IGetT_frontend_output;
-  isModelEdition: boolean;
 }
 export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => {
-  const { t, isModelEdition } = props;
+  const { t } = props;
 
   const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDB_default;
@@ -52,7 +51,7 @@ export const SettingsWindow_1_local = (props: ISettingsWindow_1_local_input) => 
     {
       key: ESettingsWindow_1_local_tabKey.BASIC,
       label: t.get('Basic'),
-      children: <SettingsWindow_1_local_basic t={t} isModelEdition={isModelEdition} />,
+      children: <SettingsWindow_1_local_basic t={t} />,
     },
   ];
 

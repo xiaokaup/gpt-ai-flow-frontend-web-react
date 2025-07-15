@@ -21,12 +21,11 @@ import { IToolOption_secrets_default } from '../../../gpt-ai-flow-common/interfa
 
 interface ISettingsWindow_1_local_basic_input {
   t: IGetT_frontend_output;
-  isModelEdition: boolean;
 }
 export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basic_input) => {
   const dispatch = useDispatch();
 
-  const { t, isModelEdition } = props;
+  const { t } = props;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorage_settings_local_default;
@@ -93,7 +92,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
           }}
           onFinish={onFinish}
         >
-          <div className={isModelEdition ? 'row block_apiKeys hidden' : 'row block_apiKeys'}>
+          <div className={'row block_apiKeys'}>
             <div className="openAIApiKey flex items-center">
               <Tooltip
                 title={

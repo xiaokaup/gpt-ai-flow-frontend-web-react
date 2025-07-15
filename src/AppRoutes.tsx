@@ -58,7 +58,10 @@ export const AppRoutes = () => {
 
   const { Token: { accessToken } = ITokenDB_default } = userDB;
 
-  const { stripePriceNicknames_from_allSbuscriptions, isModelEdition } = useStripePriceNicknames_for_allSubscriptions({
+  const {
+    stripePriceNicknames_from_allSbuscriptions,
+    // isModelEdition
+  } = useStripePriceNicknames_for_allSubscriptions({
     accessToken,
     locale,
     env: CONSTANTS_GPT_AI_FLOW_COMMON,
@@ -191,12 +194,7 @@ export const AppRoutes = () => {
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <SettingsWindow
-                  t={t}
-                  userDB={userDB}
-                  isAuthenticated={isAuthenticated}
-                  isModelEdition={isModelEdition}
-                />
+                <SettingsWindow t={t} userDB={userDB} isAuthenticated={isAuthenticated} />
               </AppLayout>
             </div>
           }
@@ -465,12 +463,7 @@ export const AppRoutes = () => {
                 isAuthenticated={isAuthenticated}
                 stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
               >
-                <SettingsWindow
-                  t={t}
-                  userDB={userDB}
-                  isAuthenticated={isAuthenticated}
-                  isModelEdition={isModelEdition}
-                />
+                <SettingsWindow t={t} userDB={userDB} isAuthenticated={isAuthenticated} />
               </AppLayout>
             </div>
           }
