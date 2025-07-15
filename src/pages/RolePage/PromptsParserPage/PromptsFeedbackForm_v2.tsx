@@ -5,13 +5,11 @@ import { useForm } from 'antd/es/form/Form';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
 import { ILLMOptions } from '../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
-import { IProMode_module_request_v4_subVersion_2_for_web_v2 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-call/IProMode_module_request_v4_subVersion_2';
 import CONSTANTS_GPT_AI_FLOW_COMMON from '../../../gpt-ai-flow-common/config/constantGptAiFlow';
 import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
-import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
-import { EProMode_v4_module_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { post_microservice_endpoint } from '../../../gpt-ai-flow-common/tools/1_endpoint/TBackendMicroservice';
+import { IAPI_microservice_input } from '../../../gpt-ai-flow-common/interface-backend-microservice/IAPI_microservice_input';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
@@ -49,8 +47,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
       const { signal } = newRequestController;
 
       const urlSlug = '/lambda_url/2025-07-15-func-04-node-langchain-writePrompt-dev';
-      const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
-        contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
+      const bodyData: IAPI_microservice_input = {
         history: [],
         input: JSON.stringify({
           prompt: {
@@ -61,10 +58,9 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
           previousPrompt: previousPrompt.content || '',
         }),
         llmOptions,
-        toolOptions: IToolOptions_default,
       };
       // console.log('urlSlug', urlSlug);
-      // console.log('bodyData', bodyData);
+      console.log('bodyData', bodyData);
 
       post_microservice_endpoint(
         CONSTANTS_GPT_AI_FLOW_COMMON.BACKEND_NODE.BACKEND_ENDPOINT_MICROSERVICES + urlSlug,
