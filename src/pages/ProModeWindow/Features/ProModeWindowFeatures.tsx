@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Radio, RadioChangeEvent } from 'antd';
+import { Alert, Radio, RadioChangeEvent } from 'antd';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { getT_with_i18next } from '../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
 import { ProModeWindowFeatures_cards } from './ProModeWindowFeatures_cards';
@@ -24,7 +24,7 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
         margin: '1rem auto',
       }}
     >
-      <div className="md:w-2/3 lg:w-1/2" style={{ padding: '0 2rem' }}>
+      <div className="w-full" style={{ padding: '0 2rem' }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -40,6 +40,10 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
 
         {locale === ELocale.EN && (
           <>
+            <Alert
+              message="🚧 System upgrade in progress, some services temporarily unavailable: The system is undergoing module optimization upgrades to provide more stable and efficient services. During this period, some functions may be temporarily unavailable."
+              type="warning"
+            />
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
               🌟 AI integration into life, simplicity at your fingertips.
             </h2>
@@ -52,6 +56,10 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
         )}
         {locale === ELocale.ZH && (
           <>
+            <Alert
+              message="🚧 系统升级中，部分服务暂不可用: 系统进行模块优化升级，以提供更稳定、高效的服务。在此期间，部分功能可能暂时无法使用。"
+              type="warning"
+            />
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
               🌟 AI 融入生活，简单由你掌握
             </h2>
@@ -83,8 +91,6 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
           buttonStyle="solid"
         />
       </div>
-
-      <h2 className="px-8">模块调整阶段</h2>
 
       <ProModeWindowFeatures_cards
         locale={locale}
