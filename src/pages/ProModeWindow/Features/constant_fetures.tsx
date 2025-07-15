@@ -326,7 +326,7 @@ export const getRoles = (locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
-      isDisabled: false,
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
       proModeModuleName: '提示解析器 (测试中)',
       description:
