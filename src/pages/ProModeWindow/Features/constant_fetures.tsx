@@ -335,7 +335,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
     },
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
       proModeModuleName: '提示工厂',
       description:
@@ -440,7 +440,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
     },
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
       proModeModuleName: 'Prompt Factory',
       description:
