@@ -84,6 +84,8 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
         />
       </div>
 
+      <h2 className="px-8">模块调整阶段</h2>
+
       <ProModeWindowFeatures_cards
         locale={locale}
         // features_type={proMode_showForm}

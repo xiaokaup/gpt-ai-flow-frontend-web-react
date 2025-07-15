@@ -4,4 +4,5 @@ export interface IOneFeature {
   description: string;
   // docOpenLink: string;
   webAppOpenLink: string;
+  isDisabled: boolean;
 }

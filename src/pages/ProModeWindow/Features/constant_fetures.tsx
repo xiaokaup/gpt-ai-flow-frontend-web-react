@@ -17,6 +17,7 @@ export const getModules = (locale: ELocale) => {
 
   const homePageModules_zh: IOneFeature[] = [
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-18-content-writing.png',
       proModeModuleName: '写帖子神器',
       description: '一键生成帖子草稿，智能打磨内容，随时查看历史版本，让发帖更轻松高效。',
@@ -24,6 +25,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
       proModeModuleName: '对话优化',
       description: '让对话更有效：优化表达方式，调整语气，让沟通更到位。',
@@ -31,6 +33,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-32-summary.png',
       proModeModuleName: '总结工具',
       description: '一键提炼文章精华：快速抓住重点，理解更透彻，分享更方便。',
@@ -38,6 +41,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_14_SUMMARY}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-34-meeting-table.png',
       proModeModuleName: '会议报告',
       description: '一键整理会议精华：提炼重点、分配任务、生成纪要，让每次会议都高效执行。',
@@ -45,6 +49,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-31-outline.png',
       proModeModuleName: '大纲工具',
       description: '轻松写文章：一键生成清晰大纲，随心调整结构，快速扩展成文章。',
@@ -52,6 +57,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-30-img-25-seo.png',
       proModeModuleName: 'SEO 优化工具',
       description: '让网站内容更容易被搜索到：分析页面、获取优化建议、持续提升排名效果。',
@@ -59,6 +65,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_09_SEO_CHAIN}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2023-09-18-img-11-icon-social-media.png',
       proModeModuleName: '小红书达人',
       description: '打造爆款内容：策划主题、把握热点、讲好品牌故事，让你的作品更吸睛。',
@@ -66,6 +73,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-19-rubber.png',
       proModeModuleName: '帖子重写',
       description: '一键获得四种全新写法：快速改写帖子，按需调整细节，打造完美版本。',
@@ -76,6 +84,7 @@ export const getModules = (locale: ELocale) => {
 
   const homePageModules_en: IOneFeature[] = [
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-18-content-writing.png',
       proModeModuleName: 'Post Writing Wizard',
       description: 'Write better posts faster: Get themes, create drafts & polish content with easy editing history.',
@@ -83,6 +92,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-15-img-23-icon-communication-expression-megaphone.png',
       proModeModuleName: 'Dialogue Optimization',
       description: 'Make conversations better: Suggest better replies and adapt your tone for different audiences.',
@@ -90,6 +100,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-32-summary.png',
       proModeModuleName: 'Summary Tool',
       description: 'Turn long content into clear summaries: Extract key points, analyze deeply & share easily.',
@@ -97,6 +108,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_14_SUMMARY}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-34-meeting-table.png',
       proModeModuleName: 'Meeting Report',
       description: 'Turn meetings into action: Capture key points, assign tasks & create clear follow-up summaries.',
@@ -104,6 +116,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_15_MEETING_REPORT}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-31-outline.png',
       proModeModuleName: 'Outline Tool',
       description:
@@ -112,6 +125,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-30-img-25-seo.png',
       proModeModuleName: 'SEO Optimization Tool',
       description: 'Make your content rank higher: Analyze pages, get instant tips & improve SEO step by step.',
@@ -119,6 +133,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_09_SEO_CHAIN}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2023-09-18-img-11-icon-social-media.png',
       proModeModuleName: 'Xiaohongshu Expert',
       description: "Create engaging content that connects: Plan, track trends & tell your brand's unique story.",
@@ -126,6 +141,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-19-rubber.png',
       proModeModuleName: 'Post Rewriting',
       description: 'Transform your posts: Get 4 fresh versions instantly, then customize each to fit your needs.',
@@ -135,6 +151,7 @@ export const getModules = (locale: ELocale) => {
   ];
   const proModePageModules_en: IOneFeature[] = [
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-19-img-35-translate.png',
       proModeModuleName: 'Translation Tool',
       description: 'Translate accurately across languages with smart context & industry terms built in.',
@@ -142,6 +159,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2023-09-22-img-7-fountain-pen.png',
       proModeModuleName: 'Article Refinement and Optimization',
       description: 'Create polished articles: Switch styles, refine content & compare versions with one click.',
@@ -149,6 +167,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-17-product-management.png',
       proModeModuleName: 'Product Manager',
       description: 'Turn ideas into successful products: Plan features, manage projects & improve with user feedback.',
@@ -156,6 +175,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-20-recommend.png',
       proModeModuleName: 'Self-Media Type Recommendation',
       description: 'Find your perfect content niche: Match your interests with audience needs & get a success roadmap.',
@@ -163,6 +183,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMEND}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-21-chat-balloons.png',
       proModeModuleName: 'Topic Expansion',
       description: 'Plan your blog content: Get personalized topics, outlines & research guides in one place.',
@@ -170,6 +191,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-22-screenshot.png',
       proModeModuleName: 'Image Resizing',
       description: 'Resize photos perfectly for any social media - quick crop & adjust with preset platform sizes.',
@@ -177,6 +199,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-30-img-24-comment.png',
       proModeModuleName: 'Comment Writing',
       description: 'Write thoughtful comments: Analyze topics, customize responses & refine your message step by step.',
@@ -184,6 +207,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: 'Personalized AI Module',
       description:
@@ -205,6 +229,7 @@ export const getModules = (locale: ELocale) => {
   ];
   const proModePageModules_zh: IOneFeature[] = [
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-19-img-35-translate.png',
       proModeModuleName: 'https://www.gptaiflow.com翻译工具',
       description: '多语言精准翻译：智能理解上下文，专业术语库加持，轻松突破语言障碍。',
@@ -212,6 +237,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_12_TRANSLATE_TOOLS}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2023-09-22-img-7-fountain-pen.png',
       proModeModuleName: '文章细化与优化',
       description: '让文章更出彩：一键切换写作风格，打磨内容，对比多个版本找到最佳效果。',
@@ -219,6 +245,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-17-product-management.png',
       proModeModuleName: '产品经理',
       description: '打造成功产品：洞察需求、高效执行，用数据持续优化用户体验。',
@@ -226,6 +253,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-20-recommend.png',
       proModeModuleName: '自媒体类型推荐',
       description: '发现最适合你的自媒体方向：基于兴趣和市场，打造专属成功路线图。',
@@ -233,6 +261,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMEND}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-21-chat-balloons.png',
       proModeModuleName: '话题拓展',
       description: '打造精准话题库：定制专属内容方向，获取详细建议和实用资源一站搞定。',
@@ -240,6 +269,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-05-24-img-22-screenshot.png',
       proModeModuleName: '图片尺寸调整',
       description: '一键调整照片尺寸，完美适配各大社交平台，快速裁剪不用愁。',
@@ -247,6 +277,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-30-img-24-comment.png',
       proModeModuleName: '写评论',
       description: '轻松写好评论：分析原文重点，定制合适内容，逐步打磨完美表达。',
@@ -254,6 +285,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: '专属定制 AI 模块',
       description: '告诉我们您的需求！只需完成一份简单问卷，即可获得完全匹配您工作流程和目标的定制化 AI 模块。',
@@ -274,10 +306,16 @@ export const getModules = (locale: ELocale) => {
   ];
 
   if (locale === 'zh') {
-    return [...homePageModules_zh, ...proModePageModules_zh];
+    return [
+      ...homePageModules_zh.filter((item) => !item.isDisabled),
+      ...proModePageModules_zh.filter((item) => !item.isDisabled),
+    ];
   }
 
-  return [...homePageModules_en, ...proModePageModules_en];
+  return [
+    ...homePageModules_en.filter((item) => !item.isDisabled),
+    ...proModePageModules_en.filter((item) => !item.isDisabled),
+  ];
 };
 
 export const getRoles = (locale: ELocale) => {
@@ -288,6 +326,7 @@ export const getRoles = (locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
       proModeModuleName: '提示解析器',
       description:
@@ -296,6 +335,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
     },
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
       proModeModuleName: '提示工厂',
       description:
@@ -304,6 +344,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-factory`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
       proModeModuleName: '职场 AI 助手',
       description: '专业高效地完成工作任务，擅长团队协作与沟通，持续关注行业趋势并不断提升自我',
@@ -311,6 +352,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-30-product-manager.png',
       proModeModuleName: '产品经理 AI 助手',
       description: '专注倾听用户需求，为您打造简单易用的产品体验。从调研规划到设计优化，每一步都为解决产品问题而努力。',
@@ -318,6 +360,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
       proModeModuleName: '领英平台 AI 助手',
       description:
@@ -326,6 +369,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-39-logo-twitter.jpg',
       proModeModuleName: 'X (推特) 平台 AI 助手',
       description:
@@ -334,6 +378,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-38-logo-facebook.png',
       proModeModuleName: '脸书平台 AI 助手',
       description:
@@ -342,6 +387,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
       proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI 助手',
       description:
@@ -350,6 +396,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-5-duty.png',
       proModeModuleName: '关税精灵',
       description: '精准查询 HTS 关税编码，快速生成关税报告，助您轻松应对跨境贸易合规需求。',
@@ -357,6 +404,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
     },
     {
+      isDisabled: false,
       iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
       proModeModuleName: `${t.get('Free e-commerce portal tool')} (超级早期构建)`,
       description: '一个让你会 excel 就能创建自己的电商展示门户的轻量级方案',
@@ -364,6 +412,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `https://www.goshopdoor.com/`,
     },
     {
+      isDisabled: false,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: '专属定制 AI 助手',
       description: '告诉我们您的需求！只需完成一份简单问卷，即可获得完全匹配您工作流程和目标的定制化 AI 助手。',
@@ -381,52 +430,10 @@ export const getRoles = (locale: ELocale) => {
       //   icon: 'https://www.gptaiflow.com🎁',
       // },
     },
-    // === 以下角色已废弃 ===
-    // {
-    //   icon: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-28-content-worker-writer.png',
-    //   proModeModuleName: '内容工作者',
-    //   featureText_1: (
-    //     <>
-    //       ✒️ <b>创意无限的内容创造者</b>：擅长创作引人入胜、独具一格的内容
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       🎥 <b>多媒体制作专家</b>：熟练掌握图文、音视频等多种内容形式
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       🔍 <b>用户需求的洞察者</b>：深入了解受众需求,创造有价值的内容
-    //     </>
-    //   ),
-    //   docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
-    //   webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.TO_DEPRECATED_ROLE_02_CONTENT_WORKER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_06_CONTENT_WRITING}`,
-    // },
-    // {
-    //   icon: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-29-social-media-influencer.png',
-    //   proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]),
-    //   featureText_1: (
-    //     <>
-    //       📱 <b>社交媒体的原住民</b>：熟悉各大平台,善于利用平台特性传播内容
-    //     </>
-    //   ),
-    //   featureText_2: (
-    //     <>
-    //       🎤 <b>个人品牌的缔造者</b>：通过独特的内容和风格,建立个人品牌影响力
-    //     </>
-    //   ),
-    //   featureText_3: (
-    //     <>
-    //       📈 <b>商业价值的创造者</b>：将流量转化为商业价值,实现内容变现
-    //     </>
-    //   ),
-    //   docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
-    //   webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT}`,
-    // },
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
       proModeModuleName: 'Prompt Parser',
       description:
@@ -435,6 +442,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
     },
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
       proModeModuleName: 'Prompt Factory',
       description:
@@ -443,6 +451,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-factory`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-27-office-worker-working-at-home.png',
       proModeModuleName: 'Workplace AI Assistant',
       description:
@@ -451,6 +460,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_01_WORKPLACE}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-30-product-manager.png',
       proModeModuleName: 'Product Manager AI Assistant',
       description:
@@ -459,6 +469,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
       proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]) + ' AI Assistant',
       description:
@@ -467,6 +478,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-39-logo-twitter.jpg',
       proModeModuleName: 'X (Twitter) Platform AI Assistant',
       description: 'Create sharp tweets, get smart hashtag suggestions, and craft engaging threads easily.',
@@ -474,6 +486,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-38-logo-facebook.png',
       proModeModuleName: 'Facebook Platform AI Assistant',
       description:
@@ -482,6 +495,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
       proModeModuleName:
         t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI Assistant',
@@ -491,6 +505,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
     },
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-5-duty.png',
       proModeModuleName: 'Duty Genie',
       description:
@@ -499,6 +514,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
     },
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
       proModeModuleName: `${t.get('Free e-commerce portal tool')} (Super Early Build)`,
       description:
@@ -507,6 +523,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `https://www.goshopdoor.com/`,
     },
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: 'Personalized AI Assistant',
       description:
@@ -575,6 +592,7 @@ export const getRoles = (locale: ELocale) => {
   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const proModePageRoles_zh_next: IOneFeature[] = [
     {
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-07-15-img-3-freelancer.png',
       proModeModuleName: '自由职业者',
       description: '做自己的老板：发挥创意特长，自由安排时间，掌控职业发展。',
@@ -599,8 +617,14 @@ export const getRoles = (locale: ELocale) => {
   ];
 
   if (locale === 'zh') {
-    return [...homePageRoles_zh, ...proModePageRoles_zh];
+    return [
+      ...homePageRoles_zh.filter((item) => !item.isDisabled),
+      ...proModePageRoles_zh.filter((item) => !item.isDisabled),
+    ];
   }
 
-  return [...homePageRoles_en, ...proModePageRoles_en];
+  return [
+    ...homePageRoles_en.filter((item) => !item.isDisabled),
+    ...proModePageRoles_en.filter((item) => !item.isDisabled),
+  ];
 };
