@@ -91,7 +91,7 @@ export const ProModeAIFlowRow_v3 = (props: ProModeAIFlowRow_v3_input) => {
       dispatch(saveLocalAction(newLocalSettings) as any);
     },
   });
-  const { locale, apiKeys: llmOption_secrets } = localSettings;
+  const { locale, apiKeys_deprecated: llmOption_secrets } = localSettings;
 
   const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDB_default;

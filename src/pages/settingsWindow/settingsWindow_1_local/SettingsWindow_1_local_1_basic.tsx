@@ -47,7 +47,7 @@ export const SettingsWindow_1_local_basic = (props: ISettingsWindow_1_local_basi
     dispatch<IStoreStorage_settings_local | any>(
       saveLocalAction({
         ...localFromStore,
-        apiKeys: { ...ILLMOption_secrets_default, ...IToolOption_secrets_default },
+        apiKeys_deprecated: { ...ILLMOption_secrets_default, ...IToolOption_secrets_default },
         apiKeys_v2: {
           llm: {
             openAIApiKey,

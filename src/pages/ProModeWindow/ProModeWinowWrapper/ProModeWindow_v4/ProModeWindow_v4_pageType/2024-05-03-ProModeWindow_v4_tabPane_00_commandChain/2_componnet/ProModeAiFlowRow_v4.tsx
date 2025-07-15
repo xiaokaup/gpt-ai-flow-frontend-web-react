@@ -77,7 +77,7 @@ export const ProModeAiFlowRow_v4 = (props: ProModeAIFlowRow_v4_input) => {
   const { id: userId, Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
   const {
     locale,
-    apiKeys,
+    apiKeys_deprecated: apiKeys,
     proMode: { model_type },
   } = localDataFromStorage;
 

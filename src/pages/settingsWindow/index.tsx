@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Button } from 'antd';
@@ -33,12 +32,12 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorage_settings_local_default;
   });
-  const { locale } = localFromStore;
+  const {
+    locale,
+    apiKeys_v2: { llm: llmOption_secrets },
+  } = localFromStore;
 
-  const [openAIApiKey] = useState(localFromStore?.apiKeys_v2?.llm?.openAIApiKey);
-  const [anthropicApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm.anthropicApiKey);
-  const [deepSeekApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm.deepSeekApiKey);
-  const [siliconFlowApiKey] = useState<string>(localFromStore?.apiKeys_v2?.llm.siliconFlowApiKey);
+  const { openAIApiKey, anthropicApiKey, deepSeekApiKey, siliconFlowApiKey } = llmOption_secrets;
 
   const containerStyle = {
     marginTop: 12,

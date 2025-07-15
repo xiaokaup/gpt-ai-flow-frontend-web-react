@@ -63,7 +63,7 @@ export const PromptsWindow = (props: IPromptsWindow_input) => {
     return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
   });
   const {
-    apiKeys: llmOption_secrets,
+    apiKeys_deprecated: llmOption_secrets,
     proMode: { model_type: llmName_from_store },
   } = localDataFromStorage;
 
