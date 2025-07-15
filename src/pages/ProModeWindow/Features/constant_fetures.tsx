@@ -326,9 +326,9 @@ export const getRoles = (locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
-      proModeModuleName: '提示解析器 (测试中)',
+      proModeModuleName: '提示解析器',
       description:
         '智能解析和优化您的提示词，提升AI互动质量。轻松转换复杂指令为结构化提示，让您的AI对话更精准、更高效。',
       // docOpenLink: ``,
@@ -431,7 +431,7 @@ export const getRoles = (locale: ELocale) => {
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
       proModeModuleName: 'Prompt Parser',
       description:
