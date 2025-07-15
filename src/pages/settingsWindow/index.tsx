@@ -90,7 +90,7 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
       <div style={containerStyle}>
         <SettingsWindow_1_local t={t} isModelEdition={isModelEdition} />
       </div>
-      <div style={containerStyle}>
+      <div style={containerStyle} className="hidden">
         <SettingsWindow_4_payment t={t} localeForSettingsWindow={locale} />
       </div>
       <div style={containerStyle}>
