@@ -11,7 +11,7 @@ import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { IToolOptions_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/ITools';
 import { EProMode_v4_module_contextType } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
-import TBackendLangchainFile from '../../../gpt-ai-flow-common/ProMode_v4/tools-ProMode_v4/TBackendLangchain';
+import { post_microservice_endpoint } from '../../../gpt-ai-flow-common/tools/1_endpoint/TBackendMicroservice';
 
 interface IPromptsFactoryForm {
   t: IGetT_frontend_output;
@@ -48,7 +48,7 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
       setRequestController(newRequestController);
       const { signal } = newRequestController;
 
-      const urlSlug = '/v1.0/post/langchain/chains/rewritePrompt/';
+      const urlSlug = '/lambda_url/2025-07-15-func-04-node-langchain-writePrompt-dev';
       const bodyData: IProMode_module_request_v4_subVersion_2_for_web_v2 = {
         contextType: EProMode_v4_module_contextType.PROMPTS_FACTORY_V2,
         history: [],
@@ -66,8 +66,8 @@ export const PromptsFeedbackForm_v2 = (props: IPromptsFactoryForm) => {
       // console.log('urlSlug', urlSlug);
       // console.log('bodyData', bodyData);
 
-      TBackendLangchainFile.postProMode_moduleChain_v4_subVersion_2(
-        urlSlug,
+      post_microservice_endpoint(
+        CONSTANTS_GPT_AI_FLOW_COMMON.BACKEND_NODE.BACKEND_ENDPOINT_MICROSERVICES + urlSlug,
         bodyData,
         () => {
           console.log('afterReceiveResponseFunc');

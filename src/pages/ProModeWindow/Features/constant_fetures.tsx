@@ -326,9 +326,9 @@ export const getRoles = (locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
-      proModeModuleName: '提示解析器',
+      proModeModuleName: '提示解析器 (测试中)',
       description:
         '智能解析和优化您的提示词，提升AI互动质量。轻松转换复杂指令为结构化提示，让您的AI对话更精准、更高效。',
       // docOpenLink: ``,
@@ -404,7 +404,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
     },
     {
-      isDisabled: false,
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
       proModeModuleName: `${t.get('Free e-commerce portal tool')} (超级早期构建)`,
       description: '一个让你会 excel 就能创建自己的电商展示门户的轻量级方案',
@@ -412,7 +412,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `https://www.goshopdoor.com/`,
     },
     {
-      isDisabled: false,
+      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: '专属定制 AI 助手',
       description: '告诉我们您的需求！只需完成一份简单问卷，即可获得完全匹配您工作流程和目标的定制化 AI 助手。',
