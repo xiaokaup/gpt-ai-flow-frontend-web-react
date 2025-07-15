@@ -404,15 +404,13 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
     },
     {
-      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
       proModeModuleName: `${t.get('Free e-commerce portal tool')} (超级早期构建)`,
       description: '一个让你会 excel 就能创建自己的电商展示门户的轻量级方案',
       // docOpenLink: ``,
       webAppOpenLink: `https://www.goshopdoor.com/`,
-    },
+    } as IOneFeature,
     {
-      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: '专属定制 AI 助手',
       description: '告诉我们您的需求！只需完成一份简单问卷，即可获得完全匹配您工作流程和目标的定制化 AI 助手。',
@@ -429,7 +427,7 @@ export const getRoles = (locale: ELocale) => {
       //   text: '完成问卷即可获得 7 天高级版体验！',
       //   icon: 'https://www.gptaiflow.com🎁',
       // },
-    },
+    } as IOneFeature,
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
@@ -514,16 +512,14 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
     },
     {
-      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
       proModeModuleName: `${t.get('Free e-commerce portal tool')} (Super Early Build)`,
       description:
         'A lightweight solution that allows you to create your own e-commerce showcase portal with just Excel skills.',
       // docOpenLink: ``,
       webAppOpenLink: `https://www.goshopdoor.com/`,
-    },
+    } as IOneFeature,
     {
-      isDisabled: true,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2025-01-18-personalized-target-audience-512x512.png',
       proModeModuleName: 'Personalized AI Assistant',
       description:
@@ -541,7 +537,7 @@ export const getRoles = (locale: ELocale) => {
       //   text: 'Get 7-day premium access after completing the survey!',
       //   icon: 'https://www.gptaiflow.com🎁',
       // },
-    },
+    } as IOneFeature,
     // === Deprecated roles ===
     // {
     //   icon: 'https://www.gptaiflow.com/img/icons/2024-10-05-img-28-content-worker-writer.png',
