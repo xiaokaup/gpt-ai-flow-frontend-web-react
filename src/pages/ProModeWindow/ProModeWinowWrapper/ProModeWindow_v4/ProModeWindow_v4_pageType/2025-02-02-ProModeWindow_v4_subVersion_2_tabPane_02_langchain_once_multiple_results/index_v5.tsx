@@ -177,6 +177,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
       return;
     }
 
+    // @DEPRECATED
     const bodyData: IProMode_module_request_v4_subVersion_2_for_web = {
       contextType,
       llmOptions,
