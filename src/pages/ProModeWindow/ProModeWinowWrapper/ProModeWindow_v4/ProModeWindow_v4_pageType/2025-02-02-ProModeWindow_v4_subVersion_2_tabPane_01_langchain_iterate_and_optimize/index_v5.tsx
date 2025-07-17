@@ -185,7 +185,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
       return;
     }
 
-    // @DEPRECATED
+    // @DEPRECATED: old way to call backend
     const bodyData: IProMode_module_request_v4_subVersion_2_for_web = {
       contextType,
       llmOptions,
