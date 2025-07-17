@@ -29,6 +29,7 @@ import {
 import { ELLM_name } from '../../../../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { IGetT_frontend_output } from '../../../../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import {
+  convert_IAIChatMessage_to_IPrompt_for_proModePage_v4,
   IAIChatMessage,
   IAIChatMessage_default,
 } from '../../../../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
@@ -38,6 +39,8 @@ import { IProMode_module_request_v4_subVersion_2_for_web } from '../../../../../
 import { ProModePage_Background } from '../component/ProModePage_Background';
 import { ProMode_Adjust } from '../component/ProMode_Adjust';
 import { Langchain_context_description } from '../2025-02-02-ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_optimize/component/Langchain_context_description';
+import { IAPI_microservice_input } from '../../../../../../gpt-ai-flow-common/interface-backend-microservice/IAPI_microservice_input';
+import { post_microservice_endpoint } from '../../../../../../gpt-ai-flow-common/tools/1_endpoint/TBackendMicroservice';
 
 interface IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input {
   t: IGetT_frontend_output;
@@ -54,7 +57,7 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
   props: IProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_results_input,
 ) => {
   const { creativityValue, contextSelected, switchContextSelected_by_type } = props;
-  const { uuid: contextSelected_uuid, urlSlug, contextType, buttons } = contextSelected;
+  const { uuid: contextSelected_uuid, urlSlug, url, contextType, buttons } = contextSelected;
   const { t, userAccessToken, llmOption_secrets, llmName, inputsCache_v3, setInputsCache_v3 } = props;
   inputsCache_v3.when = undefined; // @BUGFIX: when is a reserved when date in JavaScript
 
@@ -102,8 +105,75 @@ export const ProModeWindow_v4_subVersion_2_tabPane_02_langchain_once_multiple_re
     };
     const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
 
-    if (!urlSlug) {
-      message.error('urlSlug is empty');
+    if (url) {
+      const bodyData: IAPI_microservice_input = {
+        llmOptions,
+        input: JSON.stringify({
+          background,
+          adjust,
+        }),
+        history: chatMessagesBeforeImprove_copy.map((item) =>
+          convert_IAIChatMessage_to_IPrompt_for_proModePage_v4(item),
+        ),
+      };
+
+      post_microservice_endpoint(
+        url,
+        bodyData,
+        () => {
+          console.log('afterReceiveResponseFunc');
+        },
+        () => {
+          console.log('beforeSendRequestFunc');
+          setIsCalling(true);
+        },
+        (writingResultText: string) => {
+          console.log('updateResultFromRequestFunc', writingResultText);
+          newChatMessage = {
+            ...newChatMessage,
+            content: writingResultText,
+            updatedAt: new Date(),
+          };
+          const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+          setChatMessages(newChatMessages);
+        },
+        (resultText: string) => {
+          console.log('AfterRequestFunc', resultText);
+          newChatMessage = {
+            ...newChatMessage,
+            content: resultText,
+            updatedAt: new Date(),
+          };
+          const newChatMessages: IAIChatMessage[] = [...chatMessagesBeforeImprove_copy, newChatMessage];
+          setChatMessages(newChatMessages);
+          setCurrentVersionNum(newChatMessages.length);
+
+          setInputsCache_v3({
+            ...inputsCache_v3,
+            [contextSelected_uuid]: {
+              ...inputsCache_v3[contextSelected_uuid],
+              chatMessages: newChatMessages,
+            },
+          });
+
+          setIsCalling(false);
+        },
+        userAccessToken,
+        t.currentLocale,
+        CONSTANTS_GPT_AI_FLOW_COMMON,
+        TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+        signal,
+      ).catch((error: Error) => {
+        if (error.name === 'AbortError') {
+          console.log('Fetch request was aborted');
+        } else {
+          console.error('Fetch request failed:', error);
+          message.error(error.message);
+        }
+        // Recover the chat history if the request fails or is aborted
+        setChatMessages(chatMessagesBeforeImprove_copy);
+        setCurrentVersionNum(chatMessagesBeforeImprove_copy.length);
+      });
       return;
     }
 
