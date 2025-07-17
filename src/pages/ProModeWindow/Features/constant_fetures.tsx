@@ -57,7 +57,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
     },
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-30-img-25-seo.png',
       proModeModuleName: 'SEO 优化工具',
       description: '让网站内容更容易被搜索到：分析页面、获取优化建议、持续提升排名效果。',
@@ -125,7 +125,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_13_OUTLINE_TOOL}`,
     },
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-06-30-img-25-seo.png',
       proModeModuleName: 'SEO Optimization Tool',
       description: 'Make your content rank higher: Analyze pages, get instant tips & improve SEO step by step.',
