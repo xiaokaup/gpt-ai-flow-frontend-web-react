@@ -33,7 +33,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-32-summary.png',
       proModeModuleName: '总结工具',
       description: '一键提炼文章精华：快速抓住重点，理解更透彻，分享更方便。',
@@ -100,7 +100,7 @@ export const getModules = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_04_COMMUNICATION}`,
     },
     {
-      isDisabled: true,
+      isDisabled: false,
       iconUrl: 'https://www.gptaiflow.com/img/icons/2024-10-18-img-32-summary.png',
       proModeModuleName: 'Summary Tool',
       description: 'Turn long content into clear summaries: Extract key points, analyze deeply & share easily.',
