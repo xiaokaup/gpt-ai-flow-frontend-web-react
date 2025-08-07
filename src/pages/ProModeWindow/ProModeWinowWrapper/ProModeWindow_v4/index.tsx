@@ -177,17 +177,17 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
   if (roleModule === EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM) {
     const module_uuids: Array<EProMode_v4_module_uuid | string> = [
       // EProMode_v4_module_uuid.MODULE_01_SELF_MEDIA_RECOMMAND,
-      EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_16_MATERIAL_FINDER_FOR_XIAOHONGSHU_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_17_STORY_TELL_FOR_XIAOHONGSHU_PLATFORM,
+      // EProMode_v4_module_uuid.MODULE_02_TOPIC_FINDING_FOR_XIAOHONGSHU_PLATFORM,
+      // EProMode_v4_module_uuid.MODULE_16_MATERIAL_FINDER_FOR_XIAOHONGSHU_PLATFORM,
+      // EProMode_v4_module_uuid.MODULE_17_STORY_TELL_FOR_XIAOHONGSHU_PLATFORM,
       EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_19_EXTRACT_FOR_XIAOHONGSHU_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
-      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
-      EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS,
-      EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT,
-      EProMode_v4_module_uuid.MODULE_11_XIAOHONGSHU,
+      // EProMode_v4_module_uuid.MODULE_19_EXTRACT_FOR_XIAOHONGSHU_PLATFORM,
+      // EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      // EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      // EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+      // EProMode_v4_module_uuid.MODULE_08_REWRITING_TOOLS,
+      // EProMode_v4_module_uuid.MODULE_05_WRITING_COMMENT,
+      // EProMode_v4_module_uuid.MODULE_11_XIAOHONGSHU,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
