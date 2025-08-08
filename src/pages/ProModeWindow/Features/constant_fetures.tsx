@@ -366,7 +366,7 @@ export const getRoles = (locale: ELocale) => {
       description:
         '打造专业形象、拓展人脉、分享干货，一站式提升你的职场影响力。智能生成个性化简介和社交话术，轻松获得行业洞察，让你在LinkedIn脱颖而出。',
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_23_WRITING_POST_AGENT_FOR_LINKEDIN_PLATFORM}`,
     },
     {
       isDisabled: false,
@@ -473,7 +473,7 @@ export const getRoles = (locale: ELocale) => {
       description:
         'Connect & grow faster: Create expert profiles, smart networking messages & pro content that gets noticed.',
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_23_WRITING_POST_AGENT_FOR_LINKEDIN_PLATFORM}`,
     },
     {
       isDisabled: false,
