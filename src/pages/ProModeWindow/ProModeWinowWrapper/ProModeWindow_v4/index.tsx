@@ -207,13 +207,13 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
 
   if (roleModule === EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM) {
     const module_uuids: Array<EProMode_v4_module_uuid | string> = [
-      EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_21_MATERIAL_FINDER_FOR_LINKEDIN_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_22_STORY_TELL_FOR_LINKEDIN_PLATFORM,
+      // EProMode_v4_module_uuid.MODULE_20_TOPIC_FINDING_FOR_LINKEDIN_PLATFORM,
+      // EProMode_v4_module_uuid.MODULE_21_MATERIAL_FINDER_FOR_LINKEDIN_PLATFORM,
+      // EProMode_v4_module_uuid.MODULE_22_STORY_TELL_FOR_LINKEDIN_PLATFORM,
       EProMode_v4_module_uuid.MODULE_23_WRITING_POST_AGENT_FOR_LINKEDIN_PLATFORM,
-      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
-      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+      // EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      // EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      // EProMode_v4_module_uuid.MODULE_14_SUMMARY,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
@@ -222,13 +222,13 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
 
   if (roleModule === EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM) {
     const module_uuids: Array<EProMode_v4_module_uuid | string> = [
-      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
-      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
-      `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
+      // `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
+      // `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
+      // `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
       `${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
-      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+      // EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      // EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      // EProMode_v4_module_uuid.MODULE_14_SUMMARY,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
@@ -237,13 +237,13 @@ const getFilteredTabPanes_by_role = (roleModule: EProMode_v4_role, proMode_v4_ta
 
   if (roleModule === EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER) {
     const module_uuids: Array<EProMode_v4_module_uuid | string> = [
-      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
-      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
-      `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
+      // `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_01_TOPIC_FINDING_TOOL_CHAIN}`,
+      // `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_02_MATERIAL_FINDER_ASSISTANT_CHAIN}`,
+      // `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_03_STORY_TELL_CHAIN}`,
       `${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-      EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
-      EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
-      EProMode_v4_module_uuid.MODULE_14_SUMMARY,
+      // EProMode_v4_module_uuid.MODULE_18_TOOL_CARD_GENERATE,
+      // EProMode_v4_module_uuid.MODULE_03_TOOL_IMAGE_CROP,
+      // EProMode_v4_module_uuid.MODULE_14_SUMMARY,
     ];
     return proMode_v4_tabPanes
       .filter((tabPane: All_type_IProMode_v4_tabPane) => module_uuids.includes(tabPane.uuid))
