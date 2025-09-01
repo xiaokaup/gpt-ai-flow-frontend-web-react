@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
+import copyToClipboard from 'copy-to-clipboard';
 
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 
 import { IReduxRootState } from '../../store/reducer';
 
@@ -16,6 +17,7 @@ import { SettingsWindow_1_local } from './settingsWindow_1_local';
 import { SettingsWindow_2_user_3_info } from './settingsWindow_2_user/SettingsWindow_2_user_3_info';
 import { SettingsWindow_4_payment } from './settingsWindow_4_payment';
 import { IUserDB } from '../../gpt-ai-flow-common/interface-database/IUserDB';
+import { ITokenDB_default } from '../../gpt-ai-flow-common/interface-database/ITokenDB';
 // import { SettingsWindow_6_referralReward } from './SettingsWindow_6_referralReward';
 
 interface ISettingsWindow_input {
@@ -26,7 +28,7 @@ interface ISettingsWindow_input {
 export const SettingsWindow = (props: ISettingsWindow_input) => {
   const { t, userDB, isAuthenticated } = props;
   // console.log('userDB', userDB);
-  // const { id: userId = 0, token: { accessToken } = { accessToken: '' } } = IUserDB;
+  const { Token: { accessToken: userAccessToken } = ITokenDB_default } = userDB;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorage_settings_local_default;
@@ -80,6 +82,20 @@ export const SettingsWindow = (props: ISettingsWindow_input) => {
           }}
         >
           {t.get('Download')}
+        </Button>
+        <Button
+          className="ml-4"
+          onClick={() => {
+            copyToClipboard(userAccessToken);
+
+            message.success({
+              content: <span>{t.get('Copy successful')} !</span>,
+              key: 'copy',
+              duration: 3,
+            });
+          }}
+        >
+          {t.get('Obtain login credentials')}
         </Button>
       </div>
       <div style={containerStyle}>
