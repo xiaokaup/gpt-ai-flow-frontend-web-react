@@ -243,7 +243,10 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       input: JSON.stringify({
         content: newChatMessage_user.content,
       }),
-      history: chatMessagesBeforeImprove_copy,
+      history: chatMessagesBeforeImprove_copy.map((item) => ({
+        role: item.role,
+        content: item.content,
+      })),
     };
 
     const url = `https://y2v6snleiealiesvu4spdvhgpy0bxfra.lambda-url.us-east-1.on.aws/?locale=${locale}`;
@@ -543,6 +546,10 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                     </div>
                     {chatMessages
                       .filter((item) => item.role === EAIFlowRole.ASSISTANT)
+                      .sort(
+                        (a: IPrompt_xiaohongshu_v4, b: IPrompt_xiaohongshu_v4) =>
+                          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+                      )
                       .map((oneChatMessage: IPrompt_xiaohongshu_v4, oneChatMessage_index: number) => {
                         const {
                           uuid,

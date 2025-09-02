@@ -22,7 +22,7 @@ export const DynamicForm = (props: DynamicFormProps) => {
 
   const [form] = Form.useForm();
 
-  const [nextKey, setNextKey] = useState<number>(0);
+  const [nextKey, setNextKey] = useState<number>(fields.length);
 
   const handleAddField = () => {
     setFields([...fields, { key: nextKey, label: '', value: '' }]);
