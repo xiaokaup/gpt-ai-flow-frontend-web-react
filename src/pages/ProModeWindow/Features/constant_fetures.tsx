@@ -70,7 +70,7 @@ export const getModules = (locale: ELocale) => {
       proModeModuleName: '小红书达人',
       description: '打造爆款内容：策划主题、把握热点、讲好品牌故事，让你的作品更吸睛。',
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
     },
     {
       isDisabled: true,
@@ -138,7 +138,7 @@ export const getModules = (locale: ELocale) => {
       proModeModuleName: 'Xiaohongshu Expert',
       description: "Create engaging content that connects: Plan, track trends & tell your brand's unique story.",
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
     },
     {
       isDisabled: true,
@@ -393,7 +393,7 @@ export const getRoles = (locale: ELocale) => {
       description:
         '一键生成吸引眼球的标题和文案，自动匹配热门标签，获取源源不断的创意灵感。让创作更轻松，让内容更出彩，让传播更高效。',
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
     },
     {
       isDisabled: true,
@@ -500,7 +500,7 @@ export const getRoles = (locale: ELocale) => {
       description:
         'Create trending posts instantly with catchy titles, perfect hashtags, and fresh content ideas that get noticed to grow your social media.',
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_07_WRITING_POST_AGENT_FOR_XIAOHONGSHU_PLATFORM}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
     },
     {
       isDisabled: true,
