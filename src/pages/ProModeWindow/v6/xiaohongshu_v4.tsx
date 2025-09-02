@@ -169,7 +169,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
 
   const [context, setContext] = useState<string>(inputsCache_v3[PROMODE_ID]?.context);
   const [fields, setFields] = useState<FieldData[]>(
-    inputsCache_v3[PROMODE_ID]?.fields,
+    inputsCache_v3[PROMODE_ID]?.fields || [],
     // [
     //   { key: 0, label: '标题', value: '我的第一次郊游' },
     //   {
