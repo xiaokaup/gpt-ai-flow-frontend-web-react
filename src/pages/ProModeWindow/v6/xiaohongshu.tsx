@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,15 +20,25 @@ import { ProModeModelValueProvider } from '../../../gpt-ai-flow-common/contexts/
 import { useState } from 'react';
 import { ELLM_name } from '../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { saveLocalAction } from '../../../store/actions/localActions';
-import { Button, Radio, RadioChangeEvent, Select, Splitter } from 'antd';
+import { Button, message, Radio, RadioChangeEvent, Select, Splitter } from 'antd';
 import { SLLM_v2_common } from '../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { getCreationModeOptions } from './components';
 // import { ILLMOption_secrets } from '../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
-import {
-  EButton_operation,
-  IPromode_v4_tabPane_context_button,
-} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/IProMode_v4_buttons';
-import { IAIChatMessage } from '../../../gpt-ai-flow-common/interface-app/3_unit/IAIChatMessage';
+import { IPrompt, IPrompt_default } from '../../../gpt-ai-flow-common/interface-app/3_unit/IPrompt';
+import { IDate } from '../../../gpt-ai-flow-common/interface-app/4_base/IDate';
+import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
+import { IAPI_microservice_input } from '../../../gpt-ai-flow-common/interface-backend-microservice/IAPI_microservice_input';
+import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
+import { post_microservice_endpoint } from '../../../gpt-ai-flow-common/tools/1_endpoint/TBackendMicroservice';
+
+// === IPrompts - start ===
+interface IPrompt_xiaohongshu extends IPrompt, IDate {
+  uuid?: string;
+  concept_report: string; // 概念报告
+  viewpoint_report: string; // 观点报告
+  intro_report: string; // 介绍报告
+}
+// === IPrompts - end ===
 
 interface IProModeWindow_v6_warpper_xiaonghongshu {
   webCase: {
@@ -92,15 +103,6 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
     );
   }
 
-  const buttons = [
-    {
-      operation: EButton_operation.GENERATE,
-    },
-    {
-      operation: EButton_operation.REGENERATE,
-    },
-  ];
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isLargeScreen = windowWidth > 1000;
 
@@ -111,14 +113,136 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [chatMessages, setChatMessages] = useState<IAIChatMessage[]>([
+  const [chatMessages, setChatMessages] = useState<IPrompt_xiaohongshu[]>([
     // ...chatMessages_from_cache,
-    // { ...IAIChatMessage_default, role: EAIFlowRole.USER, content: '你好' },
+    // { ...IPrompt_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
 
-  const onImproveMessage = (chatMessagesBeforeImprove: IAIChatMessage[]) => async () => {};
+  const onImproveMessage = (chatMessagesBeforeImprove: IPrompt_xiaohongshu[]) => async () => {
+    setIsCalling(true);
+
+    const newRequestController = new AbortController();
+    setRequestController(newRequestController);
+    const { signal } = newRequestController;
+
+    const chatMessagesBeforeImprove_copy = [...chatMessagesBeforeImprove];
+
+    const llmOptions = {
+      llmName,
+      llmImageName: null,
+      llmSecret: SLLM_v2_common.getApiKey_by_llmName(llmName, llmOption_secrets),
+      llmTemperature: creativityValue,
+    };
+
+    const now = new Date();
+
+    const newChatMessage_user = {
+      ...IPrompt_default,
+      uuid: uuidv4(),
+      role: EAIFlowRole.USER,
+      content: '今天的天气好像不错，我们去郊游吧！',
+      createdAt: now,
+      updatedAt: now,
+    } as IPrompt_xiaohongshu;
+    let newChatMessage_assistant: IPrompt_xiaohongshu = {
+      ...IPrompt_default,
+      uuid: uuidv4(),
+      role: EAIFlowRole.ASSISTANT,
+      content: '',
+      concept_report: '',
+      viewpoint_report: '',
+      intro_report: '',
+      createdAt: now,
+      updatedAt: now,
+    };
+    const newChatMessages: IPrompt_xiaohongshu[] = [...chatMessagesBeforeImprove_copy, newChatMessage_user];
+    setChatMessages(newChatMessages);
+    setCurrentVersionNum(newChatMessages.length);
+
+    const bodyData: IAPI_microservice_input = {
+      llmOptions,
+      input: JSON.stringify({
+        content: newChatMessage_user.content,
+      }),
+      history: chatMessagesBeforeImprove_copy,
+    };
+
+    const url = `https://fddzhznpl54mrbjpna7hgrbzje0xttaw.lambda-url.us-east-1.on.aws/?locale=${locale}`;
+    post_microservice_endpoint(
+      url,
+      bodyData,
+      () => {
+        console.log('afterReceiveResponseFunc');
+      },
+      () => {
+        console.log('beforeSendRequestFunc');
+        setIsCalling(true);
+      },
+      (writingResultText: string) => {
+        console.log('updateResultFromRequestFunc', writingResultText);
+        newChatMessage_assistant = {
+          ...newChatMessage_assistant,
+          content: writingResultText,
+          updatedAt: new Date(),
+        };
+        const newChatMessages: IPrompt_xiaohongshu[] = [
+          ...chatMessagesBeforeImprove_copy,
+          newChatMessage_user,
+          newChatMessage_assistant,
+        ];
+        setChatMessages(newChatMessages);
+      },
+      (resultText: string) => {
+        console.log('AfterRequestFunc', resultText);
+
+        if (JSON.parse(resultText)?.errorMessage) {
+          message.error(JSON.parse(resultText).errorMessage);
+          setIsCalling(false);
+          return;
+        }
+
+        newChatMessage_assistant = {
+          ...newChatMessage_assistant,
+          content: resultText,
+          updatedAt: new Date(),
+        };
+        const newChatMessages: IPrompt_xiaohongshu[] = [
+          ...chatMessagesBeforeImprove_copy,
+          newChatMessage_user,
+          newChatMessage_assistant,
+        ];
+        setChatMessages(newChatMessages);
+        setCurrentVersionNum(newChatMessages.length);
+
+        // setInputsCache_v3({
+        //   ...inputsCache_v3,
+        //   [contextSelected_uuid]: {
+        //     ...inputsCache_v3[contextSelected_uuid],
+        //     chatMessages: newChatMessages,
+        //   },
+        // });
+
+        setIsCalling(false);
+      },
+      userAccessToken,
+      t.currentLocale,
+      CONSTANTS_GPT_AI_FLOW_COMMON,
+      TCryptoJSFile.encrypt_v2(CONSTANTS_GPT_AI_FLOW_COMMON.FRONTEND_STORE_SYMMETRIC_ENCRYPTION_KEY as string),
+      signal,
+    ).catch((error: Error) => {
+      if (error.name === 'AbortError') {
+        console.log('Fetch request was aborted');
+      } else {
+        console.error('Fetch request failed:', error);
+        message.error(error.message);
+      }
+      // Recover the chat history if the request fails or is aborted
+      setChatMessages(chatMessagesBeforeImprove_copy);
+      setCurrentVersionNum(chatMessagesBeforeImprove_copy.length);
+    });
+  };
 
   const onRegenerateMessage = () => {};
 
@@ -229,35 +353,25 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
 
                 <div className="row buttons">
                   <div className="row operation space-x-4 space-y-4">
-                    {buttons.map((item: IPromode_v4_tabPane_context_button) => {
-                      const { operation, isHidden } = item;
-                      if (!isHidden && operation === EButton_operation.GENERATE) {
-                        return (
-                          <Button
-                            type="primary"
-                            onClick={() => {
-                              onImproveMessage(chatMessages)();
-                            }}
-                            disabled={isCalling || currentVersionNum < chatMessages.length}
-                          >
-                            {t.get('Generate')}
-                          </Button>
-                        );
-                      }
-                      if (!isHidden && item.operation === EButton_operation.REGENERATE) {
-                        return (
-                          <Button
-                            type="primary"
-                            onClick={() => {
-                              onRegenerateMessage();
-                            }}
-                            disabled={isCalling || chatMessages.length === 0}
-                          >
-                            {t.get('Regenerate')}
-                          </Button>
-                        );
-                      }
-                    })}
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        onImproveMessage(chatMessages)();
+                      }}
+                      disabled={isCalling || currentVersionNum < chatMessages.length}
+                    >
+                      {t.get('Generate')}
+                    </Button>
+
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        onRegenerateMessage();
+                      }}
+                      disabled={isCalling || chatMessages.length === 0}
+                    >
+                      {t.get('Regenerate')}
+                    </Button>
 
                     <Button
                       onClick={() => {
