@@ -10,6 +10,7 @@ import {
   EyeInvisibleOutlined,
   EditOutlined,
   CopyOutlined,
+  LoadingOutlined,
 } from '@ant-design/icons';
 
 import copyToClipboard from 'copy-to-clipboard';
@@ -200,16 +201,17 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
 
     // console.log('context', context);
     // console.log('fields', fields);
-    const input_json_string = JSON.stringify({
-      context,
-      ...fields.reduce(
-        (result, item) => {
-          result[item.label] = item.value;
-          return result;
-        },
-        {} as Record<string, any>,
-      ),
-    });
+
+    // Create an object to hold all the data
+    let input_json_string = `context: "${context}"\n`;
+    // Loop through fields and add each key-value pair to the object
+    for (const field of fields) {
+      if (field.label && field.label.trim()) {
+        // Only add if label exists and is not empty
+        input_json_string += `${field.label.trim()}: "${field.value}"\n`;
+      }
+    }
+
     // console.log('input_json_string', input_json_string);
 
     const newChatMessage_user = {
@@ -240,16 +242,15 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
 
     const bodyData: IAPI_microservice_input = {
       llmOptions,
-      input: JSON.stringify({
-        content: newChatMessage_user.content,
-      }),
+      input: newChatMessage_user.content,
       history: chatMessagesBeforeImprove_copy.map((item) => ({
+        uuid: item.uuid,
         role: item.role,
         content: item.content,
       })),
     };
 
-    const url = `https://y2v6snleiealiesvu4spdvhgpy0bxfra.lambda-url.us-east-1.on.aws/?locale=${locale}`;
+    const url = `https://g22gqghwxpqsrewousdvpdaxze0ezhzt.lambda-url.us-east-1.on.aws/?locale=${locale}`;
     post_microservice_endpoint(
       url,
       bodyData,
@@ -262,10 +263,15 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       },
       (writingResultText: string) => {
         console.log('updateResultFromRequestFunc', writingResultText);
+        const response_json = JSON.parse(writingResultText || '{}');
+        const response_body_json = JSON.parse(response_json?.body || '{}');
         newChatMessage_assistant = {
           ...newChatMessage_assistant,
-          content: JSON.parse(JSON.parse(writingResultText || '{}')?.body || '{}').result,
-          response: JSON.parse(writingResultText || '{}'),
+          response: response_json,
+          content: response_body_json?.result,
+          concept_report: response_body_json?.concept_report,
+          viewpoint_report: response_body_json?.viewpoint_report,
+          intro_report: response_body_json?.intro_report,
           updatedAt: new Date(),
         };
         const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
@@ -280,10 +286,16 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
           return;
         }
 
+        const response_json = JSON.parse(resultText || '{}');
+        const response_body_json = JSON.parse(response_json?.body || '{}');
+
         newChatMessage_assistant = {
           ...newChatMessage_assistant,
-          content: JSON.parse(JSON.parse(resultText || '{}')?.body || '{}').result,
-          response: JSON.parse(resultText || '{}'),
+          response: response_json,
+          content: response_body_json?.result,
+          concept_report: response_body_json?.concept_report,
+          viewpoint_report: response_body_json?.viewpoint_report,
+          intro_report: response_body_json?.intro_report,
           updatedAt: new Date(),
         };
         const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
@@ -320,7 +332,13 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
     });
   };
 
-  const onRegenerateMessage = () => {};
+  const onRegenerateMessage = () => {
+    setIsCalling(true);
+
+    const newChatMessages = hasChatMessages ? chatMessages.slice(0, currentVersionNum) : [];
+    onImproveMessage(newChatMessages)();
+    setCurrentVersionNum(newChatMessages.length);
+  };
 
   return (
     <ProModeModelValueProvider value={llmName}>
@@ -545,6 +563,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                       </div>
                     </div>
                     {chatMessages
+                      .slice(0, currentVersionNum)
                       .filter((item) => item.role === EAIFlowRole.ASSISTANT)
                       .sort(
                         (a: IPrompt_xiaohongshu_v4, b: IPrompt_xiaohongshu_v4) =>
@@ -556,11 +575,11 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                           isEdit,
                           isShow,
                           content,
-                          response,
-                          userPrompt,
-                          concept_report,
-                          viewpoint_report,
-                          intro_report,
+                          // response,
+                          // userPrompt,
+                          // concept_report,
+                          // viewpoint_report,
+                          // intro_report,
                         } = oneChatMessage;
 
                         const switchShow = (paraOneChatMessage: IPrompt_xiaohongshu_v4) => {
@@ -688,11 +707,18 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                               <div className="column_2"></div>
                             </div>
                             <div className="block_chatMessages mt-4">
+                              {!content && (
+                                <div className="row view">
+                                  <LoadingOutlined />
+                                </div>
+                              )}
+
                               {isShow && !isEdit && content && (
                                 <div className="row view relative watermark-20px">
                                   <ReactMarkdown>{content}</ReactMarkdown>
                                 </div>
                               )}
+
                               {isShow && isEdit && (
                                 <div className="row editing">
                                   <Form
