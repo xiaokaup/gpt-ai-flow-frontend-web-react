@@ -34,7 +34,7 @@ import { VisualizationPage } from './pages/betaPages/VisualizationPage/Visualiza
 import { DutyGeniePage } from './pages/RolePage/DutyGeniePage';
 import { PromptsFactoryPage_v2 } from './pages/RolePage/PromptsFactoryPage_v2';
 import { PromptsParserPage } from './pages/RolePage/PromptsParserPage';
-import { ProModeWindow_v6_warpper_xiaohongshu } from './pages/ProModeWindow/v6/xiaohongshu';
+import { ProModeWindow_v6_warpper_xiaohongshu_v4 } from './pages/ProModeWindow/v6/xiaohongshu_v4';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -498,7 +498,7 @@ export const AppRoutes = () => {
           <Route
             path="xiaohongshu"
             element={
-              <ProModeWindow_v6_warpper_xiaohongshu
+              <ProModeWindow_v6_warpper_xiaohongshu_v4
                 webCase={{
                   t,
                   locale,

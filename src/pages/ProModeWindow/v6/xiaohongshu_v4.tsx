@@ -20,7 +20,7 @@ import { ProModeModelValueProvider } from '../../../gpt-ai-flow-common/contexts/
 import { useState } from 'react';
 import { ELLM_name } from '../../../gpt-ai-flow-common/enum-backend/ELLM';
 import { saveLocalAction } from '../../../store/actions/localActions';
-import { Button, message, Radio, RadioChangeEvent, Select, Splitter } from 'antd';
+
 import { SLLM_v2_common } from '../../../gpt-ai-flow-common/tools/2_class/SLLM_v2_common';
 import { getCreationModeOptions } from './components';
 // import { ILLMOption_secrets } from '../../../gpt-ai-flow-common/interface-app/3_unit/ILLMModels';
@@ -30,9 +30,20 @@ import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { IAPI_microservice_input } from '../../../gpt-ai-flow-common/interface-backend-microservice/IAPI_microservice_input';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { post_microservice_endpoint } from '../../../gpt-ai-flow-common/tools/1_endpoint/TBackendMicroservice';
+import { Button, message, Radio, RadioChangeEvent, Select, Splitter } from 'antd';
+import { DynamicForm, FieldData } from './DynamicForm';
+import IInputsCacheFile, {
+  IInputsCache_v2,
+  IInputsCache_v3,
+  IInputsCache_v3_default,
+  to_deprecate_IInputsCache,
+} from '../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
+import { useInputsCache_v3 } from '../../../gpt-ai-flow-common/hooks/useInputsCache_v3';
+import { updateInputsCache } from '../../../store/actions/inputsCacheActions';
 
 // === IPrompts - start ===
-interface IPrompt_xiaohongshu extends IPrompt, IDate {
+const PROMODE_ID = 'xiaohongshu_v4';
+interface IPrompt_xiaohongshu_v4 extends IPrompt, IDate {
   uuid?: string;
   concept_report: string; // 概念报告
   viewpoint_report: string; // 观点报告
@@ -40,13 +51,13 @@ interface IPrompt_xiaohongshu extends IPrompt, IDate {
 }
 // === IPrompts - end ===
 
-interface IProModeWindow_v6_warpper_xiaonghongshu {
+interface IProModeWindow_v6_warpper_xiaonghongshu_v4 {
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
   };
 }
-export const ProModeWindow_v6_warpper_xiaohongshu = (props: IProModeWindow_v6_warpper_xiaonghongshu) => {
+export const ProModeWindow_v6_warpper_xiaohongshu_v4 = (props: IProModeWindow_v6_warpper_xiaonghongshu_v4) => {
   const dispatch = useDispatch();
 
   const { t, locale } = props.webCase;
@@ -68,18 +79,30 @@ export const ProModeWindow_v6_warpper_xiaohongshu = (props: IProModeWindow_v6_wa
 
   return (
     <div className="w-full">
-      {userId && <ProModeWindow_v6_warpper_xiaohongshu_login t={t} userDB={userDB} />}
+      {userId && <ProModeWindow_v6_warpper_xiaohongshu_v4_login t={t} userDB={userDB} />}
       {!userId && <ProModeWindow_v6_logout t={t} />}
     </div>
   );
 };
 
-interface ProModeWindow_v6_warpper_xiaohongshu_login {
+interface ProModeWindow_v6_warpper_xiaohongshu_v4_login {
   t: IGetT_frontend_output;
   userDB: IUserDB;
 }
-const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warpper_xiaohongshu_login) => {
+const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_warpper_xiaohongshu_v4_login) => {
   const dispatch = useDispatch();
+
+  const inputsCacheFromStorage: to_deprecate_IInputsCache | IInputsCache_v2 | IInputsCache_v3 = useSelector(
+    (state: IReduxRootState) => {
+      return state.inputsCache ?? IInputsCacheFile.IInputsCache_default;
+    },
+  );
+  const { inputsCache_v3, setInputsCache_v3 } = useInputsCache_v3({
+    inputsCache_v3FromStorage: (inputsCacheFromStorage as IInputsCache_v3) || IInputsCache_v3_default,
+    onInputsCache_v3Change: (newItem: IInputsCache_v3) => {
+      dispatch<any>(updateInputsCache(newItem));
+    },
+  });
 
   const { t, userDB } = props;
   const locale = t.currentLocale;
@@ -113,14 +136,25 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [chatMessages, setChatMessages] = useState<IPrompt_xiaohongshu[]>([
+  const [chatMessages, setChatMessages] = useState<IPrompt_xiaohongshu_v4[]>([
     // ...chatMessages_from_cache,
     // { ...IPrompt_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
 
-  const onImproveMessage = (chatMessagesBeforeImprove: IPrompt_xiaohongshu[]) => async () => {
+  const [context, setContext] = useState<string>('今天的天气好像不错，我们去郊游吧！');
+  const [fields, setFields] = useState<FieldData[]>([
+    { key: 0, label: '标题', value: '我的第一次郊游' },
+    {
+      key: 1,
+      label: '内容',
+      value:
+        '今天的天气真的很好，我和朋友们决定去郊游。我们去了一个风景优美的地方，拍了很多照片，还吃了美味的野餐。真是一次难忘的经历！',
+    },
+  ]);
+
+  const onImproveMessage = (chatMessagesBeforeImprove: IPrompt_xiaohongshu_v4[]) => async () => {
     setIsCalling(true);
 
     const newRequestController = new AbortController();
@@ -138,15 +172,29 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
 
     const now = new Date();
 
+    // console.log('context', context);
+    // console.log('fields', fields);
+    const input_json_string = JSON.stringify({
+      context,
+      ...fields.reduce(
+        (result, item) => {
+          result[item.label] = item.value;
+          return result;
+        },
+        {} as Record<string, any>,
+      ),
+    });
+    // console.log('input_json_string', input_json_string);
+
     const newChatMessage_user = {
       ...IPrompt_default,
       uuid: uuidv4(),
       role: EAIFlowRole.USER,
-      content: '今天的天气好像不错，我们去郊游吧！',
+      content: input_json_string,
       createdAt: now,
       updatedAt: now,
-    } as IPrompt_xiaohongshu;
-    let newChatMessage_assistant: IPrompt_xiaohongshu = {
+    } as IPrompt_xiaohongshu_v4;
+    let newChatMessage_assistant: IPrompt_xiaohongshu_v4 = {
       ...IPrompt_default,
       uuid: uuidv4(),
       role: EAIFlowRole.ASSISTANT,
@@ -157,7 +205,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
       createdAt: now,
       updatedAt: now,
     };
-    const newChatMessages: IPrompt_xiaohongshu[] = [...chatMessagesBeforeImprove_copy, newChatMessage_user];
+    const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_user];
     setChatMessages(newChatMessages);
     setCurrentVersionNum(newChatMessages.length);
 
@@ -169,7 +217,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
       history: chatMessagesBeforeImprove_copy,
     };
 
-    const url = `https://fddzhznpl54mrbjpna7hgrbzje0xttaw.lambda-url.us-east-1.on.aws/?locale=${locale}`;
+    const url = `https://y2v6snleiealiesvu4spdvhgpy0bxfra.lambda-url.us-east-1.on.aws/?locale=${locale}`;
     post_microservice_endpoint(
       url,
       bodyData,
@@ -187,7 +235,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
           content: writingResultText,
           updatedAt: new Date(),
         };
-        const newChatMessages: IPrompt_xiaohongshu[] = [
+        const newChatMessages: IPrompt_xiaohongshu_v4[] = [
           ...chatMessagesBeforeImprove_copy,
           newChatMessage_user,
           newChatMessage_assistant,
@@ -208,7 +256,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
           content: resultText,
           updatedAt: new Date(),
         };
-        const newChatMessages: IPrompt_xiaohongshu[] = [
+        const newChatMessages: IPrompt_xiaohongshu_v4[] = [
           ...chatMessagesBeforeImprove_copy,
           newChatMessage_user,
           newChatMessage_assistant,
@@ -216,13 +264,15 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
         setChatMessages(newChatMessages);
         setCurrentVersionNum(newChatMessages.length);
 
-        // setInputsCache_v3({
-        //   ...inputsCache_v3,
-        //   [contextSelected_uuid]: {
-        //     ...inputsCache_v3[contextSelected_uuid],
-        //     chatMessages: newChatMessages,
-        //   },
-        // });
+        setInputsCache_v3({
+          ...inputsCache_v3,
+          [PROMODE_ID]: {
+            ...inputsCache_v3[PROMODE_ID],
+            context,
+            fields,
+            chatMessages: newChatMessages,
+          },
+        });
 
         setIsCalling(false);
       },
@@ -349,7 +399,9 @@ const ProModeWindow_v6_warpper_xiaohongshu_login = (props: ProModeWindow_v6_warp
                   <h2>{t.get('xiaohongshu')}</h2>
                 </div>
 
-                <div className="row">inputs form</div>
+                <div className="row">
+                  <DynamicForm t={t} context={context} setContext={setContext} fields={fields} setFields={setFields} />
+                </div>
 
                 <div className="row buttons">
                   <div className="row operation space-x-4 space-y-4">
