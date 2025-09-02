@@ -122,7 +122,8 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
         {/* <!--Pricing table--> */}
         <div className="pricing-table-container">
           <div className="pricing-table paricing-table-model !mt-12 container">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> */}
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-6">
               {/* 享受工具版所有权益，使用多少付多少，官方大模型支持 */}
               <div className="relative p-6 border border-gray-200 rounded-2xl shadow-sm flex flex-col">
                 <div className="flex-1">
@@ -188,7 +189,7 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
               </div>
 
               {/* 模块: 关税精灵 */}
-              <div className="relative p-6 border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+              {/* <div className="relative p-6 border border-gray-200 rounded-2xl shadow-sm flex flex-col">
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold">{pricingLocaleDict[locale]['关税精灵']}</h3>
                   <p className="mt-4 flex items-baseline">
@@ -242,7 +243,7 @@ export const SettingsWindow_4_payment_freeEdition = (props: ISettingsWindow_4_pa
                 >
                   {t.get('Start Trial')}
                 </button>
-              </div>
+              </div> */}
 
               {/* 这里可以添加更多卡片 */}
             </div>
