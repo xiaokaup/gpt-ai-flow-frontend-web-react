@@ -72,7 +72,7 @@ const SettingsWindow_4_payment_login = (props: ISettingsWindow_4_payment_login_i
 
   if (!stripePrices_for_locales) return <>{t.get('loading')}...</>;
 
-  const isShowFreeEdition = false;
+  const isShowFreeEdition = true;
 
   return (
     <div id="subscription" className="container space-y-8" style={{ padding: '.4rem' }}>
