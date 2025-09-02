@@ -34,6 +34,7 @@ import { VisualizationPage } from './pages/betaPages/VisualizationPage/Visualiza
 import { DutyGeniePage } from './pages/RolePage/DutyGeniePage';
 import { PromptsFactoryPage_v2 } from './pages/RolePage/PromptsFactoryPage_v2';
 import { PromptsParserPage } from './pages/RolePage/PromptsParserPage';
+import { ProModeWindow_v2_warpper } from './pages/ProModeWindow/v2';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ export const AppRoutes = () => {
   });
   // console.log('stripePriceNicknames_from_allSbuscriptions:', stripePriceNicknames_from_allSbuscriptions);
 
-  const Routes_v1 = () => {
+  const Routes_v1_deprecated = () => {
     return (
       <Route path="/" element={<Layout_v1 />}>
         {/* === Routes_unauthenticated - start === */}
@@ -199,6 +200,7 @@ export const AppRoutes = () => {
             </div>
           }
         />
+
         <Route
           path="/proMode"
           element={
@@ -489,6 +491,23 @@ export const AppRoutes = () => {
           />
         </Route>
         <Route
+          path="proMode_v2"
+          element={ProModeWindow_warpper_Layout(t, isAuthenticated, stripePriceNicknames_from_allSbuscriptions)()}
+        >
+          <Route index element={<h2>Nothing to see here!</h2>} />
+          <Route
+            path="xiaohongshu"
+            element={
+              <ProModeWindow_v2_warpper
+                webCase={{
+                  t,
+                  locale,
+                }}
+              />
+            }
+          />
+        </Route>
+        <Route
           path="logout"
           element={
             <div className="App">
@@ -507,7 +526,7 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      {Routes_v1()}
+      {Routes_v1_deprecated()}
 
       <Route path="app">
         {Routes_v2_public()}
@@ -522,6 +541,19 @@ export const AppRoutes = () => {
 function Layout_v1() {
   return <Outlet />;
 }
+
+const ProModeWindow_warpper_Layout = (t, isAuthenticated, stripePriceNicknames_from_allSbuscriptions) => () => {
+  return (
+    <div className="App">
+      <AppLayoutCenter
+        isAuthenticated={isAuthenticated}
+        stripePriceNicknames_from_allSbuscriptions={stripePriceNicknames_from_allSbuscriptions}
+      >
+        <Outlet />
+      </AppLayoutCenter>
+    </div>
+  );
+};
 
 function NoMatch() {
   return (
