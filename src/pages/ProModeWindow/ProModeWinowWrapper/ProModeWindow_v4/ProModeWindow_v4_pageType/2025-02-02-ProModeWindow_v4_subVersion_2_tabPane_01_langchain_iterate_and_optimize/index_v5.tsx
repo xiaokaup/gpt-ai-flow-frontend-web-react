@@ -422,8 +422,8 @@ export const ProModeWindow_v4_subVersion_2_tabPane_01_langchain_iterate_and_opti
                 </div>
               )}
               {/* <div className="row" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-              {currentVersionNum === 0 && chatHistory.length === 0 && <div className="row">{t.get('No version')}</div>}
-            </div> */}
+                {currentVersionNum === 0 && chatHistory.length === 0 && <div className="row">{t.get('No version')}</div>}
+              </div> */}
             </div>
 
             <div className="row component_chatMessages">

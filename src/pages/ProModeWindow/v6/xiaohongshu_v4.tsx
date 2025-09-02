@@ -1,4 +1,19 @@
+import iconCleanRight from '../../../../assets/icons-customize/icon-clean-right/icon-clean-right-24x24.png';
+
 import { v4 as uuidv4 } from 'uuid';
+
+import ReactMarkdown from 'react-markdown';
+import {
+  LeftOutlined,
+  RightOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+  EditOutlined,
+  CopyOutlined,
+} from '@ant-design/icons';
+
+import copyToClipboard from 'copy-to-clipboard';
+
 import { IGetT_frontend_output } from '../../../gpt-ai-flow-common/i18nProvider/ILocalesFactory';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,7 +45,7 @@ import { EAIFlowRole } from '../../../gpt-ai-flow-common/enum-app/EAIFlow';
 import { IAPI_microservice_input } from '../../../gpt-ai-flow-common/interface-backend-microservice/IAPI_microservice_input';
 import TCryptoJSFile from '../../../gpt-ai-flow-common/tools/TCrypto-web';
 import { post_microservice_endpoint } from '../../../gpt-ai-flow-common/tools/1_endpoint/TBackendMicroservice';
-import { Button, message, Radio, RadioChangeEvent, Select, Splitter } from 'antd';
+import { Button, Form, message, Radio, RadioChangeEvent, Select, Splitter, Tooltip } from 'antd';
 import { DynamicForm, FieldData } from './DynamicForm';
 import IInputsCacheFile, {
   IInputsCache_v2,
@@ -40,6 +55,7 @@ import IInputsCacheFile, {
 } from '../../../gpt-ai-flow-common/interface-app/3_unit/IInputsCache';
 import { useInputsCache_v3 } from '../../../gpt-ai-flow-common/hooks/useInputsCache_v3';
 import { updateInputsCache } from '../../../store/actions/inputsCacheActions';
+import TextArea from 'antd/es/input/TextArea';
 
 // === IPrompts - start ===
 const PROMODE_ID = 'xiaohongshu_v4';
@@ -48,6 +64,10 @@ interface IPrompt_xiaohongshu_v4 extends IPrompt, IDate {
   concept_report: string; // 概念报告
   viewpoint_report: string; // 观点报告
   intro_report: string; // 介绍报告
+  response?: any;
+  isEdit?: boolean;
+  isShow?: boolean;
+  userPrompt?: IPrompt_xiaohongshu_v4;
 }
 // === IPrompts - end ===
 
@@ -60,7 +80,7 @@ interface IProModeWindow_v6_warpper_xiaonghongshu_v4 {
 export const ProModeWindow_v6_warpper_xiaohongshu_v4 = (props: IProModeWindow_v6_warpper_xiaonghongshu_v4) => {
   const dispatch = useDispatch();
 
-  const { t, locale } = props.webCase;
+  const { t } = props.webCase;
 
   const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDB_default;
@@ -103,6 +123,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       dispatch<any>(updateInputsCache(newItem));
     },
   });
+  console.log('inputsCache_v3', inputsCache_v3);
 
   const { t, userDB } = props;
   const locale = t.currentLocale;
@@ -126,6 +147,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
     );
   }
 
+  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isLargeScreen = windowWidth > 1000;
 
@@ -137,22 +159,26 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
   const [chatMessages, setChatMessages] = useState<IPrompt_xiaohongshu_v4[]>([
-    // ...chatMessages_from_cache,
+    ...(inputsCache_v3[PROMODE_ID]?.chatMessages ?? []),
     // { ...IPrompt_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
+  // console.log('chatMessages', chatMessages);
 
-  const [context, setContext] = useState<string>('今天的天气好像不错，我们去郊游吧！');
-  const [fields, setFields] = useState<FieldData[]>([
-    { key: 0, label: '标题', value: '我的第一次郊游' },
-    {
-      key: 1,
-      label: '内容',
-      value:
-        '今天的天气真的很好，我和朋友们决定去郊游。我们去了一个风景优美的地方，拍了很多照片，还吃了美味的野餐。真是一次难忘的经历！',
-    },
-  ]);
+  const [context, setContext] = useState<string>(inputsCache_v3[PROMODE_ID]?.context);
+  const [fields, setFields] = useState<FieldData[]>(
+    inputsCache_v3[PROMODE_ID]?.fields,
+    // [
+    //   { key: 0, label: '标题', value: '我的第一次郊游' },
+    //   {
+    //     key: 1,
+    //     label: '内容',
+    //     value:
+    //       '今天的天气真的很好，我和朋友们决定去郊游。我们去了一个风景优美的地方，拍了很多照片，还吃了美味的野餐。真是一次难忘的经历！',
+    //   },
+    // ]
+  );
 
   const onImproveMessage = (chatMessagesBeforeImprove: IPrompt_xiaohongshu_v4[]) => async () => {
     setIsCalling(true);
@@ -191,6 +217,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       uuid: uuidv4(),
       role: EAIFlowRole.USER,
       content: input_json_string,
+      isShow: true,
       createdAt: now,
       updatedAt: now,
     } as IPrompt_xiaohongshu_v4;
@@ -202,10 +229,12 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       concept_report: '',
       viewpoint_report: '',
       intro_report: '',
+      isShow: true,
+      userPrompt: newChatMessage_user,
       createdAt: now,
       updatedAt: now,
     };
-    const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_user];
+    const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
     setChatMessages(newChatMessages);
     setCurrentVersionNum(newChatMessages.length);
 
@@ -232,14 +261,11 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
         console.log('updateResultFromRequestFunc', writingResultText);
         newChatMessage_assistant = {
           ...newChatMessage_assistant,
-          content: writingResultText,
+          content: JSON.parse(JSON.parse(writingResultText || '{}')?.body || '{}').result,
+          response: JSON.parse(writingResultText || '{}'),
           updatedAt: new Date(),
         };
-        const newChatMessages: IPrompt_xiaohongshu_v4[] = [
-          ...chatMessagesBeforeImprove_copy,
-          newChatMessage_user,
-          newChatMessage_assistant,
-        ];
+        const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
         setChatMessages(newChatMessages);
       },
       (resultText: string) => {
@@ -253,14 +279,11 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
 
         newChatMessage_assistant = {
           ...newChatMessage_assistant,
-          content: resultText,
+          content: JSON.parse(JSON.parse(resultText || '{}')?.body || '{}').result,
+          response: JSON.parse(resultText || '{}'),
           updatedAt: new Date(),
         };
-        const newChatMessages: IPrompt_xiaohongshu_v4[] = [
-          ...chatMessagesBeforeImprove_copy,
-          newChatMessage_user,
-          newChatMessage_assistant,
-        ];
+        const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
         setChatMessages(newChatMessages);
         setCurrentVersionNum(newChatMessages.length);
 
@@ -452,7 +475,263 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                 }
                 collapsible
               >
-                content
+                <div className="block_versionNum" style={{ position: 'absolute', right: 0 }}>
+                  {hasChatMessages && (
+                    <div
+                      className="row pr-2"
+                      style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}
+                    >
+                      <LeftOutlined
+                        className={`${currentVersionNum <= 1 ? 'hidden' : ''}`}
+                        style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                        onClick={() => {
+                          if (isCalling) return;
+
+                          setCurrentVersionNum(currentVersionNum - 1);
+                        }}
+                      />
+
+                      <div className="row">
+                        {t.get('Version')}: {currentVersionNum}
+                      </div>
+
+                      <RightOutlined
+                        className={`${currentVersionNum >= chatMessages.length ? 'hidden' : ''}`}
+                        style={{ marginLeft: '.4rem', marginRight: '.4rem', width: 20 }}
+                        onClick={() => {
+                          if (isCalling) return;
+
+                          setCurrentVersionNum(currentVersionNum + 1);
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="row component_chatMessages">
+                  <div className="row subContainer">
+                    <div className="row flex flex-start items-center pr-2">
+                      <div className="col_1">
+                        <h2>{t.get('Chat Messages')}</h2>
+                      </div>
+                      <div className="col_2 ml-4">
+                        <Tooltip title={t.get('Reset all')}>
+                          <img
+                            id="reset-messages-history-button"
+                            src={iconCleanRight}
+                            alt="reset messages history"
+                            className="button resetMessagesHistoryButton"
+                            style={{
+                              fontSize: 18,
+                              width: 30,
+                              border: '1px solid #d9d9d9',
+                              borderRadius: '.25rem',
+                              padding: 4,
+                              cursor: 'pointer',
+
+                              marginTop: 8,
+
+                              flex: '0 1 auto',
+                            }}
+                            onClick={() => {
+                              const newChatMessages = [];
+                              setChatMessages(newChatMessages);
+                            }}
+                          />
+                        </Tooltip>
+                      </div>
+                    </div>
+                    {chatMessages
+                      .filter((item) => item.role === EAIFlowRole.ASSISTANT)
+                      .map((oneChatMessage: IPrompt_xiaohongshu_v4, oneChatMessage_index: number) => {
+                        const {
+                          uuid,
+                          isEdit,
+                          isShow,
+                          content,
+                          response,
+                          userPrompt,
+                          concept_report,
+                          viewpoint_report,
+                          intro_report,
+                        } = oneChatMessage;
+
+                        const switchShow = (paraOneChatMessage: IPrompt_xiaohongshu_v4) => {
+                          const newChatMessages = [...chatMessages].map((item: IPrompt_xiaohongshu_v4) => {
+                            if (paraOneChatMessage.content === item.content) {
+                              return {
+                                ...item,
+                                isShow: !item.isShow,
+                              };
+                            }
+                            return item;
+                          });
+                          setChatMessages(newChatMessages);
+                          setInputsCache_v3({
+                            ...inputsCache_v3,
+                            [PROMODE_ID]: {
+                              ...inputsCache_v3[PROMODE_ID],
+                              chatMessages: newChatMessages,
+                            },
+                          });
+                        };
+
+                        const switchEdit = (paraOneChatMessage: IPrompt_xiaohongshu_v4) => {
+                          const newChatMessages = [...chatMessages].map((item: IPrompt_xiaohongshu_v4) => {
+                            if (paraOneChatMessage.content === item.content) {
+                              return {
+                                ...item,
+                                isEdit: !item.isEdit,
+                              };
+                            }
+                            return item;
+                          });
+                          setChatMessages(newChatMessages);
+                          setInputsCache_v3({
+                            ...inputsCache_v3,
+                            [PROMODE_ID]: {
+                              ...inputsCache_v3[PROMODE_ID],
+                              chatMessages: newChatMessages,
+                            },
+                          });
+                        };
+
+                        const onFinish = (paraOneChatMessage: IPrompt_xiaohongshu_v4, content: string) => {
+                          const newChatMessages = [...chatMessages].map((item: IPrompt_xiaohongshu_v4) => {
+                            if (paraOneChatMessage.content === item.content) {
+                              return {
+                                ...item,
+                                isEdit: !item.isEdit,
+                                content,
+                              };
+                            }
+                            return item;
+                          });
+                          setChatMessages(newChatMessages);
+
+                          setInputsCache_v3({
+                            ...inputsCache_v3,
+                            [PROMODE_ID]: {
+                              ...inputsCache_v3[PROMODE_ID],
+                              chatMessages: newChatMessages,
+                            },
+                          });
+                        };
+
+                        return (
+                          <div
+                            key={uuid}
+                            className={`block_chatMessages_container ${oneChatMessage_index > 0 ? 'mt-4' : ''}`}
+                            style={{
+                              userSelect: 'text',
+                              border: '1px solid #d9d9d9',
+                              borderRadius: '.25rem',
+                              padding: '.4rem',
+                              paddingLeft: '1rem',
+                              paddingRight: '1rem',
+                            }}
+                          >
+                            <div
+                              className="block_top"
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <div className="column_1" style={{ display: 'flex' }}>
+                                <EditOutlined
+                                  style={{ fontSize: 18 }}
+                                  onClick={() => {
+                                    switchEdit(oneChatMessage);
+                                  }}
+                                />
+
+                                <CopyOutlined
+                                  className="ml-2"
+                                  style={{ fontSize: 16 }}
+                                  onClick={() => {
+                                    copyToClipboard(content);
+
+                                    message.success({
+                                      content: <span>{t.get('Copy successful')} !</span>,
+                                      key: 'copy',
+                                      duration: 3,
+                                    });
+                                  }}
+                                />
+
+                                {isShow && (
+                                  <EyeOutlined
+                                    className="ml-2"
+                                    style={{ fontSize: 18 }}
+                                    onClick={() => switchShow(oneChatMessage)}
+                                  />
+                                )}
+
+                                {!isShow && (
+                                  <EyeInvisibleOutlined
+                                    className="ml-2"
+                                    style={{ fontSize: 18 }}
+                                    onClick={() => switchShow(oneChatMessage)}
+                                  />
+                                )}
+                              </div>
+
+                              <div className="column_2"></div>
+                            </div>
+                            <div className="block_chatMessages mt-4">
+                              {isShow && !isEdit && content && (
+                                <div className="row view relative watermark-20px">
+                                  <ReactMarkdown>{content}</ReactMarkdown>
+                                </div>
+                              )}
+                              {isShow && isEdit && (
+                                <div className="row editing">
+                                  <Form
+                                    initialValues={{ content }}
+                                    onFinish={(values: any) => {
+                                      onFinish(oneChatMessage, values.content);
+                                    }}
+                                  >
+                                    {/* <Form.Item name="title" label="Title">
+                                    <Input
+                                      onChange={(event) => {
+                                        setCurrentOutput({
+                                          ...currentOutput,
+                                          title: event.target.value,
+                                        });
+                                      }}
+                                    />
+                                  </Form.Item> */}
+
+                                    <Form.Item name="content" className="relative watermark-0px">
+                                      <TextArea autoSize className="pb-6" />
+                                    </Form.Item>
+
+                                    <Form.Item>
+                                      <Button className="confirmChangeContent" type="primary" htmlType="submit">
+                                        {t.get('Submit')}
+                                      </Button>
+                                      <Button
+                                        type="default"
+                                        onClick={() => {
+                                          switchEdit(oneChatMessage);
+                                        }}
+                                        style={{ marginLeft: '1rem' }}
+                                      >
+                                        {t.get('Return')}
+                                      </Button>
+                                    </Form.Item>
+                                  </Form>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
               </Splitter.Panel>
             </Splitter>
           </div>

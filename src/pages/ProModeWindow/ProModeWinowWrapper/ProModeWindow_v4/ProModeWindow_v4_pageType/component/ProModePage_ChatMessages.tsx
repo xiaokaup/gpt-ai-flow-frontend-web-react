@@ -124,7 +124,7 @@ export const ProModePage_ChatMessages = (props: ProModePage_ChatMessages_input) 
               return {
                 ...item,
                 isEdit: !item.isEdit,
-                content: content,
+                content,
               };
             }
             return item;
