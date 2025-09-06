@@ -5,10 +5,6 @@ import {
   EProMode_v4_module_uuid,
   EProMode_v4_role_labels,
 } from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/EProMode_v4_module';
-import {
-  ESocialPlatform_moduleName,
-  ESocialPlatform_platformName,
-} from '../../../gpt-ai-flow-common/ProMode_v4/interface-IProMode_v4/interface-type/03-langchain/01-iterate-and-optimize/00-prototype-2024-12-02-socialPlatform/ESocialPlatofrm';
 import { webAppUrl } from './constant';
 import { IOneFeature } from './interface';
 
