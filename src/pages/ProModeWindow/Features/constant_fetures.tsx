@@ -359,7 +359,25 @@ export const getRoles = (locale: ELocale) => {
       description:
         '一键生成吸引眼球的社交动态！智能匹配多种写作风格，轻松创作正式、幽默、励志的内容。还能自动生成有趣话题，让你的粉丝爱上互动和讨论。',
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/facebook`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
+      proModeModuleName: '领英平台 AI 助手',
+      description:
+        '打造专业形象、拓展人脉、分享干货，一站式提升你的职场影响力。智能生成个性化简介和社交话术，轻松获得行业洞察，让你在LinkedIn脱颖而出。',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/linkedin`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-39-logo-twitter.jpg',
+      proModeModuleName: 'X (推特) 平台 AI 助手',
+      description:
+        '一键生成精简推文，智能匹配话题标签，轻松创作连续推文。帮你打造吸引眼球的内容，让更多人发现你的精彩分享。',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/twitter`,
     },
     {
       isDisabled: true,
@@ -376,24 +394,6 @@ export const getRoles = (locale: ELocale) => {
       description: '专注倾听用户需求，为您打造简单易用的产品体验。从调研规划到设计优化，每一步都为解决产品问题而努力。',
       // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
-      proModeModuleName: '领英平台 AI 助手',
-      description:
-        '打造专业形象、拓展人脉、分享干货，一站式提升你的职场影响力。智能生成个性化简介和社交话术，轻松获得行业洞察，让你在LinkedIn脱颖而出。',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_23_WRITING_POST_AGENT_FOR_LINKEDIN_PLATFORM}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-39-logo-twitter.jpg',
-      proModeModuleName: 'X (推特) 平台 AI 助手',
-      description:
-        '一键生成精简推文，智能匹配话题标签，轻松创作连续推文。帮你打造吸引眼球的内容，让更多人发现你的精彩分享。',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       isDisabled: true,
@@ -465,7 +465,24 @@ export const getRoles = (locale: ELocale) => {
       description:
         'Share updates that spark joy! Create fun posts, start conversations, and connect with fans in your own style.',
       // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/facebook`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]) + ' AI Assistant',
+      description:
+        'Connect & grow faster: Create expert profiles, smart networking messages & pro content that gets noticed.',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/linkedin`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-39-logo-twitter.jpg',
+      proModeModuleName: 'X (Twitter) Platform AI Assistant',
+      description: 'Create sharp tweets, get smart hashtag suggestions, and craft engaging threads easily.',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/twitter`,
     },
     {
       isDisabled: true,
@@ -484,23 +501,6 @@ export const getRoles = (locale: ELocale) => {
         'Find what you need, get smart solutions, and watch your product grow with our step-by-step guidance.',
       // docOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_04_PRODUCT_MANAGER}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_10_PRODUCT_MANAGER}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-37-logo-linkedIn.svg',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM]) + ' AI Assistant',
-      description:
-        'Connect & grow faster: Create expert profiles, smart networking messages & pro content that gets noticed.',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_06_LINKEDIN_PLATFORM}&tabPane_uuid=${EProMode_v4_module_uuid.MODULE_23_WRITING_POST_AGENT_FOR_LINKEDIN_PLATFORM}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-39-logo-twitter.jpg',
-      proModeModuleName: 'X (Twitter) Platform AI Assistant',
-      description: 'Create sharp tweets, get smart hashtag suggestions, and craft engaging threads easily.',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       isDisabled: true,
