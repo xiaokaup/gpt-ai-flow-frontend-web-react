@@ -59,7 +59,7 @@ import { updateInputsCache } from '../../../store/actions/inputsCacheActions';
 import TextArea from 'antd/es/input/TextArea';
 
 // === IPrompts - start ===
-const PROMODE_ID = 'xiaohongshu_v4';
+
 interface IPrompt_xiaohongshu_v4 extends IPrompt, IDate {
   uuid?: string;
   concept_report: string; // 概念报告
@@ -72,16 +72,19 @@ interface IPrompt_xiaohongshu_v4 extends IPrompt, IDate {
 }
 // === IPrompts - end ===
 
-interface IProModeWindow_v6_warpper_xiaonghongshu_v4 {
+interface IProModeWindow_v6_warpper_media {
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
   };
+  mediaId: string;
+  url: string;
 }
-export const ProModeWindow_v6_warpper_xiaohongshu_v4 = (props: IProModeWindow_v6_warpper_xiaonghongshu_v4) => {
+export const ProModeWindow_v6_warpper_media = (props: IProModeWindow_v6_warpper_media) => {
   const dispatch = useDispatch();
 
   const { t } = props.webCase;
+  const { mediaId, url } = props;
 
   const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDB_default;
@@ -100,17 +103,19 @@ export const ProModeWindow_v6_warpper_xiaohongshu_v4 = (props: IProModeWindow_v6
 
   return (
     <div className="w-full">
-      {userId && <ProModeWindow_v6_warpper_xiaohongshu_v4_login t={t} userDB={userDB} />}
+      {userId && <ProModeWindow_v6_warpper_media_login t={t} userDB={userDB} url={url} MEDIA_ID={mediaId} />}
       {!userId && <ProModeWindow_v6_logout t={t} />}
     </div>
   );
 };
 
-interface ProModeWindow_v6_warpper_xiaohongshu_v4_login {
+interface ProModeWindow_v6_warpper_media_login {
   t: IGetT_frontend_output;
   userDB: IUserDB;
+  MEDIA_ID: string;
+  url: string;
 }
-const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_warpper_xiaohongshu_v4_login) => {
+const ProModeWindow_v6_warpper_media_login = (props: ProModeWindow_v6_warpper_media_login) => {
   const dispatch = useDispatch();
 
   const inputsCacheFromStorage: to_deprecate_IInputsCache | IInputsCache_v2 | IInputsCache_v3 = useSelector(
@@ -126,8 +131,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
   });
   console.log('inputsCache_v3', inputsCache_v3);
 
-  const { t, userDB } = props;
-  const locale = t.currentLocale;
+  const { t, userDB, url, MEDIA_ID } = props;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
@@ -160,16 +164,16 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
   const [chatMessages, setChatMessages] = useState<IPrompt_xiaohongshu_v4[]>([
-    ...(inputsCache_v3[PROMODE_ID]?.chatMessages ?? []),
+    ...(inputsCache_v3[MEDIA_ID]?.chatMessages ?? []),
     // { ...IPrompt_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
   // console.log('chatMessages', chatMessages);
 
-  const [context, setContext] = useState<string>(inputsCache_v3[PROMODE_ID]?.context);
+  const [context, setContext] = useState<string>(inputsCache_v3[MEDIA_ID]?.context);
   const [fields, setFields] = useState<FieldData[]>(
-    inputsCache_v3[PROMODE_ID]?.fields || [],
+    inputsCache_v3[MEDIA_ID]?.fields || [],
     // [
     //   { key: 0, label: '标题', value: '我的第一次郊游' },
     //   {
@@ -250,7 +254,6 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       })),
     };
 
-    const url = `https://g22gqghwxpqsrewousdvpdaxze0ezhzt.lambda-url.us-east-1.on.aws/?locale=${locale}`;
     post_microservice_endpoint(
       url,
       bodyData,
@@ -304,8 +307,8 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
 
         setInputsCache_v3({
           ...inputsCache_v3,
-          [PROMODE_ID]: {
-            ...inputsCache_v3[PROMODE_ID],
+          [MEDIA_ID]: {
+            ...inputsCache_v3[MEDIA_ID],
             context,
             fields,
             chatMessages: newChatMessages,
@@ -440,7 +443,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                 collapsible
               >
                 <div className="block_title">
-                  <h2>{t.get('xiaohongshu')}</h2>
+                  <h2>{t.get(MEDIA_ID)}</h2>
                 </div>
 
                 <div className="row">
@@ -595,8 +598,8 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                           setChatMessages(newChatMessages);
                           setInputsCache_v3({
                             ...inputsCache_v3,
-                            [PROMODE_ID]: {
-                              ...inputsCache_v3[PROMODE_ID],
+                            [MEDIA_ID]: {
+                              ...inputsCache_v3[MEDIA_ID],
                               chatMessages: newChatMessages,
                             },
                           });
@@ -615,8 +618,8 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                           setChatMessages(newChatMessages);
                           setInputsCache_v3({
                             ...inputsCache_v3,
-                            [PROMODE_ID]: {
-                              ...inputsCache_v3[PROMODE_ID],
+                            [MEDIA_ID]: {
+                              ...inputsCache_v3[MEDIA_ID],
                               chatMessages: newChatMessages,
                             },
                           });
@@ -637,8 +640,8 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
 
                           setInputsCache_v3({
                             ...inputsCache_v3,
-                            [PROMODE_ID]: {
-                              ...inputsCache_v3[PROMODE_ID],
+                            [MEDIA_ID]: {
+                              ...inputsCache_v3[MEDIA_ID],
                               chatMessages: newChatMessages,
                             },
                           });

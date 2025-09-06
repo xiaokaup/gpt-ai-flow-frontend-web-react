@@ -34,7 +34,7 @@ import { VisualizationPage } from './pages/betaPages/VisualizationPage/Visualiza
 import { DutyGeniePage } from './pages/RolePage/DutyGeniePage';
 import { PromptsFactoryPage_v2 } from './pages/RolePage/PromptsFactoryPage_v2';
 import { PromptsParserPage } from './pages/RolePage/PromptsParserPage';
-import { ProModeWindow_v6_warpper_xiaohongshu_v4 } from './pages/ProModeWindow/v6/xiaohongshu_v4';
+import { ProModeWindow_v6_warpper_media } from './pages/ProModeWindow/v6/xiaohongshu_v4';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -498,11 +498,52 @@ export const AppRoutes = () => {
           <Route
             path="xiaohongshu"
             element={
-              <ProModeWindow_v6_warpper_xiaohongshu_v4
+              <ProModeWindow_v6_warpper_media
                 webCase={{
                   t,
                   locale,
                 }}
+                mediaId="xiaohongshu"
+                url={`https://selklxxgivapkzcc4ucovkrt7q0fpwcw.lambda-url.us-east-1.on.aws/?locale=${locale}&media_name=xiaohongshu`}
+              />
+            }
+          />
+          <Route
+            path="facebook"
+            element={
+              <ProModeWindow_v6_warpper_media
+                webCase={{
+                  t,
+                  locale,
+                }}
+                mediaId="facebook"
+                url={`https://selklxxgivapkzcc4ucovkrt7q0fpwcw.lambda-url.us-east-1.on.aws/?locale=${locale}&media_name=facebook`}
+              />
+            }
+          />
+          <Route
+            path="linkedin"
+            element={
+              <ProModeWindow_v6_warpper_media
+                webCase={{
+                  t,
+                  locale,
+                }}
+                mediaId="linkedin"
+                url={`https://selklxxgivapkzcc4ucovkrt7q0fpwcw.lambda-url.us-east-1.on.aws/?locale=${locale}&media_name=linkedin`}
+              />
+            }
+          />
+          <Route
+            path="twitter"
+            element={
+              <ProModeWindow_v6_warpper_media
+                webCase={{
+                  t,
+                  locale,
+                }}
+                mediaId="twitter"
+                url={`https://selklxxgivapkzcc4ucovkrt7q0fpwcw.lambda-url.us-east-1.on.aws/?locale=${locale}&media_name=twitter`}
               />
             }
           />
