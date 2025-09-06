@@ -166,6 +166,7 @@ const ProModeWindow_v6_warpper_media_login = (props: ProModeWindow_v6_warpper_me
 
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const [chatMessages, setChatMessages] = useState<IPrompt_media[]>([
     ...(inputsCache_v3[MEDIA_ID]?.chatMessages ?? []),
@@ -191,6 +192,7 @@ const ProModeWindow_v6_warpper_media_login = (props: ProModeWindow_v6_warpper_me
 
   const onImproveMessage = (chatMessagesBeforeImprove: IPrompt_media[]) => async () => {
     setIsCalling(true);
+    setErrorMessage('');
 
     const newRequestController = new AbortController();
     setRequestController(newRequestController);
@@ -288,7 +290,9 @@ const ProModeWindow_v6_warpper_media_login = (props: ProModeWindow_v6_warpper_me
         console.log('AfterRequestFunc', resultText);
 
         if (JSON.parse(resultText)?.errorMessage) {
-          message.error(JSON.parse(resultText).errorMessage);
+          const errorText = JSON.parse(resultText).errorMessage;
+          message.error(errorText);
+          setErrorMessage(errorText);
           setIsCalling(false);
           return;
         }
@@ -341,6 +345,7 @@ const ProModeWindow_v6_warpper_media_login = (props: ProModeWindow_v6_warpper_me
 
   const onRegenerateMessage = () => {
     setIsCalling(true);
+    setErrorMessage('');
 
     const newChatMessages = hasChatMessages ? chatMessages.slice(0, currentVersionNum) : [];
     onImproveMessage(newChatMessages)();
@@ -716,7 +721,8 @@ const ProModeWindow_v6_warpper_media_login = (props: ProModeWindow_v6_warpper_me
                             <div className="block_chatMessages mt-4">
                               {!content && (
                                 <div className="row view">
-                                  <LoadingOutlined />
+                                  {isCalling && <LoadingOutlined />}
+                                  {errorMessage && <span className="ml-2">{`${t.get('Error')}: ${errorMessage}`}</span>}
                                 </div>
                               )}
 
