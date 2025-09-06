@@ -326,7 +326,7 @@ export const getRoles = (locale: ELocale) => {
 
   const proModePageRoles_zh: IOneFeature[] = [
     {
-      isDisabled: false,
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
       proModeModuleName: '提示解析器',
       description:
@@ -335,13 +335,31 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
     },
     {
-      isDisabled: false,
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
       proModeModuleName: '提示工厂',
       description:
         '专业打造高质量AI提示词，为各类场景定制最佳指令模板。从创意写作到数据分析，帮您构建精准有效的AI沟通桥梁。',
       // docOpenLink: ``,
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-factory`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
+      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI 助手',
+      description:
+        '一键生成吸引眼球的标题和文案，自动匹配热门标签，获取源源不断的创意灵感。让创作更轻松，让内容更出彩，让传播更高效。',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-38-logo-facebook.png',
+      proModeModuleName: '脸书平台 AI 助手',
+      description:
+        '一键生成吸引眼球的社交动态！智能匹配多种写作风格，轻松创作正式、幽默、励志的内容。还能自动生成有趣话题，让你的粉丝爱上互动和讨论。',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       isDisabled: true,
@@ -376,24 +394,6 @@ export const getRoles = (locale: ELocale) => {
         '一键生成精简推文，智能匹配话题标签，轻松创作连续推文。帮你打造吸引眼球的内容，让更多人发现你的精彩分享。',
       // docOpenLink: ``,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-38-logo-facebook.png',
-      proModeModuleName: '脸书平台 AI 助手',
-      description:
-        '一键生成吸引眼球的社交动态！智能匹配多种写作风格，轻松创作正式、幽默、励志的内容。还能自动生成有趣话题，让你的粉丝爱上互动和讨论。',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
-      proModeModuleName: t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI 助手',
-      description:
-        '一键生成吸引眼球的标题和文案，自动匹配热门标签，获取源源不断的创意灵感。让创作更轻松，让内容更出彩，让传播更高效。',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
     },
     {
       isDisabled: true,
@@ -431,7 +431,7 @@ export const getRoles = (locale: ELocale) => {
   ];
   const proModePageRoles_en: IOneFeature[] = [
     {
-      isDisabled: false,
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-7-parse.png',
       proModeModuleName: 'Prompt Parser',
       description:
@@ -440,13 +440,32 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-parser`,
     },
     {
-      isDisabled: false,
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-22-img-8-box-combine.png',
       proModeModuleName: 'Prompt Factory',
       description:
         'Professionally create high-quality AI prompts, customizing optimal instruction templates for various scenarios. From creative writing to data analysis, helping you build precise and effective AI communication bridges.',
       // docOpenLink: ``,
       webAppOpenLink: `${webAppUrl}/app/modules/prompts-factory`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
+      proModeModuleName:
+        t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI Assistant',
+      description:
+        'Create trending posts instantly with catchy titles, perfect hashtags, and fresh content ideas that get noticed to grow your social media.',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
+    },
+    {
+      isDisabled: false,
+      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-38-logo-facebook.png',
+      proModeModuleName: 'Facebook Platform AI Assistant',
+      description:
+        'Share updates that spark joy! Create fun posts, start conversations, and connect with fans in your own style.',
+      // docOpenLink: ``,
+      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
     },
     {
       isDisabled: true,
@@ -482,25 +501,6 @@ export const getRoles = (locale: ELocale) => {
       description: 'Create sharp tweets, get smart hashtag suggestions, and craft engaging threads easily.',
       // docOpenLink: ``,
       webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_08_X_PLATFORM_PRE_TWITTER}&tabPane_uuid=${ESocialPlatform_platformName.TWITTER}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-12-04-img-38-logo-facebook.png',
-      proModeModuleName: 'Facebook Platform AI Assistant',
-      description:
-        'Share updates that spark joy! Create fun posts, start conversations, and connect with fans in your own style.',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode?version=v4&role=${EProMode_v4_role.ROLE_07_FACEBOOK_PLATFORM}&tabPane_uuid=${ESocialPlatform_platformName.FACEBOOK}-${ESocialPlatform_moduleName.MODULE_04_WRITING_POST_CHAIN}`,
-    },
-    {
-      isDisabled: false,
-      iconUrl: 'https://www.gptaiflow.com/img/icons/2024-11-13-img-36-logo-xiaoHongShu.png',
-      proModeModuleName:
-        t.get(EProMode_v4_role_labels[EProMode_v4_role.ROLE_05_XIAOHONGSHU_PLATFORM]) + ' AI Assistant',
-      description:
-        'Create trending posts instantly with catchy titles, perfect hashtags, and fresh content ideas that get noticed to grow your social media.',
-      // docOpenLink: ``,
-      webAppOpenLink: `${webAppUrl}/app/proMode_v2/xiaohongshu`,
     },
     {
       isDisabled: true,
