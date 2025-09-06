@@ -3,6 +3,7 @@ import iconCleanRight from '../../../../assets/icons-customize/icon-clean-right/
 import { v4 as uuidv4 } from 'uuid';
 
 import ReactMarkdown from 'react-markdown';
+import { useSearchParams } from 'react-router-dom';
 import {
   LeftOutlined,
   RightOutlined,
@@ -59,8 +60,8 @@ import { updateInputsCache } from '../../../store/actions/inputsCacheActions';
 import TextArea from 'antd/es/input/TextArea';
 
 // === IPrompts - start ===
-const PROMODE_ID = 'xiaohongshu_v4';
-interface IPrompt_xiaohongshu_v4 extends IPrompt, IDate {
+
+interface IPrompt_media extends IPrompt, IDate {
   uuid?: string;
   concept_report: string; // 概念报告
   viewpoint_report: string; // 观点报告
@@ -68,20 +69,23 @@ interface IPrompt_xiaohongshu_v4 extends IPrompt, IDate {
   response?: any;
   isEdit?: boolean;
   isShow?: boolean;
-  userPrompt?: IPrompt_xiaohongshu_v4;
+  userPrompt?: IPrompt_media;
 }
 // === IPrompts - end ===
 
-interface IProModeWindow_v6_warpper_xiaonghongshu_v4 {
+interface IProModeWindow_v6_warpper_media {
   webCase: {
     t: IGetT_frontend_output;
     locale: ELocale;
   };
+  mediaId: string;
+  url: string;
 }
-export const ProModeWindow_v6_warpper_xiaohongshu_v4 = (props: IProModeWindow_v6_warpper_xiaonghongshu_v4) => {
+export const ProModeWindow_v6_warpper_media = (props: IProModeWindow_v6_warpper_media) => {
   const dispatch = useDispatch();
 
   const { t } = props.webCase;
+  const { mediaId, url } = props;
 
   const userDBFromStorage: IUserDB = useSelector((state: IReduxRootState) => {
     return state.user ?? IUserDB_default;
@@ -100,18 +104,23 @@ export const ProModeWindow_v6_warpper_xiaohongshu_v4 = (props: IProModeWindow_v6
 
   return (
     <div className="w-full">
-      {userId && <ProModeWindow_v6_warpper_xiaohongshu_v4_login t={t} userDB={userDB} />}
+      {userId && <ProModeWindow_v6_warpper_media_login t={t} userDB={userDB} url={url} MEDIA_ID={mediaId} />}
       {!userId && <ProModeWindow_v6_logout t={t} />}
     </div>
   );
 };
 
-interface ProModeWindow_v6_warpper_xiaohongshu_v4_login {
+interface ProModeWindow_v6_warpper_media_login {
   t: IGetT_frontend_output;
   userDB: IUserDB;
+  MEDIA_ID: string;
+  url: string;
 }
-const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_warpper_xiaohongshu_v4_login) => {
+const ProModeWindow_v6_warpper_media_login = (props: ProModeWindow_v6_warpper_media_login) => {
   const dispatch = useDispatch();
+
+  const [searchParams] = useSearchParams();
+  const context_from_qeury = searchParams.get('context') || '';
 
   const inputsCacheFromStorage: to_deprecate_IInputsCache | IInputsCache_v2 | IInputsCache_v3 = useSelector(
     (state: IReduxRootState) => {
@@ -126,8 +135,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
   });
   console.log('inputsCache_v3', inputsCache_v3);
 
-  const { t, userDB } = props;
-  const locale = t.currentLocale;
+  const { t, userDB, url, MEDIA_ID } = props;
 
   const localFromStore: IStoreStorage_settings_local = useSelector((state: IReduxRootState) => {
     return state.local ?? IStoreStorageFile.IStoreStorage_settings_local_default;
@@ -159,17 +167,17 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
   const [requestController, setRequestController] = useState<AbortController>(new AbortController());
   const [isCalling, setIsCalling] = useState<boolean>(false);
 
-  const [chatMessages, setChatMessages] = useState<IPrompt_xiaohongshu_v4[]>([
-    ...(inputsCache_v3[PROMODE_ID]?.chatMessages ?? []),
+  const [chatMessages, setChatMessages] = useState<IPrompt_media[]>([
+    ...(inputsCache_v3[MEDIA_ID]?.chatMessages ?? []),
     // { ...IPrompt_default, role: EAIFlowRole.USER, content: '你好' },
   ]);
   const [currentVersionNum, setCurrentVersionNum] = useState<number>(chatMessages.length);
   const hasChatMessages = chatMessages.length > 0;
   // console.log('chatMessages', chatMessages);
 
-  const [context, setContext] = useState<string>(inputsCache_v3[PROMODE_ID]?.context);
+  const [context, setContext] = useState<string>(context_from_qeury || inputsCache_v3[MEDIA_ID]?.context);
   const [fields, setFields] = useState<FieldData[]>(
-    inputsCache_v3[PROMODE_ID]?.fields || [],
+    inputsCache_v3[MEDIA_ID]?.fields || [],
     // [
     //   { key: 0, label: '标题', value: '我的第一次郊游' },
     //   {
@@ -181,7 +189,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
     // ]
   );
 
-  const onImproveMessage = (chatMessagesBeforeImprove: IPrompt_xiaohongshu_v4[]) => async () => {
+  const onImproveMessage = (chatMessagesBeforeImprove: IPrompt_media[]) => async () => {
     setIsCalling(true);
 
     const newRequestController = new AbortController();
@@ -222,8 +230,8 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       isShow: true,
       createdAt: now,
       updatedAt: now,
-    } as IPrompt_xiaohongshu_v4;
-    let newChatMessage_assistant: IPrompt_xiaohongshu_v4 = {
+    } as IPrompt_media;
+    let newChatMessage_assistant: IPrompt_media = {
       ...IPrompt_default,
       uuid: uuidv4(),
       role: EAIFlowRole.ASSISTANT,
@@ -236,7 +244,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       createdAt: now,
       updatedAt: now,
     };
-    const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
+    const newChatMessages: IPrompt_media[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
     setChatMessages(newChatMessages);
     setCurrentVersionNum(newChatMessages.length);
 
@@ -250,7 +258,6 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
       })),
     };
 
-    const url = `https://g22gqghwxpqsrewousdvpdaxze0ezhzt.lambda-url.us-east-1.on.aws/?locale=${locale}`;
     post_microservice_endpoint(
       url,
       bodyData,
@@ -274,7 +281,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
           intro_report: response_body_json?.intro_report,
           updatedAt: new Date(),
         };
-        const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
+        const newChatMessages: IPrompt_media[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
         setChatMessages(newChatMessages);
       },
       (resultText: string) => {
@@ -298,14 +305,14 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
           intro_report: response_body_json?.intro_report,
           updatedAt: new Date(),
         };
-        const newChatMessages: IPrompt_xiaohongshu_v4[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
+        const newChatMessages: IPrompt_media[] = [...chatMessagesBeforeImprove_copy, newChatMessage_assistant];
         setChatMessages(newChatMessages);
         setCurrentVersionNum(newChatMessages.length);
 
         setInputsCache_v3({
           ...inputsCache_v3,
-          [PROMODE_ID]: {
-            ...inputsCache_v3[PROMODE_ID],
+          [MEDIA_ID]: {
+            ...inputsCache_v3[MEDIA_ID],
             context,
             fields,
             chatMessages: newChatMessages,
@@ -440,7 +447,7 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                 collapsible
               >
                 <div className="block_title">
-                  <h2>{t.get('xiaohongshu')}</h2>
+                  <h2>{t.get(MEDIA_ID)}</h2>
                 </div>
 
                 <div className="row">
@@ -566,10 +573,10 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                       .slice(0, currentVersionNum)
                       .filter((item) => item.role === EAIFlowRole.ASSISTANT)
                       .sort(
-                        (a: IPrompt_xiaohongshu_v4, b: IPrompt_xiaohongshu_v4) =>
+                        (a: IPrompt_media, b: IPrompt_media) =>
                           new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
                       )
-                      .map((oneChatMessage: IPrompt_xiaohongshu_v4, oneChatMessage_index: number) => {
+                      .map((oneChatMessage: IPrompt_media, oneChatMessage_index: number) => {
                         const {
                           uuid,
                           isEdit,
@@ -582,8 +589,8 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                           // intro_report,
                         } = oneChatMessage;
 
-                        const switchShow = (paraOneChatMessage: IPrompt_xiaohongshu_v4) => {
-                          const newChatMessages = [...chatMessages].map((item: IPrompt_xiaohongshu_v4) => {
+                        const switchShow = (paraOneChatMessage: IPrompt_media) => {
+                          const newChatMessages = [...chatMessages].map((item: IPrompt_media) => {
                             if (paraOneChatMessage.content === item.content) {
                               return {
                                 ...item,
@@ -595,15 +602,15 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                           setChatMessages(newChatMessages);
                           setInputsCache_v3({
                             ...inputsCache_v3,
-                            [PROMODE_ID]: {
-                              ...inputsCache_v3[PROMODE_ID],
+                            [MEDIA_ID]: {
+                              ...inputsCache_v3[MEDIA_ID],
                               chatMessages: newChatMessages,
                             },
                           });
                         };
 
-                        const switchEdit = (paraOneChatMessage: IPrompt_xiaohongshu_v4) => {
-                          const newChatMessages = [...chatMessages].map((item: IPrompt_xiaohongshu_v4) => {
+                        const switchEdit = (paraOneChatMessage: IPrompt_media) => {
+                          const newChatMessages = [...chatMessages].map((item: IPrompt_media) => {
                             if (paraOneChatMessage.content === item.content) {
                               return {
                                 ...item,
@@ -615,15 +622,15 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
                           setChatMessages(newChatMessages);
                           setInputsCache_v3({
                             ...inputsCache_v3,
-                            [PROMODE_ID]: {
-                              ...inputsCache_v3[PROMODE_ID],
+                            [MEDIA_ID]: {
+                              ...inputsCache_v3[MEDIA_ID],
                               chatMessages: newChatMessages,
                             },
                           });
                         };
 
-                        const onFinish = (paraOneChatMessage: IPrompt_xiaohongshu_v4, content: string) => {
-                          const newChatMessages = [...chatMessages].map((item: IPrompt_xiaohongshu_v4) => {
+                        const onFinish = (paraOneChatMessage: IPrompt_media, content: string) => {
+                          const newChatMessages = [...chatMessages].map((item: IPrompt_media) => {
                             if (paraOneChatMessage.content === item.content) {
                               return {
                                 ...item,
@@ -637,8 +644,8 @@ const ProModeWindow_v6_warpper_xiaohongshu_v4_login = (props: ProModeWindow_v6_w
 
                           setInputsCache_v3({
                             ...inputsCache_v3,
-                            [PROMODE_ID]: {
-                              ...inputsCache_v3[PROMODE_ID],
+                            [MEDIA_ID]: {
+                              ...inputsCache_v3[MEDIA_ID],
                               chatMessages: newChatMessages,
                             },
                           });
