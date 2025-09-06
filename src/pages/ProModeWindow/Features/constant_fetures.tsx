@@ -400,6 +400,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
     },
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
       proModeModuleName: `${t.get('Free e-commerce portal tool')} (超级早期构建)`,
       description: '一个让你会 excel 就能创建自己的电商展示门户的轻量级方案',
@@ -508,6 +509,7 @@ export const getRoles = (locale: ELocale) => {
       webAppOpenLink: `${webAppUrl}/app/modules/dutygenie`,
     },
     {
+      isDisabled: true,
       iconUrl: '/static/icons/2025-06-21-img-6-shopping-cart.png',
       proModeModuleName: `${t.get('Free e-commerce portal tool')} (Super Early Build)`,
       description:
