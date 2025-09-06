@@ -100,7 +100,7 @@ export const AppMenu = (props: {
             <Link to="/app/proMode/features">{t.get('ProMode')}</Link>
           </Menu.Item>
 
-          <Menu.Item key="prompts-factory-group">
+          {/* <Menu.Item key="prompts-factory-group">
             <Dropdown
               menu={{
                 items: [
@@ -124,7 +124,7 @@ export const AppMenu = (props: {
                 <DownOutlined style={{ position: 'relative', top: 1 }} />
               </Link>
             </Dropdown>
-          </Menu.Item>
+          </Menu.Item> */}
         </>
       )}
 
