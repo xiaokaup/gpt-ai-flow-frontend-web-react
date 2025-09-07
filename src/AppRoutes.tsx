@@ -34,7 +34,7 @@ import { VisualizationPage } from './pages/betaPages/VisualizationPage/Visualiza
 import { DutyGeniePage } from './pages/RolePage/DutyGeniePage';
 import { PromptsFactoryPage_v2 } from './pages/RolePage/PromptsFactoryPage_v2';
 import { PromptsParserPage } from './pages/RolePage/PromptsParserPage';
-import { ProModeWindow_v6_warpper_media } from './pages/ProModeWindow/v6/xiaohongshu_v4';
+import { ProModeWindow_v6_warpper_media } from './pages/ProModeWindow/v6/ProModeWindow_v6_warpper_media';
 
 export const AppRoutes = () => {
   const dispatch = useDispatch();
