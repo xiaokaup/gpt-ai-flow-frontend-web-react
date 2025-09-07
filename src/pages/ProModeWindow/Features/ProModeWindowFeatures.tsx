@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Radio, RadioChangeEvent } from 'antd';
+import { Radio, RadioChangeEvent } from 'antd';
 import { ELocale } from '../../../gpt-ai-flow-common/enum-app/ELocale';
 import { getT_with_i18next } from '../../../gpt-ai-flow-common/i18nProvider/localesFrontendFactory_v2';
 import { ProModeWindowFeatures_cards } from './ProModeWindowFeatures_cards';
@@ -40,10 +40,10 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
 
         {locale === ELocale.EN && (
           <>
-            <Alert
+            {/* <Alert
               message="🚧 System upgrade in progress, some services temporarily unavailable: The system is undergoing module optimization upgrades to provide more stable and efficient services. During this period, some functions may be temporarily unavailable."
               type="warning"
-            />
+            /> */}
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
               🌟 AI integration into life, simplicity at your fingertips.
             </h2>
@@ -56,10 +56,10 @@ export const ProModeWindowFeatures = (props: IProModeWindowFeatures) => {
         )}
         {locale === ELocale.ZH && (
           <>
-            <Alert
+            {/* <Alert
               message="🚧 系统升级中，部分服务暂不可用: 系统进行模块优化升级，以提供更稳定、高效的服务。在此期间，部分功能可能暂时无法使用。"
               type="warning"
-            />
+            /> */}
             <h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
               🌟 AI 融入生活，简单由你掌握
             </h2>
